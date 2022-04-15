@@ -8,14 +8,7 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  AssetGenImage get onboardingFeatures =>
-      const AssetGenImage('assets/images/onboarding-features.png');
-  AssetGenImage get onboardingSummary =>
-      const AssetGenImage('assets/images/onboarding-summary.png');
-  AssetGenImage get onboardingWelcome =>
-      const AssetGenImage('assets/images/onboarding-welcome.png');
-  AssetGenImage get unicornVgvBlack =>
-      const AssetGenImage('assets/images/unicorn-vgv-black.png');
+  String get gitkeep => 'assets/images/.gitkeep';
 }
 
 class Assets {
