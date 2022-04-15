@@ -1,0 +1,68 @@
+name: google_news_template
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "lib/**"
+      - "test/**"
+      - "packages/**"
+      - "pubspec.yaml"
+      - ".github/workflows/google_news_template.yaml"
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 2.10.4
+          cache: true
+
+      - name: Install Dependencies
+        run: |
+          flutter pub global activate very_good_cli
+          very_good --analytics false
+          very_good packages get --recursive
+
+      - name: Format
+        run: flutter format --set-exit-if-changed lib test
+
+      - name: Analyze
+        run: flutter analyze lib test
+
+      - name: Verify Generated Files Committed
+        run: flutter test ./test/ensure_build_test.dart --run-skipped
+
+      - name: Run tests
+        run: very_good test -x presubmit-only --coverage --test-randomize-ordering-seed random
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          exclude: "**/*.g.dart **/*.gen.dart **/l10n/*.dart **/l10n/**/*.dart **/main/bootstrap.dart"
+          path: coverage/lcov.info
+
+      - name: Generate Visual Architecture
+        env:
+          FLUTTER_DART_HOME: ${{ env.FLUTTER_HOME }}/bin/cache/dart-sdk/bin
+          FLUTTER_PUB_CACHE: ${{ env.FLUTTER_HOME }}/.pub-cache/bin
+        run: |
+          flutter pub global activate pubviz
+          export PATH=$PATH:$FLUTTER_DART_HOME
+          export PATH=$PATH:$FLUTTER_PUB_CACHE
+          pubviz print -d > pubviz.html
+
+      - name: Upload Visual Architecture Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: visual-architecture-report
+          path: ./pubviz.html

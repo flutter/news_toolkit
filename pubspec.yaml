@@ -1,0 +1,67 @@
+name: google_news_template
+version: 0.0.1+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+  flutter: 2.10.4
+
+dependencies:
+  analytics_repository:
+    path: packages/analytics_repository
+  app_ui:
+    path: packages/app_ui
+  bloc: ^8.0.3
+  equatable: ^2.0.3
+  firebase_authentication_client:
+    path: packages/authentication_client/firebase_authentication_client
+  firebase_crashlytics: ^2.1.1
+  flow_builder: ^0.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^0.22.0
+  font_awesome_flutter: ^9.0.0
+  form_inputs:
+    path: packages/form_inputs
+  hydrated_bloc: ^9.0.0-dev.1
+  intl: ^0.17.0
+  path_provider: ^2.0.2
+  platform: ^3.0.2
+  secure_storage:
+    path: packages/storage/secure_storage
+  url_launcher: ^6.0.9
+  user_repository:
+    path: packages/user_repository
+  very_good_analysis: ^2.4.0
+
+dependency_overrides:
+  platform:
+    git:
+      url: https://github.com/felangel/platform.dart
+      ref: feat/isWeb
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  build_runner: ^2.0.3
+  build_verify: ^2.0.0
+  build_version: ^2.0.3
+  flutter_gen_runner: ^3.1.1
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+flutter_gen:
+  output: lib/generated/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true

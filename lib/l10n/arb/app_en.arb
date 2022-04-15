@@ -1,0 +1,140 @@
+{
+  "appName": "Google News Template",
+  "@appName": {
+    "description": "The name of this application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "authenticationFailure": "Authentication failure",
+  "@authenticationFailure": {
+    "description": "Message shown when there is an error at login",
+    "type": "text",
+    "placeholders": {}
+  },
+  "createAccountButtonText": "CREATE AN ACCOUNT",
+  "@createAccountButtonText": {
+    "description": "Button text for create account button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "passwordInputLabelText": "Password",
+  "@passwordInputLabelText": {
+    "description": "Password label on login form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidPasswordInputErrorText": "Invalid password",
+  "@invalidPasswordInputErrorText": {
+    "description": "Password error text on login form when password is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "emailInputLabelText": "Email",
+  "@emailInputLabelText": {
+    "description": "Email label on sign up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidEmailInputErrorText": "Invalid email",
+  "@invalidEmailInputErrorText": {
+    "description": "Email error text on sign up form when email is invalid",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginWelcomeText": "Welcome to\nGoogle News Template",
+  "@loginWelcomeText": {
+    "description": "Greeting shown on the login page.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginButtonText": "LOGIN",
+  "@loginButtonText": {
+    "description": "Login Button Text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpAppBarTitle": "Create Account",
+  "@signUpAppBarTitle": {
+    "description": "App bar title shown on Sign Up page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signInWithGoogleButtonText": "Sign in with Google",
+  "@signInWithGoogleButtonText": {
+    "description": "Sign in with Google Button Text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signInWithAppleButtonText": "Sign in with Apple",
+  "@signInWithAppleButtonText": {
+    "description": "Sign in with Apple Button Text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpButtonText": "Sign Up",
+  "@signUpButtonText": {
+    "description": "Sign Up button title shown on Sign Up page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpFailure": "Unable to create an account",
+  "@signUpFailure": {
+    "description": "Message shown when there is an error creating an account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetPasswordSubmitText": "If an account is registered with the provided email, we will send a link to reset your password",
+  "@resetPasswordSubmitText" : {
+    "description": "Message shown when a valid email is submitted for a password reset",
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetPasswordTitle": "Reset Password",
+  "@resetPasswordTitle": {
+    "description": "Reset Password page title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "forgotPasswordText": "Forgot Password?",
+  "@forgotPasswordText": {
+    "description": "Forgot password button title shown on Login page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "submitButtonText": "Submit",
+  "@submitButtonText": {
+    "description": "Submit button title shown on Reset Password page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "systemOption": "System",
+  "@systemOption": {
+    "description": "The option to use system-wide theme in the theme selector menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "lightModeOption": "Light",
+  "@lightModeOption": {
+    "description": "The option for light mode in the theme selector menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "darkModeOption": "Dark",
+  "@darkModeOption": {
+    "description": "The option for dark mode in the theme selector menu",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingWelcomeTitle": "Welcome!",
+  "@onboardingWelcomeTitle": {
+    "description": "Title text shown on first onboarding page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingNextButtonText": "NEXT",
+  "@onboardingNextButtonText": {
+    "description": "Button text on next button in onboarding pages",
+    "type": "text",
+    "placeholders": {}
+  }
+}
