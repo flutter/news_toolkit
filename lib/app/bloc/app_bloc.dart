@@ -32,17 +32,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   void _userChanged(User user) => add(AppUserChanged(user));
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+    // TODO(bselwe): Emit onboardingRequired on isNewUser
+    // when onboarding pages are implemented.
+
     switch (state.status) {
       case AppStatus.authenticated:
       case AppStatus.unauthenticated:
       case AppStatus.onboardingRequired:
         return event.user == User.anonymous
             ? emit(const AppState.unauthenticated())
-            : event.user.isNewUser
-                // TODO(bselwe): Emit onboardingRequired
-                // when onboarding pages are implemented.
-                ? emit(AppState.authenticated(event.user))
-                : emit(AppState.authenticated(event.user));
+            : emit(AppState.authenticated(event.user));
     }
   }
 
