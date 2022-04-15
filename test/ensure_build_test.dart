@@ -7,7 +7,6 @@ void main() {
     'ensure_build',
     () {
       expectBuildClean(
-        packageRelativeDirectory: 'google_news_template',
         customCommand: [
           'flutter',
           'pub',
@@ -18,6 +17,5 @@ void main() {
         ],
       );
     },
-    tags: 'presubmit-only',
   );
 }
