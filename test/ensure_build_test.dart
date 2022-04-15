@@ -18,6 +18,5 @@ void main() {
         ],
       );
     },
-    tags: 'presubmit-only',
   );
 }
