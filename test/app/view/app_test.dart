@@ -2,7 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/home/home.dart';
-import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/onboarding/onboarding.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
@@ -65,7 +64,7 @@ void main() {
       expect(find.byType(OnboardingPage), findsOneWidget);
     });
 
-    testWidgets('navigates to LoginPage when unauthenticated', (tester) async {
+    testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       when(() => appBloc.state).thenReturn(const AppState.unauthenticated());
       await tester.pumpApp(
         const AppView(),
@@ -73,7 +72,7 @@ void main() {
         userRepository: userRepository,
       );
       await tester.pumpAndSettle();
-      expect(find.byType(LoginPage), findsOneWidget);
+      expect(find.byType(HomePage), findsOneWidget);
     });
 
     testWidgets('navigates to HomePage when authenticated', (tester) async {
