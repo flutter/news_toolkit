@@ -1,0 +1,74 @@
+FORMAT: 1A
+HOST: http://localhost:8080
+
+# Google News Template API (v1.0.0)
+
+Google News Template API is an API which allows consumers to interact with sample news content.
+
+# Root [/]
+
+## Status Check [GET]
+
+This action allows consumers to verify the status of the server. A response status code `204` indicates that the server is healthy.
+
++ Response 204 (application/json)
+
+## Headlines [/api/v1/headlines{?category,limit,page}]
+
+Resources related to top headlines.
+
++ Parameters
+    + category (optional, enum[string]) - The headline category.
+        + Default: general
+        + Members            
+            + business
+            + entertainment
+            + general
+            + health
+            + science
+            + sports
+            + technology
+    + limit (optional, number) - The number of articles to return.
+        + Default: 20
+    + page (optional, number) - The page of results to return.
+        + Default: 0
+
+### Get Headlines [GET]
+
+This action allows you to query top headlines.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + articles (required, array[Article]) - The list of articles.
+        + next (optional, string) - The URL for the next batch of articles if available.
+
+    + Body
+        
+            {
+                "articles": [
+                    {
+                        "author": "Rob Emslie",
+                        "category": "Technology",
+                        "content": "I was going to ask you if you wanted the good news or the bad news first on todays Nice Price or No Dice Bimmer, but I already let the cat out of the bag up top about its rebuilt title. Lets see if t…",
+                        "description": "Despite a tainted title, this 3-Series is described as being in otherwise excellent shape.",
+                        "image_url": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/6e718b8cc9dfba34fa10cf82d87ca7b3.jpg",
+                        "published_at": "2022-04-18T12:00:00Z",
+                        "title": "At $8,500, Could This Rebuilt-Title 2004 BMW 330i ZHP Build Any Confidence? - Jalopnik",
+                        "url": "https://jalopnik.com/at-8-500-could-this-rebuilt-title-04-bmw-330i-be-a-go-1848798292",
+                    }
+                ],
+                "next": "http://localhost:8080/api/v1/headlines?category=general&limit=20&page=1",
+            }
+
+# Data Structures
+
+## Article (object)
+
++ author (required, string) - the author of the article
++ category (required, string) - the category of the article
++ content (required, string) - a preview of the article content
++ description (required, string) - a short description of the article
++ image_url (required, string) - the URL of the image associated with the article
++ published_at (required, string) - the timestamp of when the article was published (ISO8601)
++ title (required, string) - the title of the article
++ url (required, string) - the URL of the full article
