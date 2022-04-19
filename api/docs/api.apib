@@ -13,7 +13,7 @@ This action allows consumers to verify the status of the server. A response stat
 
 + Response 204 (application/json)
 
-## Headlines [/api/v1/headlines{?category,limit,page}]
+## Headlines [/api/v1/headlines{?category,limit,offset}]
 
 Resources related to top headlines.
 
@@ -30,7 +30,7 @@ Resources related to top headlines.
             + technology
     + limit (optional, number) - The number of results to return.
         + Default: 20
-    + page (optional, number) - The page of results to return.
+    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
         + Default: 0
 
 ### Get Headlines [GET]
@@ -40,7 +40,7 @@ This action allows you to query top headlines.
 + Response 200 (application/json)
     + Attributes (object)
         + articles (required, array[Article]) - The list of articles.
-        + count (optional, number) - The total number of available articles.
+        + total_count (optional, number) - The total number of available articles.
 
     + Body
         
@@ -58,10 +58,10 @@ This action allows you to query top headlines.
                         "url": "https://jalopnik.com/at-8-500-could-this-rebuilt-title-04-bmw-330i-be-a-go-1848798292",
                     }
                 ],
-                "count": 100,
+                "total_count": 100,
             }
 
-## Videos [/api/v1/videos{?category,limit,page}]
+## Videos [/api/v1/videos{?category,limit,offset}]
 
 Resources related to video content.
 
@@ -78,7 +78,7 @@ Resources related to video content.
             + technology
     + limit (optional, number) - The number of results to return.
         + Default: 20
-    + page (optional, number) - The page of results to return.
+    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
         + Default: 0
 
 ### Get Videos [GET]
@@ -88,7 +88,7 @@ This action allows you to query videos.
 + Response 200 (application/json)
     + Attributes (object)
         + videos (required, array[Video]) - The list of videos.
-        + count (optional, number) - The total number of available videos.
+        + total_count (optional, number) - The total number of available videos.
 
     + Body
         
@@ -103,7 +103,7 @@ This action allows you to query videos.
                         "title": "Nvidia and AMD GPUs are returning to shelves and prices are finally falling"
                     }
                 ],
-                "count": 100,
+                "total_count": 100,
             }
 
 # Data Structures
