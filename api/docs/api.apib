@@ -40,7 +40,7 @@ This action allows you to query top headlines.
 + Response 200 (application/json)
     + Attributes (object)
         + articles (required, array[Article]) - The list of articles.
-        + next (optional, string) - The URL for the next batch of articles if available.
+        + count (optional, number) - The total number of available articles.
 
     + Body
         
@@ -57,7 +57,7 @@ This action allows you to query top headlines.
                         "url": "https://jalopnik.com/at-8-500-could-this-rebuilt-title-04-bmw-330i-be-a-go-1848798292",
                     }
                 ],
-                "next": "http://localhost:8080/api/v1/headlines?category=general&limit=20&page=1",
+                "count": 100,
             }
 
 # Data Structures
