@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gallery/colors/colors.dart';
 import 'package:gallery/spacing/spacing.dart';
 import 'package:gallery/typography/typography.dart';
-import 'package:gallery/widgets/app_button_page.dart';
 import 'package:gallery/widgets/widgets.dart';
 
 void main() => runApp(const MyApp());
@@ -50,12 +49,6 @@ class RootPage extends StatelessWidget {
         title: const Text('Widgets'),
         subtitle: const Text('All of the predefined widgets'),
         onTap: () => Navigator.of(context).push<void>(WidgetsPage.route()),
-      ),
-      _ListItem(
-        icon: const Icon(Icons.ad_units_outlined),
-        title: const Text('App Button'),
-        subtitle: const Text('All the app buttons types'),
-        onTap: () => Navigator.of(context).push<void>(AppButtonPage.route()),
       ),
     ];
 

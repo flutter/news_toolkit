@@ -17,6 +17,9 @@ abstract class AppColors {
   /// The grey primary color and swatch.
   static const MaterialColor grey = Colors.grey;
 
+  /// The liver primary color and swatch.
+  static const Color liver = Color(0xFF4D4D4D);
+
   /// The green primary color and swatch.
   static const MaterialColor green = Colors.green;
 
@@ -29,13 +32,13 @@ abstract class AppColors {
   /// The blue primary color and swatch.
   static const Color blue = Color(0xFF3898EC);
 
-  /// The sky blue primary color and swatch.
+  /// The sky blue color and swatch.
   static const Color skyBlue = Color(0xFF0175C2);
 
-  /// The ocean blue primary color and swatch.
+  /// The ocean blue color and swatch.
   static const Color oceanBlue = Color(0xFF02569B);
 
-  /// The light blue primary color and swatch.
+  /// The light blue color and swatch.
   static const MaterialColor lightBlue = Colors.lightBlue;
 
   /// The light blue dress color and swatch.
@@ -79,4 +82,7 @@ abstract class AppColors {
 
   /// The light pastel red wine color and swatch.
   static const Color redWine = Color(0xFF9A031E);
+
+  /// The light pastel red wine color and swatch.
+  static const Color rangoonGreen = Color(0xFF1B1B1B);
 }

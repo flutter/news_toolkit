@@ -24,10 +24,32 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
 
+  /// File path: assets/icons/mail_outline.png
+  AssetGenImage get mailOutline =>
+      const AssetGenImage('assets/icons/mail_outline.png');
+
   /// File path: assets/icons/twitter.png
   AssetGenImage get twitter => const AssetGenImage('assets/icons/twitter.png');
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/continue_with_apple.png
+  AssetGenImage get continueWithApple =>
+      const AssetGenImage('assets/images/continue_with_apple.png');
+
+  /// File path: assets/images/continue_with_facebook.png
+  AssetGenImage get continueWithFacebook =>
+      const AssetGenImage('assets/images/continue_with_facebook.png');
+
+  /// File path: assets/images/continue_with_google.png
+  AssetGenImage get continueWithGoogle =>
+      const AssetGenImage('assets/images/continue_with_google.png');
+
+  /// File path: assets/images/continue_with_twitter.png
+  AssetGenImage get continueWithTwitter =>
+      const AssetGenImage('assets/images/continue_with_twitter.png');
 
   /// File path: assets/images/logo_dark.png
   AssetGenImage get logoDark =>
@@ -41,8 +63,8 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
-  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage extends AssetImage {

@@ -8,6 +8,12 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: Futura
-  static const String futura = 'Futura';
+  /// Font family: Montserrat
+  static const String montserrat = 'Montserrat';
+
+  /// Font family: NotoSansDisplay
+  static const String notoSansDisplay = 'NotoSansDisplay';
+
+  /// Font family: NotoSerif
+  static const String notoSerif = 'NotoSerif';
 }

@@ -18,7 +18,7 @@ class AppButtonPage extends StatelessWidget {
           children: [
             Assets.icons.google.image(),
             const SizedBox(width: AppSpacing.lg),
-            const Text('Continue with Google'),
+            Assets.images.continueWithGoogle.image(),
           ],
         ),
       ),
@@ -29,7 +29,7 @@ class AppButtonPage extends StatelessWidget {
           children: [
             Assets.icons.apple.image(),
             const SizedBox(width: AppSpacing.lg),
-            const Text('Continue with Apple'),
+            Assets.images.continueWithApple.image(),
           ],
         ),
       ),
@@ -40,7 +40,7 @@ class AppButtonPage extends StatelessWidget {
           children: [
             Assets.icons.facebook.image(),
             const SizedBox(width: AppSpacing.lg),
-            const Text('Continue with Facebook'),
+            Assets.images.continueWithFacebook.image(),
           ],
         ),
       ),
@@ -51,7 +51,7 @@ class AppButtonPage extends StatelessWidget {
           children: [
             Assets.icons.twitter.image(),
             const SizedBox(width: AppSpacing.lg),
-            const Text('Continue with Twitter'),
+            Assets.images.continueWithTwitter.image(),
           ],
         ),
       ),
@@ -60,7 +60,7 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.emailOutline.image(),
+            Assets.icons.mailOutline.image(),
             const SizedBox(width: AppSpacing.lg),
             const Text('Continue with Email'),
           ],
@@ -77,6 +77,27 @@ class AppButtonPage extends StatelessWidget {
       const _AppButtonItem(
         buttonType: ButtonType.information,
         child: Text('Next'),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        child: _AppButtonItem(
+          buttonType: ButtonType.trial,
+          child: Text('Start free trial'),
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        child: _AppButtonItem(
+          buttonType: ButtonType.details,
+          child: Text('View details'),
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        child: _AppButtonItem(
+          buttonType: ButtonType.cancel,
+          child: Text('Cancel anytime'),
+        ),
       ),
     ];
 
@@ -95,7 +116,10 @@ enum ButtonType {
   email,
   login,
   subscribe,
-  information
+  information,
+  trial,
+  details,
+  cancel
 }
 
 class _AppButtonItem extends StatelessWidget {
@@ -145,6 +169,21 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.information:
         return AppButton.darkAqua(
+          child: child,
+          onPressed: () {},
+        );
+      case ButtonType.trial:
+        return AppButton.smallRedWine(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.details:
+        return AppButton.smallOutlineTransparent(
+          child: child,
+          onPressed: () {},
+        );
+      case ButtonType.cancel:
+        return AppButton.smallTransparent(
           child: child,
           onPressed: () {},
         );
