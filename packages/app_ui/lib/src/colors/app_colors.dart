@@ -5,6 +5,9 @@ abstract class AppColors {
   /// Black
   static const Color black = Color(0xFF000000);
 
+  /// Light black
+  static const Color lightBlack = Colors.black54;
+
   /// White
   static const Color white = Color(0xFFFFFFFF);
 
@@ -20,6 +23,9 @@ abstract class AppColors {
   /// The teal primary color and swatch.
   static const MaterialColor teal = Colors.teal;
 
+  /// The dark aqua primary color and swatch.
+  static const Color darkAqua = Color(0xFF00677F);
+
   /// The blue primary color and swatch.
   static const Color blue = Color(0xFF3898EC);
 
@@ -31,6 +37,21 @@ abstract class AppColors {
 
   /// The light blue primary color and swatch.
   static const MaterialColor lightBlue = Colors.lightBlue;
+
+  /// The light blue dress color and swatch.
+  static const Color blueDress = Color(0xFF1877F2);
+
+  /// The light crystal blue color and swatch.
+  static const Color crystalBlue = Color(0xFF55ACEE);
+
+  /// The light surface2 dress color and swatch.
+  static const Color surface2 = Color(0xFFEBF2F7);
+
+  /// The light pale sky dress color and swatch.
+  static const Color paleSky = Color(0xFF73777F);
+
+  /// The light pastel grey dress color and swatch.
+  static const Color pastelGrey = Color(0xFFCCCCCC);
 
   /// The yellow primary color and swatch.
   static const MaterialColor yellow = Colors.yellow;
@@ -55,4 +76,7 @@ abstract class AppColors {
 
   /// The dark text 1 color.
   static const Color darkText1 = Color(0xFFFCFCFC);
+
+  /// The light pastel red wine color and swatch.
+  static const Color redWine = Color(0xFF9A031E);
 }
