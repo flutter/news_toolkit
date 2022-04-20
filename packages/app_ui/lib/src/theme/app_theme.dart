@@ -60,7 +60,9 @@ class AppTheme {
   }
 
   IconThemeData get _iconTheme {
-    return const IconThemeData(color: AppColors.black);
+    return const IconThemeData(
+      color: AppColors.onBackground,
+    );
   }
 
   DividerThemeData get _dividerTheme {
