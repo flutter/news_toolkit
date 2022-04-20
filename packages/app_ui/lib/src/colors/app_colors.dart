@@ -37,4 +37,22 @@ abstract class AppColors {
 
   /// The red primary color and swatch.
   static const MaterialColor red = Colors.red;
+
+  /// The background color.
+  static const Color background = Color(0xFFFFFFFF);
+
+  /// The dark background color.
+  static const Color darkBackground = Color(0xFF001F28);
+
+  /// The on-background color.
+  static const Color onBackground = Color(0xFF1A1A1A);
+
+  /// The dark on-background color.
+  static const Color darkOnBackground = Color(0xFFFFFFFF);
+
+  /// The primary container color.
+  static const Color primaryContainer = Color(0xFFB1EBFF);
+
+  /// The dark text 1 color.
+  static const Color darkText1 = Color(0xFFFCFCFC);
 }
