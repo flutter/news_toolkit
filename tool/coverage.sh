@@ -21,6 +21,13 @@ rm -rf coverage
 fvm flutter --version
 very_good test --coverage --exclude-coverage "**/*.g.dart **/*.gen.dart **/l10n/*.dart **/l10n/**/*.dart **/main/bootstrap.dart" --exclude-tags 'presubmit-only' --test-randomize-ordering-seed random
 
+lcov --remove ${PROJECT_COVERAGE} -o ${PROJECT_COVERAGE} \
+    '**/*.g.dart' \
+    '**/l10n/*.dart' \
+    '**/l10n/**/*.dart' \
+    '**/main/bootstrap.dart' \
+    '**/*.gen.dart'
+
 genhtml ${PROJECT_COVERAGE} -o coverage | tee ./coverage/output.txt
 
 COV_LINE=$(tail -2 ./coverage/output.txt | head -1)
