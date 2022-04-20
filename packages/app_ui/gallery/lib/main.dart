@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery/colors/colors.dart';
 import 'package:gallery/spacing/spacing.dart';
 import 'package:gallery/typography/typography.dart';
+import 'package:gallery/widgets/widgets.dart';
 
 void main() => runApp(const MyApp());
 
@@ -42,6 +43,12 @@ class RootPage extends StatelessWidget {
         title: const Text('Spacing'),
         subtitle: const Text('All of the predefined spacings'),
         onTap: () => Navigator.of(context).push<void>(SpacingPage.route()),
+      ),
+      _ListItem(
+        icon: const Icon(Icons.widgets),
+        title: const Text('Widgets'),
+        subtitle: const Text('All of the predefined widgets'),
+        onTap: () => Navigator.of(context).push<void>(WidgetsPage.route()),
       ),
     ];
 
