@@ -6,8 +6,8 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('LoginPage', () {
-    test('is routable', () {
-      expect(LoginPage.page(), isA<MaterialPage>());
+    test('has a route', () {
+      expect(LoginPage.route(), isA<MaterialPageRoute>());
     });
 
     testWidgets('renders a LoginForm', (tester) async {
