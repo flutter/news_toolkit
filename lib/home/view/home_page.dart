@@ -21,7 +21,9 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppLogo.dark(),
+        title: Center(
+          child: AppLogo.dark(),
+        ),
         actions: const [UserProfileButton()],
       ),
       drawer: const NavigationDrawer(),
