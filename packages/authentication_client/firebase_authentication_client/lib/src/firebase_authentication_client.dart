@@ -190,6 +190,7 @@ extension on firebase_auth.User {
       name: displayName,
       photo: photoURL,
       isNewUser: metadata.creationTime == metadata.lastSignInTime,
+      isAnonymous: isAnonymous,
     );
   }
 }
