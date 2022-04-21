@@ -79,21 +79,21 @@ class AppButtonPage extends StatelessWidget {
         child: Text('Next'),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        padding: EdgeInsets.symmetric(horizontal: 32),
         child: _AppButtonItem(
           buttonType: ButtonType.trial,
           child: Text('Start free trial'),
         ),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        padding: EdgeInsets.symmetric(horizontal: 32),
         child: _AppButtonItem(
           buttonType: ButtonType.details,
           child: Text('View details'),
         ),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.0),
+        padding: EdgeInsets.symmetric(horizontal: 33),
         child: _AppButtonItem(
           buttonType: ButtonType.cancel,
           child: Text('Cancel anytime'),
