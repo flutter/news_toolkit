@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 
@@ -21,10 +22,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: AppLogo.dark(),
-        ),
+        title: AppLogo.dark(),
+        centerTitle: true,
         actions: const [UserProfileButton()],
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       drawer: const NavigationDrawer(),
       body: const Center(
