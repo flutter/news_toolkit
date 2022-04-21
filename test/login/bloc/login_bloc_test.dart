@@ -36,6 +36,9 @@ void main() {
         () => userRepository.logInWithGoogle(),
       ).thenAnswer((_) => Future<void>.value());
       when(
+        () => userRepository.logInWithFacebook(),
+      ).thenAnswer((_) => Future<void>.value());
+      when(
         () => userRepository.logInWithApple(),
       ).thenAnswer((_) => Future<void>.value());
     });
@@ -181,7 +184,7 @@ void main() {
       );
     });
 
-    group('LogInWithGoogleSubmitted', () {
+    group('LoginGoogleSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'calls logInWithGoogle',
         build: () => LoginBloc(userRepository),
@@ -219,8 +222,8 @@ void main() {
       );
 
       blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionFailure] '
-        'with error when logInWithGoogle is canceled',
+        'emits [submissionInProgress, submissionCanceled] '
+        'when logInWithGoogle is canceled',
         setUp: () {
           when(
             () => userRepository.logInWithGoogle(),
@@ -228,6 +231,62 @@ void main() {
         },
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
+        expect: () => <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionCanceled),
+        ],
+      );
+    });
+
+    group('LoginFacebookSubmitted', () {
+      blocTest<LoginBloc, LoginState>(
+        'calls logInWithFacebook',
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginFacebookSubmitted()),
+        verify: (_) {
+          verify(() => userRepository.logInWithFacebook()).called(1);
+        },
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionSuccess] '
+        'when logInWithFacebook succeeds',
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginFacebookSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionSuccess)
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionFailure] '
+        'when logInWithFacebook fails',
+        setUp: () {
+          when(
+            () => userRepository.logInWithFacebook(),
+          ).thenThrow(Exception('oops'));
+        },
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginFacebookSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionFailure)
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionCanceled] '
+        'when logInWithFacebook is canceled',
+        setUp: () {
+          when(
+            () => userRepository.logInWithFacebook(),
+          ).thenThrow(
+            LogInWithFacebookCanceled(Exception(), StackTrace.current),
+          );
+        },
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => <LoginState>[
           LoginState(status: FormzStatus.submissionInProgress),
           LoginState(status: FormzStatus.submissionCanceled),
