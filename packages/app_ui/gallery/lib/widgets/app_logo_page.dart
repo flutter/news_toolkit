@@ -21,7 +21,7 @@ class AppLogoPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               AppLogo.dark(),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               AppLogo.light(),
             ],
           ),
