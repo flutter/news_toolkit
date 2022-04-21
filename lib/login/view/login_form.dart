@@ -79,6 +79,8 @@ class _LoginActions extends StatelessWidget {
           const SizedBox(height: AppSpacing.xlg),
           _AppleLoginButton(),
         ],
+        const SizedBox(height: AppSpacing.xlg),
+        _FacebookLoginButton(),
         const SizedBox(height: AppSpacing.xxlg),
         _SignUpButton(),
       ],
@@ -179,6 +181,25 @@ class _GoogleLoginButton extends StatelessWidget {
           const Icon(FontAwesomeIcons.google, color: AppColors.white),
           const SizedBox(width: AppSpacing.xlg),
           Text(l10n.signInWithGoogleButtonText),
+        ],
+      ),
+    );
+  }
+}
+
+class _FacebookLoginButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return ElevatedButton(
+      key: const Key('loginForm_facebookLogin_elevatedButton'),
+      onPressed: () => context.read<LoginBloc>().add(LoginFacebookSubmitted()),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(FontAwesomeIcons.facebook, color: AppColors.white),
+          const SizedBox(width: AppSpacing.xlg),
+          Text(l10n.signInWithFacebookButtonText),
         ],
       ),
     );

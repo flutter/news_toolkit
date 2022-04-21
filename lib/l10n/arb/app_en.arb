@@ -65,6 +65,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "signInWithFacebookButtonText": "Sign in with Facebook",
+  "@signInWithFacebookButtonText": {
+    "description": "Sign in with Facebook Button Text",
+    "type": "text",
+    "placeholders": {}
+  },
   "signInWithAppleButtonText": "Sign in with Apple",
   "@signInWithAppleButtonText": {
     "description": "Sign in with Apple Button Text",
