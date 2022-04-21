@@ -6,6 +6,8 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name="${applicationName}"
         android:label="${appName}"
@@ -36,5 +38,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- Facebook authentication meta-data -->    
+        <meta-data
+           android:name="com.facebook.sdk.ApplicationId"
+           android:value="@string/facebook_app_id" />
+        <meta-data 
+           android:name="com.facebook.sdk.ClientToken" 
+           android:value="@string/facebook_client_token"/>
     </application>
 </manifest>

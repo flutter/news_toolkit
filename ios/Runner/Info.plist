@@ -31,9 +31,23 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb$(FACEBOOK_APP_ID)</string>
 				<string>$(REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>$(FACEBOOK_APP_ID)</string>
+	<key>FacebookClientToken</key>
+	<string>$(FACEBOOK_CLIENT_TOKEN)</string>
+	<key>FacebookDisplayName</key>
+	<string>$(FACEBOOK_DISPLAY_NAME)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -64,17 +78,17 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-    <false/>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>TODO</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>TODO</string>	
+	<string>TODO</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TODO</string>
 	<key>NSMotionUsageDescription</key>
-	<string>TODO</string>	
+	<string>TODO</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>TODO</string>
 	<key>NSFaceIDUsageDescription</key>
