@@ -48,7 +48,7 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: context.watch<ThemeModeBloc>().state,
+      themeMode: ThemeMode.light,
       theme: const AppTheme().themeData,
       darkTheme: const AppDarkTheme().themeData,
       localizationsDelegates: const [
