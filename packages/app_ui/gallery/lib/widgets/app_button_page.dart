@@ -16,9 +16,9 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.google.image(),
+            Assets.icons.google.svg(),
             const SizedBox(width: AppSpacing.lg),
-            Assets.images.continueWithGoogle.image(),
+            Assets.images.continueWithGoogle.svg(),
           ],
         ),
       ),
@@ -27,9 +27,9 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.apple.image(),
+            Assets.icons.apple.svg(),
             const SizedBox(width: AppSpacing.lg),
-            Assets.images.continueWithApple.image(),
+            Assets.images.continueWithApple.svg(),
           ],
         ),
       ),
@@ -38,9 +38,9 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.facebook.image(),
+            Assets.icons.facebook.svg(),
             const SizedBox(width: AppSpacing.lg),
-            Assets.images.continueWithFacebook.image(),
+            Assets.images.continueWithFacebook.svg(),
           ],
         ),
       ),
@@ -49,9 +49,9 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.twitter.image(),
+            Assets.icons.twitter.svg(),
             const SizedBox(width: AppSpacing.lg),
-            Assets.images.continueWithTwitter.image(),
+            Assets.images.continueWithTwitter.svg(),
           ],
         ),
       ),
@@ -60,7 +60,7 @@ class AppButtonPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.icons.mailOutline.image(),
+            Assets.icons.emailOutline.svg(),
             const SizedBox(width: AppSpacing.lg),
             const Text('Continue with Email'),
           ],
