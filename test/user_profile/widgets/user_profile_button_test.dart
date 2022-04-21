@@ -26,7 +26,7 @@ void main() {
 
     setUp(() {
       appBloc = MockAppBloc();
-      user = User(id: 'id', isAnonymous: false);
+      user = User(id: 'id');
     });
 
     setUpAll(() {
