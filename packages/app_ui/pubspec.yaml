@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^0.22.0
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -18,28 +18,26 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: Futura
+    - family: NotoSerif
       fonts:
-        - asset: assets/fonts/Futura-Bold.otf
-          weight: 900
-        - asset: assets/fonts/Futura-Bold-Italic.otf
-          weight: 900
-          style: italic
-        - asset: assets/fonts/Futura-Bold.otf
+        - asset: assets/fonts/NotoSerif-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Futura-Bold-Italic.otf
-          weight: 700
-          style: italic
-        - asset: assets/fonts/Futura-Medium.otf
+        - asset: assets/fonts/NotoSerif-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSerif-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Futura-Medium-Italic.otf
+        - asset: assets/fonts/NotoSerif-Regular.ttf
+          weight: 400
+    - family: NotoSansDisplay
+      fonts:
+        - asset: assets/fonts/NotoSansDisplay-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansDisplay-SemiBold.ttf
+          weight: 600
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
           weight: 500
-          style: italic
-        - asset: assets/fonts/Futura-Medium.otf
-          weight: 400
-        - asset: assets/fonts/Futura-Medium-Italic.otf
-          weight: 400
-          style: italic
 
 flutter_gen:
   assets:
