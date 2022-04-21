@@ -18,4 +18,4 @@ jobs:
     with:
       flutter_version: 2.10.4
       working_directory: packages/app_ui
-      coverage_excludes: "**/*.g.dart"
+      coverage_excludes: "lib/src/generated/*.dart"
