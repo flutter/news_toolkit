@@ -105,9 +105,9 @@ abstract class AppTextStyle {
 
   /// Button Text Style
   static final TextStyle button = _baseTextStyle.copyWith(
-    fontFamily: 'Montserrat',
-    fontSize: 14,
-    fontWeight: AppFontWeight.medium,
+    fontFamily: 'NotoSansDisplay',
+    fontSize: 16,
+    fontWeight: AppFontWeight.regular,
     height: 1.42,
     letterSpacing: 0.1,
   );
@@ -135,5 +135,13 @@ abstract class AppTextStyle {
     fontSize: 11,
     height: 1.45,
     letterSpacing: 0.5,
+  );
+
+  /// Small Button Text Style
+  static final TextStyle smallButton = _baseTextStyle.copyWith(
+    fontFamily: 'NotoSansDisplay',
+    fontSize: 14,
+    fontWeight: AppFontWeight.regular,
+    letterSpacing: 0.1,
   );
 }

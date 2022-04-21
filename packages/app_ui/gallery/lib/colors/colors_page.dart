@@ -12,6 +12,7 @@ class ColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const colorItems = [
       _ColorItem(name: 'Black', color: AppColors.black),
+      _ColorItem(name: 'Black Light', color: AppColors.lightBlack),
       _ColorItem(name: 'White', color: AppColors.white),
       _ColorItem(name: 'Modal Background', color: AppColors.modalBackground),
       _ColorItem(name: 'Transparent', color: AppColors.transparent),
@@ -19,11 +20,20 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Sky Blue', color: AppColors.skyBlue),
       _ColorItem(name: 'Ocean Blue', color: AppColors.oceanBlue),
       _ColorItem(name: 'Light Blue', color: AppColors.lightBlue),
+      _ColorItem(name: 'Blue Dress', color: AppColors.blueDress),
+      _ColorItem(name: 'Crystal Blue', color: AppColors.crystalBlue),
       _ColorItem(name: 'Yellow', color: AppColors.yellow),
       _ColorItem(name: 'Red', color: AppColors.red),
+      _ColorItem(name: 'Red Wine', color: AppColors.redWine),
       _ColorItem(name: 'Grey', color: AppColors.grey),
+      _ColorItem(name: 'Liver', color: AppColors.liver),
+      _ColorItem(name: 'Surface 2', color: AppColors.surface2),
+      _ColorItem(name: 'Pastel Grey', color: AppColors.pastelGrey),
+      _ColorItem(name: 'Pale Sky', color: AppColors.paleSky),
       _ColorItem(name: 'Green', color: AppColors.green),
       _ColorItem(name: 'Teal', color: AppColors.teal),
+      _ColorItem(name: 'Rangoon Green', color: AppColors.rangoonGreen),
+      _ColorItem(name: 'Dark Aqua', color: AppColors.darkAqua),
     ];
 
     return Scaffold(
