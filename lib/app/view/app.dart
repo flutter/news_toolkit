@@ -49,8 +49,6 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.light,
-      // TODO(bselwe): Use ThemeModeState when the dark theme is implemented.
-      // themeMode: context.watch<ThemeModeBloc>().state,
       theme: const AppTheme().themeData,
       darkTheme: const AppDarkTheme().themeData,
       localizationsDelegates: const [
