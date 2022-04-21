@@ -26,9 +26,9 @@ class NavigationDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(
                 _contentPadding,
-                18,
+                _contentPadding + AppSpacing.xxs,
                 _contentPadding,
-                18,
+                _contentPadding + AppSpacing.xxs,
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
