@@ -22,6 +22,8 @@ class LoginForm extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text(l10n.authenticationFailure)),
             );
+        } else if (state.status.isSubmissionSuccess) {
+          Navigator.of(context).pop();
         }
       },
       child: const ScrollableColumn(
