@@ -20,6 +20,10 @@ class MockEmail extends Mock implements Email {}
 
 class MockPassword extends Mock implements LoginPassword {}
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+class MockRoute extends Mock implements Route<dynamic> {}
+
 void main() {
   const loginButtonKey = Key('loginForm_continue_elevatedButton');
   const signInWithGoogleButtonKey = Key('loginForm_googleLogin_elevatedButton');
@@ -43,6 +47,10 @@ void main() {
     setUp(() {
       loginBloc = MockLoginBloc();
       when(() => loginBloc.state).thenReturn(const LoginState());
+    });
+
+    setUpAll(() {
+      registerFallbackValue(MockRoute());
     });
 
     group('adds', () {
@@ -247,6 +255,23 @@ void main() {
         await tester.tap(find.byKey(forgotPasswordButtonKey));
         await tester.pumpAndSettle();
         expect(find.byType(ResetPasswordPage), findsOneWidget);
+      });
+
+      testWidgets('back when submission succeeds', (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+        whenListen(
+          loginBloc,
+          Stream.fromIterable(const <LoginState>[
+            LoginState(status: FormzStatus.submissionInProgress),
+            LoginState(status: FormzStatus.submissionSuccess),
+          ]),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(value: loginBloc, child: const LoginForm()),
+          navigatorObserver: navigatorObserver,
+        );
+        await tester.pump();
+        verify(() => navigatorObserver.didPop(any(), any())).called(1);
       });
     });
   });
