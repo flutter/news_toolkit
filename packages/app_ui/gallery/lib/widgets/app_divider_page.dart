@@ -18,7 +18,7 @@ class AppDividerPage extends StatelessWidget {
         color: AppColors.darkBackground,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppSpacing.lg),
             child: AppDivider(),
           ),
         ),
