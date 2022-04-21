@@ -495,7 +495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.news.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-k3l5b16c0ma7g7mcme59qo405ujd36v8";
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-pf0c1odla4fegai2agnvsee5ongg27ob";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -527,7 +527,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.news.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-k3l5b16c0ma7g7mcme59qo405ujd36v8";
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-pf0c1odla4fegai2agnvsee5ongg27ob";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -617,7 +617,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.news.template.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-k3l5b16c0ma7g7mcme59qo405ujd36v8";
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-pf0c1odla4fegai2agnvsee5ongg27ob";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -649,7 +649,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.news.template.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-k3l5b16c0ma7g7mcme59qo405ujd36v8";
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-pf0c1odla4fegai2agnvsee5ongg27ob";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
