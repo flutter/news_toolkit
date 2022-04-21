@@ -23,6 +23,8 @@ class MockPassword extends Mock implements LoginPassword {}
 void main() {
   const loginButtonKey = Key('loginForm_continue_elevatedButton');
   const signInWithGoogleButtonKey = Key('loginForm_googleLogin_elevatedButton');
+  const signInWithFacebookButtonKey =
+      Key('loginForm_facebookLogin_elevatedButton');
   const signInWithAppleButtonKey = Key('loginForm_appleLogin_elevatedButton');
   const emailInputKey = Key('loginForm_emailInput_textField');
   const passwordInputKey = Key('loginForm_passwordInput_textField');
@@ -90,6 +92,17 @@ void main() {
         await tester.ensureVisible(find.byKey(signInWithGoogleButtonKey));
         await tester.tap(find.byKey(signInWithGoogleButtonKey));
         verify(() => loginBloc.add(LoginGoogleSubmitted())).called(1);
+      });
+
+      testWidgets(
+          'LoginFacebookSubmitted when sign in with Facebook button is pressed',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: loginBloc, child: const LoginForm()),
+        );
+        await tester.ensureVisible(find.byKey(signInWithFacebookButtonKey));
+        await tester.tap(find.byKey(signInWithFacebookButtonKey));
+        verify(() => loginBloc.add(LoginFacebookSubmitted())).called(1);
       });
 
       testWidgets(
