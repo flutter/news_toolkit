@@ -55,4 +55,7 @@ abstract class AppColors {
 
   /// The dark text 1 color.
   static const Color darkText1 = Color(0xFFFCFCFC);
+
+  /// The modal background color.
+  static const Color modalBackground = Color(0xFFEBF2F7);
 }

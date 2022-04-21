@@ -13,6 +13,7 @@ class ColorsPage extends StatelessWidget {
     const colorItems = [
       _ColorItem(name: 'Black', color: AppColors.black),
       _ColorItem(name: 'White', color: AppColors.white),
+      _ColorItem(name: 'Modal Background', color: AppColors.modalBackground),
       _ColorItem(name: 'Transparent', color: AppColors.transparent),
       _ColorItem(name: 'Blue', color: AppColors.blue),
       _ColorItem(name: 'Sky Blue', color: AppColors.skyBlue),
@@ -22,7 +23,7 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Red', color: AppColors.red),
       _ColorItem(name: 'Grey', color: AppColors.grey),
       _ColorItem(name: 'Green', color: AppColors.green),
-      _ColorItem(name: 'Teal', color: AppColors.teal)
+      _ColorItem(name: 'Teal', color: AppColors.teal),
     ];
 
     return Scaffold(
