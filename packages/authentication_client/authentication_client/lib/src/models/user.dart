@@ -30,6 +30,9 @@ class User extends Equatable {
   /// Whether the current user is a first time user.
   final bool isNewUser;
 
+  /// Whether the current user is anonymous.
+  bool get isAnonymous => this == anonymous;
+
   /// Anonymous user which represents an unauthenticated user.
   static const anonymous = User(id: '');
 

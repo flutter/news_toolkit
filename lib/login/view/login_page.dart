@@ -7,11 +7,13 @@ import 'package:user_repository/user_repository.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-  static Page page() => const MaterialPage<void>(child: LoginPage());
+  static Route route() =>
+      MaterialPageRoute<void>(builder: (_) => const LoginPage());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.xxxlg,

@@ -136,5 +136,17 @@
     "description": "Button text on next button in onboarding pages",
     "type": "text",
     "placeholders": {}
+  },
+  "loginTooltip": "Login",
+  "@loginTooltip": {
+    "description": "Tooltip shown on the login button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "openProfileTooltip": "Open profile",
+  "@openProfileTooltip": {
+    "description": "Tooltip shown on the open profile button",
+    "type": "text",
+    "placeholders": {}
   }
 }
