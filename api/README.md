@@ -9,13 +9,13 @@ The API documentation can be found in `docs/api.apib`. The documentation uses th
 To run the interactive API documentation locally make sure you have the [Apiary Client](https://github.com/apiaryio/apiary-client) installed:
 
 ```sh
-$ gem install apiaryio
+gem install apiaryio
 ```
 
 Then use the `preview` command to run the documentation:
 
 ```sh
-$ apiary preview --path docs/api.apib --watch
+apiary preview --path docs/api.apib --watch
 ```
 
 The interactive documentation will be available at [localhost:8080](http://localhost:8080).

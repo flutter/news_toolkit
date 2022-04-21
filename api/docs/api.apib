@@ -19,11 +19,11 @@ Resources related to top headlines.
 
 + Parameters
     + category (optional, enum[string]) - The headline category.
-        + Default: general
-        + Members            
+        + Default: top
+        + Members
             + business
             + entertainment
-            + general
+            + top
             + health
             + science
             + sports
@@ -67,11 +67,11 @@ Resources related to video content.
 
 + Parameters
     + category (optional, enum[string]) - The video content category.
-        + Default: general
-        + Members            
+        + Default: top
+        + Members
             + business
             + entertainment
-            + general
+            + top
             + health
             + science
             + sports
@@ -106,6 +106,56 @@ This action allows you to query videos.
                 "total_count": 100,
             }
 
+## Topics [/api/v1/topics{?category,limit,offset}]
+
+Resources related to news topics.
+
++ Parameters
+    + category (optional, enum[string]) - The topic category.
+        + Default: top
+        + Members
+            + business
+            + entertainment
+            + top
+            + health
+            + science
+            + sports
+            + technology
+    + limit (optional, number) - The number of results to return.
+        + Default: 20
+    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
+        + Default: 0
+
+### Get Topics [GET]
+
+This action allows you to query topics for a provided category.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + topics (required, array[Topic]) - The list of topics.
+        + total_count (optional, number) - The total number of available topics.
+
+    + Body
+        
+            {
+                "topics": [
+                    {
+                        "title": "Artificial Intelligence",
+                        "articles": [
+                            {
+                                "author": "Sean Hollister",
+                                "category": "Technology",                        
+                                "id": "499305f6-5096-4051-afda-824dcfc7df23",
+                                "image_url": "https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg",
+                                "published_at": "2022-04-19T12:00:00Z",
+                                "title": "Nvidia and AMD GPUs are returning to shelves and prices are finally falling"
+                            }
+                        ],
+                    }
+                ],
+                "total_count": 10,
+            }
+
 # Data Structures
 
 ## Article (object)
@@ -119,6 +169,11 @@ This action allows you to query videos.
 + published_at (required, string) - the timestamp of when the article was published (ISO8601)
 + title (required, string) - the title of the article
 + url (required, string) - the URL of the full article
+
+## Topic (object)
+
++ articles (required, array[Article]) - the articles associated with the topic
++ title (required, string) - the title of the topic
 
 ## Video (object)
 
