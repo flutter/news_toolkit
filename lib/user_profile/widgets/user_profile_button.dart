@@ -1,5 +1,5 @@
+import 'package:app_ui/app_ui.dart' show AppSpacing, showAppModal, AppColors;
 import 'package:flutter/material.dart';
-import 'package:app_ui/app_ui.dart' show AppSpacing;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/assets.gen.dart';

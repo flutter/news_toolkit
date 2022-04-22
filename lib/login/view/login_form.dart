@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing, AppTextStyle;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -67,6 +67,7 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
+          key: const Key('close_modal_key'),
           child: const Icon(Icons.close),
           onTap: () => Navigator.pop(context),
         ),

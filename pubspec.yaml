@@ -36,6 +36,7 @@ dependencies:
   user_repository:
     path: packages/user_repository
   very_good_analysis: ^2.4.0
+  mockingjay: ^0.3.0
 
 dependency_overrides:
   platform:
