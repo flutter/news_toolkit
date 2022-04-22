@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart' show AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
@@ -30,6 +31,10 @@ class LoginButton extends StatelessWidget {
     return IconButton(
       icon: Assets.icons.logInIcon.svg(),
       iconSize: 24,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
       onPressed: () => Navigator.of(context).push<void>(LoginPage.route()),
       tooltip: context.l10n.loginTooltip,
     );
@@ -45,9 +50,11 @@ class OpenProfileButton extends StatelessWidget {
     return IconButton(
       icon: Assets.icons.profileIcon.svg(),
       iconSize: 24,
-      onPressed: () {
-        // TODO(bselwe): Open profile page.
-      },
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
+      onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
       tooltip: context.l10n.openProfileTooltip,
     );
   }
