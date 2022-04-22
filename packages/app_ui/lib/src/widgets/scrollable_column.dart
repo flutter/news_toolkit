@@ -24,6 +24,7 @@ class ScrollableColumn extends StatelessWidget {
     this.mainAxisSize = MainAxisSize.max,
     this.verticalDirection = VerticalDirection.down,
     this.textBaseline,
+    this.padding,
   }) : super(key: key);
 
   /// The children of the underlying [Column].
@@ -47,6 +48,9 @@ class ScrollableColumn extends StatelessWidget {
   /// The text baseline of the underlying [Column].
   final TextBaseline? textBaseline;
 
+  /// The padding of the underlying [Column].
+  final EdgeInsets? padding;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -58,14 +62,17 @@ class ScrollableColumn extends StatelessWidget {
               minHeight: constraints.maxHeight,
             ),
             child: IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: crossAxisAlignment,
-                textDirection: textDirection,
-                mainAxisAlignment: mainAxisAlignment,
-                mainAxisSize: mainAxisSize,
-                verticalDirection: verticalDirection,
-                textBaseline: textBaseline,
-                children: children,
+              child: Padding(
+                padding: padding ?? EdgeInsets.zero,
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignment,
+                  textDirection: textDirection,
+                  mainAxisAlignment: mainAxisAlignment,
+                  mainAxisSize: mainAxisSize,
+                  verticalDirection: verticalDirection,
+                  textBaseline: textBaseline,
+                  children: children,
+                ),
               ),
             ),
           ),
