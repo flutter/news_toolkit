@@ -96,7 +96,8 @@
     "xcworkspace",
     "xxlg",
     "xxxlg",
-    "xxxs"
+    "xxxs",
+    "mockingjay"
   ],
   "ignorePaths": [
     ".github/workflows/**",
