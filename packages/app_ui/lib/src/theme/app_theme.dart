@@ -200,11 +200,11 @@ class AppDarkTheme extends AppTheme {
   @override
   DividerThemeData get _dividerTheme {
     return DividerThemeData(
-      color: AppColors.grey.shade700,
-      space: AppSpacing.xxxs,
+      color: AppColors.darkOnBackground.withOpacity(0.16),
+      space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 56,
-      endIndent: AppSpacing.lg,
+      indent: 0,
+      endIndent: 0,
     );
   }
 }

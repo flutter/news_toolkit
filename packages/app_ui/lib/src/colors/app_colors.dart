@@ -17,7 +17,7 @@ abstract class AppColors {
   /// The grey primary color and swatch.
   static const MaterialColor grey = Colors.grey;
 
-  /// The liver primary color and swatch.
+  /// The liver color.
   static const Color liver = Color(0xFF4D4D4D);
 
   /// The green primary color and swatch.
@@ -26,37 +26,37 @@ abstract class AppColors {
   /// The teal primary color and swatch.
   static const MaterialColor teal = Colors.teal;
 
-  /// The dark aqua primary color and swatch.
+  /// The dark aqua color.
   static const Color darkAqua = Color(0xFF00677F);
 
   /// The blue primary color and swatch.
   static const Color blue = Color(0xFF3898EC);
 
-  /// The sky blue color and swatch.
+  /// The sky blue color.
   static const Color skyBlue = Color(0xFF0175C2);
 
-  /// The ocean blue color and swatch.
+  /// The ocean blue color.
   static const Color oceanBlue = Color(0xFF02569B);
 
-  /// The light blue color and swatch.
+  /// The light blue color.
   static const MaterialColor lightBlue = Colors.lightBlue;
 
-  /// The light blue dress color and swatch.
+  /// The blue dress color.
   static const Color blueDress = Color(0xFF1877F2);
 
-  /// The light crystal blue color and swatch.
+  /// The crystal blue color.
   static const Color crystalBlue = Color(0xFF55ACEE);
 
-  /// The light surface2 dress color and swatch.
+  /// The light surface2 dress color.
   static const Color surface2 = Color(0xFFEBF2F7);
 
-  /// The light pale sky dress color and swatch.
+  /// The pale sky color.
   static const Color paleSky = Color(0xFF73777F);
 
-  /// The light pastel grey dress color and swatch.
+  /// The pastel grey color.
   static const Color pastelGrey = Color(0xFFCCCCCC);
 
-  /// The yellow primary color and swatch.
+  /// The yellow primary color.
   static const MaterialColor yellow = Colors.yellow;
 
   /// The red primary color and swatch.
@@ -83,9 +83,9 @@ abstract class AppColors {
   /// The modal background color.
   static const Color modalBackground = Color(0xFFEBF2F7);
 
-  /// The light pastel red wine color and swatch.
+  /// The red wine color.
   static const Color redWine = Color(0xFF9A031E);
 
-  /// The light pastel red wine color and swatch.
+  /// The rangoonGreen color.
   static const Color rangoonGreen = Color(0xFF1B1B1B);
 }

@@ -282,7 +282,7 @@ void main() {
     });
 
     testWidgets(
-        'change color to  (AppColors.black.withOpacity(.12)  '
+        'changes background color to AppColors.black.withOpacity(.12)  '
         'when `onPressed` is null', (tester) async {
       final buttonText = Text('buttonText');
 
