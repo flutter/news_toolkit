@@ -30,13 +30,14 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.0.2
   platform: ^3.0.2
+  mockingjay: ^0.3.0
   secure_storage:
     path: packages/storage/secure_storage
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
   very_good_analysis: ^2.4.0
-  mockingjay: ^0.3.0
+
 
 dependency_overrides:
   platform:
