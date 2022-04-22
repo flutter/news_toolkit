@@ -16,11 +16,6 @@ class WidgetsPage extends StatelessWidget {
         title: const Text('Logo'),
         onTap: () => Navigator.of(context).push<void>(AppLogoPage.route()),
       ),
-      _ListItem(
-        icon: const Icon(Icons.safety_divider),
-        title: const Text('Divider'),
-        onTap: () => Navigator.of(context).push<void>(AppDividerPage.route()),
-      ),
     ];
 
     return Scaffold(
