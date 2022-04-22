@@ -25,7 +25,7 @@ void main() {
       when(() => userRepository.user).thenAnswer(
         (_) => const Stream.empty(),
       );
-      user = MockUser();
+      user = User.anonymous;
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -77,6 +77,7 @@ void main() {
 
     testWidgets('navigates to HomePage when authenticated', (tester) async {
       final user = MockUser();
+      when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
       await tester.pumpApp(
         const AppView(),
