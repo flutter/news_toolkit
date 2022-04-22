@@ -17,6 +17,12 @@ class FakeLogInWithGoogleFailure extends Fake
 class FakeLogInWithGoogleCanceled extends Fake
     implements LogInWithGoogleCanceled {}
 
+class FakeLogInWithTwitterFailure extends Fake
+    implements LogInWithTwitterFailure {}
+
+class FakeLogInWithTwitterCanceled extends Fake
+    implements LogInWithTwitterCanceled {}
+
 class FakeLogInWithEmailAndPasswordFailure extends Fake
     implements LogInWithEmailAndPasswordFailure {}
 
@@ -207,6 +213,40 @@ void main() {
         expect(
           () => userRepository.logInWithGoogle(),
           throwsA(isA<LogInWithGoogleFailure>()),
+        );
+      });
+    });
+
+    group('logInWithTwitter', () {
+      test('calls logInWithTwitter on AuthenticationClient', () async {
+        when(
+          () => authenticationClient.logInWithTwitter(),
+        ).thenAnswer((_) async {});
+        await userRepository.logInWithTwitter();
+        verify(() => authenticationClient.logInWithTwitter()).called(1);
+      });
+
+      test('rethrows LogInWithTwitterFailure', () async {
+        final exception = FakeLogInWithTwitterFailure();
+        when(() => authenticationClient.logInWithTwitter())
+            .thenThrow(exception);
+        expect(() => userRepository.logInWithTwitter(), throwsA(exception));
+      });
+
+      test('rethrows LogInWithTwitterCanceled', () async {
+        final exception = FakeLogInWithTwitterCanceled();
+        when(() => authenticationClient.logInWithTwitter())
+            .thenThrow(exception);
+        expect(userRepository.logInWithTwitter(), throwsA(exception));
+      });
+
+      test('throws LogInWithTwitterFailure on generic exception', () async {
+        when(
+          () => authenticationClient.logInWithTwitter(),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.logInWithTwitter(),
+          throwsA(isA<LogInWithTwitterFailure>()),
         );
       });
     });
