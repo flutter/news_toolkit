@@ -143,6 +143,24 @@ class LogInWithFacebookCanceled extends AuthenticationException {
       : super(error, stackTrace);
 }
 
+/// {@template log_in_with_twitter_failure}
+/// Thrown during the sign in with Twitter process if a failure occurs.
+/// {@endtemplate}
+class LogInWithTwitterFailure extends AuthenticationException {
+  /// {@macro log_in_with_twitter_failure}
+  const LogInWithTwitterFailure(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
+/// {@template log_in_with_twitter_canceled}
+/// Thrown during the sign in with Twitter process if it's canceled.
+/// {@endtemplate}
+class LogInWithTwitterCanceled extends AuthenticationException {
+  /// {@macro log_in_with_twitter_canceled}
+  const LogInWithTwitterCanceled(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
 /// {@template log_out_failure}
 /// Thrown during the logout process if a failure occurs.
 /// {@endtemplate}
@@ -184,6 +202,11 @@ abstract class AuthenticationClient {
   ///
   /// Throws a [LogInWithFacebookFailure] if an exception occurs.
   Future<void> logInWithFacebook();
+
+  /// Starts the Sign In with Twitter Flow.
+  ///
+  /// Throws a [LogInWithTwitterFailure] if an exception occurs.
+  Future<void> logInWithTwitter();
 
   /// Signs in with the provided [email] and [password].
   ///
