@@ -10,6 +10,7 @@ class AppButtonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const _contentSpacing = AppSpacing.lg;
     final appButtonList = [
       _AppButtonItem(
         buttonType: ButtonType.google,
@@ -82,21 +83,27 @@ class AppButtonPage extends StatelessWidget {
         child: Text('Next'),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
         child: _AppButtonItem(
           buttonType: ButtonType.trial,
           child: Text('Start free trial'),
         ),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
         child: _AppButtonItem(
           buttonType: ButtonType.details,
           child: Text('View details'),
         ),
       ),
       const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 33),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
         child: _AppButtonItem(
           buttonType: ButtonType.cancel,
           child: Text('Cancel anytime'),
