@@ -125,6 +125,24 @@ class LogInWithGoogleCanceled extends AuthenticationException {
       : super(error, stackTrace);
 }
 
+/// {@template log_in_with_facebook_failure}
+/// Thrown during the sign in with Facebook process if a failure occurs.
+/// {@endtemplate}
+class LogInWithFacebookFailure extends AuthenticationException {
+  /// {@macro log_in_with_facebook_failure}
+  const LogInWithFacebookFailure(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
+/// {@template log_in_with_facebook_canceled}
+/// Thrown during the sign in with Facebook process if it's canceled.
+/// {@endtemplate}
+class LogInWithFacebookCanceled extends AuthenticationException {
+  /// {@macro log_in_with_facebook_canceled}
+  const LogInWithFacebookCanceled(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
 /// {@template log_out_failure}
 /// Thrown during the logout process if a failure occurs.
 /// {@endtemplate}
@@ -161,6 +179,11 @@ abstract class AuthenticationClient {
   ///
   /// Throws a [LogInWithGoogleFailure] if an exception occurs.
   Future<void> logInWithGoogle();
+
+  /// Starts the Sign In with Facebook Flow.
+  ///
+  /// Throws a [LogInWithFacebookFailure] if an exception occurs.
+  Future<void> logInWithFacebook();
 
   /// Signs in with the provided [email] and [password].
   ///

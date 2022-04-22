@@ -9,15 +9,15 @@ environment:
 dependencies:
   authentication_client:
     path: ../authentication_client
-  firebase_auth: ^3.0.1  
+  firebase_auth: ^3.0.1
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^4.3.0
   google_sign_in: ^5.0.5
   sign_in_with_apple: ^3.0.0
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
   very_good_analysis: ^2.4.0
-  
