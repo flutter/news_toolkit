@@ -39,7 +39,7 @@ class NavigationDrawer extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: _contentPadding,
               ),
-              child: AppDivider(),
+              child: Divider(),
             ),
           ],
         ),
