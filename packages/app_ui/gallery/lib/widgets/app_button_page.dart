@@ -29,7 +29,10 @@ class AppButtonPage extends StatelessWidget {
           children: [
             Assets.icons.apple.svg(),
             const SizedBox(width: AppSpacing.lg),
-            Assets.images.continueWithApple.svg(),
+            Padding(
+              padding: const EdgeInsets.only(top: AppSpacing.sm),
+              child: Assets.images.continueWithApple.svg(),
+            ),
           ],
         ),
       ),
@@ -148,19 +151,18 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.twitter:
         return AppButton.crystalBlue(
-          child: child,
           onPressed: () {},
+          child: child,
         );
-
       case ButtonType.email:
         return AppButton.outlinedTransparent(
-          child: child,
           onPressed: () {},
+          child: child,
         );
       case ButtonType.login:
         return AppButton.outlinedTransparent(
-          child: child,
           onPressed: () {},
+          child: child,
         );
       case ButtonType.subscribe:
         return AppButton.redWine(
@@ -169,8 +171,8 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.information:
         return AppButton.darkAqua(
-          child: child,
           onPressed: () {},
+          child: child,
         );
       case ButtonType.trial:
         return AppButton.smallRedWine(
@@ -179,13 +181,13 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.details:
         return AppButton.smallOutlineTransparent(
-          child: child,
           onPressed: () {},
+          child: child,
         );
       case ButtonType.cancel:
         return AppButton.smallTransparent(
-          child: child,
           onPressed: () {},
+          child: child,
         );
     }
   }
