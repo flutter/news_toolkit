@@ -39,6 +39,12 @@ void main() {
       });
     });
 
+    group('LoginTwitterSubmitted', () {
+      test('supports value comparisons', () {
+        expect(LoginTwitterSubmitted(), LoginTwitterSubmitted());
+      });
+    });
+
     group('LoginAppleSubmitted', () {
       test('supports value comparisons', () {
         expect(LoginAppleSubmitted(), LoginAppleSubmitted());
