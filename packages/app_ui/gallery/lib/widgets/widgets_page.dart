@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gallery/widgets/show_app_modal_page.dart';
 import 'package:gallery/widgets/widgets.dart';
 
 class WidgetsPage extends StatelessWidget {
@@ -18,20 +17,14 @@ class WidgetsPage extends StatelessWidget {
         onTap: () => Navigator.of(context).push<void>(AppLogoPage.route()),
       ),
       _ListItem(
-        icon: const Icon(Icons.safety_divider),
-        title: const Text('Divider'),
-        onTap: () => Navigator.of(context).push<void>(AppDividerPage.route()),
-      ),
-      _ListItem(
-        icon: const Icon(Icons.safety_divider),
-        title: const Text('Show App Modal'),
-        onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
-      ),
-      _ListItem(
-        icon: const Icon(Icons.ad_units_outlined),
-        title: const Text('App Button'),
-        subtitle: const Text('All the app buttons types'),
+        icon: const Icon(Icons.vignette),
+        title: const Text('App Buttons'),
         onTap: () => Navigator.of(context).push<void>(AppButtonPage.route()),
+      ),
+      _ListItem(
+        icon: const Icon(Icons.ad_units_rounded),
+        title: const Text('Show modal'),
+        onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
       ),
     ];
 

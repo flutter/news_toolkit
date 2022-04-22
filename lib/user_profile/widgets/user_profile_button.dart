@@ -1,5 +1,5 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:app_ui/app_ui.dart' show AppSpacing;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/assets.gen.dart';
@@ -53,9 +53,11 @@ class OpenProfileButton extends StatelessWidget {
     return IconButton(
       icon: Assets.icons.profileIcon.svg(),
       iconSize: 24,
-      onPressed: () {
-        // TODO(bselwe): Open profile page.
-      },
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
+      onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
       tooltip: context.l10n.openProfileTooltip,
     );
   }
