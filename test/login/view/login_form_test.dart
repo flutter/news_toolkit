@@ -24,10 +24,11 @@ void main() {
   const loginButtonKey = Key('loginForm_continue_elevatedButton');
   const signInWithGoogleButtonKey = Key('loginForm_googleLogin_elevatedButton');
   const signInWithAppleButtonKey = Key('loginForm_appleLogin_elevatedButton');
+  const signInWithFacebookButtonKey =
+      Key('loginForm_facebookLogin_elevatedButton');
+  const signInWithTwitterButtonKey =
+      Key('loginForm_twitterLogin_elevatedButton');
   const emailInputKey = Key('loginForm_emailInput_textField');
-  const passwordInputKey = Key('loginForm_passwordInput_textField');
-  const createAccountButtonKey = Key('loginForm_createAccount_textButton');
-  const forgotPasswordButtonKey = Key('loginForm_forgotPassword_textButton');
 
   const testEmail = 'test@gmail.com';
   const testPassword = 'testPassword123';

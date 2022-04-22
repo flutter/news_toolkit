@@ -13,11 +13,11 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: AppColors.modalBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: AppSpacing.xxxlg,
-          horizontal: AppSpacing.xlg,
+          vertical: AppSpacing.lg,
+          horizontal: AppSpacing.lg,
         ),
         child: BlocProvider(
           create: (_) => LoginBloc(context.read<UserRepository>()),

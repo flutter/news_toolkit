@@ -1,7 +1,8 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/generated/generated.dart';
+import 'package:google_news_template/generated/assets.gen.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 
@@ -30,7 +31,14 @@ class LoginButton extends StatelessWidget {
     return IconButton(
       icon: Assets.icons.logInIcon.svg(),
       iconSize: 24,
-      onPressed: () => Navigator.of(context).push<void>(LoginPage.route()),
+      onPressed: () {
+        showAppModal<void>(
+          context: context,
+          constraints: const BoxConstraints(maxHeight: 522),
+          backgroundColor: AppColors.modalBackground,
+          builder: (context) => const LoginPage(),
+        );
+      },
       tooltip: context.l10n.loginTooltip,
     );
   }
