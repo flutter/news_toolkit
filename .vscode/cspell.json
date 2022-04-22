@@ -53,6 +53,7 @@
     "mjohnson",
     "mjordan",
     "mkdir",
+    "mockingjay",
     "mocktail",
     "mostrado",
     "msgsend",
@@ -96,8 +97,7 @@
     "xcworkspace",
     "xxlg",
     "xxxlg",
-    "xxxs",
-    "mockingjay"
+    "xxxs"
   ],
   "ignorePaths": [
     ".github/workflows/**",
