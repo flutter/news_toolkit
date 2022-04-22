@@ -1,4 +1,5 @@
-import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing, AppTextStyle;
+import 'package:app_ui/app_ui.dart'
+    show AppButton, AppSpacing, AppTextStyle, AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -89,7 +90,7 @@ class _LoginSubtitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: AppSpacing.xxlg),
       child: Text(
         context.l10n.loginModalSubtitle,
-        style: AppTextStyle.subtitle1,
+        style: AppTextStyle.subtitle1.apply(color: AppColors.liver),
       ),
     );
   }
