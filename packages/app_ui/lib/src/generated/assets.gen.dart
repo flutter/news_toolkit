@@ -60,6 +60,7 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
