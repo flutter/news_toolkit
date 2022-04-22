@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// Modal which is styled for the Google news template app.
@@ -29,8 +30,8 @@ Future<T?> showAppModal<T>({
     constraints: constraints,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
+        topLeft: Radius.circular(AppSpacing.lg),
+        topRight: Radius.circular(AppSpacing.lg),
       ),
     ),
     clipBehavior: Clip.hardEdge,
