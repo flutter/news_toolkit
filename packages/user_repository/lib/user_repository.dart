@@ -7,6 +7,8 @@ export 'package:authentication_client/authentication_client.dart'
         LogInWithEmailAndPasswordFailure,
         LogInWithGoogleCanceled,
         LogInWithGoogleFailure,
+        LogInWithTwitterCanceled,
+        LogInWithTwitterFailure,
         LogOutFailure,
         ResetPasswordFailure,
         SignUpFailure,

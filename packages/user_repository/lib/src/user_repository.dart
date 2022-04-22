@@ -76,6 +76,22 @@ class UserRepository {
     }
   }
 
+  /// Starts the Sign In with Twitter Flow.
+  ///
+  /// Throws a [LogInWithTwitterCanceled] if the flow is canceled by the user.
+  /// Throws a [LogInWithTwitterFailure] if an exception occurs.
+  Future<void> logInWithTwitter() async {
+    try {
+      await _authenticationClient.logInWithTwitter();
+    } on LogInWithTwitterFailure {
+      rethrow;
+    } on LogInWithTwitterCanceled {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithTwitterFailure(error, stackTrace);
+    }
+  }
+
   /// Signs in with the provided [email] and [password].
   ///
   /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
