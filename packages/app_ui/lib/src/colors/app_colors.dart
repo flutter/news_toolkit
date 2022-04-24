@@ -80,12 +80,12 @@ abstract class AppColors {
   /// The dark text 1 color.
   static const Color darkText1 = Color(0xFFFCFCFC);
 
-  /// The modal background color.
-  static const Color modalBackground = Color(0xFFEBF2F7);
-
   /// The red wine color.
   static const Color redWine = Color(0xFF9A031E);
 
   /// The rangoonGreen color.
   static const Color rangoonGreen = Color(0xFF1B1B1B);
+
+  /// The modal background color.
+  static const Color modalBackground = Color(0xFFEBF2F7);
 }

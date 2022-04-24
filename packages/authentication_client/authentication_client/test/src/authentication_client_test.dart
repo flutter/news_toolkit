@@ -99,6 +99,20 @@ void main() {
     );
   });
 
+  test('exports LogInWithFacebookFailure', () {
+    expect(
+      () => LogInWithFacebookFailure('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
+  test('exports LogInWithFacebookCanceled', () {
+    expect(
+      () => LogInWithFacebookCanceled('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
   test('exports LogOutFailure', () {
     expect(
       () => LogOutFailure('oops', StackTrace.empty),
