@@ -36,7 +36,12 @@ class _LoginContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ListView(
-      padding: const EdgeInsets.only(top: AppSpacing.lg),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.xxlg,
+      ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       children: [
