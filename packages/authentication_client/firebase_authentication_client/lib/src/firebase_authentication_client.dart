@@ -1,5 +1,6 @@
 import 'package:authentication_client/authentication_client.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -20,14 +21,17 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
     GetAppleCredentials? getAppleCredentials,
+    FacebookAuth? facebookAuth,
   })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _getAppleCredentials =
-            getAppleCredentials ?? SignInWithApple.getAppleIDCredential;
+            getAppleCredentials ?? SignInWithApple.getAppleIDCredential,
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final GetAppleCredentials _getAppleCredentials;
+  final FacebookAuth _facebookAuth;
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
@@ -123,7 +127,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   /// Starts the Sign In with Google Flow.
   ///
   /// Throws a [LogInWithGoogleCanceled] if the flow is canceled by the user.
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
+  /// Throws a [LogInWithGoogleFailure] if an exception occurs.
   @override
   Future<void> logInWithGoogle() async {
     try {
@@ -144,6 +148,47 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
       rethrow;
     } catch (error, stackTrace) {
       throw LogInWithGoogleFailure(error, stackTrace);
+    }
+  }
+
+  /// Starts the Sign In with Facebook Flow.
+  ///
+  /// Throws a [LogInWithFacebookCanceled] if the flow is canceled by the user.
+  /// Throws a [LogInWithFacebookFailure] if an exception occurs.
+  @override
+  Future<void> logInWithFacebook() async {
+    try {
+      final loginResult = await _facebookAuth.login();
+      if (loginResult.status == LoginStatus.cancelled) {
+        throw LogInWithFacebookCanceled(
+          Exception('Sign in with Facebook canceled'),
+          StackTrace.current,
+        );
+      } else if (loginResult.status == LoginStatus.failed) {
+        throw LogInWithFacebookFailure(
+          Exception(loginResult.message),
+          StackTrace.current,
+        );
+      }
+
+      final accessToken = loginResult.accessToken?.token;
+      if (accessToken == null) {
+        throw LogInWithFacebookFailure(
+          Exception(
+            'Sign in with Facebook failed due to an empty access token',
+          ),
+          StackTrace.current,
+        );
+      }
+
+      final credential =
+          firebase_auth.FacebookAuthProvider.credential(accessToken);
+
+      await _firebaseAuth.signInWithCredential(credential);
+    } on LogInWithFacebookCanceled {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithFacebookFailure(error, stackTrace);
     }
   }
 
