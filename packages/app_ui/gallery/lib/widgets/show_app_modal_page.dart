@@ -10,44 +10,22 @@ class ShowAppModalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const _contentSpace = 10.0;
     final buttons = [
       Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.lg),
         child: ElevatedButton(
-          onPressed: () => showModal(context: context, maxHeight: 500),
+          onPressed: () => _showModal(context: context),
           style: ElevatedButton.styleFrom(
-            primary: AppColors.grey,
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            primary: AppColors.oceanBlue,
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.xxlg + _contentSpace,
+              vertical: AppSpacing.xlg,
+            ),
             textStyle:
                 const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           child: const Text('Login size modal'),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: AppSpacing.lg),
-        child: ElevatedButton(
-          onPressed: () => showModal(context: context, maxHeight: 330),
-          style: ElevatedButton.styleFrom(
-            primary: AppColors.red,
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            textStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          child: const Text('Subscribe size modal'),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: AppSpacing.lg),
-        child: ElevatedButton(
-          onPressed: () => showModal(context: context, maxHeight: 386),
-          style: ElevatedButton.styleFrom(
-            primary: AppColors.oceanBlue,
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            textStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          child: const Text('Limit article size modal'),
         ),
       ),
     ];
@@ -68,20 +46,26 @@ class ShowAppModalPage extends StatelessWidget {
     );
   }
 
-  void showModal({
+  void _showModal({
     required BuildContext context,
-    required double maxHeight,
   }) {
     showAppModal<void>(
       context: context,
-      constraints: BoxConstraints(maxHeight: maxHeight),
       backgroundColor: AppColors.modalBackground,
-      builder: (context) => Container(
-        alignment: Alignment.center,
-        child: Text(
-          'Max Size: $maxHeight',
-          style: AppTextStyle.headline3,
-        ),
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 300,
+            color: AppColors.darkAqua,
+            alignment: Alignment.center,
+          ),
+          Container(
+            height: 200,
+            color: AppColors.blue,
+            alignment: Alignment.center,
+          ),
+        ],
       ),
     );
   }
