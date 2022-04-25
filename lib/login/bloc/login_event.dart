@@ -27,6 +27,11 @@ class LoginCredentialsSubmitted extends LoginEvent with AnalyticsEventMixin {
   AnalyticsEvent get event => const AnalyticsEvent('LoginCredentialsSubmitted');
 }
 
+class LoginEmailLinkSubmitted extends LoginEvent with AnalyticsEventMixin {
+  @override
+  AnalyticsEvent get event => const AnalyticsEvent('LoginEmailLinkSubmitted');
+}
+
 class LoginGoogleSubmitted extends LoginEvent with AnalyticsEventMixin {
   @override
   AnalyticsEvent get event => const AnalyticsEvent('LoginGoogleSubmitted');
