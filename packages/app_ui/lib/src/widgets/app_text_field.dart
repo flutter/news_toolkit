@@ -38,7 +38,7 @@ class AppTextField extends StatelessWidget {
   /// Optional input validation and formatting overrides.
   final List<TextInputFormatter>? inputFormatters;
 
-  /// Whether to enable autocorrection.
+  /// Whether to enable autocorrect.
   /// Defaults to true.
   final bool autocorrect;
 
