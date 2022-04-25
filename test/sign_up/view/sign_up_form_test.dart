@@ -21,10 +21,8 @@ class MockPassword extends Mock implements SignUpPassword {}
 void main() {
   const signUpButtonKey = Key('signUpForm_continue_elevatedButton');
   const emailInputKey = Key('signUpForm_emailInput_textField');
-  const passwordInputKey = Key('signUpForm_passwordInput_textField');
 
   const testEmail = 'test@gmail.com';
-  const testPassword = 'testP@ssw0rd1';
 
   group('SignUpForm', () {
     late SignUpBloc signUpBloc;
@@ -42,17 +40,6 @@ void main() {
         await tester.enterText(find.byKey(emailInputKey), testEmail);
         verify(() => signUpBloc.add(const SignUpEmailChanged(testEmail)))
             .called(1);
-      });
-
-      testWidgets('SignUpPasswordChanged when password changes',
-          (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        await tester.enterText(find.byKey(passwordInputKey), testPassword);
-        verify(
-          () => signUpBloc.add(const SignUpPasswordChanged(testPassword)),
-        ).called(1);
       });
 
       testWidgets('SignUpSubmitted when sign up button is pressed',

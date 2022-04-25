@@ -11,7 +11,7 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._userRepository) : super(const SignUpState()) {
     on<SignUpEmailChanged>(_onEmailChanged);
-    on<SignUpPasswordChanged>(_onPasswordChanged);
+    on<SignUpDeletedEmail>(_onDeleted);
     on<SignUpSubmitted>(_onSubmitted);
   }
 
@@ -19,25 +19,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
     final email = Email.dirty(event.email);
-    emit(
-      state.copyWith(
-        email: email,
-        status: Formz.validate([email, state.password]),
-      ),
-    );
-  }
-
-  void _onPasswordChanged(
-    SignUpPasswordChanged event,
-    Emitter<SignUpState> emit,
-  ) {
-    final password = SignUpPassword.dirty(event.password);
-    emit(
-      state.copyWith(
-        password: password,
-        status: Formz.validate([state.email, password]),
-      ),
-    );
+    if (event.email.isNotEmpty) {
+      emit(
+        state.copyWith(
+          email: email,
+          status: Formz.validate([email]),
+          showDeleteIcon: true,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          email: email,
+          status: Formz.validate([email]),
+          showDeleteIcon: false,
+        ),
+      );
+    }
   }
 
   Future<void> _onSubmitted(
@@ -55,5 +53,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     } catch (_) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
+  }
+
+  Future<void> _onDeleted(
+    SignUpDeletedEmail event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(state.copyWith(showDeleteIcon: false));
   }
 }

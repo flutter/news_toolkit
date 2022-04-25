@@ -17,16 +17,6 @@ void main() {
       });
     });
 
-    group('SignUpPasswordChanged', () {
-      test('supports value comparisons', () {
-        expect(SignUpPasswordChanged('pwd'), SignUpPasswordChanged('pwd'));
-        expect(
-          SignUpPasswordChanged(''),
-          isNot(SignUpPasswordChanged('pwd')),
-        );
-      });
-    });
-
     group('SignUpSubmitted', () {
       test('supports value comparisons', () {
         expect(SignUpSubmitted(), SignUpSubmitted());

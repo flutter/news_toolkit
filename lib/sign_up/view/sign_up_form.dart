@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -27,69 +28,151 @@ class SignUpForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          _HeaderTitle(),
+          SizedBox(height: AppSpacing.xxxlg),
           _EmailInput(),
-          SizedBox(height: AppSpacing.xs),
-          _PasswordInput(),
-          SizedBox(height: AppSpacing.xs),
-          _SignUpButton(),
+          _TermsAndPolicyLinkTexts(),
+          Spacer(),
+          _NextButton(),
         ],
       ),
     );
   }
 }
 
-class _EmailInput extends StatelessWidget {
+class _HeaderTitle extends StatelessWidget {
+  const _HeaderTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Please enter your\nemail address.',
+      style: AppTextStyle.headlineSemiBold3.apply(
+        fontFamily: 'NotoSansDisplay-Regular',
+      ),
+    );
+  }
+}
+
+class _EmailInput extends StatefulWidget {
   const _EmailInput({Key? key}) : super(key: key);
+
+  @override
+  State<_EmailInput> createState() => _EmailInputState();
+}
+
+class _EmailInputState extends State<_EmailInput> {
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final email = context.select((SignUpBloc bloc) => bloc.state.email);
-    return TextField(
+    return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
+      controller: controller,
+      hintText: 'Your email address',
       onChanged: (email) {
         context.read<SignUpBloc>().add(SignUpEmailChanged(email));
       },
-      decoration: InputDecoration(
-        helperText: '',
-        labelText: l10n.emailInputLabelText,
-        errorText: email.invalid ? l10n.invalidEmailInputErrorText : null,
+      prefix: const _PrefixTextFieldIcon(),
+      suffix: _SuffixTextFieldIcon(
+        controller: controller,
       ),
-      autocorrect: false,
     );
   }
 }
 
-class _PasswordInput extends StatelessWidget {
-  const _PasswordInput({Key? key}) : super(key: key);
+class _TermsAndPolicyLinkTexts extends StatelessWidget {
+  const _TermsAndPolicyLinkTexts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final password = context.select((SignUpBloc bloc) => bloc.state.password);
-    return TextField(
-      key: const Key('signUpForm_passwordInput_textField'),
-      onChanged: (password) {
-        context.read<SignUpBloc>().add(SignUpPasswordChanged(password));
-      },
-      obscureText: true,
-      decoration: InputDecoration(
-        helperText: '',
-        labelText: l10n.passwordInputLabelText,
-        errorText: password.invalid ? l10n.invalidPasswordInputErrorText : null,
+    final linkStyle = AppTextStyle.smallButton.apply(
+      color: AppColors.darkAqua,
+      fontFamily: 'NotoSansDisplay-Regular',
+    );
+    final normalStyle = AppTextStyle.smallButton.apply(
+      fontFamily: 'NotoSansDisplay-Regular',
+    );
+    return RichText(
+      text: TextSpan(
+        style: DefaultTextStyle.of(context).style,
+        children: <TextSpan>[
+          TextSpan(
+            text: 'By logging in, you agree to our ',
+            style: normalStyle,
+          ),
+          TextSpan(
+            text: 'Terms of Use and Privacy Policy',
+            style: linkStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                print('Terms of Service and Privacy Policy');
+              },
+          ),
+          TextSpan(text: '.', style: normalStyle),
+        ],
       ),
     );
   }
 }
 
-class _SignUpButton extends StatelessWidget {
-  const _SignUpButton({Key? key}) : super(key: key);
+class _PrefixTextFieldIcon extends StatelessWidget {
+  const _PrefixTextFieldIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      key: Key('signUpForm_prefixIcon'),
+      padding: EdgeInsets.only(
+        left: AppSpacing.sm,
+        right: AppSpacing.sm,
+      ),
+      child: Icon(
+        Icons.email_outlined,
+        color: AppColors.mediumEmphasis,
+        size: 24,
+      ),
+    );
+  }
+}
+
+class _SuffixTextFieldIcon extends StatelessWidget {
+  const _SuffixTextFieldIcon({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+  final TextEditingController controller;
+  @override
+  Widget build(BuildContext context) {
+    final showDeleteIcon =
+        context.select((SignUpBloc bloc) => bloc.state.showDeleteIcon);
+    return Padding(
+      key: const Key('signUpForm_suffixIcon'),
+      padding: const EdgeInsets.only(right: AppSpacing.md),
+      child: Opacity(
+        opacity: showDeleteIcon ? 1 : 0,
+        child: GestureDetector(
+          onTap: () {
+            controller.text = '';
+            context.read<SignUpBloc>().add(SignUpDeletedEmail());
+          },
+          child: Assets.icons.closeCircle.svg(),
+        ),
+      ),
+    );
+  }
+}
+
+class _NextButton extends StatelessWidget {
+  const _NextButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
-    return ElevatedButton(
+    return AppButton.darkAqua(
       key: const Key('signUpForm_continue_elevatedButton'),
       onPressed: status.isValidated
           ? () => context.read<SignUpBloc>().add(SignUpSubmitted())

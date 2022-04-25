@@ -18,14 +18,18 @@ class SignUpPage extends StatelessWidget {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          l10n.signUpAppBarTitle,
-          style: theme.textTheme.headline2,
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: AppSpacing.xxxlg,
+          vertical: AppSpacing.xxlg,
           horizontal: AppSpacing.xlg,
         ),
         child: BlocProvider<SignUpBloc>(

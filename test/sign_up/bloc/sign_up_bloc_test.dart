@@ -49,38 +49,9 @@ void main() {
       );
 
       blocTest<SignUpBloc, SignUpState>(
-        'emits [valid] when email/password are valid',
+        'emits [valid] when email is valid',
         build: () => SignUpBloc(userRepository),
-        seed: () => SignUpState(password: validPassword),
         act: (bloc) => bloc.add(SignUpEmailChanged(validEmailString)),
-        expect: () => const <SignUpState>[
-          SignUpState(
-            email: validEmail,
-            password: validPassword,
-            status: FormzStatus.valid,
-          ),
-        ],
-      );
-    });
-
-    group('SignUpPasswordChanged', () {
-      blocTest<SignUpBloc, SignUpState>(
-        'emits [invalid] when email/password are invalid',
-        build: () => SignUpBloc(userRepository),
-        act: (bloc) => bloc.add(SignUpPasswordChanged(invalidPasswordString)),
-        expect: () => const <SignUpState>[
-          SignUpState(
-            password: invalidPassword,
-            status: FormzStatus.invalid,
-          ),
-        ],
-      );
-
-      blocTest<SignUpBloc, SignUpState>(
-        'emits [valid] when email/password are valid',
-        build: () => SignUpBloc(userRepository),
-        seed: () => SignUpState(email: validEmail),
-        act: (bloc) => bloc.add(SignUpPasswordChanged(validPasswordString)),
         expect: () => const <SignUpState>[
           SignUpState(
             email: validEmail,
