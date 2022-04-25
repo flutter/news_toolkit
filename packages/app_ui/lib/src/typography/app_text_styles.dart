@@ -7,7 +7,7 @@ abstract class AppTextStyle {
     fontWeight: AppFontWeight.regular,
     height: 1.5,
     package: 'app_ui',
-    fontFamily: 'NotoSansDisplay-Regular',
+    fontFamily: 'NotoSerif',
   );
 
   /// Display 1 Text Style

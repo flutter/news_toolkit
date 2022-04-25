@@ -75,6 +75,7 @@ class _LoginContent extends StatelessWidget {
 
 class _LoginTitleAndCloseButton extends StatelessWidget {
   const _LoginTitleAndCloseButton({Key? key}) : super(key: key);
+
   static const _contentSpace = 2.0;
 
   @override
@@ -91,7 +92,9 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
         ),
         Text(
           context.l10n.loginModalTitle,
-          style: AppTextStyle.headline4,
+          style: AppTextStyle.headline4.apply(
+            fontFamily: 'NotoSansDisplay-Regular',
+          ),
         ),
       ],
     );
@@ -107,7 +110,10 @@ class _LoginSubtitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: AppSpacing.xxlg),
       child: Text(
         context.l10n.loginModalSubtitle,
-        style: AppTextStyle.subtitle1.apply(color: AppColors.liver),
+        style: AppTextStyle.subtitle1.apply(
+          color: AppColors.liver,
+          fontFamily: 'NotoSansDisplay-Regular',
+        ),
       ),
     );
   }
