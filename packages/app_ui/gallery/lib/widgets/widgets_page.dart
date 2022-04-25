@@ -17,9 +17,9 @@ class WidgetsPage extends StatelessWidget {
         onTap: () => Navigator.of(context).push<void>(AppLogoPage.route()),
       ),
       _ListItem(
-        icon: const Icon(Icons.safety_divider),
-        title: const Text('Divider'),
-        onTap: () => Navigator.of(context).push<void>(AppDividerPage.route()),
+        icon: const Icon(Icons.vignette),
+        title: const Text('App Buttons'),
+        onTap: () => Navigator.of(context).push<void>(AppButtonPage.route()),
       ),
     ];
 
