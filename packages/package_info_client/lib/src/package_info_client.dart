@@ -32,7 +32,7 @@ class PackageInfoFetchFailure extends PackageInfoFailure {
 typedef PackageInfoProvider = Future<plugin.PackageInfo> Function();
 
 /// {@template package_info_client}
-/// A repository that provides information about the app's package metadata
+/// A client that provides information about the app's package metadata
 /// like app name, package name, version or build number.
 /// {@endtemplate}
 class PackageInfoClient {

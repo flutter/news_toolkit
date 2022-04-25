@@ -1,5 +1,5 @@
 name: package_info_client
-description: A repository that provides current device information like OS
+description: A client that provides current device information like OS
   version or device model
 version: 1.0.0+1
 publish_to: none
