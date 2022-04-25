@@ -24,11 +24,9 @@ class NavigationDrawer extends StatelessWidget {
           ),
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                _contentPadding,
-                _contentPadding + AppSpacing.xxs,
-                _contentPadding,
-                _contentPadding + AppSpacing.xxs,
+              padding: const EdgeInsets.symmetric(
+                vertical: _contentPadding + AppSpacing.xxs,
+                horizontal: _contentPadding,
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -39,7 +37,7 @@ class NavigationDrawer extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: _contentPadding,
               ),
-              child: AppDivider(),
+              child: Divider(),
             ),
           ],
         ),
