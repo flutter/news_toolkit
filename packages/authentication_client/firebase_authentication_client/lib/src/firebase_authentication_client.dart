@@ -210,6 +210,36 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     }
   }
 
+  /// Sends an authentication link to the provided [email].
+  ///
+  /// Opening the link redirects to the app with [appPackageName]
+  /// using Firebase Dynamic Links and authenticates the user
+  /// based on the provided email link.
+  ///
+  /// Throws a [SendLoginEmailLinkFailure] if an exception occurs.
+  @override
+  Future<void> sendLoginEmailLink({
+    required String email,
+    required String appPackageName,
+  }) async {
+    try {
+      final actionCodeSettings = firebase_auth.ActionCodeSettings(
+        url: const String.fromEnvironment('FIREBASE_DYNAMIC_LINK_URL'),
+        handleCodeInApp: true,
+        iOSBundleId: appPackageName,
+        androidPackageName: appPackageName,
+        androidInstallApp: true,
+      );
+
+      await _firebaseAuth.sendSignInLinkToEmail(
+        email: email,
+        actionCodeSettings: actionCodeSettings,
+      );
+    } catch (error, stackTrace) {
+      throw SendLoginEmailLinkFailure(error, stackTrace);
+    }
+  }
+
   /// Signs out the current user which will emit
   /// [User.anonymous] from the [user] Stream.
   ///
