@@ -19,6 +19,7 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(controller.text);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -30,7 +31,7 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
         child: AppEmailField(
           controller: controller,
           hintText: 'Your email address',
-          errorText: controller.text.isValidEmail() ? 'Valid' : null,
+          errorText: _errorText,
           prefix: const Padding(
             padding: EdgeInsets.only(
               left: AppSpacing.sm,
@@ -42,9 +43,9 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
               size: 24,
             ),
           ),
-          onChanged: (value) {
+          onChanged: (email) {
             setState(() {
-              if (value.isNotEmpty) {
+              if (email.isNotEmpty) {
                 _opacity = 1.0;
               } else {
                 _opacity = 0.0;
@@ -52,7 +53,7 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
             });
           },
           suffix: Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: AppSpacing.md),
             child: Opacity(
               opacity: _opacity,
               child: GestureDetector(
@@ -69,6 +70,18 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
         ),
       ),
     );
+  }
+
+  String? get _errorText {
+    final text = controller.value.text;
+    if (text.isEmpty) {
+      return null;
+    }
+    if (text.isNotEmpty && !text.isValidEmail()) {
+      return 'Invalid email';
+    }
+    // return null if the text is valid
+    return null;
   }
 
   @override
