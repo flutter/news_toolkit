@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart' show AppSpacing, showAppModal, AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/generated/assets.gen.dart';
+import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/login/login.dart';
-import 'package:google_news_template/sign_up/view/view.dart';
+import 'package:google_news_template/sign_up/sign_up.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
@@ -24,7 +24,7 @@ void main() {
       Key('loginForm_facebookLogin_elevatedButton');
   const signInWithTwitterButtonKey =
       Key('loginForm_twitterLogin_elevatedButton');
-  const closeModalKey = Key('close_modal_key');
+  const closeModalKey = Key('loginForm_closeModal');
 
   group('LoginForm', () {
     late LoginBloc loginBloc;
@@ -84,6 +84,7 @@ void main() {
         );
       });
     });
+
     group('renders', () {
       testWidgets('Sign in with Google and Apple on iOS', (tester) async {
         await tester.pumpApp(
@@ -118,8 +119,9 @@ void main() {
       });
     });
 
-    group('on pressed buttons', () {
-      testWidgets('OnPressed Facebook Button', (tester) async {
+    group('does nothing', () {
+      testWidgets('when sign in with facebook button is pressed',
+          (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -128,7 +130,8 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.byKey(signInWithFacebookButtonKey), findsOneWidget);
       });
-      testWidgets('OnPressed Twitter Button', (tester) async {
+      testWidgets('when sign in with twitter button is pressed',
+          (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -152,19 +155,21 @@ void main() {
       });
     });
 
-    group('close modal', (){
-      testWidgets(' when the cross icon is pressed',
-              (tester) async {
-            final navigator = MockNavigator();
-            when(navigator.pop).thenAnswer((_) async {});
-            await tester.pumpApp(
-              BlocProvider.value(value: loginBloc, child: const LoginForm()),
-              navigator: navigator,
-            );
-            await tester.tap(find.byKey(closeModalKey));
-            await tester.pumpAndSettle();
-            verify(navigator.pop).called(1);
-          });
+    group('closes modal', () {
+      testWidgets('when the close icon is pressed', (tester) async {
+        final navigator = MockNavigator();
+        when(navigator.pop).thenAnswer((_) async {});
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: loginBloc,
+            child: const LoginForm(),
+          ),
+          navigator: navigator,
+        );
+        await tester.tap(find.byKey(closeModalKey));
+        await tester.pumpAndSettle();
+        verify(navigator.pop).called(1);
+      });
     });
   });
 }
