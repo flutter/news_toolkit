@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/sign_up/sign_up.dart';
 import 'package:mockingjay/mockingjay.dart' show MockNavigator;
@@ -11,10 +12,15 @@ import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
+// ignore: must_be_immutable
+class MockUser extends Mock implements User {}
+
 class MockUserRepository extends Mock implements UserRepository {}
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
   const loginButtonKey = Key('loginForm_emailLogin_elevatedButton');
@@ -24,13 +30,18 @@ void main() {
       Key('loginForm_facebookLogin_elevatedButton');
   const signInWithTwitterButtonKey =
       Key('loginForm_twitterLogin_elevatedButton');
-  const closeModalKey = Key('loginForm_closeModal');
+  const loginFormCloseModalKey = Key('loginForm_closeModal');
 
   group('LoginForm', () {
     late LoginBloc loginBloc;
+    late AppBloc appBloc;
+    late User user;
 
     setUp(() {
       loginBloc = MockLoginBloc();
+      appBloc = MockAppBloc();
+      user = MockUser();
+
       when(() => loginBloc.state).thenReturn(const LoginState());
     });
 
@@ -166,7 +177,30 @@ void main() {
           ),
           navigator: navigator,
         );
-        await tester.tap(find.byKey(closeModalKey));
+        await tester.tap(find.byKey(loginFormCloseModalKey));
+        await tester.pumpAndSettle();
+        verify(navigator.pop).called(1);
+      });
+
+      testWidgets('when user is authenticated', (tester) async {
+        final navigator = MockNavigator();
+        whenListen(
+          appBloc,
+          Stream.fromIterable(
+            <AppState>[AppState.authenticated(user)],
+          ),
+          initialState: const AppState.unauthenticated(),
+        );
+
+        when(navigator.pop).thenAnswer((_) async {});
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: loginBloc,
+            child: const LoginForm(),
+          ),
+          navigator: navigator,
+          appBloc: appBloc,
+        );
         await tester.pumpAndSettle();
         verify(navigator.pop).called(1);
       });
