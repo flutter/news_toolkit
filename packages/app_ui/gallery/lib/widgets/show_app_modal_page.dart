@@ -25,7 +25,7 @@ class ShowAppModalPage extends StatelessWidget {
             textStyle:
                 const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          child: const Text('Login size modal'),
+          child: const Text('Show app modal'),
         ),
       ),
     ];
@@ -51,7 +51,6 @@ class ShowAppModalPage extends StatelessWidget {
   }) {
     showAppModal<void>(
       context: context,
-      backgroundColor: AppColors.modalBackground,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -3,6 +3,7 @@ import 'package:app_ui/app_ui.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
@@ -14,17 +15,24 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(l10n.authenticationFailure)),
-            );
+        if (state.status == AppStatus.authenticated) {
+          Navigator.pop(context);
         }
       },
-      child: const _LoginContent(),
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text(l10n.authenticationFailure)),
+              );
+          }
+        },
+        child: const _LoginContent(),
+      ),
     );
   }
 }
@@ -68,19 +76,23 @@ class _LoginContent extends StatelessWidget {
 class _LoginTitleAndCloseButton extends StatelessWidget {
   const _LoginTitleAndCloseButton({Key? key}) : super(key: key);
   static const _contentSpace = 2.0;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         GestureDetector(
-          key: const Key('close_modal_key'),
+          key: const Key('loginForm_closeModal'),
           child: const Icon(Icons.close),
           onTap: () => Navigator.pop(context),
         ),
         const SizedBox(
           width: AppSpacing.md + _contentSpace,
         ),
-        Text(context.l10n.loginModalTitle, style: AppTextStyle.headline4),
+        Text(
+          context.l10n.loginModalTitle,
+          style: AppTextStyle.headline4,
+        ),
       ],
     );
   }
