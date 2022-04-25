@@ -5,6 +5,8 @@ import 'package:firebase_authentication_client/firebase_authentication_client.da
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart'
+    as facebook_auth;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
@@ -32,6 +34,14 @@ class MockGoogleSignInAuthentication extends Mock
 
 class MockAuthorizationCredentialAppleID extends Mock
     implements AuthorizationCredentialAppleID {}
+
+class MockFacebookAuth extends Mock implements facebook_auth.FacebookAuth {}
+
+class MockFacebookLoginResult extends Mock
+    implements facebook_auth.LoginResult {}
+
+class MockFacebookAccessToken extends Mock
+    implements facebook_auth.AccessToken {}
 
 class MockUserCredential extends Mock implements firebase_auth.UserCredential {}
 
@@ -80,6 +90,7 @@ void main() {
     late AuthorizationCredentialAppleID authorizationCredentialAppleID;
     late GetAppleCredentials getAppleCredentials;
     late List<List<AppleIDAuthorizationScopes>> getAppleCredentialsCalls;
+    late facebook_auth.FacebookAuth facebookAuth;
 
     setUpAll(() {
       registerFallbackValue(FakeAuthCredential());
@@ -99,10 +110,13 @@ void main() {
         getAppleCredentialsCalls.add(scopes);
         return authorizationCredentialAppleID;
       };
+      facebookAuth = MockFacebookAuth();
+
       firebaseAuthenticationClient = FirebaseAuthenticationClient(
         firebaseAuth: firebaseAuth,
         googleSignIn: googleSignIn,
         getAppleCredentials: getAppleCredentials,
+        facebookAuth: facebookAuth,
       );
     });
 
@@ -296,7 +310,7 @@ void main() {
       });
     });
 
-    group('loginWithGoogle', () {
+    group('logInWithGoogle', () {
       const accessToken = 'access-token';
       const idToken = 'id-token';
 
@@ -338,6 +352,78 @@ void main() {
         expect(
           firebaseAuthenticationClient.logInWithGoogle(),
           throwsA(isA<LogInWithGoogleCanceled>()),
+        );
+      });
+    });
+
+    group('logInWithFacebook', () {
+      late facebook_auth.LoginResult loginResult;
+      late facebook_auth.AccessToken accessTokenResult;
+      const accessToken = 'access-token';
+
+      setUp(() {
+        loginResult = MockFacebookLoginResult();
+        accessTokenResult = MockFacebookAccessToken();
+
+        when(() => accessTokenResult.token).thenReturn(accessToken);
+        when(() => loginResult.accessToken).thenReturn(accessTokenResult);
+        when(() => loginResult.status)
+            .thenReturn(facebook_auth.LoginStatus.success);
+        when(() => facebookAuth.login()).thenAnswer((_) async => loginResult);
+        when(() => firebaseAuth.signInWithCredential(any()))
+            .thenAnswer((_) => Future.value(MockUserCredential()));
+      });
+
+      test('calls login authentication and signInWithCredential', () async {
+        await firebaseAuthenticationClient.logInWithFacebook();
+        verify(() => facebookAuth.login()).called(1);
+        verify(() => firebaseAuth.signInWithCredential(any())).called(1);
+      });
+
+      test('succeeds when login succeeds', () {
+        expect(firebaseAuthenticationClient.logInWithFacebook(), completes);
+      });
+
+      test(
+          'throws LogInWithFacebookFailure '
+          'when signInWithCredential throws', () async {
+        when(() => firebaseAuth.signInWithCredential(any()))
+            .thenThrow(Exception());
+        expect(
+          firebaseAuthenticationClient.logInWithFacebook(),
+          throwsA(isA<LogInWithFacebookFailure>()),
+        );
+      });
+
+      test(
+          'throws LogInWithFacebookFailure '
+          'when login result status is failed', () async {
+        when(() => loginResult.status)
+            .thenReturn(facebook_auth.LoginStatus.failed);
+        expect(
+          firebaseAuthenticationClient.logInWithFacebook(),
+          throwsA(isA<LogInWithFacebookFailure>()),
+        );
+      });
+
+      test(
+          'throws LogInWithFacebookFailure '
+          'when login result access token is empty', () async {
+        when(() => loginResult.accessToken).thenReturn(null);
+        expect(
+          firebaseAuthenticationClient.logInWithFacebook(),
+          throwsA(isA<LogInWithFacebookFailure>()),
+        );
+      });
+
+      test(
+          'throws LogInWithFacebookCanceled '
+          'when login result status is cancelled', () async {
+        when(() => loginResult.status)
+            .thenReturn(facebook_auth.LoginStatus.cancelled);
+        expect(
+          firebaseAuthenticationClient.logInWithFacebook(),
+          throwsA(isA<LogInWithFacebookCanceled>()),
         );
       });
     });

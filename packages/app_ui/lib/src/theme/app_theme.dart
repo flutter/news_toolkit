@@ -26,6 +26,7 @@ class AppTheme {
       elevatedButtonTheme: _elevatedButtonTheme,
       textButtonTheme: _textButtonTheme,
       colorScheme: _colorScheme,
+      bottomSheetTheme: _bottomSheetTheme,
     );
   }
 
@@ -135,6 +136,19 @@ class AppTheme {
       ),
     );
   }
+
+  BottomSheetThemeData get _bottomSheetTheme {
+    return const BottomSheetThemeData(
+      backgroundColor: AppColors.modalBackground,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(AppSpacing.lg),
+          topRight: Radius.circular(AppSpacing.lg),
+        ),
+      ),
+    );
+  }
 }
 
 /// {@template app_dark_theme}
@@ -200,11 +214,11 @@ class AppDarkTheme extends AppTheme {
   @override
   DividerThemeData get _dividerTheme {
     return DividerThemeData(
-      color: AppColors.grey.shade700,
-      space: AppSpacing.xxxs,
+      color: AppColors.darkOnBackground.withOpacity(0.16),
+      space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 56,
-      endIndent: AppSpacing.lg,
+      indent: 0,
+      endIndent: 0,
     );
   }
 }

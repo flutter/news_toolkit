@@ -29,6 +29,7 @@ extension AppTester on WidgetTester {
     UserRepository? userRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
+    NavigatorObserver? navigatorObserver,
   }) async {
     await pumpWidget(
       MultiRepositoryProvider(
@@ -54,6 +55,9 @@ extension AppTester on WidgetTester {
               data: ThemeData(platform: platform),
               child: Scaffold(body: widgetUnderTest),
             ),
+            navigatorObservers: [
+              if (navigatorObserver != null) navigatorObserver
+            ],
           ),
         ),
       ),

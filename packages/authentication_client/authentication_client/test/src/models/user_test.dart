@@ -13,5 +13,9 @@ void main() {
       expect(userA, equals(secondUserA));
       expect(userA, isNot(equals(userB)));
     });
+
+    test('isAnonymous returns true for anonymous user', () {
+      expect(User.anonymous.isAnonymous, isTrue);
+    });
   });
 }
