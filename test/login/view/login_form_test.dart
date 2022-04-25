@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/sign_up/sign_up.dart';
+import 'package:mockingjay/mockingjay.dart' show MockNavigator;
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
