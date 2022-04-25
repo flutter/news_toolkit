@@ -19,7 +19,6 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.text);
     return Scaffold(
       appBar: AppBar(
         title: const Text(

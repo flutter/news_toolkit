@@ -92,7 +92,7 @@ class AppTextField extends StatelessWidget {
             ),
             decoration: InputDecoration(
               hintText: hintText,
-              //TODO: change later with the new colors
+              // TODO(ana): change later with the new colors
               fillColor: AppColors.textFieldBackground.withOpacity(0.08),
               contentPadding: const EdgeInsets.all(AppSpacing.lg),
               errorText: errorText,
