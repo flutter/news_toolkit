@@ -34,7 +34,6 @@ class LoginButton extends StatelessWidget {
       onPressed: () {
         showAppModal<void>(
           context: context,
-          backgroundColor: AppColors.modalBackground,
           builder: (context) => const LoginPage(),
         );
       },
