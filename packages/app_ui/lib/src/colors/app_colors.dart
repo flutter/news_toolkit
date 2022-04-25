@@ -8,6 +8,9 @@ abstract class AppColors {
   /// Light black
   static const Color lightBlack = Colors.black54;
 
+  // Medium Emphasis
+  static const Color mediumEmphasis = Color(0x99000000);
+
   /// White
   static const Color white = Color(0xFFFFFFFF);
 
@@ -70,6 +73,9 @@ abstract class AppColors {
 
   /// The on-background color.
   static const Color onBackground = Color(0xFF1A1A1A);
+
+  /// The textField background color.
+  static const Color textFieldBackground = Color(0xFF212121);
 
   /// The dark on-background color.
   static const Color darkOnBackground = Color(0xFFFFFFFF);

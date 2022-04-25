@@ -13,6 +13,7 @@ class ColorsPage extends StatelessWidget {
     const colorItems = [
       _ColorItem(name: 'Black', color: AppColors.black),
       _ColorItem(name: 'Black Light', color: AppColors.lightBlack),
+      _ColorItem(name: 'Medium Emphasis', color: AppColors.mediumEmphasis),
       _ColorItem(name: 'White', color: AppColors.white),
       _ColorItem(name: 'Modal Background', color: AppColors.modalBackground),
       _ColorItem(name: 'Transparent', color: AppColors.transparent),
@@ -28,6 +29,8 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Grey', color: AppColors.grey),
       _ColorItem(name: 'Liver', color: AppColors.liver),
       _ColorItem(name: 'Surface 2', color: AppColors.surface2),
+      _ColorItem(
+          name: 'TextField Background', color: AppColors.textFieldBackground),
       _ColorItem(name: 'Pastel Grey', color: AppColors.pastelGrey),
       _ColorItem(name: 'Pale Sky', color: AppColors.paleSky),
       _ColorItem(name: 'Green', color: AppColors.green),

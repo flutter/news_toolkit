@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery/widgets/app_text_field_page.dart';
 import 'package:gallery/widgets/widgets.dart';
 
 class WidgetsPage extends StatelessWidget {
@@ -25,6 +26,11 @@ class WidgetsPage extends StatelessWidget {
         icon: const Icon(Icons.ad_units_rounded),
         title: const Text('Show modal'),
         onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
+      ),
+      _ListItem(
+        icon: const Icon(Icons.email_outlined),
+        title: const Text('App TextField'),
+        onTap: () => Navigator.of(context).push<void>(AppTextFieldPage.route()),
       ),
     ];
 

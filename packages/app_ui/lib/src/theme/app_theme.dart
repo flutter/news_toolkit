@@ -99,7 +99,18 @@ class AppTheme {
 
   InputDecorationTheme get _inputDecorationTheme {
     return InputDecorationTheme(
-      hintStyle: TextStyle(color: AppColors.grey.shade500),
+      suffixIconColor: AppColors.mediumEmphasis,
+      prefixIconColor: AppColors.mediumEmphasis,
+      enabledBorder: _textFieldBorder,
+      focusedBorder: _textFieldBorder,
+      disabledBorder: _textFieldBorder,
+      hintStyle: AppTextStyle.bodyText1.copyWith(
+        color: AppColors.black,
+      ),
+      border: const UnderlineInputBorder(),
+      filled: true,
+      isDense: true,
+      errorStyle: AppTextStyle.caption,
     );
   }
 
@@ -136,6 +147,13 @@ class AppTheme {
     );
   }
 }
+
+InputBorder get _textFieldBorder => const UnderlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: AppColors.darkAqua,
+      ),
+    );
 
 /// {@template app_dark_theme}
 /// Dark Mode App [ThemeData].
