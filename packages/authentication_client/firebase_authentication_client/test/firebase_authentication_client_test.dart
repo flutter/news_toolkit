@@ -47,6 +47,9 @@ class MockUserCredential extends Mock implements firebase_auth.UserCredential {}
 
 class FakeAuthCredential extends Fake implements firebase_auth.AuthCredential {}
 
+class FakeActionCodeSettings extends Fake
+    implements firebase_auth.ActionCodeSettings {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MethodChannelFirebase.channel.setMockMethodCallHandler((call) async {
@@ -82,6 +85,7 @@ void main() {
 
   const email = 'test@gmail.com';
   const password = 't0ps3cret42';
+  const appPackageName = 'app.package.name';
 
   group('FirebaseAuthenticationClient', () {
     late firebase_auth.FirebaseAuth firebaseAuth;
@@ -94,6 +98,7 @@ void main() {
 
     setUpAll(() {
       registerFallbackValue(FakeAuthCredential());
+      registerFallbackValue(FakeActionCodeSettings());
     });
 
     setUp(() {
@@ -476,6 +481,82 @@ void main() {
             password: password,
           ),
           throwsA(isA<LogInWithEmailAndPasswordFailure>()),
+        );
+      });
+    });
+
+    group('sendLoginEmailLink', () {
+      setUp(() {
+        when(
+          () => firebaseAuth.sendSignInLinkToEmail(
+            email: any(named: 'email'),
+            actionCodeSettings: any(named: 'actionCodeSettings'),
+          ),
+        ).thenAnswer((_) async {});
+      });
+
+      test('calls sendSignInLinkToEmail', () async {
+        await firebaseAuthenticationClient.sendLoginEmailLink(
+          email: email,
+          appPackageName: appPackageName,
+        );
+
+        verify(
+          () => firebaseAuth.sendSignInLinkToEmail(
+            email: email,
+            actionCodeSettings: any(
+              named: 'actionCodeSettings',
+              that: isA<firebase_auth.ActionCodeSettings>()
+                  .having(
+                    (settings) => settings.androidPackageName,
+                    'androidPackageName',
+                    equals(appPackageName),
+                  )
+                  .having(
+                    (settings) => settings.iOSBundleId,
+                    'iOSBundleId',
+                    equals(appPackageName),
+                  )
+                  .having(
+                    (settings) => settings.androidInstallApp,
+                    'androidInstallApp',
+                    isTrue,
+                  )
+                  .having(
+                    (settings) => settings.handleCodeInApp,
+                    'handleCodeInApp',
+                    isTrue,
+                  ),
+            ),
+          ),
+        ).called(1);
+      });
+
+      test('succeeds when sendSignInLinkToEmail succeeds', () async {
+        expect(
+          firebaseAuthenticationClient.sendLoginEmailLink(
+            email: email,
+            appPackageName: appPackageName,
+          ),
+          completes,
+        );
+      });
+
+      test(
+          'throws SendLoginEmailLinkFailure '
+          'when sendSignInLinkToEmail throws', () async {
+        when(
+          () => firebaseAuth.sendSignInLinkToEmail(
+            email: any(named: 'email'),
+            actionCodeSettings: any(named: 'actionCodeSettings'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          firebaseAuthenticationClient.sendLoginEmailLink(
+            email: email,
+            appPackageName: appPackageName,
+          ),
+          throwsA(isA<SendLoginEmailLinkFailure>()),
         );
       });
     });
