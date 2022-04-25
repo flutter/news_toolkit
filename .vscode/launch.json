@@ -14,7 +14,9 @@
                 "--flavor",
                 "development",
                 "--target",
-                "lib/main/main_development.dart"
+                "lib/main/main_development.dart",
+                "--dart-define",
+                "FIREBASE_DYNAMIC_LINK_URL=https://newstemplate.page.link/"
             ]
         },
         
