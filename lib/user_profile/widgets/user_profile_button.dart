@@ -31,6 +31,10 @@ class LoginButton extends StatelessWidget {
     return IconButton(
       icon: Assets.icons.logInIcon.svg(),
       iconSize: 24,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
       onPressed: () {
         showAppModal<void>(
           context: context,
