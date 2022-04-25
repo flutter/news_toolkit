@@ -155,7 +155,7 @@ class _FacebookLoginButton extends StatelessWidget {
     return AppButton.blueDress(
       key: const Key('loginForm_facebookLogin_elevatedButton'),
       onPressed: () {
-        //TODO: add login with facebook
+        // TODO(ana): add login with facebook
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -175,7 +175,7 @@ class _TwitterLoginButton extends StatelessWidget {
     return AppButton.crystalBlue(
       key: const Key('loginForm_twitterLogin_elevatedButton'),
       onPressed: () {
-        //TODO: add login with twitter
+        // TODO(ana): add login with twitter
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart' show AppSpacing, showAppModal, AppColors;
+import 'package:app_ui/app_ui.dart' show AppSpacing, showAppModal;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
@@ -34,7 +34,6 @@ class LoginButton extends StatelessWidget {
       onPressed: () {
         showAppModal<void>(
           context: context,
-          backgroundColor: AppColors.modalBackground,
           builder: (context) => const LoginPage(),
         );
       },
