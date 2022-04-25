@@ -36,3 +36,8 @@ class LoginAppleSubmitted extends LoginEvent with AnalyticsEventMixin {
   @override
   AnalyticsEvent get event => const AnalyticsEvent('LoginAppleSubmitted');
 }
+
+class LoginFacebookSubmitted extends LoginEvent with AnalyticsEventMixin {
+  @override
+  AnalyticsEvent get event => const AnalyticsEvent('LoginFacebookSubmitted');
+}
