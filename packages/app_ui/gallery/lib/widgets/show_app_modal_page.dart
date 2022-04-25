@@ -51,7 +51,6 @@ class ShowAppModalPage extends StatelessWidget {
   }) {
     showAppModal<void>(
       context: context,
-      backgroundColor: AppColors.modalBackground,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
