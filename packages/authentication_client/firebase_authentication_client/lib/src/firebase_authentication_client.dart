@@ -224,7 +224,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   }) async {
     try {
       final actionCodeSettings = firebase_auth.ActionCodeSettings(
-        url: const String.fromEnvironment('FIREBASE_DYNAMIC_LINK_URL'),
+        url: const String.fromEnvironment('FLAVOR_DEEP_LINK_DOMAIN'),
         handleCodeInApp: true,
         iOSBundleId: appPackageName,
         androidPackageName: appPackageName,
