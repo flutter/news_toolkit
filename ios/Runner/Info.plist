@@ -58,7 +58,7 @@
 	<false/>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
-		<string>https://$(FLAVOR_DEEP_LINK_DOMAIN)/email_link_login</string>
+		<string>https://$(FLAVOR_DEEP_LINK_DOMAIN)/email_login</string>
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
