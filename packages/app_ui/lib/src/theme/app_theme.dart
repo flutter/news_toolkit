@@ -106,7 +106,7 @@ class AppTheme {
       focusedBorder: _textFieldBorder,
       disabledBorder: _textFieldBorder,
       hintStyle: AppTextStyle.bodyText1.copyWith(
-        color: AppColors.black,
+        color: AppColors.mediumEmphasis,
       ),
       border: const UnderlineInputBorder(),
       filled: true,
