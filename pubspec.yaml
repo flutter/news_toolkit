@@ -28,6 +28,7 @@ dependencies:
     path: packages/form_inputs
   hydrated_bloc: ^9.0.0-dev.1
   intl: ^0.17.0
+  mockingjay: ^0.3.0
   path_provider: ^2.0.2
   platform: ^3.0.2
   secure_storage:
@@ -36,6 +37,7 @@ dependencies:
   user_repository:
     path: packages/user_repository
   very_good_analysis: ^2.4.0
+
 
 dependency_overrides:
   platform:
