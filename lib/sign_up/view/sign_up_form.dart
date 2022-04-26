@@ -46,10 +46,8 @@ class _HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Please enter your\nemail address.',
-      style: AppTextStyle.headlineSemiBold3.apply(
-        fontFamily: 'NotoSansDisplay-Regular',
-      ),
+      context.l10n.signUpHeaderText,
+      style: AppTextStyle.headline3,
     );
   }
 }
@@ -67,11 +65,11 @@ class _EmailInputState extends State<_EmailInput> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final email = context.select((SignUpBloc bloc) => bloc.state.email);
+
     return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
       controller: controller,
-      hintText: 'Your email address',
+      hintText: context.l10n.signUpTextFieldHint,
       onChanged: (email) {
         context.read<SignUpBloc>().add(SignUpEmailChanged(email));
       },
@@ -88,30 +86,37 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final linkStyle = AppTextStyle.smallButton.apply(
-      color: AppColors.darkAqua,
-      fontFamily: 'NotoSansDisplay-Regular',
-    );
-    final normalStyle = AppTextStyle.smallButton.apply(
-      fontFamily: 'NotoSansDisplay-Regular',
-    );
     return RichText(
       text: TextSpan(
         style: DefaultTextStyle.of(context).style,
         children: <TextSpan>[
           TextSpan(
-            text: 'By logging in, you agree to our ',
-            style: normalStyle,
+            text: context.l10n.signUpSubtitleText,
+            style: AppTextStyle.bodyText1,
           ),
           TextSpan(
-            text: 'Terms of Use and Privacy Policy',
-            style: linkStyle,
+            text: context.l10n.signUpTermsAndPrivatePolicyText,
+            style: AppTextStyle.bodyText1.apply(
+              color: AppColors.darkAqua,
+            ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                print('Terms of Service and Privacy Policy');
+                // TODO(ana): navigate to web view
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        context.l10n.signUpTermsAndPolicyInfo,
+                      ),
+                    ),
+                  );
               },
           ),
-          TextSpan(text: '.', style: normalStyle),
+          TextSpan(
+            text: '.',
+            style: AppTextStyle.bodyText1,
+          ),
         ],
       ),
     );
@@ -179,7 +184,7 @@ class _NextButton extends StatelessWidget {
           : null,
       child: status.isSubmissionInProgress
           ? const CircularProgressIndicator()
-          : Text(l10n.signUpButtonText),
+          : Text(l10n.nextButtonText),
     );
   }
 }

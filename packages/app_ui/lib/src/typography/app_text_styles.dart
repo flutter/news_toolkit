@@ -54,13 +54,6 @@ abstract class AppTextStyle {
     height: 1.28,
   );
 
-  /// Headline 3 semi bold Text Style
-  static final TextStyle headlineSemiBold3 = _baseTextStyle.copyWith(
-    fontSize: 28,
-    fontWeight: AppFontWeight.semiBold,
-    height: 1.28,
-  );
-
   /// Headline 4 Text Style
   static final TextStyle headline4 = _baseTextStyle.copyWith(
     fontSize: 24,

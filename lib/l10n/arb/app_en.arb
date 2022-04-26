@@ -71,15 +71,45 @@
     "type": "text",
     "placeholders": {}
   },
-  "signUpButtonText": "Sign Up",
-  "@signUpButtonText": {
-    "description": "Sign Up button title shown on Sign Up page",
+  "nextButtonText": "Next",
+  "@nextButtonText": {
+    "description": "Next button title shown on Sign Up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpHeaderText": "Please enter your\nemail address.",
+  "@signUpHeaderText": {
+    "description": "Header title shown on Sign Up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpTextFieldHint": "Your email address",
+  "@signUpTextFieldHint": {
+    "description": "Hint text shown on the email text field on Sign Up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpSubtitleText": "By logging in, you agree to our",
+  "@signUpSubtitleText": {
+    "description": "Subtitle shown on Sign Up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpTermsAndPrivatePolicyText": " Terms of Use and Privacy Policy",
+  "@signUpTermsAndPrivatePolicyText": {
+    "description": "Text terms and privacy policy shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
   "signUpFailure": "Unable to create an account",
   "@signUpFailure": {
     "description": "Message shown when there is an error creating an account",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signUpTermsAndPolicyInfo": "Link to  relevant info on your site.",
+  "@signUpTermsAndPolicyInfo": {
+    "description": "Message shown when the user clicks on Terms of Use and Privacy Policy",
     "type": "text",
     "placeholders": {}
   },
