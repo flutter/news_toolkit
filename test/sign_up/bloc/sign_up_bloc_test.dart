@@ -15,11 +15,7 @@ void main() {
   const validEmailString = 'test@gmail.com';
   const validEmail = Email.dirty(validEmailString);
 
-  const invalidPasswordString = 'invalid';
-  const invalidPassword = SignUpPassword.dirty(invalidPasswordString);
-
-  const validPasswordString = 't0pS3cret1234';
-  const validPassword = SignUpPassword.dirty(validPasswordString);
+  const pureEmail = Email.pure();
 
   group('SignUpBloc', () {
     late UserRepository userRepository;
@@ -40,23 +36,27 @@ void main() {
 
     group('SignUpEmailChanged', () {
       blocTest<SignUpBloc, SignUpState>(
-        'emits [invalid] when email/password are invalid',
+        'emits [invalid] when email is invalid',
         build: () => SignUpBloc(userRepository),
         act: (bloc) => bloc.add(SignUpEmailChanged(invalidEmailString)),
         expect: () => const <SignUpState>[
-          SignUpState(email: invalidEmail, status: FormzStatus.invalid),
+          SignUpState(
+            email: invalidEmail,
+            status: FormzStatus.invalid,
+            showDeleteIcon: true,
+          ),
         ],
       );
 
       blocTest<SignUpBloc, SignUpState>(
-        'emits [valid] when email is valid',
+        'emits [valid] when email is valid and show delete icon',
         build: () => SignUpBloc(userRepository),
         act: (bloc) => bloc.add(SignUpEmailChanged(validEmailString)),
         expect: () => const <SignUpState>[
           SignUpState(
             email: validEmail,
-            password: validPassword,
             status: FormzStatus.valid,
+            showDeleteIcon: true,
           ),
         ],
       );
@@ -71,19 +71,18 @@ void main() {
       );
 
       blocTest<SignUpBloc, SignUpState>(
-        'calls signUp with correct email/password',
+        'calls signUp with correct email',
         build: () => SignUpBloc(userRepository),
         seed: () => SignUpState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
         act: (bloc) => bloc.add(SignUpSubmitted()),
         verify: (_) {
           verify(
             () => userRepository.signUp(
               email: validEmailString,
-              password: validPasswordString,
+              password: '',
             ),
           ).called(1);
         },
@@ -96,19 +95,16 @@ void main() {
         seed: () => SignUpState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
         act: (bloc) => bloc.add(SignUpSubmitted()),
         expect: () => const <SignUpState>[
           SignUpState(
             status: FormzStatus.submissionInProgress,
             email: validEmail,
-            password: validPassword,
           ),
           SignUpState(
             status: FormzStatus.submissionSuccess,
             email: validEmail,
-            password: validPassword,
           )
         ],
       );
@@ -128,20 +124,28 @@ void main() {
         seed: () => SignUpState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
         act: (bloc) => bloc.add(SignUpSubmitted()),
         expect: () => const <SignUpState>[
           SignUpState(
             status: FormzStatus.submissionInProgress,
             email: validEmail,
-            password: validPassword,
           ),
           SignUpState(
             status: FormzStatus.submissionFailure,
             email: validEmail,
-            password: validPassword,
           )
+        ],
+      );
+    });
+
+    group('SignUpHideDeleteIcon', () {
+      blocTest<SignUpBloc, SignUpState>(
+        'emits [showDeleteIcon] false',
+        build: () => SignUpBloc(userRepository),
+        act: (bloc) => bloc.add(SignUpHideDeleteIcon()),
+        expect: () => const <SignUpState>[
+          SignUpState(showDeleteIcon: false),
         ],
       );
     });

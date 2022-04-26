@@ -89,13 +89,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "signUpSubtitleText": "By logging in, you agree to our",
+  "signUpSubtitleText": "By logging in, you agree to our ",
   "@signUpSubtitleText": {
     "description": "Subtitle shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
-  "signUpTermsAndPrivatePolicyText": " Terms of Use and Privacy Policy",
+  "signUpTermsAndPrivatePolicyText": "Terms of Use and Privacy Policy",
   "@signUpTermsAndPrivatePolicyText": {
     "description": "Text terms and privacy policy shown on Sign Up form",
     "type": "text",
@@ -107,7 +107,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "signUpTermsAndPolicyInfo": "Link to  relevant info on your site.",
+  "signUpTermsAndPolicyInfo": "Link to relevant info on your site.",
   "@signUpTermsAndPolicyInfo": {
     "description": "Message shown when the user clicks on Terms of Use and Privacy Policy",
     "type": "text",

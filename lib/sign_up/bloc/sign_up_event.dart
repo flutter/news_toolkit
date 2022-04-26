@@ -17,4 +17,4 @@ class SignUpEmailChanged extends SignUpEvent {
 
 class SignUpSubmitted extends SignUpEvent {}
 
-class SignUpDeletedEmail extends SignUpEvent {}
+class SignUpHideDeleteIcon extends SignUpEvent {}

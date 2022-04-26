@@ -47,6 +47,7 @@ class _HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.signUpHeaderText,
+      key: const Key('signUpForm_header_title'),
       style: AppTextStyle.headline3,
     );
   }
@@ -64,14 +65,15 @@ class _EmailInputState extends State<_EmailInput> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
       controller: controller,
       hintText: context.l10n.signUpTextFieldHint,
       onChanged: (email) {
         context.read<SignUpBloc>().add(SignUpEmailChanged(email));
+        if (email.isEmpty) {
+          context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
+        }
       },
       prefix: const _PrefixTextFieldIcon(),
       suffix: _SuffixTextFieldIcon(
@@ -86,38 +88,42 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
-        children: <TextSpan>[
-          TextSpan(
-            text: context.l10n.signUpSubtitleText,
-            style: AppTextStyle.bodyText1,
-          ),
-          TextSpan(
-            text: context.l10n.signUpTermsAndPrivatePolicyText,
-            style: AppTextStyle.bodyText1.apply(
-              color: AppColors.darkAqua,
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: RichText(
+        key: const Key('signUpForm_terms_and_private_policy'),
+        text: TextSpan(
+          style: DefaultTextStyle.of(context).style,
+          children: <TextSpan>[
+            TextSpan(
+              text: context.l10n.signUpSubtitleText,
+              style: AppTextStyle.bodyText1,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                // TODO(ana): navigate to web view
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        context.l10n.signUpTermsAndPolicyInfo,
+            TextSpan(
+              text: context.l10n.signUpTermsAndPrivatePolicyText,
+              style: AppTextStyle.bodyText1.apply(
+                color: AppColors.darkAqua,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          context.l10n.signUpTermsAndPolicyInfo,
+                          style: AppTextStyle.button,
+                        ),
                       ),
-                    ),
-                  );
-              },
-          ),
-          TextSpan(
-            text: '.',
-            style: AppTextStyle.bodyText1,
-          ),
-        ],
+                    );
+                },
+            ),
+            TextSpan(
+              text: '.',
+              style: AppTextStyle.bodyText1,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -161,7 +167,7 @@ class _SuffixTextFieldIcon extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             controller.text = '';
-            context.read<SignUpBloc>().add(SignUpDeletedEmail());
+            context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
           },
           child: Assets.icons.closeCircle.svg(),
         ),
@@ -178,7 +184,7 @@ class _NextButton extends StatelessWidget {
     final l10n = context.l10n;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
     return AppButton.darkAqua(
-      key: const Key('signUpForm_continue_elevatedButton'),
+      key: const Key('signUpForm_next_elevatedButton'),
       onPressed: status.isValidated
           ? () => context.read<SignUpBloc>().add(SignUpSubmitted())
           : null,

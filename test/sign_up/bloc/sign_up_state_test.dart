@@ -5,7 +5,6 @@ import 'package:google_news_template/sign_up/sign_up.dart';
 
 void main() {
   const email = Email.dirty('email');
-  const password = SignUpPassword.dirty('password');
   group('SignUpState', () {
     test('supports value comparisons', () {
       expect(SignUpState(), SignUpState());
@@ -26,13 +25,6 @@ void main() {
       expect(
         SignUpState().copyWith(email: email),
         SignUpState(email: email),
-      );
-    });
-
-    test('returns object with updated password when password is passed', () {
-      expect(
-        SignUpState().copyWith(password: password),
-        SignUpState(password: password),
       );
     });
   });

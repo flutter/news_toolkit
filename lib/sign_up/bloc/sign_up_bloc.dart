@@ -11,7 +11,7 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._userRepository) : super(const SignUpState()) {
     on<SignUpEmailChanged>(_onEmailChanged);
-    on<SignUpDeletedEmail>(_onDeleted);
+    on<SignUpHideDeleteIcon>(_onDeleted);
     on<SignUpSubmitted>(_onSubmitted);
   }
 
@@ -19,23 +19,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
     final email = Email.dirty(event.email);
-    if (event.email.isNotEmpty) {
-      emit(
-        state.copyWith(
-          email: email,
-          status: Formz.validate([email]),
-          showDeleteIcon: true,
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          email: email,
-          status: Formz.validate([email]),
-          showDeleteIcon: false,
-        ),
-      );
-    }
+    emit(
+      state.copyWith(
+        email: email,
+        status: Formz.validate([email]),
+        showDeleteIcon: true,
+      ),
+    );
   }
 
   Future<void> _onSubmitted(
@@ -47,7 +37,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     try {
       await _userRepository.signUp(
         email: state.email.value,
-        password: state.password.value,
+        // TODO(ana): needs to remove password from user repository
+        password: '',
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } catch (_) {
@@ -56,7 +47,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<void> _onDeleted(
-    SignUpDeletedEmail event,
+    SignUpHideDeleteIcon event,
     Emitter<SignUpState> emit,
   ) async {
     emit(state.copyWith(showDeleteIcon: false));

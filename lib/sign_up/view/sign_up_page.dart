@@ -17,6 +17,7 @@ class SignUpPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
+            key: const Key('signUpPage_crossIcon'),
             icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.pop(context);
@@ -25,9 +26,11 @@ class SignUpPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppSpacing.xxlg,
-          horizontal: AppSpacing.xlg,
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.xlg,
+          AppSpacing.lg,
+          AppSpacing.xlg,
+          AppSpacing.xxlg,
         ),
         child: BlocProvider<SignUpBloc>(
           create: (_) => SignUpBloc(context.read<UserRepository>()),

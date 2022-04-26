@@ -1,5 +1,8 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
@@ -19,8 +22,13 @@ class MockEmail extends Mock implements Email {}
 class MockPassword extends Mock implements SignUpPassword {}
 
 void main() {
-  const signUpButtonKey = Key('signUpForm_continue_elevatedButton');
+  const nextButtonKey = Key('signUpForm_next_elevatedButton');
   const emailInputKey = Key('signUpForm_emailInput_textField');
+  const signUpFormHeaderTitleKey = Key('signUpForm_header_title');
+  const signUpFormTermsAndPrivatePolicyKey =
+      Key('signUpForm_terms_and_private_policy');
+  const signUpFormPrefixIconKey = Key('signUpForm_prefixIcon');
+  const signUpFormSuffixIconKey = Key('signUpForm_suffixIcon');
 
   const testEmail = 'test@gmail.com';
 
@@ -42,7 +50,7 @@ void main() {
             .called(1);
       });
 
-      testWidgets('SignUpSubmitted when sign up button is pressed',
+      testWidgets('SignUpSubmitted when next button is pressed',
           (tester) async {
         when(() => signUpBloc.state).thenReturn(
           const SignUpState(status: FormzStatus.valid),
@@ -50,12 +58,70 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
-        await tester.tap(find.byKey(signUpButtonKey));
+        await tester.tap(find.byKey(nextButtonKey));
         verify(() => signUpBloc.add(SignUpSubmitted())).called(1);
+      });
+
+      testWidgets('SignUpHideDeleteIcon when email is empty', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        await tester.enterText(find.byKey(emailInputKey), testEmail);
+        await tester.enterText(find.byKey(emailInputKey), '');
+        verify(() => signUpBloc.add(SignUpHideDeleteIcon())).called(1);
       });
     });
 
     group('renders', () {
+      testWidgets('header title', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final headerTitle = find.byKey(signUpFormHeaderTitleKey);
+        expect(headerTitle, findsOneWidget);
+      });
+
+      testWidgets('email text field', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final emailTextField = find.byKey(emailInputKey);
+        expect(emailTextField, findsOneWidget);
+      });
+
+      testWidgets('prefix icon on text field', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final prefixIcon = find.byKey(signUpFormPrefixIconKey);
+        expect(prefixIcon, findsOneWidget);
+      });
+
+      testWidgets('suffix icon on text field', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final suffixIcon = find.byKey(signUpFormSuffixIconKey);
+        expect(suffixIcon, findsOneWidget);
+      });
+
+      testWidgets('terms and privacy policy text', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final termsAndPrivacyPolicyText =
+            find.byKey(signUpFormTermsAndPrivatePolicyKey);
+        expect(termsAndPrivacyPolicyText, findsOneWidget);
+      });
+
+      testWidgets('suffix icon on text field', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        final suffixIcon = find.byKey(signUpFormSuffixIconKey);
+        expect(suffixIcon, findsOneWidget);
+      });
+
       testWidgets('Sign Up Failure SnackBar when submission fails',
           (tester) async {
         whenListen(
@@ -72,30 +138,25 @@ void main() {
         expect(find.byType(SnackBar), findsOneWidget);
       });
 
-      testWidgets('invalid email error text when email is invalid',
-          (tester) async {
-        final email = MockEmail();
-        when(() => email.invalid).thenReturn(true);
-        when(() => signUpBloc.state).thenReturn(SignUpState(email: email));
+      testWidgets(
+          'Terms and Privacy Policy SnackBar when click on '
+          'Terms of Use and Privacy Policy text', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
-        expect(find.text('Invalid email'), findsOneWidget);
-      });
 
-      testWidgets('invalid password error text when password is invalid',
-          (tester) async {
-        final password = MockPassword();
-        when(() => password.invalid).thenReturn(true);
-        when(() => signUpBloc.state)
-            .thenReturn(SignUpState(password: password));
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        final richText =
+            find.byKey(const Key('signUpForm_terms_and_private_policy')).first;
+        fireOnTap(
+          richText,
+          'Terms of Use and Privacy Policy',
         );
-        expect(find.text('Invalid password'), findsOneWidget);
+
+        await tester.pumpAndSettle();
+        expect(find.byType(SnackBar), findsOneWidget);
       });
 
-      testWidgets('disabled sign up button when status is not validated',
+      testWidgets('disabled next button when status is not validated',
           (tester) async {
         when(() => signUpBloc.state).thenReturn(
           const SignUpState(status: FormzStatus.invalid),
@@ -103,13 +164,13 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
-        final signUpButton = tester.widget<ElevatedButton>(
-          find.byKey(signUpButtonKey),
+        final signUpButton = tester.widget<AppButton>(
+          find.byKey(nextButtonKey),
         );
-        expect(signUpButton.enabled, isFalse);
+        expect(signUpButton.onPressed, null);
       });
 
-      testWidgets('enabled sign up button when status is validated',
+      testWidgets('enabled next button when status is validated',
           (tester) async {
         when(() => signUpBloc.state).thenReturn(
           const SignUpState(status: FormzStatus.valid),
@@ -117,10 +178,25 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
-        final signUpButton = tester.widget<ElevatedButton>(
-          find.byKey(signUpButtonKey),
+        final signUpButton = tester.widget<AppButton>(
+          find.byKey(nextButtonKey),
         );
-        expect(signUpButton.enabled, isTrue);
+        expect(signUpButton.onPressed, isNotNull);
+      });
+    });
+
+    group('delete', () {
+      testWidgets('email when press on suffixIcon', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        await tester.enterText(find.byKey(emailInputKey), testEmail);
+        await tester.tap(find.byKey(signUpFormSuffixIconKey));
+        await tester.pumpAndSettle();
+        final emailTextFieldText = tester.widget<AppEmailField>(
+          find.byKey(emailInputKey),
+        );
+        expect(emailTextFieldText.controller?.text, '');
       });
     });
 
@@ -145,5 +221,25 @@ void main() {
         expect(find.byType(SignUpForm), findsNothing);
       });
     });
+  });
+}
+
+/// Runs the onTap handler for the [TextSpan] which matches the search-string.
+void fireOnTap(Finder finder, String text) {
+  late RenderParagraph paragraph;
+  final element = finder.evaluate().single;
+  if (element.renderObject != null) {
+    paragraph = element.renderObject! as RenderParagraph;
+  }
+
+  // The children are the individual TextSpans which have GestureRecognizers
+  paragraph.text.visitChildren((dynamic span) {
+    if ((span as TextSpan).text != text) return true; // continue iterating.
+    final recognizer = span.recognizer;
+
+    if (recognizer is TapGestureRecognizer) {
+      recognizer.onTap!();
+    }
+    return false; // stop iterating, we found the one.
   });
 }

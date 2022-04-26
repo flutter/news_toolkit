@@ -22,5 +22,11 @@ void main() {
         expect(SignUpSubmitted(), SignUpSubmitted());
       });
     });
+
+    group('SignUpDeletedEmail', () {
+      test('supports value comparisons', () {
+        expect(SignUpHideDeleteIcon(), SignUpHideDeleteIcon());
+      });
+    });
   });
 }
