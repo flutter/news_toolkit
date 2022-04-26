@@ -16,7 +16,7 @@
                 "--target",
                 "lib/main/main_development.dart",
                 "--dart-define",
-                "FIREBASE_DYNAMIC_LINK_URL=https://newstemplate.page.link/"
+                "FLAVOR_DEEP_LINK_DOMAIN=newstemplatedev.page.link"
             ]
         },
         
