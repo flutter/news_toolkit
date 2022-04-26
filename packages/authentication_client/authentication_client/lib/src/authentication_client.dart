@@ -231,7 +231,7 @@ abstract class AuthenticationClient {
     required String appPackageName,
   });
 
-  /// Checks if an incoming link is a sign-in with email link.
+  /// Checks if an incoming [emailLink] is a sign-in with email link.
   ///
   /// Throws a [IsLogInWithEmailLinkFailure] if an exception occurs.
   bool isLogInWithEmailLink({
