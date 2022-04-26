@@ -225,7 +225,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     try {
       final redirectUrl = Uri.https(
         const String.fromEnvironment('FLAVOR_DEEP_LINK_DOMAIN'),
-        '',
+        const String.fromEnvironment('FLAVOR_DEEP_LINK_PATH'),
         <String, String>{'email': email},
       );
 
