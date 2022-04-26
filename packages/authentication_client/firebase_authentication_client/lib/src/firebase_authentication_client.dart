@@ -246,6 +246,9 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     }
   }
 
+  /// Checks if an incoming link is a sign-in with email link.
+  ///
+  /// Throws a [IsLogInWithEmailLinkFailure] if an exception occurs.
   @override
   bool isLogInWithEmailLink({required String emailLink}) {
     try {
