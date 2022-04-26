@@ -223,8 +223,13 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     required String appPackageName,
   }) async {
     try {
+      final redirectUrl = Uri.https(
+        const String.fromEnvironment('FLAVOR_DEEP_LINK_DOMAIN'),
+        '',
+      );
+
       final actionCodeSettings = firebase_auth.ActionCodeSettings(
-        url: const String.fromEnvironment('FLAVOR_DEEP_LINK_DOMAIN'),
+        url: redirectUrl.toString(),
         handleCodeInApp: true,
         iOSBundleId: appPackageName,
         androidPackageName: appPackageName,
