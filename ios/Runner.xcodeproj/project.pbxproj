@@ -307,6 +307,7 @@
 				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseDynamicLinks/FirebaseDynamicLinks.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -332,6 +333,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseDynamicLinks.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -496,6 +498,7 @@
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
 				FLAVOR_APP_NAME = "Google News Template";
+				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -533,6 +536,7 @@
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
 				FLAVOR_APP_NAME = "Google News Template";
+				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -627,6 +631,7 @@
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
 				FACEBOOK_DISPLAY_NAME = "Google News Template";
 				FLAVOR_APP_NAME = "Google News Template [DEV]";
+				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -664,6 +669,7 @@
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
 				FACEBOOK_DISPLAY_NAME = "Google News Template";
 				FLAVOR_APP_NAME = "Google News Template [DEV]";
+				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",

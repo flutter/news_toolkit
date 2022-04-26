@@ -35,13 +35,33 @@
 				<string>$(REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundle ID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
 	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookClientToken</key>
 	<string>$(FACEBOOK_CLIENT_TOKEN)</string>
 	<key>FacebookDisplayName</key>
 	<string>$(FACEBOOK_DISPLAY_NAME)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://$(FLAVOR_DEEP_LINK_DOMAIN)/email_link_login</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -49,10 +69,20 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>TODO</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>TODO</string>
+	<key>NSContactsUsageDescription</key>
+	<string>TODO</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>TODO</string>
+	<key>NSMotionUsageDescription</key>
+	<string>TODO</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>TODO</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -77,21 +107,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>TODO</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>TODO</string>
-	<key>NSContactsUsageDescription</key>
-	<string>TODO</string>
-	<key>NSMotionUsageDescription</key>
-	<string>TODO</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>TODO</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>TODO</string>
 </dict>
 </plist>
