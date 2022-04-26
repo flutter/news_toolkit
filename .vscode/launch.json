@@ -16,7 +16,9 @@
                 "--target",
                 "lib/main/main_development.dart",
                 "--dart-define",
-                "FLAVOR_DEEP_LINK_DOMAIN=newstemplatedev.page.link"
+                "FLAVOR_DEEP_LINK_DOMAIN=googlenewstemplatedev.page.link",
+                "--dart-define",
+                "FLAVOR_DEEP_LINK_PATH=email_login"
             ]
         },
         
