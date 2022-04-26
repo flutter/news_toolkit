@@ -1,0 +1,19 @@
+name: deep_link_client
+description: A Dart package which provides a deep link stream
+publish_to: none
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  firebase_core: ^1.15.0
+  firebase_dynamic_links: ^4.2.0
+  rxdart: ^0.27.3
+  very_good_analysis: ^2.4.0
+
+dev_dependencies:
+  firebase_core_platform_interface: ^4.2.5
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
