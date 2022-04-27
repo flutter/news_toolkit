@@ -65,6 +65,9 @@ class _EmailInputState extends State<_EmailInput> {
 
   @override
   Widget build(BuildContext context) {
+    final showDeleteIcon =
+        context.select((SignUpBloc bloc) => bloc.state.showDeleteIcon);
+
     return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
       controller: controller,
@@ -75,10 +78,11 @@ class _EmailInputState extends State<_EmailInput> {
           context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
         }
       },
-      prefix: const _PrefixTextFieldIcon(),
-      suffix: _SuffixTextFieldIcon(
-        controller: controller,
-      ),
+      onSuffixPressed: () {
+        controller.text = '';
+        context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
+      },
+      suffixOpacity: showDeleteIcon ? 1 : 0,
     );
   }
 }
@@ -123,53 +127,6 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
               style: AppTextStyle.bodyText1,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PrefixTextFieldIcon extends StatelessWidget {
-  const _PrefixTextFieldIcon({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      key: Key('signUpForm_prefixIcon'),
-      padding: EdgeInsets.only(
-        left: AppSpacing.sm,
-        right: AppSpacing.sm,
-      ),
-      child: Icon(
-        Icons.email_outlined,
-        color: AppColors.mediumEmphasis,
-        size: 24,
-      ),
-    );
-  }
-}
-
-class _SuffixTextFieldIcon extends StatelessWidget {
-  const _SuffixTextFieldIcon({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
-  final TextEditingController controller;
-  @override
-  Widget build(BuildContext context) {
-    final showDeleteIcon =
-        context.select((SignUpBloc bloc) => bloc.state.showDeleteIcon);
-    return Padding(
-      key: const Key('signUpForm_suffixIcon'),
-      padding: const EdgeInsets.only(right: AppSpacing.md),
-      child: Opacity(
-        opacity: showDeleteIcon ? 1 : 0,
-        child: GestureDetector(
-          onTap: () {
-            controller.text = '';
-            context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
-          },
-          child: Assets.icons.closeCircle.svg(),
         ),
       ),
     );

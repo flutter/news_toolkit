@@ -27,8 +27,7 @@ void main() {
   const signUpFormHeaderTitleKey = Key('signUpForm_header_title');
   const signUpFormTermsAndPrivatePolicyKey =
       Key('signUpForm_terms_and_private_policy');
-  const signUpFormPrefixIconKey = Key('signUpForm_prefixIcon');
-  const signUpFormSuffixIconKey = Key('signUpForm_suffixIcon');
+  const signUpFormSuffixIconKey = Key('email_textField_suffixIcon');
 
   const testEmail = 'test@gmail.com';
 
@@ -89,22 +88,6 @@ void main() {
         expect(emailTextField, findsOneWidget);
       });
 
-      testWidgets('prefix icon on text field', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        final prefixIcon = find.byKey(signUpFormPrefixIconKey);
-        expect(prefixIcon, findsOneWidget);
-      });
-
-      testWidgets('suffix icon on text field', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        final suffixIcon = find.byKey(signUpFormSuffixIconKey);
-        expect(suffixIcon, findsOneWidget);
-      });
-
       testWidgets('terms and privacy policy text', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
@@ -112,14 +95,6 @@ void main() {
         final termsAndPrivacyPolicyText =
             find.byKey(signUpFormTermsAndPrivatePolicyKey);
         expect(termsAndPrivacyPolicyText, findsOneWidget);
-      });
-
-      testWidgets('suffix icon on text field', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        final suffixIcon = find.byKey(signUpFormSuffixIconKey);
-        expect(suffixIcon, findsOneWidget);
       });
 
       testWidgets('Sign Up Failure SnackBar when submission fails',
