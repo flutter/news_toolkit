@@ -1,0 +1,1 @@
+library google_news_template_api;
