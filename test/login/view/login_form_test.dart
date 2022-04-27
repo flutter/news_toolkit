@@ -143,15 +143,15 @@ void main() {
 
     group('does nothing', () {
       testWidgets('when sign in with twitter button is pressed',
-              (tester) async {
-            await tester.pumpApp(
-              BlocProvider.value(value: loginBloc, child: const LoginForm()),
-            );
-            await tester.ensureVisible(find.byKey(signInWithTwitterButtonKey));
-            await tester.tap(find.byKey(signInWithTwitterButtonKey));
-            await tester.pumpAndSettle();
-            expect(find.byKey(signInWithTwitterButtonKey), findsOneWidget);
-          });
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: loginBloc, child: const LoginForm()),
+        );
+        await tester.ensureVisible(find.byKey(signInWithTwitterButtonKey));
+        await tester.tap(find.byKey(signInWithTwitterButtonKey));
+        await tester.pumpAndSettle();
+        expect(find.byKey(signInWithTwitterButtonKey), findsOneWidget);
+      });
     });
 
     group('navigates', () {
