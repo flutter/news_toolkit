@@ -8,6 +8,8 @@ export 'package:authentication_client/authentication_client.dart'
         SendLoginEmailLinkFailure,
         LogInWithGoogleCanceled,
         LogInWithGoogleFailure,
+        LogInWithTwitterCanceled,
+        LogInWithTwitterFailure,
         LogInWithFacebookCanceled,
         LogInWithFacebookFailure,
         LogOutFailure,

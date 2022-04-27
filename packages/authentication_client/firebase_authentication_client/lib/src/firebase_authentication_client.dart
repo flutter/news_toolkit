@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 /// Signature for [SignInWithApple.getAppleIDCredential].
 typedef GetAppleCredentials = Future<AuthorizationCredentialAppleID> Function({
@@ -22,16 +23,24 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     GoogleSignIn? googleSignIn,
     GetAppleCredentials? getAppleCredentials,
     FacebookAuth? facebookAuth,
+    TwitterLogin? twitterLogin,
   })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _getAppleCredentials =
             getAppleCredentials ?? SignInWithApple.getAppleIDCredential,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance,
+        _twitterLogin = twitterLogin ??
+            TwitterLogin(
+              apiKey: const String.fromEnvironment('TWITTER_API_KEY'),
+              apiSecretKey: const String.fromEnvironment('TWITTER_API_SECRET'),
+              redirectURI: const String.fromEnvironment('TWITTER_REDIRECT_URI'),
+            );
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final GetAppleCredentials _getAppleCredentials;
   final FacebookAuth _facebookAuth;
+  final TwitterLogin _twitterLogin;
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
@@ -189,6 +198,50 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
       rethrow;
     } catch (error, stackTrace) {
       throw LogInWithFacebookFailure(error, stackTrace);
+    }
+  }
+
+  /// Starts the Sign In with Twitter Flow.
+  ///
+  /// Throws a [LogInWithTwitterCanceled] if the flow is canceled by the user.
+  /// Throws a [LogInWithTwitterFailure] if an exception occurs.
+  @override
+  Future<void> logInWithTwitter() async {
+    try {
+      final loginResult = await _twitterLogin.loginV2();
+      if (loginResult.status == TwitterLoginStatus.cancelledByUser) {
+        throw LogInWithTwitterCanceled(
+          Exception('Sign in with Twitter canceled'),
+          StackTrace.current,
+        );
+      } else if (loginResult.status == TwitterLoginStatus.error) {
+        throw LogInWithTwitterFailure(
+          Exception(loginResult.errorMessage),
+          StackTrace.current,
+        );
+      }
+
+      final authToken = loginResult.authToken;
+      final authTokenSecret = loginResult.authTokenSecret;
+      if (authToken == null || authTokenSecret == null) {
+        throw LogInWithTwitterFailure(
+          Exception(
+            'Sign in with Twitter failed due to invalid auth token or secret',
+          ),
+          StackTrace.current,
+        );
+      }
+
+      final credential = firebase_auth.TwitterAuthProvider.credential(
+        accessToken: authToken,
+        secret: authTokenSecret,
+      );
+
+      await _firebaseAuth.signInWithCredential(credential);
+    } on LogInWithTwitterCanceled {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithTwitterFailure(error, stackTrace);
     }
   }
 
