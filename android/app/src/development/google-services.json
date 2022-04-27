@@ -39,10 +39,11 @@
               "client_type": 3
             },
             {
-              "client_id": "737894073936-jvnfo3khepgkaq90m7r0j97mfeonnlna.apps.googleusercontent.com",
+              "client_id": "737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.google.news-template"
+                "bundle_id": "com.google.news.template.dev",
+                "app_store_id": "123456789"
               }
             }
           ]
