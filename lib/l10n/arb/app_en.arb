@@ -59,30 +59,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "signInWithGoogleButtonText": "Sign in with Google",
-  "@signInWithGoogleButtonText": {
-    "description": "Sign in with Google Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signInWithFacebookButtonText": "Sign in with Facebook",
-  "@signInWithFacebookButtonText": {
-    "description": "Sign in with Facebook Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signInWithTwitterButtonText": "Sign in with Twitter",
-  "@signInWithTwitterButtonText": {
-    "description": "Sign in with Twitter Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signInWithAppleButtonText": "Sign in with Apple",
-  "@signInWithAppleButtonText": {
-    "description": "Sign in with Apple Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
   "signUpButtonText": "Sign Up",
   "@signUpButtonText": {
     "description": "Sign Up button title shown on Sign Up page",
