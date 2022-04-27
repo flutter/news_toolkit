@@ -25,7 +25,7 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: AppEmailField(
           hintText: 'Your email address',
-          onChanged: (email) {},
+          onChanged: (_) {},
           suffixOpacity: 1,
           onSuffixPressed: () {},
         ),
