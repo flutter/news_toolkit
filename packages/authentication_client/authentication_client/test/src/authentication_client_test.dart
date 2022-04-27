@@ -113,6 +113,20 @@ void main() {
     );
   });
 
+  test('exports LogInWithTwitterFailure', () {
+    expect(
+      () => LogInWithTwitterFailure('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
+  test('exports LogInWithTwitterCanceled', () {
+    expect(
+      () => LogInWithTwitterCanceled('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
   test('exports LogOutFailure', () {
     expect(
       () => LogOutFailure('oops', StackTrace.empty),
