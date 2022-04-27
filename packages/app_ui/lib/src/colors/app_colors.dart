@@ -65,9 +65,6 @@ abstract class AppColors {
   /// The input enabled color.
   static const Color inputEnabled = Color(0xFFEDEDED);
 
-  /// The disabled color.
-  static const Color disabled = Color(0xFFD8D8D8);
-
   /// The pastel grey color.
   static const Color pastelGrey = Color(0xFFCCCCCC);
 

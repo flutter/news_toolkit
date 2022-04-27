@@ -121,7 +121,6 @@ class AppEmailField extends StatelessWidget {
     Key? key,
     this.controller,
     this.hintText,
-    this.errorText,
     this.onSuffixPressed,
     double? suffixOpacity,
     this.onChanged,
@@ -134,18 +133,13 @@ class AppEmailField extends StatelessWidget {
   /// Text that suggests what sort of input the field accepts.
   final String? hintText;
 
-  /// Text that appears below the field.
-  final String? errorText;
-
-  /// A widget that appears before the editable part of the text field when
-  /// the value is changed.
+  /// Called when the user clicks on the suffix icon.
   final VoidCallback? onSuffixPressed;
 
-  // Double to hide/show the suffix icon
+  /// The opacity of the suffix icon.
   final double _suffixOpacity;
 
   /// Called when the user initiates a change to the TextField's
-  /// value: when they have inserted or deleted text.
   final ValueChanged<String>? onChanged;
 
   @override
@@ -153,7 +147,6 @@ class AppEmailField extends StatelessWidget {
     return AppTextField(
       controller: controller,
       hintText: hintText,
-      errorText: errorText,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,
       prefix: const Padding(
