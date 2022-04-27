@@ -168,6 +168,7 @@ class AppEmailField extends StatelessWidget {
         ),
       ),
       suffix: Padding(
+        key: const Key('email_textField_suffixIcon'),
         padding: const EdgeInsets.only(right: AppSpacing.md),
         child: Opacity(
           opacity: _suffixOpacity,
