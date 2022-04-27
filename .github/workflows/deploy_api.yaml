@@ -7,8 +7,6 @@ on:
       - ".github/workflows/deploy_api.yaml"
     branches:
       - main
-  pull_request:
-    branches:
       - ci/deploy
 
 env:
