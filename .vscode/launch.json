@@ -1,47 +1,50 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        
-        {
-            "name": "development",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main/main_development.dart",
-            "args": [
-                "--flavor",
-                "development",
-                "--target",
-                "lib/main/main_development.dart",
-                "--dart-define",
-                "TWITTER_API_KEY=jxG8uZsNuHxn6oeUZm8wfWFcH",
-                "--dart-define",
-                "TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI",
-                "--dart-define",
-                "TWITTER_REDIRECT_URI=google-news-template://"
-            ]
-        },
-        
-        {
-            "name": "production",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main/main_production.dart",
-            "args": [
-                "--flavor",
-                "production",
-                "--target",
-                "lib/main/main_production.dart"
-            ]
-        },
-        
-        {
-            "name": "Launch UI Gallery",
-            "request": "launch",
-            "type": "dart",
-            "program": "packages/app_ui/gallery/lib/main.dart"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "development",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main/main_development.dart",
+      "args": [
+        "--flavor",
+        "development",
+        "--target",
+        "lib/main/main_development.dart",
+        "--dart-define",
+        "TWITTER_API_KEY=jxG8uZsNuHxn6oeUZm8wfWFcH",
+        "--dart-define",
+        "TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI",
+        "--dart-define",
+        "TWITTER_REDIRECT_URI=google-news-template://"
+      ]
+    },
+    {
+      "name": "production",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main/main_production.dart",
+      "args": [
+        "--flavor",
+        "production",
+        "--target",
+        "lib/main/main_production.dart"
+      ]
+    },
+    {
+      "name": "Launch UI Gallery",
+      "request": "launch",
+      "type": "dart",
+      "program": "packages/app_ui/gallery/lib/main.dart"
+    },
+    {
+      "name": "Launch API",
+      "request": "launch",
+      "type": "dart",
+      "program": "api/bin/server.dart"
+    }
+  ]
 }
