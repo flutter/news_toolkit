@@ -96,7 +96,7 @@ class _SignUpButton extends StatelessWidget {
           : null,
       child: status.isSubmissionInProgress
           ? const CircularProgressIndicator()
-          : Text(l10n.signUpButtonText),
+          : Text(l10n.nextButtonText),
     );
   }
 }

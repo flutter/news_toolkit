@@ -154,5 +154,12 @@
     "description": "Continue with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
+  },
+
+  "nextButtonText": "Next",
+  "@nextButtonText": {
+    "description": "Sign up next button shown on the sign up form",
+    "type": "text",
+    "placeholders": {}
   }
 }
