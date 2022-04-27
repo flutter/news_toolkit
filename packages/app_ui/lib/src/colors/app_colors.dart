@@ -8,7 +8,7 @@ abstract class AppColors {
   /// Light black
   static const Color lightBlack = Colors.black54;
 
-  // Medium Emphasis
+  /// Medium Emphasis
   static const Color mediumEmphasis = Color(0x99000000);
 
   /// White
