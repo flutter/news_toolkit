@@ -59,18 +59,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "signInWithGoogleButtonText": "Sign in with Google",
-  "@signInWithGoogleButtonText": {
-    "description": "Sign in with Google Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signInWithAppleButtonText": "Sign in with Apple",
-  "@signInWithAppleButtonText": {
-    "description": "Sign in with Apple Button Text",
-    "type": "text",
-    "placeholders": {}
-  },
   "nextButtonText": "Next",
   "@nextButtonText": {
     "description": "Next button title shown on Sign Up form",

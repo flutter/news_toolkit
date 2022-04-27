@@ -14,7 +14,13 @@
                 "--flavor",
                 "development",
                 "--target",
-                "lib/main/main_development.dart"
+                "lib/main/main_development.dart",
+                "--dart-define",
+                "TWITTER_API_KEY=jxG8uZsNuHxn6oeUZm8wfWFcH",
+                "--dart-define",
+                "TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI",
+                "--dart-define",
+                "TWITTER_REDIRECT_URI=google-news-template://"
             ]
         },
         

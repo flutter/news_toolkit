@@ -154,9 +154,7 @@ class _FacebookLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.blueDress(
       key: const Key('loginForm_facebookLogin_elevatedButton'),
-      onPressed: () {
-        // TODO(ana): add login with facebook
-      },
+      onPressed: () => context.read<LoginBloc>().add(LoginFacebookSubmitted()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
