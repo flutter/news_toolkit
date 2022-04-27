@@ -19,7 +19,7 @@ class DeepLinkClientFailure with EquatableMixin implements Exception {
   final StackTrace stackTrace;
 
   @override
-  List<Object?> get props => [error, stackTrace];
+  List<Object> get props => [error, stackTrace];
 }
 
 /// {@template deep_link_client}
