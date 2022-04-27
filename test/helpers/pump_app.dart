@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
+import 'package:mockingjay/mockingjay.dart'
+    show MockNavigatorProvider, MockNavigator;
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -30,6 +32,7 @@ extension AppTester on WidgetTester {
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
+    MockNavigator? navigator,
   }) async {
     await pumpWidget(
       MultiRepositoryProvider(
@@ -53,7 +56,12 @@ extension AppTester on WidgetTester {
             ],
             home: Theme(
               data: ThemeData(platform: platform),
-              child: Scaffold(body: widgetUnderTest),
+              child: navigator == null
+                  ? Scaffold(body: widgetUnderTest)
+                  : MockNavigatorProvider(
+                      navigator: navigator,
+                      child: Scaffold(body: widgetUnderTest),
+                    ),
             ),
             navigatorObservers: [
               if (navigatorObserver != null) navigatorObserver

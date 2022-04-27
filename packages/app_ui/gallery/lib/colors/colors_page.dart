@@ -14,6 +14,7 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Black', color: AppColors.black),
       _ColorItem(name: 'Black Light', color: AppColors.lightBlack),
       _ColorItem(name: 'White', color: AppColors.white),
+      _ColorItem(name: 'Modal Background', color: AppColors.modalBackground),
       _ColorItem(name: 'Transparent', color: AppColors.transparent),
       _ColorItem(name: 'Blue', color: AppColors.blue),
       _ColorItem(name: 'Sky Blue', color: AppColors.skyBlue),

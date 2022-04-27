@@ -45,6 +45,12 @@ void main() {
       });
     });
 
+    group('LoginFacebookSubmitted', () {
+      test('supports value comparisons', () {
+        expect(LoginFacebookSubmitted(), LoginFacebookSubmitted());
+      });
+    });
+
     group('LoginAppleSubmitted', () {
       test('supports value comparisons', () {
         expect(LoginAppleSubmitted(), LoginAppleSubmitted());

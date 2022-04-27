@@ -21,6 +21,11 @@ class WidgetsPage extends StatelessWidget {
         title: const Text('App Buttons'),
         onTap: () => Navigator.of(context).push<void>(AppButtonPage.route()),
       ),
+      _ListItem(
+        icon: const Icon(Icons.ad_units_rounded),
+        title: const Text('Show modal'),
+        onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
+      ),
     ];
 
     return Scaffold(

@@ -154,5 +154,23 @@
     "description": "Tooltip shown on the open profile button",
     "type": "text",
     "placeholders": {}
+  },
+  "loginModalTitle": "Log In",
+  "@loginModalTitle": {
+    "description": "Log in modal title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginModalSubtitle": "Log in to access articles and save\nyour preferences.",
+  "@loginModalSubtitle": {
+    "description": "Log in modal subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueWithEmailButtonText": "Continue with Email",
+  "@continueWithEmailButtonText": {
+    "description": "Continue with email button text shown on the log in modal",
+    "type": "text",
+    "placeholders": {}
   }
 }
