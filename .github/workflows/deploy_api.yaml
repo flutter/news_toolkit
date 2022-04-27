@@ -7,7 +7,6 @@ on:
       - ".github/workflows/deploy_api.yaml"
     branches:
       - main
-      - ci/deploy
 
 env:
   PROJECT_ID: news-template-644a1
