@@ -12,6 +12,19 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/apple.svg
+  SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
+
+  /// File path: assets/icons/email_outline.svg
+  SvgGenImage get emailOutline =>
+      const SvgGenImage('assets/icons/email_outline.svg');
+
+  /// File path: assets/icons/facebook.svg
+  SvgGenImage get facebook => const SvgGenImage('assets/icons/facebook.svg');
+
+  /// File path: assets/icons/google.svg
+  SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
+
   /// File path: assets/icons/log_in_icon.svg
   SvgGenImage get logInIcon =>
       const SvgGenImage('assets/icons/log_in_icon.svg');
@@ -19,6 +32,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/profile_icon.svg
   SvgGenImage get profileIcon =>
       const SvgGenImage('assets/icons/profile_icon.svg');
+
+  /// File path: assets/icons/twitter.svg
+  SvgGenImage get twitter => const SvgGenImage('assets/icons/twitter.svg');
 }
 
 class $AssetsImagesGen {
@@ -26,6 +42,22 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/.gitkeep
   String get gitkeep => 'assets/images/.gitkeep';
+
+  /// File path: assets/images/continue_with_apple.svg
+  SvgGenImage get continueWithApple =>
+      const SvgGenImage('assets/images/continue_with_apple.svg');
+
+  /// File path: assets/images/continue_with_facebook.svg
+  SvgGenImage get continueWithFacebook =>
+      const SvgGenImage('assets/images/continue_with_facebook.svg');
+
+  /// File path: assets/images/continue_with_google.svg
+  SvgGenImage get continueWithGoogle =>
+      const SvgGenImage('assets/images/continue_with_google.svg');
+
+  /// File path: assets/images/continue_with_twitter.svg
+  SvgGenImage get continueWithTwitter =>
+      const SvgGenImage('assets/images/continue_with_twitter.svg');
 }
 
 class Assets {

@@ -36,6 +36,9 @@ void main() {
         () => userRepository.logInWithGoogle(),
       ).thenAnswer((_) => Future<void>.value());
       when(
+        () => userRepository.logInWithTwitter(),
+      ).thenAnswer((_) => Future<void>.value());
+      when(
         () => userRepository.logInWithFacebook(),
       ).thenAnswer((_) => Future<void>.value());
       when(
@@ -311,6 +314,62 @@ void main() {
         },
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
+        expect: () => <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionCanceled),
+        ],
+      );
+    });
+
+    group('LoginTwitterSubmitted', () {
+      blocTest<LoginBloc, LoginState>(
+        'calls logInWithTwitter',
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginTwitterSubmitted()),
+        verify: (_) {
+          verify(() => userRepository.logInWithTwitter()).called(1);
+        },
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionSuccess] '
+        'when logInWithTwitter succeeds',
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginTwitterSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionSuccess)
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionFailure] '
+        'when logInWithTwitter fails',
+        setUp: () {
+          when(
+            () => userRepository.logInWithTwitter(),
+          ).thenThrow(Exception('oops'));
+        },
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginTwitterSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(status: FormzStatus.submissionInProgress),
+          LoginState(status: FormzStatus.submissionFailure)
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionCanceled] '
+        'when logInWithTwitter is canceled',
+        setUp: () {
+          when(
+            () => userRepository.logInWithTwitter(),
+          ).thenThrow(
+            LogInWithTwitterCanceled(Exception(), StackTrace.current),
+          );
+        },
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => <LoginState>[
           LoginState(status: FormzStatus.submissionInProgress),
           LoginState(status: FormzStatus.submissionCanceled),

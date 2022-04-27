@@ -20,6 +20,12 @@ class FakeLogInWithGoogleFailure extends Fake
 class FakeLogInWithGoogleCanceled extends Fake
     implements LogInWithGoogleCanceled {}
 
+class FakeLogInWithTwitterFailure extends Fake
+    implements LogInWithTwitterFailure {}
+
+class FakeLogInWithTwitterCanceled extends Fake
+    implements LogInWithTwitterCanceled {}
+
 class FakeLogInWithFacebookFailure extends Fake
     implements LogInWithFacebookFailure {}
 
@@ -226,6 +232,40 @@ void main() {
       });
     });
 
+    group('logInWithTwitter', () {
+      test('calls logInWithTwitter on AuthenticationClient', () async {
+        when(
+          () => authenticationClient.logInWithTwitter(),
+        ).thenAnswer((_) async {});
+        await userRepository.logInWithTwitter();
+        verify(() => authenticationClient.logInWithTwitter()).called(1);
+      });
+
+      test('rethrows LogInWithTwitterFailure', () async {
+        final exception = FakeLogInWithTwitterFailure();
+        when(() => authenticationClient.logInWithTwitter())
+            .thenThrow(exception);
+        expect(() => userRepository.logInWithTwitter(), throwsA(exception));
+      });
+
+      test('rethrows LogInWithTwitterCanceled', () async {
+        final exception = FakeLogInWithTwitterCanceled();
+        when(() => authenticationClient.logInWithTwitter())
+            .thenThrow(exception);
+        expect(userRepository.logInWithTwitter(), throwsA(exception));
+      });
+
+      test('throws LogInWithTwitterFailure on generic exception', () async {
+        when(
+          () => authenticationClient.logInWithTwitter(),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.logInWithTwitter(),
+          throwsA(isA<LogInWithTwitterFailure>()),
+        );
+      });
+    });
+
     group('logInWithFacebook', () {
       test('calls logInWithFacebook on AuthenticationClient', () async {
         when(
@@ -319,17 +359,12 @@ void main() {
     });
 
     group('sendLoginEmailLink', () {
-      const packageInfo = PackageInfo(
-        appName: 'appName',
-        packageName: 'packageName',
-        version: 'version',
-        buildNumber: 'buildNumber',
-      );
+      const packageName = 'appPackageName';
 
       setUp(() {
         when(
-          () => packageInfoClient.fetchPackageInfo(),
-        ).thenAnswer((_) async => packageInfo);
+          () => packageInfoClient.packageName,
+        ).thenReturn(packageName);
         when(
           () => authenticationClient.sendLoginEmailLink(
             email: any(named: 'email'),
@@ -348,7 +383,7 @@ void main() {
         verify(
           () => authenticationClient.sendLoginEmailLink(
             email: any(named: 'email'),
-            appPackageName: packageInfo.packageName,
+            appPackageName: packageName,
           ),
         ).called(1);
       });

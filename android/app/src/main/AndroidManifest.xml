@@ -38,10 +38,21 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- Registered callback URL for deep linking -->
                 <data
                     android:host="@string/flavor_deep_link_domain"
                     android:scheme="https"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                
+                <!-- Registered callback URL for Twitter authentication -->
+                <data android:scheme="@string/twitter_redirect_uri_scheme" />
+            </intent-filter>  
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

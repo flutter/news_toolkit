@@ -19,7 +19,7 @@ class DeepLinkClientFailure with EquatableMixin implements Exception {
   final StackTrace stackTrace;
 
   @override
-  List<Object?> get props => [error, stackTrace];
+  List<Object> get props => [error, stackTrace];
 }
 
 /// {@template deep_link_client}
@@ -32,31 +32,33 @@ class DeepLinkClient {
     _firebaseDynamicLinks =
         firebaseDynamicLinks ?? FirebaseDynamicLinks.instance;
 
-    _firebaseDynamicLinks.getInitialLink().then(
-      (deepLink) {
-        if (deepLink != null) {
-          _onAppLink(deepLink);
-        }
-      },
-    ).catchError(_handleError);
-
+    unawaited(_getInitialLink());
     _firebaseDynamicLinks.onLink.listen(_onAppLink).onError(_handleError);
   }
 
   late final FirebaseDynamicLinks _firebaseDynamicLinks;
   final BehaviorSubject<Uri> _deepLinkSubject;
 
+  /// Provides a stream of URIs intercepted by the app. Will emit the latest
+  /// received value (if any) as first.
+  Stream<Uri> get deepLinkStream => _deepLinkSubject;
+
+  Future<void> _getInitialLink() async {
+    try {
+      final deepLink = await _firebaseDynamicLinks.getInitialLink();
+      if (deepLink != null) {
+        _onAppLink(deepLink);
+      }
+    } catch (error, stackTrace) {
+      _handleError(error, stackTrace);
+    }
+  }
+
   void _onAppLink(PendingDynamicLinkData dynamicLinkData) {
     _deepLinkSubject.add(dynamicLinkData.link);
   }
 
-  // Null is forced by Future.catchError(…).
-  // ignore: prefer_void_to_null
-  FutureOr<Null> _handleError(Object error, StackTrace stackTrace) async {
+  void _handleError(Object error, StackTrace stackTrace) {
     _deepLinkSubject.addError(DeepLinkClientFailure(error, stackTrace));
   }
-
-  /// Provides a stream of URIs intercepted by the app. Will emit the latest
-  /// received value (if any) as first.
-  Stream<Uri> get deepLinkStream => _deepLinkSubject;
 }
