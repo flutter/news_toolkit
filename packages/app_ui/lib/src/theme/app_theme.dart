@@ -102,12 +102,16 @@ class AppTheme {
     return InputDecorationTheme(
       suffixIconColor: AppColors.mediumEmphasis,
       prefixIconColor: AppColors.mediumEmphasis,
+      hoverColor: AppColors.inputHover,
+      focusColor: AppColors.inputFocused,
+      fillColor: AppColors.inputEnabled,
       enabledBorder: _textFieldBorder,
       focusedBorder: _textFieldBorder,
       disabledBorder: _textFieldBorder,
       hintStyle: AppTextStyle.bodyText1.copyWith(
         color: AppColors.mediumEmphasis,
       ),
+      contentPadding: const EdgeInsets.all(AppSpacing.lg),
       border: const UnderlineInputBorder(),
       filled: true,
       isDense: true,

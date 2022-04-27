@@ -30,7 +30,17 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Liver', color: AppColors.liver),
       _ColorItem(name: 'Surface 2', color: AppColors.surface2),
       _ColorItem(
-          name: 'TextField Background', color: AppColors.textFieldBackground),
+        name: 'Input Enabled',
+        color: AppColors.inputEnabled,
+      ),
+      _ColorItem(
+        name: 'Input Hover',
+        color: AppColors.inputHover,
+      ),
+      _ColorItem(
+        name: 'Input Focused',
+        color: AppColors.inputFocused,
+      ),
       _ColorItem(name: 'Pastel Grey', color: AppColors.pastelGrey),
       _ColorItem(name: 'Pale Sky', color: AppColors.paleSky),
       _ColorItem(name: 'Green', color: AppColors.green),

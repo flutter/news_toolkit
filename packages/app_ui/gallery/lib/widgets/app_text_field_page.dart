@@ -14,7 +14,6 @@ class AppTextFieldPage extends StatefulWidget {
 }
 
 class _AppTextFieldPageState extends State<AppTextFieldPage> {
-  var _opacity = 0.0;
   final TextEditingController controller = TextEditingController();
 
   @override
@@ -31,41 +30,9 @@ class _AppTextFieldPageState extends State<AppTextFieldPage> {
           controller: controller,
           hintText: 'Your email address',
           errorText: _errorText,
-          prefix: const Padding(
-            padding: EdgeInsets.only(
-              left: AppSpacing.sm,
-              right: AppSpacing.sm,
-            ),
-            child: Icon(
-              Icons.email_outlined,
-              color: AppColors.mediumEmphasis,
-              size: 24,
-            ),
-          ),
-          onChanged: (email) {
-            setState(() {
-              if (email.isNotEmpty) {
-                _opacity = 1.0;
-              } else {
-                _opacity = 0.0;
-              }
-            });
-          },
-          suffix: Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.md),
-            child: Opacity(
-              opacity: _opacity,
-              child: GestureDetector(
-                onTap: () {
-                  controller.text = '';
-                  setState(() {
-                    _opacity = 0.0;
-                  });
-                },
-                child: Assets.icons.closeCircle.svg(),
-              ),
-            ),
-          ),
+          onChanged: (email) {},
+          suffixOpacity: 1,
+          onSuffixPressed: () {},
         ),
       ),
     );
