@@ -17,6 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEmailLinkSubmitted>(_onEmailLinkSubmitted);
     on<LoginGoogleSubmitted>(_onGoogleSubmitted);
     on<LoginAppleSubmitted>(_onAppleSubmitted);
+    on<LoginTwitterSubmitted>(_onTwitterSubmitted);
     on<LoginFacebookSubmitted>(_onFacebookSubmitted);
   }
 
@@ -101,6 +102,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _userRepository.logInWithApple();
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } catch (_) {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
+  }
+
+  Future<void> _onTwitterSubmitted(
+    LoginTwitterSubmitted event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    try {
+      await _userRepository.logInWithTwitter();
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } on LogInWithTwitterCanceled {
+      emit(state.copyWith(status: FormzStatus.submissionCanceled));
     } catch (_) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }

@@ -81,6 +81,22 @@ class UserRepository {
     }
   }
 
+  /// Starts the Sign In with Twitter Flow.
+  ///
+  /// Throws a [LogInWithTwitterCanceled] if the flow is canceled by the user.
+  /// Throws a [LogInWithTwitterFailure] if an exception occurs.
+  Future<void> logInWithTwitter() async {
+    try {
+      await _authenticationClient.logInWithTwitter();
+    } on LogInWithTwitterFailure {
+      rethrow;
+    } on LogInWithTwitterCanceled {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithTwitterFailure(error, stackTrace);
+    }
+  }
+
   /// Starts the Sign In with Facebook Flow.
   ///
   /// Throws a [LogInWithFacebookCanceled] if the flow is canceled by the user.
@@ -123,10 +139,9 @@ class UserRepository {
     required String email,
   }) async {
     try {
-      final packageInfo = await _packageInfoClient.fetchPackageInfo();
       await _authenticationClient.sendLoginEmailLink(
         email: email,
-        appPackageName: packageInfo.packageName,
+        appPackageName: _packageInfoClient.packageName,
       );
     } on SendLoginEmailLinkFailure {
       rethrow;

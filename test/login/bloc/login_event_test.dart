@@ -45,6 +45,12 @@ void main() {
       });
     });
 
+    group('LoginTwitterSubmitted', () {
+      test('supports value comparisons', () {
+        expect(LoginTwitterSubmitted(), LoginTwitterSubmitted());
+      });
+    });
+
     group('LoginFacebookSubmitted', () {
       test('supports value comparisons', () {
         expect(LoginFacebookSubmitted(), LoginFacebookSubmitted());
