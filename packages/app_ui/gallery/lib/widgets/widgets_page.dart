@@ -24,7 +24,7 @@ class WidgetsPage extends StatelessWidget {
       ),
       _ListItem(
         icon: const Icon(Icons.ad_units_rounded),
-        title: const Text('Show modal'),
+        title: const Text('Show Modal'),
         onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
       ),
       _ListItem(
