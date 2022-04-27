@@ -56,13 +56,13 @@ abstract class AppColors {
   /// The pale sky color.
   static const Color paleSky = Color(0xFF73777F);
 
-  /// The inputHover color.
+  /// The input hover color.
   static const Color inputHover = Color(0xFFE4E4E4);
 
-  /// The inputFocused color.
+  /// The input focused color.
   static const Color inputFocused = Color(0xFFD1D1D1);
 
-  /// The inputEnabled color.
+  /// The input enabled color.
   static const Color inputEnabled = Color(0xFFEDEDED);
 
   /// The disabled color.
