@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "development",
+      "name": "Launch Development",
       "request": "launch",
       "type": "dart",
       "program": "lib/main/main_development.dart",
@@ -20,10 +20,14 @@
         "TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI",
         "--dart-define",
         "TWITTER_REDIRECT_URI=google-news-template://"
-      ]
+      ],
+      "presentation": {
+        "group": "1_frontend",
+        "order": 1
+      }
     },
     {
-      "name": "production",
+      "name": "Launch Production",
       "request": "launch",
       "type": "dart",
       "program": "lib/main/main_production.dart",
@@ -32,19 +36,31 @@
         "production",
         "--target",
         "lib/main/main_production.dart"
-      ]
+      ],
+      "presentation": {
+        "group": "1_frontend",
+        "order": 2
+      }
     },
     {
       "name": "Launch UI Gallery",
       "request": "launch",
       "type": "dart",
-      "program": "packages/app_ui/gallery/lib/main.dart"
+      "program": "packages/app_ui/gallery/lib/main.dart",
+      "presentation": {
+        "group": "2_gallery",
+        "order": 1
+      }
     },
     {
       "name": "Launch API",
       "request": "launch",
       "type": "dart",
-      "program": "api/bin/server.dart"
+      "program": "api/bin/server.dart",
+      "presentation": {
+        "group": "3_backend",
+        "order": 1
+      }
     }
   ]
 }
