@@ -63,7 +63,7 @@ class UserRepository {
   /// Starts the Sign In with Google Flow.
   ///
   /// Throws a [LogInWithGoogleCanceled] if the flow is canceled by the user.
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
+  /// Throws a [LogInWithGoogleFailure] if an exception occurs.
   Future<void> logInWithGoogle() async {
     try {
       await _authenticationClient.logInWithGoogle();
@@ -89,6 +89,22 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       throw LogInWithTwitterFailure(error, stackTrace);
+    }
+  }
+
+  /// Starts the Sign In with Facebook Flow.
+  ///
+  /// Throws a [LogInWithFacebookCanceled] if the flow is canceled by the user.
+  /// Throws a [LogInWithFacebookFailure] if an exception occurs.
+  Future<void> logInWithFacebook() async {
+    try {
+      await _authenticationClient.logInWithFacebook();
+    } on LogInWithFacebookFailure {
+      rethrow;
+    } on LogInWithFacebookCanceled {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithFacebookFailure(error, stackTrace);
     }
   }
 

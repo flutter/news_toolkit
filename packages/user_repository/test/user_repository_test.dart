@@ -23,6 +23,12 @@ class FakeLogInWithTwitterFailure extends Fake
 class FakeLogInWithTwitterCanceled extends Fake
     implements LogInWithTwitterCanceled {}
 
+class FakeLogInWithFacebookFailure extends Fake
+    implements LogInWithFacebookFailure {}
+
+class FakeLogInWithFacebookCanceled extends Fake
+    implements LogInWithFacebookCanceled {}
+
 class FakeLogInWithEmailAndPasswordFailure extends Fake
     implements LogInWithEmailAndPasswordFailure {}
 
@@ -247,6 +253,40 @@ void main() {
         expect(
           () => userRepository.logInWithTwitter(),
           throwsA(isA<LogInWithTwitterFailure>()),
+        );
+      });
+    });
+
+    group('logInWithFacebook', () {
+      test('calls logInWithFacebook on AuthenticationClient', () async {
+        when(
+          () => authenticationClient.logInWithFacebook(),
+        ).thenAnswer((_) async {});
+        await userRepository.logInWithFacebook();
+        verify(() => authenticationClient.logInWithFacebook()).called(1);
+      });
+
+      test('rethrows LogInWithFacebookFailure', () async {
+        final exception = FakeLogInWithFacebookFailure();
+        when(() => authenticationClient.logInWithFacebook())
+            .thenThrow(exception);
+        expect(() => userRepository.logInWithFacebook(), throwsA(exception));
+      });
+
+      test('rethrows LogInWithFacebookCanceled', () async {
+        final exception = FakeLogInWithFacebookCanceled();
+        when(() => authenticationClient.logInWithFacebook())
+            .thenThrow(exception);
+        expect(userRepository.logInWithFacebook(), throwsA(exception));
+      });
+
+      test('throws LogInWithFacebookFailure on generic exception', () async {
+        when(
+          () => authenticationClient.logInWithFacebook(),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.logInWithFacebook(),
+          throwsA(isA<LogInWithFacebookFailure>()),
         );
       });
     });
