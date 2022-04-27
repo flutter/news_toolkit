@@ -67,8 +67,7 @@ class AppTextField extends StatelessWidget {
   /// [TextInputType.multiline] otherwise.
   final TextInputType? keyboardType;
 
-  /// Called when the user initiates a change to the TextField's
-  /// value: when they have inserted or deleted text.
+  /// Called when the user inserts or deletes texts in the text field.
   final ValueChanged<String>? onChanged;
 
   /// Called when the text field has been tapped.
@@ -148,7 +147,7 @@ class AppEmailField extends StatelessWidget {
   /// List of auto fill hints.
   final Iterable<String>? autoFillHints;
 
-  /// Called when the user initiates a change to the TextField's
+  /// Called when the user inserts or deletes texts in the text field.
   final ValueChanged<String>? onChanged;
 
   @override
