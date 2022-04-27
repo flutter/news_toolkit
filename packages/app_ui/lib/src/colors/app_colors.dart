@@ -56,6 +56,18 @@ abstract class AppColors {
   /// The pale sky color.
   static const Color paleSky = Color(0xFF73777F);
 
+  /// The inputHover color.
+  static const Color inputHover = Color(0xFFE4E4E4);
+
+  /// The inputFocused color.
+  static const Color inputFocused = Color(0xFFD1D1D1);
+
+  /// The inputEnabled color.
+  static const Color inputEnabled = Color(0xFFEDEDED);
+
+  /// The disabled color.
+  static const Color disabled = Color(0xFFD8D8D8);
+
   /// The pastel grey color.
   static const Color pastelGrey = Color(0xFFCCCCCC);
 
@@ -73,9 +85,6 @@ abstract class AppColors {
 
   /// The on-background color.
   static const Color onBackground = Color(0xFF1A1A1A);
-
-  /// The textField background color.
-  static const Color textFieldBackground = Color(0xFF212121);
 
   /// The dark on-background color.
   static const Color darkOnBackground = Color(0xFFFFFFFF);

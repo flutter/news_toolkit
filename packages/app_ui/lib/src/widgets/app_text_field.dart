@@ -86,15 +86,12 @@ class AppTextField extends StatelessWidget {
             keyboardType: keyboardType,
             autocorrect: autocorrect,
             readOnly: readOnly,
-            cursorColor: AppColors.black.withOpacity(0.4),
+            cursorColor: AppColors.darkAqua,
             style: AppTextStyle.headline6.copyWith(
               fontWeight: FontWeight.w500,
             ),
             decoration: InputDecoration(
               hintText: hintText,
-              // TODO(ana): change later with the new colors
-              fillColor: AppColors.textFieldBackground.withOpacity(0.08),
-              contentPadding: const EdgeInsets.all(AppSpacing.lg),
               errorText: errorText,
               prefixIcon: prefix,
               suffixIcon: suffix,
@@ -125,10 +122,11 @@ class AppEmailField extends StatelessWidget {
     this.controller,
     this.hintText,
     this.errorText,
-    this.prefix,
-    this.suffix,
+    this.onSuffixPressed,
+    double? suffixOpacity,
     this.onChanged,
-  }) : super(key: key);
+  })  : _suffixOpacity = suffixOpacity ?? 0.0,
+        super(key: key);
 
   /// Controls the text being edited.
   final TextEditingController? controller;
@@ -139,12 +137,12 @@ class AppEmailField extends StatelessWidget {
   /// Text that appears below the field.
   final String? errorText;
 
-  /// A widget that appears before the editable part of the text field.
-  final Widget? prefix;
-
   /// A widget that appears before the editable part of the text field when
   /// the value is changed.
-  final Widget? suffix;
+  final VoidCallback? onSuffixPressed;
+
+  // Double to hide/show the suffix icon
+  final double _suffixOpacity;
 
   /// Called when the user initiates a change to the TextField's
   /// value: when they have inserted or deleted text.
@@ -158,8 +156,27 @@ class AppEmailField extends StatelessWidget {
       errorText: errorText,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,
-      prefix: prefix,
-      suffix: suffix,
+      prefix: const Padding(
+        padding: EdgeInsets.only(
+          left: AppSpacing.sm,
+          right: AppSpacing.sm,
+        ),
+        child: Icon(
+          Icons.email_outlined,
+          color: AppColors.mediumEmphasis,
+          size: 24,
+        ),
+      ),
+      suffix: Padding(
+        padding: const EdgeInsets.only(right: AppSpacing.md),
+        child: Opacity(
+          opacity: _suffixOpacity,
+          child: GestureDetector(
+            onTap: onSuffixPressed,
+            child: Assets.icons.closeCircle.svg(),
+          ),
+        ),
+      ),
       onChanged: onChanged,
     );
   }
