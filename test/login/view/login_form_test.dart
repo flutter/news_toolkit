@@ -22,10 +22,6 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
-
-class MockRoute extends Mock implements Route<dynamic> {}
-
 void main() {
   const loginButtonKey = Key('loginForm_emailLogin_elevatedButton');
   const signInWithGoogleButtonKey = Key('loginForm_googleLogin_elevatedButton');
@@ -47,10 +43,6 @@ void main() {
       user = MockUser();
 
       when(() => loginBloc.state).thenReturn(const LoginState());
-    });
-
-    setUpAll(() {
-      registerFallbackValue(MockRoute());
     });
 
     group('adds', () {
@@ -150,16 +142,6 @@ void main() {
     });
 
     group('does nothing', () {
-      testWidgets('when sign in with facebook button is pressed',
-          (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: loginBloc, child: const LoginForm()),
-        );
-        await tester.ensureVisible(find.byKey(signInWithFacebookButtonKey));
-        await tester.tap(find.byKey(signInWithFacebookButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byKey(signInWithFacebookButtonKey), findsOneWidget);
-      });
       testWidgets('when sign in with twitter button is pressed',
           (tester) async {
         await tester.pumpApp(
@@ -222,23 +204,6 @@ void main() {
         );
         await tester.pumpAndSettle();
         verify(navigator.pop).called(1);
-      });
-
-      testWidgets('back when submission succeeds', (tester) async {
-        final navigatorObserver = MockNavigatorObserver();
-        whenListen(
-          loginBloc,
-          Stream.fromIterable(const <LoginState>[
-            LoginState(status: FormzStatus.submissionInProgress),
-            LoginState(status: FormzStatus.submissionSuccess),
-          ]),
-        );
-        await tester.pumpApp(
-          BlocProvider.value(value: loginBloc, child: const LoginForm()),
-          navigatorObserver: navigatorObserver,
-        );
-        await tester.pump();
-        verify(() => navigatorObserver.didPop(any(), any())).called(1);
       });
     });
   });
