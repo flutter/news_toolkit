@@ -33,9 +33,19 @@ void main() {
       });
     });
 
-    group('LoginEmailLinkSubmitted', () {
+    group('SendEmailLinkSubmitted', () {
       test('supports value comparisons', () {
-        expect(LoginEmailLinkSubmitted(), LoginEmailLinkSubmitted());
+        expect(SendEmailLinkSubmitted(), SendEmailLinkSubmitted());
+      });
+    });
+
+    group('LoginWithEmailLinkSubmitted', () {
+      test('supports value comparisons', () {
+        final emailLink = Uri.https('example.com', '');
+        expect(
+          LoginWithEmailLinkSubmitted(emailLink),
+          LoginWithEmailLinkSubmitted(emailLink),
+        );
       });
     });
 
