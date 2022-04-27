@@ -359,17 +359,12 @@ void main() {
     });
 
     group('sendLoginEmailLink', () {
-      const packageInfo = PackageInfo(
-        appName: 'appName',
-        packageName: 'packageName',
-        version: 'version',
-        buildNumber: 'buildNumber',
-      );
+      const packageName = 'appPackageName';
 
       setUp(() {
         when(
-          () => packageInfoClient.fetchPackageInfo(),
-        ).thenAnswer((_) async => packageInfo);
+          () => packageInfoClient.packageName,
+        ).thenReturn(packageName);
         when(
           () => authenticationClient.sendLoginEmailLink(
             email: any(named: 'email'),
@@ -388,7 +383,7 @@ void main() {
         verify(
           () => authenticationClient.sendLoginEmailLink(
             email: any(named: 'email'),
-            appPackageName: packageInfo.packageName,
+            appPackageName: packageName,
           ),
         ).called(1);
       });

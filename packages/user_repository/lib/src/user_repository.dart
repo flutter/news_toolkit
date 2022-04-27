@@ -139,10 +139,9 @@ class UserRepository {
     required String email,
   }) async {
     try {
-      final packageInfo = await _packageInfoClient.fetchPackageInfo();
       await _authenticationClient.sendLoginEmailLink(
         email: email,
-        appPackageName: packageInfo.packageName,
+        appPackageName: _packageInfoClient.packageName,
       );
     } on SendLoginEmailLinkFailure {
       rethrow;
