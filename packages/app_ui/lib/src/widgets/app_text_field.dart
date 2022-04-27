@@ -13,6 +13,7 @@ class AppTextField extends StatelessWidget {
   const AppTextField({
     Key? key,
     this.initialValue,
+    this.autoFillHints,
     this.controller,
     this.inputFormatters,
     this.autocorrect = true,
@@ -28,6 +29,9 @@ class AppTextField extends StatelessWidget {
 
   /// A value to initialize the field to.
   final String? initialValue;
+
+  /// List of auto fill hints.
+  final Iterable<String>? autoFillHints;
 
   /// Controls the text being edited.
   ///
@@ -86,6 +90,7 @@ class AppTextField extends StatelessWidget {
             keyboardType: keyboardType,
             autocorrect: autocorrect,
             readOnly: readOnly,
+            autofillHints: autoFillHints,
             cursorColor: AppColors.darkAqua,
             style: AppTextStyle.headline6.copyWith(
               fontWeight: FontWeight.w500,
@@ -121,6 +126,7 @@ class AppEmailField extends StatelessWidget {
     Key? key,
     this.controller,
     this.hintText,
+    this.autoFillHints,
     this.onSuffixPressed,
     double? suffixOpacity,
     this.onChanged,
@@ -139,6 +145,9 @@ class AppEmailField extends StatelessWidget {
   /// The opacity of the suffix icon.
   final double _suffixOpacity;
 
+  /// List of auto fill hints.
+  final Iterable<String>? autoFillHints;
+
   /// Called when the user initiates a change to the TextField's
   final ValueChanged<String>? onChanged;
 
@@ -149,6 +158,7 @@ class AppEmailField extends StatelessWidget {
       hintText: hintText,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,
+      autoFillHints: const [AutofillHints.email],
       prefix: const Padding(
         padding: EdgeInsets.only(
           left: AppSpacing.sm,
