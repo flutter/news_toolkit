@@ -8,7 +8,6 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppTextField', () {
-    const errorText = 'Error';
     const hintText = 'Hint';
 
     group('email', () {
@@ -37,15 +36,6 @@ void main() {
           ),
         );
         expect(find.text(hintText), findsOneWidget);
-      });
-
-      testWidgets('renders error text', (tester) async {
-        await tester.pumpApp(
-          AppEmailField(
-            errorText: errorText,
-          ),
-        );
-        expect(find.text(errorText), findsOneWidget);
       });
     });
   });
