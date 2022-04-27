@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
+import 'package:deep_link_client/deep_link_client.dart';
 import 'package:package_info_client/package_info_client.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
@@ -11,17 +13,37 @@ class UserRepository {
   UserRepository({
     required AuthenticationClient authenticationClient,
     required PackageInfoClient packageInfoClient,
+    required DeepLinkClient deepLinkClient,
   })  : _authenticationClient = authenticationClient,
-        _packageInfoClient = packageInfoClient;
+        _packageInfoClient = packageInfoClient,
+        _deepLinkClient = deepLinkClient {
+    _deepLinkClient.deepLinkStream
+        .where(
+          (deepLink) => _authenticationClient.isLogInWithEmailLink(
+            emailLink: deepLink.toString(),
+          ),
+        )
+        .handleError(_incomingEmailLinksSubject.addError)
+        .listen(_incomingEmailLinksSubject.add);
+  }
 
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
+  final DeepLinkClient _deepLinkClient;
+
+  final BehaviorSubject<Uri> _incomingEmailLinksSubject = BehaviorSubject();
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
   ///
   /// Emits [User.anonymous] if the user is not authenticated.
   Stream<User> get user => _authenticationClient.user;
+
+  /// A stream of incoming email links used to authenticate the user.
+  ///
+  /// Emits when a new email link is emitted on [DeepLinkClient.deepLinkStream],
+  /// which is validated using [AuthenticationClient.isLogInWithEmailLink].
+  Stream<Uri> get incomingEmailLinks => _incomingEmailLinksSubject.stream;
 
   /// Creates a new user with the provided [email] and [password].
   ///
@@ -147,6 +169,25 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       throw SendLoginEmailLinkFailure(error, stackTrace);
+    }
+  }
+
+  /// Signs in with the provided [email] and [emailLink].
+  ///
+  /// Throws a [LogInWithEmailLinkFailure] if an exception occurs.
+  Future<void> logInWithEmailLink({
+    required String email,
+    required String emailLink,
+  }) async {
+    try {
+      await _authenticationClient.logInWithEmailLink(
+        email: email,
+        emailLink: emailLink,
+      );
+    } on LogInWithEmailLinkFailure {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw LogInWithEmailLinkFailure(error, stackTrace);
     }
   }
 
