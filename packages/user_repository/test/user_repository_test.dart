@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:authentication_client/authentication_client.dart';
+import 'package:deep_link_client/deep_link_client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
@@ -7,6 +10,10 @@ import 'package:user_repository/user_repository.dart';
 class MockAuthenticationClient extends Mock implements AuthenticationClient {}
 
 class MockPackageInfoClient extends Mock implements PackageInfoClient {}
+
+class MockDeepLinkClient extends Mock implements DeepLinkClient {}
+
+class MockUser extends Mock implements User {}
 
 class FakeSignUpFailure extends Fake implements SignUpFailure {}
 
@@ -40,18 +47,30 @@ class FakeLogOutFailure extends Fake implements LogOutFailure {}
 class FakeSendLoginEmailLinkFailure extends Fake
     implements SendLoginEmailLinkFailure {}
 
+class FakeLogInWithEmailLinkFailure extends Fake
+    implements LogInWithEmailLinkFailure {}
+
 void main() {
   group('UserRepository', () {
     late AuthenticationClient authenticationClient;
     late PackageInfoClient packageInfoClient;
+    late DeepLinkClient deepLinkClient;
+    late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
       packageInfoClient = MockPackageInfoClient();
+      deepLinkClient = MockDeepLinkClient();
+      deepLinkClientController = StreamController<Uri>.broadcast();
+
+      when(() => deepLinkClient.deepLinkStream)
+          .thenAnswer((_) => deepLinkClientController.stream);
+
       userRepository = UserRepository(
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
+        deepLinkClient: deepLinkClient,
       );
     });
 
@@ -62,6 +81,47 @@ void main() {
         );
         userRepository.user;
         verify(() => authenticationClient.user).called(1);
+      });
+    });
+
+    group('incomingEmailLinks', () {
+      final validEmailLink = Uri.https('valid.email.link', '');
+      final validEmailLink2 = Uri.https('valid.email.link', '');
+      final invalidEmailLink = Uri.https('invalid.email.link', '');
+
+      test(
+          'emits a new email link '
+          'for every valid email link from DeepLinkClient.deepLinkStream', () {
+        when(
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: validEmailLink.toString(),
+          ),
+        ).thenReturn(true);
+
+        when(
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: validEmailLink2.toString(),
+          ),
+        ).thenReturn(true);
+
+        when(
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: invalidEmailLink.toString(),
+          ),
+        ).thenReturn(false);
+
+        expectLater(
+          userRepository.incomingEmailLinks,
+          emitsInOrder(<Uri>[
+            validEmailLink,
+            validEmailLink2,
+          ]),
+        );
+
+        deepLinkClientController
+          ..add(validEmailLink)
+          ..add(invalidEmailLink)
+          ..add(validEmailLink2);
       });
     });
 
@@ -300,7 +360,7 @@ void main() {
       });
     });
 
-    group('logInWithEmailAndPassWord', () {
+    group('logInWithEmailAndPassword', () {
       test(
           'calls logInWithEmailAndPassWord '
           'with email and password on AuthenticationClient', () async {
@@ -418,6 +478,65 @@ void main() {
             email: 'ben_franklin@upenn.edu',
           ),
           throwsA(isA<SendLoginEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('logInWithEmailLink', () {
+      const email = 'email@example.com';
+      const emailLink = 'email.link';
+
+      test('calls logInWithEmailLink on AuthenticationClient', () async {
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenAnswer((_) async {});
+
+        await userRepository.logInWithEmailLink(
+          email: email,
+          emailLink: emailLink,
+        );
+
+        verify(
+          () => authenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+        ).called(1);
+      });
+
+      test('rethrows LogInWithEmailLinkFailure', () async {
+        final exception = FakeLogInWithEmailLinkFailure();
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(exception);
+        expect(
+          () => userRepository.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(exception),
+        );
+      });
+
+      test('throws LogInWithEmailLinkFailure on generic exception', () async {
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(isA<LogInWithEmailLinkFailure>()),
         );
       });
     });
