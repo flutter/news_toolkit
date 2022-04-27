@@ -1,6 +1,5 @@
 name: package_info_client
-description: A client that provides current device information like OS
-  version or device model
+description: A client that provides information about the app's package metadata
 version: 1.0.0+1
 publish_to: none
 
@@ -9,11 +8,7 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
-  flutter:
-    sdk: flutter
-  package_info_plus: ^1.4.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: ^1.16.4
   very_good_analysis: ^2.4.0

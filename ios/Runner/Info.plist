@@ -33,6 +33,7 @@
 			<array>
 				<string>fb$(FACEBOOK_APP_ID)</string>
 				<string>$(REVERSED_CLIENT_ID)</string>
+				<string>$(TWITTER_REDIRECT_URI_SCHEME)</string>
 			</array>
 		</dict>
 	</array>
