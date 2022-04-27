@@ -61,29 +61,32 @@ class _EmailInput extends StatefulWidget {
 }
 
 class _EmailInputState extends State<_EmailInput> {
-  TextEditingController controller = TextEditingController();
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final showDeleteIcon =
-        context.select((SignUpBloc bloc) => bloc.state.showDeleteIcon);
+        context.select((SignUpBloc bloc) => bloc.state.email.value.isNotEmpty);
 
     return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
-      controller: controller,
+      controller: _controller,
       hintText: context.l10n.signUpTextFieldHint,
       onChanged: (email) {
         context.read<SignUpBloc>().add(SignUpEmailChanged(email));
-        if (email.isEmpty) {
-          context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
-        }
       },
       onSuffixPressed: () {
-        controller.text = '';
-        context.read<SignUpBloc>().add(SignUpHideDeleteIcon());
+        _controller.text = '';
+        context.read<SignUpBloc>().add(SignUpEmailChanged(_controller.text));
       },
       suffixOpacity: showDeleteIcon ? 1 : 0,
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
@@ -101,13 +104,13 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.signUpSubtitleText,
-              style: AppTextStyle.bodyText1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             TextSpan(
               text: context.l10n.signUpTermsAndPrivatePolicyText,
-              style: AppTextStyle.bodyText1.apply(
-                color: AppColors.darkAqua,
-              ),
+              style: Theme.of(context).textTheme.bodyText1?.apply(
+                    color: AppColors.darkAqua,
+                  ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
                   ScaffoldMessenger.of(context)
@@ -116,7 +119,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           context.l10n.signUpTermsAndPolicyInfo,
-                          style: AppTextStyle.button,
+                          style: Theme.of(context).textTheme.button,
                         ),
                       ),
                     );

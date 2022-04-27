@@ -15,8 +15,6 @@ void main() {
   const validEmailString = 'test@gmail.com';
   const validEmail = Email.dirty(validEmailString);
 
-  const pureEmail = Email.pure();
-
   group('SignUpBloc', () {
     late UserRepository userRepository;
 
@@ -43,7 +41,6 @@ void main() {
           SignUpState(
             email: invalidEmail,
             status: FormzStatus.invalid,
-            showDeleteIcon: true,
           ),
         ],
       );
@@ -56,7 +53,6 @@ void main() {
           SignUpState(
             email: validEmail,
             status: FormzStatus.valid,
-            showDeleteIcon: true,
           ),
         ],
       );
@@ -135,17 +131,6 @@ void main() {
             status: FormzStatus.submissionFailure,
             email: validEmail,
           )
-        ],
-      );
-    });
-
-    group('SignUpHideDeleteIcon', () {
-      blocTest<SignUpBloc, SignUpState>(
-        'emits [showDeleteIcon] false',
-        build: () => SignUpBloc(userRepository),
-        act: (bloc) => bloc.add(SignUpHideDeleteIcon()),
-        expect: () => const <SignUpState>[
-          SignUpState(showDeleteIcon: false),
         ],
       );
     });

@@ -60,15 +60,6 @@ void main() {
         await tester.tap(find.byKey(nextButtonKey));
         verify(() => signUpBloc.add(SignUpSubmitted())).called(1);
       });
-
-      testWidgets('SignUpHideDeleteIcon when email is empty', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        await tester.enterText(find.byKey(emailInputKey), testEmail);
-        await tester.enterText(find.byKey(emailInputKey), '');
-        verify(() => signUpBloc.add(SignUpHideDeleteIcon())).called(1);
-      });
     });
 
     group('renders', () {

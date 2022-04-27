@@ -11,7 +11,6 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._userRepository) : super(const SignUpState()) {
     on<SignUpEmailChanged>(_onEmailChanged);
-    on<SignUpHideDeleteIcon>(_onDeleted);
     on<SignUpSubmitted>(_onSubmitted);
   }
 
@@ -23,7 +22,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       state.copyWith(
         email: email,
         status: Formz.validate([email]),
-        showDeleteIcon: true,
       ),
     );
   }
@@ -44,12 +42,5 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     } catch (_) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
-  }
-
-  Future<void> _onDeleted(
-    SignUpHideDeleteIcon event,
-    Emitter<SignUpState> emit,
-  ) async {
-    emit(state.copyWith(showDeleteIcon: false));
   }
 }
