@@ -85,4 +85,7 @@ abstract class AppColors {
 
   /// The rangoonGreen color.
   static const Color rangoonGreen = Color(0xFF1B1B1B);
+
+  /// The modal background color.
+  static const Color modalBackground = Color(0xFFEBF2F7);
 }
