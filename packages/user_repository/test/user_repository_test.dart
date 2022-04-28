@@ -1,9 +1,12 @@
 import 'package:authentication_client/authentication_client.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockAuthenticationClient extends Mock implements AuthenticationClient {}
+
+class MockPackageInfoClient extends Mock implements PackageInfoClient {}
 
 class FakeSignUpFailure extends Fake implements SignUpFailure {}
 
@@ -34,15 +37,21 @@ class FakeLogInWithEmailAndPasswordFailure extends Fake
 
 class FakeLogOutFailure extends Fake implements LogOutFailure {}
 
+class FakeSendLoginEmailLinkFailure extends Fake
+    implements SendLoginEmailLinkFailure {}
+
 void main() {
   group('UserRepository', () {
     late AuthenticationClient authenticationClient;
+    late PackageInfoClient packageInfoClient;
     late UserRepository userRepository;
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
+      packageInfoClient = MockPackageInfoClient();
       userRepository = UserRepository(
         authenticationClient: authenticationClient,
+        packageInfoClient: packageInfoClient,
       );
     });
 
@@ -345,6 +354,70 @@ void main() {
             password: 'BenFranklin123',
           ),
           throwsA(isA<LogInWithEmailAndPasswordFailure>()),
+        );
+      });
+    });
+
+    group('sendLoginEmailLink', () {
+      const packageName = 'appPackageName';
+
+      setUp(() {
+        when(
+          () => packageInfoClient.packageName,
+        ).thenReturn(packageName);
+        when(
+          () => authenticationClient.sendLoginEmailLink(
+            email: any(named: 'email'),
+            appPackageName: any(named: 'appPackageName'),
+          ),
+        ).thenAnswer((_) async {});
+      });
+
+      test(
+          'calls sendLoginEmailLink on AuthenticationClient '
+          'with email and app package name from PackageInfoClient', () async {
+        await userRepository.sendLoginEmailLink(
+          email: 'ben_franklin@upenn.edu',
+        );
+
+        verify(
+          () => authenticationClient.sendLoginEmailLink(
+            email: any(named: 'email'),
+            appPackageName: packageName,
+          ),
+        ).called(1);
+      });
+
+      test('rethrows SendLoginEmailLinkFailure', () async {
+        final exception = FakeSendLoginEmailLinkFailure();
+        when(
+          () => authenticationClient.sendLoginEmailLink(
+            email: any(named: 'email'),
+            appPackageName: any(named: 'appPackageName'),
+          ),
+        ).thenThrow(exception);
+        expect(
+          () => userRepository.sendLoginEmailLink(
+            email: 'ben_franklin@upenn.edu',
+          ),
+          throwsA(exception),
+        );
+      });
+
+      test(
+          'throws FakeSendLoginEmailLinkFailure '
+          'on generic exception', () async {
+        when(
+          () => authenticationClient.sendLoginEmailLink(
+            email: any(named: 'email'),
+            appPackageName: any(named: 'appPackageName'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.sendLoginEmailLink(
+            email: 'ben_franklin@upenn.edu',
+          ),
+          throwsA(isA<SendLoginEmailLinkFailure>()),
         );
       });
     });
