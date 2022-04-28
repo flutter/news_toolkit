@@ -15,69 +15,6 @@ void main() {
     expect(() => FakeAuthenticationClient(), returnsNormally);
   });
 
-  test('exports SignUpFailure', () {
-    expect(
-      () => SignUpFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpEmailInUseFailure', () {
-    expect(
-      () => SignUpEmailInUseFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpInvalidEmailFailure', () {
-    expect(
-      () => SignUpInvalidEmailFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpOperationNotAllowedFailure', () {
-    expect(
-      () => SignUpOperationNotAllowedFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpWeakPasswordFailure', () {
-    expect(
-      () => SignUpWeakPasswordFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordFailure', () {
-    expect(
-      () => ResetPasswordFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordInvalidEmailFailure', () {
-    expect(
-      () => ResetPasswordInvalidEmailFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordUserNotFoundFailure', () {
-    expect(
-      () => ResetPasswordUserNotFoundFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports LogInWithEmailAndPasswordFailure', () {
-    expect(
-      () => LogInWithEmailAndPasswordFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
   test('exports SendLoginEmailLinkFailure', () {
     expect(
       () => SendLoginEmailLinkFailure('oops', StackTrace.empty),
