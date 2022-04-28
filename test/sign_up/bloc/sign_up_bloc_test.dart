@@ -46,7 +46,7 @@ void main() {
       );
 
       blocTest<SignUpBloc, SignUpState>(
-        'emits [valid] when email is valid and show delete icon',
+        'emits [valid] when email is valid',
         build: () => SignUpBloc(userRepository),
         act: (bloc) => bloc.add(SignUpEmailChanged(validEmailString)),
         expect: () => const <SignUpState>[

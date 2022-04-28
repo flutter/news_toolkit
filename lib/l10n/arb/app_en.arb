@@ -83,8 +83,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "signUpTermsAndPrivatePolicyText": "Terms of Use and Privacy Policy",
-  "@signUpTermsAndPrivatePolicyText": {
+  "signUpTermsAndPrivacyPolicyText": "Terms of Use and Privacy Policy",
+  "@signUpTermsAndPrivacyPolicyText": {
     "description": "Text terms and privacy policy shown on Sign Up form",
     "type": "text",
     "placeholders": {}

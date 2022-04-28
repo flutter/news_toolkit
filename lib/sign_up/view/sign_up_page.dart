@@ -17,11 +17,9 @@ class SignUpPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            key: const Key('signUpPage_crossIcon'),
+            key: const Key('signUpPage_closeIcon'),
             icon: const Icon(Icons.close),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
           )
         ],
       ),

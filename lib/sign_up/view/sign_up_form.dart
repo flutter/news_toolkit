@@ -61,8 +61,6 @@ class _EmailInput extends StatefulWidget {
 }
 
 class _EmailInputState extends State<_EmailInput> {
-  final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final showDeleteIcon =
@@ -70,23 +68,13 @@ class _EmailInputState extends State<_EmailInput> {
 
     return AppEmailField(
       key: const Key('signUpForm_emailInput_textField'),
-      controller: _controller,
       hintText: context.l10n.signUpTextFieldHint,
-      onChanged: (email) {
-        context.read<SignUpBloc>().add(SignUpEmailChanged(email));
-      },
-      onSuffixPressed: () {
-        _controller.text = '';
-        context.read<SignUpBloc>().add(SignUpEmailChanged(_controller.text));
-      },
+      onChanged: (email) =>
+          context.read<SignUpBloc>().add(SignUpEmailChanged(email)),
+      onSuffixPressed: () =>
+          context.read<SignUpBloc>().add(const SignUpEmailChanged('')),
       suffixOpacity: showDeleteIcon ? 1 : 0,
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
 
@@ -98,7 +86,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: RichText(
-        key: const Key('signUpForm_terms_and_private_policy'),
+        key: const Key('signUpForm_terms_and_privacy_policy'),
         text: TextSpan(
           style: DefaultTextStyle.of(context).style,
           children: <TextSpan>[
@@ -107,7 +95,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             TextSpan(
-              text: context.l10n.signUpTermsAndPrivatePolicyText,
+              text: context.l10n.signUpTermsAndPrivacyPolicyText,
               style: Theme.of(context).textTheme.bodyText1?.apply(
                     color: AppColors.darkAqua,
                   ),
@@ -130,7 +118,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
             ),
             TextSpan(
               text: '.',
-              style: AppTextStyle.bodyText1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
         ),
@@ -147,7 +135,7 @@ class _NextButton extends StatelessWidget {
     final l10n = context.l10n;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
     return AppButton.darkAqua(
-      key: const Key('signUpForm_next_elevatedButton'),
+      key: const Key('signUpForm_nextButton'),
       onPressed: status.isValidated
           ? () => context.read<SignUpBloc>().add(SignUpSubmitted())
           : null,
