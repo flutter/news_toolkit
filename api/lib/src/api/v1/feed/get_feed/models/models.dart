@@ -1,1 +1,1 @@
-export 'feed.dart';
+export 'feed_response.dart';

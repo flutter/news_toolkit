@@ -1,4 +1,4 @@
-import 'package:google_news_template_api/src/api/v1/feed/get_feed/models/models.dart';
+import 'package:google_news_template_api/google_news_template_api.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 /// {@template news_data_source}
@@ -21,10 +21,13 @@ class InMemoryNewsDataSource implements NewsDataSource {
   const InMemoryNewsDataSource();
 
   @override
-  Future<Feed> getNewsFeed() async => _feed;
+  Future<Feed> getNewsFeed() async => _topNewsFeed;
 }
 
 /// The static news feed content.
-const _feed = Feed(
-  blocks: <NewsBlock>[SectionHeaderBlock(title: 'Breaking News')],
+
+const _topNewsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Breaking News')];
+final _topNewsFeed = Feed(
+  blocks: _topNewsBlocks,
+  totalBlocks: _topNewsBlocks.length,
 );
