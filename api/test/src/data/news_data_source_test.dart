@@ -4,7 +4,18 @@ import 'package:google_news_template_api/google_news_template_api.dart';
 import 'package:google_news_template_api/src/api/v1/feed/get_feed/models/models.dart';
 import 'package:test/test.dart';
 
+class MyNewsDataSource extends NewsDataSource {
+  @override
+  Future<Feed> getNewsFeed() => throw UnimplementedError();
+}
+
 void main() {
+  group('NewsDataSource', () {
+    test('can be extended', () {
+      expect(MyNewsDataSource.new, returnsNormally);
+    });
+  });
+
   group('InMemoryNewsDataSource', () {
     late NewsDataSource newsDataSource;
 
