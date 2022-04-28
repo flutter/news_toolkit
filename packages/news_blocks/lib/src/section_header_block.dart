@@ -3,9 +3,6 @@ import 'package:news_blocks/news_blocks.dart';
 
 part 'section_header_block.g.dart';
 
-/// The section header block type identifier.
-const sectionHeaderBlockType = '__section_header__';
-
 /// {@template section_header_block}
 /// A block which represents a section header.
 /// https://www.figma.com/file/RajSN6YbRqTuqvdKYtij3b/Google-News-Template-App-v3?node-id=179%3A13701
@@ -16,12 +13,15 @@ class SectionHeaderBlock implements NewsBlock {
   const SectionHeaderBlock({
     required this.title,
     this.action,
-    this.type = sectionHeaderBlockType,
+    this.type = SectionHeaderBlock.identifier,
   });
 
   /// Converts a `Map<String, dynamic>` into a [BlockAction] instance.
   factory SectionHeaderBlock.fromJson(Map<String, dynamic> json) =>
       _$SectionHeaderBlockFromJson(json);
+
+  /// The section header block type identifier.
+  static const identifier = '__section_header__';
 
   /// The title of the section header.
   final String title;

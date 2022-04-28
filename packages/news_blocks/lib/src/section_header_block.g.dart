@@ -21,15 +21,24 @@ SectionHeaderBlock _$SectionHeaderBlockFromJson(Map<String, dynamic> json) =>
                   ? null
                   : BlockAction.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
-              'type', (v) => v as String? ?? sectionHeaderBlockType),
+              'type', (v) => v as String? ?? SectionHeaderBlock.identifier),
         );
         return val;
       },
     );
 
-Map<String, dynamic> _$SectionHeaderBlockToJson(SectionHeaderBlock instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'action': instance.action?.toJson(),
-      'type': instance.type,
-    };
+Map<String, dynamic> _$SectionHeaderBlockToJson(SectionHeaderBlock instance) {
+  final val = <String, dynamic>{
+    'title': instance.title,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('action', instance.action?.toJson());
+  val['type'] = instance.type;
+  return val;
+}
