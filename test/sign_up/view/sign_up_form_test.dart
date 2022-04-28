@@ -30,6 +30,7 @@ void main() {
   const signUpFormSuffixIconKey = Key('email_textField_suffixIcon');
 
   const testEmail = 'test@gmail.com';
+  const invalidTestEmail = 'test@g';
 
   group('SignUpForm', () {
     late SignUpBloc signUpBloc;
@@ -130,6 +131,18 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
+        final signUpButton = tester.widget<AppButton>(
+          find.byKey(nextButtonKey),
+        );
+        expect(signUpButton.onPressed, null);
+      });
+
+      testWidgets('disabled next button when invalid email is added',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        await tester.enterText(find.byKey(emailInputKey), invalidTestEmail);
         final signUpButton = tester.widget<AppButton>(
           find.byKey(nextButtonKey),
         );
