@@ -5,6 +5,7 @@ export 'package:authentication_client/authentication_client.dart'
         AuthenticationException,
         LogInWithAppleFailure,
         LogInWithEmailAndPasswordFailure,
+        SendLoginEmailLinkFailure,
         LogInWithGoogleCanceled,
         LogInWithGoogleFailure,
         LogInWithTwitterCanceled,
