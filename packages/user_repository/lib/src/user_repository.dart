@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:package_info_client/package_info_client.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
@@ -16,22 +15,11 @@ class UserRepository {
     required DeepLinkClient deepLinkClient,
   })  : _authenticationClient = authenticationClient,
         _packageInfoClient = packageInfoClient,
-        _deepLinkClient = deepLinkClient {
-    _deepLinkClient.deepLinkStream
-        .where(
-          (deepLink) => _authenticationClient.isLogInWithEmailLink(
-            emailLink: deepLink.toString(),
-          ),
-        )
-        .handleError(_incomingEmailLinksSubject.addError)
-        .listen(_incomingEmailLinksSubject.add);
-  }
+        _deepLinkClient = deepLinkClient;
 
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
   final DeepLinkClient _deepLinkClient;
-
-  final BehaviorSubject<Uri> _incomingEmailLinksSubject = BehaviorSubject();
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
@@ -43,7 +31,11 @@ class UserRepository {
   ///
   /// Emits when a new email link is emitted on [DeepLinkClient.deepLinkStream],
   /// which is validated using [AuthenticationClient.isLogInWithEmailLink].
-  Stream<Uri> get incomingEmailLinks => _incomingEmailLinksSubject.stream;
+  Stream<Uri> get incomingEmailLinks => _deepLinkClient.deepLinkStream.where(
+        (deepLink) => _authenticationClient.isLogInWithEmailLink(
+          emailLink: deepLink.toString(),
+        ),
+      );
 
   /// Creates a new user with the provided [email] and [password].
   ///
