@@ -36,27 +36,6 @@ void main() {
     );
   });
 
-  test('exports SendLoginEmailLinkFailure', () {
-    expect(
-      () => SendLoginEmailLinkFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports IsLogInWithEmailLinkFailure', () {
-    expect(
-      () => IsLogInWithEmailLinkFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports LogInWithEmailLinkFailure', () {
-    expect(
-      () => LogInWithEmailLinkFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
   test('exports LogInWithAppleFailure', () {
     expect(
       () => LogInWithAppleFailure('oops', StackTrace.empty),

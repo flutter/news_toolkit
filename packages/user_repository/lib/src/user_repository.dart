@@ -135,43 +135,6 @@ class UserRepository {
     }
   }
 
-  /// Sends an authentication link to the provided [email].
-  ///
-  /// Throws a [SendLoginEmailLinkFailure] if an exception occurs.
-  Future<void> sendLoginEmailLink({
-    required String email,
-  }) async {
-    try {
-      await _authenticationClient.sendLoginEmailLink(
-        email: email,
-        appPackageName: _packageInfoClient.packageName,
-      );
-    } on SendLoginEmailLinkFailure {
-      rethrow;
-    } catch (error, stackTrace) {
-      throw SendLoginEmailLinkFailure(error, stackTrace);
-    }
-  }
-
-  /// Signs in with the provided [email] and [emailLink].
-  ///
-  /// Throws a [LogInWithEmailLinkFailure] if an exception occurs.
-  Future<void> logInWithEmailLink({
-    required String email,
-    required String emailLink,
-  }) async {
-    try {
-      await _authenticationClient.logInWithEmailLink(
-        email: email,
-        emailLink: emailLink,
-      );
-    } on LogInWithEmailLinkFailure {
-      rethrow;
-    } catch (error, stackTrace) {
-      throw LogInWithEmailLinkFailure(error, stackTrace);
-    }
-  }
-
   /// Signs out the current user which will emit
   /// [User.anonymous] from the [user] Stream.
   ///

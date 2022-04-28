@@ -17,12 +17,6 @@ void main() {
       });
     });
 
-    group('LoginEmailLinkSubmitted', () {
-      test('supports value comparisons', () {
-        expect(LoginEmailLinkSubmitted(), LoginEmailLinkSubmitted());
-      });
-    });
-
     group('SendEmailLinkSubmitted', () {
       test('supports value comparisons', () {
         expect(SendEmailLinkSubmitted(), SendEmailLinkSubmitted());

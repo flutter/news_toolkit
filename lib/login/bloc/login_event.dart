@@ -13,11 +13,6 @@ class LoginEmailChanged extends LoginEvent {
   List<Object> get props => [email];
 }
 
-class LoginEmailLinkSubmitted extends LoginEvent with AnalyticsEventMixin {
-  @override
-  AnalyticsEvent get event => const AnalyticsEvent('LoginEmailLinkSubmitted');
-}
-
 class SendEmailLinkSubmitted extends LoginEvent with AnalyticsEventMixin {
   @override
   AnalyticsEvent get event => const AnalyticsEvent('SendEmailLinkSubmitted');

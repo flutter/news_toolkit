@@ -14,7 +14,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEmailChanged>(_onEmailChanged);
     on<SendEmailLinkSubmitted>(_onSendEmailLinkSubmitted);
     on<LoginWithEmailLinkSubmitted>(_onLoginWithEmailLinkSubmitted);
-    on<LoginEmailLinkSubmitted>(_onEmailLinkSubmitted);
     on<LoginGoogleSubmitted>(_onGoogleSubmitted);
     on<LoginAppleSubmitted>(_onAppleSubmitted);
     on<LoginTwitterSubmitted>(_onTwitterSubmitted);
@@ -37,22 +36,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         status: Formz.validate([email]),
       ),
     );
-  }
-
-  Future<void> _onEmailLinkSubmitted(
-    LoginEmailLinkSubmitted event,
-    Emitter<LoginState> emit,
-  ) async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    try {
-      await _userRepository.sendLoginEmailLink(
-        email: state.email.value,
-      );
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
   }
 
   Future<void> _onSendEmailLinkSubmitted(
