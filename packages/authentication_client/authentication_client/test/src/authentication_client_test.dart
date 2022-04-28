@@ -85,6 +85,20 @@ void main() {
     );
   });
 
+  test('exports IsLogInWithEmailLinkFailure', () {
+    expect(
+      () => IsLogInWithEmailLinkFailure('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
+  test('exports LogInWithEmailLinkFailure', () {
+    expect(
+      () => LogInWithEmailLinkFailure('oops', StackTrace.empty),
+      returnsNormally,
+    );
+  });
+
   test('exports LogInWithAppleFailure', () {
     expect(
       () => LogInWithAppleFailure('oops', StackTrace.empty),

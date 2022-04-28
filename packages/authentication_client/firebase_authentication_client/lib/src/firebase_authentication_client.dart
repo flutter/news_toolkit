@@ -299,6 +299,36 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     }
   }
 
+  /// Checks if an incoming [emailLink] is a sign-in with email link.
+  ///
+  /// Throws a [IsLogInWithEmailLinkFailure] if an exception occurs.
+  @override
+  bool isLogInWithEmailLink({required String emailLink}) {
+    try {
+      return _firebaseAuth.isSignInWithEmailLink(emailLink);
+    } catch (error, stackTrace) {
+      throw IsLogInWithEmailLinkFailure(error, stackTrace);
+    }
+  }
+
+  /// Signs in with the provided [emailLink].
+  ///
+  /// Throws a [LogInWithEmailLinkFailure] if an exception occurs.
+  @override
+  Future<void> logInWithEmailLink({
+    required String email,
+    required String emailLink,
+  }) async {
+    try {
+      await _firebaseAuth.signInWithEmailLink(
+        email: email,
+        emailLink: emailLink,
+      );
+    } catch (error, stackTrace) {
+      throw LogInWithEmailLinkFailure(error, stackTrace);
+    }
+  }
+
   /// Signs out the current user which will emit
   /// [User.anonymous] from the [user] Stream.
   ///

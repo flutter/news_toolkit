@@ -107,6 +107,24 @@ class SendLoginEmailLinkFailure extends AuthenticationException {
       : super(error, stackTrace);
 }
 
+/// {@template is is_log_in_email_link_failure}
+/// Thrown during the validation of the email link process if a failure occurs.
+/// {@endtemplate}
+class IsLogInWithEmailLinkFailure extends AuthenticationException {
+  /// {@macro is_log_in_email_link_failure}
+  const IsLogInWithEmailLinkFailure(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
+/// {@template log_in_with_email_link_failure}
+/// Thrown during the sign in with email link process if a failure occurs.
+/// {@endtemplate}
+class LogInWithEmailLinkFailure extends AuthenticationException {
+  /// {@macro log_in_with_email_link_failure}
+  const LogInWithEmailLinkFailure(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
 /// {@template log_in_with_apple_failure}
 /// Thrown during the sign in with apple process if a failure occurs.
 /// {@endtemplate}
@@ -234,6 +252,21 @@ abstract class AuthenticationClient {
   Future<void> sendLoginEmailLink({
     required String email,
     required String appPackageName,
+  });
+
+  /// Checks if an incoming [emailLink] is a sign-in with email link.
+  ///
+  /// Throws a [IsLogInWithEmailLinkFailure] if an exception occurs.
+  bool isLogInWithEmailLink({
+    required String emailLink,
+  });
+
+  /// Signs in with the provided [email] and [emailLink].
+  ///
+  /// Throws a [LogInWithEmailLinkFailure] if an exception occurs.
+  Future<void> logInWithEmailLink({
+    required String email,
+    required String emailLink,
   });
 
   /// Signs out the current user which will emit
