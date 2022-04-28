@@ -7,13 +7,23 @@ import 'package:test/test.dart';
 void main() {
   group('Feed', () {
     test('can be (de)serialized', () {
-      final feed = Feed(blocks: [SectionHeaderBlock(title: 'example title')]);
+      final sectionHeaderA = SectionHeaderBlock(title: 'sectionA');
+      final sectionHeaderB = SectionHeaderBlock(title: 'sectionB');
+      final feed = Feed(blocks: [sectionHeaderA, sectionHeaderB]);
+
       expect(
         Feed.fromJson(feed.toJson()),
         isA<Feed>().having(
           (f) => f.blocks,
           'blocks',
-          containsAllInOrder(<Matcher>[isA<SectionHeaderBlock>()]),
+          containsAllInOrder(
+            <Matcher>[
+              isA<SectionHeaderBlock>()
+                  .having((b) => b.title, 'title', sectionHeaderA.title),
+              isA<SectionHeaderBlock>()
+                  .having((b) => b.title, 'title', sectionHeaderB.title)
+            ],
+          ),
         ),
       );
     });
