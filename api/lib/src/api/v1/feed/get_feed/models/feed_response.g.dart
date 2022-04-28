@@ -2,27 +2,30 @@
 
 // ignore_for_file: cast_nullable_to_non_nullable, implicit_dynamic_parameter, lines_longer_than_80_chars, prefer_const_constructors, require_trailing_commas
 
-part of 'feed.dart';
+part of 'feed_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Feed _$FeedFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'Feed',
+FeedResponse _$FeedResponseFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'FeedResponse',
       json,
       ($checkedConvert) {
-        final val = Feed(
-          blocks: $checkedConvert(
-              'blocks',
-              (v) => const _NewsBlocksConverter()
+        final val = FeedResponse(
+          feed: $checkedConvert(
+              'feed',
+              (v) => const NewsBlocksConverter()
                   .fromJson(v as List<Map<String, dynamic>>)),
+          totalCount: $checkedConvert('total_count', (v) => v as int),
         );
         return val;
       },
+      fieldKeyMap: const {'totalCount': 'total_count'},
     );
 
-Map<String, dynamic> _$FeedToJson(Feed instance) {
+Map<String, dynamic> _$FeedResponseToJson(FeedResponse instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -31,6 +34,7 @@ Map<String, dynamic> _$FeedToJson(Feed instance) {
     }
   }
 
-  writeNotNull('blocks', const _NewsBlocksConverter().toJson(instance.blocks));
+  writeNotNull('feed', const NewsBlocksConverter().toJson(instance.feed));
+  val['total_count'] = instance.totalCount;
   return val;
 }

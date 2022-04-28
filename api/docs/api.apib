@@ -13,9 +13,9 @@ This action allows consumers to verify the status of the server. A response stat
 
 + Response 204 (application/json)
 
-## Headlines [/api/v1/headlines{?category,limit,offset}]
+## Feed [/api/v1/feed{?category,limit,offset}]
 
-Resources related to top headlines.
+Resources related to the news feed.
 
 + Parameters
     + category (optional, enum[string]) - The headline category.
@@ -33,74 +33,22 @@ Resources related to top headlines.
     + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
         + Default: 0
 
-### Get Headlines [GET]
+### Get Feed [GET]
 
-This action allows you to query top headlines.
+This action allows you to query feeds.
 
 + Response 200 (application/json)
     + Attributes (object)
-        + articles (required, array[Article]) - The list of articles.
-        + total_count (optional, number) - The total number of available articles.
+        + feed (required, array[Block]) - The list of blocks that composes the feed.
+        + total_count (optional, number) - The total number of available blocks.
 
     + Body
         
             {
-                "articles": [
+                "feed": [
                     {
-                        "author": "Rob Emslie",
-                        "category": "Technology",
-                        "content": "I was going to ask you if you wanted the good news or the bad news first on todays Nice Price or No Dice Bimmer, but I already let the cat out of the bag up top about its rebuilt title. Lets see if t…",
-                        "description": "Despite a tainted title, this 3-Series is described as being in otherwise excellent shape.",
-                        "id": "aa9d0888-98c9-4bd7-97cb-c1d3b7a42bec",
-                        "image_url": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/6e718b8cc9dfba34fa10cf82d87ca7b3.jpg",
-                        "published_at": "2022-04-18T12:00:00Z",
-                        "title": "At $8,500, Could This Rebuilt-Title 2004 BMW 330i ZHP Build Any Confidence? - Jalopnik",
-                        "url": "https://jalopnik.com/at-8-500-could-this-rebuilt-title-04-bmw-330i-be-a-go-1848798292",
-                    }
-                ],
-                "total_count": 100,
-            }
-
-## Videos [/api/v1/videos{?category,limit,offset}]
-
-Resources related to video content.
-
-+ Parameters
-    + category (optional, enum[string]) - The video content category.
-        + Default: general
-        + Members            
-            + business
-            + entertainment
-            + general
-            + health
-            + science
-            + sports
-            + technology
-    + limit (optional, number) - The number of results to return.
-        + Default: 20
-    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
-        + Default: 0
-
-### Get Videos [GET]
-
-This action allows you to query videos.
-
-+ Response 200 (application/json)
-    + Attributes (object)
-        + videos (required, array[Video]) - The list of videos.
-        + total_count (optional, number) - The total number of available videos.
-
-    + Body
-        
-            {
-                "videos": [
-                    {
-                        "author": "Sean Hollister",
-                        "category": "Technology",                        
-                        "id": "499305f6-5096-4051-afda-824dcfc7df23",
-                        "image_url": "https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg",
-                        "published_at": "2022-04-19T12:00:00Z",
-                        "title": "Nvidia and AMD GPUs are returning to shelves and prices are finally falling"
+                        "title": "Breaking News",
+                        "type": "__section_header__"
                     }
                 ],
                 "total_count": 100,
@@ -108,23 +56,11 @@ This action allows you to query videos.
 
 # Data Structures
 
-## Article (object)
+## Block (object)
 
-+ author (required, string) - the author of the article
-+ category (required, string) - the category of the article
-+ content (required, string) - a preview of the article content
-+ description (required, string) - a short description of the article
-+ id (required, string) - unique article identifier
-+ image_url (required, string) - the URL of the image associated with the article
-+ published_at (required, string) - the timestamp of when the article was published (ISO8601)
-+ title (required, string) - the title of the article
-+ url (required, string) - the URL of the full article
++ type (required, BlockType) - the block type.
 
-## Video (object)
+## BlockType (enum)
 
-+ author (required, string) - the author of the video
-+ category (required, string) - the category of the video
-+ id (required, string) - unique video identifier
-+ image_url (required, string) - the URL of the image associated with the video
-+ published_at (required, string) - the timestamp of when the video was published (ISO8601)
-+ title (required, string) - the title of the video
++ "__section_header__" - a section header block
++ "__unknown__" - an unrecognized block

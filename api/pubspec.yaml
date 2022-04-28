@@ -17,6 +17,7 @@ dev_dependencies:
   http: ^0.13.0
   json_serializable: ^6.0.0
   meta: ^1.7.0
+  mocktail: ^0.3.0
   test: ^1.15.0
   test_process: ^2.0.0
   very_good_analysis: ^2.4.0
