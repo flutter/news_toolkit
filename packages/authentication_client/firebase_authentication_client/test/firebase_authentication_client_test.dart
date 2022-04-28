@@ -90,6 +90,7 @@ void main() {
   Firebase.initializeApp();
 
   const email = 'test@gmail.com';
+  const emailLink = 'https://email.page.link';
   const appPackageName = 'app.package.name';
 
   group('FirebaseAuthenticationClient', () {
@@ -447,6 +448,98 @@ void main() {
             appPackageName: appPackageName,
           ),
           throwsA(isA<SendLoginEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('isLogInWithEmailLink', () {
+      setUp(() {
+        when(
+          () => firebaseAuth.isSignInWithEmailLink(any()),
+        ).thenAnswer((_) => true);
+      });
+
+      test('calls isSignInWithEmailLink', () {
+        firebaseAuthenticationClient.isLogInWithEmailLink(
+          emailLink: emailLink,
+        );
+        verify(
+          () => firebaseAuth.isSignInWithEmailLink(emailLink),
+        ).called(1);
+      });
+
+      test('succeeds when isSignInWithEmailLink succeeds', () async {
+        expect(
+          firebaseAuthenticationClient.isLogInWithEmailLink(
+            emailLink: emailLink,
+          ),
+          isTrue,
+        );
+      });
+
+      test(
+          'throws IsLogInWithEmailLinkFailure '
+          'when isSignInWithEmailLink throws', () async {
+        when(
+          () => firebaseAuth.isSignInWithEmailLink(any()),
+        ).thenThrow(Exception());
+        expect(
+          () => firebaseAuthenticationClient.isLogInWithEmailLink(
+            emailLink: emailLink,
+          ),
+          throwsA(isA<IsLogInWithEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('logInWithEmailLink', () {
+      setUp(() {
+        when(
+          () => firebaseAuth.signInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
+      });
+
+      test('calls signInWithEmailLink', () async {
+        await firebaseAuthenticationClient.logInWithEmailLink(
+          email: email,
+          emailLink: emailLink,
+        );
+        verify(
+          () => firebaseAuth.signInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+        ).called(1);
+      });
+
+      test('succeeds when signInWithEmailLink succeeds', () async {
+        expect(
+          firebaseAuthenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          completes,
+        );
+      });
+
+      test(
+          'throws LogInWithEmailLinkFailure '
+          'when signInWithEmailLink throws', () async {
+        when(
+          () => firebaseAuth.signInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          firebaseAuthenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(isA<LogInWithEmailLinkFailure>()),
         );
       });
     });
