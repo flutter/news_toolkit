@@ -37,35 +37,6 @@ class UserRepository {
         ),
       );
 
-  /// Creates a new user with the provided [email] and [password].
-  ///
-  /// Throws a [SignUpFailure] if an exception occurs.
-  Future<void> signUp({required String email, required String password}) async {
-    try {
-      await _authenticationClient.signUp(
-        email: email,
-        password: password,
-      );
-    } on SignUpFailure {
-      rethrow;
-    } catch (error, stackTrace) {
-      throw SignUpFailure(error, stackTrace);
-    }
-  }
-
-  /// Sends a password reset link to the provided [email].
-  ///
-  /// Throws a [ResetPasswordFailure] if an exception occurs.
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    try {
-      await _authenticationClient.sendPasswordResetEmail(email: email);
-    } on ResetPasswordFailure {
-      rethrow;
-    } catch (error, stackTrace) {
-      throw ResetPasswordFailure(error, stackTrace);
-    }
-  }
-
   /// Starts the Sign In with Apple Flow.
   ///
   /// Throws a [LogInWithAppleFailure] if an exception occurs.
@@ -124,25 +95,6 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       throw LogInWithFacebookFailure(error, stackTrace);
-    }
-  }
-
-  /// Signs in with the provided [email] and [password].
-  ///
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> logInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await _authenticationClient.logInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on LogInWithEmailAndPasswordFailure {
-      rethrow;
-    } catch (error, stackTrace) {
-      throw LogInWithEmailAndPasswordFailure(error, stackTrace);
     }
   }
 

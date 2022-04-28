@@ -12,8 +12,6 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this._userRepository) : super(const LoginState()) {
     on<LoginEmailChanged>(_onEmailChanged);
-    on<LoginPasswordChanged>(_onPasswordChanged);
-    on<LoginCredentialsSubmitted>(_onCredentialsSubmitted);
     on<LoginEmailLinkSubmitted>(_onEmailLinkSubmitted);
     on<LoginGoogleSubmitted>(_onGoogleSubmitted);
     on<LoginAppleSubmitted>(_onAppleSubmitted);
@@ -28,39 +26,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(
       state.copyWith(
         email: email,
-        status: Formz.validate([email, state.password]),
+        status: Formz.validate([email]),
       ),
     );
-  }
-
-  void _onPasswordChanged(
-    LoginPasswordChanged event,
-    Emitter<LoginState> emit,
-  ) {
-    final password = LoginPassword.dirty(event.password);
-    emit(
-      state.copyWith(
-        password: password,
-        status: Formz.validate([state.email, password]),
-      ),
-    );
-  }
-
-  Future<void> _onCredentialsSubmitted(
-    LoginCredentialsSubmitted event,
-    Emitter<LoginState> emit,
-  ) async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    try {
-      await _userRepository.logInWithEmailAndPassword(
-        email: state.email.value,
-        password: state.password.value,
-      );
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
-    }
   }
 
   Future<void> _onEmailLinkSubmitted(
