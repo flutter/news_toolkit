@@ -61,6 +61,17 @@ void main() {
         await tester.tap(find.byKey(nextButtonKey));
         verify(() => signUpBloc.add(SignUpSubmitted())).called(1);
       });
+
+      testWidgets('SignUpEmailChanged when press on suffixIcon',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
+        );
+        await tester.enterText(find.byKey(emailInputKey), testEmail);
+        await tester.tap(find.byKey(signUpFormSuffixIconKey));
+        await tester.pumpAndSettle();
+        verify(() => signUpBloc.add(const SignUpEmailChanged(''))).called(1);
+      });
     });
 
     group('renders', () {
@@ -111,10 +122,13 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
+        final richText = tester.widget<RichText>(
+          find.byKey(
+            const Key('signUpForm_terms_and_privacy_policy'),
+          ),
+        );
 
-        final richText =
-            find.byKey(const Key('signUpForm_terms_and_privacy_policy')).first;
-        fireOnTap(
+        tapTextSpan(
           richText,
           'Terms of Use and Privacy Policy',
         );
@@ -164,21 +178,6 @@ void main() {
       });
     });
 
-    group('delete', () {
-      testWidgets('email when press on suffixIcon', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
-        );
-        await tester.enterText(find.byKey(emailInputKey), testEmail);
-        await tester.tap(find.byKey(signUpFormSuffixIconKey));
-        await tester.pumpAndSettle();
-        final emailTextFieldText = tester.widget<AppEmailField>(
-          find.byKey(emailInputKey),
-        );
-        expect(emailTextFieldText.controller?.text, '');
-      });
-    });
-
     group('navigates', () {
       testWidgets('back to previous page when submission status is success',
           (tester) async {
@@ -203,22 +202,14 @@ void main() {
   });
 }
 
-/// Runs the onTap handler for the [TextSpan] which matches the search-string.
-void fireOnTap(Finder finder, String text) {
-  late RenderParagraph paragraph;
-  final element = finder.evaluate().single;
-  if (element.renderObject != null) {
-    paragraph = element.renderObject! as RenderParagraph;
-  }
-
-  // The children are the individual TextSpans which have GestureRecognizers
-  paragraph.text.visitChildren((dynamic span) {
-    if ((span as TextSpan).text != text) return true; // continue iterating.
-    final recognizer = span.recognizer;
-
-    if (recognizer is TapGestureRecognizer) {
-      recognizer.onTap!();
-    }
-    return false; // stop iterating, we found the one.
-  });
-}
+void tapTextSpan(RichText richText, String text) =>
+    richText.text.visitChildren((visitor) {
+      if (visitor is TextSpan && visitor.text == text) {
+        final recognizer = visitor.recognizer;
+        if (recognizer is TapGestureRecognizer) {
+          recognizer.onTap!();
+        }
+        return false;
+      }
+      return true;
+    });
