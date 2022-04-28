@@ -19,24 +19,12 @@ void main() {
   const validEmailString = 'test@gmail.com';
   const validEmail = Email.dirty(validEmailString);
 
-  const invalidPasswordString = 'invalid';
-  const invalidPassword = LoginPassword.dirty(invalidPasswordString);
-
-  const validPasswordString = 'password';
-  const validPassword = LoginPassword.dirty(validPasswordString);
-
   group('LoginBloc', () {
     late UserRepository userRepository;
     late StreamController<Uri> incomingEmailLinksController;
 
     setUp(() {
       userRepository = MockUserRepository();
-      when(
-        () => userRepository.logInWithEmailAndPassword(
-          email: any(named: 'email'),
-          password: any(named: 'password'),
-        ),
-      ).thenAnswer((_) => Future<void>.value());
       when(
         () => userRepository.logInWithGoogle(),
       ).thenAnswer((_) => Future<void>.value());
@@ -66,7 +54,7 @@ void main() {
 
     group('EmailChanged', () {
       blocTest<LoginBloc, LoginState>(
-        'emits [invalid] when email/password are invalid',
+        'emits [invalid] when email is invalid',
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(invalidEmailString)),
         expect: () => const <LoginState>[
@@ -75,70 +63,38 @@ void main() {
       );
 
       blocTest<LoginBloc, LoginState>(
-        'emits [valid] when email/password are valid',
+        'emits [valid] when email is valid',
         build: () => LoginBloc(userRepository),
-        seed: () => LoginState(password: validPassword),
         act: (bloc) => bloc.add(LoginEmailChanged(validEmailString)),
         expect: () => const <LoginState>[
           LoginState(
             email: validEmail,
-            password: validPassword,
             status: FormzStatus.valid,
           ),
         ],
       );
     });
 
-    group('PasswordChanged', () {
-      blocTest<LoginBloc, LoginState>(
-        'emits [invalid] when email/password are invalid',
-        build: () => LoginBloc(userRepository),
-        act: (bloc) => bloc.add(LoginPasswordChanged(invalidPasswordString)),
-        expect: () => const <LoginState>[
-          LoginState(
-            password: invalidPassword,
-            status: FormzStatus.invalid,
-          ),
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [valid] when email/password are valid',
-        build: () => LoginBloc(userRepository),
-        seed: () => LoginState(email: validEmail),
-        act: (bloc) => bloc.add(LoginPasswordChanged(validPasswordString)),
-        expect: () => const <LoginState>[
-          LoginState(
-            email: validEmail,
-            password: validPassword,
-            status: FormzStatus.valid,
-          ),
-        ],
-      );
-    });
-
-    group('LogInWithCredentialsSubmitted', () {
+    group('LoginEmailLinkSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'does nothing when status is not validated',
         build: () => LoginBloc(userRepository),
-        act: (bloc) => bloc.add(LoginCredentialsSubmitted()),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
         expect: () => const <LoginState>[],
       );
 
       blocTest<LoginBloc, LoginState>(
-        'calls logInWithEmailAndPassword with correct email/password',
+        'calls sendLoginEmailLink with correct email',
         build: () => LoginBloc(userRepository),
         seed: () => LoginState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
-        act: (bloc) => bloc.add(LoginCredentialsSubmitted()),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
         verify: (_) {
           verify(
-            () => userRepository.logInWithEmailAndPassword(
+            () => userRepository.sendLoginEmailLink(
               email: validEmailString,
-              password: validPasswordString,
             ),
           ).called(1);
         },
@@ -146,36 +102,32 @@ void main() {
 
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
-        'when logInWithEmailAndPassword succeeds',
+        'when sendLoginEmailLink succeeds',
         build: () => LoginBloc(userRepository),
         seed: () => LoginState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
-        act: (bloc) => bloc.add(LoginCredentialsSubmitted()),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
         expect: () => const <LoginState>[
           LoginState(
             status: FormzStatus.submissionInProgress,
             email: validEmail,
-            password: validPassword,
           ),
           LoginState(
             status: FormzStatus.submissionSuccess,
             email: validEmail,
-            password: validPassword,
           )
         ],
       );
 
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionFailure] '
-        'when logInWithEmailAndPassword fails',
+        'when sendLoginEmailLink fails',
         setUp: () {
           when(
-            () => userRepository.logInWithEmailAndPassword(
+            () => userRepository.sendLoginEmailLink(
               email: any(named: 'email'),
-              password: any(named: 'password'),
             ),
           ).thenThrow(Exception('oops'));
         },
@@ -183,19 +135,16 @@ void main() {
         seed: () => LoginState(
           status: FormzStatus.valid,
           email: validEmail,
-          password: validPassword,
         ),
-        act: (bloc) => bloc.add(LoginCredentialsSubmitted()),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
         expect: () => const <LoginState>[
           LoginState(
             status: FormzStatus.submissionInProgress,
             email: validEmail,
-            password: validPassword,
           ),
           LoginState(
             status: FormzStatus.submissionFailure,
             email: validEmail,
-            password: validPassword,
           )
         ],
       );

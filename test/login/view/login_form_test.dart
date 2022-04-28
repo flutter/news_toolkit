@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
-import 'package:google_news_template/sign_up/sign_up.dart';
 import 'package:mockingjay/mockingjay.dart' show MockNavigator;
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
@@ -20,13 +19,11 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
-  const loginButtonKey = Key('loginForm_emailLogin_elevatedButton');
-  const signInWithGoogleButtonKey = Key('loginForm_googleLogin_elevatedButton');
-  const signInWithAppleButtonKey = Key('loginForm_appleLogin_elevatedButton');
-  const signInWithFacebookButtonKey =
-      Key('loginForm_facebookLogin_elevatedButton');
-  const signInWithTwitterButtonKey =
-      Key('loginForm_twitterLogin_elevatedButton');
+  const loginButtonKey = Key('loginForm_emailLogin_appButton');
+  const signInWithGoogleButtonKey = Key('loginForm_googleLogin_appButton');
+  const signInWithAppleButtonKey = Key('loginForm_appleLogin_appButton');
+  const signInWithFacebookButtonKey = Key('loginForm_facebookLogin_appButton');
+  const signInWithTwitterButtonKey = Key('loginForm_twitterLogin_appButton');
   const loginFormCloseModalKey = Key('loginForm_closeModal');
 
   group('LoginForm', () {
@@ -150,7 +147,7 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('to SignUpPage when Continue with email is pressed',
+      testWidgets('to LoginWithEmailPage when Continue with email is pressed',
           (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -158,7 +155,7 @@ void main() {
         await tester.ensureVisible(find.byKey(loginButtonKey));
         await tester.tap(find.byKey(loginButtonKey));
         await tester.pumpAndSettle();
-        expect(find.byType(SignUpPage), findsOneWidget);
+        expect(find.byType(LoginWithEmailPage), findsOneWidget);
       });
     });
 

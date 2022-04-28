@@ -91,7 +91,6 @@ void main() {
 
   const email = 'test@gmail.com';
   const emailLink = 'https://email.page.link';
-  const password = 't0ps3cret42';
   const appPackageName = 'app.package.name';
 
   group('FirebaseAuthenticationClient', () {
@@ -174,152 +173,6 @@ void main() {
         expect(
           () => firebaseAuthenticationClient.logInWithApple(),
           throwsA(isA<LogInWithAppleFailure>()),
-        );
-      });
-    });
-
-    group('sendPasswordResetEmail', () {
-      setUp(() {
-        when(
-          () => firebaseAuth.sendPasswordResetEmail(email: any(named: 'email')),
-        ).thenAnswer((_) => Future.value());
-      });
-
-      test('calls sendPasswordResetEmail', () async {
-        await firebaseAuthenticationClient.sendPasswordResetEmail(email: email);
-        verify(() => firebaseAuth.sendPasswordResetEmail(email: email))
-            .called(1);
-      });
-
-      test('succeeds when sendPasswordResetEMail succeeds', () async {
-        expect(
-          firebaseAuthenticationClient.sendPasswordResetEmail(email: email),
-          completes,
-        );
-      });
-
-      test(
-        'throws ResetPasswordFailure when sendPasswordResetEmail throws',
-        () async {
-          final firebaseAuthExceptions = {
-            'invalid-email': ResetPasswordInvalidEmailFailure(
-              Exception(),
-              StackTrace.current,
-            ),
-            'user-not-found': ResetPasswordUserNotFoundFailure(
-              Exception(),
-              StackTrace.current,
-            ),
-            'default': ResetPasswordFailure(Exception(), StackTrace.current),
-          };
-
-          for (final exception in firebaseAuthExceptions.entries) {
-            when(
-              () => firebaseAuth.sendPasswordResetEmail(
-                email: any(named: 'email'),
-              ),
-            ).thenThrow(
-              firebase_auth.FirebaseAuthException(code: exception.key),
-            );
-
-            try {
-              await firebaseAuthenticationClient.sendPasswordResetEmail(
-                email: email,
-              );
-            } catch (e) {
-              expect(e.toString(), exception.value.toString());
-            }
-          }
-        },
-      );
-
-      test('throws ResetPasswordFailure when sendPasswordResetEmail throws',
-          () async {
-        when(
-          () => firebaseAuth.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          firebaseAuthenticationClient.sendPasswordResetEmail(email: email),
-          throwsA(isA<ResetPasswordFailure>()),
-        );
-      });
-    });
-
-    group('signUp', () {
-      setUp(() {
-        when(
-          () => firebaseAuth.createUserWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenAnswer((_) => Future.value(MockUserCredential()));
-      });
-
-      test('calls createUserWithEmailAndPassword', () async {
-        await firebaseAuthenticationClient.signUp(
-          email: email,
-          password: password,
-        );
-        verify(
-          () => firebaseAuth.createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-          ),
-        ).called(1);
-      });
-
-      test('succeeds when createUserWithEmailAndPassword succeeds', () async {
-        expect(
-          firebaseAuthenticationClient.signUp(email: email, password: password),
-          completes,
-        );
-      });
-
-      test('throws correct exception based on error code', () async {
-        final firebaseAuthExceptions = {
-          'email-already-in-use':
-              SignUpEmailInUseFailure(Exception(), StackTrace.current),
-          'invalid-email':
-              SignUpInvalidEmailFailure(Exception(), StackTrace.current),
-          'operation-not-allowed':
-              SignUpOperationNotAllowedFailure(Exception(), StackTrace.current),
-          'weak-password':
-              SignUpWeakPasswordFailure(Exception(), StackTrace.current),
-          'default': SignUpFailure(Exception(), StackTrace.current),
-        };
-
-        for (final exception in firebaseAuthExceptions.entries) {
-          when(
-            () => firebaseAuth.createUserWithEmailAndPassword(
-              email: any(named: 'email'),
-              password: any(named: 'password'),
-            ),
-          ).thenThrow(firebase_auth.FirebaseAuthException(code: exception.key));
-
-          try {
-            await firebaseAuthenticationClient.signUp(
-              email: email,
-              password: password,
-            );
-          } catch (e) {
-            expect(e.toString(), exception.value.toString());
-          }
-        }
-      });
-
-      test('throws SignUpFailure when createUserWithEmailAndPassword throws',
-          () async {
-        when(
-          () => firebaseAuth.createUserWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          firebaseAuthenticationClient.signUp(email: email, password: password),
-          throwsA(isA<SignUpFailure>()),
         );
       });
     });
@@ -523,54 +376,170 @@ void main() {
       });
     });
 
-    group('logInWithEmailAndPassword', () {
+    group('sendLoginEmailLink', () {
       setUp(() {
         when(
-          () => firebaseAuth.signInWithEmailAndPassword(
+          () => firebaseAuth.sendSignInLinkToEmail(
             email: any(named: 'email'),
-            password: any(named: 'password'),
+            actionCodeSettings: any(named: 'actionCodeSettings'),
           ),
-        ).thenAnswer((_) => Future.value(MockUserCredential()));
+        ).thenAnswer((_) async {});
       });
 
-      test('calls signInWithEmailAndPassword', () async {
-        await firebaseAuthenticationClient.logInWithEmailAndPassword(
+      test('calls sendSignInLinkToEmail', () async {
+        await firebaseAuthenticationClient.sendLoginEmailLink(
           email: email,
-          password: password,
+          appPackageName: appPackageName,
         );
+
         verify(
-          () => firebaseAuth.signInWithEmailAndPassword(
+          () => firebaseAuth.sendSignInLinkToEmail(
             email: email,
-            password: password,
+            actionCodeSettings: any(
+              named: 'actionCodeSettings',
+              that: isA<firebase_auth.ActionCodeSettings>()
+                  .having(
+                    (settings) => settings.androidPackageName,
+                    'androidPackageName',
+                    equals(appPackageName),
+                  )
+                  .having(
+                    (settings) => settings.iOSBundleId,
+                    'iOSBundleId',
+                    equals(appPackageName),
+                  )
+                  .having(
+                    (settings) => settings.androidInstallApp,
+                    'androidInstallApp',
+                    isTrue,
+                  )
+                  .having(
+                    (settings) => settings.handleCodeInApp,
+                    'handleCodeInApp',
+                    isTrue,
+                  ),
+            ),
           ),
         ).called(1);
       });
 
-      test('succeeds when signInWithEmailAndPassword succeeds', () async {
+      test('succeeds when sendSignInLinkToEmail succeeds', () async {
         expect(
-          firebaseAuthenticationClient.logInWithEmailAndPassword(
+          firebaseAuthenticationClient.sendLoginEmailLink(
             email: email,
-            password: password,
+            appPackageName: appPackageName,
           ),
           completes,
         );
       });
 
       test(
-          'throws LogInWithEmailAndPasswordFailure '
-          'when signInWithEmailAndPassword throws', () async {
+          'throws SendLoginEmailLinkFailure '
+          'when sendSignInLinkToEmail throws', () async {
         when(
-          () => firebaseAuth.signInWithEmailAndPassword(
+          () => firebaseAuth.sendSignInLinkToEmail(
             email: any(named: 'email'),
-            password: any(named: 'password'),
+            actionCodeSettings: any(named: 'actionCodeSettings'),
           ),
         ).thenThrow(Exception());
         expect(
-          firebaseAuthenticationClient.logInWithEmailAndPassword(
+          firebaseAuthenticationClient.sendLoginEmailLink(
             email: email,
-            password: password,
+            appPackageName: appPackageName,
           ),
-          throwsA(isA<LogInWithEmailAndPasswordFailure>()),
+          throwsA(isA<SendLoginEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('isLogInWithEmailLink', () {
+      setUp(() {
+        when(
+          () => firebaseAuth.isSignInWithEmailLink(any()),
+        ).thenAnswer((_) => true);
+      });
+
+      test('calls isSignInWithEmailLink', () {
+        firebaseAuthenticationClient.isLogInWithEmailLink(
+          emailLink: emailLink,
+        );
+        verify(
+          () => firebaseAuth.isSignInWithEmailLink(emailLink),
+        ).called(1);
+      });
+
+      test('succeeds when isSignInWithEmailLink succeeds', () async {
+        expect(
+          firebaseAuthenticationClient.isLogInWithEmailLink(
+            emailLink: emailLink,
+          ),
+          isTrue,
+        );
+      });
+
+      test(
+          'throws IsLogInWithEmailLinkFailure '
+          'when isSignInWithEmailLink throws', () async {
+        when(
+          () => firebaseAuth.isSignInWithEmailLink(any()),
+        ).thenThrow(Exception());
+        expect(
+          () => firebaseAuthenticationClient.isLogInWithEmailLink(
+            emailLink: emailLink,
+          ),
+          throwsA(isA<IsLogInWithEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('logInWithEmailLink', () {
+      setUp(() {
+        when(
+          () => firebaseAuth.signInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenAnswer((_) => Future.value(MockUserCredential()));
+      });
+
+      test('calls signInWithEmailLink', () async {
+        await firebaseAuthenticationClient.logInWithEmailLink(
+          email: email,
+          emailLink: emailLink,
+        );
+        verify(
+          () => firebaseAuth.signInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+        ).called(1);
+      });
+
+      test('succeeds when signInWithEmailLink succeeds', () async {
+        expect(
+          firebaseAuthenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          completes,
+        );
+      });
+
+      test(
+          'throws LogInWithEmailLinkFailure '
+          'when signInWithEmailLink throws', () async {
+        when(
+          () => firebaseAuth.signInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          firebaseAuthenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(isA<LogInWithEmailLinkFailure>()),
         );
       });
     });

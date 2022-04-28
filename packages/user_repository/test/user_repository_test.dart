@@ -15,10 +15,6 @@ class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
 class MockUser extends Mock implements User {}
 
-class FakeSignUpFailure extends Fake implements SignUpFailure {}
-
-class FakeResetPasswordFailure extends Fake implements ResetPasswordFailure {}
-
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
 
 class FakeLogInWithGoogleFailure extends Fake
@@ -38,9 +34,6 @@ class FakeLogInWithFacebookFailure extends Fake
 
 class FakeLogInWithFacebookCanceled extends Fake
     implements LogInWithFacebookCanceled {}
-
-class FakeLogInWithEmailAndPasswordFailure extends Fake
-    implements LogInWithEmailAndPasswordFailure {}
 
 class FakeLogOutFailure extends Fake implements LogOutFailure {}
 
@@ -122,110 +115,6 @@ void main() {
           ..add(validEmailLink)
           ..add(invalidEmailLink)
           ..add(validEmailLink2);
-      });
-    });
-
-    group('signUp', () {
-      test(
-          'calls AuthenticationClient signUp '
-          'with email and password', () async {
-        when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenAnswer((_) async {});
-        await userRepository.signUp(
-          email: 'ben_franklin@upenn.edu',
-          password: 'BenFranklin123',
-        );
-        verify(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).called(1);
-      });
-
-      test('rethrows SignUpFailure', () async {
-        final exception = FakeSignUpFailure();
-        when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.signUp(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(exception),
-        );
-      });
-
-      test('throws SignUpFailure on generic exception', () async {
-        when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.signUp(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(isA<SignUpFailure>()),
-        );
-      });
-    });
-
-    group('sendPasswordResetEmail', () {
-      test('calls sendPasswordResetEmail with email on AuthenticationClient',
-          () async {
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenAnswer((_) async {});
-        await userRepository.sendPasswordResetEmail(
-          email: 'ben_franklin@upenn.edu',
-        );
-        verify(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).called(1);
-      });
-
-      test('rethrows ResetPasswordFailure', () async {
-        final exception = FakeResetPasswordFailure();
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.sendPasswordResetEmail(
-            email: 'ben_franklin@upenn.edu',
-          ),
-          throwsA(exception),
-        );
-      });
-
-      test('throws ResetPasswordFailure on generic exception', () async {
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.sendPasswordResetEmail(
-            email: 'ben_franklin@upenn.edu',
-          ),
-          throwsA(isA<ResetPasswordFailure>()),
-        );
       });
     });
 
@@ -356,64 +245,6 @@ void main() {
         expect(
           () => userRepository.logInWithFacebook(),
           throwsA(isA<LogInWithFacebookFailure>()),
-        );
-      });
-    });
-
-    group('logInWithEmailAndPassword', () {
-      test(
-          'calls logInWithEmailAndPassWord '
-          'with email and password on AuthenticationClient', () async {
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenAnswer((_) async {});
-        await userRepository.logInWithEmailAndPassword(
-          email: 'ben_franklin@upenn.edu',
-          password: 'BenFranklin123',
-        );
-        verify(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).called(1);
-      });
-
-      test('rethrows LogInWithEmailAndPasswordFailure', () async {
-        final exception = FakeLogInWithEmailAndPasswordFailure();
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.logInWithEmailAndPassword(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(exception),
-        );
-      });
-
-      test(
-          'throws LogInWithEmailAndPasswordFailure '
-          'on generic exception', () async {
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.logInWithEmailAndPassword(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(isA<LogInWithEmailAndPasswordFailure>()),
         );
       });
     });

@@ -11,11 +11,8 @@ dependencies:
   deep_link_client:
     path: ../deep_link_client
   equatable: ^2.0.3
-  flutter:
-    sdk: flutter
   package_info_client:
     path: ../package_info_client
-  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:

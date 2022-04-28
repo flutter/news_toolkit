@@ -94,8 +94,6 @@ void main() {
       setUp(() {
         TestWidgetsFlutterBinding.ensureInitialized();
 
-        // Shamelessly taken from firebase_core/test/firebase_core_test.dart.
-
         final mock = MockFirebaseCore();
         Firebase.delegatePackingProperty = mock;
 

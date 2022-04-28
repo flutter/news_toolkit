@@ -17,19 +17,9 @@ void main() {
       });
     });
 
-    group('LoginPasswordChanged', () {
+    group('LoginEmailLinkSubmitted', () {
       test('supports value comparisons', () {
-        expect(LoginPasswordChanged('pwd'), LoginPasswordChanged('pwd'));
-        expect(
-          LoginPasswordChanged(''),
-          isNot(LoginPasswordChanged('pwd')),
-        );
-      });
-    });
-
-    group('LoginCredentialsSubmitted', () {
-      test('supports value comparisons', () {
-        expect(LoginCredentialsSubmitted(), LoginCredentialsSubmitted());
+        expect(LoginEmailLinkSubmitted(), LoginEmailLinkSubmitted());
       });
     });
 
