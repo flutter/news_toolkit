@@ -90,11 +90,20 @@ class ResetPasswordUserNotFoundFailure extends ResetPasswordFailure {
 }
 
 /// {@template log_in_with_email_and_password_failure}
-/// Thrown during the login process if a failure occurs.
+/// Thrown during the login with email and password process if a failure occurs.
 /// {@endtemplate}
 class LogInWithEmailAndPasswordFailure extends AuthenticationException {
   /// {@macro log_in_with_email_and_password_failure}
   const LogInWithEmailAndPasswordFailure(Object error, StackTrace stackTrace)
+      : super(error, stackTrace);
+}
+
+/// {@template send_login_email_link_failure}
+/// Thrown during the sending login email link process if a failure occurs.
+/// {@endtemplate}
+class SendLoginEmailLinkFailure extends AuthenticationException {
+  /// {@macro send_login_email_link_failure}
+  const SendLoginEmailLinkFailure(Object error, StackTrace stackTrace)
       : super(error, stackTrace);
 }
 
@@ -214,6 +223,17 @@ abstract class AuthenticationClient {
   Future<void> logInWithEmailAndPassword({
     required String email,
     required String password,
+  });
+
+  /// Sends an authentication link to the provided [email].
+  ///
+  /// Opening the link should redirect to the app with [appPackageName]
+  /// and authenticate the user based on the provided email link.
+  ///
+  /// Throws a [SendLoginEmailLinkFailure] if an exception occurs.
+  Future<void> sendLoginEmailLink({
+    required String email,
+    required String appPackageName,
   });
 
   /// Signs out the current user which will emit
