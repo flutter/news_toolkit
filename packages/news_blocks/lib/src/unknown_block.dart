@@ -3,20 +3,20 @@ import 'package:news_blocks/news_blocks.dart';
 
 part 'unknown_block.g.dart';
 
-/// The unknown block type identifier.
-const unknownBlockType = '__unknown__';
-
 /// {@template unknown_block}
 /// A block which represents an unknown type.
 /// {@endtemplate}
 @JsonSerializable()
 class UnknownBlock implements NewsBlock {
   /// {@macro unknown_block}
-  const UnknownBlock({this.type = unknownBlockType});
+  const UnknownBlock({this.type = UnknownBlock.identifier});
 
   /// Converts a `Map<String, dynamic>` into a [BlockAction] instance.
   factory UnknownBlock.fromJson(Map<String, dynamic> json) =>
       _$UnknownBlockFromJson(json);
+
+  /// The unknown block type identifier.
+  static const identifier = '__unknown__';
 
   @override
   final String type;

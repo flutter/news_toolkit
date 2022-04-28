@@ -14,8 +14,8 @@ UnknownBlock _$UnknownBlockFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = UnknownBlock(
-          type:
-              $checkedConvert('type', (v) => v as String? ?? unknownBlockType),
+          type: $checkedConvert(
+              'type', (v) => v as String? ?? UnknownBlock.identifier),
         );
         return val;
       },
