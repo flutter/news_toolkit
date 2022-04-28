@@ -21,7 +21,7 @@ SectionHeaderBlock _$SectionHeaderBlockFromJson(Map<String, dynamic> json) =>
                   ? null
                   : BlockAction.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
-              'type', (v) => v as String? ?? '__section_header__'),
+              'type', (v) => v as String? ?? sectionHeaderBlockType),
         );
         return val;
       },
