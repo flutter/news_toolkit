@@ -1,0 +1,37 @@
+name: api
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "api/**"
+      - ".github/workflows/api.yaml"
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@accfc54fbd85dfd8685e63affdfc4c9bdeeb9769
+    with:
+      working_directory: api
+
+  e2e:
+    defaults:
+      run:
+        working-directory: api
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      - name: Run Docker Tests
+        run: ./tool/docker_test.sh

@@ -38,7 +38,6 @@ dependencies:
     path: packages/user_repository
   very_good_analysis: ^2.4.0
 
-
 dependency_overrides:
   platform:
     git:

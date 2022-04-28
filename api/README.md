@@ -1,5 +1,47 @@
 # Google News Template API ☁️
 
+## Getting Started 🚀
+
+Google News Template API is written in [Dart](https://dart.dev) and can be run standalone or via [Docker](https://www.docker.com).
+
+### Running Locally ☁️💻
+
+To run the server locally, run the following command from the current directory:
+
+```sh
+$ dart bin/server.dart
+```
+
+This will start the server on [localhost:8080](http://localhost:8080).
+
+### Running in Docker 🐳
+
+To run the server in Docker, make sure you have [Docker installed](https://docs.docker.com/get-docker/).
+
+Then you can create an image:
+
+```sh
+docker build -q .
+```
+
+Once you have created an image, you can run the image via:
+
+```sh
+docker run -d -p 8080:8080 --rm <IMAGE>
+```
+
+To kill the container:
+
+```sh
+docker kill <CONTAINER>
+```
+
+If you wish to delete an image you can run:
+
+```sh
+docker rmi <IMAGE>
+```
+
 ## API Documentation 📚
 
 The API documentation can be found in `docs/api.apib`. The documentation uses the [API Blueprint](https://github.com/apiaryio/api-blueprint) specification and can be previewed using the [Apiary Client](https://github.com/apiaryio/apiary-client).
