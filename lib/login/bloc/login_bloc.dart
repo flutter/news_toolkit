@@ -49,8 +49,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         email: state.email.value,
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
@@ -99,8 +100,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
@@ -114,8 +116,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithGoogleCanceled {
       emit(state.copyWith(status: FormzStatus.submissionCanceled));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
@@ -127,8 +130,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _userRepository.logInWithApple();
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
@@ -142,8 +146,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithTwitterCanceled {
       emit(state.copyWith(status: FormzStatus.submissionCanceled));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
@@ -157,8 +162,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on LogInWithFacebookCanceled {
       emit(state.copyWith(status: FormzStatus.submissionCanceled));
-    } catch (_) {
+    } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
+      addError(error, stackTrace);
     }
   }
 
