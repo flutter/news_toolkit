@@ -8,7 +8,7 @@ environment:
 dependencies:
   json_annotation: ^4.5.0
   news_blocks:
-    path: ../packages/news_blocks
+    path: packages/news_blocks
   shelf: ^1.1.0
   shelf_router: ^1.0.0
 

@@ -270,7 +270,7 @@ packages:
   news_blocks:
     dependency: "direct main"
     description:
-      path: "../packages/news_blocks"
+      path: "packages/news_blocks"
       relative: true
     source: path
     version: "1.0.0+1"
