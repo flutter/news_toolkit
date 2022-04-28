@@ -119,7 +119,10 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           context.l10n.signUpTermsAndPolicyInfo,
-                          style: Theme.of(context).textTheme.button,
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              ?.apply(color: AppColors.white),
                         ),
                       ),
                     );

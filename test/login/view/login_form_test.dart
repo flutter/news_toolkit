@@ -58,6 +58,17 @@ void main() {
       });
 
       testWidgets(
+          'LoginTwitterSubmitted when sign in with Twitter button is pressed',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(value: loginBloc, child: const LoginForm()),
+        );
+        await tester.ensureVisible(find.byKey(signInWithTwitterButtonKey));
+        await tester.tap(find.byKey(signInWithTwitterButtonKey));
+        verify(() => loginBloc.add(LoginTwitterSubmitted())).called(1);
+      });
+
+      testWidgets(
           'LoginFacebookSubmitted when sign in with Facebook button is pressed',
           (tester) async {
         await tester.pumpApp(
@@ -137,19 +148,6 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
-        expect(find.byKey(signInWithTwitterButtonKey), findsOneWidget);
-      });
-    });
-
-    group('does nothing', () {
-      testWidgets('when sign in with twitter button is pressed',
-          (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(value: loginBloc, child: const LoginForm()),
-        );
-        await tester.ensureVisible(find.byKey(signInWithTwitterButtonKey));
-        await tester.tap(find.byKey(signInWithTwitterButtonKey));
-        await tester.pumpAndSettle();
         expect(find.byKey(signInWithTwitterButtonKey), findsOneWidget);
       });
     });

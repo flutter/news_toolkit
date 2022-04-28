@@ -185,7 +185,6 @@
     "type": "text",
     "placeholders": {}
   },
-
   "nextButtonText": "Next",
   "@nextButtonText": {
     "description": "Sign up next button shown on the sign up form",
