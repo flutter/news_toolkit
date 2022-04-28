@@ -33,6 +33,12 @@ void main() {
       });
     });
 
+    group('LoginEmailLinkSubmitted', () {
+      test('supports value comparisons', () {
+        expect(LoginEmailLinkSubmitted(), LoginEmailLinkSubmitted());
+      });
+    });
+
     group('LoginGoogleSubmitted', () {
       test('supports value comparisons', () {
         expect(LoginGoogleSubmitted(), LoginGoogleSubmitted());

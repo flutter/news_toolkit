@@ -44,6 +44,11 @@ void main() {
       when(
         () => userRepository.logInWithApple(),
       ).thenAnswer((_) => Future<void>.value());
+      when(
+        () => userRepository.sendLoginEmailLink(
+          email: any(named: 'email'),
+        ),
+      ).thenAnswer((_) => Future<void>.value());
     });
 
     test('initial state is LoginState', () {
@@ -182,6 +187,81 @@ void main() {
             status: FormzStatus.submissionFailure,
             email: validEmail,
             password: validPassword,
+          )
+        ],
+      );
+    });
+
+    group('LoginEmailLinkSubmitted', () {
+      blocTest<LoginBloc, LoginState>(
+        'does nothing when status is not validated',
+        build: () => LoginBloc(userRepository),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
+        expect: () => const <LoginState>[],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'calls sendLoginEmailLink with correct email',
+        build: () => LoginBloc(userRepository),
+        seed: () => LoginState(
+          status: FormzStatus.valid,
+          email: validEmail,
+        ),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
+        verify: (_) {
+          verify(
+            () => userRepository.sendLoginEmailLink(
+              email: validEmailString,
+            ),
+          ).called(1);
+        },
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionSuccess] '
+        'when sendLoginEmailLink succeeds',
+        build: () => LoginBloc(userRepository),
+        seed: () => LoginState(
+          status: FormzStatus.valid,
+          email: validEmail,
+        ),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(
+            status: FormzStatus.submissionInProgress,
+            email: validEmail,
+          ),
+          LoginState(
+            status: FormzStatus.submissionSuccess,
+            email: validEmail,
+          )
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [submissionInProgress, submissionFailure] '
+        'when sendLoginEmailLink fails',
+        setUp: () {
+          when(
+            () => userRepository.sendLoginEmailLink(
+              email: any(named: 'email'),
+            ),
+          ).thenThrow(Exception('oops'));
+        },
+        build: () => LoginBloc(userRepository),
+        seed: () => LoginState(
+          status: FormzStatus.valid,
+          email: validEmail,
+        ),
+        act: (bloc) => bloc.add(LoginEmailLinkSubmitted()),
+        expect: () => const <LoginState>[
+          LoginState(
+            status: FormzStatus.submissionInProgress,
+            email: validEmail,
+          ),
+          LoginState(
+            status: FormzStatus.submissionFailure,
+            email: validEmail,
           )
         ],
       );
