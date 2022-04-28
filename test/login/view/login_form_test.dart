@@ -11,10 +11,7 @@ import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
-// ignore: must_be_immutable
 class MockUser extends Mock implements User {}
-
-class MockUserRepository extends Mock implements UserRepository {}
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}

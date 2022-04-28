@@ -22,7 +22,10 @@ class MockThemeModeBloc extends MockBloc<ThemeModeEvent, ThemeMode>
   ThemeMode get state => ThemeMode.system;
 }
 
-class MockUserRepository extends Mock implements UserRepository {}
+class MockUserRepository extends Mock implements UserRepository {
+  @override
+  Stream<Uri> get incomingEmailLinks => const Stream.empty();
+}
 
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
