@@ -7,7 +7,7 @@ import 'package:mockingjay/mockingjay.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  const leftCrossIconKey = Key('signUpPage_crossIcon');
+  const closeIcon = Key('signUpPage_closeIcon');
 
   group('SignUpPage', () {
     test('has a route', () {
@@ -28,7 +28,7 @@ void main() {
         SignUpPage(),
         navigator: navigator,
       );
-      await tester.tap(find.byKey(leftCrossIconKey));
+      await tester.tap(find.byKey(closeIcon));
       await tester.pumpAndSettle();
       verify(navigator.pop).called(1);
     });

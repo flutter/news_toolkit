@@ -22,11 +22,11 @@ class MockEmail extends Mock implements Email {}
 class MockPassword extends Mock implements SignUpPassword {}
 
 void main() {
-  const nextButtonKey = Key('signUpForm_next_elevatedButton');
+  const nextButtonKey = Key('signUpForm_nextButton');
   const emailInputKey = Key('signUpForm_emailInput_textField');
   const signUpFormHeaderTitleKey = Key('signUpForm_header_title');
-  const signUpFormTermsAndPrivatePolicyKey =
-      Key('signUpForm_terms_and_private_policy');
+  const signUpFormTermsAndPrivacyPolicyKey =
+      Key('signUpForm_terms_and_privacy_policy');
   const signUpFormSuffixIconKey = Key('email_textField_suffixIcon');
 
   const testEmail = 'test@gmail.com';
@@ -85,7 +85,7 @@ void main() {
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
         final termsAndPrivacyPolicyText =
-            find.byKey(signUpFormTermsAndPrivatePolicyKey);
+            find.byKey(signUpFormTermsAndPrivacyPolicyKey);
         expect(termsAndPrivacyPolicyText, findsOneWidget);
       });
 
@@ -106,14 +106,14 @@ void main() {
       });
 
       testWidgets(
-          'Terms and Privacy Policy SnackBar when click on '
+          'Terms and Privacy Policy SnackBar when tapped on '
           'Terms of Use and Privacy Policy text', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: signUpBloc, child: const SignUpForm()),
         );
 
         final richText =
-            find.byKey(const Key('signUpForm_terms_and_private_policy')).first;
+            find.byKey(const Key('signUpForm_terms_and_privacy_policy')).first;
         fireOnTap(
           richText,
           'Terms of Use and Privacy Policy',
