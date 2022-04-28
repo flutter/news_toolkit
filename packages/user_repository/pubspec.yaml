@@ -9,6 +9,8 @@ dependencies:
   authentication_client:
     path: ../authentication_client/authentication_client
   equatable: ^2.0.3
+  package_info_client:
+    path: ../package_info_client
 
 dev_dependencies:
   mocktail: ^0.3.0

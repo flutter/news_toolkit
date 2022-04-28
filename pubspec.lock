@@ -644,6 +644,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  package_info_client:
+    dependency: transitive
+    description:
+      path: "packages/package_info_client"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   path:
     dependency: transitive
     description:

@@ -1,16 +1,21 @@
 import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
+import 'package:package_info_client/package_info_client.dart';
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
 /// {@endtemplate}
 class UserRepository {
   /// {@macro user_repository}
-  UserRepository({required AuthenticationClient authenticationClient})
-      : _authenticationClient = authenticationClient;
+  UserRepository({
+    required AuthenticationClient authenticationClient,
+    required PackageInfoClient packageInfoClient,
+  })  : _authenticationClient = authenticationClient,
+        _packageInfoClient = packageInfoClient;
 
   final AuthenticationClient _authenticationClient;
+  final PackageInfoClient _packageInfoClient;
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
@@ -124,6 +129,24 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       throw LogInWithEmailAndPasswordFailure(error, stackTrace);
+    }
+  }
+
+  /// Sends an authentication link to the provided [email].
+  ///
+  /// Throws a [SendLoginEmailLinkFailure] if an exception occurs.
+  Future<void> sendLoginEmailLink({
+    required String email,
+  }) async {
+    try {
+      await _authenticationClient.sendLoginEmailLink(
+        email: email,
+        appPackageName: _packageInfoClient.packageName,
+      );
+    } on SendLoginEmailLinkFailure {
+      rethrow;
+    } catch (error, stackTrace) {
+      throw SendLoginEmailLinkFailure(error, stackTrace);
     }
   }
 
