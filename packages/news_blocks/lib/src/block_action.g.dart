@@ -22,11 +22,19 @@ BlockAction _$BlockActionFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$BlockActionToJson(BlockAction instance) =>
-    <String, dynamic>{
-      'uri': instance.uri?.toString(),
-      'type': _$BlockActionTypeEnumMap[instance.type],
-    };
+Map<String, dynamic> _$BlockActionToJson(BlockAction instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('uri', instance.uri?.toString());
+  val['type'] = _$BlockActionTypeEnumMap[instance.type];
+  return val;
+}
 
 const _$BlockActionTypeEnumMap = {
   BlockActionType.navigation: 'navigation',
