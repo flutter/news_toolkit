@@ -6,11 +6,16 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  json_annotation: ^4.5.0
+  news_blocks:
+    path: packages/news_blocks
   shelf: ^1.1.0
   shelf_router: ^1.0.0
 
 dev_dependencies:
+  build_runner: ^2.0.0
   http: ^0.13.0
+  json_serializable: ^6.0.0
   meta: ^1.7.0
   test: ^1.15.0
   test_process: ^2.0.0
