@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/passwordless/passwordless.dart';
 import 'package:google_news_template/sign_up/sign_up.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -15,6 +16,7 @@ class SignUpForm extends StatelessWidget {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
+          // TODO(ana): Navigate to PasswordLessPage
           Navigator.of(context).pop();
         } else if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
@@ -134,10 +136,16 @@ class _NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
+    final email = context.select((SignUpBloc bloc) => bloc.state.email.value);
     return AppButton.darkAqua(
       key: const Key('signUpForm_nextButton'),
       onPressed: status.isValidated
-          ? () => context.read<SignUpBloc>().add(SignUpSubmitted())
+          ? () {
+              // TODO(ana): call to SignUpSubmitted when PL logic are merged
+              // context.read<SignUpBloc>().add(SignUpSubmitted())
+              Navigator.of(context)
+                  .push<void>(PasswordLessPage(email: email).route());
+            }
           : null,
       child: status.isSubmissionInProgress
           ? const CircularProgressIndicator()

@@ -58,6 +58,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/continue_with_twitter.svg
   SvgGenImage get continueWithTwitter =>
       const SvgGenImage('assets/images/continue_with_twitter.svg');
+
+  /// File path: assets/images/password_less_email.svg
+  SvgGenImage get passwordLessEmail =>
+      const SvgGenImage('assets/images/password_less_email.svg');
 }
 
 class Assets {

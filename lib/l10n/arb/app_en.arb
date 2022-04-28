@@ -59,12 +59,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "nextButtonText": "Next",
-  "@nextButtonText": {
-    "description": "Next button title shown on Sign Up form",
-    "type": "text",
-    "placeholders": {}
-  },
   "signUpHeaderText": "Please enter your\nemail address.",
   "@signUpHeaderText": {
     "description": "Header title shown on Sign Up form",
@@ -188,6 +182,30 @@
   "nextButtonText": "Next",
   "@nextButtonText": {
     "description": "Sign up next button shown on the sign up form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "passwordLessHeader": "Check your email!",
+  "@passwordLessHeader": {
+    "description": "Header title shown in the password less ui",
+    "type": "text",
+    "placeholders": {}
+  },
+  "passwordLessTitle": "We sent an email to",
+  "@passwordLessTitle": {
+    "description": "Title shown in the password less ui",
+    "type": "text",
+    "placeholders": {}
+  },
+  "passwordLessSubtitle": "It contains a special link. Click it to\ncomplete the log in process.",
+  "@passwordLessSubtitle": {
+    "description": "Subtitle shown in the password less ui",
+    "type": "text",
+    "placeholders": {}
+  },
+  "openMailAppButtonText": "Open Mail App",
+  "@openMailAppButtonText": {
+    "description": "Open mail app button text shown in the password less ui",
     "type": "text",
     "placeholders": {}
   }
