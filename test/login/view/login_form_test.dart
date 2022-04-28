@@ -150,8 +150,7 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets(
-          'to LoginWithEmailLinkPage when Continue with email is pressed',
+      testWidgets('to LoginWithEmailPage when Continue with email is pressed',
           (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
@@ -159,7 +158,7 @@ void main() {
         await tester.ensureVisible(find.byKey(loginButtonKey));
         await tester.tap(find.byKey(loginButtonKey));
         await tester.pumpAndSettle();
-        expect(find.byType(LoginWithEmailLinkPage), findsOneWidget);
+        expect(find.byType(LoginWithEmailPage), findsOneWidget);
       });
     });
 

@@ -190,7 +190,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
     return AppButton.outlinedTransparent(
       key: const Key('loginForm_emailLogin_appButton'),
       onPressed: () => Navigator.of(context).push<void>(
-        LoginWithEmailLinkPage.route(),
+        LoginWithEmailPage.route(),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
