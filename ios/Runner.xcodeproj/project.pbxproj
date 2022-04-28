@@ -496,6 +496,7 @@
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
 				FLAVOR_APP_NAME = "Google News Template";
+				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -534,6 +535,7 @@
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
 				FLAVOR_APP_NAME = "Google News Template";
+				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -629,6 +631,7 @@
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
 				FACEBOOK_DISPLAY_NAME = "Google News Template";
 				FLAVOR_APP_NAME = "Google News Template [DEV]";
+				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -667,6 +670,7 @@
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
 				FACEBOOK_DISPLAY_NAME = "Google News Template";
 				FLAVOR_APP_NAME = "Google News Template [DEV]";
+				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
