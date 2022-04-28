@@ -11,14 +11,10 @@ dependencies:
   deep_link_client:
     path: ../deep_link_client
   equatable: ^2.0.3
-  flutter:
-    sdk: flutter
   package_info_client:
     path: ../package_info_client
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   mocktail: ^0.3.0
   test: ^1.16.4
   very_good_analysis: ^2.4.0
