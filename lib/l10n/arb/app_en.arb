@@ -11,24 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "createAccountButtonText": "CREATE AN ACCOUNT",
-  "@createAccountButtonText": {
-    "description": "Button text for create account button",
-    "type": "text",
-    "placeholders": {}
-  },
-  "passwordInputLabelText": "Password",
-  "@passwordInputLabelText": {
-    "description": "Password label on login form",
-    "type": "text",
-    "placeholders": {}
-  },
-  "invalidPasswordInputErrorText": "Invalid password",
-  "@invalidPasswordInputErrorText": {
-    "description": "Password error text on login form when password is invalid",
-    "type": "text",
-    "placeholders": {}
-  },
   "emailInputLabelText": "Email",
   "@emailInputLabelText": {
     "description": "Email label on sign up form",
@@ -56,12 +38,6 @@
   "signUpAppBarTitle": "Create Account",
   "@signUpAppBarTitle": {
     "description": "App bar title shown on Sign Up page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "nextButtonText": "Next",
-  "@nextButtonText": {
-    "description": "Next button title shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
