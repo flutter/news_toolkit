@@ -1,4 +1,5 @@
-library google_news_template_api;
+/// Google News Template API Server-Side Library
+library api;
 
 export 'src/api/api.dart' show ApiController;
 export 'src/api/v1/categories/get_categories/models/models.dart'
