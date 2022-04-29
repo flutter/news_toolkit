@@ -67,12 +67,12 @@ class AppTheme {
   }
 
   DividerThemeData get _dividerTheme {
-    return DividerThemeData(
-      color: AppColors.grey.shade200,
-      space: AppSpacing.xxxs,
+    return const DividerThemeData(
+      color: AppColors.darkOnBackground,
+      space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 56,
-      endIndent: AppSpacing.lg,
+      indent: 0,
+      endIndent: 0,
     );
   }
 
@@ -235,8 +235,8 @@ class AppDarkTheme extends AppTheme {
 
   @override
   DividerThemeData get _dividerTheme {
-    return DividerThemeData(
-      color: AppColors.darkOnBackground.withOpacity(0.16),
+    return const DividerThemeData(
+      color: AppColors.onBackground,
       space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
       indent: 0,

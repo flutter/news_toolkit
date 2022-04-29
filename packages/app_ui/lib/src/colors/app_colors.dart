@@ -88,4 +88,11 @@ abstract class AppColors {
 
   /// The modal background color.
   static const Color modalBackground = Color(0xFFEBF2F7);
+
+  /// The medium emphasis primary color.
+  static const Color mediumEmphasisPrimary =
+      Color.fromRGBO(255, 255, 255, 0.74);
+
+  /// The high emphasis primary color.
+  static const Color highEmphasisPrimary = Color.fromRGBO(255, 255, 255, 0.99);
 }
