@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:google_news_template_api/google_news_template_api.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -8,7 +9,7 @@ part 'feed_response.g.dart';
 /// A news feed response object which contains news feed metadata.
 /// {@endtemplate}
 @JsonSerializable()
-class FeedResponse {
+class FeedResponse extends Equatable {
   /// {@macro feed}
   const FeedResponse({required this.feed, required this.totalCount});
 
@@ -25,4 +26,7 @@ class FeedResponse {
 
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson() => _$FeedResponseToJson(this);
+
+  @override
+  List<Object> get props => [feed, totalCount];
 }
