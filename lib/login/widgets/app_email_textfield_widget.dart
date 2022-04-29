@@ -53,7 +53,7 @@ class AppEmailTextField extends StatelessWidget {
       ),
       onChanged: onChanged,
       onSuffixPressed: onSuffixPressed,
-      suffixVisibility: suffixVisible,
+      suffixVisible: suffixVisible,
     );
   }
 }
