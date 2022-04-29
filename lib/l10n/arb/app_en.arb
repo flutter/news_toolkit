@@ -11,18 +11,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "emailInputLabelText": "Email",
-  "@emailInputLabelText": {
-    "description": "Email label on sign up form",
-    "type": "text",
-    "placeholders": {}
-  },
-  "invalidEmailInputErrorText": "Invalid email",
-  "@invalidEmailInputErrorText": {
-    "description": "Email error text on sign up form when email is invalid",
-    "type": "text",
-    "placeholders": {}
-  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
@@ -38,25 +26,25 @@
 
   "loginWithEmailHeaderText": "Please enter your\nemail address.",
   "@loginWithEmailHeaderText": {
-    "description": "Header title shown on Sign Up form",
+    "description": "Header title shown on Login with email form",
     "type": "text",
     "placeholders": {}
   },
   "loginWithEmailTextFieldHint": "Your email address",
   "@loginWithEmailTextFieldHint": {
-    "description": "Hint text shown on the email text field on Sign Up form",
+    "description": "Hint text shown on the email text field on Login with email form",
     "type": "text",
     "placeholders": {}
   },
   "loginWithEmailSubtitleText": "By logging in, you agree to our ",
   "@loginWithEmailSubtitleText": {
-    "description": "Subtitle shown on Sign Up form",
+    "description": "Subtitle shown on Login with email form",
     "type": "text",
     "placeholders": {}
   },
   "loginWithEmailTermsAndPrivacyPolicyText": "Terms of Use and Privacy Policy",
   "@loginWithEmailTermsAndPrivacyPolicyText": {
-    "description": "Text terms and privacy policy shown on Sign Up form",
+    "description": "Text terms and privacy policy shown on Login with email form",
     "type": "text",
     "placeholders": {}
   },
@@ -74,7 +62,7 @@
   },
   "loginWithEmailButtonText": "Continue with Email",
   "@loginWithEmailButtonText": {
-    "description": "Continue with email button text shown on the log in modal",
+    "description": "Log in with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
   },
@@ -134,7 +122,7 @@
   },
   "nextButtonText": "Next",
   "@nextButtonText": {
-    "description": "Sign up next button shown on the sign up form",
+    "description": "Log in with email next button shown on the login with email form",
     "type": "text",
     "placeholders": {}
   },
