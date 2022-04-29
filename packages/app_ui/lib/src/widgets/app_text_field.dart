@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 /// {@template app_text_field}
 /// A text field component based on material [TextFormField] widget with a
 /// fixed, left-aligned label text displayed above the text field.
-///
-/// * [AppEmailField]
 /// {@endtemplate}
 class AppTextField extends StatelessWidget {
   /// {@macro app_text_field}

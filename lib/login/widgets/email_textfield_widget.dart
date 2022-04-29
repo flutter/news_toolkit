@@ -1,11 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// {@template app_email_field}
-/// An email field component based on [AppTextField] widget.
-/// {@endtemplate}
+/// An email field component.
 class AppEmailField extends StatelessWidget {
-  /// {@macro app_email_field}
   const AppEmailField({
     Key? key,
     this.controller,
