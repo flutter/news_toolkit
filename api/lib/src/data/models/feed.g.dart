@@ -14,9 +14,7 @@ Feed _$FeedFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Feed(
           blocks: $checkedConvert(
-              'blocks',
-              (v) => const NewsBlocksConverter()
-                  .fromJson(v as List<Map<String, dynamic>>)),
+              'blocks', (v) => const NewsBlocksConverter().fromJson(v as List)),
           totalBlocks: $checkedConvert('total_blocks', (v) => v as int),
         );
         return val;
