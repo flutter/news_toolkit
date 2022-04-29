@@ -1,4 +1,4 @@
-import 'package:google_news_template_api/google_news_template_api.dart';
+import 'package:google_news_template_api/api.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 /// {@template news_data_source}
@@ -9,7 +9,10 @@ abstract class NewsDataSource {
   const NewsDataSource();
 
   /// Returns a news [Feed].
-  Future<Feed> getNewsFeed();
+  Future<Feed> getFeed();
+
+  /// Returns a list of all available news categories.
+  Future<List<Category>> getCategories();
 }
 
 /// {@template in_memory_news_data_source}
@@ -21,13 +24,23 @@ class InMemoryNewsDataSource implements NewsDataSource {
   const InMemoryNewsDataSource();
 
   @override
-  Future<Feed> getNewsFeed() async => _topNewsFeed;
+  Future<Feed> getFeed() async => _topNewsBlocks.toFeed();
+
+  @override
+  Future<List<Category>> getCategories() async => _newsData.keys.toList();
 }
 
 /// The static news feed content.
-
 const _topNewsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Breaking News')];
-final _topNewsFeed = Feed(
-  blocks: _topNewsBlocks,
-  totalBlocks: _topNewsBlocks.length,
-);
+const _technologyBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Technology')];
+const _sportsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Sports')];
+
+final _newsData = <Category, Feed>{
+  Category.top: _topNewsBlocks.toFeed(),
+  Category.technology: _technologyBlocks.toFeed(),
+  Category.sports: _sportsBlocks.toFeed(),
+};
+
+extension on List<NewsBlock> {
+  Feed toFeed() => Feed(blocks: this, totalBlocks: length);
+}

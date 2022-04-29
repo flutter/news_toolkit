@@ -94,5 +94,29 @@
     "description": "Continue with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
+  },
+  "navigationDrawerSectionsTitle": "SECTIONS",
+  "@navigationDrawerSectionsTitle": {
+    "description": "Navigation drawer sections title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "navigationDrawerSubscribeTitle": "Become A Subscriber",
+  "@navigationDrawerSubscribeTitle": {
+    "description": "Navigation drawer subscribe title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "navigationDrawerSubscribeSubtitle": "Subscribe to access premium content and exclusive online events.",
+  "@navigationDrawerSubscribeSubtitle": {
+    "description": "Navigation drawer subscribe subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "navigationDrawerSubscribeButtonText": "Subscribe",
+  "@navigationDrawerSubscribeButtonText": {
+    "description": "Navigation drawer subscribe button text",
+    "type": "text",
+    "placeholders": {}
   }
 }

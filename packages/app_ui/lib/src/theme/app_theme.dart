@@ -36,7 +36,7 @@ class AppTheme {
 
   SnackBarThemeData get _snackBarTheme {
     return SnackBarThemeData(
-      contentTextStyle: AppTextStyle.bodyText1.copyWith(
+      contentTextStyle: UITextStyle.bodyText1.copyWith(
         color: AppColors.white,
       ),
       shape: RoundedRectangleBorder(
@@ -67,36 +67,58 @@ class AppTheme {
   }
 
   DividerThemeData get _dividerTheme {
-    return DividerThemeData(
-      color: AppColors.grey.shade200,
-      space: AppSpacing.xxxs,
+    return const DividerThemeData(
+      color: AppColors.darkOnBackground,
+      space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 56,
-      endIndent: AppSpacing.lg,
+      indent: 0,
+      endIndent: 0,
     );
   }
 
-  TextTheme get _textTheme {
-    return TextTheme(
-      headline1: AppTextStyle.headline1,
-      headline2: AppTextStyle.headline2,
-      headline3: AppTextStyle.headline3,
-      headline4: AppTextStyle.headline4,
-      headline5: AppTextStyle.headline5,
-      headline6: AppTextStyle.headline6,
-      subtitle1: AppTextStyle.subtitle1,
-      subtitle2: AppTextStyle.subtitle2,
-      bodyText1: AppTextStyle.bodyText1,
-      bodyText2: AppTextStyle.bodyText2,
-      button: AppTextStyle.button,
-      caption: AppTextStyle.caption,
-      overline: AppTextStyle.overline,
-    ).apply(
-      bodyColor: AppColors.black,
-      displayColor: AppColors.black,
-      decorationColor: AppColors.black,
-    );
-  }
+  TextTheme get _textTheme => uiTextTheme;
+
+  /// The Content text theme based on [ContentTextStyle].
+  static final contentTextTheme = TextTheme(
+    headline1: ContentTextStyle.headline1,
+    headline2: ContentTextStyle.headline2,
+    headline3: ContentTextStyle.headline3,
+    headline4: ContentTextStyle.headline4,
+    headline5: ContentTextStyle.headline5,
+    headline6: ContentTextStyle.headline6,
+    subtitle1: ContentTextStyle.subtitle1,
+    subtitle2: ContentTextStyle.subtitle2,
+    bodyText1: ContentTextStyle.bodyText1,
+    bodyText2: ContentTextStyle.bodyText2,
+    button: ContentTextStyle.button,
+    caption: ContentTextStyle.caption,
+    overline: ContentTextStyle.overline,
+  ).apply(
+    bodyColor: AppColors.black,
+    displayColor: AppColors.black,
+    decorationColor: AppColors.black,
+  );
+
+  /// The UI text theme based on [UITextStyle].
+  static final uiTextTheme = TextTheme(
+    headline1: UITextStyle.headline1,
+    headline2: UITextStyle.headline2,
+    headline3: UITextStyle.headline3,
+    headline4: UITextStyle.headline4,
+    headline5: UITextStyle.headline5,
+    headline6: UITextStyle.headline6,
+    subtitle1: UITextStyle.subtitle1,
+    subtitle2: UITextStyle.subtitle2,
+    bodyText1: UITextStyle.bodyText1,
+    bodyText2: UITextStyle.bodyText2,
+    button: UITextStyle.button,
+    caption: UITextStyle.caption,
+    overline: UITextStyle.overline,
+  ).apply(
+    bodyColor: AppColors.black,
+    displayColor: AppColors.black,
+    decorationColor: AppColors.black,
+  );
 
   InputDecorationTheme get _inputDecorationTheme {
     return InputDecorationTheme(
@@ -168,17 +190,17 @@ class AppDarkTheme extends AppTheme {
 
   @override
   TextTheme get _textTheme {
-    return super._textTheme.apply(
-          bodyColor: AppColors.white,
-          displayColor: AppColors.white,
-          decorationColor: AppColors.white,
-        );
+    return AppTheme.contentTextTheme.apply(
+      bodyColor: AppColors.white,
+      displayColor: AppColors.white,
+      decorationColor: AppColors.white,
+    );
   }
 
   @override
   SnackBarThemeData get _snackBarTheme {
     return SnackBarThemeData(
-      contentTextStyle: AppTextStyle.bodyText1.copyWith(
+      contentTextStyle: UITextStyle.bodyText1.copyWith(
         color: AppColors.black,
       ),
       shape: RoundedRectangleBorder(
@@ -213,8 +235,8 @@ class AppDarkTheme extends AppTheme {
 
   @override
   DividerThemeData get _dividerTheme {
-    return DividerThemeData(
-      color: AppColors.darkOnBackground.withOpacity(0.16),
+    return const DividerThemeData(
+      color: AppColors.onBackground,
       space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
       indent: 0,
