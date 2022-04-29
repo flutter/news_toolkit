@@ -70,7 +70,9 @@ void main() {
           (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
-              value: loginBloc, child: const LoginWithEmailForm()),
+            value: loginBloc,
+            child: const LoginWithEmailForm(),
+          ),
         );
         await tester.enterText(find.byKey(emailInputKey), testEmail);
         await tester.tap(find.byKey(loginWithEmailFormSuffixIconKey));
