@@ -9,6 +9,7 @@ class AppEmailTextField extends StatelessWidget {
     this.hintText,
     this.onSuffixPressed,
     this.suffixVisible,
+    this.autoFillHints,
     this.onChanged,
   }) : super(key: key);
 
@@ -28,12 +29,16 @@ class AppEmailTextField extends StatelessWidget {
   /// Defaults to false.
   final bool? suffixVisible;
 
+  /// List of auto fill hints.
+  final Iterable<String>? autoFillHints;
+
   @override
   Widget build(BuildContext context) {
     return AppTextField(
       controller: controller,
       hintText: hintText,
       keyboardType: TextInputType.emailAddress,
+      autoFillHints: const [AutofillHints.email],
       autocorrect: false,
       prefix: const Padding(
         padding: EdgeInsets.only(
