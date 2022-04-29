@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -7,7 +8,7 @@ part 'unknown_block.g.dart';
 /// A block which represents an unknown type.
 /// {@endtemplate}
 @JsonSerializable()
-class UnknownBlock implements NewsBlock {
+class UnknownBlock with EquatableMixin implements NewsBlock {
   /// {@macro unknown_block}
   const UnknownBlock({this.type = UnknownBlock.identifier});
 
@@ -23,4 +24,7 @@ class UnknownBlock implements NewsBlock {
 
   @override
   Map<String, dynamic> toJson() => _$UnknownBlockToJson(this);
+
+  @override
+  List<Object> get props => [type];
 }

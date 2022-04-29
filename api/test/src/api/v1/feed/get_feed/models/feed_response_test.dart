@@ -14,23 +14,7 @@ void main() {
         totalCount: 2,
       );
 
-      expect(
-        FeedResponse.fromJson(response.toJson()),
-        isA<FeedResponse>()
-            .having(
-              (f) => f.feed,
-              'feed',
-              containsAllInOrder(
-                <Matcher>[
-                  isA<SectionHeaderBlock>()
-                      .having((b) => b.title, 'title', sectionHeaderA.title),
-                  isA<SectionHeaderBlock>()
-                      .having((b) => b.title, 'title', sectionHeaderB.title)
-                ],
-              ),
-            )
-            .having((f) => f.totalCount, 'totalCount', response.totalCount),
-      );
+      expect(FeedResponse.fromJson(response.toJson()), equals(response));
     });
   });
 }

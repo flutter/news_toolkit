@@ -18,22 +18,19 @@ void main() {
 
     group('fromJson', () {
       test('returns UnknownBlock when type is missing', () {
-        expect(NewsBlock.fromJson(<String, dynamic>{}), isA<UnknownBlock>());
+        expect(NewsBlock.fromJson(<String, dynamic>{}), equals(UnknownBlock()));
       });
 
       test('returns UnknownBlock when type is unrecognized', () {
         expect(
           NewsBlock.fromJson(<String, dynamic>{'type': 'unrecognized'}),
-          isA<UnknownBlock>(),
+          equals(UnknownBlock()),
         );
       });
 
       test('returns SectionHeaderBlock', () {
         final block = SectionHeaderBlock(title: 'Example');
-        expect(
-          NewsBlock.fromJson(block.toJson()),
-          isA<SectionHeaderBlock>(),
-        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
     });
   });

@@ -14,23 +14,7 @@ void main() {
         totalBlocks: 2,
       );
 
-      expect(
-        Feed.fromJson(feed.toJson()),
-        isA<Feed>()
-            .having(
-              (f) => f.blocks,
-              'blocks',
-              containsAllInOrder(
-                <Matcher>[
-                  isA<SectionHeaderBlock>()
-                      .having((b) => b.title, 'title', sectionHeaderA.title),
-                  isA<SectionHeaderBlock>()
-                      .having((b) => b.title, 'title', sectionHeaderB.title)
-                ],
-              ),
-            )
-            .having((f) => f.totalBlocks, 'totalBlocks', feed.totalBlocks),
-      );
+      expect(Feed.fromJson(feed.toJson()), equals(feed));
     });
   });
 }

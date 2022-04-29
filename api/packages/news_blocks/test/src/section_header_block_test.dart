@@ -12,14 +12,7 @@ void main() {
       );
       final block = SectionHeaderBlock(title: 'example_title', action: action);
 
-      expect(
-        SectionHeaderBlock.fromJson(block.toJson()),
-        isA<SectionHeaderBlock>()
-            .having((b) => b.type, 'type', block.type)
-            .having((b) => b.title, 'title', block.title)
-            .having((b) => b.action!.type, 'action.type', action.type)
-            .having((b) => b.action!.uri, 'action.uri', action.uri),
-      );
+      expect(SectionHeaderBlock.fromJson(block.toJson()), equals(block));
     });
   });
 }
