@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'block_action.g.dart';
@@ -13,7 +14,7 @@ enum BlockActionType {
 /// when interacting with a block.
 /// {@endtemplate}
 @JsonSerializable()
-class BlockAction {
+class BlockAction extends Equatable {
   /// {@macro block_action}
   const BlockAction({required this.type, this.uri});
 
@@ -29,4 +30,7 @@ class BlockAction {
 
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson() => _$BlockActionToJson(this);
+
+  @override
+  List<Object?> get props => [uri, type];
 }
