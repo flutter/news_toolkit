@@ -17,19 +17,19 @@ void main() {
       });
     });
 
-    group('LoginPasswordChanged', () {
+    group('SendEmailLinkSubmitted', () {
       test('supports value comparisons', () {
-        expect(LoginPasswordChanged('pwd'), LoginPasswordChanged('pwd'));
-        expect(
-          LoginPasswordChanged(''),
-          isNot(LoginPasswordChanged('pwd')),
-        );
+        expect(SendEmailLinkSubmitted(), SendEmailLinkSubmitted());
       });
     });
 
-    group('LoginCredentialsSubmitted', () {
+    group('LoginWithEmailLinkSubmitted', () {
       test('supports value comparisons', () {
-        expect(LoginCredentialsSubmitted(), LoginCredentialsSubmitted());
+        final emailLink = Uri.https('example.com', '');
+        expect(
+          LoginWithEmailLinkSubmitted(emailLink),
+          LoginWithEmailLinkSubmitted(emailLink),
+        );
       });
     });
 

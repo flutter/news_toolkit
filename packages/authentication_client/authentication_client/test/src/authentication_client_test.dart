@@ -15,65 +15,23 @@ void main() {
     expect(() => FakeAuthenticationClient(), returnsNormally);
   });
 
-  test('exports SignUpFailure', () {
+  test('exports SendLoginEmailLinkFailure', () {
     expect(
-      () => SignUpFailure('oops', StackTrace.empty),
+      () => SendLoginEmailLinkFailure('oops', StackTrace.empty),
       returnsNormally,
     );
   });
 
-  test('exports SignUpEmailInUseFailure', () {
+  test('exports IsLogInWithEmailLinkFailure', () {
     expect(
-      () => SignUpEmailInUseFailure('oops', StackTrace.empty),
+      () => IsLogInWithEmailLinkFailure('oops', StackTrace.empty),
       returnsNormally,
     );
   });
 
-  test('exports SignUpInvalidEmailFailure', () {
+  test('exports LogInWithEmailLinkFailure', () {
     expect(
-      () => SignUpInvalidEmailFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpOperationNotAllowedFailure', () {
-    expect(
-      () => SignUpOperationNotAllowedFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports SignUpWeakPasswordFailure', () {
-    expect(
-      () => SignUpWeakPasswordFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordFailure', () {
-    expect(
-      () => ResetPasswordFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordInvalidEmailFailure', () {
-    expect(
-      () => ResetPasswordInvalidEmailFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports ResetPasswordUserNotFoundFailure', () {
-    expect(
-      () => ResetPasswordUserNotFoundFailure('oops', StackTrace.empty),
-      returnsNormally,
-    );
-  });
-
-  test('exports LogInWithEmailAndPasswordFailure', () {
-    expect(
-      () => LogInWithEmailAndPasswordFailure('oops', StackTrace.empty),
+      () => LogInWithEmailLinkFailure('oops', StackTrace.empty),
       returnsNormally,
     );
   });
