@@ -58,10 +58,11 @@ class _HeaderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Text(
       context.l10n.loginWithEmailHeaderText,
       key: const Key('loginWithEmailForm_header_title'),
-      style: AppTextStyle.headline3,
+      style: theme.textTheme.headline3,
     );
   }
 }
@@ -106,6 +107,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: RichText(
@@ -115,13 +117,13 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.loginWithEmailSubtitleText,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: theme.textTheme.bodyText1,
             ),
             TextSpan(
               text: context.l10n.loginWithEmailTermsAndPrivacyPolicyText,
-              style: Theme.of(context).textTheme.bodyText1?.apply(
-                    color: AppColors.darkAqua,
-                  ),
+              style: theme.textTheme.bodyText1?.apply(
+                color: AppColors.darkAqua,
+              ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
                   ScaffoldMessenger.of(context)
@@ -130,9 +132,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           context.l10n.loginWithEmailTermsAndPolicyInfo,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
+                          style: theme.textTheme.button
                               ?.apply(color: AppColors.white),
                         ),
                       ),
@@ -141,7 +141,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
             ),
             TextSpan(
               text: '.',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: theme.textTheme.bodyText1,
             ),
           ],
         ),
