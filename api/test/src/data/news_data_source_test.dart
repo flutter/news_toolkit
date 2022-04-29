@@ -5,7 +5,10 @@ import 'package:test/test.dart';
 
 class MyNewsDataSource extends NewsDataSource {
   @override
-  Future<Feed> getNewsFeed() => throw UnimplementedError();
+  Future<Feed> getFeed() => throw UnimplementedError();
+
+  @override
+  Future<List<Category>> getCategories() => throw UnimplementedError();
 }
 
 void main() {
@@ -22,9 +25,22 @@ void main() {
       newsDataSource = InMemoryNewsDataSource();
     });
 
-    group('getNewsFeed', () {
+    group('getFeed', () {
       test('returns stubbed feed', () {
-        expect(newsDataSource.getNewsFeed(), completion(isA<Feed>()));
+        expect(newsDataSource.getFeed(), completion(isA<Feed>()));
+      });
+    });
+
+    group('getCategories', () {
+      test('returns stubbed categories', () {
+        expect(
+          newsDataSource.getCategories(),
+          completion([
+            Category.top,
+            Category.technology,
+            Category.sports,
+          ]),
+        );
       });
     });
   });

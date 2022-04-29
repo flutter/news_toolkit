@@ -9,7 +9,7 @@ import 'package:shelf/shelf.dart';
 mixin GetFeedMixin on Controller {
   /// Get the news feed.
   Future<Response> getFeed(Request request) async {
-    final feed = await request.get<NewsDataSource>().getNewsFeed();
+    final feed = await request.get<NewsDataSource>().getFeed();
     final response = FeedResponse(
       feed: feed.blocks,
       totalCount: feed.totalBlocks,

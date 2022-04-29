@@ -34,7 +34,7 @@ void main() {
         final feed = MockFeed();
         when(() => feed.blocks).thenReturn(blocks);
         when(() => feed.totalBlocks).thenReturn(blocks.length);
-        when(() => newsDataSource.getNewsFeed()).thenAnswer((_) async => feed);
+        when(() => newsDataSource.getFeed()).thenAnswer((_) async => feed);
 
         final expected = FeedResponse(feed: blocks, totalCount: blocks.length);
         final response = await get(host);
