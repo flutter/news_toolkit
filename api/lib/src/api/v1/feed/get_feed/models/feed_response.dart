@@ -10,7 +10,7 @@ part 'feed_response.g.dart';
 /// {@endtemplate}
 @JsonSerializable()
 class FeedResponse extends Equatable {
-  /// {@macro feed}
+  /// {@macro feed_response}
   const FeedResponse({required this.feed, required this.totalCount});
 
   /// Converts a `Map<String, dynamic>` into a [FeedResponse] instance.
