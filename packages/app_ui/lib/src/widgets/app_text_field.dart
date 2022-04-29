@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 /// {@template app_text_field}
 /// A text field component based on material [TextFormField] widget with a
 /// fixed, left-aligned label text displayed above the text field.
-///
-/// * [AppEmailField]
 /// {@endtemplate}
 class AppTextField extends StatelessWidget {
   /// {@macro app_text_field}
@@ -20,11 +18,13 @@ class AppTextField extends StatelessWidget {
     this.hintText,
     this.errorText,
     this.prefix,
-    this.suffix,
+    bool? suffixVisibility,
+    this.onSuffixPressed,
     this.keyboardType,
     this.onChanged,
     this.onTap,
-  }) : super(key: key);
+  })  : _suffixVisible = suffixVisibility ?? false,
+        super(key: key);
 
   /// A value to initialize the field to.
   final String? initialValue;
@@ -55,8 +55,12 @@ class AppTextField extends StatelessWidget {
   /// A widget that appears before the editable part of the text field.
   final Widget? prefix;
 
-  /// A widget that appears after the editable part of the text field.
-  final Widget? suffix;
+  /// Called when the user clicks on the suffix icon.
+  final VoidCallback? onSuffixPressed;
+
+  /// Whether the suffix is visible.
+  /// Defaults to false.
+  final bool _suffixVisible;
 
   /// The type of keyboard to use for editing the text.
   /// Defaults to [TextInputType.text] if maxLines is one and
@@ -93,7 +97,17 @@ class AppTextField extends StatelessWidget {
               hintText: hintText,
               errorText: errorText,
               prefixIcon: prefix,
-              suffixIcon: suffix,
+              suffixIcon: Padding(
+                key: const Key('email_textField_suffixIcon'),
+                padding: const EdgeInsets.only(right: AppSpacing.md),
+                child: Visibility(
+                  visible: _suffixVisible,
+                  child: GestureDetector(
+                    onTap: onSuffixPressed,
+                    child: Assets.icons.closeCircle.svg(),
+                  ),
+                ),
+              ),
               suffixIconConstraints: const BoxConstraints.tightFor(
                 width: 32,
                 height: 32,
@@ -107,70 +121,6 @@ class AppTextField extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// {@template app_email_field}
-/// An email field component based on [AppTextField] widget.
-/// {@endtemplate}
-class AppEmailField extends StatelessWidget {
-  /// {@macro app_email_field}
-  const AppEmailField({
-    Key? key,
-    this.controller,
-    this.hintText,
-    this.onSuffixPressed,
-    double? suffixOpacity,
-    this.onChanged,
-  })  : _suffixOpacity = suffixOpacity ?? 0.0,
-        super(key: key);
-
-  /// Controls the text being edited.
-  final TextEditingController? controller;
-
-  /// Text that suggests what sort of input the field accepts.
-  final String? hintText;
-
-  /// Called when the user clicks on the suffix icon.
-  final VoidCallback? onSuffixPressed;
-
-  /// The opacity of the suffix icon.
-  final double _suffixOpacity;
-
-  /// Called when the user inserts or deletes texts in the text field.
-  final ValueChanged<String>? onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppTextField(
-      controller: controller,
-      hintText: hintText,
-      keyboardType: TextInputType.emailAddress,
-      autocorrect: false,
-      prefix: const Padding(
-        padding: EdgeInsets.only(
-          left: AppSpacing.sm,
-          right: AppSpacing.sm,
-        ),
-        child: Icon(
-          Icons.email_outlined,
-          color: AppColors.mediumEmphasis,
-          size: 24,
-        ),
-      ),
-      suffix: Padding(
-        key: const Key('email_textField_suffixIcon'),
-        padding: const EdgeInsets.only(right: AppSpacing.md),
-        child: Opacity(
-          opacity: _suffixOpacity,
-          child: GestureDetector(
-            onTap: onSuffixPressed,
-            child: Assets.icons.closeCircle.svg(),
-          ),
-        ),
-      ),
-      onChanged: onChanged,
     );
   }
 }
