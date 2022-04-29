@@ -32,7 +32,7 @@ class AppTextFieldPage extends StatelessWidget {
               size: 24,
             ),
           ),
-          suffixVisibility: true,
+          suffixVisible: true,
           onSuffixPressed: () {},
         ),
       ),

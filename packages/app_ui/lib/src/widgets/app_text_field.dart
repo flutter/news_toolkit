@@ -19,12 +19,12 @@ class AppTextField extends StatelessWidget {
     this.hintText,
     this.errorText,
     this.prefix,
-    bool? suffixVisibility,
+    bool? suffixVisible,
     this.onSuffixPressed,
     this.keyboardType,
     this.onChanged,
     this.onTap,
-  })  : _suffixVisible = suffixVisibility ?? false,
+  })  : _suffixVisible = suffixVisible ?? false,
         super(key: key);
 
   /// A value to initialize the field to.
@@ -95,15 +95,15 @@ class AppTextField extends StatelessWidget {
             readOnly: readOnly,
             autofillHints: autoFillHints,
             cursorColor: AppColors.darkAqua,
-            style: AppTextStyle.headline6.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.headline6?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
             decoration: InputDecoration(
               hintText: hintText,
               errorText: errorText,
               prefixIcon: prefix,
               suffixIcon: Padding(
-                key: const Key('email_textField_suffixIcon'),
+                key: const Key('appTextField_suffixIcon'),
                 padding: const EdgeInsets.only(right: AppSpacing.md),
                 child: Visibility(
                   visible: _suffixVisible,
