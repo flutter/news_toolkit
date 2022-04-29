@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   const AppTextField({
     Key? key,
     this.initialValue,
+    this.autoFillHints,
     this.controller,
     this.inputFormatters,
     this.autocorrect = true,
@@ -28,6 +29,9 @@ class AppTextField extends StatelessWidget {
 
   /// A value to initialize the field to.
   final String? initialValue;
+
+  /// List of auto fill hints.
+  final Iterable<String>? autoFillHints;
 
   /// Controls the text being edited.
   ///
@@ -89,6 +93,7 @@ class AppTextField extends StatelessWidget {
             keyboardType: keyboardType,
             autocorrect: autocorrect,
             readOnly: readOnly,
+            autofillHints: autoFillHints,
             cursorColor: AppColors.darkAqua,
             style: AppTextStyle.headline6.copyWith(
               fontWeight: FontWeight.w500,
