@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:google_news_template_api/google_news_template_api.dart';
 import 'package:google_news_template_api/src/api/v1/feed/feed.dart';
-import 'package:google_news_template_api/src/api/v1/feed/get_feed/models/feed_response.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';

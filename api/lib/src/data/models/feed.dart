@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -7,7 +8,7 @@ part 'feed.g.dart';
 /// A news feed object which contains paginated news feed metadata.
 /// {@endtemplate}
 @JsonSerializable()
-class Feed {
+class Feed extends Equatable {
   /// {@macro feed}
   const Feed({required this.blocks, required this.totalBlocks});
 
@@ -23,6 +24,9 @@ class Feed {
 
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson() => _$FeedToJson(this);
+
+  @override
+  List<Object> get props => [blocks, totalBlocks];
 }
 
 /// {@template news_blocks_converter}
