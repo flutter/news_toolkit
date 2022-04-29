@@ -8,7 +8,7 @@ class AppEmailField extends StatelessWidget {
     this.controller,
     this.hintText,
     this.onSuffixPressed,
-    this.suffixVisibility,
+    this.suffixVisible,
     this.onChanged,
   }) : super(key: key);
 
@@ -24,8 +24,9 @@ class AppEmailField extends StatelessWidget {
   /// Called when the user clicks on the suffix icon.
   final VoidCallback? onSuffixPressed;
 
-  /// The visibility of the suffix icon.
-  final bool? suffixVisibility;
+  /// Whether the suffix is visible.
+  /// Defaults to false.
+  final bool? suffixVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class AppEmailField extends StatelessWidget {
       ),
       onChanged: onChanged,
       onSuffixPressed: onSuffixPressed,
-      suffixVisibility: suffixVisibility,
+      suffixVisibility: suffixVisible,
     );
   }
 }

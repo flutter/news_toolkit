@@ -23,7 +23,7 @@ class AppTextField extends StatelessWidget {
     this.keyboardType,
     this.onChanged,
     this.onTap,
-  })  : _suffixVisibility = suffixVisibility ?? false,
+  })  : _suffixVisible = suffixVisibility ?? false,
         super(key: key);
 
   /// A value to initialize the field to.
@@ -58,8 +58,9 @@ class AppTextField extends StatelessWidget {
   /// Called when the user clicks on the suffix icon.
   final VoidCallback? onSuffixPressed;
 
-  /// The visibility of the suffix icon.
-  final bool _suffixVisibility;
+  /// Whether the suffix is visible.
+  /// Defaults to false.
+  final bool _suffixVisible;
 
   /// The type of keyboard to use for editing the text.
   /// Defaults to [TextInputType.text] if maxLines is one and
@@ -100,7 +101,7 @@ class AppTextField extends StatelessWidget {
                 key: const Key('email_textField_suffixIcon'),
                 padding: const EdgeInsets.only(right: AppSpacing.md),
                 child: Visibility(
-                  visible: _suffixVisibility,
+                  visible: _suffixVisible,
                   child: GestureDetector(
                     onTap: onSuffixPressed,
                     child: Assets.icons.closeCircle.svg(),
