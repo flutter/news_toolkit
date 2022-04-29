@@ -9,7 +9,10 @@ abstract class NewsDataSource {
   const NewsDataSource();
 
   /// Returns a news [Feed].
-  Future<Feed> getNewsFeed();
+  Future<Feed> getFeed();
+
+  /// Returns a list of all available news categories.
+  Future<List<Category>> getCategories();
 }
 
 /// {@template in_memory_news_data_source}
@@ -21,13 +24,37 @@ class InMemoryNewsDataSource implements NewsDataSource {
   const InMemoryNewsDataSource();
 
   @override
-  Future<Feed> getNewsFeed() async => _topNewsFeed;
+  Future<Feed> getFeed() async => _topNewsFeed;
+
+  @override
+  Future<List<Category>> getCategories() async => _newsData.keys.toList();
 }
 
 /// The static news feed content.
 
+// Top News
 const _topNewsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Breaking News')];
 final _topNewsFeed = Feed(
   blocks: _topNewsBlocks,
   totalBlocks: _topNewsBlocks.length,
 );
+
+// Technology
+const _technologyBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Technology')];
+final _technologyFeed = Feed(
+  blocks: _technologyBlocks,
+  totalBlocks: _technologyBlocks.length,
+);
+
+// Sports
+const _sportsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Sports')];
+final _sportsFeed = Feed(
+  blocks: _sportsBlocks,
+  totalBlocks: _sportsBlocks.length,
+);
+
+final _newsData = <Category, Feed>{
+  Category.top: _topNewsFeed,
+  Category.technology: _technologyFeed,
+  Category.sports: _sportsFeed,
+};
