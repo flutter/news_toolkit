@@ -19,12 +19,13 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
 class MockEmail extends Mock implements Email {}
 
 void main() {
-  const nextButtonKey = Key('signUpForm_nextButton');
-  const emailInputKey = Key('signUpForm_emailInput_textField');
-  const signUpFormHeaderTitleKey = Key('signUpForm_header_title');
-  const signUpFormTermsAndPrivacyPolicyKey =
-      Key('signUpForm_terms_and_privacy_policy');
-  const signUpFormSuffixIconKey = Key('email_textField_suffixIcon');
+  const nextButtonKey = Key('loginWithEmailForm_nextButton');
+  const emailInputKey = Key('loginWithEmailForm_emailInput_textField');
+  const loginWithEmailFormHeaderTitleKey =
+      Key('loginWithEmailForm_header_title');
+  const loginWithEmailFormTermsAndPrivacyPolicyKey =
+      Key('loginWithEmailForm_terms_and_privacy_policy');
+  const loginWithEmailFormSuffixIconKey = Key('email_textField_suffixIcon');
 
   const testEmail = 'test@gmail.com';
   const invalidTestEmail = 'test@g';
@@ -57,19 +58,22 @@ void main() {
         );
         await tester.pumpApp(
           BlocProvider.value(
-              value: loginBloc, child: const LoginWithEmailForm()),
+            value: loginBloc,
+            child: const LoginWithEmailForm(),
+          ),
         );
         await tester.tap(find.byKey(nextButtonKey));
         verify(() => loginBloc.add(SendEmailLinkSubmitted())).called(1);
       });
 
-      testWidgets('LoginEmailChanged when press on suffixIcon', (tester) async {
+      testWidgets('LoginEmailChanged when pressed on suffixIcon',
+          (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
               value: loginBloc, child: const LoginWithEmailForm()),
         );
         await tester.enterText(find.byKey(emailInputKey), testEmail);
-        await tester.tap(find.byKey(signUpFormSuffixIconKey));
+        await tester.tap(find.byKey(loginWithEmailFormSuffixIconKey));
         await tester.pumpAndSettle();
         verify(() => loginBloc.add(const LoginEmailChanged(''))).called(1);
       });
@@ -77,16 +81,20 @@ void main() {
         testWidgets('header title', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
-          final headerTitle = find.byKey(signUpFormHeaderTitleKey);
+          final headerTitle = find.byKey(loginWithEmailFormHeaderTitleKey);
           expect(headerTitle, findsOneWidget);
         });
 
         testWidgets('email text field', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           final emailTextField = find.byKey(emailInputKey);
           expect(emailTextField, findsOneWidget);
@@ -95,10 +103,12 @@ void main() {
         testWidgets('terms and privacy policy text', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           final termsAndPrivacyPolicyText =
-              find.byKey(signUpFormTermsAndPrivacyPolicyKey);
+              find.byKey(loginWithEmailFormTermsAndPrivacyPolicyKey);
           expect(termsAndPrivacyPolicyText, findsOneWidget);
         });
 
@@ -113,7 +123,9 @@ void main() {
           );
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           await tester.pump();
           expect(find.byType(SnackBar), findsOneWidget);
@@ -124,12 +136,12 @@ void main() {
             'Terms of Use and Privacy Policy text', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           final richText = tester.widget<RichText>(
-            find.byKey(
-              const Key('signUpForm_terms_and_privacy_policy'),
-            ),
+            find.byKey(loginWithEmailFormTermsAndPrivacyPolicyKey),
           );
 
           tapTextSpan(
@@ -148,7 +160,9 @@ void main() {
           );
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           final signUpButton = tester.widget<AppButton>(
             find.byKey(nextButtonKey),
@@ -160,7 +174,9 @@ void main() {
             (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           await tester.enterText(find.byKey(emailInputKey), invalidTestEmail);
           final signUpButton = tester.widget<AppButton>(
@@ -176,7 +192,9 @@ void main() {
           );
           await tester.pumpApp(
             BlocProvider.value(
-                value: loginBloc, child: const LoginWithEmailForm()),
+              value: loginBloc,
+              child: const LoginWithEmailForm(),
+            ),
           );
           final signUpButton = tester.widget<AppButton>(
             find.byKey(nextButtonKey),
@@ -204,7 +222,7 @@ void main() {
         );
         expect(find.byType(LoginWithEmailForm), findsOneWidget);
         await tester.pumpAndSettle();
-        expect(find.byType(LoginWithEmailForm), findsNothing);
+        expect(find.byType(LoginForm), findsNothing);
       });
     });
   });

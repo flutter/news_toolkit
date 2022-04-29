@@ -35,69 +35,46 @@
     "type": "text",
     "placeholders": {}
   },
-  "signUpAppBarTitle": "Create Account",
-  "@signUpAppBarTitle": {
-    "description": "App bar title shown on Sign Up page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signUpHeaderText": "Please enter your\nemail address.",
-  "@signUpHeaderText": {
+
+  "loginWithEmailHeaderText": "Please enter your\nemail address.",
+  "@loginWithEmailHeaderText": {
     "description": "Header title shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
-  "signUpTextFieldHint": "Your email address",
-  "@signUpTextFieldHint": {
+  "loginWithEmailTextFieldHint": "Your email address",
+  "@loginWithEmailTextFieldHint": {
     "description": "Hint text shown on the email text field on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
-  "signUpSubtitleText": "By logging in, you agree to our ",
-  "@signUpSubtitleText": {
+  "loginWithEmailSubtitleText": "By logging in, you agree to our ",
+  "@loginWithEmailSubtitleText": {
     "description": "Subtitle shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
-  "signUpTermsAndPrivacyPolicyText": "Terms of Use and Privacy Policy",
-  "@signUpTermsAndPrivacyPolicyText": {
+  "loginWithEmailTermsAndPrivacyPolicyText": "Terms of Use and Privacy Policy",
+  "@loginWithEmailTermsAndPrivacyPolicyText": {
     "description": "Text terms and privacy policy shown on Sign Up form",
     "type": "text",
     "placeholders": {}
   },
-  "signUpFailure": "Unable to create an account",
-  "@signUpFailure": {
+  "loginWithEmailFailure": "Unable to create an account",
+  "@loginWithEmailFailure": {
     "description": "Message shown when there is an error creating an account",
     "type": "text",
     "placeholders": {}
   },
-  "signUpTermsAndPolicyInfo": "Link to relevant info on your site.",
-  "@signUpTermsAndPolicyInfo": {
+  "loginWithEmailTermsAndPolicyInfo": "Link to relevant info on your site.",
+  "@loginWithEmailTermsAndPolicyInfo": {
     "description": "Message shown when the user clicks on Terms of Use and Privacy Policy",
     "type": "text",
     "placeholders": {}
   },
-  "resetPasswordSubmitText": "If an account is registered with the provided email, we will send a link to reset your password",
-  "@resetPasswordSubmitText" : {
-    "description": "Message shown when a valid email is submitted for a password reset",
-    "type": "text",
-    "placeholders": {}
-  },
-  "resetPasswordTitle": "Reset Password",
-  "@resetPasswordTitle": {
-    "description": "Reset Password page title",
-    "type": "text",
-    "placeholders": {}
-  },
-  "forgotPasswordText": "Forgot Password?",
-  "@forgotPasswordText": {
-    "description": "Forgot password button title shown on Login page",
-    "type": "text",
-    "placeholders": {}
-  },
-  "submitButtonText": "Submit",
-  "@submitButtonText": {
-    "description": "Submit button title shown on Reset Password page",
+  "loginWithEmailButtonText": "Continue with Email",
+  "@loginWithEmailButtonText": {
+    "description": "Continue with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
   },
@@ -152,12 +129,6 @@
   "loginModalSubtitle": "Log in to access articles and save\nyour preferences.",
   "@loginModalSubtitle": {
     "description": "Log in modal subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "continueWithEmailButtonText": "Continue with Email",
-  "@continueWithEmailButtonText": {
-    "description": "Continue with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
   },

@@ -6,7 +6,7 @@ import 'package:mockingjay/mockingjay.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  const closeIcon = Key('signUpPage_closeIcon');
+  const closeIcon = Key('loginWithEmailPage_closeIcon');
 
   group('LoginWithEmailPage', () {
     test('has a route', () {

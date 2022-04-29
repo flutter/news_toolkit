@@ -3,38 +3,32 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-
-import '../bloc/login_bloc.dart';
+import 'package:google_news_template/login/login.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status.isSubmissionSuccess) {
-          Navigator.of(context).pop();
-        } else if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(context.l10n.signUpFailure)),
-            );
+        if (state.status == AppStatus.authenticated) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              key: const Key('signUpPage_closeIcon'),
-              icon: const Icon(Icons.close),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
-        body: const Padding(
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
+              );
+          }
+        },
+        child: const Padding(
           padding: EdgeInsets.fromLTRB(
             AppSpacing.xlg,
             AppSpacing.lg,
@@ -65,8 +59,8 @@ class _HeaderTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      context.l10n.signUpHeaderText,
-      key: const Key('signUpForm_header_title'),
+      context.l10n.loginWithEmailHeaderText,
+      key: const Key('loginWithEmailForm_header_title'),
       style: AppTextStyle.headline3,
     );
   }
@@ -83,20 +77,28 @@ class _EmailInputState extends State<_EmailInput> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final showDeleteIcon =
-        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
+    final suffixVisible =
+        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty)
+            ? 1.0
+            : 0.0;
     return AppEmailField(
-      key: const Key('signUpForm_emailInput_textField'),
+      key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
-      hintText: context.l10n.signUpTextFieldHint,
+      hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
       onSuffixPressed: () {
         _controller.clear();
         context.read<LoginBloc>().add(const LoginEmailChanged(''));
       },
-      suffixOpacity: showDeleteIcon ? 1 : 0,
+      suffixOpacity: suffixVisible,
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
@@ -108,16 +110,16 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: RichText(
-        key: const Key('signUpForm_terms_and_privacy_policy'),
+        key: const Key('loginWithEmailForm_terms_and_privacy_policy'),
         text: TextSpan(
           style: DefaultTextStyle.of(context).style,
           children: <TextSpan>[
             TextSpan(
-              text: context.l10n.signUpSubtitleText,
+              text: context.l10n.loginWithEmailSubtitleText,
               style: Theme.of(context).textTheme.bodyText1,
             ),
             TextSpan(
-              text: context.l10n.signUpTermsAndPrivacyPolicyText,
+              text: context.l10n.loginWithEmailTermsAndPrivacyPolicyText,
               style: Theme.of(context).textTheme.bodyText1?.apply(
                     color: AppColors.darkAqua,
                   ),
@@ -128,7 +130,7 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
                     ..showSnackBar(
                       SnackBar(
                         content: Text(
-                          context.l10n.signUpTermsAndPolicyInfo,
+                          context.l10n.loginWithEmailTermsAndPolicyInfo,
                           style: Theme.of(context)
                               .textTheme
                               .button
@@ -157,7 +159,7 @@ class _NextButton extends StatelessWidget {
     final l10n = context.l10n;
     final status = context.select((LoginBloc bloc) => bloc.state.status);
     return AppButton.darkAqua(
-      key: const Key('signUpForm_nextButton'),
+      key: const Key('loginWithEmailForm_nextButton'),
       onPressed: status.isValidated
           ? () => context.read<LoginBloc>().add(SendEmailLinkSubmitted())
           : null,
