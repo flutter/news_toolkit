@@ -14,7 +14,7 @@ void main() {
     group('email', () {
       testWidgets('has keyboardType set to emailAddress', (tester) async {
         await tester.pumpApp(
-          AppEmailField(),
+          AppEmailTextField(),
         );
 
         final field = tester.widget<AppTextField>(find.byType(AppTextField));
@@ -23,7 +23,7 @@ void main() {
 
       testWidgets('has autocorrect set to false', (tester) async {
         await tester.pumpApp(
-          AppEmailField(),
+          AppEmailTextField(),
         );
 
         final field = tester.widget<AppTextField>(find.byType(AppTextField));
@@ -32,7 +32,7 @@ void main() {
 
       testWidgets('renders hint text', (tester) async {
         await tester.pumpApp(
-          AppEmailField(
+          AppEmailTextField(
             hintText: hintText,
           ),
         );
