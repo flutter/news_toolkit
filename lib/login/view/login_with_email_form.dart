@@ -78,10 +78,9 @@ class _EmailInputState extends State<_EmailInput> {
   @override
   Widget build(BuildContext context) {
     final suffixVisible =
-        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty)
-            ? 1.0
-            : 0.0;
-    return AppEmailField(
+        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
+
+    return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
       hintText: context.l10n.loginWithEmailTextFieldHint,
@@ -91,7 +90,7 @@ class _EmailInputState extends State<_EmailInput> {
         _controller.clear();
         context.read<LoginBloc>().add(const LoginEmailChanged(''));
       },
-      suffixOpacity: suffixVisible,
+      suffixVisible: suffixVisible,
     );
   }
 
