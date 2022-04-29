@@ -1,5 +1,6 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppLogo;
 import 'package:flutter/material.dart';
+import 'package:google_news_template/navigation/navigation.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -15,12 +16,13 @@ class NavigationDrawer extends StatelessWidget {
       ),
       child: Drawer(
         backgroundColor: AppColors.darkBackground,
-        child: ScrollableColumn(
+        child: ListView(
+          shrinkWrap: true,
           padding: const EdgeInsets.only(
             top: kToolbarHeight,
             left: AppSpacing.lg,
             right: AppSpacing.lg,
-            bottom: AppSpacing.lg,
+            bottom: AppSpacing.xlg,
           ),
           children: [
             Padding(
@@ -33,14 +35,29 @@ class NavigationDrawer extends StatelessWidget {
                 child: AppLogo.light(),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: _contentPadding,
-              ),
-              child: Divider(),
-            ),
+            const _NavigationDrawerDivider(),
+            const NavigationDrawerSections(),
+            const _NavigationDrawerDivider(),
+            const NavigationDrawerSubscribe(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _NavigationDrawerDivider extends StatelessWidget {
+  const _NavigationDrawerDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+      ),
+      child: Opacity(
+        opacity: 0.16,
+        child: Divider(),
       ),
     );
   }
