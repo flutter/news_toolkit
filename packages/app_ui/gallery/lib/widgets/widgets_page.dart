@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gallery/widgets/app_text_field_page.dart';
 import 'package:gallery/widgets/widgets.dart';
 
 class WidgetsPage extends StatelessWidget {
