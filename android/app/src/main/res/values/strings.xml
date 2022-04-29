@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="facebook_app_id">3068290313391198</string>
-    <string name="facebook_client_token">7a51baf0a329829a55e6ab8ced3da73a</string>
-    <string name="twitter_redirect_uri_scheme">google-news-template</string>
-</resources>

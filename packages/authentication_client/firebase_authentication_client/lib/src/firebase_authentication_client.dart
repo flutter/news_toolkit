@@ -53,63 +53,6 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     });
   }
 
-  /// Creates a new user with the provided [email] and [password].
-  ///
-  /// Throws:
-  /// - [SignUpEmailInUseFailure] when [email] is already in use.
-  /// - [SignUpInvalidEmailFailure] when [email] is invalid.
-  /// - [SignUpOperationNotAllowedFailure] when operation is not allowed.
-  /// - [SignUpWeakPasswordFailure] when [password] is too weak.
-  /// - [SignUpFailure] when unknown error occurs.
-  @override
-  Future<void> signUp({required String email, required String password}) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
-      switch (error.code) {
-        case 'email-already-in-use':
-          throw SignUpEmailInUseFailure(error, stackTrace);
-        case 'invalid-email':
-          throw SignUpInvalidEmailFailure(error, stackTrace);
-        case 'operation-not-allowed':
-          throw SignUpOperationNotAllowedFailure(error, stackTrace);
-        case 'weak-password':
-          throw SignUpWeakPasswordFailure(error, stackTrace);
-        default:
-          throw SignUpFailure(error, stackTrace);
-      }
-    } catch (error, stackTrace) {
-      throw SignUpFailure(error, stackTrace);
-    }
-  }
-
-  /// Sends a password reset link to the provided [email].
-  ///
-  /// Throws:
-  /// - [ResetPasswordInvalidEmailFailure] when [email] is invalid.
-  /// - [ResetPasswordUserNotFoundFailure] when user with [email] is not found.
-  /// - [ResetPasswordFailure] when unknown error occurs.
-  @override
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on firebase_auth.FirebaseAuthException catch (error, stackTrace) {
-      switch (error.code) {
-        case 'invalid-email':
-          throw ResetPasswordInvalidEmailFailure(error, stackTrace);
-        case 'user-not-found':
-          throw ResetPasswordUserNotFoundFailure(error, stackTrace);
-        default:
-          throw ResetPasswordFailure(error, stackTrace);
-      }
-    } catch (error, stackTrace) {
-      throw ResetPasswordFailure(error, stackTrace);
-    }
-  }
-
   /// Starts the Sign In with Apple Flow.
   ///
   /// Throws a [LogInWithAppleFailure] if an exception occurs.
@@ -245,24 +188,6 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     }
   }
 
-  /// Signs in with the provided [email] and [password].
-  ///
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
-  @override
-  Future<void> logInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } catch (error, stackTrace) {
-      throw LogInWithEmailAndPasswordFailure(error, stackTrace);
-    }
-  }
-
   /// Sends an authentication link to the provided [email].
   ///
   /// Opening the link redirects to the app with [appPackageName]
@@ -296,6 +221,36 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
       );
     } catch (error, stackTrace) {
       throw SendLoginEmailLinkFailure(error, stackTrace);
+    }
+  }
+
+  /// Checks if an incoming [emailLink] is a sign-in with email link.
+  ///
+  /// Throws a [IsLogInWithEmailLinkFailure] if an exception occurs.
+  @override
+  bool isLogInWithEmailLink({required String emailLink}) {
+    try {
+      return _firebaseAuth.isSignInWithEmailLink(emailLink);
+    } catch (error, stackTrace) {
+      throw IsLogInWithEmailLinkFailure(error, stackTrace);
+    }
+  }
+
+  /// Signs in with the provided [emailLink].
+  ///
+  /// Throws a [LogInWithEmailLinkFailure] if an exception occurs.
+  @override
+  Future<void> logInWithEmailLink({
+    required String email,
+    required String emailLink,
+  }) async {
+    try {
+      await _firebaseAuth.signInWithEmailLink(
+        email: email,
+        emailLink: emailLink,
+      );
+    } catch (error, stackTrace) {
+      throw LogInWithEmailLinkFailure(error, stackTrace);
     }
   }
 

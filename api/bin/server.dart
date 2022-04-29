@@ -7,6 +7,7 @@ import 'package:shelf/shelf_io.dart';
 Future<void> main() async {
   const controller = ApiController();
   final handler = const Pipeline()
+      .inject<NewsDataSource>(const InMemoryNewsDataSource())
       .addMiddleware(logRequests())
       .addHandler(controller.handler);
   final ip = InternetAddress.anyIPv4;

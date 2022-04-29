@@ -7,12 +7,11 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:test/test.dart' as test;
 
-const port = 8080;
-
 @isTest
 Future<void> testServer(
   String description,
   FutureOr<void> Function(Uri) body, {
+  Pipeline Function()? pipeline,
   Handler Function()? handler,
 }) async {
   test.test(description, () async {
@@ -20,16 +19,19 @@ Future<void> testServer(
     try {
       server = await shelf_io.IOServer.bind(
         io.InternetAddress.loopbackIPv6,
-        port,
+        0,
       );
     } on io.SocketException catch (_) {
       server = await shelf_io.IOServer.bind(
         io.InternetAddress.loopbackIPv4,
-        port,
+        0,
       );
     }
 
-    server.mount(handler?.call() ?? const ApiController().handler);
+    final _pipeline = pipeline?.call() ?? const Pipeline();
+    server.mount(
+      _pipeline.addHandler(handler?.call() ?? const ApiController().handler),
+    );
     await body(server.url);
     await server.close();
   });

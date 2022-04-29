@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:authentication_client/authentication_client.dart';
+import 'package:deep_link_client/deep_link_client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
@@ -8,9 +11,9 @@ class MockAuthenticationClient extends Mock implements AuthenticationClient {}
 
 class MockPackageInfoClient extends Mock implements PackageInfoClient {}
 
-class FakeSignUpFailure extends Fake implements SignUpFailure {}
+class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
-class FakeResetPasswordFailure extends Fake implements ResetPasswordFailure {}
+class MockUser extends Mock implements User {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
 
@@ -32,26 +35,35 @@ class FakeLogInWithFacebookFailure extends Fake
 class FakeLogInWithFacebookCanceled extends Fake
     implements LogInWithFacebookCanceled {}
 
-class FakeLogInWithEmailAndPasswordFailure extends Fake
-    implements LogInWithEmailAndPasswordFailure {}
-
 class FakeLogOutFailure extends Fake implements LogOutFailure {}
 
 class FakeSendLoginEmailLinkFailure extends Fake
     implements SendLoginEmailLinkFailure {}
 
+class FakeLogInWithEmailLinkFailure extends Fake
+    implements LogInWithEmailLinkFailure {}
+
 void main() {
   group('UserRepository', () {
     late AuthenticationClient authenticationClient;
     late PackageInfoClient packageInfoClient;
+    late DeepLinkClient deepLinkClient;
+    late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
       packageInfoClient = MockPackageInfoClient();
+      deepLinkClient = MockDeepLinkClient();
+      deepLinkClientController = StreamController<Uri>.broadcast();
+
+      when(() => deepLinkClient.deepLinkStream)
+          .thenAnswer((_) => deepLinkClientController.stream);
+
       userRepository = UserRepository(
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
+        deepLinkClient: deepLinkClient,
       );
     });
 
@@ -65,107 +77,44 @@ void main() {
       });
     });
 
-    group('signUp', () {
+    group('incomingEmailLinks', () {
+      final validEmailLink = Uri.https('valid.email.link', '');
+      final validEmailLink2 = Uri.https('valid.email.link', '');
+      final invalidEmailLink = Uri.https('invalid.email.link', '');
+
       test(
-          'calls AuthenticationClient signUp '
-          'with email and password', () async {
+          'emits a new email link '
+          'for every valid email link from DeepLinkClient.deepLinkStream', () {
         when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: validEmailLink.toString(),
           ),
-        ).thenAnswer((_) async {});
-        await userRepository.signUp(
-          email: 'ben_franklin@upenn.edu',
-          password: 'BenFranklin123',
-        );
-        verify(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).called(1);
-      });
+        ).thenReturn(true);
 
-      test('rethrows SignUpFailure', () async {
-        final exception = FakeSignUpFailure();
         when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: validEmailLink2.toString(),
           ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.signUp(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(exception),
-        );
-      });
+        ).thenReturn(true);
 
-      test('throws SignUpFailure on generic exception', () async {
         when(
-          () => authenticationClient.signUp(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
+          () => authenticationClient.isLogInWithEmailLink(
+            emailLink: invalidEmailLink.toString(),
           ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.signUp(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(isA<SignUpFailure>()),
-        );
-      });
-    });
+        ).thenReturn(false);
 
-    group('sendPasswordResetEmail', () {
-      test('calls sendPasswordResetEmail with email on AuthenticationClient',
-          () async {
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenAnswer((_) async {});
-        await userRepository.sendPasswordResetEmail(
-          email: 'ben_franklin@upenn.edu',
+        expectLater(
+          userRepository.incomingEmailLinks,
+          emitsInOrder(<Uri>[
+            validEmailLink,
+            validEmailLink2,
+          ]),
         );
-        verify(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).called(1);
-      });
 
-      test('rethrows ResetPasswordFailure', () async {
-        final exception = FakeResetPasswordFailure();
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.sendPasswordResetEmail(
-            email: 'ben_franklin@upenn.edu',
-          ),
-          throwsA(exception),
-        );
-      });
-
-      test('throws ResetPasswordFailure on generic exception', () async {
-        when(
-          () => authenticationClient.sendPasswordResetEmail(
-            email: any(named: 'email'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.sendPasswordResetEmail(
-            email: 'ben_franklin@upenn.edu',
-          ),
-          throwsA(isA<ResetPasswordFailure>()),
-        );
+        deepLinkClientController
+          ..add(validEmailLink)
+          ..add(invalidEmailLink)
+          ..add(validEmailLink2);
       });
     });
 
@@ -300,64 +249,6 @@ void main() {
       });
     });
 
-    group('logInWithEmailAndPassWord', () {
-      test(
-          'calls logInWithEmailAndPassWord '
-          'with email and password on AuthenticationClient', () async {
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenAnswer((_) async {});
-        await userRepository.logInWithEmailAndPassword(
-          email: 'ben_franklin@upenn.edu',
-          password: 'BenFranklin123',
-        );
-        verify(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).called(1);
-      });
-
-      test('rethrows LogInWithEmailAndPasswordFailure', () async {
-        final exception = FakeLogInWithEmailAndPasswordFailure();
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(exception);
-        expect(
-          () => userRepository.logInWithEmailAndPassword(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(exception),
-        );
-      });
-
-      test(
-          'throws LogInWithEmailAndPasswordFailure '
-          'on generic exception', () async {
-        when(
-          () => authenticationClient.logInWithEmailAndPassword(
-            email: any(named: 'email'),
-            password: any(named: 'password'),
-          ),
-        ).thenThrow(Exception());
-        expect(
-          () => userRepository.logInWithEmailAndPassword(
-            email: 'ben_franklin@upenn.edu',
-            password: 'BenFranklin123',
-          ),
-          throwsA(isA<LogInWithEmailAndPasswordFailure>()),
-        );
-      });
-    });
-
     group('sendLoginEmailLink', () {
       const packageName = 'appPackageName';
 
@@ -418,6 +309,65 @@ void main() {
             email: 'ben_franklin@upenn.edu',
           ),
           throwsA(isA<SendLoginEmailLinkFailure>()),
+        );
+      });
+    });
+
+    group('logInWithEmailLink', () {
+      const email = 'email@example.com';
+      const emailLink = 'email.link';
+
+      test('calls logInWithEmailLink on AuthenticationClient', () async {
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenAnswer((_) async {});
+
+        await userRepository.logInWithEmailLink(
+          email: email,
+          emailLink: emailLink,
+        );
+
+        verify(
+          () => authenticationClient.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+        ).called(1);
+      });
+
+      test('rethrows LogInWithEmailLinkFailure', () async {
+        final exception = FakeLogInWithEmailLinkFailure();
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(exception);
+        expect(
+          () => userRepository.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(exception),
+        );
+      });
+
+      test('throws LogInWithEmailLinkFailure on generic exception', () async {
+        when(
+          () => authenticationClient.logInWithEmailLink(
+            email: any(named: 'email'),
+            emailLink: any(named: 'emailLink'),
+          ),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.logInWithEmailLink(
+            email: email,
+            emailLink: emailLink,
+          ),
+          throwsA(isA<LogInWithEmailLinkFailure>()),
         );
       });
     });
