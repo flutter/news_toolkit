@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/passwordless/view/view.dart';
@@ -13,45 +12,39 @@ class LoginWithEmailForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return BlocListener<AppBloc, AppState>(
+    final email = context.select((LoginBloc bloc) => bloc.state.email.value);
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated)
-          final email = context.select((LoginBloc bloc) => bloc.state.email.value);
-        {
+        if (state.status.isSubmissionSuccess) {
           Navigator.of(context)
               .push<void>(PasswordLessPage(email: email).route());
         }
+        if (state.status.isSubmissionFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
+            );
+        }
       },
-      child: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.status.isSubmissionFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
-              );
-          }
-        },
-        child: const Padding(
-          padding: EdgeInsets.fromLTRB(
-            AppSpacing.xlg,
-            AppSpacing.lg,
-            AppSpacing.xlg,
-            AppSpacing.xxlg,
-          ),
-          child: ScrollableColumn(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _HeaderTitle(),
-              SizedBox(height: AppSpacing.xxxlg),
-              _EmailInput(),
-              _TermsAndPolicyLinkTexts(),
-              Spacer(),
-              _NextButton(),
-            ],
-          ),
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.xlg,
+          AppSpacing.lg,
+          AppSpacing.xlg,
+          AppSpacing.xxlg,
+        ),
+        child: ScrollableColumn(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _HeaderTitle(),
+            SizedBox(height: AppSpacing.xxxlg),
+            _EmailInput(),
+            _TermsAndPolicyLinkTexts(),
+            Spacer(),
+            _NextButton(),
+          ],
         ),
       ),
     );
