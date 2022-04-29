@@ -123,7 +123,10 @@ class _AppleLoginButton extends StatelessWidget {
         children: [
           Assets.icons.apple.svg(),
           const SizedBox(width: AppSpacing.lg),
-          Assets.images.continueWithApple.svg(),
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Assets.images.continueWithApple.svg(),
+          ),
         ],
       ),
     );
@@ -141,7 +144,10 @@ class _GoogleLoginButton extends StatelessWidget {
         children: [
           Assets.icons.google.svg(),
           const SizedBox(width: AppSpacing.lg),
-          Assets.images.continueWithGoogle.svg(),
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xxs),
+            child: Assets.images.continueWithGoogle.svg(),
+          ),
         ],
       ),
     );
