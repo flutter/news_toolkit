@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:google_news_template_api/google_news_template_api.dart';
+import 'package:google_news_template_api/api.dart';
 import 'package:meta/meta.dart' show isTest;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
