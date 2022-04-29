@@ -7,10 +7,7 @@ void main() {
   group('UnknownBlock', () {
     test('can be (de)serialized', () {
       final block = UnknownBlock();
-      expect(
-        UnknownBlock.fromJson(block.toJson()),
-        isA<UnknownBlock>().having((b) => b.type, 'type', block.type),
-      );
+      expect(UnknownBlock.fromJson(block.toJson()), equals(block));
     });
   });
 }
