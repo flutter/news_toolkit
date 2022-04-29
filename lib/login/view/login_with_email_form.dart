@@ -126,17 +126,24 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          context.l10n.loginWithEmailTermsAndPolicyInfo,
-                          style: theme.textTheme.button
-                              ?.apply(color: AppColors.white),
-                        ),
+                  await showAppModal<void>(
+                      context: context,
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * 0.92,
                       ),
-                    );
+                      builder: (context) => AppTOSModal());
+
+                  // ScaffoldMessenger.of(context)
+                  //   ..hideCurrentSnackBar()
+                  //   ..showSnackBar(
+                  //     SnackBar(
+                  //       content: Text(
+                  //         context.l10n.loginWithEmailTermsAndPolicyInfo,
+                  //         style: theme.textTheme.button
+                  //             ?.apply(color: AppColors.white),
+                  //       ),
+                  //     ),
+                  //   );
                 },
             ),
             TextSpan(

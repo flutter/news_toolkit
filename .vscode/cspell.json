@@ -106,6 +106,7 @@
   ],
   "ignorePaths": [
     ".github/workflows/**",
-    "api/lib/api/v1/projects/templates/*_bundle.dart"
+    "api/lib/api/v1/projects/templates/*_bundle.dart",
+    "lib/login/utils/tos_text.dart"
   ]
 }
