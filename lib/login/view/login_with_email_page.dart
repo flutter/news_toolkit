@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/login//login.dart';
+import 'package:user_repository/user_repository.dart';
 
 class LoginWithEmailPage extends StatelessWidget {
   const LoginWithEmailPage({Key? key}) : super(key: key);
@@ -8,6 +11,9 @@ class LoginWithEmailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return BlocProvider(
+      create: (_) => LoginBloc(context.read<UserRepository>()),
+      child: const LoginWithEmailForm(),
+    );
   }
 }
