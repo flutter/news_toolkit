@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/news_blocks/**"
+      - "api/packages/news_blocks/**"
       - ".github/workflows/storage.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: packages/news_blocks
+      working_directory: api/packages/news_blocks

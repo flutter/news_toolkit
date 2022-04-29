@@ -3,6 +3,11 @@ FROM dart:stable AS build
 
 # Resolve app dependencies.
 WORKDIR /app
+
+# package:news_blocks
+COPY packages/news_blocks ./packages/news_blocks
+RUN dart pub get -C packages/news_blocks
+
 COPY pubspec.* ./
 RUN dart pub get
 

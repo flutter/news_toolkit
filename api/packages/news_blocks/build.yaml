@@ -1,0 +1,19 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - cast_nullable_to_non_nullable
+            - implicit_dynamic_parameter
+            - lines_longer_than_80_chars
+            - prefer_const_constructors
+            - require_trailing_commas
+      json_serializable:
+        options:
+          create_to_json: true
+          create_factory: true
+          checked: true
+          explicit_to_json: true
+          field_rename: snake
+          include_if_null: false
