@@ -1,3 +1,4 @@
+import 'package:google_news_template_api/src/api/v1/categories/categories.dart';
 import 'package:google_news_template_api/src/api/v1/feed/feed.dart';
 import 'package:google_news_template_api/src/controller.dart';
 import 'package:shelf/shelf.dart';
@@ -12,6 +13,8 @@ class ApiV1Controller extends Controller {
 
   @override
   Handler get handler {
-    return Router()..register('/feed', const FeedController());
+    return Router()
+      ..register('/categories', const CategoriesController())
+      ..register('/feed', const FeedController());
   }
 }

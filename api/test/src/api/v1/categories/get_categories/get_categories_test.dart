@@ -4,10 +4,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:google_news_template_api/api.dart';
-import 'package:google_news_template_api/src/api/v1/feed/feed.dart';
+import 'package:google_news_template_api/src/api/v1/categories/categories.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:news_blocks/news_blocks.dart';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
@@ -15,28 +14,24 @@ import '../../../../../test_server.dart';
 
 class MockNewsDataSource extends Mock implements NewsDataSource {}
 
-class MockFeed extends Mock implements Feed {}
-
 void main() {
-  group('GET /api/v1/feed', () {
+  group('GET /api/v1/categories', () {
     late NewsDataSource newsDataSource;
-    late FeedController controller;
+    late CategoriesController controller;
 
     setUp(() {
       newsDataSource = MockNewsDataSource();
-      controller = FeedController();
+      controller = CategoriesController();
     });
 
     testServer(
       'returns a 200 on success',
       (host) async {
-        final blocks = <NewsBlock>[];
-        final feed = MockFeed();
-        when(() => feed.blocks).thenReturn(blocks);
-        when(() => feed.totalBlocks).thenReturn(blocks.length);
-        when(() => newsDataSource.getFeed()).thenAnswer((_) async => feed);
-
-        final expected = FeedResponse(feed: blocks, totalCount: blocks.length);
+        const categories = [Category.sports, Category.entertainment];
+        when(
+          () => newsDataSource.getCategories(),
+        ).thenAnswer((_) async => categories);
+        final expected = CategoriesResponse(categories: categories);
         final response = await get(host);
         expect(response.statusCode, equals(HttpStatus.ok));
         expect(response.body, equals(json.encode(expected.toJson())));
