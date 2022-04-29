@@ -18,11 +18,9 @@ class AppTextFieldPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: AppEmailField(
+        child: AppTextField(
           hintText: 'Your email address',
           onChanged: (_) {},
-          suffixOpacity: 1,
-          onSuffixPressed: () {},
         ),
       ),
     );
