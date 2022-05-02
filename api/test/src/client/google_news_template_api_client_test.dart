@@ -145,5 +145,73 @@ void main() {
         expect(apiClient.getFeed(), completion(equals(expectedResponse)));
       });
     });
+
+    group('getCategories', () {
+      test('makes correct http request.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient.getCategories().ignore();
+
+        verify(
+          () => httpClient.get(
+            any(
+              that: isA<Uri>().having(
+                (u) => u.path,
+                'path',
+                '/api/v1/categories',
+              ),
+            ),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiMalformedResponse '
+          'when response body is malformed.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        expect(
+          apiClient.getCategories,
+          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+        );
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-200 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        final body = <String, dynamic>{};
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(json.encode(body), statusCode),
+        );
+
+        expect(
+          apiClient.getCategories,
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', body),
+          ),
+        );
+      });
+
+      test('returns a CategoriesResponse on a 200 response.', () {
+        const expectedResponse = CategoriesResponse(
+          categories: [Category.business, Category.top],
+        );
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(
+            json.encode(expectedResponse.toJson()),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(apiClient.getCategories(), completion(equals(expectedResponse)));
+      });
+    });
   });
 }
