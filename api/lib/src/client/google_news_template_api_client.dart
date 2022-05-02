@@ -82,6 +82,23 @@ class GoogleNewsTemplateApiClient {
 
     return FeedResponse.fromJson(body);
   }
+
+  /// GET /api/v1/categories
+  /// Requests the available news categories.
+  Future<CategoriesResponse> getCategories() async {
+    final uri = Uri.parse('$_baseUrl/api/v1/categories');
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return CategoriesResponse.fromJson(body);
+  }
 }
 
 extension on http.Response {
