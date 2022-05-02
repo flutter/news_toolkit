@@ -1,6 +1,8 @@
 /// Google News Template API Client-Side Library
 library client;
 
+export 'package:news_blocks/news_blocks.dart'
+    show BlockAction, BlockActionType, SectionHeaderBlock;
 export 'src/api/v1/categories/get_categories/models/models.dart'
     show CategoriesResponse;
 export 'src/api/v1/feed/get_feed/models/models.dart' show FeedResponse;
