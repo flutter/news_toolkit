@@ -75,6 +75,9 @@ void main() {
           ),
         );
         await tester.enterText(find.byKey(emailInputKey), testEmail);
+        await tester
+            .ensureVisible(find.byWidget(Assets.icons.closeCircle.svg()));
+        await tester.pumpAndSettle();
         await tester.tap(find.byKey(loginWithEmailFormSuffixIconKey));
         await tester.pumpAndSettle();
         verify(() => loginBloc.add(const LoginEmailChanged(''))).called(1);
