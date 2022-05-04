@@ -85,7 +85,7 @@ class _EmailInputState extends State<_EmailInput> {
       suffix: _ClearIconButton(onPressed: () {
         _controller.clear();
         context.read<LoginBloc>().add(const LoginEmailChanged(''));
-      }),
+      },),
     );
   }
 
