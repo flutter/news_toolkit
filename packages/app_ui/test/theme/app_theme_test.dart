@@ -19,7 +19,6 @@ void main() {
           );
         });
       });
-
       group('divider', () {
         test('horizontal padding is AppSpacing.lg', () {
           expect(
@@ -28,6 +27,13 @@ void main() {
           );
           expect(
             const AppTheme().themeData.dividerTheme.endIndent,
+            AppSpacing.lg,
+          );
+        });
+
+        test('space is AppSpacing.lg', () {
+          expect(
+            const AppTheme().themeData.dividerTheme.space,
             AppSpacing.lg,
           );
         });
@@ -59,23 +65,23 @@ void main() {
           );
         });
       });
-    });
-    group('divider', () {
-      test('horizontal padding is AppSpacing.lg', () {
-        expect(
-          const AppTheme().themeData.dividerTheme.indent,
-          AppSpacing.lg,
-        );
-        expect(
-          const AppTheme().themeData.dividerTheme.endIndent,
-          AppSpacing.lg,
-        );
-      });
-      test('space is AppSpacing.lg', () {
-        expect(
-          const AppTheme().themeData.dividerTheme.space,
-          AppSpacing.lg,
-        );
+      group('divider', () {
+        test('horizontal padding is AppSpacing.lg', () {
+          expect(
+            const AppTheme().themeData.dividerTheme.indent,
+            AppSpacing.lg,
+          );
+          expect(
+            const AppTheme().themeData.dividerTheme.endIndent,
+            AppSpacing.lg,
+          );
+        });
+        test('space is AppSpacing.lg', () {
+          expect(
+            const AppTheme().themeData.dividerTheme.space,
+            AppSpacing.lg,
+          );
+        });
       });
     });
   });
