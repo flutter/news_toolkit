@@ -13,7 +13,7 @@ class AppTextFieldPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'TextField',
+          'Text Field',
         ),
       ),
       body: Padding(

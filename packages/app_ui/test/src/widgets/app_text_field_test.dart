@@ -7,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../helpers/helpers.dart';
 
 void main() {
+  const appTextFieldSuffixIconKey = Key('appTextField_suffixIcon');
+
   group('AppTextField', () {
     const hintText = 'Hint';
 
@@ -32,7 +34,12 @@ void main() {
       await tester.pumpApp(
         AppTextField(),
       );
-      final suffixIcon = tester.widget<Visibility>(find.byType(Visibility));
+      final suffixIcon = tester.widget<Visibility>(
+        find.descendant(
+          of: find.byKey(appTextFieldSuffixIconKey),
+          matching: find.byType(Visibility),
+        ),
+      );
       expect(suffixIcon.visible, isFalse);
     });
   });

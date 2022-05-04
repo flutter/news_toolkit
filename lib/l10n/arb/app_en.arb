@@ -95,12 +95,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "nextButtonText": "Next",
-  "@nextButtonText": {
-    "description": "Sign up next button shown on the sign up form",
-    "type": "text",
-    "placeholders": {}
-  },
   "navigationDrawerSectionsTitle": "SECTIONS",
   "@navigationDrawerSectionsTitle": {
     "description": "Navigation drawer sections title",

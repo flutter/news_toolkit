@@ -8,7 +8,7 @@ import 'package:google_news_template/login/login.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('AppEmailField', () {
+  group('AppEmailTextField', () {
     const hintText = 'Hint';
 
     group('email', () {
