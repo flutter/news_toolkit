@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// {@template app_theme}
 /// The Default App [ThemeData].
@@ -57,6 +58,10 @@ class AppTheme {
       titleTextStyle: _textTheme.headline6,
       elevation: 0,
       backgroundColor: AppColors.transparent,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
     );
   }
 
