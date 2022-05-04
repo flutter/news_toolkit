@@ -127,12 +127,14 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
                   await showAppModal<void>(
-                      context: context,
-                      constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height * 0.92,
-                      ),
-                      builder: (context) => AppTOSModal());
+                    context: context,
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.92,
+                    ),
+                    builder: (context) => const AppTOSModal(),
+                  );
 
+                  // TODO(ana): this shows a snackbar instead of a TOS
                   // ScaffoldMessenger.of(context)
                   //   ..hideCurrentSnackBar()
                   //   ..showSnackBar(

@@ -60,6 +60,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "loginWithEmailTOSModalTitle": "Terms of Use &\n Privacy Policy",
+  "@loginWithEmailTOSModalTitle": {
+    "description": "Title shown on the TOS modal",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWithEmailButtonText": "Continue with Email",
   "@loginWithEmailButtonText": {
     "description": "Log in with email button text shown on the log in modal",

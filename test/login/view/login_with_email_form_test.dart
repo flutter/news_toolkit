@@ -25,7 +25,7 @@ void main() {
       Key('loginWithEmailForm_header_title');
   const loginWithEmailFormTermsAndPrivacyPolicyKey =
       Key('loginWithEmailForm_terms_and_privacy_policy');
-  const loginWithEmailFormSuffixIconKey = Key('email_textField_suffixIcon');
+  const loginWithEmailFormSuffixIconKey = Key('appTextField_suffixIcon');
 
   const testEmail = 'test@gmail.com';
   const invalidTestEmail = 'test@g';
@@ -79,6 +79,7 @@ void main() {
         await tester.pumpAndSettle();
         verify(() => loginBloc.add(const LoginEmailChanged(''))).called(1);
       });
+
       group('renders', () {
         testWidgets('header title', (tester) async {
           await tester.pumpApp(
@@ -134,7 +135,7 @@ void main() {
         });
 
         testWidgets(
-            'Terms and Privacy Policy SnackBar when tapped on '
+            'TOS app modal when tapped on '
             'Terms of Use and Privacy Policy text', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
@@ -152,8 +153,31 @@ void main() {
           );
 
           await tester.pumpAndSettle();
-          expect(find.byType(SnackBar), findsOneWidget);
+          expect(find.byType(AppTOSModal), findsOneWidget);
         });
+
+        // TODO(ana): this is the text to show a snackbar rather than TOS
+        // testWidgets(
+        //     'Terms and Privacy Policy SnackBar when tapped on '
+        //     'Terms of Use and Privacy Policy text', (tester) async {
+        //   await tester.pumpApp(
+        //     BlocProvider.value(
+        //       value: loginBloc,
+        //       child: const LoginWithEmailForm(),
+        //     ),
+        //   );
+        //   final richText = tester.widget<RichText>(
+        //     find.byKey(loginWithEmailFormTermsAndPrivacyPolicyKey),
+        //   );
+        //
+        //   tapTextSpan(
+        //     richText,
+        //     'Terms of Use and Privacy Policy',
+        //   );
+        //
+        //   await tester.pumpAndSettle();
+        //   expect(find.byType(SnackBar), findsOneWidget);
+        // });
 
         testWidgets('disabled next button when status is not validated',
             (tester) async {
