@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -17,6 +18,10 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
 class MockEmail extends Mock implements Email {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockUser extends Mock implements User {}
 
 void main() {
   const nextButtonKey = Key('loginWithEmailForm_nextButton');
@@ -31,10 +36,14 @@ void main() {
   const invalidTestEmail = 'test@g';
 
   late LoginBloc loginBloc;
+  late AppBloc appBloc;
+  late User user;
 
   group('LoginWithEmailForm', () {
     setUp(() {
       loginBloc = MockLoginBloc();
+      appBloc = MockAppBloc();
+      user = MockUser();
       when(() => loginBloc.state).thenReturn(const LoginState());
     });
 
@@ -82,6 +91,7 @@ void main() {
         await tester.pumpAndSettle();
         verify(() => loginBloc.add(const LoginEmailChanged(''))).called(1);
       });
+
       group('renders', () {
         testWidgets('header title', (tester) async {
           await tester.pumpApp(
@@ -229,6 +239,29 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.byType(LoginForm), findsNothing);
       });
+    });
+
+    testWidgets('when user is authenticated', (tester) async {
+      final navigator = MockNavigator();
+      whenListen(
+        appBloc,
+        Stream.fromIterable(
+          <AppState>[AppState.authenticated(user)],
+        ),
+        initialState: const AppState.unauthenticated(),
+      );
+
+      when(() => navigator.popUntil(any())).thenAnswer((_) async {});
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: loginBloc,
+          child: const LoginWithEmailPage(),
+        ),
+        navigator: navigator,
+        appBloc: appBloc,
+      );
+      await tester.pumpAndSettle();
+      verify(() => navigator.popUntil(any())).called(1);
     });
   });
 }
