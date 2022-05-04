@@ -126,26 +126,26 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  await showAppModal<void>(
-                    context: context,
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.92,
-                    ),
-                    builder: (context) => const AppTOSModal(),
-                  );
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          context.l10n.loginWithEmailTermsAndPolicyInfo,
+                          style: theme.textTheme.button
+                              ?.apply(color: AppColors.white),
+                        ),
+                      ),
+                    );
 
-                  // TODO(ana): this shows a snackbar instead of a TOS
-                  // ScaffoldMessenger.of(context)
-                  //   ..hideCurrentSnackBar()
-                  //   ..showSnackBar(
-                  //     SnackBar(
-                  //       content: Text(
-                  //         context.l10n.loginWithEmailTermsAndPolicyInfo,
-                  //         style: theme.textTheme.button
-                  //             ?.apply(color: AppColors.white),
-                  //       ),
-                  //     ),
-                  //   );
+                  // This shows a TOS instead of a snackbar
+                  // await showAppModal<void>(
+                  //   context: context,
+                  //   constraints: BoxConstraints(
+                  //     maxHeight: MediaQuery.of(context).size.height * 0.92,
+                  //   ),
+                  //   builder: (context) => const AppTOSModal(),
+                  // );
                 },
             ),
             TextSpan(
