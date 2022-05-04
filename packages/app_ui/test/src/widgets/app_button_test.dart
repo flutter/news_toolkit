@@ -252,6 +252,36 @@ void main() {
     });
 
     testWidgets(
+        'renders smallDarkAqua button '
+        'when `AppButton.smallDarkAqua()` called', (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.smallDarkAqua(
+          child: buttonText,
+          onPressed: () {},
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.darkAqua,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 40),
+      );
+    });
+
+    testWidgets(
         'renders smallTransparent button '
         'when `AppButton.smallTransparent()` called', (tester) async {
       final buttonText = Text('buttonText');
