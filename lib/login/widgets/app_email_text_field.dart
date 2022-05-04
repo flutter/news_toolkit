@@ -48,8 +48,36 @@ class AppEmailTextField extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
-      onSuffixPressed: onSuffixPressed,
-      suffixVisible: suffixVisible,
+      suffix: _ClearIconButton(
+        onPressed: onSuffixPressed,
+        suffixVisible: suffixVisible ?? false,
+      ),
+    );
+  }
+}
+
+class _ClearIconButton extends StatelessWidget {
+  const _ClearIconButton({
+    Key? key,
+    required this.onPressed,
+    required this.suffixVisible,
+  }) : super(key: key);
+
+  final VoidCallback? onPressed;
+  final bool suffixVisible;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      key: const Key('appEmailTextField_clearIconButton'),
+      padding: const EdgeInsets.only(right: AppSpacing.md),
+      child: Visibility(
+        visible: suffixVisible,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Assets.icons.closeCircle.svg(),
+        ),
+      ),
     );
   }
 }

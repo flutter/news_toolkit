@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class AppButton extends StatelessWidget {
   /// {@macro app_button}
-  AppButton._({
+  const AppButton._({
     Key? key,
     required this.child,
     this.onPressed,
@@ -15,15 +15,19 @@ class AppButton extends StatelessWidget {
     BorderSide? borderSide,
     double? elevation,
     TextStyle? textStyle,
+    Size? maximumSize,
+    EdgeInsets? padding,
   })  : _buttonColor = buttonColor ?? Colors.white,
         _borderSide = borderSide,
         _foregroundColor = foregroundColor ?? AppColors.black,
         _elevation = elevation ?? 0,
-        _textStyle = textStyle ?? AppTextStyle.button,
+        _textStyle = textStyle,
+        _maximumSize = maximumSize ?? _defaultMaximumSize,
+        _padding = padding ?? _defaultPadding,
         super(key: key);
 
   /// Filled black button.
-  AppButton.black({
+  const AppButton.black({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -40,7 +44,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled blue dress button.
-  AppButton.blueDress({
+  const AppButton.blueDress({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -57,7 +61,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled crystal blue button.
-  AppButton.crystalBlue({
+  const AppButton.crystalBlue({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -74,7 +78,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled red wine button.
-  AppButton.redWine({
+  const AppButton.redWine({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -91,7 +95,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled dark aqua button.
-  AppButton.darkAqua({
+  const AppButton.darkAqua({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -108,7 +112,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Outlined transparent button.
-  AppButton.outlinedTransparent({
+  const AppButton.outlinedTransparent({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -128,7 +132,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Outlined white button.
-  AppButton.outlinedWhite({
+  const AppButton.outlinedWhite({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -148,7 +152,7 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled small red wine blue button.
-  AppButton.smallRedWine({
+  const AppButton.smallRedWine({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -160,11 +164,12 @@ class AppButton extends StatelessWidget {
           child: child,
           foregroundColor: AppColors.white,
           elevation: elevation,
-          textStyle: AppTextStyle.smallButton,
+          maximumSize: _smallMaximumSize,
+          padding: _smallPadding,
         );
 
   /// Filled small transparent button.
-  AppButton.smallTransparent({
+  const AppButton.smallTransparent({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -176,11 +181,12 @@ class AppButton extends StatelessWidget {
           child: child,
           foregroundColor: AppColors.liver,
           elevation: elevation,
-          textStyle: AppTextStyle.smallButton,
+          maximumSize: _smallMaximumSize,
+          padding: _smallPadding,
         );
 
   /// Filled small transparent button.
-  AppButton.smallOutlineTransparent({
+  const AppButton.smallOutlineTransparent({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -195,17 +201,37 @@ class AppButton extends StatelessWidget {
           ),
           foregroundColor: AppColors.darkAqua,
           elevation: elevation,
-          textStyle: AppTextStyle.smallButton,
+          maximumSize: _smallMaximumSize,
+          padding: _smallPadding,
         );
+
+  /// The maximum size of the small variant of the button.
+  static const _smallMaximumSize = Size(double.infinity, 40);
+
+  /// The maximum size of the button.
+  static const _defaultMaximumSize = Size(double.infinity, 56);
+
+  /// The minimum size of the button.
+  static const _defaultMinimumSize = Size(double.infinity, 40);
+
+  /// The padding of the small variant of the button.
+  static const _smallPadding = EdgeInsets.zero;
+
+  /// The padding of the the button.
+  static const _defaultPadding = EdgeInsets.symmetric(vertical: 16);
 
   /// [VoidCallback] called when button is pressed.
   /// Button is disabled when null.
   final VoidCallback? onPressed;
 
   /// A background color of the button.
+  ///
+  /// Defaults to [Colors.white].
   final Color _buttonColor;
 
   /// Color of the text, icons etc.
+  ///
+  /// Defaults to [AppColors.black].
   final Color _foregroundColor;
 
   /// A border of the button.
@@ -215,29 +241,34 @@ class AppButton extends StatelessWidget {
   final double _elevation;
 
   /// [TextStyle] of the button text.
-  final TextStyle _textStyle;
+  ///
+  /// Defaults to [TextTheme.button].
+  final TextStyle? _textStyle;
+
+  /// The maximum size of the button.
+  ///
+  /// Defaults to [_defaultMaximumSize].
+  final Size _maximumSize;
+
+  /// The padding of the button.
+  ///
+  /// Defaults to [EdgeInsets.zero].
+  final EdgeInsets _padding;
 
   /// [Widget] displayed on the button.
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = _textStyle ?? Theme.of(context).textTheme.button;
+
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        maximumSize: MaterialStateProperty.all(
-          Size(
-            double.infinity,
-            _textStyle == AppTextStyle.smallButton ? 40 : 56,
-          ),
-        ),
-        padding: _textStyle == AppTextStyle.smallButton
-            ? MaterialStateProperty.all(EdgeInsets.zero)
-            : MaterialStateProperty.all(
-                const EdgeInsets.symmetric(vertical: 16),
-              ),
-        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 40)),
-        textStyle: MaterialStateProperty.all(_textStyle),
+        maximumSize: MaterialStateProperty.all(_maximumSize),
+        padding: MaterialStateProperty.all(_padding),
+        minimumSize: MaterialStateProperty.all(_defaultMinimumSize),
+        textStyle: MaterialStateProperty.all(textStyle),
         backgroundColor: onPressed == null
             ? MaterialStateProperty.all(AppColors.black.withOpacity(.12))
             : MaterialStateProperty.all(_buttonColor),

@@ -19,22 +19,24 @@ class LoginWithEmailForm extends StatelessWidget {
           Navigator.of(context)
               .push<void>(PasswordLessPage(email: email).route());
         }
-        if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
-            );
-        }
       },
-      child: const Padding(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.xlg,
-          AppSpacing.lg,
-          AppSpacing.xlg,
-          AppSpacing.xxlg,
-        ),
-        child: ScrollableColumn(
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
+              );
+          }
+        },
+        child: const ScrollableColumn(
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.xlg,
+            AppSpacing.lg,
+            AppSpacing.xlg,
+            AppSpacing.xxlg,
+          ),
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

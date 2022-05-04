@@ -13,12 +13,34 @@ This action allows consumers to verify the status of the server. A response stat
 
 + Response 204 (application/json)
 
+## Categories [/api/v1/categories]
+
+Resources related to news categories.
+
+### Get Categories [GET]
+
+This action allows you to query all available news categories.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + categories (required, array[Category]) - The list of available news categories.
+
+    + Body
+        
+            {
+                "categories": [
+                    "technology",
+                    "sports",
+                    "top"
+                ]                
+            }
+
 ## Feed [/api/v1/feed{?category,limit,offset}]
 
 Resources related to the news feed.
 
 + Parameters
-    + category (optional, enum[string]) - The headline category.
+    + category (optional, Category) - The headline category.
         + Default: general
         + Members            
             + business
@@ -49,6 +71,9 @@ This action allows you to query feeds.
                     {
                         "title": "Breaking News",
                         "type": "__section_header__"
+                    },
+                    {
+                        "type": "__divider_horizontal__"
                     }
                 ],
                 "total_count": 100,
@@ -63,4 +88,15 @@ This action allows you to query feeds.
 ## BlockType (enum)
 
 + "__section_header__" - a section header block
++ "__divider_horizontal__" - a divider horizontal block
 + "__unknown__" - an unrecognized block
+
+## Category (enum)
+
++ business - news relating to business
++ entertainment - news relating to entertainment
++ top - breaking news 
++ health - news relating to health
++ science - news relating to science
++ sports - news relating to sports
++ technology - news relating to technology
