@@ -5,6 +5,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/user_profile/user_profile.dart';
 
 /// A user profile button which displays a [LoginButton]
 /// for the unauthenticated user or an [OpenProfileButton]
@@ -59,7 +60,7 @@ class OpenProfileButton extends StatelessWidget {
         horizontal: AppSpacing.lg,
         vertical: AppSpacing.sm,
       ),
-      onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+      onPressed: () => Navigator.of(context).push(UserProfilePage.route()),
       tooltip: context.l10n.openProfileTooltip,
     );
   }
