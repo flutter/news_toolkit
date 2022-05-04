@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing, AppTextStyle;
+import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -90,7 +90,7 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
         ),
         Text(
           context.l10n.loginModalTitle,
-          style: AppTextStyle.headline5,
+          style: Theme.of(context).textTheme.headline5,
         ),
       ],
     );
@@ -106,7 +106,7 @@ class _LoginSubtitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: AppSpacing.xxlg),
       child: Text(
         context.l10n.loginModalSubtitle,
-        style: AppTextStyle.subtitle1,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
@@ -123,7 +123,10 @@ class _AppleLoginButton extends StatelessWidget {
         children: [
           Assets.icons.apple.svg(),
           const SizedBox(width: AppSpacing.lg),
-          Assets.images.continueWithApple.svg(),
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Assets.images.continueWithApple.svg(),
+          ),
         ],
       ),
     );
@@ -141,7 +144,10 @@ class _GoogleLoginButton extends StatelessWidget {
         children: [
           Assets.icons.google.svg(),
           const SizedBox(width: AppSpacing.lg),
-          Assets.images.continueWithGoogle.svg(),
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xxs),
+            child: Assets.images.continueWithGoogle.svg(),
+          ),
         ],
       ),
     );

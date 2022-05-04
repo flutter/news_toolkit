@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:google_news_template_api/google_news_template_api.dart';
+import 'package:google_news_template_api/api.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
 

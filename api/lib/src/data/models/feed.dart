@@ -32,8 +32,7 @@ class Feed extends Equatable {
 /// {@template news_blocks_converter}
 /// A [JsonConverter] that supports (de)serializing a `List<NewsBlock>`.
 /// {@endtemplate}
-class NewsBlocksConverter
-    implements JsonConverter<List<NewsBlock>, List<Map<String, dynamic>>> {
+class NewsBlocksConverter implements JsonConverter<List<NewsBlock>, List> {
   /// {@macro news_blocks_converter}
   const NewsBlocksConverter();
 
@@ -43,7 +42,9 @@ class NewsBlocksConverter
   }
 
   @override
-  List<NewsBlock> fromJson(List<Map<String, dynamic>> jsonString) {
-    return jsonString.map(NewsBlock.fromJson).toList();
+  List<NewsBlock> fromJson(List jsonString) {
+    return jsonString
+        .map((dynamic e) => NewsBlock.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 }
