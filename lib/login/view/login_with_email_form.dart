@@ -76,20 +76,16 @@ class _EmailInputState extends State<_EmailInput> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final suffixVisible =
-        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
-
     return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
       hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
-      onSuffixPressed: () {
+      suffix: _ClearIconButton(onPressed: () {
         _controller.clear();
         context.read<LoginBloc>().add(const LoginEmailChanged(''));
-      },
-      suffixVisible: suffixVisible,
+      }),
     );
   }
 
@@ -163,6 +159,33 @@ class _NextButton extends StatelessWidget {
       child: status.isSubmissionInProgress
           ? const CircularProgressIndicator()
           : Text(l10n.nextButtonText),
+    );
+  }
+}
+
+class _ClearIconButton extends StatelessWidget {
+  const _ClearIconButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final suffixVisible =
+        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
+
+    return Padding(
+      key: const Key('appEmailTextField_clearIconButton'),
+      padding: const EdgeInsets.only(right: AppSpacing.md),
+      child: Visibility(
+        visible: suffixVisible,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Assets.icons.closeCircle.svg(),
+        ),
+      ),
     );
   }
 }
