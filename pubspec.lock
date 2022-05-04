@@ -489,7 +489,7 @@ packages:
       name: formz
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1"
+    version: "0.5.0-dev.1"
   frontend_server_client:
     dependency: transitive
     description:
