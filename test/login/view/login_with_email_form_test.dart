@@ -30,7 +30,8 @@ void main() {
       Key('loginWithEmailForm_header_title');
   const loginWithEmailFormTermsAndPrivacyPolicyKey =
       Key('loginWithEmailForm_terms_and_privacy_policy');
-  const loginWithEmailFormSuffixIconKey = Key('email_textField_suffixIcon');
+  const loginWithEmailFormSuffixIconKey =
+      Key('appEmailTextField_clearIconButton');
 
   const testEmail = 'test@gmail.com';
   const invalidTestEmail = 'test@g';
@@ -77,6 +78,9 @@ void main() {
 
       testWidgets('LoginEmailChanged when pressed on suffixIcon',
           (tester) async {
+        when(() => loginBloc.state).thenAnswer(
+          (_) => const LoginState(email: Email.dirty(testEmail)),
+        );
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
@@ -84,8 +88,8 @@ void main() {
           ),
         );
         await tester.enterText(find.byKey(emailInputKey), testEmail);
-        await tester
-            .ensureVisible(find.byWidget(Assets.icons.closeCircle.svg()));
+
+        await tester.ensureVisible(find.byKey(loginWithEmailFormSuffixIconKey));
         await tester.pumpAndSettle();
         await tester.tap(find.byKey(loginWithEmailFormSuffixIconKey));
         await tester.pumpAndSettle();
