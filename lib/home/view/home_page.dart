@@ -25,10 +25,6 @@ class HomeView extends StatelessWidget {
         title: AppLogo.dark(),
         centerTitle: true,
         actions: const [UserProfileButton()],
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
       ),
       drawer: const NavigationDrawer(),
       body: const Center(
