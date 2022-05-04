@@ -28,6 +28,8 @@ class AppTheme {
       textButtonTheme: _textButtonTheme,
       colorScheme: _colorScheme,
       bottomSheetTheme: _bottomSheetTheme,
+      listTileTheme: _listTileTheme,
+      switchTheme: _switchTheme,
     );
   }
 
@@ -189,6 +191,31 @@ class AppTheme {
           topRight: Radius.circular(AppSpacing.lg),
         ),
       ),
+    );
+  }
+
+  ListTileThemeData get _listTileTheme {
+    return const ListTileThemeData(
+      iconColor: AppColors.onBackground,
+    );
+  }
+
+  SwitchThemeData get _switchTheme {
+    return SwitchThemeData(
+      thumbColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.darkAqua;
+        }
+        return AppColors.eerieBlack;
+      }),
+      trackColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.primaryContainer;
+        }
+        return AppColors.paleSky;
+      }),
     );
   }
 }

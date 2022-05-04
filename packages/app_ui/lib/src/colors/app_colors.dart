@@ -101,10 +101,18 @@ abstract class AppColors {
   /// The modal background color.
   static const Color modalBackground = Color(0xFFEBF2F7);
 
+  /// The eerie black color.
+  static const Color eerieBlack = Color(0xFF191C1D);
+
   /// The medium emphasis primary color.
-  static const Color mediumEmphasisPrimary =
-      Color.fromRGBO(255, 255, 255, 0.74);
+  static const Color mediumEmphasisPrimary = Color(0xBDFFFFFF);
 
   /// The high emphasis primary color.
-  static const Color highEmphasisPrimary = Color.fromRGBO(255, 255, 255, 0.99);
+  static const Color highEmphasisPrimary = Color(0xFCFFFFFF);
+
+  /// The high emphasis surface color.
+  static const Color highEmphasisSurface = Color(0xE6000000);
+
+  /// The border outline color.
+  static const Color borderOutline = Color(0x33000000);
 }
