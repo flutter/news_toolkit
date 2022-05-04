@@ -1,3 +1,3 @@
 library news_blocks_ui;
 
-export 'src/news_blocks_ui.dart';
+export 'src/section_header.dart';

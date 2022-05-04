@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  news_blocks:
+    path: ../../api/packages/news_blocks
 
 dev_dependencies:
   flutter_test:
