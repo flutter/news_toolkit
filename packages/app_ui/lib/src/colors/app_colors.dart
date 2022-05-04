@@ -71,9 +71,6 @@ abstract class AppColors {
   /// The on-background color.
   static const Color onBackground = Color(0xFF1A1A1A);
 
-  /// The dark on-background color.
-  static const Color darkOnBackground = Color(0xFFFFFFFF);
-
   /// The primary container color.
   static const Color primaryContainer = Color(0xFFB1EBFF);
 
@@ -95,4 +92,10 @@ abstract class AppColors {
 
   /// The high emphasis primary color.
   static const Color highEmphasisPrimary = Color.fromRGBO(255, 255, 255, 0.99);
+
+  /// The light outline color.
+  static const Color outlineLight = Color(0x33000000);
+
+  /// The outline on dark color.
+  static const Color outlineOnDark = Color(0x29FFFFFF);
 }
