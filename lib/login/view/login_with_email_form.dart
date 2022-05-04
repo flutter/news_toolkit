@@ -82,10 +82,12 @@ class _EmailInputState extends State<_EmailInput> {
       hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
-      suffix: _ClearIconButton(onPressed: () {
-        _controller.clear();
-        context.read<LoginBloc>().add(const LoginEmailChanged(''));
-      },),
+      suffix: _ClearIconButton(
+        onPressed: () {
+          _controller.clear();
+          context.read<LoginBloc>().add(const LoginEmailChanged(''));
+        },
+      ),
     );
   }
 
