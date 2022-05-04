@@ -17,4 +17,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 2.10.4
+      test_optimization: false
       working_directory: packages/news_blocks_ui
