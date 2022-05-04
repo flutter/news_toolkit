@@ -62,8 +62,10 @@ class _ClearIconButton extends StatelessWidget {
     required this.onPressed,
     required this.suffixVisible,
   }) : super(key: key);
+
   final VoidCallback? onPressed;
   final bool suffixVisible;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
