@@ -58,7 +58,7 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(invalidEmailString)),
         expect: () => const <LoginState>[
-          LoginState(email: invalidEmail, status: FormzStatus.invalid),
+          LoginState(email: invalidEmail),
         ],
       );
 
@@ -67,10 +67,7 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(validEmailString)),
         expect: () => const <LoginState>[
-          LoginState(
-            email: validEmail,
-            status: FormzStatus.valid,
-          ),
+          LoginState(email: validEmail, valid: true),
         ],
       );
     });
@@ -86,10 +83,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'calls sendLoginEmailLink with correct email',
         build: () => LoginBloc(userRepository),
-        seed: () => LoginState(
-          status: FormzStatus.valid,
-          email: validEmail,
-        ),
+        seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         verify: (_) {
           verify(
@@ -104,19 +98,18 @@ void main() {
         'emits [submissionInProgress, submissionSuccess] '
         'when sendLoginEmailLink succeeds',
         build: () => LoginBloc(userRepository),
-        seed: () => LoginState(
-          status: FormzStatus.valid,
-          email: validEmail,
-        ),
+        seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         expect: () => const <LoginState>[
           LoginState(
-            status: FormzStatus.submissionInProgress,
+            status: FormzSubmissionStatus.inProgress,
             email: validEmail,
+            valid: true,
           ),
           LoginState(
-            status: FormzStatus.submissionSuccess,
+            status: FormzSubmissionStatus.success,
             email: validEmail,
+            valid: true,
           )
         ],
       );
@@ -132,19 +125,18 @@ void main() {
           ).thenThrow(Exception('oops'));
         },
         build: () => LoginBloc(userRepository),
-        seed: () => LoginState(
-          status: FormzStatus.valid,
-          email: validEmail,
-        ),
+        seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         expect: () => const <LoginState>[
           LoginState(
-            status: FormzStatus.submissionInProgress,
+            status: FormzSubmissionStatus.inProgress,
             email: validEmail,
+            valid: true,
           ),
           LoginState(
-            status: FormzStatus.submissionFailure,
+            status: FormzSubmissionStatus.failure,
             email: validEmail,
+            valid: true,
           )
         ],
       );
@@ -195,8 +187,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -211,8 +203,8 @@ void main() {
         act: (bloc) =>
             incomingEmailLinksController.add(emailLinkWithoutContinueUrl),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -227,8 +219,8 @@ void main() {
         act: (bloc) =>
             incomingEmailLinksController.add(emailLinkWithInvalidContinueUrl),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -249,8 +241,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -265,8 +257,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionSuccess)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.success)
         ],
       );
 
@@ -304,8 +296,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionSuccess)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.success)
         ],
       );
 
@@ -320,8 +312,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -336,8 +328,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionCanceled),
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.canceled),
         ],
       );
     });
@@ -358,8 +350,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionSuccess)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.success)
         ],
       );
 
@@ -374,8 +366,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -392,8 +384,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionCanceled),
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.canceled),
         ],
       );
     });
@@ -414,8 +406,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionSuccess)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.success)
         ],
       );
 
@@ -430,8 +422,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
 
@@ -448,8 +440,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionCanceled),
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.canceled),
         ],
       );
     });
@@ -470,8 +462,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginAppleSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionSuccess)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.success)
         ],
       );
 
@@ -486,8 +478,8 @@ void main() {
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginAppleSubmitted()),
         expect: () => const <LoginState>[
-          LoginState(status: FormzStatus.submissionInProgress),
-          LoginState(status: FormzStatus.submissionFailure)
+          LoginState(status: FormzSubmissionStatus.inProgress),
+          LoginState(status: FormzSubmissionStatus.failure)
         ],
       );
     });

@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(
       state.copyWith(
         email: email,
-        status: Formz.validate([email]),
+        valid: Formz.validate([email]),
       ),
     );
   }
@@ -42,15 +42,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SendEmailLinkSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (!state.valid) return;
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _userRepository.sendLoginEmailLink(
         email: state.email.value,
       );
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -60,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
       final currentUser = await _userRepository.user.first;
       if (!currentUser.isAnonymous) {
@@ -99,9 +99,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emailLink: emailLink.toString(),
       );
 
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -110,14 +110,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginGoogleSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _userRepository.logInWithGoogle();
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithGoogleCanceled {
-      emit(state.copyWith(status: FormzStatus.submissionCanceled));
+      emit(state.copyWith(status: FormzSubmissionStatus.canceled));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -126,12 +126,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginAppleSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _userRepository.logInWithApple();
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -140,14 +140,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginTwitterSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _userRepository.logInWithTwitter();
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithTwitterCanceled {
-      emit(state.copyWith(status: FormzStatus.submissionCanceled));
+      emit(state.copyWith(status: FormzSubmissionStatus.canceled));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
@@ -156,14 +156,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginFacebookSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _userRepository.logInWithFacebook();
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithFacebookCanceled {
-      emit(state.copyWith(status: FormzStatus.submissionCanceled));
+      emit(state.copyWith(status: FormzSubmissionStatus.canceled));
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
   }
