@@ -99,6 +99,15 @@ class AppButtonPage extends StatelessWidget {
           horizontal: AppSpacing.lg + _contentSpacing,
         ),
         child: _AppButtonItem(
+          buttonType: ButtonType.logout,
+          child: Text('Logout'),
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
+        child: _AppButtonItem(
           buttonType: ButtonType.details,
           child: Text('View details'),
         ),
@@ -131,6 +140,7 @@ enum ButtonType {
   subscribe,
   information,
   trial,
+  logout,
   details,
   cancel
 }
@@ -186,6 +196,11 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.trial:
         return AppButton.smallRedWine(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.logout:
+        return AppButton.smallDarkAqua(
           onPressed: () {},
           child: child,
         );
