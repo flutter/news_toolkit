@@ -18,7 +18,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      await expectLater(
+      expect(
         find.byType(DividerHorizontal),
         matchesGoldenFile('divider_horizontal.png'),
       );
