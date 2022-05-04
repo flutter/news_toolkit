@@ -130,14 +130,14 @@ class AppTheme {
       enabledBorder: _textFieldBorder,
       focusedBorder: _textFieldBorder,
       disabledBorder: _textFieldBorder,
-      hintStyle: AppTextStyle.bodyText1.copyWith(
+      hintStyle: UITextStyle.bodyText1.copyWith(
         color: AppColors.mediumEmphasis,
       ),
       contentPadding: const EdgeInsets.all(AppSpacing.lg),
       border: const UnderlineInputBorder(),
       filled: true,
       isDense: true,
-      errorStyle: AppTextStyle.caption,
+      errorStyle: UITextStyle.caption,
     );
   }
 
