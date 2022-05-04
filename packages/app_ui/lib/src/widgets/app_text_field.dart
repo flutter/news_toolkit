@@ -19,13 +19,11 @@ class AppTextField extends StatelessWidget {
     this.hintText,
     this.errorText,
     this.prefix,
-    bool? suffixVisible,
-    this.onSuffixPressed,
+    this.suffix,
     this.keyboardType,
     this.onChanged,
     this.onTap,
-  })  : _suffixVisible = suffixVisible ?? false,
-        super(key: key);
+  }) : super(key: key);
 
   /// A value to initialize the field to.
   final String? initialValue;
@@ -59,12 +57,8 @@ class AppTextField extends StatelessWidget {
   /// A widget that appears before the editable part of the text field.
   final Widget? prefix;
 
-  /// Called when the user clicks on the suffix icon.
-  final VoidCallback? onSuffixPressed;
-
-  /// Whether the suffix is visible.
-  /// Defaults to false.
-  final bool _suffixVisible;
+  /// A widget that appears after the editable part of the text field.
+  final Widget? suffix;
 
   /// The type of keyboard to use for editing the text.
   /// Defaults to [TextInputType.text] if maxLines is one and
@@ -102,17 +96,7 @@ class AppTextField extends StatelessWidget {
               hintText: hintText,
               errorText: errorText,
               prefixIcon: prefix,
-              suffixIcon: Padding(
-                key: const Key('appTextField_suffixIcon'),
-                padding: const EdgeInsets.only(right: AppSpacing.md),
-                child: Visibility(
-                  visible: _suffixVisible,
-                  child: GestureDetector(
-                    onTap: onSuffixPressed,
-                    child: Assets.icons.closeCircle.svg(),
-                  ),
-                ),
-              ),
+              suffixIcon: suffix,
               suffixIconConstraints: const BoxConstraints.tightFor(
                 width: 32,
                 height: 32,

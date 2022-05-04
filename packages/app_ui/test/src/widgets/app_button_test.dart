@@ -8,8 +8,14 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppButton', () {
+    final theme = AppTheme().themeData;
+    final buttonTextTheme = theme.textTheme.button!.copyWith(
+      inherit: false,
+    );
+
     testWidgets('renders button', (tester) async {
       final buttonText = Text('buttonText');
+
       await tester.pumpApp(
         Column(
           children: [
@@ -42,6 +48,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -51,9 +58,10 @@ void main() {
         widget.style?.backgroundColor?.resolve({}),
         AppColors.black,
       );
+
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -67,6 +75,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -78,7 +87,7 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -92,6 +101,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -103,7 +113,7 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -117,6 +127,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -128,7 +139,7 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -142,6 +153,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -153,9 +165,10 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
+
     testWidgets(
         'renders outlinedTransparent button '
         'when `AppButton.outlinedTransparent()` called', (tester) async {
@@ -166,6 +179,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -177,7 +191,7 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -191,6 +205,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -202,7 +217,7 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.button,
+        buttonTextTheme,
       );
     });
 
@@ -216,6 +231,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -227,7 +243,11 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.smallButton,
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 40),
       );
     });
 
@@ -241,6 +261,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -252,7 +273,11 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.smallButton,
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 40),
       );
     });
 
@@ -266,6 +291,7 @@ void main() {
           child: buttonText,
           onPressed: () {},
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);
@@ -277,7 +303,11 @@ void main() {
       );
       expect(
         widget.style?.textStyle?.resolve({}),
-        AppTextStyle.smallButton,
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 40),
       );
     });
 
@@ -290,6 +320,7 @@ void main() {
         AppButton.smallOutlineTransparent(
           child: buttonText,
         ),
+        theme: theme,
       );
 
       final finder = find.byType(ElevatedButton);

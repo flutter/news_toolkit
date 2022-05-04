@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/google_news_template_api.dart';
+import 'package:google_news_template_api/api.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -10,7 +10,7 @@ part 'feed_response.g.dart';
 /// {@endtemplate}
 @JsonSerializable()
 class FeedResponse extends Equatable {
-  /// {@macro feed}
+  /// {@macro feed_response}
   const FeedResponse({required this.feed, required this.totalCount});
 
   /// Converts a `Map<String, dynamic>` into a [FeedResponse] instance.

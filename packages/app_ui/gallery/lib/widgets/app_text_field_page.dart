@@ -13,7 +13,7 @@ class AppTextFieldPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'TextField',
+          'Text Field',
         ),
       ),
       body: Padding(
@@ -32,8 +32,16 @@ class AppTextFieldPage extends StatelessWidget {
               size: 24,
             ),
           ),
-          suffixVisible: true,
-          onSuffixPressed: () {},
+          suffix: Padding(
+            key: const Key('appTextField_suffixIcon'),
+            padding: const EdgeInsets.only(right: AppSpacing.md),
+            child: Visibility(
+              child: GestureDetector(
+                onTap: () {},
+                child: Assets.icons.closeCircle.svg(),
+              ),
+            ),
+          ),
         ),
       ),
     );
