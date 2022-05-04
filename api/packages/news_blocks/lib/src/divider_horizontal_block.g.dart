@@ -15,22 +15,15 @@ DividerHorizontalBlock _$DividerHorizontalBlockFromJson(
       json,
       ($checkedConvert) {
         final val = DividerHorizontalBlock(
-          subheader: $checkedConvert('subheader', (v) => v as String?),
+          type: $checkedConvert(
+              'type', (v) => v as String? ?? DividerHorizontalBlock.identifier),
         );
         return val;
       },
     );
 
 Map<String, dynamic> _$DividerHorizontalBlockToJson(
-    DividerHorizontalBlock instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('subheader', instance.subheader);
-  return val;
-}
+        DividerHorizontalBlock instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+    };

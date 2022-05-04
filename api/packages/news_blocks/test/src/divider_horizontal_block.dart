@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('DividerHorizontalBlock', () {
     test('can be (de)serialized', () {
-      final block = DividerHorizontalBlock(subheader: 'example_subheader');
+      final block = DividerHorizontalBlock();
 
       expect(DividerHorizontalBlock.fromJson(block.toJson()), equals(block));
     });

@@ -12,7 +12,6 @@ part 'divider_horizontal_block.g.dart';
 class DividerHorizontalBlock with EquatableMixin implements NewsBlock {
   /// {@macro divider_horizontal_block}
   const DividerHorizontalBlock({
-    this.subheader,
     this.type = DividerHorizontalBlock.identifier,
   });
 
@@ -23,9 +22,6 @@ class DividerHorizontalBlock with EquatableMixin implements NewsBlock {
   /// The divider horizontal block type identifier.
   static const identifier = '__divider_horizontal__';
 
-  /// optional subheader of the divider horizontal.
-  final String? subheader;
-
   @override
   final String type;
 
@@ -33,5 +29,5 @@ class DividerHorizontalBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$DividerHorizontalBlockToJson(this);
 
   @override
-  List<Object?> get props => [subheader, type];
+  List<Object?> get props => [type];
 }
