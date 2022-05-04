@@ -15,9 +15,7 @@ FeedResponse _$FeedResponseFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = FeedResponse(
           feed: $checkedConvert(
-              'feed',
-              (v) => const NewsBlocksConverter()
-                  .fromJson(v as List<Map<String, dynamic>>)),
+              'feed', (v) => const NewsBlocksConverter().fromJson(v as List)),
           totalCount: $checkedConvert('total_count', (v) => v as int),
         );
         return val;

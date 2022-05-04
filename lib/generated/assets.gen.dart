@@ -25,6 +25,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.svg
   SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
 
+  /// File path: assets/icons/locked_content_icon.svg
+  SvgGenImage get lockedContentIcon =>
+      const SvgGenImage('assets/icons/locked_content_icon.svg');
+
   /// File path: assets/icons/log_in_icon.svg
   SvgGenImage get logInIcon =>
       const SvgGenImage('assets/icons/log_in_icon.svg');
