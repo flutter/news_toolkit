@@ -122,7 +122,22 @@ class AppTheme {
 
   InputDecorationTheme get _inputDecorationTheme {
     return InputDecorationTheme(
-      hintStyle: TextStyle(color: AppColors.grey.shade500),
+      suffixIconColor: AppColors.mediumEmphasis,
+      prefixIconColor: AppColors.mediumEmphasis,
+      hoverColor: AppColors.inputHover,
+      focusColor: AppColors.inputFocused,
+      fillColor: AppColors.inputEnabled,
+      enabledBorder: _textFieldBorder,
+      focusedBorder: _textFieldBorder,
+      disabledBorder: _textFieldBorder,
+      hintStyle: UITextStyle.bodyText1.copyWith(
+        color: AppColors.mediumEmphasis,
+      ),
+      contentPadding: const EdgeInsets.all(AppSpacing.lg),
+      border: const UnderlineInputBorder(),
+      filled: true,
+      isDense: true,
+      errorStyle: UITextStyle.caption,
     );
   }
 
@@ -172,6 +187,13 @@ class AppTheme {
     );
   }
 }
+
+InputBorder get _textFieldBorder => const UnderlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: AppColors.darkAqua,
+      ),
+    );
 
 /// {@template app_dark_theme}
 /// Dark Mode App [ThemeData].
