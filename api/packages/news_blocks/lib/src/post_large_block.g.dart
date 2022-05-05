@@ -47,8 +47,6 @@ Map<String, dynamic> _$PostLargeBlockToJson(PostLargeBlock instance) {
     'category': _$PostCategoryEnumMap[instance.category],
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
-    'image_url': instance.imageUrl,
-    'title': instance.title,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -57,6 +55,8 @@ Map<String, dynamic> _$PostLargeBlockToJson(PostLargeBlock instance) {
     }
   }
 
+  writeNotNull('image_url', instance.imageUrl);
+  val['title'] = instance.title;
   writeNotNull('description', instance.description);
   writeNotNull('action', instance.action?.toJson());
   val['is_premium'] = instance.isPremium;

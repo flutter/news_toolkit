@@ -58,12 +58,29 @@ final _sportsPostMedium = PostMediumBlock(
       'for 47 points...',
 );
 
+final _healthPostSmall = PostSmallBlock(
+  id: 'b1fc2ffc-eb02-42ce-af65-79702172a987',
+  category: PostCategory.health,
+  author: 'Northwestern University',
+  publishedAt: DateTime(2022, 3, 11),
+  imageUrl: 'https://scitechdaily.com/images/Ear-Hearing-Concept.jpg',
+  title: 'Restoring Hearing: New Tool To Create Ear Hair Cells '
+      'Lost Due to Aging or Noise - SciTechDaily',
+  description:
+      '‘We have overcome a major hurdle’ to restore hearing, investigators say.'
+      ' Gene discovery allows the production of inner or outer ear hair cells, '
+      'death of outer hair cells due to aging or noise cause most '
+      'hearing loss...',
+);
+
 final _topNewsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Breaking News'),
   const DividerHorizontalBlock(),
   _technologyPostLarge,
   const SpacerBlock(spacing: Spacing.medium),
   _sportsPostMedium,
+  const SpacerBlock(spacing: Spacing.small),
+  _healthPostSmall,
 ];
 
 final _technologyBlocks = <NewsBlock>[
@@ -80,10 +97,18 @@ final _sportsBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.medium),
 ];
 
+final _healthBlocks = <NewsBlock>[
+  const SectionHeaderBlock(title: 'Health'),
+  const DividerHorizontalBlock(),
+  _healthPostSmall,
+  const SpacerBlock(spacing: Spacing.medium),
+];
+
 final _newsData = <Category, Feed>{
   Category.top: _topNewsBlocks.toFeed(),
   Category.technology: _technologyBlocks.toFeed(),
   Category.sports: _sportsBlocks.toFeed(),
+  Category.health: _healthBlocks.toFeed(),
 };
 
 extension on List<NewsBlock> {
