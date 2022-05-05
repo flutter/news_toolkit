@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 /// e.g. news feed including articles and sections, while the UI text style
 /// is used for the rest of UI components.
 ///
-/// The default text style, set for the app's [TextTheme], is UI.
+/// The default app's [TextTheme] is [AppTheme.uiTextTheme].
+///
+/// Use [ContentThemeOverride] to override the default [TextTheme]
+/// to [AppTheme.contentTextTheme].
 
 /// UI Text Style Definitions
 abstract class UITextStyle {
