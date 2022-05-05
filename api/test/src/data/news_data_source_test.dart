@@ -20,8 +20,18 @@ class MyNewsDataSource extends NewsDataSource {
 }
 
 void main() {
-  Matcher feedHaving({required List<NewsBlock> blocks}) {
-    return predicate<Feed>((feed) => feed.blocks == blocks);
+  Matcher feedHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
+    return predicate<Feed>(
+      (feed) {
+        totalBlocks ??= feed.totalBlocks;
+        if (blocks.length != feed.blocks.length) return false;
+        if (totalBlocks != feed.totalBlocks) return false;
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i] != feed.blocks[i]) return false;
+        }
+        return true;
+      },
+    );
   }
 
   Matcher isAnEmptyFeed() {
@@ -78,6 +88,65 @@ void main() {
             completion(isAnEmptyFeed()),
           );
         }
+      });
+
+      test('returns correct feed when limit is specified', () {
+        expect(
+          newsDataSource.getFeed(limit: 0),
+          completion(feedHaving(blocks: [], totalBlocks: topNewsBlocks.length)),
+        );
+
+        expect(
+          newsDataSource.getFeed(limit: 1),
+          completion(
+            feedHaving(
+              blocks: topNewsBlocks.take(1).toList(),
+              totalBlocks: topNewsBlocks.length,
+            ),
+          ),
+        );
+
+        expect(
+          newsDataSource.getFeed(limit: 100),
+          completion(
+            feedHaving(
+              blocks: topNewsBlocks,
+              totalBlocks: topNewsBlocks.length,
+            ),
+          ),
+        );
+      });
+
+      test('returns correct feed when offset is specified', () {
+        expect(
+          newsDataSource.getFeed(offset: 1),
+          completion(
+            feedHaving(
+              blocks: topNewsBlocks.sublist(1),
+              totalBlocks: topNewsBlocks.length,
+            ),
+          ),
+        );
+
+        expect(
+          newsDataSource.getFeed(offset: 2),
+          completion(
+            feedHaving(
+              blocks: topNewsBlocks.sublist(2),
+              totalBlocks: topNewsBlocks.length,
+            ),
+          ),
+        );
+
+        expect(
+          newsDataSource.getFeed(offset: 100),
+          completion(
+            feedHaving(
+              blocks: [],
+              totalBlocks: topNewsBlocks.length,
+            ),
+          ),
+        );
       });
     });
 

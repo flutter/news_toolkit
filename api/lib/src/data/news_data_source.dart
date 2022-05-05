@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:google_news_template_api/api.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -41,7 +43,11 @@ class InMemoryNewsDataSource implements NewsDataSource {
     int limit = 20,
     int offset = 0,
   }) async {
-    return _newsData[category] ?? const Feed(blocks: [], totalBlocks: 0);
+    final feed = _newsData[category] ?? const Feed(blocks: [], totalBlocks: 0);
+    final totalBlocks = feed.totalBlocks;
+    final normalizedOffset = math.min(offset, totalBlocks);
+    final blocks = feed.blocks.sublist(normalizedOffset).take(limit).toList();
+    return Feed(blocks: blocks, totalBlocks: totalBlocks);
   }
 
   @override
