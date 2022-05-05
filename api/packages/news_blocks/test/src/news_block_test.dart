@@ -32,6 +32,11 @@ void main() {
         final block = SectionHeaderBlock(title: 'Example');
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns SpacerBlock', () {
+        final block = SpacerBlock(spacing: Spacing.medium);
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
