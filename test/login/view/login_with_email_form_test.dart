@@ -169,31 +169,8 @@ void main() {
           );
 
           await tester.pumpAndSettle();
-          expect(find.byType(AppTOSModal), findsOneWidget);
+          expect(find.byType(TermsOfServiceModal), findsOneWidget);
         });
-
-        // TODO(ana): this is the text to show a snackbar rather than TOS
-        // testWidgets(
-        //     'Terms and Privacy Policy SnackBar when tapped on '
-        //     'Terms of Use and Privacy Policy text', (tester) async {
-        //   await tester.pumpApp(
-        //     BlocProvider.value(
-        //       value: loginBloc,
-        //       child: const LoginWithEmailForm(),
-        //     ),
-        //   );
-        //   final richText = tester.widget<RichText>(
-        //     find.byKey(loginWithEmailFormTermsAndPrivacyPolicyKey),
-        //   );
-        //
-        //   tapTextSpan(
-        //     richText,
-        //     'Terms of Use and Privacy Policy',
-        //   );
-        //
-        //   await tester.pumpAndSettle();
-        //   expect(find.byType(SnackBar), findsOneWidget);
-        // });
 
         testWidgets('disabled next button when status is not validated',
             (tester) async {

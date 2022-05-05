@@ -1,10 +1,11 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/login/login.dart';
 
-class AppTOSModal extends StatelessWidget {
-  const AppTOSModal({Key? key}) : super(key: key);
+import '../../data/data.dart';
+
+class TermsOfServiceModal extends StatelessWidget {
+  const TermsOfServiceModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,17 @@ class AppTOSModal extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [
-          _TOSModalHeader(),
-          _TOSModalBody(),
+          TermsOfServiceModalHeader(),
+          TermsOfServiceModalBody(),
         ],
       ),
     );
   }
 }
 
-class _TOSModalHeader extends StatelessWidget {
-  const _TOSModalHeader({Key? key}) : super(key: key);
+@visibleForTesting
+class TermsOfServiceModalHeader extends StatelessWidget {
+  const TermsOfServiceModalHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +58,9 @@ class _TOSModalHeader extends StatelessWidget {
   }
 }
 
-class _TOSModalBody extends StatelessWidget {
-  const _TOSModalBody({Key? key}) : super(key: key);
+@visibleForTesting
+class TermsOfServiceModalBody extends StatelessWidget {
+  const TermsOfServiceModalBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,7 @@ class _TOSModalBody extends StatelessWidget {
             horizontal: AppSpacing.xlg,
             vertical: AppSpacing.xs,
           ),
-          child: Text(tosBodyText),
+          child: Text(termsOfServiceMockText),
         ),
       ),
     );

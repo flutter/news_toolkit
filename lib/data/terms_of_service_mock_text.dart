@@ -1,4 +1,4 @@
-const String tosBodyText =
+const String termsOfServiceMockText =
     'Curabitur vel volutpat eros, in interdum eros.Pellentesque lorem magna, '
     'facilisis vel diam nec, sagittis fermentum purus. '
     'Maecenas placerat urna ullamcorper ultrices elementum. '

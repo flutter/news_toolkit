@@ -132,15 +132,6 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
                         ),
                       ),
                     );
-
-                  // This shows a TOS instead of a snackbar
-                  // await showAppModal<void>(
-                  //   context: context,
-                  //   constraints: BoxConstraints(
-                  //     maxHeight: MediaQuery.of(context).size.height * 0.92,
-                  //   ),
-                  //   builder: (context) => const AppTOSModal(),
-                  // );
                 },
             ),
             TextSpan(
