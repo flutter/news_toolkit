@@ -36,11 +36,13 @@ const _topNewsBlocks = <NewsBlock>[
   DividerHorizontalBlock(),
   SpacerBlock(spacing: Spacing.medium),
 ];
+
 const _technologyBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Technology'),
   DividerHorizontalBlock(),
   SpacerBlock(spacing: Spacing.medium),
 ];
+
 const _sportsBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Sports'),
   DividerHorizontalBlock(),
