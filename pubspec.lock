@@ -489,7 +489,7 @@ packages:
       name: formz
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1"
+    version: "0.5.0-dev.1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -594,7 +594,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   logging:
     dependency: transitive
     description:
@@ -1129,4 +1129,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.16.0 <3.0.0"
-  flutter: ">=2.10.4"
+  flutter: ">=2.10.5"

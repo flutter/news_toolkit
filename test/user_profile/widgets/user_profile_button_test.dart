@@ -70,10 +70,8 @@ void main() {
     });
 
     testWidgets(
-        'does not navigate to any page (temporarily) '
+        'navigates to UserProfilePage '
         'when tapped on OpenProfileButton', (tester) async {
-      final navigatorObserver = MockNavigatorObserver();
-
       whenListen(
         appBloc,
         Stream.value(AppState.authenticated(user)),
@@ -83,15 +81,12 @@ void main() {
       await tester.pumpApp(
         UserProfileButton(),
         appBloc: appBloc,
-        navigatorObserver: navigatorObserver,
       );
-
-      verify(() => navigatorObserver.didPush(any(), any())).called(1);
 
       await tester.tap(find.byType(OpenProfileButton));
       await tester.pumpAndSettle();
 
-      verifyNever(() => navigatorObserver.didPush(any(), any()));
+      expect(find.byType(UserProfilePage), findsOneWidget);
     });
 
     testWidgets(
@@ -113,7 +108,7 @@ void main() {
     });
 
     testWidgets(
-        'opens LoginPage '
+        'navigates to LoginPage '
         'when tapped on LoginButton', (tester) async {
       whenListen(
         appBloc,

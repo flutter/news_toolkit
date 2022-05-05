@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// {@template app_theme}
 /// The Default App [ThemeData].
@@ -27,6 +28,8 @@ class AppTheme {
       textButtonTheme: _textButtonTheme,
       colorScheme: _colorScheme,
       bottomSheetTheme: _bottomSheetTheme,
+      listTileTheme: _listTileTheme,
+      switchTheme: _switchTheme,
     );
   }
 
@@ -57,6 +60,10 @@ class AppTheme {
       titleTextStyle: _textTheme.headline6,
       elevation: 0,
       backgroundColor: AppColors.transparent,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
     );
   }
 
@@ -68,11 +75,11 @@ class AppTheme {
 
   DividerThemeData get _dividerTheme {
     return const DividerThemeData(
-      color: AppColors.darkOnBackground,
+      color: AppColors.outlineLight,
       space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 0,
-      endIndent: 0,
+      indent: AppSpacing.lg,
+      endIndent: AppSpacing.lg,
     );
   }
 
@@ -186,6 +193,31 @@ class AppTheme {
       ),
     );
   }
+
+  ListTileThemeData get _listTileTheme {
+    return const ListTileThemeData(
+      iconColor: AppColors.onBackground,
+    );
+  }
+
+  SwitchThemeData get _switchTheme {
+    return SwitchThemeData(
+      thumbColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.darkAqua;
+        }
+        return AppColors.eerieBlack;
+      }),
+      trackColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.primaryContainer;
+        }
+        return AppColors.paleSky;
+      }),
+    );
+  }
 }
 
 InputBorder get _textFieldBorder => const UnderlineInputBorder(
@@ -261,8 +293,8 @@ class AppDarkTheme extends AppTheme {
       color: AppColors.onBackground,
       space: AppSpacing.lg,
       thickness: AppSpacing.xxxs,
-      indent: 0,
-      endIndent: 0,
+      indent: AppSpacing.lg,
+      endIndent: AppSpacing.lg,
     );
   }
 }

@@ -155,6 +155,66 @@
     "type": "text",
     "placeholders": {}
   },
+  "userProfileTitle": "Your Info",
+  "@userProfileTitle": {
+    "description": "User profile page title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileLogoutButtonText": "Logout",
+  "@userProfileLogoutButtonText": {
+    "description": "User profile logout button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSettingsSubtitle": "Settings",
+  "@userProfileSettingsSubtitle": {
+    "description": "User profile settings section subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSettingsNotificationsTitle": "Notifications",
+  "@userProfileSettingsNotificationsTitle": {
+    "description": "User profile settings section - notifications item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSettingsNotificationPreferencesTitle": "Notification Preferences",
+  "@userProfileSettingsNotificationPreferencesTitle": {
+    "description": "User profile settings section - notification preferences item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileLegalSubtitle": "Legal",
+  "@userProfileLegalSubtitle": {
+    "description": "User profile legal section subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileLegalTermsOfUseAndPrivacyPolicyTitle": "Terms of Use & Privacy Policy",
+  "@userProfileLegalTermsOfUseAndPrivacyPolicyTitle": {
+    "description": "User profile legal section - terms of use and privacy policy item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileLegalAboutTitle": "About",
+  "@userProfileLegalAboutTitle": {
+    "description": "User profile legal section - about item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileCheckboxOnTitle": "On",
+  "@userProfileCheckboxOnTitle": {
+    "description": "User profile checkbox on title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileCheckboxOffTitle": "Off",
+  "@userProfileCheckboxOffTitle": {
+    "description": "User profile checkbox off title",
+    "type": "text",
+    "placeholders": {}
+  },
   "passwordLessHeader": "Check your email!",
   "@passwordLessHeader": {
     "description": "Header title shown in the password less ui",
