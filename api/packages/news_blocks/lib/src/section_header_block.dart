@@ -17,7 +17,7 @@ class SectionHeaderBlock with EquatableMixin implements NewsBlock {
     this.type = SectionHeaderBlock.identifier,
   });
 
-  /// Converts a `Map<String, dynamic>` into a [BlockAction] instance.
+  /// Converts a `Map<String, dynamic>` into a [SectionHeaderBlock] instance.
   factory SectionHeaderBlock.fromJson(Map<String, dynamic> json) =>
       _$SectionHeaderBlockFromJson(json);
 

@@ -38,6 +38,11 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
+      test('returns SpacerBlock', () {
+        final block = SpacerBlock(spacing: Spacing.medium);
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
       test('returns PostLargeBlock', () {
         final block = PostLargeBlock(
           id: 'id',

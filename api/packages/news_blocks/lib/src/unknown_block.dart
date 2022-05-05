@@ -12,7 +12,7 @@ class UnknownBlock with EquatableMixin implements NewsBlock {
   /// {@macro unknown_block}
   const UnknownBlock({this.type = UnknownBlock.identifier});
 
-  /// Converts a `Map<String, dynamic>` into a [BlockAction] instance.
+  /// Converts a `Map<String, dynamic>` into a [UnknownBlock] instance.
   factory UnknownBlock.fromJson(Map<String, dynamic> json) =>
       _$UnknownBlockFromJson(json);
 

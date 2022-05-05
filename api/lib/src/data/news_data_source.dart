@@ -46,17 +46,20 @@ final _topNewsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Breaking News'),
   const DividerHorizontalBlock(),
   _technologyPostLarge,
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 final _technologyBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Technology'),
   const DividerHorizontalBlock(),
   _technologyPostLarge,
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 const _sportsBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Sports'),
   DividerHorizontalBlock(),
+  SpacerBlock(spacing: Spacing.medium),
 ];
 
 final _newsData = <Category, Feed>{
