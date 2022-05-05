@@ -24,6 +24,8 @@ abstract class NewsBlock {
         return SectionHeaderBlock.fromJson(json);
       case DividerHorizontalBlock.identifier:
         return DividerHorizontalBlock.fromJson(json);
+      case PostLargeBlock.identifier:
+        return PostLargeBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
