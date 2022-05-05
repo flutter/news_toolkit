@@ -8,6 +8,9 @@ abstract class AppColors {
   /// Light black
   static const Color lightBlack = Colors.black54;
 
+  /// Medium Emphasis
+  static const Color mediumEmphasis = Color(0x99000000);
+
   /// White
   static const Color white = Color(0xFFFFFFFF);
 
@@ -53,6 +56,15 @@ abstract class AppColors {
   /// The pale sky color.
   static const Color paleSky = Color(0xFF73777F);
 
+  /// The input hover color.
+  static const Color inputHover = Color(0xFFE4E4E4);
+
+  /// The input focused color.
+  static const Color inputFocused = Color(0xFFD1D1D1);
+
+  /// The input enabled color.
+  static const Color inputEnabled = Color(0xFFEDEDED);
+
   /// The pastel grey color.
   static const Color pastelGrey = Color(0xFFCCCCCC);
 
@@ -86,12 +98,20 @@ abstract class AppColors {
   /// The modal background color.
   static const Color modalBackground = Color(0xFFEBF2F7);
 
+  /// The eerie black color.
+  static const Color eerieBlack = Color(0xFF191C1D);
+
   /// The medium emphasis primary color.
-  static const Color mediumEmphasisPrimary =
-      Color.fromRGBO(255, 255, 255, 0.74);
+  static const Color mediumEmphasisPrimary = Color(0xBDFFFFFF);
 
   /// The high emphasis primary color.
-  static const Color highEmphasisPrimary = Color.fromRGBO(255, 255, 255, 0.99);
+  static const Color highEmphasisPrimary = Color(0xFCFFFFFF);
+
+  /// The high emphasis surface color.
+  static const Color highEmphasisSurface = Color(0xE6000000);
+
+  /// The border outline color.
+  static const Color borderOutline = Color(0x33000000);
 
   /// The light outline color.
   static const Color outlineLight = Color(0x33000000);

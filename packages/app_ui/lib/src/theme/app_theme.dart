@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// {@template app_theme}
 /// The Default App [ThemeData].
@@ -27,6 +28,8 @@ class AppTheme {
       textButtonTheme: _textButtonTheme,
       colorScheme: _colorScheme,
       bottomSheetTheme: _bottomSheetTheme,
+      listTileTheme: _listTileTheme,
+      switchTheme: _switchTheme,
     );
   }
 
@@ -57,6 +60,10 @@ class AppTheme {
       titleTextStyle: _textTheme.headline6,
       elevation: 0,
       backgroundColor: AppColors.transparent,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
     );
   }
 
@@ -122,7 +129,22 @@ class AppTheme {
 
   InputDecorationTheme get _inputDecorationTheme {
     return InputDecorationTheme(
-      hintStyle: TextStyle(color: AppColors.grey.shade500),
+      suffixIconColor: AppColors.mediumEmphasis,
+      prefixIconColor: AppColors.mediumEmphasis,
+      hoverColor: AppColors.inputHover,
+      focusColor: AppColors.inputFocused,
+      fillColor: AppColors.inputEnabled,
+      enabledBorder: _textFieldBorder,
+      focusedBorder: _textFieldBorder,
+      disabledBorder: _textFieldBorder,
+      hintStyle: UITextStyle.bodyText1.copyWith(
+        color: AppColors.mediumEmphasis,
+      ),
+      contentPadding: const EdgeInsets.all(AppSpacing.lg),
+      border: const UnderlineInputBorder(),
+      filled: true,
+      isDense: true,
+      errorStyle: UITextStyle.caption,
     );
   }
 
@@ -171,7 +193,39 @@ class AppTheme {
       ),
     );
   }
+
+  ListTileThemeData get _listTileTheme {
+    return const ListTileThemeData(
+      iconColor: AppColors.onBackground,
+    );
+  }
+
+  SwitchThemeData get _switchTheme {
+    return SwitchThemeData(
+      thumbColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.darkAqua;
+        }
+        return AppColors.eerieBlack;
+      }),
+      trackColor:
+          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return AppColors.primaryContainer;
+        }
+        return AppColors.paleSky;
+      }),
+    );
+  }
 }
+
+InputBorder get _textFieldBorder => const UnderlineInputBorder(
+      borderSide: BorderSide(
+        width: 1.5,
+        color: AppColors.darkAqua,
+      ),
+    );
 
 /// {@template app_dark_theme}
 /// Dark Mode App [ThemeData].

@@ -13,6 +13,7 @@ class ColorsPage extends StatelessWidget {
     const colorItems = [
       _ColorItem(name: 'Black', color: AppColors.black),
       _ColorItem(name: 'Black Light', color: AppColors.lightBlack),
+      _ColorItem(name: 'Medium Emphasis', color: AppColors.mediumEmphasis),
       _ColorItem(name: 'White', color: AppColors.white),
       _ColorItem(name: 'Modal Background', color: AppColors.modalBackground),
       _ColorItem(name: 'Transparent', color: AppColors.transparent),
@@ -28,14 +29,30 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Grey', color: AppColors.grey),
       _ColorItem(name: 'Liver', color: AppColors.liver),
       _ColorItem(name: 'Surface 2', color: AppColors.surface2),
+      _ColorItem(name: 'Input Enabled', color: AppColors.inputEnabled),
+      _ColorItem(name: 'Input Hover', color: AppColors.inputHover),
+      _ColorItem(name: 'Input Focused', color: AppColors.inputFocused),
       _ColorItem(name: 'Pastel Grey', color: AppColors.pastelGrey),
       _ColorItem(name: 'Pale Sky', color: AppColors.paleSky),
       _ColorItem(name: 'Green', color: AppColors.green),
       _ColorItem(name: 'Rangoon Green', color: AppColors.rangoonGreen),
       _ColorItem(name: 'Teal', color: AppColors.teal),
       _ColorItem(name: 'Dark Aqua', color: AppColors.darkAqua),
+      _ColorItem(name: 'Eerie Black', color: AppColors.eerieBlack),
       _ColorItem(name: 'Outline Light', color: AppColors.outlineLight),
       _ColorItem(name: 'Outline On Dark', color: AppColors.outlineOnDark),
+      _ColorItem(
+        name: 'Medium Emphasis Primary',
+        color: AppColors.mediumEmphasisPrimary,
+      ),
+      _ColorItem(
+        name: 'High Emphasis Primary',
+        color: AppColors.highEmphasisPrimary,
+      ),
+      _ColorItem(
+        name: 'High Emphasis Surface',
+        color: AppColors.highEmphasisSurface,
+      ),
     ];
 
     return Scaffold(

@@ -23,8 +23,13 @@ class WidgetsPage extends StatelessWidget {
       ),
       _ListItem(
         icon: const Icon(Icons.ad_units_rounded),
-        title: const Text('Show modal'),
+        title: const Text('Show Modal'),
         onTap: () => Navigator.of(context).push<void>(ShowAppModalPage.route()),
+      ),
+      _ListItem(
+        icon: const Icon(Icons.email_outlined),
+        title: const Text('Text Fields'),
+        onTap: () => Navigator.of(context).push<void>(AppTextFieldPage.route()),
       ),
     ];
 
