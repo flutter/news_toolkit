@@ -20,7 +20,7 @@ class LoginWithEmailForm extends StatelessWidget {
       },
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state.status.isSubmissionFailure) {
+          if (state.status.isFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -151,13 +151,14 @@ class _NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final status = context.select((LoginBloc bloc) => bloc.state.status);
+    final state = context.watch<LoginBloc>().state;
+
     return AppButton.darkAqua(
       key: const Key('loginWithEmailForm_nextButton'),
-      onPressed: status.isValidated
+      onPressed: state.valid
           ? () => context.read<LoginBloc>().add(SendEmailLinkSubmitted())
           : null,
-      child: status.isSubmissionInProgress
+      child: state.status.isInProgress
           ? const CircularProgressIndicator()
           : Text(l10n.nextButtonText),
     );
