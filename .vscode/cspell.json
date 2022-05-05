@@ -109,6 +109,6 @@
   "ignorePaths": [
     ".github/workflows/**",
     "api/lib/api/v1/projects/templates/*_bundle.dart",
-    "lib/data/terms_of_service_mock_text.dart"
+    "lib/terms_of_service/terms_of_service_mock_text.dart"
   ]
 }
