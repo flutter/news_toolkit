@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template content_theme_override}
-/// The widget that override's the default [TextTheme]
+/// The widget that overrides the default [TextTheme]
 /// to [AppTheme.contentTextTheme] in the widget tree
 /// below the given [child] widget.
 /// {@endtemplate}
