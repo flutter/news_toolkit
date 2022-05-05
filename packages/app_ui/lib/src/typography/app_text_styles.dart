@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 ///
 /// The default app's [TextTheme] is [AppTheme.uiTextTheme].
 ///
-/// Use [ContentThemeOverride] to override the default [TextTheme]
+/// Use [ContentThemeOverrideBuilder] to override the default [TextTheme]
 /// to [AppTheme.contentTextTheme].
 
 /// UI Text Style Definitions
