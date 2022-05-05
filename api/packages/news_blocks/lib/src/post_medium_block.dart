@@ -21,6 +21,7 @@ class PostMediumBlock extends PostBlock {
     BlockAction? action,
     String type = PostMediumBlock.identifier,
     bool isPremium = false,
+    bool isContentOverlaid = false,
   }) : super(
           id: id,
           category: category,
@@ -32,6 +33,7 @@ class PostMediumBlock extends PostBlock {
           description: description,
           action: action,
           isPremium: isPremium,
+          isContentOverlaid: isContentOverlaid,
         );
 
   /// Converts a `Map<String, dynamic>` into a [PostMediumBlock] instance.
