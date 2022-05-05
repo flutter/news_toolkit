@@ -232,7 +232,7 @@ void main() {
           loginBloc,
           Stream.fromIterable(
             <LoginState>[
-              const LoginState(status: FormzSubmissionStatus.inProgress)),
+              const LoginState(status: FormzSubmissionStatus.inProgress),
               const LoginState(valid: true)
             ],
           ),

@@ -21,7 +21,7 @@ class PasswordlessView extends StatelessWidget {
         AppSpacing.xlg,
         AppSpacing.xlg,
         AppSpacing.xlg,
-        AppSpacing.xxxlg,
+        AppSpacing.xxlg,
       ),
       children: [
         const PasswordlessHeader(),
