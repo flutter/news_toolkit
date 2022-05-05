@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_news_template/passwordless/view/passwordless_view.dart';
 
-class PasswordLessPage extends StatelessWidget {
-  const PasswordLessPage({
+class PasswordlessPage extends StatelessWidget {
+  const PasswordlessPage({
     Key? key,
     required this.email,
   }) : super(key: key);
 
   final String email;
 
-  Route route() => MaterialPageRoute<void>(
-        builder: (_) => PasswordLessPage(
+  static Route route({
+    required String email,
+  }) =>
+      MaterialPageRoute<void>(
+        builder: (_) => PasswordlessPage(
           email: email,
         ),
       );
+
   @override
   Widget build(BuildContext context) {
     var count = 0;
-
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            key: const Key('signUpPage_closeIcon'),
+            key: const Key('passwordless_closeIcon'),
             icon: const Icon(Icons.close),
             onPressed: () =>
                 Navigator.of(context).popUntil((_) => count++ >= 2),
           )
         ],
       ),
-      body: PasswordLessView(
+      body: PasswordlessView(
         email: email,
       ),
     );

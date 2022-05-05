@@ -227,24 +227,27 @@ void main() {
       testWidgets('when user is authenticated', (tester) async {
         final navigator = MockNavigator();
         whenListen(
-          appBloc,
+          loginBloc,
           Stream.fromIterable(
-            <AppState>[AppState.authenticated(user)],
+            <LoginState>[
+              const LoginState(status: FormzStatus.submissionInProgress),
+              const LoginState(status: FormzStatus.submissionSuccess)
+            ],
           ),
-          initialState: const AppState.unauthenticated(),
+          initialState: const LoginState(),
         );
 
-        when(() => navigator.popUntil(any())).thenAnswer((_) async {});
+        when(() => navigator.push<void>(any())).thenAnswer((_) async {});
+
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
-            child: const LoginWithEmailPage(),
+            child: const LoginWithEmailForm(),
           ),
           navigator: navigator,
-          appBloc: appBloc,
         );
-        await tester.pumpAndSettle();
-        verify(() => navigator.popUntil(any())).called(1);
+        await tester.pump();
+        verify(() => navigator.push<void>(any())).called(1);
       });
     });
   });

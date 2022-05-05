@@ -16,8 +16,9 @@ class LoginWithEmailForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
-          Navigator.of(context)
-              .push<void>(PasswordLessPage(email: email).route());
+          Navigator.of(context).push<void>(
+            PasswordlessPage.route(email: email),
+          );
         }
       },
       child: BlocListener<LoginBloc, LoginState>(

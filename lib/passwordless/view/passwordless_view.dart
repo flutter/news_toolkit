@@ -1,11 +1,12 @@
 import 'package:app_ui/app_ui.dart'
     show AppSpacing, ScrollableColumn, AppColors, AppButton;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
-class PasswordLessView extends StatelessWidget {
-  const PasswordLessView({
+class PasswordlessView extends StatelessWidget {
+  const PasswordlessView({
     Key? key,
     required this.email,
   }) : super(key: key);
@@ -23,20 +24,21 @@ class PasswordLessView extends StatelessWidget {
         AppSpacing.xxxlg,
       ),
       children: [
-        const _HeaderPasswordLess(),
+        const PasswordlessHeader(),
         const SizedBox(height: AppSpacing.xxxlg),
         Assets.images.passwordLessEmail.svg(),
         const SizedBox(height: AppSpacing.xxxlg),
-        _SubtitlePasswordLess(email: email),
+        PasswordlessSubtitle(email: email),
         const Spacer(),
-        const _OpenEmailAppButton()
+        const PasswordlessOpenEmailButton()
       ],
     );
   }
 }
 
-class _HeaderPasswordLess extends StatelessWidget {
-  const _HeaderPasswordLess({Key? key}) : super(key: key);
+@visibleForTesting
+class PasswordlessHeader extends StatelessWidget {
+  const PasswordlessHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +50,9 @@ class _HeaderPasswordLess extends StatelessWidget {
   }
 }
 
-class _SubtitlePasswordLess extends StatelessWidget {
-  const _SubtitlePasswordLess({
+@visibleForTesting
+class PasswordlessSubtitle extends StatelessWidget {
+  const PasswordlessSubtitle({
     Key? key,
     required this.email,
   }) : super(key: key);
@@ -84,8 +87,9 @@ class _SubtitlePasswordLess extends StatelessWidget {
   }
 }
 
-class _OpenEmailAppButton extends StatelessWidget {
-  const _OpenEmailAppButton({Key? key}) : super(key: key);
+@visibleForTesting
+class PasswordlessOpenEmailButton extends StatelessWidget {
+  const PasswordlessOpenEmailButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
