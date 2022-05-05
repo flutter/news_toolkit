@@ -23,7 +23,6 @@
     "type": "text",
     "placeholders": {}
   },
-
   "loginWithEmailHeaderText": "Please enter your\nemail address.",
   "@loginWithEmailHeaderText": {
     "description": "Header title shown on Login with email form",
