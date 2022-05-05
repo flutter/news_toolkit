@@ -7,8 +7,7 @@ class AppEmailTextField extends StatelessWidget {
     Key? key,
     this.controller,
     this.hintText,
-    this.onSuffixPressed,
-    this.suffixVisible,
+    this.suffix,
     this.onChanged,
   }) : super(key: key);
 
@@ -18,15 +17,11 @@ class AppEmailTextField extends StatelessWidget {
   /// Text that suggests what sort of input the field accepts.
   final String? hintText;
 
+  /// A widget that appears after the editable part of the text field.
+  final Widget? suffix;
+
   /// Called when the user inserts or deletes texts in the text field.
   final ValueChanged<String>? onChanged;
-
-  /// Called when the user clicks on the suffix icon.
-  final VoidCallback? onSuffixPressed;
-
-  /// Whether the suffix is visible.
-  /// Defaults to false.
-  final bool? suffixVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -48,36 +43,7 @@ class AppEmailTextField extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
-      suffix: _ClearIconButton(
-        onPressed: onSuffixPressed,
-        suffixVisible: suffixVisible ?? false,
-      ),
-    );
-  }
-}
-
-class _ClearIconButton extends StatelessWidget {
-  const _ClearIconButton({
-    Key? key,
-    required this.onPressed,
-    required this.suffixVisible,
-  }) : super(key: key);
-
-  final VoidCallback? onPressed;
-  final bool suffixVisible;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      key: const Key('appEmailTextField_clearIconButton'),
-      padding: const EdgeInsets.only(right: AppSpacing.md),
-      child: Visibility(
-        visible: suffixVisible,
-        child: GestureDetector(
-          onTap: onPressed,
-          child: Assets.icons.closeCircle.svg(),
-        ),
-      ),
+      suffix: suffix,
     );
   }
 }

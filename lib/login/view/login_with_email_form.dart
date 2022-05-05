@@ -43,7 +43,7 @@ class LoginWithEmailForm extends StatelessWidget {
             _HeaderTitle(),
             SizedBox(height: AppSpacing.xxxlg),
             _EmailInput(),
-            _TermsAndPolicyLinkTexts(),
+            _TermsAndPrivacyPolicyLinkTexts(),
             Spacer(),
             _NextButton(),
           ],
@@ -78,20 +78,18 @@ class _EmailInputState extends State<_EmailInput> {
   final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final suffixVisible =
-        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
-
     return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
       hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
-      onSuffixPressed: () {
-        _controller.clear();
-        context.read<LoginBloc>().add(const LoginEmailChanged(''));
-      },
-      suffixVisible: suffixVisible,
+      suffix: _ClearIconButton(
+        onPressed: () {
+          _controller.clear();
+          context.read<LoginBloc>().add(const LoginEmailChanged(''));
+        },
+      ),
     );
   }
 
@@ -102,8 +100,8 @@ class _EmailInputState extends State<_EmailInput> {
   }
 }
 
-class _TermsAndPolicyLinkTexts extends StatelessWidget {
-  const _TermsAndPolicyLinkTexts({Key? key}) : super(key: key);
+class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
+  const _TermsAndPrivacyPolicyLinkTexts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +111,6 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
       child: RichText(
         key: const Key('loginWithEmailForm_terms_and_privacy_policy'),
         text: TextSpan(
-          style: DefaultTextStyle.of(context).style,
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.loginWithEmailSubtitleText,
@@ -165,6 +162,33 @@ class _NextButton extends StatelessWidget {
       child: status.isSubmissionInProgress
           ? const CircularProgressIndicator()
           : Text(l10n.nextButtonText),
+    );
+  }
+}
+
+class _ClearIconButton extends StatelessWidget {
+  const _ClearIconButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final suffixVisible =
+        context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
+
+    return Padding(
+      key: const Key('loginWithEmailForm_clearIconButton'),
+      padding: const EdgeInsets.only(right: AppSpacing.md),
+      child: Visibility(
+        visible: suffixVisible,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Assets.icons.closeCircle.svg(),
+        ),
+      ),
     );
   }
 }
