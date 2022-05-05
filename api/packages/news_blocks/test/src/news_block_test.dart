@@ -42,6 +42,19 @@ void main() {
         final block = SpacerBlock(spacing: Spacing.medium);
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns PostLargeBlock', () {
+        final block = PostLargeBlock(
+          id: 'id',
+          category: PostCategory.technology,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 9),
+          imageUrl: 'imageUrl',
+          title: 'title',
+        );
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
