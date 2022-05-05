@@ -3,8 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
+import '../helpers/helpers.dart';
+
 void main() {
   group('SectionHeader', () {
+    setUpAll(() {
+      final oldComparator = goldenFileComparator as LocalFileComparator;
+      final newComparator =
+          TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
+      expect(oldComparator.basedir, newComparator.basedir);
+      goldenFileComparator = newComparator;
+    });
+
     testWidgets('renders correctly without action', (tester) async {
       const widget = MaterialApp(
         home: Scaffold(
