@@ -37,7 +37,22 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Green', color: AppColors.green),
       _ColorItem(name: 'Rangoon Green', color: AppColors.rangoonGreen),
       _ColorItem(name: 'Teal', color: AppColors.teal),
-      _ColorItem(name: 'Dark Aqua', color: AppColors.darkAqua)
+      _ColorItem(name: 'Dark Aqua', color: AppColors.darkAqua),
+      _ColorItem(name: 'Eerie Black', color: AppColors.eerieBlack),
+      _ColorItem(name: 'Outline Light', color: AppColors.outlineLight),
+      _ColorItem(name: 'Outline On Dark', color: AppColors.outlineOnDark),
+      _ColorItem(
+        name: 'Medium Emphasis Primary',
+        color: AppColors.mediumEmphasisPrimary,
+      ),
+      _ColorItem(
+        name: 'High Emphasis Primary',
+        color: AppColors.highEmphasisPrimary,
+      ),
+      _ColorItem(
+        name: 'High Emphasis Surface',
+        color: AppColors.highEmphasisSurface,
+      ),
     ];
 
     return Scaffold(

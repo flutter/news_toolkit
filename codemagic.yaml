@@ -48,7 +48,7 @@ workflows:
     working_directory: google_news_template
     max_build_duration: 60
     environment:
-      flutter: 2.10.4
+      flutter: 2.10.5
       xcode: latest
       cocoapods: default
       vars:
@@ -144,7 +144,7 @@ workflows:
     working_directory: google_news_template
     max_build_duration: 60
     environment:
-      flutter: 2.10.4
+      flutter: 2.10.5
       xcode: latest
       cocoapods: default
       vars:

@@ -12,6 +12,9 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/about_icon.svg
+  SvgGenImage get aboutIcon => const SvgGenImage('assets/icons/about_icon.svg');
+
   /// File path: assets/icons/apple.svg
   SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
 
@@ -33,9 +36,21 @@ class $AssetsIconsGen {
   SvgGenImage get logInIcon =>
       const SvgGenImage('assets/icons/log_in_icon.svg');
 
+  /// File path: assets/icons/log_out_icon.svg
+  SvgGenImage get logOutIcon =>
+      const SvgGenImage('assets/icons/log_out_icon.svg');
+
+  /// File path: assets/icons/notifications_icon.svg
+  SvgGenImage get notificationsIcon =>
+      const SvgGenImage('assets/icons/notifications_icon.svg');
+
   /// File path: assets/icons/profile_icon.svg
   SvgGenImage get profileIcon =>
       const SvgGenImage('assets/icons/profile_icon.svg');
+
+  /// File path: assets/icons/terms_of_use_icon.svg
+  SvgGenImage get termsOfUseIcon =>
+      const SvgGenImage('assets/icons/terms_of_use_icon.svg');
 
   /// File path: assets/icons/twitter.svg
   SvgGenImage get twitter => const SvgGenImage('assets/icons/twitter.svg');

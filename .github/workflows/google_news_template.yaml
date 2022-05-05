@@ -24,7 +24,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 2.10.4
+          flutter-version: 2.10.5
           cache: true
 
       - name: Install Dependencies
