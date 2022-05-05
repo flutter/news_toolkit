@@ -90,8 +90,8 @@ void main() {
         whenListen(
           loginBloc,
           Stream.fromIterable(const <LoginState>[
-            LoginState(status: FormzStatus.submissionInProgress),
-            LoginState(status: FormzStatus.submissionFailure),
+            LoginState(status: FormzSubmissionStatus.inProgress),
+            LoginState(status: FormzSubmissionStatus.failure),
           ]),
         );
         await tester.pumpApp(
@@ -105,8 +105,8 @@ void main() {
         whenListen(
           loginBloc,
           Stream.fromIterable(const <LoginState>[
-            LoginState(status: FormzStatus.submissionInProgress),
-            LoginState(status: FormzStatus.submissionCanceled),
+            LoginState(status: FormzSubmissionStatus.inProgress),
+            LoginState(status: FormzSubmissionStatus.canceled),
           ]),
         );
       });

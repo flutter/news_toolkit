@@ -1,22 +1,22 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// {@template content_theme_override}
-/// The widget that override's the default [TextTheme]
+/// {@template content_theme_override_builder}
+/// The builder widget that overrides the default [TextTheme]
 /// to [AppTheme.contentTextTheme] in the widget tree
-/// below the given [child] widget.
+/// below the given [builder] widget.
 /// {@endtemplate}
-class ContentThemeOverride extends StatelessWidget {
-  /// {@macro content_theme_override}
-  const ContentThemeOverride({
+class ContentThemeOverrideBuilder extends StatelessWidget {
+  /// {@macro content_theme_override_builder}
+  const ContentThemeOverrideBuilder({
     Key? key,
-    required this.child,
+    required this.builder,
   }) : super(key: key);
 
-  /// The widget below this widget in the tree.
+  /// The widget builder below this widget in the tree.
   ///
   /// {@macro flutter.widgets.ProxyWidget.child}
-  final Widget child;
+  final WidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ContentThemeOverride extends StatelessWidget {
       data: theme.copyWith(
         textTheme: AppTheme.contentTextTheme,
       ),
-      child: child,
+      child: Builder(builder: builder),
     );
   }
 }

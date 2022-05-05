@@ -169,6 +169,23 @@ class AppButton extends StatelessWidget {
         );
 
   /// Filled small transparent button.
+  const AppButton.smallDarkAqua({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          buttonColor: AppColors.darkAqua,
+          child: child,
+          foregroundColor: AppColors.white,
+          elevation: elevation,
+          maximumSize: _smallMaximumSize,
+          padding: _smallPadding,
+        );
+
+  /// Filled small transparent button.
   const AppButton.smallTransparent({
     Key? key,
     VoidCallback? onPressed,

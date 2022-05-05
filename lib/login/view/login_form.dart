@@ -21,7 +21,7 @@ class LoginForm extends StatelessWidget {
       },
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state.status.isSubmissionFailure) {
+          if (state.status.isFailure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/gestures.dart';
@@ -64,7 +66,7 @@ void main() {
       testWidgets('SendEmailLinkSubmitted when next button is pressed',
           (tester) async {
         when(() => loginBloc.state).thenReturn(
-          const LoginState(status: FormzStatus.valid),
+          const LoginState(valid: true),
         );
         await tester.pumpApp(
           BlocProvider.value(
@@ -136,8 +138,8 @@ void main() {
           whenListen(
             loginBloc,
             Stream.fromIterable(const <LoginState>[
-              LoginState(status: FormzStatus.submissionInProgress),
-              LoginState(status: FormzStatus.submissionFailure),
+              LoginState(status: FormzSubmissionStatus.inProgress),
+              LoginState(status: FormzSubmissionStatus.failure)
             ]),
           );
           await tester.pumpApp(
@@ -175,7 +177,7 @@ void main() {
         testWidgets('disabled next button when status is not validated',
             (tester) async {
           when(() => loginBloc.state).thenReturn(
-            const LoginState(status: FormzStatus.invalid),
+            const LoginState(valid: false),
           );
           await tester.pumpApp(
             BlocProvider.value(
@@ -207,7 +209,7 @@ void main() {
         testWidgets('enabled next button when status is validated',
             (tester) async {
           when(() => loginBloc.state).thenReturn(
-            const LoginState(status: FormzStatus.valid),
+            const LoginState(valid: true),
           );
           await tester.pumpApp(
             BlocProvider.value(

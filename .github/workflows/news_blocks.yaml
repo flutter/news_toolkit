@@ -16,4 +16,5 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
+      coverage_excludes: "**/*.g.dart"
       working_directory: api/packages/news_blocks

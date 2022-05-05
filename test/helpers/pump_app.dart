@@ -25,6 +25,9 @@ class MockThemeModeBloc extends MockBloc<ThemeModeEvent, ThemeMode>
 class MockUserRepository extends Mock implements UserRepository {
   @override
   Stream<Uri> get incomingEmailLinks => const Stream.empty();
+
+  @override
+  Stream<User> get user => const Stream.empty();
 }
 
 extension AppTester on WidgetTester {

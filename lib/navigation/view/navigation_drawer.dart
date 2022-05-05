@@ -51,14 +51,8 @@ class _NavigationDrawerDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-      ),
-      child: Opacity(
-        opacity: 0.16,
-        child: Divider(),
-      ),
+    return const Divider(
+      color: AppColors.outlineOnDark,
     );
   }
 }
