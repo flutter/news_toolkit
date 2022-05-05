@@ -10,8 +10,6 @@ import '../../helpers/helpers.dart';
 void main() {
   group('AppEmailTextField', () {
     const hintText = 'Hint';
-    const appEmailTextFieldClearIconButtonKey =
-        Key('appEmailTextField_clearIconButton');
 
     group('email', () {
       testWidgets('has keyboardType set to emailAddress', (tester) async {
@@ -41,15 +39,6 @@ void main() {
           ),
         );
         expect(find.text(hintText), findsOneWidget);
-      });
-
-      testWidgets('close icon button', (tester) async {
-        await tester.pumpApp(
-          AppEmailTextField(
-            suffixVisible: true,
-          ),
-        );
-        expect(find.byKey(appEmailTextFieldClearIconButtonKey), findsOneWidget);
       });
     });
   });
