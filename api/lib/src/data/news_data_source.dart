@@ -34,14 +34,17 @@ class InMemoryNewsDataSource implements NewsDataSource {
 const _topNewsBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Breaking News'),
   DividerHorizontalBlock(),
+  SpacerBlock(spacing: Spacing.medium),
 ];
 const _technologyBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Technology'),
   DividerHorizontalBlock(),
+  SpacerBlock(spacing: Spacing.medium),
 ];
 const _sportsBlocks = <NewsBlock>[
   SectionHeaderBlock(title: 'Sports'),
   DividerHorizontalBlock(),
+  SpacerBlock(spacing: Spacing.medium),
 ];
 
 final _newsData = <Category, Feed>{
