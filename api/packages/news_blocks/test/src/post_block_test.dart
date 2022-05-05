@@ -8,7 +8,6 @@ class CustomPostBlock extends PostBlock {
           category: PostCategory.technology,
           author: 'author',
           publishedAt: DateTime(2022, 03, 09),
-          imageUrl: 'imageUrl',
           title: 'title',
           type: 'type',
         );
