@@ -41,7 +41,7 @@ class LoginWithEmailForm extends StatelessWidget {
             _HeaderTitle(),
             SizedBox(height: AppSpacing.xxxlg),
             _EmailInput(),
-            _TermsAndPolicyLinkTexts(),
+            _TermsAndPrivacyPolicyLinkTexts(),
             Spacer(),
             _NextButton(),
           ],
@@ -98,8 +98,8 @@ class _EmailInputState extends State<_EmailInput> {
   }
 }
 
-class _TermsAndPolicyLinkTexts extends StatelessWidget {
-  const _TermsAndPolicyLinkTexts({Key? key}) : super(key: key);
+class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
+  const _TermsAndPrivacyPolicyLinkTexts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,6 @@ class _TermsAndPolicyLinkTexts extends StatelessWidget {
       child: RichText(
         key: const Key('loginWithEmailForm_terms_and_privacy_policy'),
         text: TextSpan(
-          style: DefaultTextStyle.of(context).style,
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.loginWithEmailSubtitleText,
@@ -179,7 +178,7 @@ class _ClearIconButton extends StatelessWidget {
         context.select((LoginBloc bloc) => bloc.state.email.value.isNotEmpty);
 
     return Padding(
-      key: const Key('appEmailTextField_clearIconButton'),
+      key: const Key('loginWithEmailForm_clearIconButton'),
       padding: const EdgeInsets.only(right: AppSpacing.md),
       child: Visibility(
         visible: suffixVisible,

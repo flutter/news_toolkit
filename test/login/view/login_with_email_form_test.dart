@@ -31,7 +31,7 @@ void main() {
   const loginWithEmailFormTermsAndPrivacyPolicyKey =
       Key('loginWithEmailForm_terms_and_privacy_policy');
   const loginWithEmailFormSuffixIconKey =
-      Key('appEmailTextField_clearIconButton');
+      Key('loginWithEmailForm_clearIconButton');
 
   const testEmail = 'test@gmail.com';
   const invalidTestEmail = 'test@g';
@@ -224,48 +224,28 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('back to previous page when submission status is success',
-          (tester) async {
+      testWidgets('when user is authenticated', (tester) async {
+        final navigator = MockNavigator();
         whenListen(
-          loginBloc,
-          Stream.fromIterable(const <LoginState>[
-            LoginState(status: FormzStatus.submissionInProgress),
-            LoginState(status: FormzStatus.submissionSuccess),
-          ]),
+          appBloc,
+          Stream.fromIterable(
+            <AppState>[AppState.authenticated(user)],
+          ),
+          initialState: const AppState.unauthenticated(),
         );
+
+        when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
-            child: const Scaffold(body: LoginWithEmailForm()),
+            child: const LoginWithEmailPage(),
           ),
+          navigator: navigator,
+          appBloc: appBloc,
         );
-        expect(find.byType(LoginWithEmailForm), findsOneWidget);
         await tester.pumpAndSettle();
-        expect(find.byType(LoginForm), findsNothing);
+        verify(() => navigator.popUntil(any())).called(1);
       });
-    });
-
-    testWidgets('when user is authenticated', (tester) async {
-      final navigator = MockNavigator();
-      whenListen(
-        appBloc,
-        Stream.fromIterable(
-          <AppState>[AppState.authenticated(user)],
-        ),
-        initialState: const AppState.unauthenticated(),
-      );
-
-      when(() => navigator.popUntil(any())).thenAnswer((_) async {});
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: loginBloc,
-          child: const LoginWithEmailPage(),
-        ),
-        navigator: navigator,
-        appBloc: appBloc,
-      );
-      await tester.pumpAndSettle();
-      verify(() => navigator.popUntil(any())).called(1);
     });
   });
 }

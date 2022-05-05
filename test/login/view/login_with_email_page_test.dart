@@ -13,9 +13,9 @@ void main() {
       expect(LoginWithEmailPage.route(), isA<MaterialPageRoute>());
     });
 
-    testWidgets('renders a LoginWithEmailPage', (tester) async {
+    testWidgets('renders LoginWithEmailForm', (tester) async {
       await tester.pumpApp(const LoginWithEmailPage());
-      expect(find.byType(LoginWithEmailPage), findsOneWidget);
+      expect(find.byType(LoginWithEmailForm), findsOneWidget);
     });
 
     group('closes page', () {
