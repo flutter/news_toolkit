@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// {@template content_theme_override_builder}
 /// The builder widget that overrides the default [TextTheme]
 /// to [AppTheme.contentTextTheme] in the widget tree
-/// below the given [child] widget.
+/// below the given [builder] widget.
 /// {@endtemplate}
 class ContentThemeOverrideBuilder extends StatelessWidget {
   /// {@macro content_theme_override_builder}
