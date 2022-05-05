@@ -19,6 +19,7 @@ void main() {
           );
         });
       });
+
       group('divider', () {
         test('horizontal padding is AppSpacing.lg', () {
           expect(
@@ -65,6 +66,7 @@ void main() {
           );
         });
       });
+
       group('divider', () {
         test('horizontal padding is AppSpacing.lg', () {
           expect(
@@ -76,6 +78,7 @@ void main() {
             AppSpacing.lg,
           );
         });
+
         test('space is AppSpacing.lg', () {
           expect(
             const AppTheme().themeData.dividerTheme.space,
