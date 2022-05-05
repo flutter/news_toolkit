@@ -22,6 +22,8 @@ abstract class NewsBlock {
     switch (type) {
       case SectionHeaderBlock.identifier:
         return SectionHeaderBlock.fromJson(json);
+      case DividerHorizontalBlock.identifier:
+        return DividerHorizontalBlock.fromJson(json);
       case SpacerBlock.identifier:
         return SpacerBlock.fromJson(json);
     }
