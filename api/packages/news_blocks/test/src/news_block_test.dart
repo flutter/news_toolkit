@@ -35,7 +35,7 @@ void main() {
 
       test('returns DividerHorizontalBlock', () {
         final block = DividerHorizontalBlock();
-        expect(DividerHorizontalBlock.fromJson(block.toJson()), equals(block));
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
     });
   });
