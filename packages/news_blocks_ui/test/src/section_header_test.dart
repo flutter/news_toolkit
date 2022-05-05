@@ -18,7 +18,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(SectionHeader),
         matchesGoldenFile('section_header_without_action.png'),
       );
@@ -40,7 +40,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(SectionHeader),
         matchesGoldenFile('section_header_with_action.png'),
       );

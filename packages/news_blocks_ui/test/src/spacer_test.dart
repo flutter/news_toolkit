@@ -22,7 +22,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_extra_small.png'),
       );
@@ -42,7 +42,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_small.png'),
       );
@@ -62,7 +62,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_medium.png'),
       );
@@ -82,7 +82,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_large.png'),
       );
@@ -102,7 +102,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_very_large.png'),
       );
@@ -122,7 +122,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_extra_large.png'),
       );
