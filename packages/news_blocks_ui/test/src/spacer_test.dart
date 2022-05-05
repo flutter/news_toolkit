@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart'
     show MaterialApp, Scaffold, ColoredBox, Colors;
 import 'package:flutter_test/flutter_test.dart';
@@ -7,7 +9,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 void main() {
   group('Spacer', () {
     testWidgets('renders correctly for extraSmall spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
@@ -27,7 +29,7 @@ void main() {
     });
 
     testWidgets('renders correctly for small spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
@@ -47,7 +49,7 @@ void main() {
     });
 
     testWidgets('renders correctly for medium spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
@@ -67,7 +69,7 @@ void main() {
     });
 
     testWidgets('renders correctly for large spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
@@ -87,7 +89,7 @@ void main() {
     });
 
     testWidgets('renders correctly for veryLarge spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
@@ -107,7 +109,7 @@ void main() {
     });
 
     testWidgets('renders correctly for extraLarge spacing', (tester) async {
-      const widget = MaterialApp(
+      final widget = MaterialApp(
         home: Scaffold(
           body: ColoredBox(
             color: Colors.black,
