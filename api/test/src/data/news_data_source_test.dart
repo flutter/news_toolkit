@@ -39,6 +39,7 @@ void main() {
             Category.top,
             Category.technology,
             Category.sports,
+            Category.health,
           ]),
         );
       });
