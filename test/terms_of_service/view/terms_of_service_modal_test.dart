@@ -8,9 +8,8 @@ import 'package:mockingjay/mockingjay.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  const tosModalHeaderTitleKey = Key('tos_modal_header_title');
-  const tosModalCloseButtonKey = Key('tos_modal_close_button');
-  const tosModalBodyKey = Key('tos_modal_body_key');
+  const termsOfServiceModalCloseButtonKey =
+      Key('termsOfServiceModal_closeButton');
 
   group('TermsOfServiceModal', () {
     group('renders', () {
@@ -21,7 +20,7 @@ void main() {
 
       testWidgets('terms of service modal close button', (tester) async {
         await tester.pumpApp(TermsOfServiceModal());
-        final closeButton = find.byKey(tosModalCloseButtonKey);
+        final closeButton = find.byKey(termsOfServiceModalCloseButtonKey);
         expect(closeButton, findsOneWidget);
       });
 
@@ -39,7 +38,7 @@ void main() {
           TermsOfServiceModal(),
           navigator: navigator,
         );
-        await tester.tap(find.byKey(tosModalCloseButtonKey));
+        await tester.tap(find.byKey(termsOfServiceModalCloseButtonKey));
         await tester.pumpAndSettle();
         verify(navigator.pop).called(1);
       });

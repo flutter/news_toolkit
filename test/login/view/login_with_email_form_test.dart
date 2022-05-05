@@ -151,7 +151,7 @@ void main() {
         });
 
         testWidgets(
-            'TOS app modal when tapped on '
+            'Terms and Privacy Policy SnackBar when tapped on '
             'Terms of Use and Privacy Policy text', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
@@ -169,7 +169,7 @@ void main() {
           );
 
           await tester.pumpAndSettle();
-          expect(find.byType(TermsOfServiceModal), findsOneWidget);
+          expect(find.byType(SnackBar), findsOneWidget);
         });
 
         testWidgets('disabled next button when status is not validated',

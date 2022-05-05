@@ -1,3 +1,5 @@
+part of 'view/terms_of_service_modal.dart';
+
 const String termsOfServiceMockText =
     'Curabitur vel volutpat eros, in interdum eros.Pellentesque lorem magna, '
     'facilisis vel diam nec, sagittis fermentum purus. '
