@@ -31,9 +31,20 @@ class InMemoryNewsDataSource implements NewsDataSource {
 }
 
 /// The static news feed content.
-const _topNewsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Breaking News')];
-const _technologyBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Technology')];
-const _sportsBlocks = <NewsBlock>[SectionHeaderBlock(title: 'Sports')];
+const _topNewsBlocks = <NewsBlock>[
+  SectionHeaderBlock(title: 'Breaking News'),
+  SpacerBlock(spacing: Spacing.medium),
+];
+
+const _technologyBlocks = <NewsBlock>[
+  SectionHeaderBlock(title: 'Technology'),
+  SpacerBlock(spacing: Spacing.medium),
+];
+
+const _sportsBlocks = <NewsBlock>[
+  SectionHeaderBlock(title: 'Sports'),
+  SpacerBlock(spacing: Spacing.medium),
+];
 
 final _newsData = <Category, Feed>{
   Category.top: _topNewsBlocks.toFeed(),
