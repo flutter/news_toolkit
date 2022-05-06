@@ -81,6 +81,37 @@ void main() {
 
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns PostGridGroupBlock', () {
+        final block = PostGridGroupBlock(
+          category: PostCategory.science,
+          tiles: [
+            PostGridTileBlock(
+              id: 'id',
+              category: PostCategory.science,
+              author: 'author',
+              publishedAt: DateTime(2022, 3, 12),
+              imageUrl: 'imageUrl',
+              title: 'title',
+            )
+          ],
+        );
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns PostGridTileBlock', () {
+        final block = PostGridTileBlock(
+          id: 'id',
+          category: PostCategory.science,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 12),
+          imageUrl: 'imageUrl',
+          title: 'title',
+        );
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
