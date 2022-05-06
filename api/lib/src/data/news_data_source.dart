@@ -81,10 +81,25 @@ final technologyBlocks = <NewsBlock>[
 ];
 
 /// Sports blocks.
-const sportsBlocks = <NewsBlock>[
-  SectionHeaderBlock(title: 'Sports'),
-  DividerHorizontalBlock(),
-  SpacerBlock(spacing: Spacing.medium),
+final sportsBlocks = <NewsBlock>[
+  const SectionHeaderBlock(title: 'Sports'),
+  const DividerHorizontalBlock(),
+  PostMediumBlock(
+    id: '82c49bf1-946d-4920-a801-302291f367b5',
+    category: PostCategory.sports,
+    author: 'Tom Dierberger',
+    publishedAt: DateTime(2022, 3, 10),
+    imageUrl:
+        'https://www.nbcsports.com/sites/rsnunited/files/styles/metatags_opengraph/public/article/hero/pat-bev-ja-morant-USA.jpg',
+    title: 'Patrick Beverley throws shade at Warriors '
+        'for Ja Morant struggles - NBC Sports',
+    description:
+        'Patrick Beverley is no longer participating in the NBA playoffs, '
+        'but he sure has a lot to say. In Game 2 between the Warriors and '
+        'Memphis Grizzlies on Tuesday night, Ja Morant torched the Dubs '
+        'for 47 points...',
+  ),
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 final _newsData = <Category, Feed>{

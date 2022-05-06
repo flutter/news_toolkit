@@ -1,16 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
-part 'post_large_block.g.dart';
+part 'post_medium_block.g.dart';
 
-/// {@template post_large_block}
-/// A block which represents a large post block.
+/// {@template post_medium_block}
+/// A block which represents a medium post block.
 /// https://www.figma.com/file/RajSN6YbRqTuqvdKYtij3b/Google-News-Template-App-v3?node-id=391%3A18585
 /// {@endtemplate}
 @JsonSerializable()
-class PostLargeBlock extends PostBlock {
-  /// {@macro post_large_block}
-  const PostLargeBlock({
+class PostMediumBlock extends PostBlock {
+  /// {@macro post_medium_block}
+  const PostMediumBlock({
     required String id,
     required PostCategory category,
     required String author,
@@ -19,7 +19,7 @@ class PostLargeBlock extends PostBlock {
     required String title,
     String? description,
     BlockAction? action,
-    String type = PostLargeBlock.identifier,
+    String type = PostMediumBlock.identifier,
     bool isPremium = false,
   }) : super(
           id: id,
@@ -34,13 +34,13 @@ class PostLargeBlock extends PostBlock {
           isPremium: isPremium,
         );
 
-  /// Converts a `Map<String, dynamic>` into a [PostLargeBlock] instance.
-  factory PostLargeBlock.fromJson(Map<String, dynamic> json) =>
-      _$PostLargeBlockFromJson(json);
+  /// Converts a `Map<String, dynamic>` into a [PostMediumBlock] instance.
+  factory PostMediumBlock.fromJson(Map<String, dynamic> json) =>
+      _$PostMediumBlockFromJson(json);
 
-  /// The large post block type identifier.
-  static const identifier = '__post_large__';
+  /// The medium post block type identifier.
+  static const identifier = '__post_medium__';
 
   @override
-  Map<String, dynamic> toJson() => _$PostLargeBlockToJson(this);
+  Map<String, dynamic> toJson() => _$PostMediumBlockToJson(this);
 }

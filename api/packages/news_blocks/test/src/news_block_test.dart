@@ -55,6 +55,19 @@ void main() {
 
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns PostMediumBlock', () {
+        final block = PostMediumBlock(
+          id: 'id',
+          category: PostCategory.sports,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 10),
+          imageUrl: 'imageUrl',
+          title: 'title',
+        );
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
