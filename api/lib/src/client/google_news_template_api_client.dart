@@ -68,8 +68,24 @@ class GoogleNewsTemplateApiClient {
 
   /// GET /api/v1/feed
   /// Requests news feed metadata.
-  Future<FeedResponse> getFeed() async {
-    final uri = Uri.parse('$_baseUrl/api/v1/feed');
+  ///
+  /// Supported parameters:
+  /// * [category] - the desired news [Category].
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<FeedResponse> getFeed({
+    Category? category,
+    int? limit,
+    int? offset,
+  }) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/feed').replace(
+      queryParameters: <String, String>{
+        if (category != null) 'category': category.name,
+        if (limit != null) 'limit': '$limit',
+        if (offset != null) 'offset': '$offset',
+      },
+    );
     final response = await _httpClient.get(uri);
     final body = response.json();
 

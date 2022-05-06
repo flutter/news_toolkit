@@ -2,18 +2,18 @@
 
 // ignore_for_file: cast_nullable_to_non_nullable, implicit_dynamic_parameter, lines_longer_than_80_chars, prefer_const_constructors, require_trailing_commas
 
-part of 'post_large_block.dart';
+part of 'post_medium_block.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PostLargeBlock _$PostLargeBlockFromJson(Map<String, dynamic> json) =>
+PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      'PostLargeBlock',
+      'PostMediumBlock',
       json,
       ($checkedConvert) {
-        final val = PostLargeBlock(
+        final val = PostMediumBlock(
           id: $checkedConvert('id', (v) => v as String),
           category: $checkedConvert(
               'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
@@ -29,7 +29,7 @@ PostLargeBlock _$PostLargeBlockFromJson(Map<String, dynamic> json) =>
                   ? null
                   : BlockAction.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
-              'type', (v) => v as String? ?? PostLargeBlock.identifier),
+              'type', (v) => v as String? ?? PostMediumBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
           isContentOverlaid: $checkedConvert(
               'is_content_overlaid', (v) => v as bool? ?? false),
@@ -44,7 +44,7 @@ PostLargeBlock _$PostLargeBlockFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$PostLargeBlockToJson(PostLargeBlock instance) {
+Map<String, dynamic> _$PostMediumBlockToJson(PostMediumBlock instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'category': _$PostCategoryEnumMap[instance.category],

@@ -1,27 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
-part 'post_large_block.g.dart';
+part 'post_small_block.g.dart';
 
-/// {@template post_large_block}
-/// A block which represents a large post block.
+/// {@template post_small_block}
+/// A block which represents a small post block.
 /// https://www.figma.com/file/RajSN6YbRqTuqvdKYtij3b/Google-News-Template-App-v3?node-id=391%3A18585
 /// {@endtemplate}
 @JsonSerializable()
-class PostLargeBlock extends PostBlock {
-  /// {@macro post_large_block}
-  const PostLargeBlock({
+class PostSmallBlock extends PostBlock {
+  /// {@macro post_small_block}
+  const PostSmallBlock({
     required String id,
     required PostCategory category,
     required String author,
     required DateTime publishedAt,
-    required String imageUrl,
     required String title,
+    String? imageUrl,
     String? description,
     BlockAction? action,
-    String type = PostLargeBlock.identifier,
+    String type = PostSmallBlock.identifier,
     bool isPremium = false,
-    bool isContentOverlaid = false,
   }) : super(
           id: id,
           category: category,
@@ -33,16 +32,15 @@ class PostLargeBlock extends PostBlock {
           description: description,
           action: action,
           isPremium: isPremium,
-          isContentOverlaid: isContentOverlaid,
         );
 
-  /// Converts a `Map<String, dynamic>` into a [PostLargeBlock] instance.
-  factory PostLargeBlock.fromJson(Map<String, dynamic> json) =>
-      _$PostLargeBlockFromJson(json);
+  /// Converts a `Map<String, dynamic>` into a [PostSmallBlock] instance.
+  factory PostSmallBlock.fromJson(Map<String, dynamic> json) =>
+      _$PostSmallBlockFromJson(json);
 
-  /// The large post block type identifier.
-  static const identifier = '__post_large__';
+  /// The small post block type identifier.
+  static const identifier = '__post_small__';
 
   @override
-  Map<String, dynamic> toJson() => _$PostLargeBlockToJson(this);
+  Map<String, dynamic> toJson() => _$PostSmallBlockToJson(this);
 }
