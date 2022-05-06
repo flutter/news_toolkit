@@ -17,7 +17,7 @@ class TermsOfServiceModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: const [
           TermsOfServiceModalHeader(),
-          TermsOfServiceModalBody(),
+          TermsOfServiceBody(),
         ],
       ),
     );
@@ -47,7 +47,7 @@ class TermsOfServiceModalHeader extends StatelessWidget {
             bottom: AppSpacing.md,
           ),
           child: Text(
-            context.l10n.loginWithEmailTOSModalTitle,
+            context.l10n.termsOfServiceModalTitle,
             style: theme.textTheme.headline5,
           ),
         )

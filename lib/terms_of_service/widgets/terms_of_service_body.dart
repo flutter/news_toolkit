@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 part '../terms_of_service_mock_text.dart';
 
 @visibleForTesting
-class TermsOfServiceModalBody extends StatelessWidget {
-  const TermsOfServiceModalBody({Key? key}) : super(key: key);
+class TermsOfServiceBody extends StatelessWidget {
+  const TermsOfServiceBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,10 @@ class TermsOfServiceModalBody extends StatelessWidget {
             horizontal: AppSpacing.xlg,
             vertical: AppSpacing.xs,
           ),
-          child: Text(termsOfServiceMockText),
+          child: Text(
+            termsOfServiceMockText,
+            key: Key('termsOfServiceBody_text'),
+          ),
         ),
       ),
     );
