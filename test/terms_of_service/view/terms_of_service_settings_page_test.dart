@@ -45,7 +45,7 @@ void main() {
 
       testWidgets('terms of service body', (tester) async {
         await tester.pumpApp(TermsOfServiceSettingsPage());
-        expect(find.byType(TermsOfServiceModalBody), findsOneWidget);
+        expect(find.byType(TermsOfServiceBody), findsOneWidget);
       });
     });
   });
