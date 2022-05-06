@@ -140,7 +140,7 @@ void main() {
             (widget) =>
                 widget is UserProfileItem &&
                 widget.key ==
-                    Key('userProfilePage_termsOfUseAndPrivacyPolicyItem'),
+                    Key('userProfilePage_termsOfServiceItem'),
           ),
           findsOneWidget,
         );
