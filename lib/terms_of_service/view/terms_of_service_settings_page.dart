@@ -18,7 +18,7 @@ class TermsOfServiceSettingsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           TermsOfServiceSettingsHeader(),
-          TermsOfServiceModalBody(),
+          TermsOfServiceBody(),
           SizedBox(height: AppSpacing.lg)
         ],
       ),
@@ -36,7 +36,7 @@ class TermsOfServiceSettingsHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: Text(
-        context.l10n.loginWithEmailTOSModalTitle,
+        context.l10n.termsOfServiceModalTitle,
         style: theme.textTheme.headline4,
       ),
     );
