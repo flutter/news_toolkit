@@ -14,6 +14,8 @@ class PostTitle extends StatelessWidget {
     this.description = '',
     this.author = '',
     this.onShare,
+    this.isPremium = false,
+    required this.premiumText,
   }) : super(key: key);
 
   /// Title of post
@@ -34,6 +36,14 @@ class PostTitle extends StatelessWidget {
   /// Share callback
   final VoidCallback? onShare;
 
+  /// Whether this post requires a premium subscription to access.
+  ///
+  /// Defaults to false.
+  final bool isPremium;
+
+  /// Text displayed when post is premium content
+  final String premiumText;
+
   String get _captionText =>
       author.isNotEmpty ? '$author  •  ${date.mDY}' : date.mDY;
 
@@ -47,6 +57,8 @@ class PostTitle extends StatelessWidget {
         if (category.isNotEmpty)
           PostCategoryWidget(
             category: category,
+            isPremium: isPremium,
+            premiumText: premiumText,
           ),
         Text(
           title,
@@ -80,24 +92,39 @@ class PostTitle extends StatelessWidget {
 /// {@endtemplate}
 class PostCategoryWidget extends StatelessWidget {
   /// {@macro post_category}
-  const PostCategoryWidget({Key? key, required this.category})
-      : super(key: key);
+  const PostCategoryWidget({
+    Key? key,
+    required this.category,
+    required this.isPremium,
+    required this.premiumText,
+  }) : super(key: key);
 
   /// Category of post
   final String category;
 
+  /// Premium flag
+  final bool isPremium;
+
+  /// Text displayed when post is premium content
+  final String premiumText;
+
   @override
   Widget build(BuildContext context) {
+    final categoryDisplay = isPremium ? ' $premiumText ' : category;
+    final overlineTheme = Theme.of(context).textTheme.overline;
+    final categoryStyle = isPremium
+        ? overlineTheme?.copyWith(
+            color: AppColors.white,
+            backgroundColor: AppColors.secondary,
+          )
+        : overlineTheme?.copyWith(color: AppColors.secondary);
     return Column(
       children: [
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            category.toUpperCase(),
-            style: Theme.of(context)
-                .textTheme
-                .overline
-                ?.copyWith(color: AppColors.secondary),
+            categoryDisplay.toUpperCase(),
+            style: categoryStyle,
           ),
         ),
         const SizedBox(height: AppSpacing.sm)

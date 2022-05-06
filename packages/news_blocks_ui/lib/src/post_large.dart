@@ -10,10 +10,14 @@ class PostLarge extends StatelessWidget {
   const PostLarge({
     Key? key,
     required this.block,
+    this.premiumText = 'Premium',
   }) : super(key: key);
 
   /// The associated [PostLargeBlock] instance.
   final PostLargeBlock block;
+
+  /// Text displayed when post is premium content
+  final String premiumText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,8 @@ class PostLarge extends StatelessWidget {
           category: block.category.name,
           date: block.publishedAt,
           title: block.title,
+          isPremium: block.isPremium,
+          premiumText: premiumText,
         ),
       ],
     );
