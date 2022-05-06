@@ -6,8 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
+import '../helpers/helpers.dart';
+
 void main() {
   group('Spacer', () {
+    setUpAll(setUpTolerantComparator);
+
     testWidgets('renders correctly for extraSmall spacing', (tester) async {
       final widget = MaterialApp(
         home: Scaffold(
@@ -22,7 +26,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_extra_small.png'),
       );
@@ -42,7 +46,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_small.png'),
       );
@@ -62,7 +66,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_medium.png'),
       );
@@ -82,7 +86,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_large.png'),
       );
@@ -102,7 +106,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_very_large.png'),
       );
@@ -122,7 +126,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(Spacer),
         matchesGoldenFile('spacing_extra_large.png'),
       );
