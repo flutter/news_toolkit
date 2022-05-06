@@ -203,7 +203,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
         children: [
           Assets.icons.emailOutline.svg(),
           const SizedBox(width: AppSpacing.lg),
-          Text(context.l10n.continueWithEmailButtonText),
+          Text(context.l10n.loginWithEmailButtonText),
         ],
       ),
     );

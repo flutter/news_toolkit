@@ -22,6 +22,10 @@ void main() {
     late NewsDataSource newsDataSource;
     late FeedController controller;
 
+    setUpAll(() {
+      registerFallbackValue(Category.top);
+    });
+
     setUp(() {
       newsDataSource = MockNewsDataSource();
       controller = FeedController();
@@ -34,12 +38,61 @@ void main() {
         final feed = MockFeed();
         when(() => feed.blocks).thenReturn(blocks);
         when(() => feed.totalBlocks).thenReturn(blocks.length);
-        when(() => newsDataSource.getFeed()).thenAnswer((_) async => feed);
+        when(
+          () => newsDataSource.getFeed(
+            category: any(named: 'category'),
+            limit: any(named: 'limit'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenAnswer((_) async => feed);
 
         final expected = FeedResponse(feed: blocks, totalCount: blocks.length);
         final response = await get(host);
         expect(response.statusCode, equals(HttpStatus.ok));
         expect(response.body, equals(json.encode(expected.toJson())));
+        verify(() => newsDataSource.getFeed()).called(1);
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'parses category, limit, and offset correctly',
+      (host) async {
+        const category = Category.entertainment;
+        const limit = 42;
+        const offset = 7;
+        final blocks = <NewsBlock>[];
+        final feed = MockFeed();
+        when(() => feed.blocks).thenReturn(blocks);
+        when(() => feed.totalBlocks).thenReturn(blocks.length);
+        when(
+          () => newsDataSource.getFeed(
+            category: any(named: 'category'),
+            limit: any(named: 'limit'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenAnswer((_) async => feed);
+
+        final expected = FeedResponse(feed: blocks, totalCount: blocks.length);
+        final response = await get(
+          host.replace(
+            queryParameters: <String, String>{
+              'category': category.name,
+              'limit': '$limit',
+              'offset': '$offset',
+            },
+          ),
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+        verify(
+          () => newsDataSource.getFeed(
+            category: category,
+            limit: limit,
+            offset: offset,
+          ),
+        ).called(1);
       },
       pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
       handler: () => controller.handler,
