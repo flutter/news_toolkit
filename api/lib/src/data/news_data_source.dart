@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:google_news_template_api/api.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -8,8 +10,20 @@ abstract class NewsDataSource {
   /// {@macro news_data_source}
   const NewsDataSource();
 
-  /// Returns a news [Feed].
-  Future<Feed> getFeed();
+  /// Returns a news [Feed] for the provided [category].
+  /// By default [Category.top] is used.
+  ///
+  /// In addition, the feed can be paginated by supplying
+  /// [limit] and [offset].
+  ///
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<Feed> getFeed({
+    Category category = Category.top,
+    int limit = 20,
+    int offset = 0,
+  });
 
   /// Returns a list of all available news categories.
   Future<List<Category>> getCategories();
@@ -24,14 +38,24 @@ class InMemoryNewsDataSource implements NewsDataSource {
   const InMemoryNewsDataSource();
 
   @override
-  Future<Feed> getFeed() async => _topNewsBlocks.toFeed();
+  Future<Feed> getFeed({
+    Category category = Category.top,
+    int limit = 20,
+    int offset = 0,
+  }) async {
+    final feed = _newsData[category] ?? const Feed(blocks: [], totalBlocks: 0);
+    final totalBlocks = feed.totalBlocks;
+    final normalizedOffset = math.min(offset, totalBlocks);
+    final blocks = feed.blocks.sublist(normalizedOffset).take(limit).toList();
+    return Feed(blocks: blocks, totalBlocks: totalBlocks);
+  }
 
   @override
   Future<List<Category>> getCategories() async => _newsData.keys.toList();
 }
 
 /// The static news feed content.
-final _technologyPostLarge = PostLargeBlock(
+final _technologyPost = PostLargeBlock(
   id: '499305f6-5096-4051-afda-824dcfc7df23',
   category: PostCategory.technology,
   author: 'Sean Hollister',
@@ -42,7 +66,7 @@ final _technologyPostLarge = PostLargeBlock(
       'and prices are finally falling',
 );
 
-final _sportsPostMedium = PostMediumBlock(
+final _sportsPost = PostMediumBlock(
   id: '82c49bf1-946d-4920-a801-302291f367b5',
   category: PostCategory.sports,
   author: 'Tom Dierberger',
@@ -58,7 +82,7 @@ final _sportsPostMedium = PostMediumBlock(
       'for 47 points...',
 );
 
-final _healthPostSmall = PostSmallBlock(
+final _healthPost = PostSmallBlock(
   id: 'b1fc2ffc-eb02-42ce-af65-79702172a987',
   category: PostCategory.health,
   author: 'Northwestern University',
@@ -73,42 +97,47 @@ final _healthPostSmall = PostSmallBlock(
       'hearing loss...',
 );
 
-final _topNewsBlocks = <NewsBlock>[
+/// Top news blocks.
+final topNewsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Breaking News'),
   const DividerHorizontalBlock(),
-  _technologyPostLarge,
   const SpacerBlock(spacing: Spacing.medium),
-  _sportsPostMedium,
-  const SpacerBlock(spacing: Spacing.small),
-  _healthPostSmall,
+  _technologyPost
 ];
 
-final _technologyBlocks = <NewsBlock>[
+/// Technology blocks.
+final technologyBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Technology'),
   const DividerHorizontalBlock(),
-  _technologyPostLarge,
+  _technologyPost,
   const SpacerBlock(spacing: Spacing.medium),
+  _sportsPost,
+  const SpacerBlock(spacing: Spacing.small),
+  _healthPost,
+  const SpacerBlock(spacing: Spacing.extraSmall),
 ];
 
-final _sportsBlocks = <NewsBlock>[
+/// Sports blocks.
+final sportsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Sports'),
   const DividerHorizontalBlock(),
-  _sportsPostMedium,
+  _sportsPost,
   const SpacerBlock(spacing: Spacing.medium),
 ];
 
-final _healthBlocks = <NewsBlock>[
+/// Health blocks.
+final healthBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Health'),
   const DividerHorizontalBlock(),
-  _healthPostSmall,
+  _healthPost,
   const SpacerBlock(spacing: Spacing.medium),
 ];
 
 final _newsData = <Category, Feed>{
-  Category.top: _topNewsBlocks.toFeed(),
-  Category.technology: _technologyBlocks.toFeed(),
-  Category.sports: _sportsBlocks.toFeed(),
-  Category.health: _healthBlocks.toFeed(),
+  Category.top: topNewsBlocks.toFeed(),
+  Category.technology: technologyBlocks.toFeed(),
+  Category.sports: sportsBlocks.toFeed(),
+  Category.health: healthBlocks.toFeed(),
 };
 
 extension on List<NewsBlock> {

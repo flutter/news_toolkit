@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../helpers/helpers.dart';
 
 void main() {
-  group('ContentThemeOverride', () {
+  group('ContentThemeOverrideBuilder', () {
     final theme = const AppTheme().themeData;
 
     testWidgets('overrides the text theme to AppTheme.contentTextTheme',
@@ -32,13 +32,11 @@ void main() {
       );
 
       await tester.pumpApp(
-        ContentThemeOverride(
-          child: Builder(
-            builder: (context) {
-              capturedContext = context;
-              return const SizedBox();
-            },
-          ),
+        ContentThemeOverrideBuilder(
+          builder: (context) {
+            capturedContext = context;
+            return const SizedBox();
+          },
         ),
         theme: theme,
       );
