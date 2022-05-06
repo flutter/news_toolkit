@@ -9,13 +9,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('DividerHorizontal', () {
-    setUpAll(() {
-      final oldComparator = goldenFileComparator as LocalFileComparator;
-      final newComparator =
-          TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
-      expect(oldComparator.basedir, newComparator.basedir);
-      goldenFileComparator = newComparator;
-    });
+    setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly', (tester) async {
       final widget = MaterialApp(

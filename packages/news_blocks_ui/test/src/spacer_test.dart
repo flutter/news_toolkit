@@ -10,13 +10,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('Spacer', () {
-    setUpAll(() {
-      final oldComparator = goldenFileComparator as LocalFileComparator;
-      final newComparator =
-          TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
-      expect(oldComparator.basedir, newComparator.basedir);
-      goldenFileComparator = newComparator;
-    });
+    setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly for extraSmall spacing', (tester) async {
       final widget = MaterialApp(

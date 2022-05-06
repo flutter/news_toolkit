@@ -41,3 +41,12 @@ class TolerantComparator extends LocalFileComparator {
     return true;
   }
 }
+
+/// Sets [TolerantComparator] as the default golden file comparator in tests.
+void setUpTolerantComparator() {
+  final oldComparator = goldenFileComparator as LocalFileComparator;
+  final newComparator =
+      TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
+  expect(oldComparator.basedir, newComparator.basedir);
+  goldenFileComparator = newComparator;
+}

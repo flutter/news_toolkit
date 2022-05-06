@@ -7,13 +7,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('SectionHeader', () {
-    setUpAll(() {
-      final oldComparator = goldenFileComparator as LocalFileComparator;
-      final newComparator =
-          TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
-      expect(oldComparator.basedir, newComparator.basedir);
-      goldenFileComparator = newComparator;
-    });
+    setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly without action', (tester) async {
       const widget = MaterialApp(
