@@ -28,6 +28,10 @@ abstract class NewsBlock {
         return SpacerBlock.fromJson(json);
       case PostLargeBlock.identifier:
         return PostLargeBlock.fromJson(json);
+      case PostMediumBlock.identifier:
+        return PostMediumBlock.fromJson(json);
+      case PostSmallBlock.identifier:
+        return PostSmallBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
