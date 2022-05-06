@@ -9,10 +9,10 @@ import '../../helpers/helpers.dart';
 void main() {
   const tapMeText = 'Tap Me';
 
-  group('TermsOfServiceSettingsPage', () {
+  group('TermsOfServicePage', () {
     group('route', () {
       test('has a route', () {
-        expect(TermsOfServiceSettingsPage.route(), isA<MaterialPageRoute>());
+        expect(TermsOfServicePage.route(), isA<MaterialPageRoute>());
       });
 
       testWidgets('router returns a valid navigation route', (tester) async {
@@ -23,7 +23,7 @@ void main() {
                 return ElevatedButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .push<void>(TermsOfServiceSettingsPage.route());
+                        .push<void>(TermsOfServicePage.route());
                   },
                   child: const Text(tapMeText),
                 );
@@ -34,19 +34,30 @@ void main() {
         await tester.tap(find.text(tapMeText));
         await tester.pumpAndSettle();
 
-        expect(find.byType(TermsOfServiceSettingsPage), findsOneWidget);
+        expect(find.byType(TermsOfServicePage), findsOneWidget);
       });
     });
 
     group('renders', () {
-      testWidgets('terms of service settings page header', (tester) async {
-        await tester.pumpApp(TermsOfServiceSettingsPage());
-        expect(find.byType(TermsOfServiceSettingsHeader), findsOneWidget);
+      testWidgets('terms of service page header', (tester) async {
+        await tester.pumpApp(TermsOfServicePage());
+        expect(find.byType(TermsOfServiceHeader), findsOneWidget);
       });
 
       testWidgets('terms of service body', (tester) async {
-        await tester.pumpApp(TermsOfServiceSettingsPage());
+        await tester.pumpApp(TermsOfServicePage());
         expect(find.byType(TermsOfServiceBody), findsOneWidget);
+      });
+    });
+
+    group('navigate', () {
+      testWidgets('back when tapped on back icon', (tester) async {
+        await tester.pumpApp(TermsOfServicePage());
+
+        await tester.tap(find.byKey(Key('termsOfService_closeIcon')));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(TermsOfServicePage), findsNothing);
       });
     });
   });

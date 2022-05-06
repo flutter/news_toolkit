@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/terms_of_service/view/terms_of_service_settings_page.dart';
+import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -90,11 +90,11 @@ class UserProfileView extends StatelessWidget {
               subtitle: l10n.userProfileLegalSubtitle,
             ),
             UserProfileItem(
-              key: const Key('userProfilePage_termsOfUseAndPrivacyPolicyItem'),
+              key: const Key('userProfilePage_termsOfServiceItem'),
               leading: Assets.icons.termsOfUseIcon.svg(),
               title: l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
-              onTap: () => Navigator.of(context)
-                  .push<void>(TermsOfServiceSettingsPage.route()),
+              onTap: () =>
+                  Navigator.of(context).push<void>(TermsOfServicePage.route()),
             ),
             UserProfileItem(
               key: const Key('userProfilePage_aboutItem'),

@@ -19,8 +19,7 @@ class MockUserProfileBloc extends MockBloc<UserProfileEvent, UserProfileState>
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
-  const termsOfUseAndPrivacyPolicyItemKey =
-      Key('userProfilePage_termsOfUseAndPrivacyPolicyItem');
+  const termsOfServiceItemKey = Key('userProfilePage_termsOfServiceItem');
 
   group('UserProfilePage', () {
     test('has a route', () {
@@ -284,7 +283,7 @@ void main() {
             navigator: navigator,
           );
 
-          await tester.tap(find.byKey(termsOfUseAndPrivacyPolicyItemKey));
+          await tester.tap(find.byKey(termsOfServiceItemKey));
 
           await tester.pumpAndSettle();
           verify(() => navigator.push<void>(any())).called(1);

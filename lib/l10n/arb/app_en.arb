@@ -59,7 +59,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "termsOfServiceModalTitle": "Terms of Use &\n Privacy Policy",
+  "termsOfServiceModalTitle": "Terms of Use &\nPrivacy Policy",
   "@termsOfServiceModalTitle": {
     "description": "Title shown on the TOS modal",
     "type": "text",
