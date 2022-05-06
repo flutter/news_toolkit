@@ -3,8 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
+import '../helpers/helpers.dart';
+
 void main() {
   group('SectionHeader', () {
+    setUpAll(setUpTolerantComparator);
+
     testWidgets('renders correctly without action', (tester) async {
       const widget = MaterialApp(
         home: Scaffold(
@@ -18,7 +22,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(SectionHeader),
         matchesGoldenFile('section_header_without_action.png'),
       );
@@ -40,7 +44,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(SectionHeader),
         matchesGoldenFile('section_header_with_action.png'),
       );
