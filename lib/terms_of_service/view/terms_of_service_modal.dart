@@ -48,7 +48,7 @@ class TermsOfServiceModalHeader extends StatelessWidget {
             bottom: AppSpacing.md,
           ),
           child: Text(
-            context.l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
+            context.l10n.loginWithEmailTOSModalTitle,
             style: theme.textTheme.headline5,
           ),
         )
