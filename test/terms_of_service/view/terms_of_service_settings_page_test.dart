@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
-import 'package:google_news_template/terms_of_service/view/terms_of_service_settings_page.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
+  const tapMeText = 'Tap Me';
+
   group('TermsOfServiceSettingsPage', () {
     group('route', () {
       test('has a route', () {
@@ -24,13 +25,13 @@ void main() {
                     Navigator.of(context)
                         .push<void>(TermsOfServiceSettingsPage.route());
                   },
-                  child: const Text('Tap me'),
+                  child: const Text(tapMeText),
                 );
               },
             ),
           ),
         );
-        await tester.tap(find.text('Tap me'));
+        await tester.tap(find.text(tapMeText));
         await tester.pumpAndSettle();
 
         expect(find.byType(TermsOfServiceSettingsPage), findsOneWidget);

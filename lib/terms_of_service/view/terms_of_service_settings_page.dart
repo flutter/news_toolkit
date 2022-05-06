@@ -1,7 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/terms_of_service/widgets/terms_of_service_body.dart';
+
+import '../widgets/widgets.dart';
 
 class TermsOfServiceSettingsPage extends StatelessWidget {
   const TermsOfServiceSettingsPage({Key? key}) : super(key: key);
