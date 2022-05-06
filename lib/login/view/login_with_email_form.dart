@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
-import 'package:google_news_template/passwordless/view/view.dart';
+import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({Key? key}) : super(key: key);
@@ -17,38 +17,33 @@ class LoginWithEmailForm extends StatelessWidget {
       listener: (context, state) {
         if (state.status.isSuccess) {
           Navigator.of(context).push<void>(
-            PasswordlessPage.route(email: email),
+            MagicLinkPromptPage.route(email: email),
           );
+        } else if (state.status.isFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
+            );
         }
       },
-      child: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.status.isFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
-              );
-          }
-        },
-        child: const ScrollableColumn(
-          padding: EdgeInsets.fromLTRB(
-            AppSpacing.xlg,
-            AppSpacing.lg,
-            AppSpacing.xlg,
-            AppSpacing.xxlg,
-          ),
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _HeaderTitle(),
-            SizedBox(height: AppSpacing.xxxlg),
-            _EmailInput(),
-            _TermsAndPrivacyPolicyLinkTexts(),
-            Spacer(),
-            _NextButton(),
-          ],
+      child: const ScrollableColumn(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.xlg,
+          AppSpacing.lg,
+          AppSpacing.xlg,
+          AppSpacing.xxlg,
         ),
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _HeaderTitle(),
+          SizedBox(height: AppSpacing.xxxlg),
+          _EmailInput(),
+          _TermsAndPrivacyPolicyLinkTexts(),
+          Spacer(),
+          _NextButton(),
+        ],
       ),
     );
   }

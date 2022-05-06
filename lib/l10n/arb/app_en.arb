@@ -215,27 +215,27 @@
     "type": "text",
     "placeholders": {}
   },
-  "passwordLessHeader": "Check your email!",
-  "@passwordLessHeader": {
-    "description": "Header title shown in the password less ui",
+  "magicLinkPromptHeader": "Check your email!",
+  "@magicLinkPromptHeader": {
+    "description": "Header title shown in the magic link prompt UI",
     "type": "text",
     "placeholders": {}
   },
-  "passwordLessTitle": "We sent an email to",
-  "@passwordLessTitle": {
-    "description": "Title shown in the password less ui",
+  "magicLinkPromptTitle": "We sent an email to",
+  "@magicLinkPromptTitle": {
+    "description": "Title shown in the magic link prompt UI",
     "type": "text",
     "placeholders": {}
   },
-  "passwordLessSubtitle": "It contains a special link. Click it to\ncomplete the log in process.",
-  "@passwordLessSubtitle": {
-    "description": "Subtitle shown in the password less ui",
+  "magicLinkPromptSubtitle": "It contains a special link. Click it to\ncomplete the log in process.",
+  "@magicLinkPromptSubtitle": {
+    "description": "Subtitle shown in the magic link prompt UI",
     "type": "text",
     "placeholders": {}
   },
   "openMailAppButtonText": "Open Mail App",
   "@openMailAppButtonText": {
-    "description": "Open mail app button text shown in the password less ui",
+    "description": "Open mail app button text shown in the magic link prompt UI",
     "type": "text",
     "placeholders": {}
   }

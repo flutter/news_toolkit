@@ -2,28 +2,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/passwordless/passwordless.dart';
+import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   const testEmail = 'testEmail@gmail.com';
-  const passwordlessCloseIconKey = Key('passwordless_closeIcon');
+  const magicLinkPromptCloseIconKey = Key('magicLinkPrompt_closeIcon');
 
-  group('PasswordLess Page', () {
+  group('MagicLinkPromptPage', () {
     test('has a route', () {
       expect(
-        PasswordlessPage.route(email: testEmail),
+        MagicLinkPromptPage.route(email: testEmail),
         isA<MaterialPageRoute>(),
       );
     });
 
-    testWidgets('renders a PasswordlessView', (tester) async {
+    testWidgets('renders a MagicLinkPromptView', (tester) async {
       await tester.pumpApp(
-        const PasswordlessPage(email: testEmail),
+        const MagicLinkPromptPage(email: testEmail),
       );
-      expect(find.byType(PasswordlessView), findsOneWidget);
+      expect(find.byType(MagicLinkPromptView), findsOneWidget);
     });
 
     testWidgets('router returns a valid navigation route', (tester) async {
@@ -34,7 +34,7 @@ void main() {
               return ElevatedButton(
                 onPressed: () {
                   Navigator.of(context)
-                      .push<void>(PasswordlessPage.route(email: testEmail));
+                      .push<void>(MagicLinkPromptPage.route(email: testEmail));
                 },
                 child: const Text('Tap me'),
               );
@@ -45,7 +45,7 @@ void main() {
       await tester.tap(find.text('Tap me'));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PasswordlessPage), findsOneWidget);
+      expect(find.byType(MagicLinkPromptPage), findsOneWidget);
     });
 
     group('navigates', () {
@@ -54,11 +54,11 @@ void main() {
 
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await tester.pumpApp(
-          const PasswordlessPage(email: testEmail),
+          const MagicLinkPromptPage(email: testEmail),
           navigator: navigator,
         );
 
-        await tester.tap(find.byKey(passwordlessCloseIconKey));
+        await tester.tap(find.byKey(magicLinkPromptCloseIconKey));
         await tester.pumpAndSettle();
         verify(() => navigator.popUntil(any())).called(1);
       });

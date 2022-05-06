@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
-class PasswordlessView extends StatelessWidget {
-  const PasswordlessView({
+class MagicLinkPromptView extends StatelessWidget {
+  const MagicLinkPromptView({
     Key? key,
     required this.email,
   }) : super(key: key);
@@ -23,35 +23,34 @@ class PasswordlessView extends StatelessWidget {
         AppSpacing.xxlg,
       ),
       children: [
-        const PasswordlessHeader(),
+        const MagicLinkPromptHeader(),
         const SizedBox(height: AppSpacing.xxxlg),
-        Assets.images.passwordLessEmail.svg(),
+        Assets.images.magicLinkPromptEmail.svg(),
         const SizedBox(height: AppSpacing.xxxlg),
-        PasswordlessSubtitle(email: email),
+        MagicLinkPromptSubtitle(email: email),
         const Spacer(),
-        const PasswordlessOpenEmailButton()
+        const MagicLinkPromptOpenEmailButton()
       ],
     );
   }
 }
 
 @visibleForTesting
-class PasswordlessHeader extends StatelessWidget {
-  const PasswordlessHeader({Key? key}) : super(key: key);
+class MagicLinkPromptHeader extends StatelessWidget {
+  const MagicLinkPromptHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      context.l10n.passwordLessHeader,
-      key: const Key('passwordLess_header'),
+      context.l10n.magicLinkPromptHeader,
       style: Theme.of(context).textTheme.headline3,
     );
   }
 }
 
 @visibleForTesting
-class PasswordlessSubtitle extends StatelessWidget {
-  const PasswordlessSubtitle({
+class MagicLinkPromptSubtitle extends StatelessWidget {
+  const MagicLinkPromptSubtitle({
     Key? key,
     required this.email,
   }) : super(key: key);
@@ -60,26 +59,27 @@ class PasswordlessSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
-      key: const Key('passwordLess_subtitle'),
       children: [
         Text(
-          context.l10n.passwordLessTitle,
+          context.l10n.magicLinkPromptTitle,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: theme.textTheme.bodyText1,
         ),
         Text(
           email,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1?.apply(
-                color: AppColors.darkAqua,
-              ),
+          style: theme.textTheme.bodyText1?.apply(
+            color: AppColors.darkAqua,
+          ),
         ),
         const SizedBox(height: AppSpacing.xxlg),
         Text(
-          context.l10n.passwordLessSubtitle,
+          context.l10n.magicLinkPromptSubtitle,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: theme.textTheme.bodyText1,
         ),
       ],
     );
@@ -87,13 +87,13 @@ class PasswordlessSubtitle extends StatelessWidget {
 }
 
 @visibleForTesting
-class PasswordlessOpenEmailButton extends StatelessWidget {
-  const PasswordlessOpenEmailButton({Key? key}) : super(key: key);
+class MagicLinkPromptOpenEmailButton extends StatelessWidget {
+  const MagicLinkPromptOpenEmailButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppButton.darkAqua(
-      key: const Key('passwordLess_openMailButton'),
+      key: const Key('magicLinkPrompt_openMailButton'),
       onPressed: () {},
       child: Text(context.l10n.openMailAppButtonText),
     );

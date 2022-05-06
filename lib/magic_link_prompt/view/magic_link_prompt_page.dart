@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_news_template/passwordless/view/passwordless_view.dart';
+import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
-class PasswordlessPage extends StatelessWidget {
-  const PasswordlessPage({
+class MagicLinkPromptPage extends StatelessWidget {
+  const MagicLinkPromptPage({
     Key? key,
     required this.email,
   }) : super(key: key);
@@ -13,7 +13,7 @@ class PasswordlessPage extends StatelessWidget {
     required String email,
   }) =>
       MaterialPageRoute<void>(
-        builder: (_) => PasswordlessPage(
+        builder: (_) => MagicLinkPromptPage(
           email: email,
         ),
       );
@@ -25,14 +25,14 @@ class PasswordlessPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            key: const Key('passwordless_closeIcon'),
+            key: const Key('magicLinkPrompt_closeIcon'),
             icon: const Icon(Icons.close),
             onPressed: () =>
                 Navigator.of(context).popUntil((_) => count++ >= 2),
           )
         ],
       ),
-      body: PasswordlessView(
+      body: MagicLinkPromptView(
         email: email,
       ),
     );
