@@ -16,7 +16,7 @@ class PostLarge extends StatelessWidget {
   /// The associated [PostLargeBlock] instance.
   final PostLargeBlock block;
 
-  /// Text displayed when post is premium content
+  /// Text displayed when post is premium content.
   final String premiumText;
 
   @override
