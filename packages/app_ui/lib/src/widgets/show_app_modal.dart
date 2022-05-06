@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 Future<T?> showAppModal<T>({
   required BuildContext context,
   required WidgetBuilder builder,
+  BoxConstraints? constraints,
   double? elevation,
   Color? barrierColor,
   bool isDismissible = true,
@@ -13,6 +14,7 @@ Future<T?> showAppModal<T>({
   return showModalBottomSheet(
     context: context,
     builder: builder,
+    constraints: constraints,
     isScrollControlled: true,
     barrierColor: barrierColor,
     isDismissible: isDismissible,

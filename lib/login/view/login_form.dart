@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
+import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
