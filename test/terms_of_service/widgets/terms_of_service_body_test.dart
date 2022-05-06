@@ -11,7 +11,7 @@ void main() {
 
   group('TermsOfServiceBody', () {
     group('renders', () {
-      testWidgets('terms of service text', (tester) async {
+      testWidgets('SingleChildScrollView', (tester) async {
         await tester.pumpApp(
           Column(
             children: const [
@@ -19,7 +19,7 @@ void main() {
             ],
           ),
         );
-        expect(find.byType(TermsOfServiceBody), findsOneWidget);
+        expect(find.byType(SingleChildScrollView), findsOneWidget);
       });
 
       testWidgets('terms of service body text', (tester) async {
