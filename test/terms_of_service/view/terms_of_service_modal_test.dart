@@ -24,9 +24,9 @@ void main() {
         expect(closeButton, findsOneWidget);
       });
 
-      testWidgets('terms of service modal body', (tester) async {
+      testWidgets('terms of service body', (tester) async {
         await tester.pumpApp(TermsOfServiceModal());
-        expect(find.byType(TermsOfServiceModalBody), findsOneWidget);
+        expect(find.byType(TermsOfServiceBody), findsOneWidget);
       });
     });
 

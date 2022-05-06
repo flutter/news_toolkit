@@ -59,8 +59,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "loginWithEmailTOSModalTitle": "Terms of Use &\n Privacy Policy",
-  "@loginWithEmailTOSModalTitle": {
+  "termsOfServiceModalTitle": "Terms of Use &\n Privacy Policy",
+  "@termsOfServiceModalTitle": {
     "description": "Title shown on the TOS modal",
     "type": "text",
     "placeholders": {}
