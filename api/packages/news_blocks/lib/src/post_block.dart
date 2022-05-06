@@ -17,6 +17,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
     this.description,
     this.action,
     this.isPremium = false,
+    this.isContentOverlaid = false,
   });
 
   /// The medium post block type identifier.
@@ -51,6 +52,11 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   /// Defaults to false.
   final bool isPremium;
 
+  /// Whether the content of this post is overlaid on the image.
+  ///
+  /// Defaults to false.
+  final bool isContentOverlaid;
+
   @override
   final String type;
 
@@ -65,6 +71,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
         description,
         action,
         isPremium,
+        isContentOverlaid,
         type,
       ];
 }
