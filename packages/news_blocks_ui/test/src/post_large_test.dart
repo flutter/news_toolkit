@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -24,8 +25,10 @@ void main() {
       final widget = MaterialApp(
         home: Scaffold(
           body: Center(
-            child: PostLarge(
-              block: _technologyPostLarge,
+            child: ContentThemeOverrideBuilder(
+              builder: (context) => PostLarge(
+                block: _technologyPostLarge,
+              ),
             ),
           ),
         ),
