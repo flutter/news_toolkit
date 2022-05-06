@@ -39,42 +39,38 @@ class PostTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ContentThemeOverrideBuilder(
-      builder: (context) {
-        final textTheme = Theme.of(context).textTheme;
-        final greyedColor = textTheme.caption?.color?.withOpacity(0.6);
-        return Column(
+    final textTheme = Theme.of(context).textTheme;
+    final greyedColor = textTheme.caption?.color?.withOpacity(0.6);
+    return Column(
+      children: [
+        const SizedBox(height: AppSpacing.lg),
+        if (category.isNotEmpty)
+          PostCategoryWidget(
+            category: category,
+          ),
+        Text(
+          title,
+          style: textTheme.headline3,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(height: AppSpacing.lg),
-            if (category.isNotEmpty)
-              PostCategoryWidget(
-                category: category,
+            if (author.isNotEmpty)
+              Text(
+                _captionText,
+                style: textTheme.caption?.copyWith(color: greyedColor),
               ),
-            Text(
-              title,
-              style: textTheme.headline3,
+            IconButton(
+              icon: Icon(
+                Icons.share,
+                color: greyedColor,
+              ),
+              onPressed: onShare,
             ),
-            const SizedBox(height: AppSpacing.md),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (author.isNotEmpty)
-                  Text(
-                    _captionText,
-                    style: textTheme.caption?.copyWith(color: greyedColor),
-                  ),
-                IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: greyedColor,
-                  ),
-                  onPressed: onShare,
-                ),
-              ],
-            )
           ],
-        );
-      },
+        )
+      ],
     );
   }
 }

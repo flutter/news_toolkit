@@ -119,6 +119,6 @@ abstract class AppColors {
   /// The outline on dark color.
   static const Color outlineOnDark = Color(0x29FFFFFF);
 
-  /// The secondary color of application
+  /// The secondary color of application.
   static const Color secondary = Color(0xFF963F6E);
 }
