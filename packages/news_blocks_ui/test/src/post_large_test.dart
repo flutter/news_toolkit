@@ -21,7 +21,8 @@ void main() {
       title: 'Nvidia and AMD GPUs are returning to shelves '
           'and prices are finally falling',
     );
-    testWidgets('renders correctly', (tester) async {
+
+    testWidgets('renders correctly non-premium', (tester) async {
       final widget = MaterialApp(
         home: Scaffold(
           body: Center(
@@ -38,7 +39,32 @@ void main() {
 
       expect(
         find.byType(PostLarge),
-        matchesGoldenFile('post_large.png'),
+        matchesGoldenFile('post_large_non_premium.png'),
+      );
+    });
+
+    testWidgets('renders correctly premium', (tester) async {
+      final premiumBlock = PostLargeBlock.fromJson(
+        _technologyPostLarge.toJson()..['isPremium'] = true,
+      );
+
+      final widget = MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: ContentThemeOverrideBuilder(
+              builder: (context) => PostLarge(
+                block: premiumBlock,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpWidget(widget);
+
+      expect(
+        find.byType(PostLarge),
+        matchesGoldenFile('post_large_premium.png'),
       );
     });
   });
