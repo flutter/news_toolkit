@@ -1,6 +1,5 @@
 import 'package:app_ui/app_ui.dart'
     show AppSpacing, ScrollableColumn, AppColors, AppButton;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
