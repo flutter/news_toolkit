@@ -217,14 +217,14 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('when user is authenticated', (tester) async {
+      testWidgets('when submission is success', (tester) async {
         final navigator = MockNavigator();
         whenListen(
           loginBloc,
           Stream.fromIterable(
             <LoginState>[
               const LoginState(status: FormzSubmissionStatus.inProgress),
-              const LoginState(valid: true)
+              const LoginState(status: FormzSubmissionStatus.success)
             ],
           ),
           initialState: const LoginState(),
