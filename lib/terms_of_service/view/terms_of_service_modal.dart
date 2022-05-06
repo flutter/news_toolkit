@@ -1,8 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-
-part '../terms_of_service_mock_text.dart';
+import 'package:google_news_template/terms_of_service/widgets/terms_of_service_body.dart';
 
 class TermsOfServiceModal extends StatelessWidget {
   const TermsOfServiceModal({Key? key}) : super(key: key);
@@ -53,26 +52,6 @@ class TermsOfServiceModalHeader extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-}
-
-@visibleForTesting
-class TermsOfServiceModalBody extends StatelessWidget {
-  const TermsOfServiceModalBody({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Flexible(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppSpacing.xlg,
-            vertical: AppSpacing.xs,
-          ),
-          child: Text(termsOfServiceMockText),
-        ),
-      ),
     );
   }
 }
