@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -27,7 +28,7 @@ void main() {
       Key('loginWithEmailForm_header_title');
   const loginWithEmailFormTermsAndPrivacyPolicyKey =
       Key('loginWithEmailForm_terms_and_privacy_policy');
-  const loginWithEmailFormSuffixIconKey =
+  const loginWithEmailFormClearIconKey =
       Key('loginWithEmailForm_clearIconButton');
 
   const testEmail = 'test@gmail.com';
@@ -82,9 +83,9 @@ void main() {
         );
         await tester.enterText(find.byKey(emailInputKey), testEmail);
 
-        await tester.ensureVisible(find.byKey(loginWithEmailFormSuffixIconKey));
+        await tester.ensureVisible(find.byKey(loginWithEmailFormClearIconKey));
         await tester.pumpAndSettle();
-        await tester.tap(find.byKey(loginWithEmailFormSuffixIconKey));
+        await tester.tap(find.byKey(loginWithEmailFormClearIconKey));
         await tester.pumpAndSettle();
         verify(() => loginBloc.add(const LoginEmailChanged(''))).called(1);
       });
@@ -218,7 +219,6 @@ void main() {
 
     group('navigates', () {
       testWidgets('when submission is success', (tester) async {
-        final navigator = MockNavigator();
         whenListen(
           loginBloc,
           Stream.fromIterable(
@@ -230,17 +230,49 @@ void main() {
           initialState: const LoginState(),
         );
 
-        when(() => navigator.push<void>(any())).thenAnswer((_) async {});
-
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
             child: const LoginWithEmailForm(),
           ),
-          navigator: navigator,
         );
         await tester.pump();
-        verify(() => navigator.push<void>(any())).called(1);
+        expect(find.byType(MagicLinkPromptPage), findsOneWidget);
+      });
+    });
+
+    group('disable', () {
+      testWidgets('email text field when status is inProgress', (tester) async {
+        when(() => loginBloc.state).thenAnswer(
+          (_) => const LoginState(status: FormzSubmissionStatus.inProgress),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: loginBloc,
+            child: const LoginWithEmailForm(),
+          ),
+        );
+        final emailTextField = tester.widget<AppEmailTextField>(
+          find.byKey(emailInputKey),
+        );
+        expect(emailTextField.readOnly, isTrue);
+      });
+
+      testWidgets('clear icon button when status is inProgress',
+          (tester) async {
+        when(() => loginBloc.state).thenAnswer(
+          (_) => const LoginState(status: FormzSubmissionStatus.inProgress),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: loginBloc,
+            child: const LoginWithEmailForm(),
+          ),
+        );
+        final clearIcon = tester.widget<ClearIconButton>(
+          find.byType(ClearIconButton),
+        );
+        expect(clearIcon.onPressed, null);
       });
     });
   });

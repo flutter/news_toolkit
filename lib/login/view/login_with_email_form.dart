@@ -72,19 +72,25 @@ class _EmailInput extends StatefulWidget {
 
 class _EmailInputState extends State<_EmailInput> {
   final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final state = context.select((LoginBloc bloc) => bloc.state);
+
     return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
+      readOnly: state.status.isInProgress,
       hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
-      suffix: _ClearIconButton(
-        onPressed: () {
-          _controller.clear();
-          context.read<LoginBloc>().add(const LoginEmailChanged(''));
-        },
+      suffix: ClearIconButton(
+        onPressed: !state.status.isInProgress
+            ? () {
+                _controller.clear();
+                context.read<LoginBloc>().add(const LoginEmailChanged(''));
+              }
+            : null,
       ),
     );
   }
@@ -163,13 +169,14 @@ class _NextButton extends StatelessWidget {
   }
 }
 
-class _ClearIconButton extends StatelessWidget {
-  const _ClearIconButton({
+@visibleForTesting
+class ClearIconButton extends StatelessWidget {
+  const ClearIconButton({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

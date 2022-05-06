@@ -49,7 +49,7 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('when pressed on close icon', (tester) async {
+      testWidgets('back when pressed on close icon', (tester) async {
         final navigator = MockNavigator();
 
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});

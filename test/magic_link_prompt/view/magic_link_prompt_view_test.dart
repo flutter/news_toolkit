@@ -24,7 +24,7 @@ void main() {
       });
     });
 
-    group('do nothing', () {
+    group('does nothing', () {
       testWidgets(
         'when MagicLinkPromptOpenEmailButton is pressed',
         (tester) async {
