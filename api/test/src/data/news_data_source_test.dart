@@ -78,9 +78,7 @@ void main() {
       test('returns empty feed for remaining categories', () async {
         final emptyCategories = [
           Category.business,
-          Category.health,
           Category.entertainment,
-          Category.science,
         ];
         for (final category in emptyCategories) {
           await expectLater(
@@ -158,6 +156,7 @@ void main() {
             Category.top,
             Category.technology,
             Category.sports,
+            Category.health,
           ]),
         );
       });

@@ -11,9 +11,9 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
     required this.category,
     required this.author,
     required this.publishedAt,
-    required this.imageUrl,
     required this.title,
     required this.type,
+    this.imageUrl,
     this.description,
     this.action,
     this.isPremium = false,
@@ -35,7 +35,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   final DateTime publishedAt;
 
   /// The image URL of this post.
-  final String imageUrl;
+  final String? imageUrl;
 
   /// The title of this post.
   final String title;

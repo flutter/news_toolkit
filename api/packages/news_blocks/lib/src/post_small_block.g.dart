@@ -2,26 +2,26 @@
 
 // ignore_for_file: cast_nullable_to_non_nullable, implicit_dynamic_parameter, lines_longer_than_80_chars, prefer_const_constructors, require_trailing_commas
 
-part of 'post_medium_block.dart';
+part of 'post_small_block.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
+PostSmallBlock _$PostSmallBlockFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      'PostMediumBlock',
+      'PostSmallBlock',
       json,
       ($checkedConvert) {
-        final val = PostMediumBlock(
+        final val = PostSmallBlock(
           id: $checkedConvert('id', (v) => v as String),
           category: $checkedConvert(
               'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
           author: $checkedConvert('author', (v) => v as String),
           publishedAt: $checkedConvert(
               'published_at', (v) => DateTime.parse(v as String)),
-          imageUrl: $checkedConvert('image_url', (v) => v as String),
           title: $checkedConvert('title', (v) => v as String),
+          imageUrl: $checkedConvert('image_url', (v) => v as String?),
           description: $checkedConvert('description', (v) => v as String?),
           action: $checkedConvert(
               'action',
@@ -29,7 +29,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
                   ? null
                   : BlockAction.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
-              'type', (v) => v as String? ?? PostMediumBlock.identifier),
+              'type', (v) => v as String? ?? PostSmallBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
         );
         return val;
@@ -41,7 +41,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$PostMediumBlockToJson(PostMediumBlock instance) {
+Map<String, dynamic> _$PostSmallBlockToJson(PostSmallBlock instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'category': _$PostCategoryEnumMap[instance.category],
