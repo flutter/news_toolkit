@@ -16,8 +16,12 @@ PostGridGroupBlock _$PostGridGroupBlockFromJson(Map<String, dynamic> json) =>
         final val = PostGridGroupBlock(
           category: $checkedConvert(
               'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
-          tiles: $checkedConvert('tiles',
-              (v) => const PostGridTileBlocksConverter().fromJson(v as List)),
+          tiles: $checkedConvert(
+              'tiles',
+              (v) => (v as List<dynamic>)
+                  .map((e) =>
+                      PostGridTileBlock.fromJson(e as Map<String, dynamic>))
+                  .toList()),
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostGridGroupBlock.identifier),
         );
@@ -25,22 +29,12 @@ PostGridGroupBlock _$PostGridGroupBlockFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$PostGridGroupBlockToJson(PostGridGroupBlock instance) {
-  final val = <String, dynamic>{
-    'category': _$PostCategoryEnumMap[instance.category],
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'tiles', const PostGridTileBlocksConverter().toJson(instance.tiles));
-  val['type'] = instance.type;
-  return val;
-}
+Map<String, dynamic> _$PostGridGroupBlockToJson(PostGridGroupBlock instance) =>
+    <String, dynamic>{
+      'category': _$PostCategoryEnumMap[instance.category],
+      'tiles': instance.tiles.map((e) => e.toJson()).toList(),
+      'type': instance.type,
+    };
 
 const _$PostCategoryEnumMap = {
   PostCategory.business: 'business',
