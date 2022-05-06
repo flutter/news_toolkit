@@ -47,7 +47,7 @@ class PostTitle extends StatelessWidget {
           children: [
             const SizedBox(height: AppSpacing.lg),
             if (category.isNotEmpty)
-              PostCategory(
+              PostCategoryWidget(
                 category: category,
               ),
             Text(
@@ -82,9 +82,10 @@ class PostTitle extends StatelessWidget {
 /// {@template post_category}
 /// A widget displaying category text of a post.
 /// {@endtemplate}
-class PostCategory extends StatelessWidget {
+class PostCategoryWidget extends StatelessWidget {
   /// {@macro post_category}
-  const PostCategory({Key? key, required this.category}) : super(key: key);
+  const PostCategoryWidget({Key? key, required this.category})
+      : super(key: key);
 
   /// Category of post
   final String category;
