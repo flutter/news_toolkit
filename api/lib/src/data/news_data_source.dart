@@ -97,6 +97,53 @@ final _healthPost = PostSmallBlock(
       'hearing loss...',
 );
 
+final _scienceGridGroupPost = PostGridGroupBlock(
+  category: PostCategory.science,
+  tiles: [
+    PostGridTileBlock(
+      id: '384a15ff-a50e-46d5-96a7-8864facdcc48',
+      category: PostCategory.science,
+      author: 'Loren Grush',
+      publishedAt: DateTime(2022, 5, 6),
+      imageUrl:
+          'https://cdn.vox-cdn.com/thumbor/eqkJgsUMn-iJOrN98c4gduFGDT8=/0x74:1050x624/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23441881/Screen_Shot_2022_05_06_at_1.13.12_AM.png',
+      title:
+          'SpaceX successfully returns four astronauts from the International '
+          'Space Station - The Verge',
+    ),
+    PostGridTileBlock(
+      id: '13e448bb-cd26-4ae0-b138-4a67067f7a93',
+      category: PostCategory.science,
+      author: 'Daniel Strain',
+      publishedAt: DateTime(2022, 5, 6),
+      imageUrl:
+          'https://scx2.b-cdn.net/gfx/news/2022/a-surging-glow-in-a-di.jpg',
+      title:
+          'A surging glow in a distant galaxy could change the way we look at '
+          'black holes',
+    ),
+    PostGridTileBlock(
+      id: '842e3193-86d2-4069-a7e6-f769faa6f970',
+      category: PostCategory.science,
+      author: 'SciTechDaily',
+      publishedAt: DateTime(2022, 5, 5),
+      imageUrl:
+          'https://scitechdaily.com/images/Qubit-Platform-Single-Electron-on-Solid-Neon.jpg',
+      title: 'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
+          'Revolutionize Quantum Computing',
+    ),
+    PostGridTileBlock(
+      id: '1f79da6f-64cb-430a-b7b2-2318d23b719f',
+      category: PostCategory.science,
+      author: 'SciTechDaily',
+      publishedAt: DateTime(2022, 5, 4),
+      imageUrl: 'https://scitechdaily.com/images/Black-Hole-Sonification.gif',
+      title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '
+          'Sonifications With a Remix',
+    ),
+  ],
+);
+
 /// Top news blocks.
 final topNewsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Breaking News'),
@@ -133,11 +180,20 @@ final healthBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.medium),
 ];
 
+/// Science blocks.
+final scienceBlocks = <NewsBlock>[
+  const SectionHeaderBlock(title: 'Science'),
+  const DividerHorizontalBlock(),
+  _scienceGridGroupPost,
+  const SpacerBlock(spacing: Spacing.medium),
+];
+
 final _newsData = <Category, Feed>{
   Category.top: topNewsBlocks.toFeed(),
   Category.technology: technologyBlocks.toFeed(),
   Category.sports: sportsBlocks.toFeed(),
   Category.health: healthBlocks.toFeed(),
+  Category.science: scienceBlocks.toFeed(),
 };
 
 extension on List<NewsBlock> {
