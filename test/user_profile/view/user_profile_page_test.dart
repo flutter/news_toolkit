@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
+import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -18,6 +19,9 @@ class MockUserProfileBloc extends MockBloc<UserProfileEvent, UserProfileState>
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
+  const termsOfUseAndPrivacyPolicyItemKey =
+      Key('userProfilePage_termsOfUseAndPrivacyPolicyItem');
+
   group('UserProfilePage', () {
     test('has a route', () {
       expect(UserProfilePage.route(), isA<MaterialPageRoute>());
@@ -263,6 +267,27 @@ void main() {
           await tester.tap(find.byType(UserProfileLogoutButton));
 
           verify(() => appBloc.add(AppLogoutRequested())).called(1);
+        });
+      });
+
+      group('navigates', () {
+        testWidgets('when tapped on Terms of User & Privacy Policy',
+            (tester) async {
+          final navigator = MockNavigator();
+
+          when(() => navigator.push<void>(any())).thenAnswer((_) async {});
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+            navigator: navigator,
+          );
+
+          await tester.tap(find.byKey(termsOfUseAndPrivacyPolicyItemKey));
+
+          await tester.pumpAndSettle();
+          verify(() => navigator.push<void>(any())).called(1);
         });
       });
     });
