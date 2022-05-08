@@ -1,0 +1,16 @@
+name: open_email_repository
+description: Open email app repository
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  open_email_client:
+    path: ../open_email_client
+
+dev_dependencies:
+  mocktail: ^0.3.0
+  test: ^1.16.4
+  very_good_analysis: ^2.4.0
