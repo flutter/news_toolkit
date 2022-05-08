@@ -218,7 +218,7 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('when submission is success', (tester) async {
+      testWidgets('to MagicLinkPromptPage when submission is success', (tester) async {
         whenListen(
           loginBloc,
           Stream.fromIterable(
