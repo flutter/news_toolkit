@@ -95,6 +95,7 @@ void main() {
             child: UserProfileView(),
           ),
         );
+
         expect(
           find.byWidgetPredicate(
             (widget) =>
@@ -139,8 +140,7 @@ void main() {
           find.byWidgetPredicate(
             (widget) =>
                 widget is UserProfileItem &&
-                widget.key ==
-                    Key('userProfilePage_termsOfServiceItem'),
+                widget.key == Key('userProfilePage_termsOfServiceItem'),
           ),
           findsOneWidget,
         );
