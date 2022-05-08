@@ -2,7 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
+/// {@template mock_url_launcher}
 /// Class to mock the methods related to url_launcher package.
+///{@endtemplate}
 class MockUrlLauncher extends Fake
     with MockPlatformInterfaceMixin
     implements UrlLauncherPlatform {
