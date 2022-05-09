@@ -101,7 +101,7 @@ class PostContentCategory extends StatelessWidget {
   /// Category of post.
   final String category;
 
-  /// Premium flag.
+  /// Whether this post requires a premium subscription to access.
   final bool isPremium;
 
   /// Text displayed when post is premium content.
