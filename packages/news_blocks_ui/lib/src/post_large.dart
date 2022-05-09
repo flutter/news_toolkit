@@ -23,7 +23,7 @@ class PostLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.network(block.imageUrl),
+        Image.network(block.imageUrl!),
         PostHeaderContent(
           author: block.author,
           category: block.category.name,
