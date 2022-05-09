@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/foundation.dart';
-import 'package:open_email_client/open_email_client.dart';
 import 'package:test/test.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
-import 'mock_url_launcher.dart';
+import '../../../../test/helpers/mock_url_launcher.dart';
 
 void main() {
   final mock = MockUrlLauncher();
@@ -15,14 +15,10 @@ void main() {
   });
 
   group('OpenEmailClient', () {
-    test('can be instantiated', () {
-      expect(OpenEmailClient(), isNotNull);
-    });
-
     test('target platform is Android', () {
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
       expect(defaultTargetPlatform, TargetPlatform.android);
-      expect(OpenEmailClient().openEmailApp(), completes);
+      expect(emailLauncher(), completes);
       debugDefaultTargetPlatformOverride = null;
     });
 
@@ -49,7 +45,7 @@ void main() {
           )
           ..setResponse(true);
         final launch = await launchUrl(url);
-        await OpenEmailClient().openEmailApp();
+        await emailLauncher();
         expect(result, isTrue);
         expect(launch, isTrue);
         debugDefaultTargetPlatformOverride = null;

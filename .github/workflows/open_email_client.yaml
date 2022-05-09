@@ -1,4 +1,4 @@
-name: open_email_client
+name: email_launcher
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,8 +7,8 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/open_email_client/**"
-      - ".github/workflows/open_email_client.yaml"
+      - "packages/email_launcher/**"
+      - ".github/workflows/email_launcher.yaml"
     branches:
       - main
 
@@ -17,5 +17,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 2.10.5
-      working_directory: packages/open_email_client
+      working_directory: packages/email_launcher
       coverage_excludes: "lib/src/generated/*.dart"
