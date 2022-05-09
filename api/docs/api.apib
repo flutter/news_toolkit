@@ -119,6 +119,23 @@ This action allows you to query feeds.
                 "total_count": 100,
             }
 
+## Newsletter [/api/v1/newsletter]
+
+Resources related to newsletters.
+
+### Subscribe to Newsletter [POST /api/v1/newsletter/subscription]
+
+This action allows you to subscribe a user to a newsletter.
+
++ Request
+    + Body
+            
+            {
+                "email": "<EMAIL_ADDRESS>"
+            }
+
++ Response 201 (application/json)
+
 # Data Structures
 
 ## Block (object)
