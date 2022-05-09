@@ -34,4 +34,10 @@ class JsonResponse extends Response {
           body: null,
           headers: headers,
         );
+
+  /// {@macro json_response}
+  JsonResponse.created({
+    Map<String, dynamic> body = const <String, dynamic>{},
+    Map<String, String> headers = const <String, String>{},
+  }) : this._(statusCode: HttpStatus.created, body: body, headers: headers);
 }
