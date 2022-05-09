@@ -9,8 +9,6 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 void main() {
-  setUpAll(() => HttpOverrides.global = null);
-
   const id = '499305f6-5096-4051-afda-824dcfc7df23';
   const category = PostCategory.technology;
   const author = 'Sean Hollister';
@@ -21,6 +19,10 @@ void main() {
       '/file/22049166/shollister_201117_4303_0003.0.jpg';
   const title = 'Nvidia and AMD GPUs are returning to shelves '
       'and prices are finally falling';
+
+  // Required by the Image.network() widget
+  setUpAll(() => HttpOverrides.global = null);
+
   group('PostLarge', () {
     final _technologyPostLarge = PostLargeBlock(
       id: id,
