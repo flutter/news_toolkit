@@ -24,6 +24,7 @@
     "dartfmt",
     "deremer",
     "deserializes",
+    "Dierberger",
     "endtemplate",
     "felangel",
     "firebaserc",
@@ -57,6 +58,7 @@
     "mkdir",
     "mockingjay",
     "mocktail",
+    "Morant",
     "mostrado",
     "msgsend",
     "multiline",
@@ -113,6 +115,7 @@
   ],
   "ignorePaths": [
     ".github/workflows/**",
-    "api/lib/api/v1/projects/templates/*_bundle.dart"
+    "api/lib/api/v1/projects/templates/*_bundle.dart",
+    "lib/terms_of_service/terms_of_service_mock_text.dart"
   ]
 }
