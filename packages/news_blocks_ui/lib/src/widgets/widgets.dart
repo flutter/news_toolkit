@@ -1,1 +1,1 @@
-export 'post_title.dart';
+export 'post_header_content.dart';

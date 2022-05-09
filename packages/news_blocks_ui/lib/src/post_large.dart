@@ -16,7 +16,7 @@ class PostLarge extends StatelessWidget {
   /// The associated [PostLargeBlock] instance.
   final PostLargeBlock block;
 
-  /// Text displayed when post is premium content
+  /// Text displayed when post is premium content.
   final String premiumText;
 
   @override
@@ -24,7 +24,7 @@ class PostLarge extends StatelessWidget {
     return Column(
       children: [
         Image.network(block.imageUrl),
-        PostTitle(
+        PostHeaderContent(
           author: block.author,
           category: block.category.name,
           date: block.publishedAt,

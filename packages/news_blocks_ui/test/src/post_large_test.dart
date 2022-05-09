@@ -24,16 +24,16 @@ void main() {
   setUpAll(() => HttpOverrides.global = null);
 
   group('PostLarge', () {
-    final _technologyPostLarge = PostLargeBlock(
-      id: id,
-      category: category,
-      author: author,
-      publishedAt: publishedAt,
-      imageUrl: imageUrl,
-      title: title,
-    );
-
     testWidgets('renders correctly non-premium', (tester) async {
+      final _technologyPostLarge = PostLargeBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl,
+        title: title,
+      );
+
       final widget = MaterialApp(
         home: Scaffold(
           body: Center(

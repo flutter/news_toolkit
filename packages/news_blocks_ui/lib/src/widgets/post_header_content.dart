@@ -1,12 +1,12 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// {@template post_general_info}
+/// {@template post_header_content}
 /// A post widget displaying general text info of a post.
 /// {@endtemplate}
-class PostTitle extends StatelessWidget {
-  /// {@macro divider_horizontal}
-  const PostTitle({
+class PostHeaderContent extends StatelessWidget {
+  /// {@macro post_header_content}
+  const PostHeaderContent({
     Key? key,
     required this.title,
     required this.date,
@@ -18,22 +18,22 @@ class PostTitle extends StatelessWidget {
     required this.premiumText,
   }) : super(key: key);
 
-  /// Title of post
+  /// Title of post.
   final String title;
 
-  /// Date of post
+  /// Date of post.
   final DateTime date;
 
-  /// Category of post
+  /// Category of post.
   final String category;
 
-  /// Description of post
+  /// Description of post.
   final String description;
 
-  /// Author of post
+  /// Author of post.
   final String author;
 
-  /// Share callback
+  /// Share callback.
   final VoidCallback? onShare;
 
   /// Whether this post requires a premium subscription to access.
@@ -41,11 +41,10 @@ class PostTitle extends StatelessWidget {
   /// Defaults to false.
   final bool isPremium;
 
-  /// Text displayed when post is premium content
+  /// Text displayed when post is premium content.
   final String premiumText;
 
-  String get _captionText =>
-      author.isNotEmpty ? '$author  •  ${date.mDY}' : date.mDY;
+  String get _captionText => '$author  •  ${date.mDY}';
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +54,7 @@ class PostTitle extends StatelessWidget {
       children: [
         const SizedBox(height: AppSpacing.lg),
         if (category.isNotEmpty)
-          PostCategoryWidget(
+          PostContentCategory(
             category: category,
             isPremium: isPremium,
             premiumText: premiumText,
@@ -87,25 +86,25 @@ class PostTitle extends StatelessWidget {
   }
 }
 
-/// {@template post_category}
+/// {@template post_content_category}
 /// A widget displaying category text of a post.
 /// {@endtemplate}
-class PostCategoryWidget extends StatelessWidget {
-  /// {@macro post_category}
-  const PostCategoryWidget({
+class PostContentCategory extends StatelessWidget {
+  /// {@macro post_content_category}
+  const PostContentCategory({
     Key? key,
     required this.category,
     required this.isPremium,
     required this.premiumText,
   }) : super(key: key);
 
-  /// Category of post
+  /// Category of post.
   final String category;
 
-  /// Premium flag
+  /// Premium flag.
   final bool isPremium;
 
-  /// Text displayed when post is premium content
+  /// Text displayed when post is premium content.
   final String premiumText;
 
   @override
