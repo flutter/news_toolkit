@@ -1,3 +1,3 @@
-library open_email_client;
+library email_launcher;
 
 export 'src/email_launcher.dart';

@@ -14,12 +14,20 @@ void main() {
     UrlLauncherPlatform.instance = mock;
   });
 
-  group('OpenEmailClient', () {
-    test('target platform is Android', () {
-      debugDefaultTargetPlatformOverride = TargetPlatform.android;
-      expect(defaultTargetPlatform, TargetPlatform.android);
-      expect(emailLauncher(), completes);
-      debugDefaultTargetPlatformOverride = null;
+  group('EmailLauncher', () {
+    group('Target platform', () {
+      test('is Android', () {
+        debugDefaultTargetPlatformOverride = TargetPlatform.android;
+        expect(defaultTargetPlatform, TargetPlatform.android);
+        expect(launchEmail(), completes);
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+      test('is iOS', () {
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+        expect(defaultTargetPlatform, TargetPlatform.iOS);
+        debugDefaultTargetPlatformOverride = null;
+      });
     });
 
     group('canLaunch and launchUrl', () {
@@ -45,7 +53,7 @@ void main() {
           )
           ..setResponse(true);
         final launch = await launchUrl(url);
-        await emailLauncher();
+        await launchEmail();
         expect(result, isTrue);
         expect(launch, isTrue);
         debugDefaultTargetPlatformOverride = null;
