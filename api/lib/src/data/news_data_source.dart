@@ -149,7 +149,12 @@ final topNewsBlocks = <NewsBlock>[
   const SectionHeaderBlock(title: 'Breaking News'),
   const DividerHorizontalBlock(),
   const SpacerBlock(spacing: Spacing.medium),
-  _technologyPost
+  _technologyPost,
+  const SpacerBlock(spacing: Spacing.medium),
+  _sportsPost,
+  const SpacerBlock(spacing: Spacing.small),
+  _healthPost,
+  const SpacerBlock(spacing: Spacing.extraSmall),
 ];
 
 /// Technology blocks.
@@ -158,10 +163,6 @@ final technologyBlocks = <NewsBlock>[
   const DividerHorizontalBlock(),
   _technologyPost,
   const SpacerBlock(spacing: Spacing.medium),
-  _sportsPost,
-  const SpacerBlock(spacing: Spacing.small),
-  _healthPost,
-  const SpacerBlock(spacing: Spacing.extraSmall),
 ];
 
 /// Sports blocks.

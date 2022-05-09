@@ -38,5 +38,5 @@ class PostGridGroupBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$PostGridGroupBlockToJson(this);
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [category, tiles, type];
 }
