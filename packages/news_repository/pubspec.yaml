@@ -1,5 +1,5 @@
-name: feed_repository
-description: A repository that exposes content feed data.
+name: news_repository
+description: A repository that exposes news data.
 version: 1.0.0+1
 publish_to: none
 
