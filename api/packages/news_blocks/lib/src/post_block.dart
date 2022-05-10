@@ -75,3 +75,9 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
         type,
       ];
 }
+
+/// The extension on [PostBlock] that provides information about actions.
+extension PostBlockActions on PostBlock {
+  /// Whether the action of this post is navigation.
+  bool get hasNavigationAction => action?.type == BlockActionType.navigation;
+}
