@@ -12,17 +12,13 @@ void main() {
     setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly', (tester) async {
-      final widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: DividerHorizontal(
-              block: DividerHorizontalBlock(),
-            ),
-          ),
+      final widget = Center(
+        child: DividerHorizontal(
+          block: DividerHorizontalBlock(),
         ),
       );
 
-      await tester.pumpWidget(widget);
+      await tester.pumpApp(widget);
 
       await expectLater(
         find.byType(DividerHorizontal),
