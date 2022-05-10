@@ -115,6 +115,24 @@ class GoogleNewsTemplateApiClient {
 
     return CategoriesResponse.fromJson(body);
   }
+
+  /// POST /api/v1/newsletter/subscription
+  /// Subscribes the provided [email] to the newsletter.
+  Future<void> subscribeToNewsletter({required String email}) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/newsletter/subscription');
+    final response = await _httpClient.post(
+      uri,
+      headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+      body: json.encode(<String, String>{'email': email}),
+    );
+
+    if (response.statusCode != HttpStatus.created) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: const <String, dynamic>{},
+        statusCode: response.statusCode,
+      );
+    }
+  }
 }
 
 extension on http.Response {
