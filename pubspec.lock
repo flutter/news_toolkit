@@ -504,6 +504,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  google_news_template_api:
+    dependency: transitive
+    description:
+      path: api
+      relative: true
+    source: path
+    version: "0.0.0"
   google_sign_in:
     dependency: transitive
     description:
@@ -546,6 +553,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.4"
+  http_methods:
+    dependency: transitive
+    description:
+      name: http_methods
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -662,6 +676,13 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/news_blocks_ui"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  news_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/news_repository"
       relative: true
     source: path
     version: "1.0.0+1"
@@ -849,6 +870,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  shelf_router:
+    dependency: transitive
+    description:
+      name: shelf_router
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   shelf_static:
     dependency: transitive
     description:
@@ -1142,5 +1170,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.16.0 <3.0.0"
+  dart: ">=2.16.2 <3.0.0"
   flutter: ">=2.10.5"

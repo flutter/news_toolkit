@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:google_news_template_api/client.dart';
 
-/// {@template feed_failure}
-/// Base failure class for the lottery repository failures.
+/// {@template news_failure}
+/// Base failure class for the news repository failures.
 /// {@endtemplate}
-abstract class FeedFailure with EquatableMixin implements Exception {
-  /// {@macro feed_failure}
-  const FeedFailure(this.error, this.stackTrace);
+abstract class NewsFailure with EquatableMixin implements Exception {
+  /// {@macro news_failure}
+  const NewsFailure(this.error, this.stackTrace);
 
   /// The error which was caught.
   final Object error;
@@ -21,7 +21,7 @@ abstract class FeedFailure with EquatableMixin implements Exception {
 /// {@template get_feed_failure}
 /// Thrown when fetching feed fails.
 /// {@endtemplate}
-class GetFeedFailure extends FeedFailure {
+class GetFeedFailure extends NewsFailure {
   /// {@macro get_feed_failure}
   const GetFeedFailure(
     Object error,
@@ -29,12 +29,12 @@ class GetFeedFailure extends FeedFailure {
   ) : super(error, stackTrace);
 }
 
-/// {@template feed_repository}
-/// A repository that manages content feed data.
+/// {@template news_repository}
+/// A repository that manages news data.
 /// {@endtemplate}
-class FeedRepository {
-  /// {@macro feed_repository}
-  const FeedRepository({
+class NewsRepository {
+  /// {@macro news_repository}
+  const NewsRepository({
     required GoogleNewsTemplateApiClient apiClient,
   }) : _apiClient = apiClient;
 
