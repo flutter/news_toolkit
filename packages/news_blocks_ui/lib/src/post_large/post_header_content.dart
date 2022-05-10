@@ -71,7 +71,7 @@ class PostHeaderContent extends StatelessWidget {
           Text(
             title,
             style: textTheme.headline3,
-            maxLines: isContentOverlaid ? 3 : null,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           PostFooter(

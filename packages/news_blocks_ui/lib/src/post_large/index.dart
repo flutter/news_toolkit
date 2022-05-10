@@ -91,10 +91,7 @@ class PostLargeContainer extends StatelessWidget {
     return Theme(
       data: isContentOverlaid ? overlaidTheme : defaultTheme,
       child: isContentOverlaid
-          ? AspectRatio(
-              aspectRatio: 3 / 2,
-              child: Stack(children: children),
-            )
+          ? Stack(alignment: Alignment.bottomLeft, children: children)
           : Column(children: children),
     );
   }

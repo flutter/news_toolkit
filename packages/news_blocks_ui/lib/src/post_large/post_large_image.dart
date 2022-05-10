@@ -23,28 +23,31 @@ class PostLargeImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isContentOverlaid
-        ? Stack(
-            key: const Key('postLargeImage_stack'),
-            children: [
-              Image.network(
-                imageUrl,
-                height: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.black.withOpacity(0),
-                      AppColors.black.withOpacity(0.7),
-                    ],
-                  ),
+        ? AspectRatio(
+            aspectRatio: 3 / 2,
+            child: Stack(
+              key: const Key('postLargeImage_stack'),
+              children: [
+                Image.network(
+                  imageUrl,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
                 ),
-                child: const SizedBox.expand(),
-              ),
-            ],
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.black.withOpacity(0),
+                        AppColors.black.withOpacity(0.7),
+                      ],
+                    ),
+                  ),
+                  child: const SizedBox.expand(),
+                ),
+              ],
+            ),
           )
         : Image.network(imageUrl);
   }
