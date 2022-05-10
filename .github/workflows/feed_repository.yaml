@@ -1,0 +1,20 @@
+name: feed_repository
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "packages/feed_repository/**"
+      - ".github/workflows/feed_repository.yaml"
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_version: 2.10.5
+      working_directory: packages/feed_repository
