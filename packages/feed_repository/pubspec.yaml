@@ -6,6 +6,13 @@ publish_to: none
 environment:
   sdk: ">=2.16.2 <3.0.0"
 
+dependencies:
+  equatable: ^2.0.3
+  google_news_template_api:
+    path: ../../api
+  news_blocks:
+    path: ../../api/packages/news_blocks
+
 dev_dependencies:
   coverage: ^1.2.0
   mocktail: ^0.3.0

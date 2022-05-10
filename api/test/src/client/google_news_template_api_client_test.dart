@@ -230,5 +230,68 @@ void main() {
         expect(apiClient.getCategories(), completion(equals(expectedResponse)));
       });
     });
+
+    group('subscribeToNewsletter', () {
+      const email = 'test@gmail.com';
+      test('makes correct http request.', () {
+        when(
+          () => httpClient.post(
+            any(),
+            body: any(named: 'body'),
+            headers: any(named: 'headers'),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        apiClient.subscribeToNewsletter(email: email).ignore();
+
+        verify(
+          () => httpClient.post(
+            any(that: isAUriHaving(path: '/api/v1/newsletter/subscription')),
+            headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+            body: json.encode({'email': email}),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-201 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        when(
+          () => httpClient.post(
+            any(),
+            body: any(named: 'body'),
+            headers: any(named: 'headers'),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response('', statusCode),
+        );
+
+        expect(
+          () => apiClient.subscribeToNewsletter(email: email),
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', isEmpty),
+          ),
+        );
+      });
+
+      test('resolves on a 201 response.', () {
+        when(
+          () => httpClient.post(
+            any(),
+            body: any(named: 'body'),
+            headers: any(named: 'headers'),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        expect(apiClient.subscribeToNewsletter(email: email), completes);
+      });
+    });
   });
 }
