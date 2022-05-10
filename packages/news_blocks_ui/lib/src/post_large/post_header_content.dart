@@ -1,6 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:news_blocks_ui/src/post_large/post_large.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 /// {@template post_header_content}
 /// A post widget displaying general text info of a post.
@@ -10,7 +10,7 @@ class PostHeaderContent extends StatelessWidget {
   const PostHeaderContent({
     Key? key,
     required this.title,
-    required this.date,
+    required this.publishedAt,
     this.categoryName,
     this.description,
     this.author,
@@ -23,8 +23,8 @@ class PostHeaderContent extends StatelessWidget {
   /// Title of post.
   final String title;
 
-  /// Date of post.
-  final DateTime date;
+  /// The date when this post was published.
+  final DateTime publishedAt;
 
   /// Category of post.
   final String? categoryName;
@@ -51,8 +51,6 @@ class PostHeaderContent extends StatelessWidget {
   /// Defaults to false.
   final bool isContentOverlaid;
 
-  String get _captionText => '$author  •  ${date.mDY}';
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -75,23 +73,11 @@ class PostHeaderContent extends StatelessWidget {
             maxLines: isContentOverlaid ? 3 : null,
             overflow: TextOverflow.ellipsis,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (author?.isNotEmpty ?? false)
-                Text(
-                  _captionText,
-                  style: textTheme.caption,
-                ),
-              IconButton(
-                icon: Icon(
-                  Icons.share,
-                  color: textTheme.caption?.color,
-                ),
-                onPressed: onShare,
-              ),
-            ],
-          )
+          PostFooter(
+            publishedAt: publishedAt,
+            author: author,
+            onShare: onShare,
+          ),
         ],
       ),
     );

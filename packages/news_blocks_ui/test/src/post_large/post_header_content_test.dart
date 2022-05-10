@@ -8,7 +8,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('PostHeaderContent', () {
-    final date = DateTime(2000, 12, 31);
+    final publishedAt = DateTime(2000, 12, 31);
     const premiumText = 'Premium';
     const title = 'Title';
     const author = 'Author';
@@ -16,7 +16,7 @@ void main() {
 
     testWidgets('renders without category', (tester) async {
       final testPostHeaderContent = PostHeaderContent(
-        date: date,
+        publishedAt: publishedAt,
         premiumText: premiumText,
         title: title,
         author: author,
@@ -32,7 +32,7 @@ void main() {
     testWidgets('calls onShare when clicked on share icon', (tester) async {
       final completer = Completer<void>();
       final testPostHeaderContent = PostHeaderContent(
-        date: date,
+        publishedAt: publishedAt,
         premiumText: premiumText,
         title: title,
         author: author,

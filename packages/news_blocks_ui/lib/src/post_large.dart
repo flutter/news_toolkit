@@ -32,7 +32,7 @@ class PostLarge extends StatelessWidget {
         PostHeaderContent(
           author: block.author,
           categoryName: block.category.name,
-          date: block.publishedAt,
+          publishedAt: block.publishedAt,
           title: block.title,
           isPremium: block.isPremium,
           premiumText: premiumText,
