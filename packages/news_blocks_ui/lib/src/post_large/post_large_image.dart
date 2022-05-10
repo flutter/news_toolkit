@@ -39,7 +39,7 @@ class PostLargeImage extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppColors.black,
+                        AppColors.transparent,
                         AppColors.black.withOpacity(0.7),
                       ],
                     ),
