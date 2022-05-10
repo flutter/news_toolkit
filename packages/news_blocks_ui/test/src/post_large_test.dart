@@ -94,5 +94,29 @@ void main() {
         matchesGoldenFile('post_large_non_premium.png'),
       );
     });
+
+    testWidgets('onPressed navigates', (tester) async {
+      final actions = <BlockAction>[];
+      final action = BlockAction(type: BlockActionType.navigation);
+      final _technologyPostLarge = PostLargeBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl,
+        title: title,
+        action: action,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          PostLarge(
+            block: _technologyPostLarge,
+            premiumText: 'Premium',
+            onPressed: actions.add,
+          ),
+        ),
+      );
+    });
   });
 }

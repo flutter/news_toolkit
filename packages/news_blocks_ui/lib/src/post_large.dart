@@ -12,6 +12,7 @@ class PostLarge extends StatelessWidget {
     Key? key,
     required this.block,
     required this.premiumText,
+    this.onPressed,
   }) : super(key: key);
 
   /// The associated [PostLargeBlock] instance.
@@ -20,25 +21,33 @@ class PostLarge extends StatelessWidget {
   /// Text displayed when post is premium content.
   final String premiumText;
 
+  /// An optional callback which is invoked when the action is triggered.
+  /// A [Uri] from the associated [BlockAction] is provided to the callback.
+  final BlockActionCallback? onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return PostLargeContainer(
-      isContentOverlaid: block.isContentOverlaid,
-      children: [
-        PostLargeImage(
-          isContentOverlaid: block.isContentOverlaid,
-          imageUrl: block.imageUrl!,
-        ),
-        PostHeaderContent(
-          author: block.author,
-          categoryName: block.category.name,
-          publishedAt: block.publishedAt,
-          title: block.title,
-          isPremium: block.isPremium,
-          premiumText: premiumText,
-          isContentOverlaid: block.isContentOverlaid,
-        ),
-      ],
+    return GestureDetector(
+      onTap: () =>
+          block.hasNavigationAction ? onPressed?.call(block.action!) : null,
+      child: PostLargeContainer(
+        isContentOverlaid: block.isContentOverlaid,
+        children: [
+          PostLargeImage(
+            isContentOverlaid: block.isContentOverlaid,
+            imageUrl: block.imageUrl!,
+          ),
+          PostHeaderContent(
+            author: block.author,
+            categoryName: block.category.name,
+            publishedAt: block.publishedAt,
+            title: block.title,
+            isPremium: block.isPremium,
+            premiumText: premiumText,
+            isContentOverlaid: block.isContentOverlaid,
+          ),
+        ],
+      ),
     );
   }
 }
