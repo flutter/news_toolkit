@@ -29,31 +29,26 @@ class PostFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        DefaultTextStyle(
-          style: textTheme.caption!.copyWith(
-            color: AppColors.mediumEmphasisSurface,
-          ),
-          child: RichText(
-            text: TextSpan(
-              children: <InlineSpan>[
-                if (author != null) ...[
-                  TextSpan(
-                    text: author,
-                    style: DefaultTextStyle.of(context).style,
-                  ),
-                  const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                  TextSpan(
-                    text: '•',
-                    style: DefaultTextStyle.of(context).style,
-                  ),
-                  const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                ],
+        RichText(
+          text: TextSpan(
+            children: <InlineSpan>[
+              if (author != null) ...[
                 TextSpan(
-                  text: publishedAt.mDY,
-                  style: DefaultTextStyle.of(context).style,
+                  text: author,
+                  style: textTheme.caption,
                 ),
+                const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
+                TextSpan(
+                  text: '•',
+                  style: textTheme.caption,
+                ),
+                const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
               ],
-            ),
+              TextSpan(
+                text: publishedAt.mDY,
+                style: textTheme.caption,
+              ),
+            ],
           ),
         ),
         if (onShare != null)

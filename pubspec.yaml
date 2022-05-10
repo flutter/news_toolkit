@@ -26,6 +26,8 @@ dependencies:
   font_awesome_flutter: ^9.0.0
   form_inputs:
     path: packages/form_inputs
+  google_news_template_api:
+    path: api
   hydrated_bloc: ^9.0.0-dev.1
   intl: ^0.17.0
   mockingjay: ^0.3.0
