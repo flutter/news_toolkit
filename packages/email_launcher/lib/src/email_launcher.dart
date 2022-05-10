@@ -25,7 +25,7 @@ class LaunchEmailAppFailure extends EmailLauncherException {
       : super(error, stackTrace);
 }
 
-/// Provider to inject `launchUrl`
+/// Provider to inject `launchUrl`.
 typedef LaunchUrlProvider = Future<bool> Function(Uri url);
 
 /// Provider to inject `canLaunchUrl`
