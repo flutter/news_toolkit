@@ -1,12 +1,11 @@
 // ignore_for_file: unnecessary_const, prefer_const_constructors
 
-import 'dart:io';
-
-import 'package:app_ui/app_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+
+import '../helpers/helpers.dart';
 
 void main() {
   const id = '499305f6-5096-4051-afda-824dcfc7df23';
@@ -20,9 +19,6 @@ void main() {
   const title = 'Nvidia and AMD GPUs are returning to shelves '
       'and prices are finally falling';
 
-  // Required by the Image.network() widget
-  setUpAll(() => HttpOverrides.global = null);
-
   group('PostLarge', () {
     testWidgets('renders correctly non-premium', (tester) async {
       final _technologyPostLarge = PostLargeBlock(
@@ -33,20 +29,14 @@ void main() {
         imageUrl: imageUrl,
         title: title,
       );
-
-      final widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: ContentThemeOverrideBuilder(
-              builder: (context) => PostLarge(
-                block: _technologyPostLarge,
-              ),
-            ),
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          PostLarge(
+            block: _technologyPostLarge,
+            premiumText: 'Premium',
           ),
         ),
       );
-
-      await tester.pumpWidget(widget);
 
       expect(
         find.byType(PostLarge),
@@ -65,23 +55,43 @@ void main() {
         isPremium: true,
       );
 
-      final widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: ContentThemeOverrideBuilder(
-              builder: (context) => PostLarge(
-                block: premiumBlock,
-              ),
-            ),
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          PostLarge(
+            block: premiumBlock,
+            premiumText: 'Premium',
           ),
         ),
       );
 
-      await tester.pumpWidget(widget);
-
       expect(
         find.byType(PostLarge),
         matchesGoldenFile('post_large_premium.png'),
+      );
+    });
+
+    testWidgets('renders correctly overlaid view', (tester) async {
+      final _technologyPostLarge = PostLargeBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl,
+        title: title,
+        isContentOverlaid: true,
+      );
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          PostLarge(
+            block: _technologyPostLarge,
+            premiumText: 'Premium',
+          ),
+        ),
+      );
+
+      expect(
+        find.byType(PostLarge),
+        matchesGoldenFile('post_large_non_premium.png'),
       );
     });
   });

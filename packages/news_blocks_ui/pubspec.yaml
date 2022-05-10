@@ -17,6 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail_image_network: ^0.3.1
   very_good_analysis: ^2.4.0
 
 flutter:
