@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/src/post_large/post_header_content.dart';
+import 'package:news_blocks_ui/src/post_large/post_content.dart';
 import 'package:news_blocks_ui/src/post_large/post_large_image.dart';
 
 /// {@template post_large}
@@ -30,7 +30,7 @@ class PostLarge extends StatelessWidget {
           isContentOverlaid: block.isContentOverlaid,
           imageUrl: block.imageUrl!,
         ),
-        PostHeaderContent(
+        PostContent(
           author: block.author,
           categoryName: block.category.name,
           publishedAt: block.publishedAt,
@@ -59,7 +59,7 @@ class PostLargeContainer extends StatelessWidget {
   /// List containing children to be laid out.
   final List<Widget> children;
 
-  /// Whether children should be laid out in stack.
+  /// Whether the content of this post should be overlaid on the image.
   ///
   /// Defaults to false.
   final bool isContentOverlaid;

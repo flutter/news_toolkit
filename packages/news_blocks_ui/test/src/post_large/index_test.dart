@@ -91,7 +91,7 @@ void main() {
 
       expect(
         find.byType(PostLarge),
-        matchesGoldenFile('post_large_non_premium.png'),
+        matchesGoldenFile('post_large_overlaid_non_premium.png'),
       );
     });
   });

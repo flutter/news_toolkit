@@ -22,7 +22,8 @@ void main() {
       expect(find.byType(Image), findsOneWidget);
     });
 
-    testWidgets('overlaid renders in stack', (tester) async {
+    testWidgets('renders Image in Stack when isContentOverlaid is true',
+        (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: true,

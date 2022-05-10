@@ -2,7 +2,8 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template post_content_category}
-/// A widget displaying category text of a post.
+/// A widget displaying the category of a post
+/// or a premium label if the post is premium.
 /// {@endtemplate}
 class PostContentCategory extends StatelessWidget {
   /// {@macro post_content_category}
@@ -23,7 +24,7 @@ class PostContentCategory extends StatelessWidget {
   /// Text displayed when post is premium content.
   final String premiumText;
 
-  /// Wether this category is displayed over overlay.
+  /// Whether this category should be overlaid on the image.
   final bool isContentOverlaid;
 
   @override
