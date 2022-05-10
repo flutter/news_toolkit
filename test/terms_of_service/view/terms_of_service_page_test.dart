@@ -50,11 +50,11 @@ void main() {
       });
     });
 
-    group('navigate', () {
+    group('navigates', () {
       testWidgets('back when tapped on back icon', (tester) async {
         await tester.pumpApp(TermsOfServicePage());
 
-        await tester.tap(find.byKey(Key('termsOfService_closeIcon')));
+        await tester.tap(find.byKey(Key('termsOfService_close_iconButton')));
         await tester.pumpAndSettle();
 
         expect(find.byType(TermsOfServicePage), findsNothing);

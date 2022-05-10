@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -271,21 +272,17 @@ void main() {
       group('navigates', () {
         testWidgets('when tapped on Terms of User & Privacy Policy',
             (tester) async {
-          final navigator = MockNavigator();
-
-          when(() => navigator.push<void>(any())).thenAnswer((_) async {});
           await tester.pumpApp(
             BlocProvider.value(
               value: userProfileBloc,
               child: UserProfileView(),
             ),
-            navigator: navigator,
           );
 
           await tester.tap(find.byKey(termsOfServiceItemKey));
-
           await tester.pumpAndSettle();
-          verify(() => navigator.push<void>(any())).called(1);
+
+          expect(find.byType(TermsOfServicePage), findsOneWidget);
         });
       });
     });
