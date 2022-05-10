@@ -218,7 +218,8 @@ void main() {
     });
 
     group('navigates', () {
-      testWidgets('to MagicLinkPromptPage when submission is success', (tester) async {
+      testWidgets('to MagicLinkPromptPage when submission is success',
+          (tester) async {
         whenListen(
           loginBloc,
           Stream.fromIterable(
@@ -241,7 +242,7 @@ void main() {
       });
     });
 
-    group('disable', () {
+    group('disables', () {
       testWidgets('email text field when status is inProgress', (tester) async {
         when(() => loginBloc.state).thenAnswer(
           (_) => const LoginState(status: FormzSubmissionStatus.inProgress),

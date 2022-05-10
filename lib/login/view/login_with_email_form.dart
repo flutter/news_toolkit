@@ -75,7 +75,7 @@ class _EmailInputState extends State<_EmailInput> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((LoginBloc bloc) => bloc.state);
+    final state = context.watch<LoginBloc>().state;
 
     return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
