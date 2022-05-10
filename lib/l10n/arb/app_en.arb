@@ -59,6 +59,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "termsOfServiceModalTitle": "Terms of Use &\nPrivacy Policy",
+  "@termsOfServiceModalTitle": {
+    "description": "Title shown on the TOS modal",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWithEmailButtonText": "Continue with Email",
   "@loginWithEmailButtonText": {
     "description": "Log in with email button text shown on the log in modal",

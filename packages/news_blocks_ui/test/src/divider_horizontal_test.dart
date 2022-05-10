@@ -5,8 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
+import '../helpers/helpers.dart';
+
 void main() {
   group('DividerHorizontal', () {
+    setUpAll(setUpTolerantComparator);
+
     testWidgets('renders correctly', (tester) async {
       final widget = MaterialApp(
         home: Scaffold(
@@ -20,7 +24,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(
+      await expectLater(
         find.byType(DividerHorizontal),
         matchesGoldenFile('divider_horizontal.png'),
       );

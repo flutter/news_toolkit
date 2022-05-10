@@ -10,6 +10,8 @@ export 'package:news_blocks/news_blocks.dart'
         SpacerBlock,
         Spacing,
         PostLargeBlock,
+        PostMediumBlock,
+        PostSmallBlock,
         PostCategory;
 export 'src/api/v1/categories/get_categories/models/models.dart'
     show CategoriesResponse;

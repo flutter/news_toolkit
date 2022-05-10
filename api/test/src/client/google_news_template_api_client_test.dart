@@ -9,6 +9,18 @@ import 'package:test/test.dart';
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
+  Matcher isAUriHaving({String? authority, String? path, String? query}) {
+    return predicate<Uri>((uri) {
+      authority ??= uri.authority;
+      path ??= uri.path;
+      query ??= uri.query;
+
+      return uri.authority == authority &&
+          uri.path == path &&
+          uri.query == query;
+    });
+  }
+
   group('GoogleNewsTemplateApiClient', () {
     late http.Client httpClient;
     late GoogleNewsTemplateApiClient apiClient;
@@ -39,13 +51,7 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(
-              that: isA<Uri>().having(
-                (u) => u.authority,
-                'authority',
-                'localhost:8080',
-              ),
-            ),
+            any(that: isAUriHaving(authority: 'localhost:8080')),
           ),
         ).called(1);
       });
@@ -69,10 +75,8 @@ void main() {
         verify(
           () => httpClient.get(
             any(
-              that: isA<Uri>().having(
-                (u) => u.authority,
-                'authority',
-                'google-news-template-api-q66trdlzja-uc.a.run.app',
+              that: isAUriHaving(
+                authority: 'google-news-template-api-q66trdlzja-uc.a.run.app',
               ),
             ),
           ),
@@ -81,7 +85,10 @@ void main() {
     });
 
     group('getFeed', () {
-      test('makes correct http request.', () {
+      test('makes correct http request (no query params).', () {
+        const path = '/api/v1/feed';
+        const query = '';
+
         when(() => httpClient.get(any())).thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
@@ -90,13 +97,29 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(
-              that: isA<Uri>().having(
-                (u) => u.path,
-                'path',
-                '/api/v1/feed',
-              ),
-            ),
+            any(that: isAUriHaving(path: path, query: query)),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with query params).', () {
+        const category = Category.science;
+        const limit = 42;
+        const offset = 7;
+        const path = '/api/v1/feed';
+        final query = 'category=${category.name}&limit=$limit&offset=$offset';
+
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient
+            .getFeed(category: category, limit: limit, offset: offset)
+            .ignore();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
           ),
         ).called(1);
       });
@@ -156,13 +179,7 @@ void main() {
 
         verify(
           () => httpClient.get(
-            any(
-              that: isA<Uri>().having(
-                (u) => u.path,
-                'path',
-                '/api/v1/categories',
-              ),
-            ),
+            any(that: isAUriHaving(path: '/api/v1/categories')),
           ),
         ).called(1);
       });
