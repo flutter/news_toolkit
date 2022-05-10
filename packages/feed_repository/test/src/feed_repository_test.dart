@@ -20,9 +20,7 @@ void main() {
 
     test('can be instantiated', () {
       expect(
-        FeedRepository(
-          apiClient: apiClient,
-        ),
+        FeedRepository(apiClient: apiClient),
         isNotNull,
       );
     });

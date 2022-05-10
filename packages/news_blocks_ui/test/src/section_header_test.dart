@@ -10,17 +10,13 @@ void main() {
     setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly without action', (tester) async {
-      const widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: SectionHeader(
-              block: SectionHeaderBlock(title: 'example'),
-            ),
-          ),
+      const widget = Center(
+        child: SectionHeader(
+          block: SectionHeaderBlock(title: 'example'),
         ),
       );
 
-      await tester.pumpWidget(widget);
+      await tester.pumpApp(widget);
 
       await expectLater(
         find.byType(SectionHeader),
@@ -29,20 +25,16 @@ void main() {
     });
 
     testWidgets('renders correctly with action', (tester) async {
-      const widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: SectionHeader(
-              block: SectionHeaderBlock(
-                title: 'example',
-                action: BlockAction(type: BlockActionType.navigation),
-              ),
-            ),
+      const widget = Center(
+        child: SectionHeader(
+          block: SectionHeaderBlock(
+            title: 'example',
+            action: BlockAction(type: BlockActionType.navigation),
           ),
         ),
       );
 
-      await tester.pumpWidget(widget);
+      await tester.pumpApp(widget);
 
       await expectLater(
         find.byType(SectionHeader),
@@ -53,21 +45,17 @@ void main() {
     testWidgets('onPressed is called with action on tap', (tester) async {
       final actions = <BlockAction>[];
       const action = BlockAction(type: BlockActionType.navigation);
-      final widget = MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: SectionHeader(
-              block: const SectionHeaderBlock(
-                title: 'example',
-                action: action,
-              ),
-              onPressed: actions.add,
-            ),
+      final widget = Center(
+        child: SectionHeader(
+          block: const SectionHeaderBlock(
+            title: 'example',
+            action: action,
           ),
+          onPressed: actions.add,
         ),
       );
 
-      await tester.pumpWidget(widget);
+      await tester.pumpApp(widget);
 
       await tester.tap(find.byType(IconButton));
 

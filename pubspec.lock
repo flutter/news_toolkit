@@ -651,6 +651,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  news_blocks:
+    dependency: "direct main"
+    description:
+      path: "api/packages/news_blocks"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  news_blocks_ui:
+    dependency: "direct main"
+    description:
+      path: "packages/news_blocks_ui"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   node_preamble:
     dependency: transitive
     description:
