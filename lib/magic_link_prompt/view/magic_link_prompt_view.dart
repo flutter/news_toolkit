@@ -93,7 +93,7 @@ class MagicLinkPromptOpenEmailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppButton.darkAqua(
-      key: const Key('magicLinkPrompt_openMailButton'),
+      key: const Key('magicLinkPrompt_openMailButton_appButton'),
       onPressed: () {},
       child: Text(context.l10n.openMailAppButtonText),
     );

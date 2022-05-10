@@ -7,6 +7,8 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  app_ui:
+    path: ../app_ui
   flutter:
     sdk: flutter
   news_blocks:
@@ -15,4 +17,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mocktail_image_network: ^0.3.1
   very_good_analysis: ^2.4.0
+
+flutter:
+  uses-material-design: true

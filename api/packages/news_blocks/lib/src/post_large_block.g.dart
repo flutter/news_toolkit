@@ -31,13 +31,16 @@ PostLargeBlock _$PostLargeBlockFromJson(Map<String, dynamic> json) =>
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostLargeBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
+          isContentOverlaid: $checkedConvert(
+              'is_content_overlaid', (v) => v as bool? ?? false),
         );
         return val;
       },
       fieldKeyMap: const {
         'publishedAt': 'published_at',
         'imageUrl': 'image_url',
-        'isPremium': 'is_premium'
+        'isPremium': 'is_premium',
+        'isContentOverlaid': 'is_content_overlaid'
       },
     );
 
@@ -47,8 +50,6 @@ Map<String, dynamic> _$PostLargeBlockToJson(PostLargeBlock instance) {
     'category': _$PostCategoryEnumMap[instance.category],
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
-    'image_url': instance.imageUrl,
-    'title': instance.title,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -57,9 +58,12 @@ Map<String, dynamic> _$PostLargeBlockToJson(PostLargeBlock instance) {
     }
   }
 
+  writeNotNull('image_url', instance.imageUrl);
+  val['title'] = instance.title;
   writeNotNull('description', instance.description);
   writeNotNull('action', instance.action?.toJson());
   val['is_premium'] = instance.isPremium;
+  val['is_content_overlaid'] = instance.isContentOverlaid;
   val['type'] = instance.type;
   return val;
 }

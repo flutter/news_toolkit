@@ -129,8 +129,8 @@ class AppTheme {
 
   InputDecorationTheme get _inputDecorationTheme {
     return InputDecorationTheme(
-      suffixIconColor: AppColors.mediumEmphasis,
-      prefixIconColor: AppColors.mediumEmphasis,
+      suffixIconColor: AppColors.mediumEmphasisSurface,
+      prefixIconColor: AppColors.mediumEmphasisSurface,
       hoverColor: AppColors.inputHover,
       focusColor: AppColors.inputFocused,
       fillColor: AppColors.inputEnabled,
@@ -138,7 +138,7 @@ class AppTheme {
       focusedBorder: _textFieldBorder,
       disabledBorder: _textFieldBorder,
       hintStyle: UITextStyle.bodyText1.copyWith(
-        color: AppColors.mediumEmphasis,
+        color: AppColors.mediumEmphasisSurface,
       ),
       contentPadding: const EdgeInsets.all(AppSpacing.lg),
       border: const UnderlineInputBorder(),

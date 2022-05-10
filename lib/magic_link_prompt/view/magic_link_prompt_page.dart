@@ -20,15 +20,14 @@ class MagicLinkPromptPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var count = 0;
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             key: const Key('magicLinkPrompt_closeIcon'),
             icon: const Icon(Icons.close),
-            onPressed: () =>
-                Navigator.of(context).popUntil((_) => count++ >= 2),
+            onPressed: () => Navigator.of(context)
+                .popUntil((route) => route.settings.name == '/loginPage'),
           )
         ],
       ),
