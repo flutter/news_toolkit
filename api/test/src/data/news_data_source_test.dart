@@ -157,6 +157,7 @@ void main() {
             Category.technology,
             Category.sports,
             Category.health,
+            Category.science,
           ]),
         );
       });

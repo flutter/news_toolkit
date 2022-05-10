@@ -1,0 +1,20 @@
+name: feed_repository
+description: A repository that exposes content feed data.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  google_news_template_api:
+    path: ../../api
+  news_blocks:
+    path: ../../api/packages/news_blocks
+
+dev_dependencies:
+  coverage: ^1.2.0
+  mocktail: ^0.3.0
+  test: ^1.21.1
+  very_good_analysis: ^2.4.0

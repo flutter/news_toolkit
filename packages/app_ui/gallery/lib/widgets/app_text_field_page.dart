@@ -28,7 +28,7 @@ class AppTextFieldPage extends StatelessWidget {
             ),
             child: Icon(
               Icons.email_outlined,
-              color: AppColors.mediumEmphasis,
+              color: AppColors.mediumEmphasisSurface,
               size: 24,
             ),
           ),
