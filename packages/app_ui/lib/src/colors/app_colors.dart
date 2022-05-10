@@ -8,9 +8,6 @@ abstract class AppColors {
   /// Light black
   static const Color lightBlack = Colors.black54;
 
-  /// Medium Emphasis
-  static const Color mediumEmphasis = Color(0x99000000);
-
   /// White
   static const Color white = Color(0xFFFFFFFF);
 
@@ -104,6 +101,9 @@ abstract class AppColors {
   /// The medium emphasis primary color.
   static const Color mediumEmphasisPrimary = Color(0xBDFFFFFF);
 
+  /// The medium emphasis surface color.
+  static const Color mediumEmphasisSurface = Color(0x99000000);
+
   /// The high emphasis primary color.
   static const Color highEmphasisPrimary = Color(0xFCFFFFFF);
 
@@ -121,9 +121,6 @@ abstract class AppColors {
 
   /// The secondary color of application.
   static const Color secondary = Color(0xFF963F6E);
-
-  /// The medium emphasis surface color
-  static const Color mediumEmphasisSurface = Color(0x99000000);
 
   /// The medium emphasis surface color
   static const Color mediumHighEmphasisPrimary = Color(0xE6FFFFFF);
