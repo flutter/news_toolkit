@@ -38,7 +38,7 @@ class PostContentCategory extends StatelessWidget {
         isPremium || isContentOverlaid ? AppColors.white : AppColors.secondary;
     final categoryDisplay = isPremium ? premiumText : categoryName;
     final horizontalSpacing =
-        backgroundColor != AppColors.transparent ? AppSpacing.xs : 0.0;
+        isPremium || isContentOverlaid ? AppSpacing.xs : 0.0;
 
     return Column(
       children: [

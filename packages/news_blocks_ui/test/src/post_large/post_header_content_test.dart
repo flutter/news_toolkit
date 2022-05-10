@@ -13,6 +13,7 @@ void main() {
     const title = 'Title';
     const author = 'Author';
     const description = 'Description';
+
     testWidgets('renders without category', (tester) async {
       final testPostHeaderContent = PostHeaderContent(
         date: date,
