@@ -5,7 +5,7 @@ import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
-import '../helpers/helpers.dart';
+import '../../helpers/helpers.dart';
 
 void main() {
   const id = '499305f6-5096-4051-afda-824dcfc7df23';

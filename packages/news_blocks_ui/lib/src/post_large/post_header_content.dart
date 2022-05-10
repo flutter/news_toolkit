@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/post_large/post_content_category.dart';
 
 /// {@template post_header_content}
 /// A post widget displaying general text info of a post.

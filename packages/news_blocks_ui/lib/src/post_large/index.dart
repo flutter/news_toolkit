@@ -1,7 +1,8 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/post_large/post_header_content.dart';
+import 'package:news_blocks_ui/src/post_large/post_large_image.dart';
 
 /// {@template post_large}
 /// A reusable post large block widget.
