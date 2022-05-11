@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 /// {@template post_large_image}
 /// Block post large image widget.
@@ -25,28 +26,9 @@ class PostLargeImage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 3 / 2,
       child: isContentOverlaid
-          ? Stack(
-              key: const Key('postLargeImage_stack'),
-              children: [
-                Image.network(
-                  imageUrl,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        AppColors.transparent,
-                        AppColors.black.withOpacity(0.7),
-                      ],
-                    ),
-                  ),
-                  child: const SizedBox.expand(),
-                ),
-              ],
+          ? OverlaidImage(
+              imageUrl: imageUrl,
+              gradientColor: AppColors.black.withOpacity(0.7),
             )
           : Image.network(
               imageUrl,

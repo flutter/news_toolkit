@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template overlaid_image}
@@ -33,7 +34,7 @@ class OverlaidImage extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                gradientColor.withOpacity(0),
+                AppColors.transparent,
                 gradientColor.withOpacity(0.7),
               ],
             ),

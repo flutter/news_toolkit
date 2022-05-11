@@ -24,19 +24,5 @@ void main() {
         findsOneWidget,
       );
     });
-
-    testWidgets('renders Image in Stack when isContentOverlaid is true',
-        (tester) async {
-      final postLargeImage = PostLargeImage(
-        imageUrl: 'url',
-        isContentOverlaid: true,
-      );
-
-      await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(postLargeImage),
-      );
-      expect(find.byKey(Key('postLargeImage_stack')), findsOneWidget);
-      expect(find.byType(Image), findsOneWidget);
-    });
   });
 }
