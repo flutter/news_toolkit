@@ -88,24 +88,19 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          Column(
-            children: [
-              PostMedium(
-                block: postMediumBlock,
-                onPressed: actions.add,
-              )
-            ],
+          PostMedium(
+            block: postMediumBlock,
+            onPressed: actions.add,
           ),
         ),
       );
       // ;
+      final widget = find.byType(PostMediumDescriptionLayout);
 
-      expect(find.byType(PostMediumDescriptionLayout), findsOneWidget);
-      // await tester.tap(widget);
+      expect(widget, findsOneWidget);
+      await tester.tap(widget);
 
-      // await tester.pump();
-
-      // expect(actions, [action]);
+      expect(actions, [action]);
       // TODO(jan-stepien): Update golden tests containing network images
       // expect(
       //   find.byType(PostMediumBlock),
