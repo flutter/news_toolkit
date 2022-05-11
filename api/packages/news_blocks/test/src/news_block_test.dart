@@ -49,7 +49,7 @@ void main() {
       });
 
       test('returns TextLeadParagraphBlock', () {
-        final block = TextLeadParagraphBlock(text: 'TextHeadline text');
+        final block = TextLeadParagraphBlock(text: 'TextLeadParagraph text');
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
