@@ -22,7 +22,7 @@ void main() {
 
       await expectLater(
         find.byType(TextHeadline),
-        matchesGoldenFile('text_headline_horizontal.png'),
+        matchesGoldenFile('text_headline.png'),
       );
     });
   });
