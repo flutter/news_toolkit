@@ -35,6 +35,8 @@ dependencies:
     path: api/packages/news_blocks
   news_blocks_ui:
     path: packages/news_blocks_ui
+  news_repository:
+    path: packages/news_repository
   path_provider: ^2.0.2
   platform: ^3.0.2
   secure_storage:
