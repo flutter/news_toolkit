@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 /// {@template post_content}
-/// A post widget displaying general text info of a post.
+/// A post widget displaying post content.
 /// {@endtemplate}
 class PostContent extends StatelessWidget {
   /// {@macro post_content}
