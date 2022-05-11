@@ -22,10 +22,10 @@ class PostLargeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isContentOverlaid
-        ? AspectRatio(
-            aspectRatio: 3 / 2,
-            child: Stack(
+    return AspectRatio(
+      aspectRatio: 3 / 2,
+      child: isContentOverlaid
+          ? Stack(
               key: const Key('postLargeImage_stack'),
               children: [
                 Image.network(
@@ -47,8 +47,8 @@ class PostLargeImage extends StatelessWidget {
                   child: const SizedBox.expand(),
                 ),
               ],
-            ),
-          )
-        : Image.network(imageUrl);
+            )
+          : Image.network(imageUrl),
+    );
   }
 }
