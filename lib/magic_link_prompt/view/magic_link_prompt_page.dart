@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
 class MagicLinkPromptPage extends StatelessWidget {
@@ -27,7 +28,7 @@ class MagicLinkPromptPage extends StatelessWidget {
             key: const Key('magicLinkPrompt_closeIcon'),
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context)
-                .popUntil((route) => route.settings.name == '/loginPage'),
+                .popUntil((route) => route.settings.name == LoginPage.name),
           )
         ],
       ),
