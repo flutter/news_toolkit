@@ -82,7 +82,9 @@ class PostSmallContent extends StatelessWidget {
       children: [
         Text(
           title,
-          style: textTheme.headline6,
+          style: textTheme.headline6?.copyWith(
+            color: AppColors.highEmphasisSurface,
+          ),
         ),
         const SizedBox(height: AppSpacing.xs),
         PostFooter(
