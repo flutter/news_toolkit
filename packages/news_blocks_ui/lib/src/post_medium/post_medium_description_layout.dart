@@ -54,9 +54,10 @@ class PostMediumDescriptionLayout extends StatelessWidget {
             Expanded(
               child: AspectRatio(
                 aspectRatio: 3 / 2,
-                child: OverlaidImage(
-                  imageUrl: imageUrl,
-                  gradientColor: AppColors.transparent,
+                child: Image.network(
+                  imageUrl,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

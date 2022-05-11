@@ -31,7 +31,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
             aspectRatio: 3 / 2,
             child: OverlaidImage(
               imageUrl: imageUrl,
-              gradientColor: AppColors.black,
+              gradientColor: AppColors.black.withOpacity(0.7),
             ),
           ),
           Padding(
