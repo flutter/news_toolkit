@@ -7,9 +7,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppBackButton', () {
-    testWidgets(
-        'renders the app back button '
-        'on an Appbar', (tester) async {
+    testWidgets('renders the app back button', (tester) async {
       await tester.pumpApp(
         Scaffold(
           appBar: AppBar(
