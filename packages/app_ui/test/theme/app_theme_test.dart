@@ -82,6 +82,25 @@ void main() {
           });
         });
       });
+
+      group('progressIndicatorTheme', () {
+        test('color is AppColors.darkAqua', () {
+          expect(
+            const AppTheme().themeData.progressIndicatorTheme.color,
+            equals(AppColors.darkAqua),
+          );
+        });
+
+        test('circularTrackColor is AppColors.borderOutline', () {
+          expect(
+            const AppTheme()
+                .themeData
+                .progressIndicatorTheme
+                .circularTrackColor,
+            equals(AppColors.borderOutline),
+          );
+        });
+      });
     });
   });
 
