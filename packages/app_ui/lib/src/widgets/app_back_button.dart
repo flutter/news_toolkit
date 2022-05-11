@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 /// Navigates back when is pressed.
 /// {@endtemplate}
 
-@visibleForTesting
 class AppBackButton extends StatelessWidget {
   /// {@macro app_back_button}
   const AppBackButton({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class AppBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => Navigator.of(context).pop(),
       icon: Assets.icons.backIcon.svg(),
     );
   }
