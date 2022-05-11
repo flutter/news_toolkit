@@ -7,22 +7,18 @@ import 'package:url_launcher/url_launcher.dart';
 /// {@endtemplate}
 abstract class EmailLauncherException implements Exception {
   /// {@macro email_launcher_exception}
-  const EmailLauncherException(this.error, this.stackTrace);
+  const EmailLauncherException(this.error);
 
   /// The error which was caught.
   final Object error;
-
-  /// The stack trace associated with the [error].
-  final StackTrace stackTrace;
 }
 
 /// {@template launch_email_app_failure}
 /// Thrown during the launching email app process if a failure occurs.
 /// {@endtemplate}
 class LaunchEmailAppFailure extends EmailLauncherException {
-  /// {@macro send_login_email_link_failure}
-  const LaunchEmailAppFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  /// {@macro launch_email_app_failure}
+  const LaunchEmailAppFailure(Object error) : super(error);
 }
 
 /// Provider to inject `launchUrl`.
@@ -32,7 +28,7 @@ typedef LaunchUrlProvider = Future<bool> Function(Uri url);
 typedef CanLaunchUrlProvider = Future<bool> Function(Uri url);
 
 /// {@template email_launcher}
-/// Class which manage the email launcher logic.
+/// Class which manages the email launcher logic.
 /// {@endtemplate}
 class EmailLauncher {
   /// {@macro email_launcher}
@@ -61,7 +57,7 @@ class EmailLauncher {
         }
       }
     } catch (error, stackTrace) {
-      throw LaunchEmailAppFailure(error, stackTrace);
+      Error.throwWithStackTrace(LaunchEmailAppFailure(error), stackTrace);
     }
   }
 }
