@@ -83,7 +83,7 @@ void main() {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '
         'with appended feed for the given category '
-        'when fetchFeed succeeds '
+        'when getFeed succeeds '
         'and there are no more news to fetch',
         seed: () => feedStatePopulated,
         setUp: () => when(
