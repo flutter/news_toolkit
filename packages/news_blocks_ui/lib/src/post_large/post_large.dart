@@ -65,7 +65,14 @@ class PostLargeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isContentOverlaid
-        ? Stack(alignment: Alignment.bottomLeft, children: children)
-        : Column(children: children);
+        ? Stack(
+            key: const Key('postLarge_stack'),
+            alignment: Alignment.bottomLeft,
+            children: children,
+          )
+        : Column(
+            key: const Key('postLarge_column'),
+            children: children,
+          );
   }
 }
