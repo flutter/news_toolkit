@@ -11,6 +11,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "unexpectedFailure": "An unexpected error occurred. Please try again.",
+  "@unexpectedFailure": {
+    "description": "Text displayed when an unexpected error occurs",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
