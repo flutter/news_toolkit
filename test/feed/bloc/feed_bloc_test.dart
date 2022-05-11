@@ -118,7 +118,7 @@ void main() {
 
       blocTest<FeedBloc, FeedState>(
         'emits [loading, error] '
-        'when fetchFeed fails',
+        'when getFeed fails',
         setUp: () => when(
           () => newsRepository.getFeed(
             category: any(named: 'category'),
