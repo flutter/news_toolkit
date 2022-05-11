@@ -2,13 +2,14 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
+import 'package:google_news_template_api/client.dart';
 
 void main() {
   group('FeedEvent', () {
-    group('FetchFeed', () {
+    group('FeedRequested', () {
       test('supports value comparisons', () {
-        final event1 = FetchFeed();
-        final event2 = FetchFeed();
+        final event1 = FeedRequested(category: Category.health);
+        final event2 = FeedRequested(category: Category.health);
 
         expect(event1, equals(event2));
       });

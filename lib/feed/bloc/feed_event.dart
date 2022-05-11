@@ -2,9 +2,15 @@ part of 'feed_bloc.dart';
 
 abstract class FeedEvent extends Equatable {
   const FeedEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
-class FetchFeed extends FeedEvent {}
+class FeedRequested extends FeedEvent {
+  const FeedRequested({
+    required this.category,
+  });
+
+  final Category category;
+
+  @override
+  List<Object> get props => [category];
+}

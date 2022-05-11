@@ -14,7 +14,30 @@ void main() {
   group('FeedBloc', () {
     late NewsRepository newsRepository;
 
-    final feedResponse = FeedResponse(feed: [], totalCount: 0);
+    final feedResponse = FeedResponse(
+      feed: [
+        SectionHeaderBlock(title: 'title'),
+        DividerHorizontalBlock(),
+      ],
+      totalCount: 4,
+    );
+
+    final feedStatePopulated = FeedState(
+      status: FeedStatus.populated,
+      feed: {
+        Category.entertainment: [
+          SpacerBlock(spacing: Spacing.medium),
+          DividerHorizontalBlock(),
+        ],
+        Category.health: [
+          DividerHorizontalBlock(),
+        ],
+      },
+      hasMoreNews: {
+        Category.entertainment: true,
+        Category.health: false,
+      },
+    );
 
     setUp(() {
       newsRepository = MockNewsRepository();
@@ -27,29 +50,89 @@ void main() {
       );
     });
 
-    group('FetchFeed', () {
+    group('FeedRequested', () {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '
-        'when fetchFeed succeeds',
-        setUp: () =>
-            when(newsRepository.getFeed).thenAnswer((_) async => feedResponse),
+        'when fetchFeed succeeds '
+        'and there are more news to fetch',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
         build: () => FeedBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(FetchFeed()),
+        act: (bloc) => bloc.add(
+          FeedRequested(category: Category.entertainment),
+        ),
         expect: () => <FeedState>[
-          const FeedLoading(),
-          FeedPopulated(feedResponse),
+          FeedState(status: FeedStatus.loading),
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.entertainment: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.entertainment: true,
+            },
+          ),
+        ],
+      );
+
+      blocTest<FeedBloc, FeedState>(
+        'emits [loading, populated] '
+        'with appended feed for the given category '
+        'when fetchFeed succeeds '
+        'and there are no more news to fetch',
+        seed: () => feedStatePopulated,
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => FeedBloc(newsRepository: newsRepository),
+        act: (bloc) => bloc.add(
+          FeedRequested(category: Category.entertainment),
+        ),
+        expect: () => <FeedState>[
+          feedStatePopulated.copyWith(status: FeedStatus.loading),
+          feedStatePopulated.copyWith(
+            status: FeedStatus.populated,
+            feed: feedStatePopulated.feed
+              ..addAll({
+                Category.entertainment: [
+                  ...feedStatePopulated.feed[Category.entertainment]!,
+                  ...feedResponse.feed,
+                ],
+              }),
+            hasMoreNews: feedStatePopulated.hasMoreNews
+              ..addAll({
+                Category.entertainment: false,
+              }),
+          )
         ],
       );
 
       blocTest<FeedBloc, FeedState>(
         'emits [loading, error] '
         'when fetchFeed fails',
-        setUp: () => when(newsRepository.getFeed).thenThrow(Exception()),
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenThrow(Exception()),
         build: () => FeedBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(FetchFeed()),
+        act: (bloc) => bloc.add(
+          FeedRequested(category: Category.entertainment),
+        ),
         expect: () => <FeedState>[
-          const FeedLoading(),
-          const FeedError(),
+          FeedState(status: FeedStatus.loading),
+          FeedState(status: FeedStatus.failure),
         ],
         errors: () => [isA<Exception>()],
       );

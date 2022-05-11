@@ -6,44 +6,80 @@ import 'package:google_news_template_api/client.dart';
 
 void main() {
   group('FeedState', () {
-    group('FeedInitial', () {
-      test('supports value comparisons', () {
-        final state1 = FeedInitial();
-        final state2 = FeedInitial();
-
-        expect(state1, equals(state2));
-      });
+    test('initial has correct status', () {
+      expect(
+        FeedState.initial().status,
+        equals(FeedStatus.initial),
+      );
     });
 
-    group('FeedLoading', () {
-      test('supports value comparisons', () {
-        final state1 = FeedLoading();
-        final state2 = FeedLoading();
-
-        expect(state1, equals(state2));
-      });
+    test('supports value comparisons', () {
+      expect(
+        FeedState.initial(),
+        equals(FeedState.initial()),
+      );
     });
 
-    group('FeedPopulated', () {
-      test('supports value comparisons', () {
-        const feed = FeedResponse(
-          feed: [],
-          totalCount: 0,
+    group('copyWith', () {
+      test(
+          'returns same object '
+          'when no properties are passed', () {
+        expect(
+          FeedState.initial().copyWith(),
+          equals(FeedState.initial()),
         );
-
-        final state1 = FeedPopulated(feed);
-        final state2 = FeedPopulated(feed);
-
-        expect(state1, equals(state2));
       });
-    });
 
-    group('FeedError', () {
-      test('supports value comparisons', () {
-        final state1 = FeedError();
-        final state2 = FeedError();
+      test(
+          'returns object with updated status '
+          'when status is passed', () {
+        expect(
+          FeedState.initial().copyWith(
+            status: FeedStatus.loading,
+          ),
+          equals(
+            FeedState(
+              status: FeedStatus.loading,
+            ),
+          ),
+        );
+      });
 
-        expect(state1, equals(state2));
+      test(
+          'returns object with updated feed '
+          'when feed is passed', () {
+        final feed = {
+          Category.health: [SectionHeaderBlock(title: 'Health')],
+        };
+
+        expect(
+          FeedState(status: FeedStatus.populated).copyWith(feed: feed),
+          equals(
+            FeedState(
+              status: FeedStatus.populated,
+              feed: feed,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated hasMoreNews '
+          'when hasMoreNews is passed', () {
+        final hasMoreNews = {
+          Category.health: false,
+        };
+
+        expect(
+          FeedState(status: FeedStatus.populated)
+              .copyWith(hasMoreNews: hasMoreNews),
+          equals(
+            FeedState(
+              status: FeedStatus.populated,
+              hasMoreNews: hasMoreNews,
+            ),
+          ),
+        );
       });
     });
   });
