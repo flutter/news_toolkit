@@ -4,12 +4,12 @@ import 'package:news_blocks/news_blocks.dart';
 
 part 'text_caption_block.g.dart';
 
-/// The text weight of [TextCaptionBlock].
-enum TextCaptionWeight {
-  /// The normal text weight.
+/// The text color of [TextCaptionBlock].
+enum TextCaptionColor {
+  /// The normal text color.
   normal,
 
-  /// The light text weight.
+  /// The light text color.
   light,
 }
 
@@ -22,7 +22,7 @@ class TextCaptionBlock with EquatableMixin implements NewsBlock {
   /// {@macro text_caption_block}
   const TextCaptionBlock({
     required this.text,
-    required this.weight,
+    required this.color,
     this.type = TextCaptionBlock.identifier,
   });
 
@@ -33,8 +33,8 @@ class TextCaptionBlock with EquatableMixin implements NewsBlock {
   /// The text caption block type identifier.
   static const identifier = '__text_caption__';
 
-  /// The weight of this text caption.
-  final TextCaptionWeight weight;
+  /// The color of this text caption.
+  final TextCaptionColor color;
 
   /// The text of this text caption.
   final String text;
@@ -46,5 +46,5 @@ class TextCaptionBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$TextCaptionBlockToJson(this);
 
   @override
-  List<Object?> get props => [text, weight, type];
+  List<Object?> get props => [text, color, type];
 }

@@ -7,7 +7,7 @@ void main() {
   group('TextCaptionBlock', () {
     test('can be (de)serialized', () {
       final block = TextCaptionBlock(
-        weight: TextCaptionWeight.normal,
+        color: TextCaptionColor.normal,
         text: 'Text caption',
       );
 

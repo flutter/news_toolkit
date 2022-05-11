@@ -15,8 +15,8 @@ TextCaptionBlock _$TextCaptionBlockFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = TextCaptionBlock(
           text: $checkedConvert('text', (v) => v as String),
-          weight: $checkedConvert(
-              'weight', (v) => $enumDecode(_$TextCaptionWeightEnumMap, v)),
+          color: $checkedConvert(
+              'color', (v) => $enumDecode(_$TextCaptionColorEnumMap, v)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? TextCaptionBlock.identifier),
         );
@@ -26,12 +26,12 @@ TextCaptionBlock _$TextCaptionBlockFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TextCaptionBlockToJson(TextCaptionBlock instance) =>
     <String, dynamic>{
-      'weight': _$TextCaptionWeightEnumMap[instance.weight],
+      'color': _$TextCaptionColorEnumMap[instance.color],
       'text': instance.text,
       'type': instance.type,
     };
 
-const _$TextCaptionWeightEnumMap = {
-  TextCaptionWeight.normal: 'normal',
-  TextCaptionWeight.light: 'light',
+const _$TextCaptionColorEnumMap = {
+  TextCaptionColor.normal: 'normal',
+  TextCaptionColor.light: 'light',
 };
