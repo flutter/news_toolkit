@@ -15,7 +15,7 @@ class AppBackButtonPage extends StatelessWidget {
         title: const Text('App back button'),
         leading: const AppBackButton(),
       ),
-      body: Container(),
+      body: const SizedBox(),
     );
   }
 }
