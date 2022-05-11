@@ -78,6 +78,42 @@ void main() {
 
     expect(find.byKey(Key('postLarge_column')), findsOneWidget);
   });
+
+  testWidgets('onPressed is called with action when tapped', (tester) async {
+    final action = BlockAction(type: BlockActionType.navigation);
+    final actions = <BlockAction>[];
+
+    final _technologyPostLarge = PostLargeBlock(
+      id: id,
+      category: category,
+      author: author,
+      publishedAt: publishedAt,
+      imageUrl: imageUrl,
+      title: title,
+      action: action,
+    );
+
+    await mockNetworkImages(
+      () async => tester.pumpContentThemedApp(
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              PostLarge(
+                block: _technologyPostLarge,
+                premiumText: 'Premium',
+                onPressed: actions.add,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    await tester.ensureVisible(find.byType(PostLarge));
+    await tester.tap(find.byType(PostLarge));
+
+    expect(actions, equals([action]));
+  });
 }
 // TODO(jan-stepien): Update golden tests containing network images
 //   testWidgets('renders correctly non-premium', (tester) async {
