@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -70,9 +71,12 @@ class PostLargeContainer extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             children: children,
           )
-        : Column(
-            key: const Key('postLarge_column'),
-            children: children,
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Column(
+              key: const Key('postLarge_column'),
+              children: children,
+            ),
           );
   }
 }
