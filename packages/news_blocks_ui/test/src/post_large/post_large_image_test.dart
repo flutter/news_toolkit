@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:news_blocks_ui/src/post_large/post_large_image.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
