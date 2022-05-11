@@ -1,8 +1,5 @@
 import 'package:google_news_template_api/api.dart';
 
-/// Exception thrown when a requested article was not found.
-class ArticleNotFound implements Exception {}
-
 /// {@template news_data_source}
 /// An interface for a news content data source.
 /// {@endtemplate}
