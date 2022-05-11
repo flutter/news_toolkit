@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks/src/text_paragraph_block.dart';
 
 /// {@template news_block}
 /// A reusable news block which represents a content-based component.
@@ -36,6 +37,8 @@ abstract class NewsBlock {
         return PostGridGroupBlock.fromJson(json);
       case PostGridTileBlock.identifier:
         return PostGridTileBlock.fromJson(json);
+      case TextParagraphBlock.identifier:
+        return TextParagraphBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
