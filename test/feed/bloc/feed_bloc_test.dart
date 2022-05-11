@@ -53,7 +53,7 @@ void main() {
     group('FeedRequested', () {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '
-        'when fetchFeed succeeds '
+        'when getFeed succeeds '
         'and there are more news to fetch',
         setUp: () => when(
           () => newsRepository.getFeed(
@@ -83,7 +83,7 @@ void main() {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '
         'with appended feed for the given category '
-        'when fetchFeed succeeds '
+        'when getFeed succeeds '
         'and there are no more news to fetch',
         seed: () => feedStatePopulated,
         setUp: () => when(
@@ -118,7 +118,7 @@ void main() {
 
       blocTest<FeedBloc, FeedState>(
         'emits [loading, error] '
-        'when fetchFeed fails',
+        'when getFeed fails',
         setUp: () => when(
           () => newsRepository.getFeed(
             category: any(named: 'category'),
