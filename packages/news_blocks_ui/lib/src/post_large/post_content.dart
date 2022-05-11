@@ -69,7 +69,11 @@ class PostContent extends StatelessWidget {
             ),
           Text(
             title,
-            style: textTheme.headline3,
+            style: textTheme.headline3?.copyWith(
+              color: isContentOverlaid
+                  ? AppColors.highEmphasisPrimary
+                  : AppColors.highEmphasisSurface,
+            ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
@@ -77,6 +81,7 @@ class PostContent extends StatelessWidget {
             publishedAt: publishedAt,
             author: author,
             onShare: onShare,
+            isContentOverlaid: isContentOverlaid,
           ),
           const SizedBox(height: AppSpacing.lg),
         ],

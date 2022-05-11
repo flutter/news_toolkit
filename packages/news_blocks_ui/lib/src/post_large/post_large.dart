@@ -1,4 +1,3 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -65,33 +64,8 @@ class PostLargeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final overlaidTheme = theme.copyWith(
-      textTheme: theme.textTheme.copyWith(
-        headline3: theme.textTheme.headline3?.copyWith(
-          color: AppColors.highEmphasisPrimary,
-        ),
-        caption: theme.textTheme.caption?.copyWith(
-          color: AppColors.mediumHighEmphasisPrimary,
-        ),
-      ),
-    );
-    final defaultTheme = theme.copyWith(
-      textTheme: theme.textTheme.copyWith(
-        headline3: theme.textTheme.headline3?.copyWith(
-          color: AppColors.highEmphasisSurface,
-        ),
-        caption: theme.textTheme.caption?.copyWith(
-          color: AppColors.mediumEmphasisSurface,
-        ),
-      ),
-    );
-
-    return Theme(
-      data: isContentOverlaid ? overlaidTheme : defaultTheme,
-      child: isContentOverlaid
-          ? Stack(alignment: Alignment.bottomLeft, children: children)
-          : Column(children: children),
-    );
+    return isContentOverlaid
+        ? Stack(alignment: Alignment.bottomLeft, children: children)
+        : Column(children: children);
   }
 }
