@@ -131,6 +131,15 @@ void main() {
           expect(GetCategoriesFailure(error).props, [error]);
         });
       });
+
+      group('GetCategoriesFailure', () {
+        test('has correct props', () {
+          expect(
+            GetCategoriesFailure(error, stackTrace).props,
+            [error, stackTrace],
+          );
+        });
+      });
     });
   });
 }
