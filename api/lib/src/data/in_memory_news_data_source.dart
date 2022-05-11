@@ -15,16 +15,19 @@ class InMemoryNewsDataSource implements NewsDataSource {
   const InMemoryNewsDataSource();
 
   @override
-  Future<Article> getArticle({
+  Future<Article?> getArticle({
     required String id,
     int limit = 20,
     int offset = 0,
   }) async {
     final result = _newsItems.where((item) => item.post.id == id);
-    if (result.isEmpty) {
-      Error.throwWithStackTrace(ArticleNotFound(), StackTrace.current);
-    }
-    return result.first.content.toArticle();
+    if (result.isEmpty) return null;
+    final article = result.first.content.toArticle();
+    final totalBlocks = article.totalBlocks;
+    final normalizedOffset = math.min(offset, totalBlocks);
+    final blocks =
+        article.blocks.sublist(normalizedOffset).take(limit).toList();
+    return Article(blocks: blocks, totalBlocks: totalBlocks);
   }
 
   @override

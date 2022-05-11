@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 class MyNewsDataSource extends NewsDataSource {
   @override
-  Future<Article> getArticle({
+  Future<Article?> getArticle({
     required String id,
     int limit = 20,
     int offset = 0,
@@ -29,6 +29,20 @@ class MyNewsDataSource extends NewsDataSource {
 }
 
 void main() {
+  Matcher articleHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
+    return predicate<Article>(
+      (article) {
+        totalBlocks ??= article.totalBlocks;
+        if (blocks.length != article.blocks.length) return false;
+        if (totalBlocks != article.totalBlocks) return false;
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i] != article.blocks[i]) return false;
+        }
+        return true;
+      },
+    );
+  }
+
   Matcher feedHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
     return predicate<Feed>(
       (feed) {
@@ -170,6 +184,54 @@ void main() {
             Category.health,
             Category.science,
           ]),
+        );
+      });
+    });
+
+    group('getArticle', () {
+      test('returns null when article id cannot be found', () {
+        expect(
+          newsDataSource.getArticle(id: '__invalid_article_id__'),
+          completion(isNull),
+        );
+      });
+
+      test('returns content when article exists', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id),
+          completion(
+            articleHaving(
+              blocks: item.content,
+              totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports limit if specified', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, limit: 1),
+          completion(
+            articleHaving(
+              blocks: item.content.take(1).toList(),
+              totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports offset if specified', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, offset: 1),
+          completion(
+            articleHaving(
+              blocks: item.content.sublist(1).toList(),
+              totalBlocks: item.content.length,
+            ),
+          ),
         );
       });
     });

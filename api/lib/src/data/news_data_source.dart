@@ -18,7 +18,7 @@ abstract class NewsDataSource {
   /// * [limit] - The number of content blocks to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
-  Future<Article> getArticle({
+  Future<Article?> getArticle({
     required String id,
     int limit = 20,
     int offset = 0,

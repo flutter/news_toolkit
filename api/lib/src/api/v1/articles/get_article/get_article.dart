@@ -7,7 +7,12 @@ import 'package:shelf/shelf.dart';
 mixin GetArticleMixin on Controller {
   /// Get the article content for the provided [id].
   Future<Response> getArticle(Request request, String id) async {
-    final articles = await request.get<NewsDataSource>().getArticle(id: id);
-    return JsonResponse.ok(body: articles.toJson());
+    final article = await request.get<NewsDataSource>().getArticle(id: id);
+    if (article == null) return JsonResponse.notFound();
+    final response = ArticleResponse(
+      content: article.blocks,
+      totalCount: article.totalBlocks,
+    );
+    return JsonResponse.ok(body: response.toJson());
   }
 }
