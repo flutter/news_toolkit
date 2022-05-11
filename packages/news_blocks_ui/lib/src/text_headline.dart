@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -18,7 +19,9 @@ class TextHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       block.text,
-      style: Theme.of(context).textTheme.headline2,
+      style: Theme.of(context).textTheme.headline2?.copyWith(
+            color: AppColors.highEmphasisSurface,
+          ),
     );
   }
 }
