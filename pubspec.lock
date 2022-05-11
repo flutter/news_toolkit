@@ -679,6 +679,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  news_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/news_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   node_preamble:
     dependency: transitive
     description:

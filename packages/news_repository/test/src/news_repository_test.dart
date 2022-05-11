@@ -1,26 +1,26 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:feed_repository/feed_repository.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_repository/news_repository.dart';
 import 'package:test/test.dart';
 
 class MockGoogleNewsTemplateApiClient extends Mock
     implements GoogleNewsTemplateApiClient {}
 
 void main() {
-  group('FeedRepository', () {
+  group('NewsRepository', () {
     late GoogleNewsTemplateApiClient apiClient;
-    late FeedRepository feedRepository;
+    late NewsRepository newsRepository;
 
     setUp(() {
       apiClient = MockGoogleNewsTemplateApiClient();
-      feedRepository = FeedRepository(apiClient: apiClient);
+      newsRepository = NewsRepository(apiClient: apiClient);
     });
 
     test('can be instantiated', () {
       expect(
-        FeedRepository(apiClient: apiClient),
+        NewsRepository(apiClient: apiClient),
         isNotNull,
       );
     });
@@ -48,7 +48,7 @@ void main() {
         ).thenAnswer((_) async => feedResponse);
 
         expect(
-          feedRepository.getFeed(
+          newsRepository.getFeed(
             category: Category.entertainment,
             offset: 10,
             limit: 20,
@@ -77,7 +77,7 @@ void main() {
         ).thenThrow(Exception);
 
         expect(
-          feedRepository.getFeed,
+          newsRepository.getFeed,
           throwsA(isA<GetFeedFailure>()),
         );
       });
