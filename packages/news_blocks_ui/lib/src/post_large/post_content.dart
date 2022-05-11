@@ -79,6 +79,7 @@ class PostContent extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
+          const SizedBox(height: AppSpacing.md),
           PostFooter(
             publishedAt: publishedAt,
             author: author,

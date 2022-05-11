@@ -31,26 +31,29 @@ class PostSmall extends StatelessWidget {
     return GestureDetector(
       onTap: () =>
           block.hasNavigationAction ? onPressed?.call(block.action!) : null,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (imageUrl != null)
-            Padding(
-              padding: const EdgeInsets.only(right: AppSpacing.lg),
-              child: Image.network(
-                imageUrl,
-                width: _imageSize,
-                height: _imageSize,
-                fit: BoxFit.cover,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (imageUrl != null)
+              Padding(
+                padding: const EdgeInsets.only(right: AppSpacing.lg),
+                child: Image.network(
+                  imageUrl,
+                  width: _imageSize,
+                  height: _imageSize,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            Expanded(
+              child: PostSmallContent(
+                title: block.title,
+                publishedAt: block.publishedAt,
               ),
             ),
-          Expanded(
-            child: PostSmallContent(
-              title: block.title,
-              publishedAt: block.publishedAt,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
