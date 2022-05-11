@@ -24,7 +24,7 @@ class FeedState extends Equatable {
   final Map<Category, bool> hasMoreNews;
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         status,
         feed,
         hasMoreNews,
