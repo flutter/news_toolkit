@@ -16,15 +16,15 @@ class TextCaption extends StatelessWidget {
   final TextCaptionBlock block;
 
   /// The color values of this text caption.
-  static const _colorValues = <TextCaptionWeight, Color>{
-    TextCaptionWeight.normal: AppColors.highEmphasisSurface,
-    TextCaptionWeight.light: AppColors.mediumEmphasisSurface,
+  static const _colorValues = <TextCaptionColor, Color>{
+    TextCaptionColor.normal: AppColors.highEmphasisSurface,
+    TextCaptionColor.light: AppColors.mediumEmphasisSurface,
   };
 
   @override
   Widget build(BuildContext context) {
-    final color = _colorValues.containsKey(block.weight)
-        ? _colorValues[block.weight]
+    final color = _colorValues.containsKey(block.color)
+        ? _colorValues[block.color]
         : AppColors.highEmphasisSurface;
 
     return Text(
