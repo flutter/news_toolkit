@@ -55,7 +55,9 @@ class PostContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: isContentOverlaid
+          ? const EdgeInsets.symmetric(horizontal: AppSpacing.lg)
+          : EdgeInsets.zero,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_const, prefer_const_constructors
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -20,6 +21,7 @@ void main() {
       'and prices are finally falling';
 
   group('PostLarge', () {
+    setUpAll(setUpTolerantComparator);
     testWidgets('renders correctly non-premium', (tester) async {
       final _technologyPostLarge = PostLargeBlock(
         id: id,
@@ -31,14 +33,20 @@ void main() {
       );
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostLarge(
-            block: _technologyPostLarge,
-            premiumText: 'Premium',
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                PostLarge(
+                  block: _technologyPostLarge,
+                  premiumText: 'Premium',
+                ),
+              ],
+            ),
           ),
         ),
       );
 
-      expect(
+      await expectLater(
         find.byType(PostLarge),
         matchesGoldenFile('post_large_non_premium.png'),
       );
@@ -57,14 +65,20 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostLarge(
-            block: premiumBlock,
-            premiumText: 'Premium',
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                PostLarge(
+                  block: premiumBlock,
+                  premiumText: 'Premium',
+                ),
+              ],
+            ),
           ),
         ),
       );
 
-      expect(
+      await expectLater(
         find.byType(PostLarge),
         matchesGoldenFile('post_large_premium.png'),
       );
@@ -82,14 +96,20 @@ void main() {
       );
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostLarge(
-            block: _technologyPostLarge,
-            premiumText: 'Premium',
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                PostLarge(
+                  block: _technologyPostLarge,
+                  premiumText: 'Premium',
+                ),
+              ],
+            ),
           ),
         ),
       );
 
-      expect(
+      await expectLater(
         find.byType(PostLarge),
         matchesGoldenFile('post_large_overlaid_non_premium.png'),
       );
