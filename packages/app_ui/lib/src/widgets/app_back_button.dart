@@ -2,7 +2,8 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template app_back_button}
-/// Button with text displayed in the application.
+/// IconButton displayed in the application.
+/// Navigates back when is pressed.
 /// {@endtemplate}
 
 @visibleForTesting
