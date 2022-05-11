@@ -13,4 +13,5 @@ export 'src/post_medium_block.dart' show PostMediumBlock;
 export 'src/post_small_block.dart' show PostSmallBlock;
 export 'src/section_header_block.dart' show SectionHeaderBlock;
 export 'src/spacer_block.dart' show SpacerBlock, Spacing;
+export 'src/text_lead_paragraph_block.dart' show TextLeadParagraphBlock;
 export 'src/unknown_block.dart' show UnknownBlock;
