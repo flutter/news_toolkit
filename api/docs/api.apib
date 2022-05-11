@@ -13,6 +13,39 @@ This action allows consumers to verify the status of the server. A response stat
 
 + Response 204 (application/json)
 
+## Articles [/api/v1/articles]
+
+Resources related to news articles.
+
+### Get Article [GET /api/v1/articles/{id}{?limit,offset}]
+
+This action allows you to query article content for a specific article.
+
++ Parameters
+    + id (required, string) - The article identifier.
+    + limit (optional, number) - The number of content blocks to return.
+        + Default: 20
+    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
+        + Default: 0
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + content (required, array[Block]) - The list of blocks that composes the article content.
+        + total_count (optional, number) - The total number of available blocks.
+
+    + Body
+        
+            {
+                "content": [
+                    {
+                        "title": "Breaking News",
+                        "type": "__section_header__"
+                    },                    
+                ],
+                "total_count": 42,
+            }
+
+
 ## Categories [/api/v1/categories]
 
 Resources related to news categories.

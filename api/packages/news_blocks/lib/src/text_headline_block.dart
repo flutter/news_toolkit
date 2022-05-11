@@ -23,7 +23,7 @@ class TextHeadlineBlock with EquatableMixin implements NewsBlock {
   /// The text headline block type identifier.
   static const identifier = '__text_headline__';
 
-  /// The text of the text headline
+  /// The text of the text headline.
   final String text;
 
   @override
