@@ -38,43 +38,46 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                title,
-                style: textTheme.headline6
-                    ?.copyWith(color: AppColors.highEmphasisSurface),
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 3 / 2,
-                child: Image.network(
-                  imageUrl,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: textTheme.headline6
+                      ?.copyWith(color: AppColors.highEmphasisSurface),
                 ),
               ),
-            ),
-          ],
-        ),
-        Text(
-          description,
-          style: textTheme.bodyText2
-              ?.copyWith(color: AppColors.mediumEmphasisSurface),
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        PostFooter(
-          publishedAt: publishedAt,
-          author: author,
-          onShare: onShare,
-        ),
-      ],
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 3 / 2,
+                  child: Image.network(
+                    imageUrl,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Text(
+            description,
+            style: textTheme.bodyText2
+                ?.copyWith(color: AppColors.mediumEmphasisSurface),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          PostFooter(
+            publishedAt: publishedAt,
+            author: author,
+            onShare: onShare,
+          ),
+        ],
+      ),
     );
   }
 }
