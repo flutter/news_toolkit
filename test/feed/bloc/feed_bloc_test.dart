@@ -53,7 +53,7 @@ void main() {
     group('FeedRequested', () {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '
-        'when fetchFeed succeeds '
+        'when getFeed succeeds '
         'and there are more news to fetch',
         setUp: () => when(
           () => newsRepository.getFeed(
