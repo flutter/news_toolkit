@@ -43,6 +43,16 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
+      test('returns TextHeadlineBlock', () {
+        final block = TextHeadlineBlock(text: 'TextHeadline text');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns TextLeadParagraphBlock', () {
+        final block = TextLeadParagraphBlock(text: 'TextHeadline text');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
       test('returns PostLargeBlock', () {
         final block = PostLargeBlock(
           id: 'id',
