@@ -77,31 +77,20 @@ class PostSmallContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final smallPostTheme = Theme.of(context).copyWith(
-      textTheme: textTheme.copyWith(
-        caption: textTheme.caption?.copyWith(
-          color: AppColors.mediumEmphasisSurface,
-        ),
-        headline6: textTheme.headline6?.copyWith(
-          color: AppColors.highEmphasisSurface,
-        ),
-      ),
-    );
 
-    return Theme(
-      data: smallPostTheme,
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: textTheme.headline6,
+    return Column(
+      children: [
+        Text(
+          title,
+          style: textTheme.headline6?.copyWith(
+            color: AppColors.highEmphasisSurface,
           ),
-          const SizedBox(height: AppSpacing.xs),
-          PostFooter(
-            publishedAt: publishedAt,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        PostFooter(
+          publishedAt: publishedAt,
+        ),
+      ],
     );
   }
 }

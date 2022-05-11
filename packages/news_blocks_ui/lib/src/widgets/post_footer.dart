@@ -11,6 +11,7 @@ class PostFooter extends StatelessWidget {
     required this.publishedAt,
     this.author,
     this.onShare,
+    this.isContentOverlaid = false,
   }) : super(key: key);
 
   /// The author of this post.
@@ -22,40 +23,45 @@ class PostFooter extends StatelessWidget {
   /// Called when the share button is tapped.
   final VoidCallback? onShare;
 
+  /// Whether footer is displayed in reversed color theme.
+  ///
+  /// Defaults to false.
+  final bool isContentOverlaid;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final textColor = isContentOverlaid
+        ? AppColors.mediumHighEmphasisPrimary
+        : AppColors.mediumEmphasisSurface;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         RichText(
           text: TextSpan(
+            style: textTheme.caption?.copyWith(color: textColor),
             children: <InlineSpan>[
               if (author != null) ...[
                 TextSpan(
                   text: author,
-                  style: textTheme.caption,
                 ),
                 const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                TextSpan(
+                const TextSpan(
                   text: '•',
-                  style: textTheme.caption,
                 ),
                 const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
               ],
               TextSpan(
                 text: publishedAt.mDY,
-                style: textTheme.caption,
               ),
             ],
           ),
         ),
         if (onShare != null)
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.share,
-              color: AppColors.mediumEmphasisSurface,
+              color: textColor,
             ),
             onPressed: onShare,
           ),

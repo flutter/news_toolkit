@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/post_large/post_content_category.dart';
 
 /// {@template post_content}
 /// A post widget displaying general text info of a post.
@@ -56,7 +55,9 @@ class PostContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: isContentOverlaid
+          ? const EdgeInsets.symmetric(horizontal: AppSpacing.lg)
+          : EdgeInsets.zero,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -70,7 +71,11 @@ class PostContent extends StatelessWidget {
             ),
           Text(
             title,
-            style: textTheme.headline3,
+            style: textTheme.headline3?.copyWith(
+              color: isContentOverlaid
+                  ? AppColors.highEmphasisPrimary
+                  : AppColors.highEmphasisSurface,
+            ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
@@ -78,6 +83,7 @@ class PostContent extends StatelessWidget {
             publishedAt: publishedAt,
             author: author,
             onShare: onShare,
+            isContentOverlaid: isContentOverlaid,
           ),
           const SizedBox(height: AppSpacing.lg),
         ],
