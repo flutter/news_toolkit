@@ -43,7 +43,7 @@ class PostContent extends StatelessWidget {
   /// Defaults to false.
   final bool isPremium;
 
-  /// Whether category is displayed in reversed color theme.
+  /// Whether content is displayed overlaid.
   ///
   /// Defaults to false.
   final bool isContentOverlaid;
