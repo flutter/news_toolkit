@@ -38,7 +38,8 @@ class PostMediumOverlaidLayout extends StatelessWidget {
             padding: const EdgeInsets.all(AppSpacing.sm),
             child: Text(
               title,
-              style: textTheme.subtitle2,
+              style: textTheme.subtitle2
+                  ?.copyWith(color: AppColors.highEmphasisPrimary),
             ),
           ),
         ],

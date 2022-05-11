@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/post_medium/post_medium_description_layout.dart';
-import 'package:news_blocks_ui/src/post_medium/post_medium_overlaid_layout.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -36,11 +35,12 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostMedium(block: postMediumBlock),
+          Column(children: [PostMedium(block: postMediumBlock)]),
         ),
       );
 
       expect(find.byType(PostMediumOverlaidLayout), findsOneWidget);
+      // TODO(jan-stepien): Update golden tests containing network images
       // expect(
       //   find.byType(PostMediumBlock),
       //   matchesGoldenFile('post_medium_overlaid_layout.png'),
@@ -60,11 +60,53 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          PostMedium(block: postMediumBlock),
+          Column(children: [PostMedium(block: postMediumBlock)]),
         ),
       );
 
       expect(find.byType(PostMediumDescriptionLayout), findsOneWidget);
+      // TODO(jan-stepien): Update golden tests containing network images
+      // expect(
+      //   find.byType(PostMediumBlock),
+      //   matchesGoldenFile('post_medium_description_layout.png'),
+      // );
+    });
+
+    testWidgets('renders navigates onTap', (tester) async {
+      final actions = <BlockAction>[];
+      const action = BlockAction(type: BlockActionType.navigation);
+      final postMediumBlock = PostMediumBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl,
+        title: title,
+        description: description,
+        action: action,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          Column(
+            children: [
+              PostMedium(
+                block: postMediumBlock,
+                onPressed: actions.add,
+              )
+            ],
+          ),
+        ),
+      );
+      // ;
+
+      expect(find.byType(PostMediumDescriptionLayout), findsOneWidget);
+      // await tester.tap(widget);
+
+      // await tester.pump();
+
+      // expect(actions, [action]);
+      // TODO(jan-stepien): Update golden tests containing network images
       // expect(
       //   find.byType(PostMediumBlock),
       //   matchesGoldenFile('post_medium_description_layout.png'),

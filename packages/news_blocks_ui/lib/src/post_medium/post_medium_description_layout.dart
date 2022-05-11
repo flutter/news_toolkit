@@ -46,7 +46,8 @@ class PostMediumDescriptionLayout extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: textTheme.headline6,
+                style: textTheme.headline6
+                    ?.copyWith(color: AppColors.highEmphasisSurface),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
@@ -63,7 +64,8 @@ class PostMediumDescriptionLayout extends StatelessWidget {
         ),
         Text(
           description,
-          style: textTheme.bodyText2,
+          style: textTheme.bodyText2
+              ?.copyWith(color: AppColors.mediumEmphasisSurface),
         ),
         const SizedBox(height: AppSpacing.sm),
         PostFooter(

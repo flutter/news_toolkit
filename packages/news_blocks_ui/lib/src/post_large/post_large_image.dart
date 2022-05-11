@@ -48,10 +48,7 @@ class PostLargeImage extends StatelessWidget {
                 ),
               ],
             )
-          : Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-            ),
+          : Image.network(imageUrl),
     );
   }
 }
