@@ -28,7 +28,7 @@ class GetFeedFailure extends NewsFailure {
 /// {@endtemplate}
 class GetCategoriesFailure extends NewsFailure {
   /// {@macro get_categories_failure}
-  const GetCategoriesFailure(Object error) : super(error);
+  const GetCategoriesFailure(super.error);
 }
 
 /// {@template news_repository}
