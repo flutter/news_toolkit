@@ -66,6 +66,38 @@ class GoogleNewsTemplateApiClient {
   final String _baseUrl;
   final http.Client _httpClient;
 
+  /// GET /api/v1/articles/<id>
+  /// Requests article content metadata.
+  ///
+  /// Supported parameters:
+  /// * [id] - article id for which content is requested.
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<ArticleResponse> getArticle({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/articles/$id').replace(
+      queryParameters: <String, String>{
+        if (limit != null) 'limit': '$limit',
+        if (offset != null) 'offset': '$offset',
+      },
+    );
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return ArticleResponse.fromJson(body);
+  }
+
   /// GET /api/v1/feed
   /// Requests news feed metadata.
   ///
@@ -114,6 +146,24 @@ class GoogleNewsTemplateApiClient {
     }
 
     return CategoriesResponse.fromJson(body);
+  }
+
+  /// POST /api/v1/newsletter/subscription
+  /// Subscribes the provided [email] to the newsletter.
+  Future<void> subscribeToNewsletter({required String email}) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/newsletter/subscription');
+    final response = await _httpClient.post(
+      uri,
+      headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+      body: json.encode(<String, String>{'email': email}),
+    );
+
+    if (response.statusCode != HttpStatus.created) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: const <String, dynamic>{},
+        statusCode: response.statusCode,
+      );
+    }
   }
 }
 

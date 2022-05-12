@@ -40,7 +40,7 @@ class LoginButton extends StatelessWidget {
         showAppModal<void>(
           context: context,
           builder: (context) => const LoginPage(),
-          routeSettings: const RouteSettings(name: '/loginPage'),
+          routeSettings: const RouteSettings(name: LoginPage.name),
         );
       },
       tooltip: context.l10n.loginTooltip,

@@ -40,4 +40,14 @@ class JsonResponse extends Response {
     Map<String, dynamic> body = const <String, dynamic>{},
     Map<String, String> headers = const <String, String>{},
   }) : this._(statusCode: HttpStatus.created, body: body, headers: headers);
+
+  /// {@macro json_response}
+  JsonResponse.notFound({
+    Map<String, dynamic> body = const <String, dynamic>{},
+    Map<String, String> headers = const <String, String>{},
+  }) : this._(
+          statusCode: HttpStatus.notFound,
+          body: body,
+          headers: headers,
+        );
 }

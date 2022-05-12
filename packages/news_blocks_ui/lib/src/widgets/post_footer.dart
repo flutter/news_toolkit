@@ -11,6 +11,7 @@ class PostFooter extends StatelessWidget {
     required this.publishedAt,
     this.author,
     this.onShare,
+    this.isContentOverlaid = false,
   }) : super(key: key);
 
   /// The author of this post.
@@ -22,45 +23,45 @@ class PostFooter extends StatelessWidget {
   /// Called when the share button is tapped.
   final VoidCallback? onShare;
 
+  /// Whether footer is displayed in reversed color theme.
+  ///
+  /// Defaults to false.
+  final bool isContentOverlaid;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final textColor = isContentOverlaid
+        ? AppColors.mediumHighEmphasisPrimary
+        : AppColors.mediumEmphasisSurface;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        DefaultTextStyle(
-          style: textTheme.caption!.copyWith(
-            color: AppColors.mediumEmphasisSurface,
-          ),
-          child: RichText(
-            text: TextSpan(
-              children: <InlineSpan>[
-                if (author != null) ...[
-                  TextSpan(
-                    text: author,
-                    style: DefaultTextStyle.of(context).style,
-                  ),
-                  const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                  TextSpan(
-                    text: '•',
-                    style: DefaultTextStyle.of(context).style,
-                  ),
-                  const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
-                ],
+        RichText(
+          text: TextSpan(
+            style: textTheme.caption?.copyWith(color: textColor),
+            children: <InlineSpan>[
+              if (author != null) ...[
                 TextSpan(
-                  text: publishedAt.mDY,
-                  style: DefaultTextStyle.of(context).style,
+                  text: author,
                 ),
+                const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
+                const TextSpan(
+                  text: '•',
+                ),
+                const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
               ],
-            ),
+              TextSpan(
+                text: publishedAt.mDY,
+              ),
+            ],
           ),
         ),
         if (onShare != null)
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.share,
-              color: AppColors.mediumEmphasisSurface,
+              color: textColor,
             ),
             onPressed: onShare,
           ),
