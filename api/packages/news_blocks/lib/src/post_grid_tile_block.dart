@@ -47,3 +47,34 @@ class PostGridTileBlock extends PostBlock {
   @override
   Map<String, dynamic> toJson() => _$PostGridTileBlockToJson(this);
 }
+
+/// {@template post_grid_tile_block_ext}
+/// Converts [PostGridTileBlock] into a [PostBlock] instance.
+/// {@endtemplate}
+extension PostGridTileBlockExt on PostGridTileBlock {
+  /// Converts [PostGridTileBlock] into a [PostLargeBlock] instance.
+  PostLargeBlock toPostLargeBlock() => PostLargeBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl!,
+        title: title,
+        isContentOverlaid: true,
+        description: description,
+        action: action,
+      );
+
+  /// Converts [PostGridTileBlock] into a [PostMediumBlock] instance.
+  PostMediumBlock toPostMediumBlock() => PostMediumBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl!,
+        title: title,
+        isContentOverlaid: true,
+        description: description,
+        action: action,
+      );
+}
