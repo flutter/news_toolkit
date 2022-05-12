@@ -26,7 +26,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       children: [
         AspectRatio(
-          aspectRatio: 3 / 2,
+          aspectRatio: PostMedium.imageAspectRatio,
           child: OverlaidImage(
             imageUrl: imageUrl,
             gradientColor: AppColors.black.withOpacity(0.7),

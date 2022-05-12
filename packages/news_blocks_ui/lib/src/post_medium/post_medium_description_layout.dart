@@ -55,7 +55,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: AspectRatio(
-                  aspectRatio: 3 / 2,
+                  aspectRatio: PostMedium.imageAspectRatio,
                   child: Image.network(
                     imageUrl,
                     height: double.infinity,

@@ -13,6 +13,9 @@ class PostLargeImage extends StatelessWidget {
     required this.isContentOverlaid,
   }) : super(key: key);
 
+  /// The aspect ratio of this post image.
+  static const _imageAspectRatio = 3 / 2;
+
   /// Url of image displayed in large post.
   final String imageUrl;
 
@@ -24,7 +27,7 @@ class PostLargeImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 3 / 2,
+      aspectRatio: _imageAspectRatio,
       child: isContentOverlaid
           ? OverlaidImage(
               imageUrl: imageUrl,
