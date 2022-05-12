@@ -11,7 +11,7 @@ void main() {
   group('TextCaption', () {
     setUpAll(setUpTolerantComparator);
 
-    testWidgets('renders correctly', (tester) async {
+    testWidgets('renders correctly with normal color', (tester) async {
       final widget = Center(
         child: TextCaption(
           block: TextCaptionBlock(
@@ -25,7 +25,25 @@ void main() {
 
       await expectLater(
         find.byType(TextCaption),
-        matchesGoldenFile('text_caption.png'),
+        matchesGoldenFile('text_caption_normal_color.png'),
+      );
+    });
+
+    testWidgets('renders correctly with light color', (tester) async {
+      final widget = Center(
+        child: TextCaption(
+          block: TextCaptionBlock(
+            text: 'Text caption',
+            color: TextCaptionColor.light,
+          ),
+        ),
+      );
+
+      await tester.pumpApp(widget);
+
+      await expectLater(
+        find.byType(TextCaption),
+        matchesGoldenFile('text_caption_light_color.png'),
       );
     });
   });
