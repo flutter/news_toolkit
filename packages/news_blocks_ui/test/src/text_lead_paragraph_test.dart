@@ -14,7 +14,7 @@ void main() {
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
         child: TextLeadParagraph(
-          block: TextLeadParagraphBlock(text: 'Text lead Paragraph'),
+          block: TextLeadParagraphBlock(text: 'Text Lead Paragraph'),
         ),
       );
 
