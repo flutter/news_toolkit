@@ -28,18 +28,7 @@ class GetFeedFailure extends NewsFailure {
 /// {@endtemplate}
 class GetCategoriesFailure extends NewsFailure {
   /// {@macro get_categories_failure}
-  const GetCategoriesFailure(Object error) : super(error);
-}
-
-/// {@template get_categories_failure}
-/// Thrown when fetching categories fails.
-/// {@endtemplate}
-class GetCategoriesFailure extends NewsFailure {
-  /// {@macro get_categories_failure}
-  const GetCategoriesFailure(
-    Object error,
-    StackTrace stackTrace,
-  ) : super(error, stackTrace);
+  const GetCategoriesFailure(super.error);
 }
 
 /// {@template news_repository}
@@ -76,15 +65,6 @@ class NewsRepository {
       return await _apiClient.getCategories();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(GetCategoriesFailure(error), stackTrace);
-    }
-  }
-
-  /// Requests the available news categories.
-  Future<CategoriesResponse> getCategories() async {
-    try {
-      return await _apiClient.getCategories();
-    } catch (error, stackTrace) {
-      throw GetCategoriesFailure(error, stackTrace);
     }
   }
 }
