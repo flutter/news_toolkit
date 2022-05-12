@@ -23,6 +23,8 @@ void main() {
       final publishedAt = DateTime(2022, 3, 12);
       const imageUrl = 'imageUrl';
       const title = 'title';
+      const description = 'description';
+      const action = BlockAction(type: BlockActionType.navigation);
 
       final gridTile = PostGridTileBlock(
         id: id,
@@ -31,6 +33,8 @@ void main() {
         publishedAt: publishedAt,
         imageUrl: imageUrl,
         title: title,
+        description: description,
+        action: action,
       );
 
       test('toPostLargeBlock creates PostLargeBlock instance', () {
@@ -42,6 +46,8 @@ void main() {
           imageUrl: imageUrl,
           title: title,
           isContentOverlaid: true,
+          description: description,
+          action: action,
         );
 
         expect(gridTile.toPostLargeBlock(), equals(largeBlock));
@@ -56,6 +62,8 @@ void main() {
           imageUrl: imageUrl,
           title: title,
           isContentOverlaid: true,
+          description: description,
+          action: action,
         );
 
         expect(gridTile.toPostMediumBlock(), equals(mediumBlock));

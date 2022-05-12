@@ -49,10 +49,10 @@ class PostGridTileBlock extends PostBlock {
 }
 
 /// {@template post_grid_tile_block_ext}
-/// Converts a `PostGridTileBlock` into a [PostBlock] instance.
+/// Converts [PostGridTileBlock] into a [PostBlock] instance.
 /// {@endtemplate}
 extension PostGridTileBlockExt on PostGridTileBlock {
-  /// Converts a `PostGridTileBlock` into a [PostLargeBlock] instance.
+  /// Converts [PostGridTileBlock] into a [PostLargeBlock] instance.
   PostLargeBlock toPostLargeBlock() => PostLargeBlock(
         id: id,
         category: category,
@@ -61,9 +61,11 @@ extension PostGridTileBlockExt on PostGridTileBlock {
         imageUrl: imageUrl!,
         title: title,
         isContentOverlaid: true,
+        description: description,
+        action: action,
       );
 
-  /// Converts a `PostGridTileBlock` into a [PostMediumBlock] instance.
+  /// Converts [PostGridTileBlock] into a [PostMediumBlock] instance.
   PostMediumBlock toPostMediumBlock() => PostMediumBlock(
         id: id,
         category: category,
@@ -72,5 +74,7 @@ extension PostGridTileBlockExt on PostGridTileBlock {
         imageUrl: imageUrl!,
         title: title,
         isContentOverlaid: true,
+        description: description,
+        action: action,
       );
 }
