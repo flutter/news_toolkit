@@ -68,7 +68,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           Exception(
             'The user is already logged in',
           ),
-          StackTrace.current,
         );
       }
 
@@ -78,7 +77,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           Exception(
             'No `continueUrl` parameter found in the received email link',
           ),
-          StackTrace.current,
         );
       }
 
@@ -90,7 +88,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           Exception(
             'No `email` parameter found in the received email link',
           ),
-          StackTrace.current,
         );
       }
 

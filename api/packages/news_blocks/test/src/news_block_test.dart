@@ -43,6 +43,24 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
+      test('returns TextCaptionBlock', () {
+        final block = TextCaptionBlock(
+          text: 'Text caption',
+          color: TextCaptionColor.light,
+        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns TextHeadlineBlock', () {
+        final block = TextHeadlineBlock(text: 'Text Headline');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns TextLeadParagraphBlock', () {
+        final block = TextLeadParagraphBlock(text: 'Text Lead Paragraph');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
       test('returns TextParagraphBlock', () {
         final block = TextParagraphBlock(text: 'Text Paragraph');
         expect(NewsBlock.fromJson(block.toJson()), equals(block));

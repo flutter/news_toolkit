@@ -5,13 +5,10 @@ library storage;
 /// {@endtemplate}
 class StorageException implements Exception {
   /// {@macro storage_exception}
-  const StorageException(this.error, [this.stackTrace]);
+  const StorageException(this.error);
 
   /// Error thrown during the storage operation.
   final Object error;
-
-  /// Optional stack trace for the exception.
-  final StackTrace? stackTrace;
 }
 
 /// A Dart Storage Client Interface
