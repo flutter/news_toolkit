@@ -18,12 +18,14 @@ void main() {
   });
 
   group('EmailLauncher', () {
-    group('Target platform', () {
-      test('is Android', () {
-        debugDefaultTargetPlatformOverride = TargetPlatform.android;
-        expect(defaultTargetPlatform, TargetPlatform.android);
-        expect(emailLauncher.launchEmailApp(), completes);
-        debugDefaultTargetPlatformOverride = null;
+    group('launchEmailApp', () {
+      group('when platform is Android', () {
+        test('completes', () {
+          debugDefaultTargetPlatformOverride = TargetPlatform.android;
+          expect(defaultTargetPlatform, TargetPlatform.android);
+          expect(emailLauncher.launchEmailApp(), completes);
+          debugDefaultTargetPlatformOverride = null;
+        });
       });
 
       group('when platform is iOS', () {
