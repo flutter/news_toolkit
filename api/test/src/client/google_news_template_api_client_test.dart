@@ -84,6 +84,98 @@ void main() {
       });
     });
 
+    group('getArticle', () {
+      test('makes correct http request (no query params).', () {
+        const articleId = '__article_id__';
+        const path = '/api/v1/articles/$articleId';
+        const query = '';
+
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient.getArticle(id: articleId).ignore();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with query params).', () {
+        const limit = 42;
+        const offset = 7;
+        const articleId = '__article_id__';
+        const path = '/api/v1/articles/$articleId';
+        const query = 'limit=$limit&offset=$offset';
+
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient
+            .getArticle(id: articleId, limit: limit, offset: offset)
+            .ignore();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiMalformedResponse '
+          'when response body is malformed.', () {
+        const articleId = '__article_id__';
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        expect(
+          () => apiClient.getArticle(id: articleId),
+          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+        );
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-200 status code.', () {
+        const articleId = '__article_id__';
+        const statusCode = HttpStatus.internalServerError;
+        final body = <String, dynamic>{};
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(json.encode(body), statusCode),
+        );
+
+        expect(
+          () => apiClient.getArticle(id: articleId),
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', body),
+          ),
+        );
+      });
+
+      test('returns a ArticleResponse on a 200 response.', () {
+        const articleId = '__article_id__';
+        const expectedResponse = ArticleResponse(content: [], totalCount: 0);
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(
+            json.encode(expectedResponse.toJson()),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          apiClient.getArticle(id: articleId),
+          completion(equals(expectedResponse)),
+        );
+      });
+    });
+
     group('getFeed', () {
       test('makes correct http request (no query params).', () {
         const path = '/api/v1/feed';

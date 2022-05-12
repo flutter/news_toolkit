@@ -3,10 +3,10 @@ description: An Authentication Client Interface
 publish_to: none
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  equatable: ^2.0.3  
+  equatable: ^2.0.3
 
 dev_dependencies:
   test: ^1.20.1

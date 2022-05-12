@@ -18,7 +18,7 @@ void main() {
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(postLargeImage),
       );
-      expect(find.byKey(Key('postLargeImage_stack')), findsNothing);
+      expect(find.byKey(Key('overlaidImage_stack')), findsNothing);
       expect(find.byType(Image), findsOneWidget);
     });
 
@@ -32,7 +32,7 @@ void main() {
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(postLargeImage),
       );
-      expect(find.byKey(Key('postLargeImage_stack')), findsOneWidget);
+      expect(find.byKey(Key('overlaidImage_stack')), findsOneWidget);
       expect(find.byType(Image), findsOneWidget);
     });
   });

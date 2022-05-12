@@ -31,6 +31,12 @@ class WidgetsPage extends StatelessWidget {
         title: const Text('Text Fields'),
         onTap: () => Navigator.of(context).push<void>(AppTextFieldPage.route()),
       ),
+      _ListItem(
+        icon: const Icon(Icons.arrow_back_ios),
+        title: const Text('App Back Button'),
+        onTap: () =>
+            Navigator.of(context).push<void>(AppBackButtonPage.route()),
+      ),
     ];
 
     return Scaffold(
@@ -50,20 +56,17 @@ class _ListItem extends StatelessWidget {
     this.onTap,
     required this.icon,
     required this.title,
-    this.subtitle,
   }) : super(key: key);
 
   final VoidCallback? onTap;
   final Widget icon;
   final Text title;
-  final Text? subtitle;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon,
       title: title,
-      subtitle: subtitle,
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
