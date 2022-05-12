@@ -25,9 +25,6 @@ class PostGrid extends StatelessWidget {
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
   final BlockActionCallback? onPressed;
 
-  /// The aspect ratio of medium post.
-  static const _mediumPostAspectRatio = 3 / 2;
-
   @override
   Widget build(BuildContext context) {
     if (gridGroupBlock.tiles.isEmpty) return const SizedBox();
@@ -49,7 +46,7 @@ class PostGrid extends StatelessWidget {
           GridView.count(
             crossAxisCount: 2,
             shrinkWrap: true,
-            childAspectRatio: _mediumPostAspectRatio,
+            childAspectRatio: PostMedium.imageAspectRatio,
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
             children: otherBlocks
