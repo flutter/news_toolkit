@@ -3,8 +3,8 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
-  flutter: 2.10.5
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: 3.0.0
 
 dependencies:
   analytics_repository:
@@ -16,14 +16,14 @@ dependencies:
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
   firebase_crashlytics: ^2.1.1
-  flow_builder: ^0.0.5
+  flow_builder: ^0.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^1.0.3
-  font_awesome_flutter: ^9.0.0
+  font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
   google_news_template_api:
@@ -55,7 +55,7 @@ dependency_overrides:
 dev_dependencies:
   bloc_test: ^9.0.3
   build_runner: ^2.0.3
-  build_verify: ^2.0.0
+  build_verify: ^3.0.0
   build_version: ^2.0.3
   flutter_gen_runner: ^4.1.6
   flutter_test:

@@ -56,20 +56,17 @@ class _ListItem extends StatelessWidget {
     this.onTap,
     required this.icon,
     required this.title,
-    this.subtitle,
   }) : super(key: key);
 
   final VoidCallback? onTap;
   final Widget icon;
   final Text title;
-  final Text? subtitle;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon,
       title: title,
-      subtitle: subtitle,
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
