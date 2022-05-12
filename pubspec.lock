@@ -1116,10 +1116,12 @@ packages:
   very_good_analysis:
     dependency: "direct main"
     description:
-      name: very_good_analysis
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.0"
+      path: "."
+      ref: "9f26d3479ce9eff910a7cf79585ffafc6211c87d"
+      resolved-ref: "9f26d3479ce9eff910a7cf79585ffafc6211c87d"
+      url: "https://github.com/verygoodopensource/very_good_analysis"
+    source: git
+    version: "3.0.0"
   vm_service:
     dependency: transitive
     description:

@@ -1,7 +1,8 @@
-include: package:very_good_analysis/analysis_options.2.4.0.yaml
+include: package:very_good_analysis/analysis_options.3.0.0.yaml
 analyzer:
   exclude:
     - lib/l10n/*
+    - lib/generated/*
     - assets/**/*.gen.dart
     - packages/**/*.gen.dart
 linter:

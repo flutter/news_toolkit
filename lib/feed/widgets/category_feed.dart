@@ -6,10 +6,7 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template_api/client.dart';
 
 class CategoryFeed extends StatelessWidget {
-  const CategoryFeed({
-    Key? key,
-    required this.category,
-  }) : super(key: key);
+  const CategoryFeed({super.key, required this.category});
 
   final Category category;
 

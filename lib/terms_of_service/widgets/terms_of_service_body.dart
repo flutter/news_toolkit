@@ -5,7 +5,7 @@ part '../terms_of_service_mock_text.dart';
 
 @visibleForTesting
 class TermsOfServiceBody extends StatelessWidget {
-  const TermsOfServiceBody({Key? key}) : super(key: key);
+  const TermsOfServiceBody({super.key});
 
   @override
   Widget build(BuildContext context) {

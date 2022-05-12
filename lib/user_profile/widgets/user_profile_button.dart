@@ -11,7 +11,7 @@ import 'package:google_news_template/user_profile/user_profile.dart';
 /// for the unauthenticated user or an [OpenProfileButton]
 /// for the authenticated user.
 class UserProfileButton extends StatelessWidget {
-  const UserProfileButton({Key? key}) : super(key: key);
+  const UserProfileButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class UserProfileButton extends StatelessWidget {
 
 @visibleForTesting
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key}) : super(key: key);
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class LoginButton extends StatelessWidget {
 
 @visibleForTesting
 class OpenProfileButton extends StatelessWidget {
-  const OpenProfileButton({Key? key}) : super(key: key);
+  const OpenProfileButton({super.key});
 
   @override
   Widget build(BuildContext context) {

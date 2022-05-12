@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class NavigationDrawerSubscribe extends StatelessWidget {
-  const NavigationDrawerSubscribe({Key? key}) : super(key: key);
+  const NavigationDrawerSubscribe({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class NavigationDrawerSubscribe extends StatelessWidget {
 
 @visibleForTesting
 class NavigationDrawerSubscribeTitle extends StatelessWidget {
-  const NavigationDrawerSubscribeTitle({Key? key}) : super(key: key);
+  const NavigationDrawerSubscribeTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class NavigationDrawerSubscribeTitle extends StatelessWidget {
 
 @visibleForTesting
 class NavigationDrawerSubscribeSubtitle extends StatelessWidget {
-  const NavigationDrawerSubscribeSubtitle({Key? key}) : super(key: key);
+  const NavigationDrawerSubscribeSubtitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class NavigationDrawerSubscribeSubtitle extends StatelessWidget {
 
 @visibleForTesting
 class NavigationDrawerSubscribeButton extends StatelessWidget {
-  const NavigationDrawerSubscribeButton({Key? key}) : super(key: key);
+  const NavigationDrawerSubscribeButton({super.key});
 
   @override
   Widget build(BuildContext context) {

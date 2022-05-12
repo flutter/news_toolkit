@@ -18,7 +18,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail_image_network: ^0.3.1
-  very_good_analysis: ^2.4.0
+  very_good_analysis:
+    git:
+      url: https://github.com/verygoodopensource/very_good_analysis
+      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d
 
 flutter:
   uses-material-design: true

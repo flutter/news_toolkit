@@ -7,7 +7,7 @@ import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 
 class FeedView extends StatelessWidget {
-  const FeedView({Key? key}) : super(key: key);
+  const FeedView({super.key});
 
   @override
   Widget build(BuildContext context) {

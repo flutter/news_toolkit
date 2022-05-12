@@ -17,4 +17,7 @@ dev_dependencies:
   coverage: ^1.2.0
   mocktail: ^0.3.0
   test: ^1.21.1
-  very_good_analysis: ^2.4.0
+  very_good_analysis:
+    git:
+      url: https://github.com/verygoodopensource/very_good_analysis
+      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d

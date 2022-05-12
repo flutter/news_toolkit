@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AppButton extends StatelessWidget {
   /// {@macro app_button}
   const AppButton._({
-    Key? key,
+    super.key,
     required this.child,
     this.onPressed,
     Color? buttonColor,
@@ -23,8 +23,7 @@ class AppButton extends StatelessWidget {
         _elevation = elevation ?? 0,
         _textStyle = textStyle,
         _maximumSize = maximumSize ?? _defaultMaximumSize,
-        _padding = padding ?? _defaultPadding,
-        super(key: key);
+        _padding = padding ?? _defaultPadding;
 
   /// Filled black button.
   const AppButton.black({

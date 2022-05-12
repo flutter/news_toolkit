@@ -3,21 +3,15 @@ import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
 class MagicLinkPromptPage extends StatelessWidget {
-  const MagicLinkPromptPage({
-    Key? key,
-    required this.email,
-  }) : super(key: key);
+  const MagicLinkPromptPage({super.key, required this.email});
 
   final String email;
 
-  static Route route({
-    required String email,
-  }) =>
-      MaterialPageRoute<void>(
-        builder: (_) => MagicLinkPromptPage(
-          email: email,
-        ),
-      );
+  static Route route({required String email}) {
+    return MaterialPageRoute<void>(
+      builder: (_) => MagicLinkPromptPage(email: email),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

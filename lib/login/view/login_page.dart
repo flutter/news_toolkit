@@ -4,7 +4,7 @@ import 'package:google_news_template/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   static Route route() =>
       MaterialPageRoute<void>(builder: (_) => const LoginPage());

@@ -8,11 +8,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class PostSmall extends StatelessWidget {
   /// {@macro post_small}
-  const PostSmall({
-    Key? key,
-    required this.block,
-    this.onPressed,
-  }) : super(key: key);
+  const PostSmall({super.key, required this.block, this.onPressed});
 
   /// The size of this post image.
   static const _imageSize = 80.0;
@@ -29,8 +25,9 @@ class PostSmall extends StatelessWidget {
     final imageUrl = block.imageUrl;
 
     return GestureDetector(
-      onTap: () =>
-          block.hasNavigationAction ? onPressed?.call(block.action!) : null,
+      onTap: () {
+        if (block.hasNavigationAction) onPressed?.call(block.action!);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
         child: Row(
@@ -66,10 +63,10 @@ class PostSmall extends StatelessWidget {
 class PostSmallContent extends StatelessWidget {
   /// {@macro post_small_content}
   const PostSmallContent({
-    Key? key,
+    super.key,
     required this.title,
     required this.publishedAt,
-  }) : super(key: key);
+  });
 
   /// The title of this post.
   final String title;

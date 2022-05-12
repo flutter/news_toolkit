@@ -7,10 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextLeadParagraph extends StatelessWidget {
   /// {@macro text_lead_paragraph}
-  const TextLeadParagraph({
-    Key? key,
-    required this.block,
-  }) : super(key: key);
+  const TextLeadParagraph({super.key, required this.block});
 
   /// The associated [TextLeadParagraphBlock] instance.
   final TextLeadParagraphBlock block;
@@ -19,9 +16,10 @@ class TextLeadParagraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       block.text,
-      style: Theme.of(context).textTheme.headline6?.copyWith(
-            color: AppColors.highEmphasisSurface,
-          ),
+      style: Theme.of(context)
+          .textTheme
+          .headline6
+          ?.copyWith(color: AppColors.highEmphasisSurface),
     );
   }
 }

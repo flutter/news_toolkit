@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 class AppTextField extends StatelessWidget {
   /// {@macro app_text_field}
   const AppTextField({
-    Key? key,
+    super.key,
     this.initialValue,
     this.autoFillHints,
     this.controller,
@@ -23,7 +23,7 @@ class AppTextField extends StatelessWidget {
     this.keyboardType,
     this.onChanged,
     this.onTap,
-  }) : super(key: key);
+  });
 
   /// A value to initialize the field to.
   final String? initialValue;

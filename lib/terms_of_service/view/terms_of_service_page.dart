@@ -4,7 +4,7 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 
 class TermsOfServicePage extends StatelessWidget {
-  const TermsOfServicePage({Key? key}) : super(key: key);
+  const TermsOfServicePage({super.key});
 
   static Route route() => MaterialPageRoute<void>(
         builder: (_) => const TermsOfServicePage(),
@@ -34,7 +34,7 @@ class TermsOfServicePage extends StatelessWidget {
 
 @visibleForTesting
 class TermsOfServiceHeader extends StatelessWidget {
-  const TermsOfServiceHeader({Key? key}) : super(key: key);
+  const TermsOfServiceHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -13,29 +13,17 @@ part 'post_grid_tile_block.g.dart';
 class PostGridTileBlock extends PostBlock {
   /// {@macro post_grid_tile_block}
   const PostGridTileBlock({
-    required String id,
-    required PostCategory category,
-    required String author,
-    required DateTime publishedAt,
-    required String imageUrl,
-    required String title,
-    String? description,
-    BlockAction? action,
-    String type = PostGridTileBlock.identifier,
-    bool isPremium = false,
-  }) : super(
-          id: id,
-          category: category,
-          author: author,
-          publishedAt: publishedAt,
-          imageUrl: imageUrl,
-          title: title,
-          type: type,
-          description: description,
-          action: action,
-          isPremium: isPremium,
-          isContentOverlaid: true,
-        );
+    required super.id,
+    required super.category,
+    required super.author,
+    required super.publishedAt,
+    required String super.imageUrl,
+    required super.title,
+    super.description,
+    super.action,
+    super.type = PostGridTileBlock.identifier,
+    super.isPremium,
+  }) : super(isContentOverlaid: true);
 
   /// Converts a `Map<String, dynamic>` into a [PostGridTileBlock] instance.
   factory PostGridTileBlock.fromJson(Map<String, dynamic> json) =>

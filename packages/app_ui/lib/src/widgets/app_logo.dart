@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 class AppLogo extends StatelessWidget {
   /// {@macro app_logo}
   const AppLogo._({
-    Key? key,
+    super.key,
     required AssetGenImage logo,
-  })  : _logo = logo,
-        super(key: key);
+  }) : _logo = logo;
 
   /// The dark app logo.
   AppLogo.dark({

@@ -7,10 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextCaption extends StatelessWidget {
   /// {@macro text_caption}
-  const TextCaption({
-    Key? key,
-    required this.block,
-  }) : super(key: key);
+  const TextCaption({super.key, required this.block});
 
   /// The associated [TextCaption] instance.
   final TextCaptionBlock block;

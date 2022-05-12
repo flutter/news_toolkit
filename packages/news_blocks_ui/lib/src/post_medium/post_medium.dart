@@ -7,11 +7,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class PostMedium extends StatelessWidget {
   /// {@macro post_medium}
-  const PostMedium({
-    Key? key,
-    required this.block,
-    this.onPressed,
-  }) : super(key: key);
+  const PostMedium({super.key, required this.block, this.onPressed});
 
   /// The aspect ratio of this post image.
   static const imageAspectRatio = 3 / 2;

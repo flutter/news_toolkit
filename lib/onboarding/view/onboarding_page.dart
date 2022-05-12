@@ -9,7 +9,7 @@ import 'package:google_news_template/onboarding/onboarding.dart';
 enum OnboardingState { initial }
 
 class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+  const OnboardingPage({super.key});
 
   static Page page() => const MaterialPage<void>(child: OnboardingPage());
 
@@ -23,7 +23,7 @@ class OnboardingPage extends StatelessWidget {
 }
 
 class OnboardingWelcome extends StatelessWidget {
-  const OnboardingWelcome({Key? key}) : super(key: key);
+  const OnboardingWelcome({super.key});
 
   static Page page() => const MaterialPage<void>(child: OnboardingWelcome());
 
@@ -73,7 +73,7 @@ class OnboardingWelcome extends StatelessWidget {
 }
 
 class _PageIndicator extends StatelessWidget {
-  const _PageIndicator({Key? key, required this.state}) : super(key: key);
+  const _PageIndicator({required this.state});
 
   final OnboardingState state;
 
@@ -91,7 +91,7 @@ class _PageIndicator extends StatelessWidget {
 }
 
 class _PageIndicatorDot extends StatelessWidget {
-  const _PageIndicatorDot({Key? key, this.filled = false}) : super(key: key);
+  const _PageIndicatorDot({this.filled = false});
 
   final bool filled;
 

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class AppBackButton extends StatelessWidget {
   /// {@macro app_back_button}
-  const AppBackButton({Key? key}) : super(key: key);
+  const AppBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {

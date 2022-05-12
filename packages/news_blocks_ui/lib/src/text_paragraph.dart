@@ -7,10 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextParagraph extends StatelessWidget {
   /// {@macro text_paragraph}
-  const TextParagraph({
-    Key? key,
-    required this.block,
-  }) : super(key: key);
+  const TextParagraph({super.key, required this.block});
 
   /// The associated [TextParagraphBlock] instance.
   final TextParagraphBlock block;
@@ -19,9 +16,10 @@ class TextParagraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       block.text,
-      style: Theme.of(context).textTheme.bodyText1?.apply(
-            color: AppColors.mediumEmphasisSurface,
-          ),
+      style: Theme.of(context)
+          .textTheme
+          .bodyText1
+          ?.apply(color: AppColors.mediumEmphasisSurface),
     );
   }
 }

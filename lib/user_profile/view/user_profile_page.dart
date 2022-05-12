@@ -10,11 +10,11 @@ import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:user_repository/user_repository.dart';
 
 class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+  const UserProfilePage({super.key});
 
-  static MaterialPageRoute<void> route() => MaterialPageRoute(
-        builder: (_) => const UserProfilePage(),
-      );
+  static MaterialPageRoute<void> route() {
+    return MaterialPageRoute(builder: (_) => const UserProfilePage());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class UserProfilePage extends StatelessWidget {
 
 @visibleForTesting
 class UserProfileView extends StatelessWidget {
-  const UserProfileView({Key? key}) : super(key: key);
+  const UserProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,7 @@ class UserProfileView extends StatelessWidget {
 
 @visibleForTesting
 class UserProfileTitle extends StatelessWidget {
-  const UserProfileTitle({Key? key}) : super(key: key);
+  const UserProfileTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +128,9 @@ class UserProfileTitle extends StatelessWidget {
 @visibleForTesting
 class UserProfileSubtitle extends StatelessWidget {
   const UserProfileSubtitle({
-    Key? key,
+    super.key,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   final String subtitle;
 
@@ -155,12 +155,12 @@ class UserProfileSubtitle extends StatelessWidget {
 @visibleForTesting
 class UserProfileItem extends StatelessWidget {
   const UserProfileItem({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.trailing,
     this.onTap,
-  }) : super(key: key);
+  });
 
   static const _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
 
@@ -204,7 +204,7 @@ class UserProfileItem extends StatelessWidget {
 
 @visibleForTesting
 class UserProfileLogoutButton extends StatelessWidget {
-  const UserProfileLogoutButton({Key? key}) : super(key: key);
+  const UserProfileLogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -228,17 +228,13 @@ class UserProfileLogoutButton extends StatelessWidget {
 }
 
 class _UserProfileDivider extends StatelessWidget {
-  const _UserProfileDivider({Key? key}) : super(key: key);
+  const _UserProfileDivider();
 
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-      ),
-      child: Divider(
-        color: AppColors.borderOutline,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Divider(color: AppColors.borderOutline),
     );
   }
 }

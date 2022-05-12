@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class ColorsPage extends StatelessWidget {
-  const ColorsPage({Key? key}) : super(key: key);
+  const ColorsPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const ColorsPage());
@@ -71,11 +71,7 @@ class ColorsPage extends StatelessWidget {
 }
 
 class _ColorItem extends StatelessWidget {
-  const _ColorItem({
-    Key? key,
-    required this.name,
-    required this.color,
-  }) : super(key: key);
+  const _ColorItem({required this.name, required this.color});
 
   final String name;
   final Color color;
@@ -103,7 +99,7 @@ class _ColorItem extends StatelessWidget {
 }
 
 class _MaterialColorView extends StatelessWidget {
-  const _MaterialColorView({Key? key, required this.color}) : super(key: key);
+  const _MaterialColorView({required this.color});
 
   static const List<int> shades = [
     50,
@@ -132,7 +128,7 @@ class _MaterialColorView extends StatelessWidget {
 }
 
 class _ColorSquare extends StatelessWidget {
-  const _ColorSquare({Key? key, required this.color}) : super(key: key);
+  const _ColorSquare({required this.color});
 
   final Color color;
 

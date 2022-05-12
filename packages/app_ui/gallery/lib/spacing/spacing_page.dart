@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class SpacingPage extends StatelessWidget {
-  const SpacingPage({Key? key}) : super(key: key);
+  const SpacingPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const SpacingPage());
@@ -30,8 +30,7 @@ class SpacingPage extends StatelessWidget {
 }
 
 class _SpacingItem extends StatelessWidget {
-  const _SpacingItem({Key? key, required this.spacing, required this.name})
-      : super(key: key);
+  const _SpacingItem({required this.spacing, required this.name});
 
   final double spacing;
   final String name;

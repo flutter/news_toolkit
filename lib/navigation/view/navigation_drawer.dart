@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+  const NavigationDrawer({super.key});
 
   static const _contentPadding = AppSpacing.lg;
 
@@ -47,12 +47,10 @@ class NavigationDrawer extends StatelessWidget {
 }
 
 class _NavigationDrawerDivider extends StatelessWidget {
-  const _NavigationDrawerDivider({Key? key}) : super(key: key);
+  const _NavigationDrawerDivider();
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(
-      color: AppColors.outlineOnDark,
-    );
+    return const Divider(color: AppColors.outlineOnDark);
   }
 }

@@ -6,16 +6,11 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class DividerHorizontal extends StatelessWidget {
   /// {@macro divider_horizontal}
-  const DividerHorizontal({
-    Key? key,
-    required this.block,
-  }) : super(key: key);
+  const DividerHorizontal({super.key, required this.block});
 
   /// The associated [DividerHorizontalBlock] instance.
   final DividerHorizontalBlock block;
 
   @override
-  Widget build(BuildContext context) {
-    return const Divider();
-  }
+  Widget build(BuildContext context) => const Divider();
 }

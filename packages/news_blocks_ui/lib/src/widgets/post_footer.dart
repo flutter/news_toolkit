@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class PostFooter extends StatelessWidget {
   /// {@macro post_footer}
   const PostFooter({
-    Key? key,
+    super.key,
     required this.publishedAt,
     this.author,
     this.onShare,
     this.isContentOverlaid = false,
-  }) : super(key: key);
+  });
 
   /// The author of this post.
   final String? author;

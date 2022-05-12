@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 /// [onPresented] when the item becomes visible.
 @visibleForTesting
 class CategoryFeedLoaderItem extends StatefulWidget {
-  const CategoryFeedLoaderItem({
-    Key? key,
-    this.onPresented,
-  }) : super(key: key);
+  const CategoryFeedLoaderItem({super.key, this.onPresented});
 
   /// A callback performed when the widget is presented.
   final VoidCallback? onPresented;
