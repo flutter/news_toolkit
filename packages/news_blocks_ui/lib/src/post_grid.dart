@@ -50,12 +50,9 @@ class PostGrid extends StatelessWidget {
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
             children: otherBlocks
-                .map<PostMediumBlock>(
-                  (postGridTile) => postGridTile.toPostMediumBlock(),
-                )
-                .map<Widget>(
-                  (postMediumBlock) => PostMedium(
-                    block: postMediumBlock,
+                .map(
+                  (tile) => PostMedium(
+                    block: tile.toPostMediumBlock(),
                     onPressed: onPressed,
                   ),
                 )
