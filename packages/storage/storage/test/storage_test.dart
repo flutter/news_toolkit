@@ -12,7 +12,7 @@ class FakeStorage extends Fake implements Storage {}
 
 void main() {
   test('Storage can be implemented', () {
-    expect(() => FakeStorage(), returnsNormally);
+    expect(FakeStorage, returnsNormally);
   });
 
   test('exports StorageException', () {

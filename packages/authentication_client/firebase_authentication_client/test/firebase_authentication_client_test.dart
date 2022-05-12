@@ -134,7 +134,7 @@ void main() {
     });
 
     test('creates FirebaseAuth instance internally when not injected', () {
-      expect(() => FirebaseAuthenticationClient(), isNot(throwsException));
+      expect(FirebaseAuthenticationClient, isNot(throwsException));
     });
 
     group('logInWithApple', () {
