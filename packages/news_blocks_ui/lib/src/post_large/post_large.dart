@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -11,6 +12,7 @@ class PostLarge extends StatelessWidget {
     Key? key,
     required this.block,
     required this.premiumText,
+    this.onPressed,
   }) : super(key: key);
 
   /// The associated [PostLargeBlock] instance.
@@ -19,25 +21,33 @@ class PostLarge extends StatelessWidget {
   /// Text displayed when post is premium content.
   final String premiumText;
 
+  /// An optional callback which is invoked when the action is triggered.
+  /// A [Uri] from the associated [BlockAction] is provided to the callback.
+  final BlockActionCallback? onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return PostLargeContainer(
-      isContentOverlaid: block.isContentOverlaid,
-      children: [
-        PostLargeImage(
-          isContentOverlaid: block.isContentOverlaid,
-          imageUrl: block.imageUrl!,
-        ),
-        PostContent(
-          author: block.author,
-          categoryName: block.category.name,
-          publishedAt: block.publishedAt,
-          title: block.title,
-          isPremium: block.isPremium,
-          premiumText: premiumText,
-          isContentOverlaid: block.isContentOverlaid,
-        ),
-      ],
+    return GestureDetector(
+      onTap: () =>
+          block.hasNavigationAction ? onPressed?.call(block.action!) : null,
+      child: PostLargeContainer(
+        isContentOverlaid: block.isContentOverlaid,
+        children: [
+          PostLargeImage(
+            isContentOverlaid: block.isContentOverlaid,
+            imageUrl: block.imageUrl!,
+          ),
+          PostContent(
+            author: block.author,
+            categoryName: block.category.name,
+            publishedAt: block.publishedAt,
+            title: block.title,
+            isPremium: block.isPremium,
+            premiumText: premiumText,
+            isContentOverlaid: block.isContentOverlaid,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -70,9 +80,12 @@ class PostLargeContainer extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             children: children,
           )
-        : Column(
-            key: const Key('postLarge_column'),
-            children: children,
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Column(
+              key: const Key('postLarge_column'),
+              children: children,
+            ),
           );
   }
 }
