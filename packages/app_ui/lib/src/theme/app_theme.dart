@@ -31,6 +31,7 @@ class AppTheme {
       listTileTheme: _listTileTheme,
       switchTheme: _switchTheme,
       progressIndicatorTheme: _progressIndicatorTheme,
+      tabBarTheme: _tabBarTheme,
     );
   }
 
@@ -224,6 +225,26 @@ class AppTheme {
     return const ProgressIndicatorThemeData(
       color: AppColors.darkAqua,
       circularTrackColor: AppColors.borderOutline,
+    );
+  }
+
+  TabBarTheme get _tabBarTheme {
+    return TabBarTheme(
+      labelStyle: UITextStyle.button,
+      labelColor: AppColors.darkAqua,
+      labelPadding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md + AppSpacing.xxs,
+      ),
+      unselectedLabelStyle: UITextStyle.button,
+      unselectedLabelColor: AppColors.mediumEmphasisSurface,
+      indicator: const UnderlineTabIndicator(
+        borderSide: BorderSide(
+          width: 3,
+          color: AppColors.darkAqua,
+        ),
+      ),
+      indicatorSize: TabBarIndicatorSize.label,
     );
   }
 }
