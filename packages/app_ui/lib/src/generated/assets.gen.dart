@@ -15,6 +15,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/apple.svg
   SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
 
+  /// File path: assets/icons/back_icon.svg
+  SvgGenImage get backIcon => const SvgGenImage('assets/icons/back_icon.svg');
+
   /// File path: assets/icons/close_circle.svg
   SvgGenImage get closeCircle =>
       const SvgGenImage('assets/icons/close_circle.svg');
