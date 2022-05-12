@@ -33,50 +33,6 @@ void main() {
   });
 
   group('CategoryFeed', () {
-    testWidgets(
-        'shows CircularProgressIndicator '
-        'when FeedStatus is initial', (tester) async {
-      when(() => feedBloc.state).thenReturn(
-        FeedState(status: FeedStatus.initial),
-      );
-
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: feedBloc,
-          child: CustomScrollView(
-            slivers: [CategoryFeed(category: category)],
-          ),
-        ),
-      );
-
-      expect(
-        find.byType(CircularProgressIndicator),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets(
-        'shows CircularProgressIndicator '
-        'when FeedStatus is loading', (tester) async {
-      when(() => feedBloc.state).thenReturn(
-        FeedState(status: FeedStatus.loading),
-      );
-
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: feedBloc,
-          child: CustomScrollView(
-            slivers: [CategoryFeed(category: category)],
-          ),
-        ),
-      );
-
-      expect(
-        find.byType(CircularProgressIndicator),
-        findsOneWidget,
-      );
-    });
-
     group('when FeedStatus is failure', () {
       setUp(() {
         whenListen(
@@ -88,15 +44,11 @@ void main() {
         );
       });
 
-      testWidgets(
-          'shows SnackBar with error message '
-          'when FeedStatus is failure', (tester) async {
+      testWidgets('shows SnackBar with error message', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
-            child: CustomScrollView(
-              slivers: [CategoryFeed(category: category)],
-            ),
+            child: CategoryFeed(category: category),
           ),
         );
 
@@ -112,9 +64,7 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
-            child: CustomScrollView(
-              slivers: [CategoryFeed(category: category)],
-            ),
+            child: CategoryFeed(category: category),
           ),
         );
 
@@ -151,9 +101,7 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
-            child: CustomScrollView(
-              slivers: [CategoryFeed(category: category)],
-            ),
+            child: CategoryFeed(category: category),
           ),
         );
 
@@ -171,38 +119,53 @@ void main() {
           );
         }
       });
+    });
 
-      group('CategoryFeedLoaderItem', () {
-        final hasMoreNews = <Category, bool>{
-          Category.top: true,
-        };
+    group('CategoryFeedLoaderItem', () {
+      final hasMoreNews = <Category, bool>{
+        Category.top: true,
+      };
 
-        testWidgets('is shown when hasMoreNews is true', (tester) async {
+      group('is shown', () {
+        testWidgets('when FeedStatus is initial', (tester) async {
           whenListen(
             feedBloc,
             Stream.fromIterable([
               FeedState.initial(),
-              FeedState(
-                status: FeedStatus.populated,
-                feed: feed,
-                hasMoreNews: hasMoreNews,
-              )
             ]),
           );
 
           await tester.pumpApp(
             BlocProvider.value(
               value: feedBloc,
-              child: CustomScrollView(
-                slivers: [CategoryFeed(category: category)],
-              ),
+              child: CategoryFeed(category: category),
             ),
           );
 
           expect(find.byType(CategoryFeedLoaderItem), findsOneWidget);
         });
 
-        testWidgets('adds FeedRequested to FeedBloc', (tester) async {
+        testWidgets('when FeedStatus is loading', (tester) async {
+          whenListen(
+            feedBloc,
+            Stream.fromIterable([
+              FeedState(status: FeedStatus.loading),
+            ]),
+          );
+
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: feedBloc,
+              child: CategoryFeed(category: category),
+            ),
+          );
+
+          expect(find.byType(CategoryFeedLoaderItem), findsOneWidget);
+        });
+
+        testWidgets(
+            'when FeedStatus is populated and '
+            'hasMoreNews is true', (tester) async {
           whenListen(
             feedBloc,
             Stream.fromIterable([
@@ -218,43 +181,65 @@ void main() {
           await tester.pumpApp(
             BlocProvider.value(
               value: feedBloc,
-              child: CustomScrollView(
-                slivers: [CategoryFeed(category: category)],
-              ),
+              child: CategoryFeed(category: category),
             ),
           );
 
-          verify(
-            () => feedBloc.add(FeedRequested(category: category)),
-          ).called(1);
+          expect(find.byType(CategoryFeedLoaderItem), findsOneWidget);
         });
+      });
 
-        testWidgets('is not shown when hasMoreNews is false', (tester) async {
-          whenListen(
-            feedBloc,
-            Stream.fromIterable([
-              FeedState.initial(),
-              FeedState(
-                status: FeedStatus.populated,
-                feed: feed,
-                hasMoreNews: {
-                  category: false,
-                },
-              )
-            ]),
-          );
+      testWidgets(
+          'is not shown '
+          'when FeedStatus is populated and '
+          'hasMoreNews is false', (tester) async {
+        whenListen(
+          feedBloc,
+          Stream.fromIterable([
+            FeedState.initial(),
+            FeedState(
+              status: FeedStatus.populated,
+              feed: feed,
+              hasMoreNews: {
+                category: false,
+              },
+            )
+          ]),
+        );
 
-          await tester.pumpApp(
-            BlocProvider.value(
-              value: feedBloc,
-              child: CustomScrollView(
-                slivers: [CategoryFeed(category: category)],
-              ),
-            ),
-          );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
 
-          expect(find.byType(CategoryFeedLoaderItem), findsNothing);
-        });
+        expect(find.byType(CategoryFeedLoaderItem), findsNothing);
+      });
+
+      testWidgets('adds FeedRequested to FeedBloc', (tester) async {
+        whenListen(
+          feedBloc,
+          Stream.fromIterable([
+            FeedState.initial(),
+            FeedState(
+              status: FeedStatus.populated,
+              feed: feed,
+              hasMoreNews: hasMoreNews,
+            )
+          ]),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
+
+        verify(
+          () => feedBloc.add(FeedRequested(category: category)),
+        ).called(1);
       });
     });
   });
