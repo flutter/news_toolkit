@@ -3,13 +3,14 @@ description: App UI Component Library
 publish_to: none
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.0.3
   intl: ^0.17.0
+  mockingjay: ^0.3.0
 
 dev_dependencies:
   flutter_test:
