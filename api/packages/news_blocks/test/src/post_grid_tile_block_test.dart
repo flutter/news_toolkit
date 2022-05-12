@@ -15,5 +15,51 @@ void main() {
 
       expect(PostGridTileBlock.fromJson(block.toJson()), equals(block));
     });
+
+    group('PostGridTitleBlockExt', () {
+      const id = 'id';
+      const category = PostCategory.science;
+      const author = 'author';
+      final publishedAt = DateTime(2022, 3, 12);
+      const imageUrl = 'imageUrl';
+      const title = 'title';
+
+      final gridTile = PostGridTileBlock(
+        id: id,
+        category: category,
+        author: author,
+        publishedAt: publishedAt,
+        imageUrl: imageUrl,
+        title: title,
+      );
+
+      test('toPostLargeBlock creates PostLargeBlock instance', () {
+        final largeBlock = PostLargeBlock(
+          id: id,
+          category: category,
+          author: author,
+          publishedAt: publishedAt,
+          imageUrl: imageUrl,
+          title: title,
+          isContentOverlaid: true,
+        );
+
+        expect(gridTile.toPostLargeBlock(), equals(largeBlock));
+      });
+
+      test('toPostMediumBlock creates PostMediumBlock instance', () {
+        final mediumBlock = PostMediumBlock(
+          id: id,
+          category: category,
+          author: author,
+          publishedAt: publishedAt,
+          imageUrl: imageUrl,
+          title: title,
+          isContentOverlaid: true,
+        );
+
+        expect(gridTile.toPostMediumBlock(), equals(mediumBlock));
+      });
+    });
   });
 }
