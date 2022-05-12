@@ -29,6 +29,11 @@ class CategoryFeedItem extends StatelessWidget {
       );
     } else if (newsBlock is PostMediumBlock) {
       return PostMedium(block: newsBlock);
+    } else if (newsBlock is PostGridGroupBlock) {
+      return PostGrid(
+        gridGroupBlock: newsBlock,
+        premiumText: context.l10n.newsBlockPremiumText,
+      );
     } else if (newsBlock is PostSmallBlock) {
       return PostSmall(block: newsBlock);
     } else {
