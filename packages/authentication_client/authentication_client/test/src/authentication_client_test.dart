@@ -12,7 +12,7 @@ class FakeAuthenticationClient extends Fake implements AuthenticationClient {}
 
 void main() {
   test('AuthenticationClient can be implemented', () {
-    expect(() => FakeAuthenticationClient(), returnsNormally);
+    expect(FakeAuthenticationClient.new, returnsNormally);
   });
 
   test('exports SendLoginEmailLinkFailure', () {

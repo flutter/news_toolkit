@@ -10,9 +10,9 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   const PostMediumDescriptionLayout({
     Key? key,
     required this.title,
-    required this.description,
     required this.imageUrl,
     required this.publishedAt,
+    this.description,
     this.author,
     this.onShare,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   final String title;
 
   /// Description of post.
-  final String description;
+  final String? description;
 
   /// The date when this post was published.
   final DateTime publishedAt;
@@ -66,7 +66,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
             ],
           ),
           Text(
-            description,
+            description ?? '',
             style: textTheme.bodyText2
                 ?.copyWith(color: AppColors.mediumEmphasisSurface),
           ),

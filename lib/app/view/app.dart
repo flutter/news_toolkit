@@ -6,18 +6,22 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
+import 'package:news_repository/news_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
   const App({
     Key? key,
     required UserRepository userRepository,
+    required NewsRepository newsRepository,
     required User user,
   })  : _userRepository = userRepository,
+        _newsRepository = newsRepository,
         _user = user,
         super(key: key);
 
   final UserRepository _userRepository;
+  final NewsRepository _newsRepository;
   final User _user;
 
   @override
@@ -25,6 +29,7 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: _userRepository),
+        RepositoryProvider.value(value: _newsRepository),
       ],
       child: MultiBlocProvider(
         providers: [
