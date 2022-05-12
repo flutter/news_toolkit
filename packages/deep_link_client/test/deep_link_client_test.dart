@@ -72,7 +72,7 @@ void main() {
       final expectedUri1 = Uri.https('ham.app.test', '/test/1');
       final expectedUri2 = Uri.https('ham.app.test', '/test/2');
 
-      when(appLinksMock.getInitialLink).thenAnswer((_) => Future.value(null));
+      when(appLinksMock.getInitialLink).thenAnswer((_) async => null);
 
       final client = DeepLinkClient(firebaseDynamicLinks: appLinksMock);
 

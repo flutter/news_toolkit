@@ -11,6 +11,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "unexpectedFailure": "An unexpected error occurred. Please try again.",
+  "@unexpectedFailure": {
+    "description": "Text displayed when an unexpected error occurs",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
@@ -242,6 +248,12 @@
   "openMailAppButtonText": "Open Mail App",
   "@openMailAppButtonText": {
     "description": "Open mail app button text shown in the magic link prompt UI",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newsBlockPremiumText": "Premium",
+  "@newsBlockPremiumText": {
+    "description": "Premium text shown on the news block widgets",
     "type": "text",
     "placeholders": {}
   }
