@@ -7,13 +7,10 @@ import 'package:authentication_client/authentication_client.dart';
 /// {@endtemplate}
 abstract class AuthenticationException implements Exception {
   /// {@macro authentication_exception}
-  const AuthenticationException(this.error, this.stackTrace);
+  const AuthenticationException(this.error);
 
   /// The error which was caught.
   final Object error;
-
-  /// The stack trace associated with the [error].
-  final StackTrace stackTrace;
 }
 
 /// {@template send_login_email_link_failure}
@@ -21,8 +18,7 @@ abstract class AuthenticationException implements Exception {
 /// {@endtemplate}
 class SendLoginEmailLinkFailure extends AuthenticationException {
   /// {@macro send_login_email_link_failure}
-  const SendLoginEmailLinkFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const SendLoginEmailLinkFailure(super.error);
 }
 
 /// {@template is is_log_in_email_link_failure}
@@ -30,8 +26,7 @@ class SendLoginEmailLinkFailure extends AuthenticationException {
 /// {@endtemplate}
 class IsLogInWithEmailLinkFailure extends AuthenticationException {
   /// {@macro is_log_in_email_link_failure}
-  const IsLogInWithEmailLinkFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const IsLogInWithEmailLinkFailure(super.error);
 }
 
 /// {@template log_in_with_email_link_failure}
@@ -39,8 +34,7 @@ class IsLogInWithEmailLinkFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithEmailLinkFailure extends AuthenticationException {
   /// {@macro log_in_with_email_link_failure}
-  const LogInWithEmailLinkFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithEmailLinkFailure(super.error);
 }
 
 /// {@template log_in_with_apple_failure}
@@ -48,8 +42,7 @@ class LogInWithEmailLinkFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithAppleFailure extends AuthenticationException {
   /// {@macro log_in_with_apple_failure}
-  const LogInWithAppleFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithAppleFailure(super.error);
 }
 
 /// {@template log_in_with_google_failure}
@@ -57,8 +50,7 @@ class LogInWithAppleFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithGoogleFailure extends AuthenticationException {
   /// {@macro log_in_with_google_failure}
-  const LogInWithGoogleFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithGoogleFailure(super.error);
 }
 
 /// {@template log_in_with_google_canceled}
@@ -66,8 +58,7 @@ class LogInWithGoogleFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithGoogleCanceled extends AuthenticationException {
   /// {@macro log_in_with_google_canceled}
-  const LogInWithGoogleCanceled(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithGoogleCanceled(super.error);
 }
 
 /// {@template log_in_with_facebook_failure}
@@ -75,8 +66,7 @@ class LogInWithGoogleCanceled extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithFacebookFailure extends AuthenticationException {
   /// {@macro log_in_with_facebook_failure}
-  const LogInWithFacebookFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithFacebookFailure(super.error);
 }
 
 /// {@template log_in_with_facebook_canceled}
@@ -84,8 +74,7 @@ class LogInWithFacebookFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithFacebookCanceled extends AuthenticationException {
   /// {@macro log_in_with_facebook_canceled}
-  const LogInWithFacebookCanceled(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithFacebookCanceled(super.error);
 }
 
 /// {@template log_in_with_twitter_failure}
@@ -93,8 +82,7 @@ class LogInWithFacebookCanceled extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithTwitterFailure extends AuthenticationException {
   /// {@macro log_in_with_twitter_failure}
-  const LogInWithTwitterFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithTwitterFailure(super.error);
 }
 
 /// {@template log_in_with_twitter_canceled}
@@ -102,8 +90,7 @@ class LogInWithTwitterFailure extends AuthenticationException {
 /// {@endtemplate}
 class LogInWithTwitterCanceled extends AuthenticationException {
   /// {@macro log_in_with_twitter_canceled}
-  const LogInWithTwitterCanceled(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogInWithTwitterCanceled(super.error);
 }
 
 /// {@template log_out_failure}
@@ -111,8 +98,7 @@ class LogInWithTwitterCanceled extends AuthenticationException {
 /// {@endtemplate}
 class LogOutFailure extends AuthenticationException {
   /// {@macro log_out_failure}
-  const LogOutFailure(Object error, StackTrace stackTrace)
-      : super(error, stackTrace);
+  const LogOutFailure(super.error);
 }
 
 /// A generic Authentication Client Interface.

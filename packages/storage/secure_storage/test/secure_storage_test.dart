@@ -50,7 +50,6 @@ void main() {
           await secureStorage.read(key: mockKey);
         } on StorageException catch (e) {
           expect(e.error, mockException);
-          expect(e.stackTrace, isNotNull);
         }
       });
     });
@@ -80,7 +79,6 @@ void main() {
           await secureStorage.write(key: mockKey, value: mockValue);
         } on StorageException catch (e) {
           expect(e.error, mockException);
-          expect(e.stackTrace, isNotNull);
         }
       });
     });
@@ -102,7 +100,6 @@ void main() {
           await secureStorage.delete(key: mockKey);
         } on StorageException catch (e) {
           expect(e.error, mockException);
-          expect(e.stackTrace, isNotNull);
         }
       });
     });
@@ -120,7 +117,6 @@ void main() {
           await secureStorage.clear();
         } on StorageException catch (e) {
           expect(e.error, mockException);
-          expect(e.stackTrace, isNotNull);
         }
       });
     });
