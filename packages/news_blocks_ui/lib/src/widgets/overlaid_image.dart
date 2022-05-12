@@ -26,6 +26,7 @@ class OverlaidImage extends StatelessWidget {
         Image.network(
           imageUrl,
           height: double.infinity,
+          width: double.infinity,
           fit: BoxFit.cover,
         ),
         Container(
