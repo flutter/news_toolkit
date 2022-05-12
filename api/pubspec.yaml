@@ -3,7 +3,7 @@ description: A server app using the shelf package and Docker.
 publish_to: none
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   equatable: ^2.0.3
