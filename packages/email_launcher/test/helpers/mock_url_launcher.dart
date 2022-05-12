@@ -9,7 +9,7 @@ class MockUrlLauncher extends Fake
     with MockPlatformInterfaceMixin
     implements UrlLauncherPlatform {
   /// The string url.
-  String? url;
+  String? canLaunchUrl;
 
   /// Bool to know if is used Safari.
   bool? useSafariVC;
@@ -41,11 +41,6 @@ class MockUrlLauncher extends Fake
   /// Bool to know if the URI was launched.
   bool launchCalled = false;
 
-  /// Method to set the URL of the method `canLaunch`.
-  void setCanLaunchUrl(String url) {
-    this.url = url;
-  }
-
   /// Method to set the needed variables to use the `launchURL`method.
   void setLaunchExpectations({
     required String url,
@@ -57,7 +52,7 @@ class MockUrlLauncher extends Fake
     required Map<String, String> headers,
     required String? webOnlyWindowName,
   }) {
-    this.url = url;
+    canLaunchUrl = url;
     this.useSafariVC = useSafariVC;
     this.useWebView = useWebView;
     this.enableJavaScript = enableJavaScript;
@@ -66,16 +61,9 @@ class MockUrlLauncher extends Fake
     this.webOnlyWindowName = webOnlyWindowName;
   }
 
-  /// Method to set the result of the response.
-  /// Use to determinate if `canLaunch` or `launchURL` returns
-  /// `true` or `false`.
-  void setResponse(bool response) {
-    this.response = response;
-  }
-
   @override
   Future<bool> canLaunch(String url) async {
-    expect(url, this.url);
+    expect(url, canLaunchUrl);
     canLaunchCalled = true;
     return response!;
   }
@@ -91,7 +79,7 @@ class MockUrlLauncher extends Fake
     required Map<String, String> headers,
     String? webOnlyWindowName,
   }) async {
-    expect(url, this.url);
+    expect(url, canLaunchUrl);
     expect(useSafariVC, this.useSafariVC);
     expect(useWebView, this.useWebView);
     expect(enableJavaScript, this.enableJavaScript);

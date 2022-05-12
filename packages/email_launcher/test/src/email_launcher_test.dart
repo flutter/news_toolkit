@@ -45,8 +45,8 @@ void main() {
             expect(defaultTargetPlatform, TargetPlatform.iOS);
             final url = Uri(scheme: 'message');
             mock
-              ..setCanLaunchUrl(url.toString())
-              ..setResponse(true);
+              ..canLaunchUrl = url.toString()
+              ..response = true;
 
             final result = await canLaunchUrl(url);
             mock
@@ -60,7 +60,7 @@ void main() {
                 headers: <String, String>{},
                 webOnlyWindowName: null,
               )
-              ..setResponse(true);
+              ..response = true;
             final launch = await launchUrl(url);
             await emailLauncher.launchEmailApp();
             expect(result, isTrue);
