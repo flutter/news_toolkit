@@ -30,11 +30,11 @@ class PostGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (gridGroupBlock.tiles.isEmpty) return const SizedBox.shrink();
+    if (gridGroupBlock.tiles.isEmpty) return const SizedBox();
 
     final firstBlock = gridGroupBlock.tiles.first;
-    final strippedBlockCollection =
-        List<PostGridTileBlock>.from(gridGroupBlock.tiles.sublist(1));
+    final otherBlocks = gridGroupBlock.tiles.skip(1);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Column(
@@ -52,7 +52,7 @@ class PostGrid extends StatelessWidget {
             childAspectRatio: _mediumPostAspectRatio,
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
-            children: strippedBlockCollection
+            children: otherBlocks
                 .map<PostMediumBlock>(
                   (postGridTile) => postGridTile.toPostMediumBlock(),
                 )

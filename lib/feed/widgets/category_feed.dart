@@ -50,7 +50,7 @@ class CategoryFeed extends StatelessWidget {
                                 .read<FeedBloc>()
                                 .add(FeedRequested(category: category)),
                           )
-                        : const SizedBox.shrink();
+                        : const SizedBox();
                   }
 
                   final block = categoryFeed[index];
