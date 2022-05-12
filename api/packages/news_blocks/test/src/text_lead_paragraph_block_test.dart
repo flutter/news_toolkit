@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('TextLeadParagraphBlock', () {
     test('can be (de)serialized', () {
-      final block = TextLeadParagraphBlock(text: 'Text lead paragraph');
+      final block = TextLeadParagraphBlock(text: 'Text Lead Paragraph');
 
       expect(TextLeadParagraphBlock.fromJson(block.toJson()), equals(block));
     });
