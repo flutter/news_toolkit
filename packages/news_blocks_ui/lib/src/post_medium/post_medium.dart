@@ -36,7 +36,7 @@ class PostMedium extends StatelessWidget {
           : PostMediumDescriptionLayout(
               title: block.title,
               imageUrl: block.imageUrl!,
-              description: block.description!,
+              description: block.description,
               publishedAt: block.publishedAt,
               author: block.author,
             ),
