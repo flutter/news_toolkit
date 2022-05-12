@@ -10,16 +10,13 @@ import 'package:rxdart/rxdart.dart';
 /// {@endtemplate}
 class DeepLinkClientFailure with EquatableMixin implements Exception {
   /// {@macro deep_link_client_failure}
-  DeepLinkClientFailure(this.error, this.stackTrace);
+  DeepLinkClientFailure(this.error);
 
   /// The error which was caught.
   final Object error;
 
-  /// The stack trace associated with the [error].
-  final StackTrace stackTrace;
-
   @override
-  List<Object> get props => [error, stackTrace];
+  List<Object> get props => [error];
 }
 
 /// {@template deep_link_client}
@@ -59,6 +56,6 @@ class DeepLinkClient {
   }
 
   void _handleError(Object error, StackTrace stackTrace) {
-    _deepLinkSubject.addError(DeepLinkClientFailure(error, stackTrace));
+    _deepLinkSubject.addError(DeepLinkClientFailure(error), stackTrace);
   }
 }

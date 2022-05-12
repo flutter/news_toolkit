@@ -58,12 +58,7 @@ void main() {
         client.deepLinkStream,
         emitsError(
           isA<DeepLinkClientFailure>()
-              .having((failure) => failure.error, 'error', expectedError)
-              .having(
-                (failure) => failure.stackTrace,
-                'stackTrace',
-                expectedStackTrace,
-              ),
+              .having((failure) => failure.error, 'error', expectedError),
         ),
       );
     });
@@ -130,12 +125,11 @@ void main() {
 
   group('DeepLinkClientFailure', () {
     final error = Exception('errorMessage');
-    const stackTrace = StackTrace.empty;
 
     test('has correct props', () {
       expect(
-        DeepLinkClientFailure(error, stackTrace).props,
-        [error, stackTrace],
+        DeepLinkClientFailure(error).props,
+        [error],
       );
     });
   });

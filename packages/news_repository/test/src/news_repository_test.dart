@@ -83,16 +83,52 @@ void main() {
       });
     });
 
+    group('getCategories', () {
+      test(
+          'returns CategoriesResponse '
+          'from ApiClient.getCategories', () {
+        const categoriesResponse = CategoriesResponse(
+          categories: [
+            Category.top,
+            Category.health,
+          ],
+        );
+
+        when(apiClient.getCategories)
+            .thenAnswer((_) async => categoriesResponse);
+
+        expect(
+          newsRepository.getCategories(),
+          completion(equals(categoriesResponse)),
+        );
+
+        verify(apiClient.getCategories).called(1);
+      });
+
+      test(
+          'throws GetCategoriesFailure '
+          'if ApiClient.getCategories fails', () async {
+        when(apiClient.getCategories).thenThrow(Exception);
+
+        expect(
+          newsRepository.getCategories,
+          throwsA(isA<GetCategoriesFailure>()),
+        );
+      });
+    });
+
     group('FeedFailure', () {
       final error = Exception('errorMessage');
-      const stackTrace = StackTrace.empty;
 
       group('GetFeedFailure', () {
         test('has correct props', () {
-          expect(
-            GetFeedFailure(error, stackTrace).props,
-            [error, stackTrace],
-          );
+          expect(GetFeedFailure(error).props, [error]);
+        });
+      });
+
+      group('GetCategoriesFailure', () {
+        test('has correct props', () {
+          expect(GetCategoriesFailure(error).props, [error]);
         });
       });
     });

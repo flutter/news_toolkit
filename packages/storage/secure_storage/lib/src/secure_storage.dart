@@ -28,7 +28,7 @@ class SecureStorage implements Storage {
     try {
       return await _secureStorage.read(key: key);
     } on Exception catch (error, stackTrace) {
-      throw StorageException(error, stackTrace);
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
   }
 
@@ -37,7 +37,7 @@ class SecureStorage implements Storage {
     try {
       await _secureStorage.write(key: key, value: value);
     } on Exception catch (error, stackTrace) {
-      throw StorageException(error, stackTrace);
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
   }
 
@@ -46,7 +46,7 @@ class SecureStorage implements Storage {
     try {
       await _secureStorage.delete(key: key);
     } on Exception catch (error, stackTrace) {
-      throw StorageException(error, stackTrace);
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
   }
 
@@ -55,7 +55,7 @@ class SecureStorage implements Storage {
     try {
       await _secureStorage.deleteAll();
     } on Exception catch (error, stackTrace) {
-      throw StorageException(error, stackTrace);
+      Error.throwWithStackTrace(StorageException(error), stackTrace);
     }
   }
 }
