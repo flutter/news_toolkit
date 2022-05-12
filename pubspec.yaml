@@ -16,7 +16,7 @@ dependencies:
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
   firebase_crashlytics: ^2.1.1
-  flow_builder: ^0.0.5
+  flow_builder: ^0.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
