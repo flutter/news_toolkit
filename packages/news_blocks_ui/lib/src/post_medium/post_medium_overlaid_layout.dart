@@ -16,7 +16,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
   /// Title of post.
   final String title;
 
-  /// Url of image displayed in overlay.
+  /// The url of post image displayed in overlay.
   final String imageUrl;
 
   @override
