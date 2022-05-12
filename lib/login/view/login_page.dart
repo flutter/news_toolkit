@@ -9,6 +9,8 @@ class LoginPage extends StatelessWidget {
   static Route route() =>
       MaterialPageRoute<void>(builder: (_) => const LoginPage());
 
+  static const String name = '/loginPage';
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
