@@ -36,6 +36,8 @@ abstract class NewsBlock {
         return PostGridGroupBlock.fromJson(json);
       case PostGridTileBlock.identifier:
         return PostGridTileBlock.fromJson(json);
+      case TextParagraphBlock.identifier:
+        return TextParagraphBlock.fromJson(json);
     }
     return const UnknownBlock();
   }

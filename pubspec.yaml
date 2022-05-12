@@ -61,6 +61,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  mocktail_image_network: ^0.3.1
 
 flutter:
   generate: true
