@@ -6,16 +6,13 @@ import 'package:google_news_template_api/client.dart';
 /// {@endtemplate}
 abstract class NewsFailure with EquatableMixin implements Exception {
   /// {@macro news_failure}
-  const NewsFailure(this.error, this.stackTrace);
+  const NewsFailure(this.error);
 
   /// The error which was caught.
   final Object error;
 
-  /// The stack trace associated with the [error].
-  final StackTrace stackTrace;
-
   @override
-  List<Object?> get props => [error, stackTrace];
+  List<Object?> get props => [error];
 }
 
 /// {@template get_feed_failure}
@@ -23,10 +20,7 @@ abstract class NewsFailure with EquatableMixin implements Exception {
 /// {@endtemplate}
 class GetFeedFailure extends NewsFailure {
   /// {@macro get_feed_failure}
-  const GetFeedFailure(
-    Object error,
-    StackTrace stackTrace,
-  ) : super(error, stackTrace);
+  const GetFeedFailure(super.error);
 }
 
 /// {@template news_repository}
@@ -53,7 +47,7 @@ class NewsRepository {
         offset: offset,
       );
     } catch (error, stackTrace) {
-      throw GetFeedFailure(error, stackTrace);
+      Error.throwWithStackTrace(GetFeedFailure(error), stackTrace);
     }
   }
 }

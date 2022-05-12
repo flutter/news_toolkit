@@ -323,7 +323,7 @@ void main() {
         setUp: () {
           when(
             () => userRepository.logInWithGoogle(),
-          ).thenThrow(LogInWithGoogleCanceled(Exception(), StackTrace.current));
+          ).thenThrow(LogInWithGoogleCanceled(Exception()));
         },
         build: () => LoginBloc(userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
@@ -378,7 +378,7 @@ void main() {
           when(
             () => userRepository.logInWithTwitter(),
           ).thenThrow(
-            LogInWithTwitterCanceled(Exception(), StackTrace.current),
+            LogInWithTwitterCanceled(Exception()),
           );
         },
         build: () => LoginBloc(userRepository),
@@ -434,7 +434,7 @@ void main() {
           when(
             () => userRepository.logInWithFacebook(),
           ).thenThrow(
-            LogInWithFacebookCanceled(Exception(), StackTrace.current),
+            LogInWithFacebookCanceled(Exception()),
           );
         },
         build: () => LoginBloc(userRepository),

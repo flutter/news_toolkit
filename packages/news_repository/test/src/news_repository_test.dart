@@ -85,13 +85,12 @@ void main() {
 
     group('FeedFailure', () {
       final error = Exception('errorMessage');
-      const stackTrace = StackTrace.empty;
 
       group('GetFeedFailure', () {
         test('has correct props', () {
           expect(
-            GetFeedFailure(error, stackTrace).props,
-            [error, stackTrace],
+            GetFeedFailure(error).props,
+            [error],
           );
         });
       });
