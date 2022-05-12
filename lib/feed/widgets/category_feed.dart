@@ -15,14 +15,12 @@ class CategoryFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = context.select((FeedBloc bloc) => bloc.state.status);
-
     final categoryFeed =
         context.select((FeedBloc bloc) => bloc.state.feed[category]) ?? [];
 
     final hasMoreNews =
         context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
-            false;
+            true;
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
@@ -30,35 +28,29 @@ class CategoryFeed extends StatelessWidget {
           _handleFailure(context);
         }
       },
-      child: status == FeedStatus.initial || status == FeedStatus.loading
-          ? const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(top: AppSpacing.xlg),
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            )
-          : SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  if (index == categoryFeed.length) {
-                    return hasMoreNews
-                        ? CategoryFeedLoaderItem(
-                            key: ValueKey(index),
-                            onPresented: () => context
-                                .read<FeedBloc>()
-                                .add(FeedRequested(category: category)),
-                          )
-                        : const SizedBox();
-                  }
+      child: ListView.builder(
+        itemCount: categoryFeed.length + 1,
+        itemBuilder: (context, index) {
+          if (index == categoryFeed.length) {
+            return hasMoreNews
+                ? Padding(
+                    padding: EdgeInsets.only(
+                      top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
+                    ),
+                    child: CategoryFeedLoaderItem(
+                      key: ValueKey(index),
+                      onPresented: () => context
+                          .read<FeedBloc>()
+                          .add(FeedRequested(category: category)),
+                    ),
+                  )
+                : const SizedBox();
+          }
 
-                  final block = categoryFeed[index];
-                  return CategoryFeedItem(block: block);
-                },
-                childCount: categoryFeed.length + 1,
-              ),
-            ),
+          final block = categoryFeed[index];
+          return CategoryFeedItem(block: block);
+        },
+      ),
     );
   }
 
