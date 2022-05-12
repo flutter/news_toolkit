@@ -51,6 +51,56 @@ void main() {
     });
 
     testWidgets(
+        'renders PostLarge '
+        'for PostLargeBlock', (tester) async {
+      final block = PostLargeBlock(
+        id: 'id',
+        category: PostCategory.technology,
+        author: 'author',
+        publishedAt: DateTime(2022, 3, 9),
+        imageUrl: 'imageUrl',
+        title: 'title',
+      );
+      await mockNetworkImages(() async {
+        await tester.pumpApp(
+          ListView(
+            children: [
+              CategoryFeedItem(block: block),
+            ],
+          ),
+        );
+      });
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is PostLarge && widget.block == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders PostMedium '
+        'for PostMediumBlock', (tester) async {
+      final block = PostMediumBlock(
+        id: 'id',
+        category: PostCategory.sports,
+        author: 'author',
+        publishedAt: DateTime(2022, 3, 10),
+        imageUrl: 'imageUrl',
+        title: 'title',
+      );
+      await mockNetworkImages(() async {
+        await tester.pumpApp(CategoryFeedItem(block: block));
+      });
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is PostMedium && widget.block == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
         'renders PostSmall '
         'for PostSmallBlock', (tester) async {
       final block = PostSmallBlock(

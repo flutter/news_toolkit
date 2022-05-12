@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Spacer;
+import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -21,6 +22,13 @@ class CategoryFeedItem extends StatelessWidget {
       return Spacer(block: newsBlock);
     } else if (newsBlock is SectionHeaderBlock) {
       return SectionHeader(block: newsBlock);
+    } else if (newsBlock is PostLargeBlock) {
+      return PostLarge(
+        block: newsBlock,
+        premiumText: context.l10n.newsBlockPremiumText,
+      );
+    } else if (newsBlock is PostMediumBlock) {
+      return PostMedium(block: newsBlock);
     } else if (newsBlock is PostSmallBlock) {
       return PostSmall(block: newsBlock);
     } else {

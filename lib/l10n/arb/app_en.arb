@@ -250,5 +250,11 @@
     "description": "Open mail app button text shown in the magic link prompt UI",
     "type": "text",
     "placeholders": {}
+  },
+  "newsBlockPremiumText": "Premium",
+  "@newsBlockPremiumText": {
+    "description": "Premium text shown on the news block widgets",
+    "type": "text",
+    "placeholders": {}
   }
 }
