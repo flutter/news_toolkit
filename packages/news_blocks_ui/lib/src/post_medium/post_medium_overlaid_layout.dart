@@ -36,6 +36,8 @@ class PostMediumOverlaidLayout extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.sm),
           child: Text(
             title,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
             style: textTheme.subtitle2
                 ?.copyWith(color: AppColors.highEmphasisPrimary),
           ),
