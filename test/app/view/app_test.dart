@@ -4,6 +4,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/onboarding/onboarding.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:news_repository/news_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
@@ -13,11 +14,14 @@ class MockUser extends Mock implements User {}
 
 class MockUserRepository extends Mock implements UserRepository {}
 
+class MockNewsRepository extends Mock implements NewsRepository {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
   group('App', () {
     late UserRepository userRepository;
+    late NewsRepository newsRepository;
     late User user;
 
     setUp(() {
@@ -26,6 +30,7 @@ void main() {
         (_) => const Stream.empty(),
       );
       user = User.anonymous;
+      newsRepository = MockNewsRepository();
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -33,6 +38,7 @@ void main() {
         await tester.pumpWidget(
           App(
             userRepository: userRepository,
+            newsRepository: newsRepository,
             user: user,
           ),
         );
