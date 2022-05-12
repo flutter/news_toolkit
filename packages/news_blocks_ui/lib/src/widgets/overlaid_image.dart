@@ -15,7 +15,7 @@ class OverlaidImage extends StatelessWidget {
   /// Url of displayed image.
   final String imageUrl;
 
-  /// Color of gradient
+  /// The color of gradient.
   final Color gradientColor;
 
   @override
