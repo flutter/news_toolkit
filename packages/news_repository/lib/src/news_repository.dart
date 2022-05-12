@@ -28,10 +28,7 @@ class GetFeedFailure extends NewsFailure {
 /// {@endtemplate}
 class GetCategoriesFailure extends NewsFailure {
   /// {@macro get_categories_failure}
-  const GetCategoriesFailure(
-    Object error,
-    StackTrace stackTrace,
-  ) : super(error, stackTrace);
+  const GetCategoriesFailure(Object error) : super(error);
 }
 
 /// {@template news_repository}
@@ -67,7 +64,7 @@ class NewsRepository {
     try {
       return await _apiClient.getCategories();
     } catch (error, stackTrace) {
-      throw GetCategoriesFailure(error, stackTrace);
+      Error.throwWithStackTrace(GetCategoriesFailure(error), stackTrace);
     }
   }
 }

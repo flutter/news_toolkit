@@ -122,19 +122,13 @@ void main() {
 
       group('GetFeedFailure', () {
         test('has correct props', () {
-          expect(
-            GetFeedFailure(error).props,
-            [error],
-          );
+          expect(GetFeedFailure(error).props, [error]);
         });
       });
 
       group('GetCategoriesFailure', () {
         test('has correct props', () {
-          expect(
-            GetCategoriesFailure(error, stackTrace).props,
-            [error, stackTrace],
-          );
+          expect(GetCategoriesFailure(error).props, [error]);
         });
       });
     });
