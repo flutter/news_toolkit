@@ -8,7 +8,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 class PostContent extends StatelessWidget {
   /// {@macro post_content}
   const PostContent({
-    Key? key,
+    super.key,
     required this.title,
     required this.publishedAt,
     this.categoryName,
@@ -18,7 +18,7 @@ class PostContent extends StatelessWidget {
     this.isPremium = false,
     this.isContentOverlaid = false,
     required this.premiumText,
-  }) : super(key: key);
+  });
 
   /// Title of post.
   final String title;

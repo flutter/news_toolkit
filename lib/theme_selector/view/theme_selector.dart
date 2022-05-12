@@ -8,7 +8,7 @@ import 'package:google_news_template/theme_selector/theme_selector.dart';
 /// Requires a [ThemeModeBloc] to be provided in the widget tree
 /// (usually above [MaterialApp])
 class ThemeSelector extends StatelessWidget {
-  const ThemeSelector({Key? key}) : super(key: key);
+  const ThemeSelector({super.key});
 
   @override
   Widget build(BuildContext context) {

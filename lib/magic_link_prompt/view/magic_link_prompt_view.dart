@@ -5,10 +5,7 @@ import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class MagicLinkPromptView extends StatelessWidget {
-  const MagicLinkPromptView({
-    Key? key,
-    required this.email,
-  }) : super(key: key);
+  const MagicLinkPromptView({super.key, required this.email});
 
   final String email;
 
@@ -37,7 +34,7 @@ class MagicLinkPromptView extends StatelessWidget {
 
 @visibleForTesting
 class MagicLinkPromptHeader extends StatelessWidget {
-  const MagicLinkPromptHeader({Key? key}) : super(key: key);
+  const MagicLinkPromptHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +48,9 @@ class MagicLinkPromptHeader extends StatelessWidget {
 @visibleForTesting
 class MagicLinkPromptSubtitle extends StatelessWidget {
   const MagicLinkPromptSubtitle({
-    Key? key,
+    super.key,
     required this.email,
-  }) : super(key: key);
+  });
 
   final String email;
 
@@ -88,7 +85,7 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
 
 @visibleForTesting
 class MagicLinkPromptOpenEmailButton extends StatelessWidget {
-  const MagicLinkPromptOpenEmailButton({Key? key}) : super(key: key);
+  const MagicLinkPromptOpenEmailButton({super.key});
 
   @override
   Widget build(BuildContext context) {

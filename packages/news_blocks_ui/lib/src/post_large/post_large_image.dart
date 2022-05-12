@@ -8,10 +8,10 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 class PostLargeImage extends StatelessWidget {
   /// {@macro post_large_image}
   const PostLargeImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.isContentOverlaid,
-  }) : super(key: key);
+  });
 
   /// The aspect ratio of this post image.
   static const _imageAspectRatio = 3 / 2;

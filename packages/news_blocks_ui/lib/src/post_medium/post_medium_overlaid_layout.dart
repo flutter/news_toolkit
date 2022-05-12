@@ -8,10 +8,10 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 class PostMediumOverlaidLayout extends StatelessWidget {
   /// {@macro post_medium_overlaid_layout}
   const PostMediumOverlaidLayout({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageUrl,
-  }) : super(key: key);
+  });
 
   /// Title of post.
   final String title;

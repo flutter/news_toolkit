@@ -5,7 +5,7 @@ import 'package:google_news_template/feed/feed.dart';
 import 'package:news_repository/news_repository.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   static Page page() => const MaterialPage<void>(child: HomePage());
 

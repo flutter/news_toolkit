@@ -4,10 +4,10 @@ import 'package:google_news_template/l10n/l10n.dart';
 
 class UserProfileSwitch extends StatelessWidget {
   const UserProfileSwitch({
-    Key? key,
+    super.key,
     required this.value,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   /// Whether this checkbox is checked.
   final bool value;

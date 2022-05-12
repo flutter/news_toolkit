@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 /// An email text field component.
 class AppEmailTextField extends StatelessWidget {
   const AppEmailTextField({
-    Key? key,
+    super.key,
     this.controller,
     this.hintText,
     this.suffix,
     this.readOnly,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   /// Controls the text being edited.
   final TextEditingController? controller;

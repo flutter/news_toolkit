@@ -7,10 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextHeadline extends StatelessWidget {
   /// {@macro text_headline}
-  const TextHeadline({
-    Key? key,
-    required this.block,
-  }) : super(key: key);
+  const TextHeadline({super.key, required this.block});
 
   /// The associated [TextHeadlineBlock] instance.
   final TextHeadlineBlock block;
@@ -19,9 +16,10 @@ class TextHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       block.text,
-      style: Theme.of(context).textTheme.headline2?.copyWith(
-            color: AppColors.highEmphasisSurface,
-          ),
+      style: Theme.of(context)
+          .textTheme
+          .headline2
+          ?.copyWith(color: AppColors.highEmphasisSurface),
     );
   }
 }

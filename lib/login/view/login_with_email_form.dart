@@ -8,7 +8,7 @@ import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
-  const LoginWithEmailForm({Key? key}) : super(key: key);
+  const LoginWithEmailForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class LoginWithEmailForm extends StatelessWidget {
 }
 
 class _HeaderTitle extends StatelessWidget {
-  const _HeaderTitle({Key? key}) : super(key: key);
+  const _HeaderTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _HeaderTitle extends StatelessWidget {
 }
 
 class _EmailInput extends StatefulWidget {
-  const _EmailInput({Key? key}) : super(key: key);
+  const _EmailInput();
 
   @override
   State<_EmailInput> createState() => _EmailInputState();
@@ -103,7 +103,7 @@ class _EmailInputState extends State<_EmailInput> {
 }
 
 class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
-  const _TermsAndPrivacyPolicyLinkTexts({Key? key}) : super(key: key);
+  const _TermsAndPrivacyPolicyLinkTexts();
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
 }
 
 class _NextButton extends StatelessWidget {
-  const _NextButton({Key? key}) : super(key: key);
+  const _NextButton();
 
   @override
   Widget build(BuildContext context) {
@@ -172,9 +172,9 @@ class _NextButton extends StatelessWidget {
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
   const ClearIconButton({
-    Key? key,
+    super.key,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onPressed;
 

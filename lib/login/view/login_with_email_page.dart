@@ -4,7 +4,7 @@ import 'package:google_news_template/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
 class LoginWithEmailPage extends StatelessWidget {
-  const LoginWithEmailPage({Key? key}) : super(key: key);
+  const LoginWithEmailPage({super.key});
 
   static Route route() =>
       MaterialPageRoute<void>(builder: (_) => const LoginWithEmailPage());

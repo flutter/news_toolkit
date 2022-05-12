@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class TypographyPage extends StatelessWidget {
-  const TypographyPage({Key? key}) : super(key: key);
+  const TypographyPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const TypographyPage());
@@ -68,11 +68,7 @@ class TypographyPage extends StatelessWidget {
 }
 
 class _TextItem extends StatelessWidget {
-  const _TextItem({
-    Key? key,
-    required this.name,
-    required this.style,
-  }) : super(key: key);
+  const _TextItem({required this.name, required this.style});
 
   final String name;
   final TextStyle style;

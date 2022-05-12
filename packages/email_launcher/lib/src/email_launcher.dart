@@ -18,7 +18,7 @@ abstract class EmailLauncherException implements Exception {
 /// {@endtemplate}
 class LaunchEmailAppFailure extends EmailLauncherException {
   /// {@macro launch_email_app_failure}
-  const LaunchEmailAppFailure(Object error) : super(error);
+  const LaunchEmailAppFailure(super.error);
 }
 
 /// Provider to inject `launchUrl`.

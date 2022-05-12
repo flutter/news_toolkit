@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppButtonPage extends StatelessWidget {
-  const AppButtonPage({Key? key}) : super(key: key);
+  const AppButtonPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const AppButtonPage());
@@ -146,11 +146,7 @@ enum ButtonType {
 }
 
 class _AppButtonItem extends StatelessWidget {
-  const _AppButtonItem({
-    Key? key,
-    required this.buttonType,
-    required this.child,
-  }) : super(key: key);
+  const _AppButtonItem({required this.buttonType, required this.child});
 
   AppButton get appButton {
     switch (buttonType) {

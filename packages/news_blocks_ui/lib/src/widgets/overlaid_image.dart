@@ -7,10 +7,10 @@ import 'package:flutter/widgets.dart';
 class OverlaidImage extends StatelessWidget {
   /// {@macro overlaid_image}
   const OverlaidImage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.gradientColor,
-  }) : super(key: key);
+  });
 
   /// Url of displayed image.
   final String imageUrl;
@@ -29,7 +29,7 @@ class OverlaidImage extends StatelessWidget {
           width: double.infinity,
           fit: BoxFit.cover,
         ),
-        Container(
+        DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,

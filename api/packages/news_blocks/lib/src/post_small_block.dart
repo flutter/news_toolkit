@@ -11,28 +11,17 @@ part 'post_small_block.g.dart';
 class PostSmallBlock extends PostBlock {
   /// {@macro post_small_block}
   const PostSmallBlock({
-    required String id,
-    required PostCategory category,
-    required String author,
-    required DateTime publishedAt,
-    required String title,
-    String? imageUrl,
-    String? description,
-    BlockAction? action,
-    String type = PostSmallBlock.identifier,
-    bool isPremium = false,
-  }) : super(
-          id: id,
-          category: category,
-          author: author,
-          publishedAt: publishedAt,
-          imageUrl: imageUrl,
-          title: title,
-          type: type,
-          description: description,
-          action: action,
-          isPremium: isPremium,
-        );
+    required super.id,
+    required super.category,
+    required super.author,
+    required super.publishedAt,
+    required super.title,
+    super.imageUrl,
+    super.description,
+    super.action,
+    super.type = PostSmallBlock.identifier,
+    super.isPremium,
+  });
 
   /// Converts a `Map<String, dynamic>` into a [PostSmallBlock] instance.
   factory PostSmallBlock.fromJson(Map<String, dynamic> json) =>

@@ -11,14 +11,13 @@ import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
   const App({
-    Key? key,
+    super.key,
     required UserRepository userRepository,
     required NewsRepository newsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
-        _user = user,
-        super(key: key);
+        _user = user;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
@@ -48,7 +47,7 @@ class App extends StatelessWidget {
 }
 
 class AppView extends StatelessWidget {
-  const AppView({Key? key}) : super(key: key);
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {

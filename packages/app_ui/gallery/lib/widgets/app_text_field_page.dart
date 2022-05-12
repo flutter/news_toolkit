@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class AppTextFieldPage extends StatelessWidget {
-  const AppTextFieldPage({Key? key}) : super(key: key);
+  const AppTextFieldPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const AppTextFieldPage());

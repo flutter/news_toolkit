@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery/widgets/widgets.dart';
 
 class WidgetsPage extends StatelessWidget {
-  const WidgetsPage({Key? key}) : super(key: key);
+  const WidgetsPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const WidgetsPage());
@@ -52,11 +52,10 @@ class WidgetsPage extends StatelessWidget {
 
 class _ListItem extends StatelessWidget {
   const _ListItem({
-    Key? key,
     this.onTap,
     required this.icon,
     required this.title,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onTap;
   final Widget icon;

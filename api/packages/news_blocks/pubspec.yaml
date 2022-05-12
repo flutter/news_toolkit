@@ -17,4 +17,7 @@ dev_dependencies:
   json_serializable: ^6.0.0
   mocktail: ^0.2.0
   test: ^1.19.2
-  very_good_analysis: ^2.4.0
+  very_good_analysis:
+    git:
+      url: https://github.com/verygoodopensource/very_good_analysis
+      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d

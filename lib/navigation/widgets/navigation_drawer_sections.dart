@@ -4,7 +4,7 @@ import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class NavigationDrawerSections extends StatelessWidget {
-  const NavigationDrawerSections({Key? key}) : super(key: key);
+  const NavigationDrawerSections({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class NavigationDrawerSections extends StatelessWidget {
 
 @visibleForTesting
 class NavigationDrawerSectionsTitle extends StatelessWidget {
-  const NavigationDrawerSectionsTitle({Key? key}) : super(key: key);
+  const NavigationDrawerSectionsTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +57,12 @@ class NavigationDrawerSectionsTitle extends StatelessWidget {
 @visibleForTesting
 class NavigationDrawerSectionItem extends StatelessWidget {
   const NavigationDrawerSectionItem({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
     this.leading,
     this.selected = false,
-  }) : super(key: key);
+  });
 
   static const _borderRadius = 100.0;
 

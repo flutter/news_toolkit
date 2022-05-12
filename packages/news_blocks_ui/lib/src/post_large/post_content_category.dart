@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 class PostContentCategory extends StatelessWidget {
   /// {@macro post_content_category}
   const PostContentCategory({
-    Key? key,
+    super.key,
     required this.categoryName,
     required this.isPremium,
     required this.premiumText,
     required this.isContentOverlaid,
-  }) : super(key: key);
+  });
 
   /// Category of post.
   final String categoryName;
@@ -45,7 +45,7 @@ class PostContentCategory extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(color: backgroundColor),
             child: Padding(
               padding: EdgeInsets.fromLTRB(
@@ -56,9 +56,10 @@ class PostContentCategory extends StatelessWidget {
               ),
               child: Text(
                 categoryDisplay.toUpperCase(),
-                style: Theme.of(context).textTheme.overline?.copyWith(
-                      color: textColor,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .overline
+                    ?.copyWith(color: textColor),
               ),
             ),
           ),

@@ -8,10 +8,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class ContentThemeOverrideBuilder extends StatelessWidget {
   /// {@macro content_theme_override_builder}
-  const ContentThemeOverrideBuilder({
-    Key? key,
-    required this.builder,
-  }) : super(key: key);
+  const ContentThemeOverrideBuilder({super.key, required this.builder});
 
   /// The widget builder below this widget in the tree.
   ///

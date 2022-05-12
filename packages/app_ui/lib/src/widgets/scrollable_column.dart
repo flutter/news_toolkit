@@ -16,7 +16,7 @@ import 'package:flutter/widgets.dart';
 class ScrollableColumn extends StatelessWidget {
   /// {@macro scrollable_column}
   const ScrollableColumn({
-    Key? key,
+    super.key,
     required this.children,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.textDirection,
@@ -25,7 +25,7 @@ class ScrollableColumn extends StatelessWidget {
     this.verticalDirection = VerticalDirection.down,
     this.textBaseline,
     this.padding,
-  }) : super(key: key);
+  });
 
   /// The children of the underlying [Column].
   final List<Widget> children;

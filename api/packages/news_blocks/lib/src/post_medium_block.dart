@@ -11,30 +11,18 @@ part 'post_medium_block.g.dart';
 class PostMediumBlock extends PostBlock {
   /// {@macro post_medium_block}
   const PostMediumBlock({
-    required String id,
-    required PostCategory category,
-    required String author,
-    required DateTime publishedAt,
-    required String imageUrl,
-    required String title,
-    String? description,
-    BlockAction? action,
-    String type = PostMediumBlock.identifier,
-    bool isPremium = false,
-    bool isContentOverlaid = false,
-  }) : super(
-          id: id,
-          category: category,
-          author: author,
-          publishedAt: publishedAt,
-          imageUrl: imageUrl,
-          title: title,
-          type: type,
-          description: description,
-          action: action,
-          isPremium: isPremium,
-          isContentOverlaid: isContentOverlaid,
-        );
+    required super.id,
+    required super.category,
+    required super.author,
+    required super.publishedAt,
+    required String super.imageUrl,
+    required super.title,
+    super.description,
+    super.action,
+    super.type = PostMediumBlock.identifier,
+    super.isPremium,
+    super.isContentOverlaid,
+  });
 
   /// Converts a `Map<String, dynamic>` into a [PostMediumBlock] instance.
   factory PostMediumBlock.fromJson(Map<String, dynamic> json) =>

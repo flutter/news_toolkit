@@ -10,7 +10,10 @@ dependencies:
   firebase_analytics: ^8.2.0
   flutter:
     sdk: flutter
-  very_good_analysis: ^2.4.0
+  very_good_analysis:
+    git:
+      url: https://github.com/verygoodopensource/very_good_analysis
+      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d
 
 dev_dependencies:
   flutter_test:

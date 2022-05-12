@@ -11,30 +11,18 @@ part 'post_large_block.g.dart';
 class PostLargeBlock extends PostBlock {
   /// {@macro post_large_block}
   const PostLargeBlock({
-    required String id,
-    required PostCategory category,
-    required String author,
-    required DateTime publishedAt,
-    required String imageUrl,
-    required String title,
-    String? description,
-    BlockAction? action,
-    String type = PostLargeBlock.identifier,
-    bool isPremium = false,
-    bool isContentOverlaid = false,
-  }) : super(
-          id: id,
-          category: category,
-          author: author,
-          publishedAt: publishedAt,
-          imageUrl: imageUrl,
-          title: title,
-          type: type,
-          description: description,
-          action: action,
-          isPremium: isPremium,
-          isContentOverlaid: isContentOverlaid,
-        );
+    required super.id,
+    required super.category,
+    required super.author,
+    required super.publishedAt,
+    required String super.imageUrl,
+    required super.title,
+    super.description,
+    super.action,
+    super.type = PostLargeBlock.identifier,
+    super.isPremium,
+    super.isContentOverlaid,
+  });
 
   /// Converts a `Map<String, dynamic>` into a [PostLargeBlock] instance.
   factory PostLargeBlock.fromJson(Map<String, dynamic> json) =>

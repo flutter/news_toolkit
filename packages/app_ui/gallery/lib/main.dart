@@ -8,7 +8,7 @@ import 'package:gallery/widgets/widgets.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class RootPage extends StatelessWidget {
-  const RootPage({Key? key}) : super(key: key);
+  const RootPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +65,11 @@ class RootPage extends StatelessWidget {
 
 class _ListItem extends StatelessWidget {
   const _ListItem({
-    Key? key,
     required this.onTap,
     required this.icon,
     required this.title,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   final VoidCallback onTap;
   final Icon icon;

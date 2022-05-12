@@ -4,7 +4,7 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/terms_of_service/widgets/terms_of_service_body.dart';
 
 class TermsOfServiceModal extends StatelessWidget {
-  const TermsOfServiceModal({Key? key}) : super(key: key);
+  const TermsOfServiceModal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class TermsOfServiceModal extends StatelessWidget {
 
 @visibleForTesting
 class TermsOfServiceModalHeader extends StatelessWidget {
-  const TermsOfServiceModalHeader({Key? key}) : super(key: key);
+  const TermsOfServiceModalHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

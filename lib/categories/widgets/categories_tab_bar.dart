@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
-  const CategoriesTabBar({
-    Key? key,
-    required this.tabs,
-  }) : super(key: key);
+  const CategoriesTabBar({super.key, required this.tabs});
 
   final List<Widget> tabs;
 
@@ -21,10 +18,7 @@ class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({
-    Key? key,
-    required this.categoryName,
-  }) : super(key: key);
+  const CategoryTab({super.key, required this.categoryName});
 
   final String categoryName;
 

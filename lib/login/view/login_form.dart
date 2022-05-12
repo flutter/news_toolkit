@@ -8,7 +8,7 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class LoginForm extends StatelessWidget {
 }
 
 class _LoginContent extends StatelessWidget {
-  const _LoginContent({Key? key}) : super(key: key);
+  const _LoginContent();
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _LoginContent extends StatelessWidget {
 }
 
 class _LoginTitleAndCloseButton extends StatelessWidget {
-  const _LoginTitleAndCloseButton({Key? key}) : super(key: key);
+  const _LoginTitleAndCloseButton();
 
   static const _contentSpace = 2.0;
 
@@ -98,7 +98,7 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
 }
 
 class _LoginSubtitle extends StatelessWidget {
-  const _LoginSubtitle({Key? key}) : super(key: key);
+  const _LoginSubtitle();
 
   @override
   Widget build(BuildContext context) {

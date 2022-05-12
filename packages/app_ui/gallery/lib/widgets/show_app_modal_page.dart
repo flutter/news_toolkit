@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class ShowAppModalPage extends StatelessWidget {
-  const ShowAppModalPage({Key? key}) : super(key: key);
+  const ShowAppModalPage({super.key});
 
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const ShowAppModalPage());

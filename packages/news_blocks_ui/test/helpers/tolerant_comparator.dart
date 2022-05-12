@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// In case of failure this comparator will provide output to illustrate the
 /// difference.
 class TolerantComparator extends LocalFileComparator {
-  TolerantComparator(Uri testFile) : super(testFile);
+  TolerantComparator(super.testFile);
 
   /// The difference tolerance that this comparator allows for.
   ///

@@ -4,16 +4,14 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 class CustomPostBlock extends PostBlock {
-  CustomPostBlock({
-    BlockAction? action,
-  }) : super(
+  CustomPostBlock({super.action})
+      : super(
           id: 'id',
           category: PostCategory.technology,
           author: 'author',
           publishedAt: DateTime(2022, 03, 09),
           title: 'title',
           type: 'type',
-          action: action,
         );
 
   @override
