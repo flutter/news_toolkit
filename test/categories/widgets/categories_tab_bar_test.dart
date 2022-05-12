@@ -9,6 +9,13 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('CategoriesTabBar', () {
+    test('has correct preferredSize', () {
+      expect(
+        CategoriesTabBar(tabs: const []).preferredSize,
+        equals(const Size(double.infinity, 48)),
+      );
+    });
+
     testWidgets('renders TabBar with tabs', (tester) async {
       final tabs = [
         CategoryTab(
