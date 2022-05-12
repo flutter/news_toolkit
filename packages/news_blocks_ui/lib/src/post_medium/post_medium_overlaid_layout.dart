@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 /// {@template post_medium_overlaid_layout}
-/// A reusable post medium widget that overlays an image.
+/// A reusable post medium widget that overlays the post content on the image.
 /// {@endtemplate}
 class PostMediumOverlaidLayout extends StatelessWidget {
   /// {@macro post_medium_overlaid_layout}
