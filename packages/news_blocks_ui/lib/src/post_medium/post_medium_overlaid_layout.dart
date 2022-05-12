@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 /// {@template post_medium_overlaid_layout}
-/// A reusable post medium widget that overlays an image.
+/// A reusable post medium widget that overlays the post content on the image.
 /// {@endtemplate}
 class PostMediumOverlaidLayout extends StatelessWidget {
   /// {@macro post_medium_overlaid_layout}
@@ -16,7 +16,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
   /// Title of post.
   final String title;
 
-  /// Url of image displayed in overlay.
+  /// The url of this post image displayed in overlay.
   final String imageUrl;
 
   @override
@@ -26,7 +26,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       children: [
         AspectRatio(
-          aspectRatio: 3 / 2,
+          aspectRatio: PostMedium.imageAspectRatio,
           child: OverlaidImage(
             imageUrl: imageUrl,
             gradientColor: AppColors.black.withOpacity(0.7),

@@ -8,6 +8,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   setUpAll(setUpTolerantComparator);
+
   group('PostMedium', () {
     const id = '82c49bf1-946d-4920-a801-302291f367b5';
     const category = PostCategory.sports;
@@ -21,7 +22,8 @@ void main() {
         'No Man’s Sky’s newest update, Outlaws, is now live, and it lets '
         'players find and smuggle black market goods and evade the '
         'authorities in outlaw systems.';
-    testWidgets('renders correctly overlaid', (tester) async {
+
+    testWidgets('renders correctly overlaid layout', (tester) async {
       final postMediumBlock = PostMediumBlock(
         id: id,
         category: category,
@@ -40,6 +42,7 @@ void main() {
       );
 
       expect(find.byType(PostMediumOverlaidLayout), findsOneWidget);
+
       // TODO(jan-stepien): Update golden tests containing network images
       // expect(
       //   find.byType(PostMediumBlock),
@@ -65,6 +68,7 @@ void main() {
       );
 
       expect(find.byType(PostMediumDescriptionLayout), findsOneWidget);
+
       // TODO(jan-stepien): Update golden tests containing network images
       // expect(
       //   find.byType(PostMediumBlock),
@@ -72,7 +76,7 @@ void main() {
       // );
     });
 
-    testWidgets('renders navigates onTap', (tester) async {
+    testWidgets('onPressed is called with action when tapped', (tester) async {
       final actions = <BlockAction>[];
       const action = BlockAction(type: BlockActionType.navigation);
       final postMediumBlock = PostMediumBlock(
@@ -94,18 +98,13 @@ void main() {
           ),
         ),
       );
-      // ;
+
       final widget = find.byType(PostMediumDescriptionLayout);
 
       expect(widget, findsOneWidget);
       await tester.tap(widget);
 
       expect(actions, [action]);
-      // TODO(jan-stepien): Update golden tests containing network images
-      // expect(
-      //   find.byType(PostMediumBlock),
-      //   matchesGoldenFile('post_medium_description_layout.png'),
-      // );
     });
   });
 }

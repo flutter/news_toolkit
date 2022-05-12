@@ -32,7 +32,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   /// Called when the share button is tapped.
   final VoidCallback? onShare;
 
-  /// Url of image displayed in overlay.
+  /// The url of this post image.
   final String imageUrl;
 
   @override
@@ -55,7 +55,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: AspectRatio(
-                  aspectRatio: 3 / 2,
+                  aspectRatio: PostMedium.imageAspectRatio,
                   child: Image.network(
                     imageUrl,
                     height: double.infinity,

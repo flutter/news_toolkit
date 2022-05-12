@@ -1,11 +1,20 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:google_news_template_api/api.dart';
-import 'package:google_news_template_api/src/data/news_data_source.dart';
+import 'package:google_news_template_api/src/data/in_memory_news_data_source.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 class MyNewsDataSource extends NewsDataSource {
+  @override
+  Future<Article?> getArticle({
+    required String id,
+    int limit = 20,
+    int offset = 0,
+  }) {
+    throw UnimplementedError();
+  }
+
   @override
   Future<Feed> getFeed({
     Category category = Category.top,
@@ -20,6 +29,20 @@ class MyNewsDataSource extends NewsDataSource {
 }
 
 void main() {
+  Matcher articleHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
+    return predicate<Article>(
+      (article) {
+        totalBlocks ??= article.totalBlocks;
+        if (blocks.length != article.blocks.length) return false;
+        if (totalBlocks != article.totalBlocks) return false;
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i] != article.blocks[i]) return false;
+        }
+        return true;
+      },
+    );
+  }
+
   Matcher feedHaving({required List<NewsBlock> blocks, int? totalBlocks}) {
     return predicate<Feed>(
       (feed) {
@@ -57,21 +80,21 @@ void main() {
       test('returns stubbed feed (default category)', () {
         expect(
           newsDataSource.getFeed(),
-          completion(feedHaving(blocks: topNewsBlocks)),
+          completion(feedHaving(blocks: topNewsFeedBlocks)),
         );
       });
 
       test('returns stubbed feed (Category.technology)', () {
         expect(
           newsDataSource.getFeed(category: Category.technology),
-          completion(feedHaving(blocks: technologyBlocks)),
+          completion(feedHaving(blocks: technologyFeedBlocks)),
         );
       });
 
       test('returns stubbed feed (Category.sports)', () {
         expect(
           newsDataSource.getFeed(category: Category.sports),
-          completion(feedHaving(blocks: sportsBlocks)),
+          completion(feedHaving(blocks: sportsFeedBlocks)),
         );
       });
 
@@ -91,15 +114,17 @@ void main() {
       test('returns correct feed when limit is specified', () {
         expect(
           newsDataSource.getFeed(limit: 0),
-          completion(feedHaving(blocks: [], totalBlocks: topNewsBlocks.length)),
+          completion(
+            feedHaving(blocks: [], totalBlocks: topNewsFeedBlocks.length),
+          ),
         );
 
         expect(
           newsDataSource.getFeed(limit: 1),
           completion(
             feedHaving(
-              blocks: topNewsBlocks.take(1).toList(),
-              totalBlocks: topNewsBlocks.length,
+              blocks: topNewsFeedBlocks.take(1).toList(),
+              totalBlocks: topNewsFeedBlocks.length,
             ),
           ),
         );
@@ -108,8 +133,8 @@ void main() {
           newsDataSource.getFeed(limit: 100),
           completion(
             feedHaving(
-              blocks: topNewsBlocks,
-              totalBlocks: topNewsBlocks.length,
+              blocks: topNewsFeedBlocks,
+              totalBlocks: topNewsFeedBlocks.length,
             ),
           ),
         );
@@ -120,8 +145,8 @@ void main() {
           newsDataSource.getFeed(offset: 1),
           completion(
             feedHaving(
-              blocks: topNewsBlocks.sublist(1),
-              totalBlocks: topNewsBlocks.length,
+              blocks: topNewsFeedBlocks.sublist(1),
+              totalBlocks: topNewsFeedBlocks.length,
             ),
           ),
         );
@@ -130,8 +155,8 @@ void main() {
           newsDataSource.getFeed(offset: 2),
           completion(
             feedHaving(
-              blocks: topNewsBlocks.sublist(2),
-              totalBlocks: topNewsBlocks.length,
+              blocks: topNewsFeedBlocks.sublist(2),
+              totalBlocks: topNewsFeedBlocks.length,
             ),
           ),
         );
@@ -141,7 +166,7 @@ void main() {
           completion(
             feedHaving(
               blocks: [],
-              totalBlocks: topNewsBlocks.length,
+              totalBlocks: topNewsFeedBlocks.length,
             ),
           ),
         );
@@ -159,6 +184,54 @@ void main() {
             Category.health,
             Category.science,
           ]),
+        );
+      });
+    });
+
+    group('getArticle', () {
+      test('returns null when article id cannot be found', () {
+        expect(
+          newsDataSource.getArticle(id: '__invalid_article_id__'),
+          completion(isNull),
+        );
+      });
+
+      test('returns content when article exists', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id),
+          completion(
+            articleHaving(
+              blocks: item.content,
+              totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports limit if specified', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, limit: 1),
+          completion(
+            articleHaving(
+              blocks: item.content.take(1).toList(),
+              totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports offset if specified', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, offset: 1),
+          completion(
+            articleHaving(
+              blocks: item.content.sublist(1).toList(),
+              totalBlocks: item.content.length,
+            ),
+          ),
         );
       });
     });

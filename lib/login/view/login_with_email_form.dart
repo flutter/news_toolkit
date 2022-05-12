@@ -3,49 +3,47 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppBloc, AppState>(
+    final email = context.select((LoginBloc bloc) => bloc.state.email.value);
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated) {
-          Navigator.of(context).popUntil((route) => route.isFirst);
+        if (state.status.isSuccess) {
+          Navigator.of(context).push<void>(
+            MagicLinkPromptPage.route(email: email),
+          );
+        } else if (state.status.isFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
+            );
         }
       },
-      child: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.status.isFailure) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text(context.l10n.loginWithEmailFailure)),
-              );
-          }
-        },
-        child: const ScrollableColumn(
-          padding: EdgeInsets.fromLTRB(
-            AppSpacing.xlg,
-            AppSpacing.lg,
-            AppSpacing.xlg,
-            AppSpacing.xxlg,
-          ),
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _HeaderTitle(),
-            SizedBox(height: AppSpacing.xxxlg),
-            _EmailInput(),
-            _TermsAndPrivacyPolicyLinkTexts(),
-            Spacer(),
-            _NextButton(),
-          ],
+      child: const ScrollableColumn(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.xlg,
+          AppSpacing.lg,
+          AppSpacing.xlg,
+          AppSpacing.xxlg,
         ),
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _HeaderTitle(),
+          SizedBox(height: AppSpacing.xxxlg),
+          _EmailInput(),
+          _TermsAndPrivacyPolicyLinkTexts(),
+          Spacer(),
+          _NextButton(),
+        ],
       ),
     );
   }
@@ -74,19 +72,25 @@ class _EmailInput extends StatefulWidget {
 
 class _EmailInputState extends State<_EmailInput> {
   final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<LoginBloc>().state;
+
     return AppEmailTextField(
       key: const Key('loginWithEmailForm_emailInput_textField'),
       controller: _controller,
+      readOnly: state.status.isInProgress,
       hintText: context.l10n.loginWithEmailTextFieldHint,
       onChanged: (email) =>
           context.read<LoginBloc>().add(LoginEmailChanged(email)),
-      suffix: _ClearIconButton(
-        onPressed: () {
-          _controller.clear();
-          context.read<LoginBloc>().add(const LoginEmailChanged(''));
-        },
+      suffix: ClearIconButton(
+        onPressed: !state.status.isInProgress
+            ? () {
+                _controller.clear();
+                context.read<LoginBloc>().add(const LoginEmailChanged(''));
+              }
+            : null,
       ),
     );
   }
@@ -165,13 +169,14 @@ class _NextButton extends StatelessWidget {
   }
 }
 
-class _ClearIconButton extends StatelessWidget {
-  const _ClearIconButton({
+@visibleForTesting
+class ClearIconButton extends StatelessWidget {
+  const ClearIconButton({
     Key? key,
     required this.onPressed,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

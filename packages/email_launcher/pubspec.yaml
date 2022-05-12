@@ -1,0 +1,20 @@
+name: email_launcher
+description: A package to open an external email app on Android and iOS
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  android_intent_plus: ^3.1.1
+  flutter:
+    sdk: flutter
+  platform: ^3.0.2
+  url_launcher: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^2.4.0
