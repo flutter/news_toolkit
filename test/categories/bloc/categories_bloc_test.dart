@@ -46,7 +46,7 @@ void main() {
       );
 
       blocTest<CategoriesBloc, CategoriesState>(
-        'emits [loading, error] '
+        'emits [loading, failure] '
         'when getCategories fails',
         setUp: () => when(newsRepository.getCategories).thenThrow(Exception()),
         build: () => CategoriesBloc(newsRepository: newsRepository),
