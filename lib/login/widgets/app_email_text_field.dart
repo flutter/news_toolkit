@@ -8,6 +8,7 @@ class AppEmailTextField extends StatelessWidget {
     this.controller,
     this.hintText,
     this.suffix,
+    this.readOnly,
     this.onChanged,
   }) : super(key: key);
 
@@ -22,6 +23,10 @@ class AppEmailTextField extends StatelessWidget {
 
   /// Called when the user inserts or deletes texts in the text field.
   final ValueChanged<String>? onChanged;
+
+  /// Whether the text field should be read-only.
+  /// Defaults to false.
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +47,7 @@ class AppEmailTextField extends StatelessWidget {
           size: 24,
         ),
       ),
+      readOnly: readOnly ?? false,
       onChanged: onChanged,
       suffix: suffix,
     );

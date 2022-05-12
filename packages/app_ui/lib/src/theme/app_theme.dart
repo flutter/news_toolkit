@@ -30,6 +30,7 @@ class AppTheme {
       bottomSheetTheme: _bottomSheetTheme,
       listTileTheme: _listTileTheme,
       switchTheme: _switchTheme,
+      progressIndicatorTheme: _progressIndicatorTheme,
     );
   }
 
@@ -216,6 +217,13 @@ class AppTheme {
         }
         return AppColors.paleSky;
       }),
+    );
+  }
+
+  ProgressIndicatorThemeData get _progressIndicatorTheme {
+    return const ProgressIndicatorThemeData(
+      color: AppColors.darkAqua,
+      circularTrackColor: AppColors.borderOutline,
     );
   }
 }
