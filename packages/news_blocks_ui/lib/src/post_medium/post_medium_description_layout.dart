@@ -32,7 +32,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   /// Called when the share button is tapped.
   final VoidCallback? onShare;
 
-  /// Url of image displayed in overlay.
+  /// The url of the post image.
   final String imageUrl;
 
   @override
