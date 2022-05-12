@@ -123,6 +123,39 @@ void main() {
     });
 
     testWidgets(
+        'renders PostGrid '
+        'for PostGridGroupBlock', (tester) async {
+      final block = PostGridGroupBlock(
+        category: PostCategory.science,
+        tiles: [
+          PostGridTileBlock(
+            id: 'id',
+            category: PostCategory.science,
+            author: 'author',
+            publishedAt: DateTime(2022, 3, 12),
+            imageUrl: 'imageUrl',
+            title: 'title',
+          )
+        ],
+      );
+      await mockNetworkImages(() async {
+        await tester.pumpApp(
+          ListView(
+            children: [
+              CategoryFeedItem(block: block),
+            ],
+          ),
+        );
+      });
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is PostGrid && widget.gridGroupBlock == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();
