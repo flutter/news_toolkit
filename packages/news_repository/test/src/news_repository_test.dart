@@ -117,6 +117,38 @@ void main() {
       });
     });
 
+    group('subscribeToNewsletter', () {
+      test('completes from ApiClient.subscribeToNewsletter', () {
+        when(
+          () => apiClient.subscribeToNewsletter(
+            email: any(named: 'email'),
+          ),
+        ).thenAnswer((_) async {});
+
+        final response = newsRepository.subscribeToNewsletter(email: 'email');
+
+        expect(response, completes);
+
+        verify(
+          () => apiClient.subscribeToNewsletter(
+            email: 'email',
+          ),
+        ).called(1);
+      });
+
+      test('throws GetFeedFailure if ApiClient.subscribeToNewsletter', () {
+        when(
+          () => apiClient.subscribeToNewsletter(
+            email: any(named: 'email'),
+          ),
+        ).thenThrow(Exception);
+
+        final response = newsRepository.subscribeToNewsletter(email: 'email');
+
+        expect(response, throwsA(isA<GetFeedFailure>()));
+      });
+    });
+
     group('FeedFailure', () {
       final error = Exception('errorMessage');
 

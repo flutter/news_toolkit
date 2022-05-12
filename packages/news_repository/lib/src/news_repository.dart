@@ -67,4 +67,13 @@ class NewsRepository {
       Error.throwWithStackTrace(GetCategoriesFailure(error), stackTrace);
     }
   }
+
+  /// Subscribes the provided [email] to the newsletter.
+  Future<void> subscribeToNewsletter({required String email}) async {
+    try {
+      await _apiClient.subscribeToNewsletter(email: email);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(GetFeedFailure(error), stackTrace);
+    }
+  }
 }
