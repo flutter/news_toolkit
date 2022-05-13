@@ -12,6 +12,7 @@ class ColorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const colorItems = [
       _ColorItem(name: 'Secondary', color: AppColors.secondary),
+      _ColorItem(name: 'Secondary800', color: AppColors.secondary800),
       _ColorItem(name: 'Black', color: AppColors.black),
       _ColorItem(name: 'Black Light', color: AppColors.lightBlack),
       _ColorItem(

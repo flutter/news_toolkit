@@ -122,6 +122,9 @@ abstract class AppColors {
   /// The secondary color of application.
   static const Color secondary = Color(0xFF963F6E);
 
+  /// The secondary[800] color of application.
+  static const Color secondary800 = Color(0xFF5F0F40);
+
   /// The medium high emphasis primary color.
   static const Color mediumHighEmphasisPrimary = Color(0xE6FFFFFF);
 }
