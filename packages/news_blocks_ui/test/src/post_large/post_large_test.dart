@@ -91,20 +91,19 @@ void main() {
       imageUrl: imageUrl,
       title: title,
       action: action,
+      isContentOverlaid: true,
     );
 
     await mockNetworkImages(
       () async => tester.pumpContentThemedApp(
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              PostLarge(
-                block: _technologyPostLarge,
-                premiumText: 'Premium',
-                onPressed: actions.add,
-              ),
-            ],
-          ),
+        ListView(
+          children: [
+            PostLarge(
+              block: _technologyPostLarge,
+              premiumText: 'Premium',
+              onPressed: actions.add,
+            ),
+          ],
         ),
       ),
     );
