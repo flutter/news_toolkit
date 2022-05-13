@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -36,8 +37,8 @@ class PostSmall extends StatelessWidget {
             if (imageUrl != null)
               Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.lg),
-                child: Image.network(
-                  imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
                   width: _imageSize,
                   height: _imageSize,
                   fit: BoxFit.cover,
