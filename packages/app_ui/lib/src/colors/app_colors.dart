@@ -124,4 +124,7 @@ abstract class AppColors {
 
   /// The medium high emphasis primary color.
   static const Color mediumHighEmphasisPrimary = Color(0xE6FFFFFF);
+
+  /// The gainsboro color.
+  static const Color gainsboro = Color(0xFFDADCE0);
 }

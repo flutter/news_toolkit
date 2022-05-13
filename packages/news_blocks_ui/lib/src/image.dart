@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -16,8 +17,11 @@ class Image extends StatelessWidget {
   Widget build(BuildContext context) {
     return InlineImage(
       imageUrl: block.imageUrl,
-      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-        child: CircularProgressIndicator(value: downloadProgress.progress),
+      progressIndicatorBuilder: (context, url, downloadProgress) => ColoredBox(
+        color: AppColors.gainsboro,
+        child: Center(
+          child: CircularProgressIndicator(value: downloadProgress.progress),
+        ),
       ),
     );
   }
