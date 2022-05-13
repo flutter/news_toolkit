@@ -2,6 +2,7 @@ library news_blocks;
 
 export 'src/block_action.dart' show BlockAction, BlockActionType;
 export 'src/divider_horizontal_block.dart' show DividerHorizontalBlock;
+export 'src/image_block.dart' show ImageBlock;
 export 'src/news_block.dart' show NewsBlock;
 export 'src/news_blocks_converter.dart' show NewsBlocksConverter;
 export 'src/newsletter_block.dart' show NewsletterBlock;
