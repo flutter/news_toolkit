@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart' hide Spacer;
+import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
@@ -150,6 +150,23 @@ void main() {
       expect(
         find.byWidgetPredicate(
           (widget) => widget is PostGrid && widget.gridGroupBlock == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders Image '
+        'for ImageBlock', (tester) async {
+      final block = ImageBlock(
+        imageUrl: 'imageUrl',
+      );
+      await mockNetworkImages(() async {
+        await tester.pumpApp(CategoryFeedItem(block: block));
+      });
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is Image && widget.block == block,
         ),
         findsOneWidget,
       );

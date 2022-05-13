@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Spacer;
+import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -26,13 +26,15 @@ class CategoryFeedItem extends StatelessWidget {
       );
     } else if (newsBlock is PostMediumBlock) {
       return PostMedium(block: newsBlock);
+    } else if (newsBlock is PostSmallBlock) {
+      return PostSmall(block: newsBlock);
     } else if (newsBlock is PostGridGroupBlock) {
       return PostGrid(
         gridGroupBlock: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
       );
-    } else if (newsBlock is PostSmallBlock) {
-      return PostSmall(block: newsBlock);
+    } else if (newsBlock is ImageBlock) {
+      return Image(block: newsBlock);
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
