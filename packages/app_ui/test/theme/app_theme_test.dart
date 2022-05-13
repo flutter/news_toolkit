@@ -13,10 +13,10 @@ void main() {
           );
         });
 
-        test('secondary is lightBlue.shade300', () {
+        test('secondary is AppColors.secondary', () {
           expect(
             const AppTheme().themeData.colorScheme.secondary,
-            AppColors.lightBlue.shade300,
+            AppColors.secondary,
           );
         });
       });
@@ -114,10 +114,10 @@ void main() {
           );
         });
 
-        test('secondary is lightBlue.shade300', () {
+        test('secondary is AppColors.secondary', () {
           expect(
             const AppDarkTheme().themeData.colorScheme.secondary,
-            AppColors.lightBlue.shade300,
+            AppColors.secondary,
           );
         });
 
