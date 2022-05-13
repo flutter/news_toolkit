@@ -36,7 +36,7 @@ class AppTheme {
   }
 
   ColorScheme get _colorScheme {
-    return ColorScheme.light(secondary: AppColors.lightBlue.shade300);
+    return const ColorScheme.light(secondary: AppColors.secondary);
   }
 
   SnackBarThemeData get _snackBarTheme {
@@ -267,7 +267,7 @@ class AppDarkTheme extends AppTheme {
   ColorScheme get _colorScheme {
     return const ColorScheme.dark().copyWith(
       primary: AppColors.white,
-      secondary: AppColors.lightBlue.shade300,
+      secondary: AppColors.secondary,
     );
   }
 
