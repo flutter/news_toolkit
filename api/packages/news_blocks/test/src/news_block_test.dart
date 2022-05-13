@@ -66,6 +66,11 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
+      test('returns ImageBlock', () {
+        final block = ImageBlock(imageUrl: 'imageUrl');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
       test('returns PostLargeBlock', () {
         final block = PostLargeBlock(
           id: 'id',
