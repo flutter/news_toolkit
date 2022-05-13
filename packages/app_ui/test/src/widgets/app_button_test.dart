@@ -144,6 +144,32 @@ void main() {
     });
 
     testWidgets(
+        'renders redWine button '
+        'when `AppButton.secondary()` called', (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.secondary(
+          child: buttonText,
+          onPressed: () {},
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.secondary,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+    });
+
+    testWidgets(
         'renders darkAqua button '
         'when `AppButton.darkAqua()` called', (tester) async {
       final buttonText = Text('buttonText');

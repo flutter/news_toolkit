@@ -93,6 +93,23 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
+  /// Filled secondary button.
+  const AppButton.secondary({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          buttonColor: AppColors.secondary,
+          child: child,
+          foregroundColor: AppColors.white,
+          elevation: elevation,
+          textStyle: textStyle,
+        );
+
   /// Filled dark aqua button.
   const AppButton.darkAqua({
     Key? key,
