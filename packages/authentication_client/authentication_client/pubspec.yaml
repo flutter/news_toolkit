@@ -10,7 +10,4 @@ dependencies:
 
 dev_dependencies:
   test: ^1.20.1
-  very_good_analysis:
-    git:
-      url: https://github.com/verygoodopensource/very_good_analysis
-      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d
+  very_good_analysis: ^3.0.0
