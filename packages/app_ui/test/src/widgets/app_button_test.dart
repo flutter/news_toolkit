@@ -144,7 +144,7 @@ void main() {
     });
 
     testWidgets(
-        'renders redWine button '
+        'renders secondary button '
         'when `AppButton.secondary()` called', (tester) async {
       final buttonText = Text('buttonText');
 
