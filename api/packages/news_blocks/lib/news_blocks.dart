@@ -20,3 +20,4 @@ export 'src/text_headline_block.dart' show TextHeadlineBlock;
 export 'src/text_lead_paragraph_block.dart' show TextLeadParagraphBlock;
 export 'src/text_paragraph_block.dart' show TextParagraphBlock;
 export 'src/unknown_block.dart' show UnknownBlock;
+export 'src/video_block.dart' show VideoBlock;

@@ -44,6 +44,8 @@ abstract class NewsBlock {
         return TextLeadParagraphBlock.fromJson(json);
       case TextParagraphBlock.identifier:
         return TextParagraphBlock.fromJson(json);
+      case VideoBlock.identifier:
+        return VideoBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
