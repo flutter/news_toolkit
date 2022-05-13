@@ -38,6 +38,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Column(
@@ -54,14 +55,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: AspectRatio(
-                  aspectRatio: PostMedium.imageAspectRatio,
-                  child: Image.network(
-                    imageUrl,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                child: InlineImage(imageUrl: imageUrl),
               ),
             ],
           ),
