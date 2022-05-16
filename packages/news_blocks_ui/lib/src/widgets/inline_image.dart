@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template inline_image}
-/// Image widget displayed inline with the content.
+/// A reusable image widget displayed inline with the content.
 /// {@endtemplate}
 class InlineImage extends StatelessWidget {
   /// {@macro inline_image}

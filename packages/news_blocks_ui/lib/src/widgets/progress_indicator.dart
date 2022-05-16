@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template progress_indicator}
-/// The reusable progress indicator of post images and videos.
+/// A reusable progress indicator of post images and videos.
 /// {@endtemplate}
 class ProgressIndicator extends StatelessWidget {
   /// {@macro progress_indicator}
