@@ -46,6 +46,8 @@ abstract class NewsBlock {
         return TextParagraphBlock.fromJson(json);
       case ImageBlock.identifier:
         return ImageBlock.fromJson(json);
+      case NewsletterBlock.identifier:
+        return NewsletterBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
