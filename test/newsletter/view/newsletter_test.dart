@@ -124,7 +124,7 @@ void main() {
           child: NewsletterView(),
         ),
       );
-      expect(find.byType(NewsletterSuccess), findsOneWidget);
+      expect(find.byType(NewsletterSucceeded), findsOneWidget);
     });
 
     testWidgets('shows SnackBar when failed', (tester) async {

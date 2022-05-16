@@ -5,9 +5,9 @@ import 'package:news_blocks_ui/src/newsletter/index.dart';
 /// {@template newsletter_success}
 /// A reusable newsletter success news block widget.
 /// {@endtemplate}
-class NewsletterSuccess extends StatelessWidget {
+class NewsletterSucceeded extends StatelessWidget {
   /// {@macro newsletter_success}
-  const NewsletterSuccess({
+  const NewsletterSucceeded({
     super.key,
     required this.header,
     required this.center,
@@ -17,7 +17,7 @@ class NewsletterSuccess extends StatelessWidget {
   /// The header displayed message.
   final String header;
 
-  /// The widget displayed in a center of [NewsletterSuccess] view.
+  /// The widget displayed in a center of [NewsletterSucceeded] view.
   final Widget center;
 
   /// The footer displayed message.

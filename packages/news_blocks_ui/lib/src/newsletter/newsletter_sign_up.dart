@@ -13,7 +13,6 @@ class NewsletterSignUp extends StatelessWidget {
     required this.body,
     required this.email,
     required this.buttonText,
-    required this.isSubmitEnabled,
     required this.onPressed,
   });
 
@@ -28,9 +27,6 @@ class NewsletterSignUp extends StatelessWidget {
 
   /// The text displayed in button.
   final String buttonText;
-
-  /// Whether sign up button is enabled.
-  final bool isSubmitEnabled;
 
   /// The callback which is invoked when the button is pressed.
   final VoidCallback? onPressed;

@@ -39,7 +39,7 @@ class NewsletterView extends StatelessWidget {
       },
       builder: (context, state) {
         if (state.status == NewsletterStatus.success) {
-          return NewsletterSuccess(
+          return NewsletterSucceeded(
             header: context.l10n.subscribeSuccessfulHeader,
             center: SizedBox(
               height: AppSpacing.xxxlg + AppSpacing.md,
@@ -57,7 +57,6 @@ class NewsletterView extends StatelessWidget {
             onChanged: (email) =>
                 context.read<NewsletterBloc>().add(EmailChanged(email: email)),
           ),
-          isSubmitEnabled: context.watch<NewsletterBloc>().state.isValid,
           buttonText: context.l10n.subscribeEmailButtonText,
           onPressed: context
                   .select<NewsletterBloc, bool>((bloc) => bloc.state.isValid)
