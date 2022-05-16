@@ -19,3 +19,4 @@ jobs:
       flutter_version: 3.0.0
       test_optimization: false
       working_directory: packages/news_blocks_ui
+      coverage_excludes: "lib/src/generated/*.dart"
