@@ -16,6 +16,7 @@ export 'package:news_blocks/news_blocks.dart'
         PostGridTileBlock,
         PostCategory,
         NewsBlocksConverter,
+        NewsletterBlock,
         TextCaptionBlock,
         TextHeadlineBlock,
         TextLeadParagraphBlock,
