@@ -46,7 +46,7 @@ class PostGrid extends StatelessWidget {
           GridView.count(
             crossAxisCount: 2,
             shrinkWrap: true,
-            childAspectRatio: PostMedium.imageAspectRatio,
+            childAspectRatio: OverlaidImage.aspectRatio,
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
             children: otherBlocks
