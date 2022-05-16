@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -14,10 +15,13 @@ class Image extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InlineImage(
-      imageUrl: block.imageUrl,
-      progressIndicatorBuilder: (context, url, downloadProgress) =>
-          ProgressIndicator(progress: downloadProgress.progress),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: InlineImage(
+        imageUrl: block.imageUrl,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            ProgressIndicator(progress: downloadProgress.progress),
+      ),
     );
   }
 }
