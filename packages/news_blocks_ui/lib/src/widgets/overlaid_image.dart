@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template overlaid_image}
-/// Image widget overlaid with colored gradient.
+/// A reusable image widget overlaid with colored gradient.
 /// {@endtemplate}
 class OverlaidImage extends StatelessWidget {
   /// {@macro overlaid_image}
