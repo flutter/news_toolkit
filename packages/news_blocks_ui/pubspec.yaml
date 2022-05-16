@@ -9,6 +9,7 @@ environment:
 dependencies:
   app_ui:
     path: ../app_ui
+  cached_network_image: ^3.2.0
   flutter:
     sdk: flutter
   news_blocks:
@@ -18,10 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail_image_network: ^0.3.1
-  very_good_analysis:
-    git:
-      url: https://github.com/verygoodopensource/very_good_analysis
-      ref: 9f26d3479ce9eff910a7cf79585ffafc6211c87d
+  very_good_analysis: ^3.0.0
 
 flutter:
   uses-material-design: true

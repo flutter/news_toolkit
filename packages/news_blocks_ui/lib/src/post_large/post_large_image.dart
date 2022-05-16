@@ -13,30 +13,19 @@ class PostLargeImage extends StatelessWidget {
     required this.isContentOverlaid,
   });
 
-  /// The aspect ratio of this post image.
-  static const _imageAspectRatio = 3 / 2;
-
-  /// Url of image displayed in large post.
+  /// The url of image displayed in this post.
   final String imageUrl;
 
   /// Whether this image is displayed in overlay.
-  ///
-  /// Defaults to false.
   final bool isContentOverlaid;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: _imageAspectRatio,
-      child: isContentOverlaid
-          ? OverlaidImage(
-              imageUrl: imageUrl,
-              gradientColor: AppColors.black.withOpacity(0.7),
-            )
-          : Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-            ),
-    );
+    return isContentOverlaid
+        ? OverlaidImage(
+            imageUrl: imageUrl,
+            gradientColor: AppColors.black.withOpacity(0.7),
+          )
+        : InlineImage(imageUrl: imageUrl);
   }
 }
