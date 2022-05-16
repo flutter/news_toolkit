@@ -24,11 +24,14 @@ class TextCaption extends StatelessWidget {
         ? _colorValues[block.color]
         : AppColors.highEmphasisSurface;
 
-    return Text(
-      block.text,
-      style: Theme.of(context).textTheme.caption?.apply(
-            color: color,
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Text(
+        block.text,
+        style: Theme.of(context).textTheme.caption?.apply(
+              color: color,
+            ),
+      ),
     );
   }
 }
