@@ -14,12 +14,15 @@ class TextHeadline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      block.text,
-      style: Theme.of(context)
-          .textTheme
-          .headline2
-          ?.copyWith(color: AppColors.highEmphasisSurface),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Text(
+        block.text,
+        style: Theme.of(context)
+            .textTheme
+            .headline2
+            ?.copyWith(color: AppColors.highEmphasisSurface),
+      ),
     );
   }
 }

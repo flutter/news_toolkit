@@ -1,8 +1,11 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
+/// {@template app_email_text_field}
 /// An email text field component.
+/// {@endtemplate}
 class AppEmailTextField extends StatelessWidget {
+  /// {@macro app_email_text_field}
   const AppEmailTextField({
     super.key,
     this.controller,
