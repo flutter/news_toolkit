@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template inline_image}
-/// Image widget displayed inline with the content.
+/// A reusable image widget displayed inline with the content.
 /// {@endtemplate}
 class InlineImage extends StatelessWidget {
   /// {@macro inline_image}
   const InlineImage({
     super.key,
     required this.imageUrl,
+    this.progressIndicatorBuilder,
   });
 
   /// The aspect ratio of this image.
@@ -17,12 +18,16 @@ class InlineImage extends StatelessWidget {
   /// The url of this image.
   final String imageUrl;
 
+  /// Widget displayed while the target [imageUrl] is loading.
+  final ProgressIndicatorBuilder? progressIndicatorBuilder;
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: _aspectRatio,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
+        progressIndicatorBuilder: progressIndicatorBuilder,
         height: double.infinity,
         width: double.infinity,
         fit: BoxFit.cover,
