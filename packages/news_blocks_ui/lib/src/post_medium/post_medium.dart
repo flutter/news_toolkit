@@ -9,9 +9,6 @@ class PostMedium extends StatelessWidget {
   /// {@macro post_medium}
   const PostMedium({super.key, required this.block, this.onPressed});
 
-  /// The aspect ratio of this post image.
-  static const imageAspectRatio = 3 / 2;
-
   /// The associated [PostMediumBlock] instance.
   final PostMediumBlock block;
 
