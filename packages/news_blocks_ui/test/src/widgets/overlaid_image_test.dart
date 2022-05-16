@@ -10,13 +10,13 @@ import '../../helpers/helpers.dart';
 void main() {
   group('OverlaidImage', () {
     testWidgets('renders correctly', (tester) async {
-      final postLargeImage = OverlaidImage(
+      final overlaidImage = OverlaidImage(
         imageUrl: 'url',
         gradientColor: Colors.black,
       );
 
       await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(postLargeImage),
+        () async => tester.pumpContentThemedApp(overlaidImage),
       );
 
       expect(

@@ -144,4 +144,7 @@ abstract class AppColors {
 
   /// The default disabled surface color.
   static const Color disabledSurface = Color(0xFFE0E0E0);
+
+  /// The gainsboro color.
+  static const Color gainsboro = Color(0xFFDADCE0);
 }
