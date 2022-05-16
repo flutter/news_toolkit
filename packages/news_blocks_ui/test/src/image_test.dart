@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -25,15 +24,14 @@ void main() {
       );
     });
 
-    testWidgets('renders CircularProgressIndicator when loading',
-        (tester) async {
+    testWidgets('renders ProgressIndicator when loading', (tester) async {
       const block = ImageBlock(imageUrl: 'imageUrl');
 
       await tester.pumpApp(
         Image(block: block),
       );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(ProgressIndicator), findsOneWidget);
     });
   });
 }
