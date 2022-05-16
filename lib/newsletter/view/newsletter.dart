@@ -4,17 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
-import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_repository/news_repository.dart';
 
 class Newsletter extends StatelessWidget {
-  const Newsletter({
-    super.key,
-    required this.block,
-  });
-
-  final NewsletterBlock block;
+  const Newsletter({super.key});
 
   @override
   Widget build(BuildContext context) {
