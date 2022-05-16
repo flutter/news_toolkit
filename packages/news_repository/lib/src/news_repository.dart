@@ -79,6 +79,7 @@ class NewsRepository {
   /// * [category] - the desired news [Category].
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
   Future<FeedResponse> getFeed({
     Category? category,
     int? limit,
