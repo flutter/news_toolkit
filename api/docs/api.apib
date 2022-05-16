@@ -30,7 +30,35 @@ This action allows you to query article content for a specific article.
 
 + Response 200 (application/json)
     + Attributes (object)
-        + content (required, array[Block]) - The list of blocks that composes the article content.
+        + content (required, Article) - The list of blocks that composes the article content.
+        + total_count (optional, number) - The total number of available blocks.
+
+    + Body
+        
+            {
+                "content": [
+                    {
+                        "title": "Breaking News",
+                        "type": "__section_header__"
+                    },                    
+                ],
+                "total_count": 42,
+            }
+
+### Get Related Articles [GET /api/v1/articles/{id}/related{?limit,offset}]
+
+This action allows you to query article content related to a specific article.
+
++ Parameters
+    + id (required, string) - The article identifier.
+    + limit (optional, number) - The number of content blocks to return.
+        + Default: 20
+    + offset (optional, number) - The (zero-based) offset of the first item in the collection to return.
+        + Default: 0
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + articles (required, array[Article]) - The list of related articles.
         + total_count (optional, number) - The total number of available blocks.
 
     + Body
@@ -201,6 +229,10 @@ This action allows you to subscribe a user to a newsletter.
 + Response 201 (application/json)
 
 # Data Structures
+
+## Article (object)
+
++ content (required, array[Block]) - the article content.
 
 ## Block (object)
 
