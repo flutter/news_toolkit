@@ -18,30 +18,35 @@ class AppTextFieldPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        child: AppTextField(
-          hintText: 'Your email address',
-          onChanged: (_) {},
-          prefix: const Padding(
-            padding: EdgeInsets.only(
-              left: AppSpacing.sm,
-              right: AppSpacing.sm,
-            ),
-            child: Icon(
-              Icons.email_outlined,
-              color: AppColors.mediumEmphasisSurface,
-              size: 24,
-            ),
-          ),
-          suffix: Padding(
-            key: const Key('appTextField_suffixIcon'),
-            padding: const EdgeInsets.only(right: AppSpacing.md),
-            child: Visibility(
-              child: GestureDetector(
-                onTap: () {},
-                child: Assets.icons.closeCircle.svg(),
+        child: Column(
+          children: [
+            const AppEmailTextField(),
+            AppTextField(
+              hintText: 'Your email address',
+              onChanged: (_) {},
+              prefix: const Padding(
+                padding: EdgeInsets.only(
+                  left: AppSpacing.sm,
+                  right: AppSpacing.sm,
+                ),
+                child: Icon(
+                  Icons.email_outlined,
+                  color: AppColors.mediumEmphasisSurface,
+                  size: 24,
+                ),
+              ),
+              suffix: Padding(
+                key: const Key('appTextField_suffixIcon'),
+                padding: const EdgeInsets.only(right: AppSpacing.md),
+                child: Visibility(
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Assets.icons.closeCircle.svg(),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
