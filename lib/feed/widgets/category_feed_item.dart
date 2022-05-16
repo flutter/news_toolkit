@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:flutter/material.dart' hide Spacer;
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
