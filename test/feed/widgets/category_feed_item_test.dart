@@ -156,23 +156,6 @@ void main() {
     });
 
     testWidgets(
-        'renders Image '
-        'for ImageBlock', (tester) async {
-      final block = ImageBlock(
-        imageUrl: 'imageUrl',
-      );
-      await mockNetworkImages(() async {
-        await tester.pumpApp(CategoryFeedItem(block: block));
-      });
-      expect(
-        find.byWidgetPredicate(
-          (widget) => widget is Image && widget.block == block,
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets(
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();

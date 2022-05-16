@@ -33,8 +33,6 @@ class CategoryFeedItem extends StatelessWidget {
         gridGroupBlock: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
       );
-    } else if (newsBlock is ImageBlock) {
-      return Image(block: newsBlock);
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
