@@ -57,6 +57,18 @@ class ColorsPage extends StatelessWidget {
         name: 'High Emphasis Surface',
         color: AppColors.highEmphasisSurface,
       ),
+      _ColorItem(
+        name: 'Disabled Foreground',
+        color: AppColors.disabledForeground,
+      ),
+      _ColorItem(
+        name: 'Disabled Button',
+        color: AppColors.disabledButton,
+      ),
+      _ColorItem(
+        name: 'Disabled Surface',
+        color: AppColors.disabledSurface,
+      ),
     ];
 
     return Scaffold(

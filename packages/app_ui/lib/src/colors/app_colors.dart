@@ -120,8 +120,28 @@ abstract class AppColors {
   static const Color outlineOnDark = Color(0x29FFFFFF);
 
   /// The secondary color of application.
-  static const Color secondary = Color(0xFF963F6E);
+  static const MaterialColor secondary = MaterialColor(0xFF963F6E, <int, Color>{
+    50: Color(0xFFFFECF3),
+    100: Color(0xFFFFD8E9),
+    200: Color(0xFFFFAFD6),
+    300: Color(0xFFF28ABE),
+    400: Color(0xFFD371A3),
+    500: Color(0xFFB55788),
+    600: Color(0xFF963F6E),
+    700: Color(0xFF7A2756),
+    800: Color(0xFF5F0F40),
+    900: Color(0xFF3D0026),
+  });
 
   /// The medium high emphasis primary color.
   static const Color mediumHighEmphasisPrimary = Color(0xE6FFFFFF);
+
+  /// The default disabled foreground color.
+  static const Color disabledForeground = Color(0x611B1B1B);
+
+  /// The default disabled button color.
+  static const Color disabledButton = Color(0x1F000000);
+
+  /// The default disabled surface color.
+  static const Color disabledSurface = Color(0xFFE0E0E0);
 }
