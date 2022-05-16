@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   news_blocks:
     path: ../../api/packages/news_blocks
+  video_player: ^2.4.2
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +24,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icons/
+
+flutter_gen:
+  assets:
+    package_parameter_enabled: true
+  output: lib/src/generated/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
