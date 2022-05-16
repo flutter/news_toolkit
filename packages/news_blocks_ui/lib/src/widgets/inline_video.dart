@@ -86,7 +86,6 @@ class _InlineVideoState extends State<InlineVideo> {
                       ),
                     ),
                     Center(
-                      key: const Key('inlineVideo_playIcon'),
                       child: Visibility(
                         visible: !_isPlaying,
                         child: Assets.icons.playIcon.svg(),
