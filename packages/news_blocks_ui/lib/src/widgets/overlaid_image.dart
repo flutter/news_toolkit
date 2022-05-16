@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 
 /// {@template overlaid_image}
@@ -12,7 +13,10 @@ class OverlaidImage extends StatelessWidget {
     required this.gradientColor,
   });
 
-  /// Url of displayed image.
+  /// The aspect ratio of this image.
+  static const aspectRatio = 3 / 2;
+
+  /// The url of this image.
   final String imageUrl;
 
   /// The color of gradient.
@@ -20,29 +24,32 @@ class OverlaidImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      key: const Key('overlaidImage_stack'),
-      children: [
-        Image.network(
-          imageUrl,
-          height: double.infinity,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        ),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppColors.transparent,
-                gradientColor.withOpacity(0.7),
-              ],
-            ),
+    return AspectRatio(
+      aspectRatio: aspectRatio,
+      child: Stack(
+        key: const Key('overlaidImage_stack'),
+        children: [
+          CachedNetworkImage(
+            imageUrl: imageUrl,
+            height: double.infinity,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
-          child: const SizedBox.expand(),
-        ),
-      ],
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.transparent,
+                  gradientColor.withOpacity(0.7),
+                ],
+              ),
+            ),
+            child: const SizedBox.expand(),
+          ),
+        ],
+      ),
     );
   }
 }
