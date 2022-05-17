@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -15,6 +16,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: false,
+        isPremium: false,
       );
 
       await mockNetworkImages(
@@ -30,6 +32,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: true,
+        isPremium: true,
       );
 
       await mockNetworkImages(
@@ -37,6 +40,7 @@ void main() {
       );
       expect(find.byType(InlineImage), findsNothing);
       expect(find.byType(OverlaidImage), findsOneWidget);
+      expect(find.byType(Icon), findsOneWidget);
     });
   });
 }
