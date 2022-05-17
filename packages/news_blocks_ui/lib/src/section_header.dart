@@ -28,6 +28,12 @@ class SectionHeader extends StatelessWidget {
           )
         : null;
 
-    return ListTile(title: title, trailing: trailing);
+    return ListTile(
+      title: title,
+      trailing: trailing,
+      visualDensity: const VisualDensity(
+        vertical: VisualDensity.minimumDensity,
+      ),
+    );
   }
 }
