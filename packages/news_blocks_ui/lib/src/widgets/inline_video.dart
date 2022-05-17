@@ -44,7 +44,11 @@ class _InlineVideoState extends State<InlineVideo> {
     super.initState();
     _controller = widget.videoPlayerControllerBuilder(widget.videoUrl)
       ..addListener(_onVideoUpdated)
-      ..initialize().then((_) => setState(() {}));
+      ..initialize().then((_) {
+        // Ensure the first frame of the video is shown
+        // after the video is initialized.
+        if (mounted) setState(() {});
+      });
   }
 
   @override
@@ -56,7 +60,7 @@ class _InlineVideoState extends State<InlineVideo> {
   }
 
   void _onVideoUpdated() {
-    if (_isPlaying == _controller.value.isPlaying) {
+    if (!mounted || _isPlaying == _controller.value.isPlaying) {
       return;
     }
     setState(() {
