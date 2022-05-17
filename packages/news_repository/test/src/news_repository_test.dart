@@ -25,6 +25,64 @@ void main() {
       );
     });
 
+    group('getArticle', () {
+      test(
+          'returns ArticleResponse '
+          'from ApiClient.getArticle', () {
+        final content = <NewsBlock>[
+          TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+          TextParagraphBlock(text: 'text'),
+        ];
+
+        final articleResponse = ArticleResponse(
+          content: content,
+          totalCount: content.length,
+        );
+
+        when(
+          () => apiClient.getArticle(
+            id: any(named: 'id'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => articleResponse);
+
+        expect(
+          newsRepository.getArticle(
+            id: 'id',
+            offset: 10,
+            limit: 20,
+          ),
+          completion(equals(articleResponse)),
+        );
+
+        verify(
+          () => apiClient.getArticle(
+            id: 'id',
+            offset: 10,
+            limit: 20,
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GetArticleFailure '
+          'if ApiClient.getArticle fails', () async {
+        when(
+          () => apiClient.getArticle(
+            id: any(named: 'id'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenThrow(Exception);
+
+        expect(
+          () => newsRepository.getArticle(id: 'id'),
+          throwsA(isA<GetArticleFailure>()),
+        );
+      });
+    });
+
     group('getFeed', () {
       test(
           'returns FeedResponse '
@@ -149,8 +207,14 @@ void main() {
       });
     });
 
-    group('FeedFailure', () {
+    group('NewsFailure', () {
       final error = Exception('errorMessage');
+
+      group('GetArticleFailure', () {
+        test('has correct props', () {
+          expect(GetArticleFailure(error).props, [error]);
+        });
+      });
 
       group('GetFeedFailure', () {
         test('has correct props', () {
