@@ -199,7 +199,7 @@ class AppTheme {
   ListTileThemeData get _listTileTheme {
     return const ListTileThemeData(
       iconColor: AppColors.onBackground,
-      contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      contentPadding: EdgeInsets.all(AppSpacing.lg),
     );
   }
 
