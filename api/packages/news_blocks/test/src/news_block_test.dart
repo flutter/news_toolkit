@@ -76,6 +76,15 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
+      test('returns VideoIntroBlock', () {
+        final block = VideoIntroBlock(
+          category: PostCategory.technology,
+          title: 'title',
+          videoUrl: 'videoUrl',
+        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
       test('returns PostLargeBlock', () {
         final block = PostLargeBlock(
           id: 'id',
