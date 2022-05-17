@@ -17,6 +17,7 @@ class PostContent extends StatelessWidget {
     this.onShare,
     this.isPremium = false,
     this.isContentOverlaid = false,
+    this.isSubscriberExclusive = false,
     required this.premiumText,
   });
 
@@ -43,6 +44,11 @@ class PostContent extends StatelessWidget {
   /// Defaults to false.
   final bool isPremium;
 
+  /// Whether this post is subscriber exclusive.
+  ///
+  /// Defaults to false.
+  final bool isSubscriberExclusive;
+
   /// Whether content is displayed overlaid.
   ///
   /// Defaults to false.
@@ -68,6 +74,7 @@ class PostContent extends StatelessWidget {
               isPremium: isPremium,
               premiumText: premiumText,
               isContentOverlaid: isContentOverlaid,
+              isSubscriberExclusive: isSubscriberExclusive,
             ),
           Text(
             title,

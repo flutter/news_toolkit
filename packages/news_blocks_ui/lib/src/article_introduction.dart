@@ -30,17 +30,27 @@ class ArticleIntroduction extends StatelessWidget {
     return Column(
       children: [
         if (block.imageUrl != null) InlineImage(imageUrl: block.imageUrl!),
-        PostContent(
-          categoryName: block.category.name,
-          title: block.title,
-          author: block.author,
-          publishedAt: block.publishedAt,
-          premiumText: premiumText,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: PostContent(
+            categoryName: block.category.name,
+            title: block.title,
+            author: block.author,
+            publishedAt: block.publishedAt,
+            premiumText: premiumText,
+            isSubscriberExclusive: block.isPremium,
+          ),
         ),
         const Divider(),
-        Align(
-          alignment: Alignment.centerRight,
-          child: ShareButton(shareText: shareText),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: ShareButton(
+              shareText: shareText,
+              color: AppColors.darkAqua,
+            ),
+          ),
         ),
         const Divider(),
         const SizedBox(height: AppSpacing.lg),

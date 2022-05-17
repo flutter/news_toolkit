@@ -13,6 +13,7 @@ void main() {
         premiumText: 'Premium',
         isContentOverlaid: false,
         isPremium: false,
+        isSubscriberExclusive: false,
       );
 
       await tester.pumpContentThemedApp(testPostContentCategory);

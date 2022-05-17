@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template share_button}
@@ -9,7 +10,8 @@ class ShareButton extends StatelessWidget {
     super.key,
     required this.shareText,
     this.onPressed,
-  });
+    Color? color,
+  }) : _color = color ?? AppColors.black;
 
   /// The text displayed within share icon.
   final String shareText;
@@ -17,15 +19,26 @@ class ShareButton extends StatelessWidget {
   /// Called when the text field has been tapped.
   final VoidCallback? onPressed;
 
+  /// Color used for button font.
+  ///
+  /// Defaults to [AppColors.black]
+  final Color? _color;
+
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      icon: const Icon(
+    final theme = Theme.of(context);
+    return TextButton.icon(
+      icon: Icon(
         Icons.share,
-        color: Colors.white,
+        color: _color,
       ),
       onPressed: onPressed,
-      label: Text(shareText),
+      label: Text(
+        shareText,
+        style: theme.textTheme.button?.copyWith(
+          color: _color,
+        ),
+      ),
     );
   }
 }
