@@ -282,6 +282,8 @@ class AppButton extends StatelessWidget {
   final Color _foregroundColor;
 
   /// Color of the disabled text, icons etc.
+  ///
+  /// Defaults to [AppColors.disabledForeground].
   final Color _disabledForegroundColor;
 
   /// A border of the button.
