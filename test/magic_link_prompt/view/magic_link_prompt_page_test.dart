@@ -62,6 +62,20 @@ void main() {
         await tester.pumpAndSettle();
         verify(() => navigator.popUntil(any())).called(1);
       });
+
+      testWidgets('back when leading button is pressed ', (tester) async {
+        final navigator = MockNavigator();
+
+        when(() => navigator.popUntil(any())).thenAnswer((_) async {});
+        await tester.pumpApp(
+          const MagicLinkPromptPage(email: testEmail),
+          navigator: navigator,
+        );
+
+        await tester.tap(find.byKey(magicLinkPromptCloseIconKey));
+        await tester.pumpAndSettle();
+        verify(() => navigator.popUntil(any())).called(1);
+      });
     });
   });
 }

@@ -19,8 +19,6 @@ class MockUserProfileBloc extends MockBloc<UserProfileEvent, UserProfileState>
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
-  const termsOfServiceItemKey = Key('userProfilePage_termsOfServiceItem');
-
   group('UserProfilePage', () {
     test('has a route', () {
       expect(UserProfilePage.route(), isA<MaterialPageRoute>());
@@ -279,7 +277,7 @@ void main() {
             ),
           );
 
-          await tester.tap(find.byKey(termsOfServiceItemKey));
+          await tester.tap(find.byType(AppBackButton));
           await tester.pumpAndSettle();
 
           expect(find.byType(TermsOfServicePage), findsOneWidget);

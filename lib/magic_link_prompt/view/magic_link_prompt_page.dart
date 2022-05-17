@@ -1,6 +1,8 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
+
+import '../../login/login.dart';
 
 class MagicLinkPromptPage extends StatelessWidget {
   const MagicLinkPromptPage({super.key, required this.email});
@@ -17,6 +19,7 @@ class MagicLinkPromptPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const AppBackButton(),
         actions: [
           IconButton(
             key: const Key('magicLinkPrompt_closeIcon'),
