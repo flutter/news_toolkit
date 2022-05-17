@@ -1,5 +1,6 @@
 import 'package:app_ui/app_ui.dart'
     show AppSpacing, ScrollableColumn, AppColors, AppButton;
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -91,7 +92,7 @@ class MagicLinkPromptOpenEmailButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.darkAqua(
       key: const Key('magicLinkPrompt_openMailButton_appButton'),
-      onPressed: () {},
+      onPressed: () => EmailLauncher().launchEmailApp(),
       child: Text(context.l10n.openMailAppButtonText),
     );
   }
