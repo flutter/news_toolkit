@@ -1,4 +1,4 @@
+export 'package:news_blocks/news_blocks.dart' show Category;
 export 'article.dart';
-export 'category.dart';
 export 'feed.dart';
 export 'news_item.dart';

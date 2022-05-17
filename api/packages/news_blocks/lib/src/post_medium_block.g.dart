@@ -24,10 +24,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
           title: $checkedConvert('title', (v) => v as String),
           description: $checkedConvert('description', (v) => v as String?),
           action: $checkedConvert(
-              'action',
-              (v) => v == null
-                  ? null
-                  : BlockAction.fromJson(v as Map<String, dynamic>)),
+              'action', (v) => const BlockActionConverter().fromJson(v)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostMediumBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
@@ -61,7 +58,7 @@ Map<String, dynamic> _$PostMediumBlockToJson(PostMediumBlock instance) {
   writeNotNull('image_url', instance.imageUrl);
   val['title'] = instance.title;
   writeNotNull('description', instance.description);
-  writeNotNull('action', instance.action?.toJson());
+  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
   val['is_premium'] = instance.isPremium;
   val['is_content_overlaid'] = instance.isContentOverlaid;
   val['type'] = instance.type;

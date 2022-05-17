@@ -24,10 +24,7 @@ PostGridTileBlock _$PostGridTileBlockFromJson(Map<String, dynamic> json) =>
           title: $checkedConvert('title', (v) => v as String),
           description: $checkedConvert('description', (v) => v as String?),
           action: $checkedConvert(
-              'action',
-              (v) => v == null
-                  ? null
-                  : BlockAction.fromJson(v as Map<String, dynamic>)),
+              'action', (v) => const BlockActionConverter().fromJson(v)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostGridTileBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
@@ -58,7 +55,7 @@ Map<String, dynamic> _$PostGridTileBlockToJson(PostGridTileBlock instance) {
   writeNotNull('image_url', instance.imageUrl);
   val['title'] = instance.title;
   writeNotNull('description', instance.description);
-  writeNotNull('action', instance.action?.toJson());
+  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
   val['is_premium'] = instance.isPremium;
   val['type'] = instance.type;
   return val;
