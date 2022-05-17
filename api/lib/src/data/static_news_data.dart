@@ -175,9 +175,10 @@ final scienceItems = <NewsItem>[
 
 /// Top news feed blocks.
 final topNewsFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Breaking News'),
+  technologyItems.first.post,
   const DividerHorizontalBlock(),
-  const SpacerBlock(spacing: Spacing.medium),
   const SectionHeaderBlock(
     title: 'Technology',
     action: NavigateToFeedCategoryAction(
@@ -185,7 +186,7 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   technologyItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
+  const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Sports',
     action: NavigateToFeedCategoryAction(
@@ -193,7 +194,7 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   sportsItems.first.post,
-  const SpacerBlock(spacing: Spacing.small),
+  const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Health',
     action: NavigateToFeedCategoryAction(
@@ -201,42 +202,37 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   healthItems.first.post,
-  const SpacerBlock(spacing: Spacing.extraSmall),
 ];
 
 /// Technology feed blocks.
 final technologyFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Technology'),
-  const DividerHorizontalBlock(),
   technologyItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Sports feed blocks.
 final sportsFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Sports'),
-  const DividerHorizontalBlock(),
   sportsItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Health feed blocks.
 final healthFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Health'),
-  const DividerHorizontalBlock(),
   healthItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Science feed blocks.
 final scienceFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Science'),
-  const DividerHorizontalBlock(),
   PostGridGroupBlock(
     category: PostCategory.science,
     tiles: [...scienceItems.map((e) => e.post).cast<PostGridTileBlock>()],
   ),
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 List<NewsItem> get _newsItems {
