@@ -30,7 +30,7 @@ class PostSmall extends StatelessWidget {
         if (block.hasNavigationAction) onPressed?.call(block.action!);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
