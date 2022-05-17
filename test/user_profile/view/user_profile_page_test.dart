@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -46,7 +45,7 @@ void main() {
 
       testWidgets(
           'navigates back '
-          'when tapped on close icon', (tester) async {
+          'when app back button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -54,7 +53,7 @@ void main() {
           ),
         );
 
-        await tester.tap(find.byKey(Key('userProfilePage_closeIcon')));
+        await tester.tap(find.byType(AppBackButton));
         await tester.pumpAndSettle();
 
         expect(find.byType(UserProfileView), findsNothing);
@@ -264,23 +263,6 @@ void main() {
           await tester.tap(find.byType(UserProfileLogoutButton));
 
           verify(() => appBloc.add(AppLogoutRequested())).called(1);
-        });
-      });
-
-      group('navigates', () {
-        testWidgets('when tapped on Terms of User & Privacy Policy',
-            (tester) async {
-          await tester.pumpApp(
-            BlocProvider.value(
-              value: userProfileBloc,
-              child: UserProfileView(),
-            ),
-          );
-
-          await tester.tap(find.byType(AppBackButton));
-          await tester.pumpAndSettle();
-
-          expect(find.byType(TermsOfServicePage), findsOneWidget);
         });
       });
     });
