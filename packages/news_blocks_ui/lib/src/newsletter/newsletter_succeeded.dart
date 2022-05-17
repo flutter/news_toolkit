@@ -25,15 +25,16 @@ class NewsletterSucceeded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return NewsletterContainer(
       child: Column(
         children: [
           Text(
             header,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline4?.copyWith(
-                  color: AppColors.highEmphasisPrimary,
-                ),
+            style: theme.textTheme.headline4?.copyWith(
+              color: AppColors.highEmphasisPrimary,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
           center,
@@ -41,9 +42,9 @@ class NewsletterSucceeded extends StatelessWidget {
           Text(
             footer,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  color: AppColors.mediumHighEmphasisPrimary,
-                ),
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: AppColors.mediumHighEmphasisPrimary,
+            ),
           ),
         ],
       ),

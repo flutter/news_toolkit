@@ -19,7 +19,7 @@ class NewsletterContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: ColoredBox(
-        color: AppColors.secondary[800]!,
+        color: AppColors.secondary.shade800,
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.xlg + AppSpacing.sm),
           child: child,
