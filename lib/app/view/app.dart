@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,14 +15,17 @@ class App extends StatelessWidget {
     super.key,
     required UserRepository userRepository,
     required NewsRepository newsRepository,
+    required EmailLauncher emailLauncher,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
-        _user = user;
+        _user = user,
+        _emailLauncher = emailLauncher;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final User _user;
+  final EmailLauncher _emailLauncher;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _userRepository),
         RepositoryProvider.value(value: _newsRepository),
+        RepositoryProvider.value(value: _emailLauncher),
       ],
       child: MultiBlocProvider(
         providers: [
