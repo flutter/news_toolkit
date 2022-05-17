@@ -1,5 +1,6 @@
 library news_blocks;
 
+export 'src/article_introduction_block.dart' show ArticleIntroductionBlock;
 export 'src/block_action.dart'
     show
         BlockAction,
