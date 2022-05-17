@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/home/home.dart';
@@ -16,6 +17,8 @@ class MockUserRepository extends Mock implements UserRepository {}
 
 class MockNewsRepository extends Mock implements NewsRepository {}
 
+class MockEmailLauncher extends Mock implements EmailLauncher {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
@@ -23,6 +26,7 @@ void main() {
     late UserRepository userRepository;
     late NewsRepository newsRepository;
     late User user;
+    late EmailLauncher emailLauncher;
 
     setUp(() {
       userRepository = MockUserRepository();
@@ -31,6 +35,7 @@ void main() {
       );
       user = User.anonymous;
       newsRepository = MockNewsRepository();
+      emailLauncher = MockEmailLauncher();
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -40,6 +45,7 @@ void main() {
             userRepository: userRepository,
             newsRepository: newsRepository,
             user: user,
+            emailLauncher: emailLauncher,
           ),
         );
       });
