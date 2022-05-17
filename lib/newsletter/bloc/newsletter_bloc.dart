@@ -29,8 +29,8 @@ class NewsletterBloc extends Bloc<NewsletterEvent, NewsletterState> {
       await newsRepository.subscribeToNewsletter(email: state.email.value);
       emit(state.copyWith(status: NewsletterStatus.success));
     } catch (error, stackTrace) {
-      addError(error, stackTrace);
       emit(state.copyWith(status: NewsletterStatus.failure));
+      addError(error, stackTrace);
     }
   }
 
