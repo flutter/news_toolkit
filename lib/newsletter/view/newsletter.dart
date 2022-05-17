@@ -12,8 +12,8 @@ class Newsletter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<NewsletterBloc>.value(
-      value: NewsletterBloc(
+    return BlocProvider<NewsletterBloc>(
+      create: (context) => NewsletterBloc(
         newsRepository: context.read<NewsRepository>(),
       ),
       child: const NewsletterView(),
@@ -27,7 +27,6 @@ class NewsletterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsletterBloc, NewsletterState>(
-      bloc: context.read<NewsletterBloc>(),
       listener: (context, state) {
         if (state.status == NewsletterStatus.failure) {
           ScaffoldMessenger.of(context)
