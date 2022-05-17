@@ -81,6 +81,18 @@ void main() {
           category: PostCategory.technology,
           title: 'title',
           videoUrl: 'videoUrl',
+          );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns Article', () {
+        final block = ArticleIntroductionBlock(
+          id: 'id',
+          category: PostCategory.technology,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 9),
+          imageUrl: 'imageUrl',
+          title: 'title',
         );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
