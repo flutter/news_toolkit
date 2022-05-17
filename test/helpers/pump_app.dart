@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,15 +33,12 @@ class MockUserRepository extends Mock implements UserRepository {
 
 class MockNewsRepository extends Mock implements NewsRepository {}
 
-class MockEmailLauncher extends Mock implements EmailLauncher {}
-
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     AppBloc? appBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
-    EmailLauncher? emailLauncher,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -56,9 +52,6 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: newsRepository ?? MockNewsRepository(),
-          ),
-          RepositoryProvider.value(
-            value: emailLauncher ?? MockEmailLauncher(),
           ),
         ],
         child: MultiBlocProvider(
