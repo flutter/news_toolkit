@@ -9,7 +9,7 @@ part 'related_articles_response.g.dart';
 /// {@endtemplate}
 @JsonSerializable()
 class RelatedArticlesResponse extends Equatable {
-  /// {@macro article_response}
+  /// {@macro related_articles_response}
   const RelatedArticlesResponse({
     required this.relatedArticles,
     required this.totalCount,
