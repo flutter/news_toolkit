@@ -86,7 +86,7 @@ class PostContent extends StatelessWidget {
             onShare: onShare,
             isContentOverlaid: isContentOverlaid,
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.xlg + AppSpacing.sm),
         ],
       ),
     );
