@@ -145,6 +145,12 @@ void main() {
 
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns NewsletterBlock', () {
+        final block = NewsletterBlock();
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }

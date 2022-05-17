@@ -171,6 +171,8 @@ final technologyFeedBlocks = <NewsBlock>[
   const DividerHorizontalBlock(),
   technologyItems.first.post,
   const SpacerBlock(spacing: Spacing.medium),
+  const NewsletterBlock(),
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Sports feed blocks.
