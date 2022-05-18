@@ -230,7 +230,11 @@ class _UserProfileDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Divider(color: AppColors.borderOutline),
+      child: Divider(
+        color: AppColors.borderOutline,
+        indent: 0,
+        endIndent: 0,
+      ),
     );
   }
 }

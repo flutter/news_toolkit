@@ -45,6 +45,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   final String? description;
 
   /// An optional action which occurs upon interaction.
+  @BlockActionConverter()
   final BlockAction? action;
 
   /// Whether this post requires a premium subscription to access.
@@ -79,5 +80,6 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
 /// The extension on [PostBlock] that provides information about actions.
 extension PostBlockActions on PostBlock {
   /// Whether the action of this post is navigation.
-  bool get hasNavigationAction => action?.type == BlockActionType.navigation;
+  bool get hasNavigationAction =>
+      action?.actionType == BlockActionType.navigation;
 }
