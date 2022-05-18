@@ -40,7 +40,7 @@ class FeedViewPopulated extends StatefulWidget {
 
 class _FeedViewPopulatedState extends State<FeedViewPopulated>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late final TabController _tabController;
 
   @override
   void initState() {
