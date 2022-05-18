@@ -9,15 +9,20 @@ import '../../helpers/helpers.dart';
 void main() {
   group('NewsletterSucceeded', () {
     testWidgets('renders correctly', (tester) async {
+      const headerText = 'headerText';
+      const contentText = 'contentText';
+      const footerText = 'footerText';
       await tester.pumpApp(
         NewsletterSucceeded(
-          header: 'header',
-          content: Text('center'),
-          footer: 'footer',
+          headerText: headerText,
+          content: Text(contentText),
+          footerText: footerText,
         ),
       );
 
-      expect(find.byType(NewsletterSucceeded), findsOneWidget);
+      expect(find.text(headerText), findsOneWidget);
+      expect(find.text(contentText), findsOneWidget);
+      expect(find.text(footerText), findsOneWidget);
     });
   });
 }

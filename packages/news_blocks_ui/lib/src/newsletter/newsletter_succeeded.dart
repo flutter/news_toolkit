@@ -9,19 +9,19 @@ class NewsletterSucceeded extends StatelessWidget {
   /// {@macro newsletter_success}
   const NewsletterSucceeded({
     super.key,
-    required this.header,
+    required this.headerText,
     required this.content,
-    required this.footer,
+    required this.footerText,
   });
 
   /// The header displayed message.
-  final String header;
+  final String headerText;
 
   /// The widget displayed in a center of [NewsletterSucceeded] view.
   final Widget content;
 
   /// The footer displayed message.
-  final String footer;
+  final String footerText;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class NewsletterSucceeded extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            header,
+            headerText,
             textAlign: TextAlign.center,
             style: theme.textTheme.headline4?.copyWith(
               color: AppColors.highEmphasisPrimary,
@@ -40,7 +40,7 @@ class NewsletterSucceeded extends StatelessWidget {
           content,
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
           Text(
-            footer,
+            footerText,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyText1?.copyWith(
               color: AppColors.mediumHighEmphasisPrimary,
