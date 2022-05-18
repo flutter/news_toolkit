@@ -24,7 +24,7 @@ void main() {
       const imageUrl = 'imageUrl';
       const title = 'title';
       const description = 'description';
-      const action = BlockAction(type: BlockActionType.navigation);
+      const action = NavigateToArticleAction(articleId: id);
 
       final gridTile = PostGridTileBlock(
         id: id,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -164,6 +165,153 @@ void main() {
         find.byType(SizedBox),
         findsOneWidget,
       );
+    });
+
+    group(
+        'navigates to ArticlePage '
+        'when action is NavigateToArticleAction', () {
+      const articleId = 'articleId';
+
+      testWidgets('from PostLarge', (tester) async {
+        final block = PostLargeBlock(
+          id: articleId,
+          category: PostCategory.technology,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 9),
+          imageUrl: 'imageUrl',
+          title: 'title',
+          isContentOverlaid: true,
+          action: NavigateToArticleAction(articleId: articleId),
+        );
+
+        await mockNetworkImages(() async {
+          await tester.pumpApp(
+            ListView(
+              children: [
+                CategoryFeedItem(block: block),
+              ],
+            ),
+          );
+        });
+
+        await tester.ensureVisible(find.byType(PostLarge));
+        await tester.tap(find.byType(PostLarge));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is ArticlePage && widget.id == articleId,
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('from PostMedium', (tester) async {
+        final block = PostMediumBlock(
+          id: 'id',
+          category: PostCategory.sports,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 10),
+          imageUrl: 'imageUrl',
+          title: 'title',
+          isContentOverlaid: true,
+          action: NavigateToArticleAction(articleId: articleId),
+        );
+
+        await mockNetworkImages(() async {
+          await tester.pumpApp(
+            ListView(
+              children: [
+                CategoryFeedItem(block: block),
+              ],
+            ),
+          );
+        });
+
+        await tester.ensureVisible(find.byType(PostMedium));
+        await tester.tap(find.byType(PostMedium));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is ArticlePage && widget.id == articleId,
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('from PostSmall', (tester) async {
+        final block = PostSmallBlock(
+          id: 'id',
+          category: PostCategory.health,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 11),
+          imageUrl: 'imageUrl',
+          title: 'title',
+          action: NavigateToArticleAction(articleId: articleId),
+        );
+
+        await mockNetworkImages(() async {
+          await tester.pumpApp(
+            ListView(
+              children: [
+                CategoryFeedItem(block: block),
+              ],
+            ),
+          );
+        });
+
+        await tester.ensureVisible(find.byType(PostSmallContent));
+        await tester.tap(find.byType(PostSmallContent));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is ArticlePage && widget.id == articleId,
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('from PostGrid', (tester) async {
+        final block = PostGridGroupBlock(
+          category: PostCategory.science,
+          tiles: [
+            PostGridTileBlock(
+              id: 'id',
+              category: PostCategory.science,
+              author: 'author',
+              publishedAt: DateTime(2022, 3, 12),
+              imageUrl: 'imageUrl',
+              title: 'title',
+              action: NavigateToArticleAction(articleId: articleId),
+            )
+          ],
+        );
+
+        await mockNetworkImages(() async {
+          await tester.pumpApp(
+            ListView(
+              children: [
+                CategoryFeedItem(block: block),
+              ],
+            ),
+          );
+        });
+
+        // We're tapping on a PostLarge as the first post of the PostGrid
+        // is displayed as a large post.
+        await tester.ensureVisible(find.byType(PostLarge));
+        await tester.tap(find.byType(PostLarge));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is ArticlePage && widget.id == articleId,
+          ),
+          findsOneWidget,
+        );
+      });
     });
   });
 }
