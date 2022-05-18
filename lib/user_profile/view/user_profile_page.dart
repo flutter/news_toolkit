@@ -1,5 +1,5 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, AppButton, AppColors, ScrollableColumn;
+    show AppSpacing, AppButton, AppColors, ScrollableColumn, AppBackButton;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
@@ -42,11 +42,7 @@ class UserProfileView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            key: const Key('userProfilePage_closeIcon'),
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () => Navigator.pop(context),
-          ),
+          leading: const AppBackButton(),
         ),
         body: ScrollableColumn(
           mainAxisSize: MainAxisSize.min,

@@ -1,7 +1,15 @@
 library news_blocks;
 
 export 'src/article_introduction_block.dart' show ArticleIntroductionBlock;
-export 'src/block_action.dart' show BlockAction, BlockActionType;
+export 'src/block_action.dart'
+    show
+        BlockAction,
+        BlockActionType,
+        NavigateToArticleAction,
+        NavigateToFeedCategoryAction,
+        UnknownBlockAction;
+export 'src/block_action_converter.dart' show BlockActionConverter;
+export 'src/category.dart' show Category;
 export 'src/divider_horizontal_block.dart' show DividerHorizontalBlock;
 export 'src/image_block.dart' show ImageBlock;
 export 'src/news_block.dart' show NewsBlock;

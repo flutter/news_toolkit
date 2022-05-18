@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
@@ -69,8 +71,8 @@ void main() {
     // });
 
     testWidgets('onPressed is called with action when tapped', (tester) async {
+      final action = NavigateToArticleAction(articleId: 'id');
       final actions = <BlockAction>[];
-      const action = BlockAction(type: BlockActionType.navigation);
 
       await mockNetworkImages(() async {
         await tester.pumpApp(

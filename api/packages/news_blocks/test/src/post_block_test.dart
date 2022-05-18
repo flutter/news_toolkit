@@ -31,9 +31,7 @@ void main() {
         'when BlockActionType is navigation', () {
       expect(
         CustomPostBlock(
-          action: BlockAction(
-            type: BlockActionType.navigation,
-          ),
+          action: NavigateToArticleAction(articleId: 'articleId'),
         ).hasNavigationAction,
         isTrue,
       );
