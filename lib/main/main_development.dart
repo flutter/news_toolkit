@@ -31,7 +31,7 @@ void main() {
       );
 
       final newsRepository = NewsRepository(
-        apiClient: GoogleNewsTemplateApiClient.localhost(),
+        apiClient: GoogleNewsTemplateApiClient(),
       );
 
       return App(
