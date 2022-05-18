@@ -18,7 +18,7 @@ class PostFooter extends StatelessWidget {
   final String? author;
 
   /// The date when this post was published.
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
 
   /// Called when the share button is tapped.
   final VoidCallback? onShare;
@@ -51,9 +51,10 @@ class PostFooter extends StatelessWidget {
                 ),
                 const WidgetSpan(child: SizedBox(width: AppSpacing.sm)),
               ],
-              TextSpan(
-                text: publishedAt.mDY,
-              ),
+              if (publishedAt != null)
+                TextSpan(
+                  text: publishedAt!.mDY,
+                ),
             ],
           ),
         ),

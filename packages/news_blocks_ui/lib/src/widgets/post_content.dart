@@ -10,7 +10,7 @@ class PostContent extends StatelessWidget {
   const PostContent({
     super.key,
     required this.title,
-    required this.publishedAt,
+    this.publishedAt,
     this.categoryName,
     this.description,
     this.author,
@@ -25,7 +25,7 @@ class PostContent extends StatelessWidget {
   final String title;
 
   /// The date when this post was published.
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
 
   /// Category of post.
   final String? categoryName;
