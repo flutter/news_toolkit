@@ -21,6 +21,20 @@ abstract class NewsDataSource {
     int offset = 0,
   });
 
+  /// Returns [RelatedArticles] for the provided article [id].
+  ///
+  /// In addition, the contents can be paginated by supplying
+  /// [limit] and [offset].
+  ///
+  /// * [limit] - The number of content blocks to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<RelatedArticles> getRelatedArticles({
+    required String id,
+    int limit = 20,
+    int offset = 0,
+  });
+
   /// Returns a news [Feed] for the provided [category].
   /// By default [Category.top] is used.
   ///

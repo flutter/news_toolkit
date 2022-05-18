@@ -25,6 +25,8 @@ export 'package:news_blocks/news_blocks.dart'
 
 export 'src/api/v1/articles/get_article/models/models.dart'
     show ArticleResponse;
+export 'src/api/v1/articles/get_related_articles/models/models.dart'
+    show RelatedArticlesResponse;
 export 'src/api/v1/categories/get_categories/models/models.dart'
     show CategoriesResponse;
 export 'src/api/v1/feed/get_feed/models/models.dart' show FeedResponse;
