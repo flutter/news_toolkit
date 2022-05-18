@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
+import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
@@ -176,6 +177,16 @@ void main() {
         ),
         findsOneWidget,
       );
+    });
+
+    testWidgets(
+        'renders Newsletter '
+        'for NewsletterBlock', (tester) async {
+      final block = NewsletterBlock();
+
+      await tester.pumpApp(CategoryFeedItem(block: block));
+
+      expect(find.byType(Newsletter), findsOneWidget);
     });
 
     testWidgets(

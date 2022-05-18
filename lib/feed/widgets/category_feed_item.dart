@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -42,6 +43,8 @@ class CategoryFeedItem extends StatelessWidget {
         premiumText: context.l10n.newsBlockPremiumText,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
+    } else if (newsBlock is NewsletterBlock) {
+      return const Newsletter();
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();

@@ -9,7 +9,6 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import '../helpers/helpers.dart';
 
 void main() {
-  const id = '499305f6-5096-4051-afda-824dcfc7df23';
   const category = PostCategory.technology;
   const author = 'Sean Hollister';
   final publishedAt = DateTime(2022, 3, 9);
@@ -28,7 +27,6 @@ void main() {
 
     testWidgets('renders correctly', (tester) async {
       final _technologyArticleIntroduction = ArticleIntroductionBlock(
-        id: id,
         category: category,
         author: author,
         publishedAt: publishedAt,

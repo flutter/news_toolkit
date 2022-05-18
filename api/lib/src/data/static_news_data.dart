@@ -18,7 +18,6 @@ final technologyItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        id: '499305f6-5096-4051-afda-824dcfc7df23',
         category: PostCategory.technology,
         author: 'Sean Hollister',
         publishedAt: DateTime(2022, 3, 9),
@@ -27,7 +26,6 @@ final technologyItems = <NewsItem>[
         imageUrl:
             'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
       ),
-      const SpacerBlock(spacing: Spacing.small),
       const TextLeadParagraphBlock(
         text:
             'Scientists at the University of Copenhagen research institute have'
@@ -316,6 +314,9 @@ final technologyFeedBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Technology'),
   technologyItems.first.post,
+  const SpacerBlock(spacing: Spacing.medium),
+  const NewsletterBlock(),
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Sports feed blocks.
