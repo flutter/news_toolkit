@@ -17,7 +17,7 @@ class VideoIntroduction extends StatelessWidget {
   /// The associated [VideoIntroductionBlock] instance.
   final VideoIntroductionBlock block;
 
-  /// Text displayed when video is premium content.
+  /// Text displayed when the associated article is premium.
   final String premiumText;
 
   @override
