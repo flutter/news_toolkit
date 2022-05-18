@@ -63,7 +63,7 @@ void main() {
         verify(() => navigator.popUntil(any())).called(1);
       });
 
-      testWidgets('back when leading button is pressed ', (tester) async {
+      testWidgets('back when leading button is pressed.', (tester) async {
         final navigator = MockNavigator();
 
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
