@@ -2,6 +2,9 @@ part of 'newsletter_bloc.dart';
 
 abstract class NewsletterEvent extends Equatable {
   const NewsletterEvent();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class NewsletterSubscribed extends NewsletterEvent with AnalyticsEventMixin {
