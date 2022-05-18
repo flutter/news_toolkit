@@ -46,7 +46,7 @@ void main() {
 
           await tester.tap(find.byType(MagicLinkPromptOpenEmailButton));
           await tester.pumpAndSettle();
-          verify(() => emailLauncher.launchEmailApp()).called(1);
+          verify(emailLauncher.launchEmailApp).called(1);
         },
       );
     });
