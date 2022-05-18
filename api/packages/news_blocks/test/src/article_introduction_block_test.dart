@@ -5,7 +5,6 @@ void main() {
   group('ArticleIntroductionBlock', () {
     test('can be (de)serialized', () {
       final block = ArticleIntroductionBlock(
-        id: 'id',
         category: PostCategory.technology,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),

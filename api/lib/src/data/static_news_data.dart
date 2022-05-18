@@ -315,6 +315,9 @@ final technologyFeedBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Technology'),
   technologyItems.first.post,
+  const SpacerBlock(spacing: Spacing.medium),
+  const NewsletterBlock(),
+  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Sports feed blocks.
