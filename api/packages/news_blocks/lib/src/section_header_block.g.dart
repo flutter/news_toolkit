@@ -15,11 +15,8 @@ SectionHeaderBlock _$SectionHeaderBlockFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = SectionHeaderBlock(
           title: $checkedConvert('title', (v) => v as String),
-          action: $checkedConvert(
-              'action',
-              (v) => v == null
-                  ? null
-                  : BlockAction.fromJson(v as Map<String, dynamic>)),
+          action: $checkedConvert('action',
+              (v) => const BlockActionConverter().fromJson(v as Map?)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? SectionHeaderBlock.identifier),
         );
@@ -38,7 +35,7 @@ Map<String, dynamic> _$SectionHeaderBlockToJson(SectionHeaderBlock instance) {
     }
   }
 
-  writeNotNull('action', instance.action?.toJson());
+  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
   val['type'] = instance.type;
   return val;
 }
