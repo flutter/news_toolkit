@@ -9,18 +9,18 @@ class NewsletterSignUp extends StatelessWidget {
   /// {@macro newsletter_sign_up}
   const NewsletterSignUp({
     super.key,
-    required this.header,
-    required this.body,
+    required this.headerText,
+    required this.bodyText,
     required this.email,
     required this.buttonText,
     required this.onPressed,
   });
 
   /// The header displayed message.
-  final String header;
+  final String headerText;
 
   /// The body displayed message.
-  final String body;
+  final String bodyText;
 
   /// The header displayed message.
   final Widget email;
@@ -33,34 +33,28 @@ class NewsletterSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return NewsletterContainer(
       child: Column(
         children: [
           Text(
-            header,
+            headerText,
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .headline4
+            style: theme.textTheme.headline4
                 ?.copyWith(color: AppColors.highEmphasisPrimary),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
-            body,
+            bodyText,
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
+            style: theme.textTheme.bodyText1
                 ?.copyWith(color: AppColors.mediumEmphasisPrimary),
           ),
           const SizedBox(height: AppSpacing.lg),
           email,
           AppButton.secondary(
             onPressed: onPressed,
-            textStyle: Theme.of(context)
-                .textTheme
-                .button
-                ?.copyWith(color: AppColors.white),
+            textStyle: theme.textTheme.button?.copyWith(color: AppColors.white),
             child: Text(
               buttonText,
             ),
