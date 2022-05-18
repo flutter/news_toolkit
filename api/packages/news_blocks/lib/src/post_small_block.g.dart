@@ -23,8 +23,8 @@ PostSmallBlock _$PostSmallBlockFromJson(Map<String, dynamic> json) =>
           title: $checkedConvert('title', (v) => v as String),
           imageUrl: $checkedConvert('image_url', (v) => v as String?),
           description: $checkedConvert('description', (v) => v as String?),
-          action: $checkedConvert(
-              'action', (v) => const BlockActionConverter().fromJson(v)),
+          action: $checkedConvert('action',
+              (v) => const BlockActionConverter().fromJson(v as Map?)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostSmallBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
