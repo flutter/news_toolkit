@@ -18,7 +18,6 @@ class App extends StatelessWidget {
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _user = user;
-
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final User _user;

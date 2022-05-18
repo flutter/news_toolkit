@@ -11,15 +11,20 @@ class AppButton extends StatelessWidget {
     required this.child,
     this.onPressed,
     Color? buttonColor,
+    Color? disabledButtonColor,
     Color? foregroundColor,
+    Color? disabledForegroundColor,
     BorderSide? borderSide,
     double? elevation,
     TextStyle? textStyle,
     Size? maximumSize,
     EdgeInsets? padding,
   })  : _buttonColor = buttonColor ?? Colors.white,
+        _disabledButtonColor = disabledButtonColor ?? AppColors.disabledButton,
         _borderSide = borderSide,
         _foregroundColor = foregroundColor ?? AppColors.black,
+        _disabledForegroundColor =
+            disabledForegroundColor ?? AppColors.disabledForeground,
         _elevation = elevation ?? 0,
         _textStyle = textStyle,
         _maximumSize = maximumSize ?? _defaultMaximumSize,
@@ -99,6 +104,7 @@ class AppButton extends StatelessWidget {
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
+    Color? disabledButtonColor,
     required Widget child,
   }) : this._(
           key: key,
@@ -106,8 +112,11 @@ class AppButton extends StatelessWidget {
           buttonColor: AppColors.secondary,
           child: child,
           foregroundColor: AppColors.white,
+          disabledButtonColor: disabledButtonColor ?? AppColors.disabledSurface,
           elevation: elevation,
           textStyle: textStyle,
+          padding: _smallPadding,
+          maximumSize: _smallMaximumSize,
         );
 
   /// Filled dark aqua button.
@@ -262,10 +271,20 @@ class AppButton extends StatelessWidget {
   /// Defaults to [Colors.white].
   final Color _buttonColor;
 
+  /// A disabled background color of the button.
+  ///
+  /// Defaults to [AppColors.disabledButton].
+  final Color? _disabledButtonColor;
+
   /// Color of the text, icons etc.
   ///
   /// Defaults to [AppColors.black].
   final Color _foregroundColor;
+
+  /// Color of the disabled text, icons etc.
+  ///
+  /// Defaults to [AppColors.disabledForeground].
+  final Color _disabledForegroundColor;
 
   /// A border of the button.
   final BorderSide? _borderSide;
@@ -303,11 +322,11 @@ class AppButton extends StatelessWidget {
         minimumSize: MaterialStateProperty.all(_defaultMinimumSize),
         textStyle: MaterialStateProperty.all(textStyle),
         backgroundColor: onPressed == null
-            ? MaterialStateProperty.all(AppColors.black.withOpacity(.12))
+            ? MaterialStateProperty.all(_disabledButtonColor)
             : MaterialStateProperty.all(_buttonColor),
         elevation: MaterialStateProperty.all(_elevation),
         foregroundColor: onPressed == null
-            ? MaterialStateProperty.all(AppColors.rangoonGreen.withOpacity(.38))
+            ? MaterialStateProperty.all(_disabledForegroundColor)
             : MaterialStateProperty.all(_foregroundColor),
         side: MaterialStateProperty.all(_borderSide),
         shape: MaterialStateProperty.all(

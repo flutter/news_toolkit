@@ -31,3 +31,4 @@ export 'src/text_lead_paragraph_block.dart' show TextLeadParagraphBlock;
 export 'src/text_paragraph_block.dart' show TextParagraphBlock;
 export 'src/unknown_block.dart' show UnknownBlock;
 export 'src/video_block.dart' show VideoBlock;
+export 'src/video_introduction_block.dart' show VideoIntroductionBlock;
