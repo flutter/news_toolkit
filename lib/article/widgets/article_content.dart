@@ -16,7 +16,7 @@ class ArticleContent extends StatelessWidget {
 
     if (status == ArticleStatus.initial || status == ArticleStatus.loading) {
       return const ArticleContentLoaderItem(
-        key: Key('articleContent_empty'),
+        key: Key('articleContent_empty_loaderItem'),
       );
     }
 

@@ -126,7 +126,10 @@ void main() {
             ),
           );
 
-          expect(find.byKey(Key('articleContent_empty')), findsOneWidget);
+          expect(
+            find.byKey(Key('articleContent_empty_loaderItem')),
+            findsOneWidget,
+          );
         });
 
         testWidgets('when ArticleStatus is loading', (tester) async {
@@ -144,7 +147,10 @@ void main() {
             ),
           );
 
-          expect(find.byKey(Key('articleContent_empty')), findsOneWidget);
+          expect(
+            find.byKey(Key('articleContent_empty_loaderItem')),
+            findsOneWidget,
+          );
         });
 
         testWidgets(
