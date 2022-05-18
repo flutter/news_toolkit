@@ -5,7 +5,7 @@ import 'package:news_blocks/news_blocks.dart';
 part 'article_introduction_block.g.dart';
 
 /// {@template article_introduction_block}
-/// A block which represents an article introduction block.
+/// A block which represents an article introduction.
 /// https://www.figma.com/file/RajSN6YbRqTuqvdKYtij3b/Google-News-Template-App-v3?node-id=1394%3A51730
 /// {@endtemplate}
 @JsonSerializable()
