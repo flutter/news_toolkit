@@ -37,6 +37,7 @@ class PostLarge extends StatelessWidget {
           PostLargeImage(
             isContentOverlaid: block.isContentOverlaid,
             imageUrl: block.imageUrl!,
+            isPremium: block.isPremium,
           ),
           PostContent(
             author: block.author,

@@ -22,6 +22,10 @@ class $AssetsIconsGen {
   SvgGenImage get emailOutline =>
       const SvgGenImage('assets/icons/email_outline.svg');
 
+  /// File path: assets/icons/envelope_open.svg
+  SvgGenImage get envelopeOpen =>
+      const SvgGenImage('assets/icons/envelope_open.svg');
+
   /// File path: assets/icons/facebook.svg
   SvgGenImage get facebook => const SvgGenImage('assets/icons/facebook.svg');
 
@@ -77,10 +81,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/continue_with_twitter.svg
   SvgGenImage get continueWithTwitter =>
       const SvgGenImage('assets/images/continue_with_twitter.svg');
-
-  /// File path: assets/images/magic_link_prompt_email.svg
-  SvgGenImage get magicLinkPromptEmail =>
-      const SvgGenImage('assets/images/magic_link_prompt_email.svg');
 }
 
 class Assets {
