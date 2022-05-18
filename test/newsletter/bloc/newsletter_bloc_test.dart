@@ -59,7 +59,7 @@ void main() {
           () => newsRepository.subscribeToNewsletter(
             email: any(named: 'email'),
           ),
-        ).thenThrow(Error),
+        ).thenThrow(Error.new),
         seed: () => NewsletterState(email: Email.dirty('test')),
         build: () => NewsletterBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(NewsletterSubscribed()),

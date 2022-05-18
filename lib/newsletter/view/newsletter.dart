@@ -26,6 +26,8 @@ class NewsletterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEmailValid =
+        context.select<NewsletterBloc, bool>((bloc) => bloc.state.isValid);
     return BlocConsumer<NewsletterBloc, NewsletterState>(
       listener: (context, state) {
         if (state.status == NewsletterStatus.failure) {
@@ -57,8 +59,7 @@ class NewsletterView extends StatelessWidget {
                 context.read<NewsletterBloc>().add(EmailChanged(email: email)),
           ),
           buttonText: context.l10n.subscribeEmailButtonText,
-          onPressed: context
-                  .select<NewsletterBloc, bool>((bloc) => bloc.state.isValid)
+          onPressed: isEmailValid
               ? () => context.read<NewsletterBloc>().add(NewsletterSubscribed())
               : null,
         );

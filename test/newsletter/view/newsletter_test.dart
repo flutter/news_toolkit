@@ -26,6 +26,7 @@ void main() {
       await tester.pumpApp(
         Newsletter(),
       );
+
       expect(find.byType(NewsletterView), findsOneWidget);
     });
   });
@@ -44,15 +45,18 @@ void main() {
           child: NewsletterView(),
         ),
       );
+
       expect(find.byType(NewsletterSignUp), findsOneWidget);
     });
 
-    testWidgets('disabled button when status not valid', (tester) async {
+    testWidgets('renders disabled button when status is not valid',
+        (tester) async {
       whenListen(
         bloc,
         Stream.fromIterable([initialState]),
         initialState: initialState,
       );
+
       await tester.pumpApp(
         BlocProvider<NewsletterBloc>.value(
           value: bloc,
@@ -66,7 +70,7 @@ void main() {
       );
     });
 
-    testWidgets('enabled button when status is valid', (tester) async {
+    testWidgets('renders enabled button when status is valid', (tester) async {
       whenListen(
         bloc,
         Stream.fromIterable([initialState.copyWith(isValid: true)]),
@@ -79,10 +83,9 @@ void main() {
           child: NewsletterView(),
         ),
       );
+
       final signUpButton = find.byType(AppButton);
-
       expect(tester.widget<AppButton>(signUpButton).onPressed, isNotNull);
-
       await tester.tap(signUpButton);
 
       verify(() => bloc.add(NewsletterSubscribed())).called(1);
@@ -104,13 +107,13 @@ void main() {
       );
 
       const changedEmail = 'test@test.com';
-
       await tester.enterText(find.byType(AppEmailTextField), changedEmail);
 
       verify(() => bloc.add(EmailChanged(email: changedEmail))).called(1);
     });
 
-    testWidgets('renders NewsletterSuccess', (tester) async {
+    testWidgets('renders NewsletterSuccess when NewsletterStatus is success',
+        (tester) async {
       whenListen(
         bloc,
         Stream.fromIterable(
@@ -118,16 +121,19 @@ void main() {
         ),
         initialState: initialState,
       );
+
       await tester.pumpApp(
         BlocProvider<NewsletterBloc>.value(
           value: bloc,
           child: NewsletterView(),
         ),
       );
+
       expect(find.byType(NewsletterSucceeded), findsOneWidget);
     });
 
-    testWidgets('shows SnackBar when failed', (tester) async {
+    testWidgets('shows SnackBar when NewsletterStatus is failure',
+        (tester) async {
       whenListen(
         bloc,
         Stream.fromIterable(
@@ -135,6 +141,7 @@ void main() {
         ),
         initialState: initialState,
       );
+
       await tester.pumpApp(
         BlocProvider<NewsletterBloc>.value(
           value: bloc,
@@ -142,6 +149,7 @@ void main() {
         ),
       );
       await tester.pump();
+
       expect(find.byType(SnackBar), findsOneWidget);
     });
   });
