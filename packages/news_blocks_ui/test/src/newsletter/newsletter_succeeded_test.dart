@@ -12,7 +12,7 @@ void main() {
       await tester.pumpApp(
         NewsletterSucceeded(
           header: 'header',
-          center: Text('center'),
+          content: Text('center'),
           footer: 'footer',
         ),
       );

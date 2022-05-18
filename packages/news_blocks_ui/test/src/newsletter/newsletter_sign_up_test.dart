@@ -25,7 +25,7 @@ void main() {
       expect(find.byType(NewsletterSignUp), findsOneWidget);
     });
 
-    testWidgets('renders correctly', (tester) async {
+    testWidgets('onPressed is called on tap', (tester) async {
       final completer = Completer<void>();
 
       final widget = NewsletterSignUp(

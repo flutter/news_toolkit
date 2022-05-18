@@ -10,7 +10,7 @@ class NewsletterSucceeded extends StatelessWidget {
   const NewsletterSucceeded({
     super.key,
     required this.header,
-    required this.center,
+    required this.content,
     required this.footer,
   });
 
@@ -18,7 +18,7 @@ class NewsletterSucceeded extends StatelessWidget {
   final String header;
 
   /// The widget displayed in a center of [NewsletterSucceeded] view.
-  final Widget center;
+  final Widget content;
 
   /// The footer displayed message.
   final String footer;
@@ -37,7 +37,7 @@ class NewsletterSucceeded extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
-          center,
+          content,
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
           Text(
             footer,
