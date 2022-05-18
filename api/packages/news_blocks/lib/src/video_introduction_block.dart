@@ -5,7 +5,7 @@ import 'package:news_blocks/news_blocks.dart';
 part 'video_introduction_block.g.dart';
 
 /// {@template video_introduction_block}
-/// A block which represents a video intro.
+/// A block which represents a video introduction.
 /// https://www.figma.com/file/RajSN6YbRqTuqvdKYtij3b/Google-News-Template-App-v3?node-id=391%3A18167
 /// {@endtemplate}
 @JsonSerializable()
@@ -23,16 +23,16 @@ class VideoIntroductionBlock with EquatableMixin implements NewsBlock {
   factory VideoIntroductionBlock.fromJson(Map<String, dynamic> json) =>
       _$VideoIntroductionBlockFromJson(json);
 
-  /// The video block type identifier.
+  /// The video introduction block type identifier.
   static const identifier = '__video_introduction__';
 
-  /// The category of this post.
+  /// The category of the associated article.
   final PostCategory category;
 
-  /// The title of this post.
+  /// The title of the associated article.
   final String title;
 
-  /// The video url of this post.
+  /// The video url of the associated article.
   final String videoUrl;
 
   @override
