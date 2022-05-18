@@ -12,11 +12,11 @@ part 'article_introduction_block.g.dart';
 class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro article_introduction_block}
   const ArticleIntroductionBlock({
-    this.type = ArticleIntroductionBlock.identifier,
     required this.category,
     required this.author,
     required this.publishedAt,
     required this.title,
+    this.type = ArticleIntroductionBlock.identifier,
     this.imageUrl,
     this.isPremium = false,
   });
@@ -26,25 +26,25 @@ class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
   factory ArticleIntroductionBlock.fromJson(Map<String, dynamic> json) =>
       _$ArticleIntroductionBlockFromJson(json);
 
-  /// The large post block type identifier.
+  /// The article introduction block type identifier.
   static const identifier = '__article_introduction__';
 
-  /// The category of this post.
+  /// The category of the associated article.
   final PostCategory category;
 
-  /// The author of this post.
+  /// The author of the associated article.
   final String author;
 
-  /// The date when this post was published.
+  /// The date when the associated article was published.
   final DateTime publishedAt;
 
-  /// The image URL of this post.
+  /// The image URL of the associated article.
   final String? imageUrl;
 
-  /// The title of this post.
+  /// The title of the associated article.
   final String title;
 
-  /// Whether this post requires a premium subscription to access.
+  /// Whether the associated article requires a premium subscription to access.
   ///
   /// Defaults to false.
   final bool isPremium;
