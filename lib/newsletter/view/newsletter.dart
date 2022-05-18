@@ -45,7 +45,7 @@ class NewsletterView extends StatelessWidget {
             center: SizedBox(
               height: AppSpacing.xxxlg + AppSpacing.md,
               width: AppSpacing.xxxlg + AppSpacing.md,
-              child: Assets.images.magicLinkPromptEmail.svg(),
+              child: Assets.icons.envelopeOpen.svg(),
             ),
             footer: context.l10n.subscribeSuccessfulEmailBody,
           );
