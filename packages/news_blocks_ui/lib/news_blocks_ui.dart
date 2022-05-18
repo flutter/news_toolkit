@@ -15,4 +15,3 @@ export 'src/text_headline.dart';
 export 'src/text_lead_paragraph.dart';
 export 'src/text_paragraph.dart';
 export 'src/video.dart';
-export 'src/widgets/widgets.dart';
