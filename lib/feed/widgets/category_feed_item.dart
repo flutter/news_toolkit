@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart' hide Spacer;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -19,7 +21,10 @@ class CategoryFeedItem extends StatelessWidget {
     } else if (newsBlock is SpacerBlock) {
       return Spacer(block: newsBlock);
     } else if (newsBlock is SectionHeaderBlock) {
-      return SectionHeader(block: newsBlock);
+      return SectionHeader(
+        block: newsBlock,
+        onPressed: (action) => _onFeedItemAction(context, action),
+      );
     } else if (newsBlock is PostLargeBlock) {
       return PostLarge(
         block: newsBlock,
@@ -57,6 +62,10 @@ class CategoryFeedItem extends StatelessWidget {
       await Navigator.of(context).push<void>(
         ArticlePage.route(id: action.articleId),
       );
+    } else if (action is NavigateToFeedCategoryAction) {
+      context
+          .read<CategoriesBloc>()
+          .add(CategorySelected(category: action.category));
     }
   }
 }
