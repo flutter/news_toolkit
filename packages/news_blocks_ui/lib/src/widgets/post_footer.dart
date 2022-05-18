@@ -8,7 +8,7 @@ class PostFooter extends StatelessWidget {
   /// {@macro post_footer}
   const PostFooter({
     super.key,
-    required this.publishedAt,
+    this.publishedAt,
     this.author,
     this.onShare,
     this.isContentOverlaid = false,
