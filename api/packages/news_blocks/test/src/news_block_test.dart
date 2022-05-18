@@ -4,7 +4,7 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 class CustomBlock extends NewsBlock {
-  CustomBlock() : super(type: '__custom_block__');
+  CustomBlock({super.type = '__custom_block__'});
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'type': type};
