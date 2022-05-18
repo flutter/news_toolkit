@@ -12,6 +12,8 @@ dependencies:
   app_ui:
     path: packages/app_ui
   bloc: ^8.0.3
+  email_launcher:
+    path: packages/email_launcher
   equatable: ^2.0.3
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client

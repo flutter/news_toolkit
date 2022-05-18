@@ -48,8 +48,12 @@ abstract class NewsBlock {
         return ImageBlock.fromJson(json);
       case NewsletterBlock.identifier:
         return NewsletterBlock.fromJson(json);
+      case ArticleIntroductionBlock.identifier:
+        return ArticleIntroductionBlock.fromJson(json);
       case VideoBlock.identifier:
         return VideoBlock.fromJson(json);
+      case VideoIntroductionBlock.identifier:
+        return VideoIntroductionBlock.fromJson(json);
     }
     return const UnknownBlock();
   }

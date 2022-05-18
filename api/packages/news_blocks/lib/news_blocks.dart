@@ -1,6 +1,15 @@
 library news_blocks;
 
-export 'src/block_action.dart' show BlockAction, BlockActionType;
+export 'src/article_introduction_block.dart' show ArticleIntroductionBlock;
+export 'src/block_action.dart'
+    show
+        BlockAction,
+        BlockActionType,
+        NavigateToArticleAction,
+        NavigateToFeedCategoryAction,
+        UnknownBlockAction;
+export 'src/block_action_converter.dart' show BlockActionConverter;
+export 'src/category.dart' show Category;
 export 'src/divider_horizontal_block.dart' show DividerHorizontalBlock;
 export 'src/image_block.dart' show ImageBlock;
 export 'src/news_block.dart' show NewsBlock;
@@ -22,3 +31,4 @@ export 'src/text_lead_paragraph_block.dart' show TextLeadParagraphBlock;
 export 'src/text_paragraph_block.dart' show TextParagraphBlock;
 export 'src/unknown_block.dart' show UnknownBlock;
 export 'src/video_block.dart' show VideoBlock;
+export 'src/video_introduction_block.dart' show VideoIntroductionBlock;

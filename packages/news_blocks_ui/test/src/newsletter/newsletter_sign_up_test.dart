@@ -13,8 +13,8 @@ void main() {
   group('NewsletterSignUp', () {
     testWidgets('renders correctly', (tester) async {
       final widget = NewsletterSignUp(
-        header: 'header',
-        body: 'body',
+        headerText: 'header',
+        bodyText: 'body',
         email: Text('email'),
         buttonText: 'buttonText',
         onPressed: null,
@@ -25,12 +25,12 @@ void main() {
       expect(find.byType(NewsletterSignUp), findsOneWidget);
     });
 
-    testWidgets('renders correctly', (tester) async {
+    testWidgets('onPressed is called on tap', (tester) async {
       final completer = Completer<void>();
 
       final widget = NewsletterSignUp(
-        header: 'header',
-        body: 'body',
+        headerText: 'header',
+        bodyText: 'body',
         email: Text('email'),
         buttonText: 'buttonText',
         onPressed: completer.complete,

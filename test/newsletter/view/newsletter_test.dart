@@ -91,8 +91,9 @@ void main() {
       verify(() => bloc.add(NewsletterSubscribed())).called(1);
     });
 
-    testWidgets('onChanged triggered on email text field filled',
-        (tester) async {
+    testWidgets(
+        'adds EmailChanged to NewsletterBloc '
+        'on email text field filled', (tester) async {
       whenListen(
         bloc,
         Stream.fromIterable([initialState.copyWith(isValid: true)]),

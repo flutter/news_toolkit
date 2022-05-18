@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
@@ -54,7 +55,7 @@ void main() {
       testWidgets('back when tapped on back icon', (tester) async {
         await tester.pumpApp(TermsOfServicePage());
 
-        await tester.tap(find.byKey(Key('termsOfService_close_iconButton')));
+        await tester.tap(find.byType(AppBackButton));
         await tester.pumpAndSettle();
 
         expect(find.byType(TermsOfServicePage), findsNothing);

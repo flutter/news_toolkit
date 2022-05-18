@@ -41,18 +41,18 @@ class NewsletterView extends StatelessWidget {
       builder: (context, state) {
         if (state.status == NewsletterStatus.success) {
           return NewsletterSucceeded(
-            header: context.l10n.subscribeSuccessfulHeader,
-            center: SizedBox(
+            headerText: context.l10n.subscribeSuccessfulHeader,
+            content: SizedBox(
               height: AppSpacing.xxxlg + AppSpacing.md,
               width: AppSpacing.xxxlg + AppSpacing.md,
               child: Assets.icons.envelopeOpen.svg(),
             ),
-            footer: context.l10n.subscribeSuccessfulEmailBody,
+            footerText: context.l10n.subscribeSuccessfulEmailBody,
           );
         }
         return NewsletterSignUp(
-          header: context.l10n.subscribeEmailHeader,
-          body: context.l10n.subscribeEmailBody,
+          headerText: context.l10n.subscribeEmailHeader,
+          bodyText: context.l10n.subscribeEmailBody,
           email: AppEmailTextField(
             hintText: context.l10n.subscribeEmailHint,
             onChanged: (email) =>

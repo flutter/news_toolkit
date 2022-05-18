@@ -1,6 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template post_large_image}
 /// Block post large image widget.
@@ -11,6 +11,7 @@ class PostLargeImage extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.isContentOverlaid,
+    required this.isPremium,
   });
 
   /// The url of image displayed in this post.
@@ -19,13 +20,22 @@ class PostLargeImage extends StatelessWidget {
   /// Whether this image is displayed in overlay.
   final bool isContentOverlaid;
 
+  /// Whether this image is within premium post.
+  final bool isPremium;
+
   @override
   Widget build(BuildContext context) {
-    return isContentOverlaid
-        ? OverlaidImage(
+    return Stack(
+      children: [
+        if (isContentOverlaid)
+          OverlaidImage(
             imageUrl: imageUrl,
             gradientColor: AppColors.black.withOpacity(0.7),
           )
-        : InlineImage(imageUrl: imageUrl);
+        else
+          InlineImage(imageUrl: imageUrl),
+        if (isPremium) const LockIcon(),
+      ],
+    );
   }
 }

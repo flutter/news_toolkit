@@ -3,6 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -14,6 +15,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: false,
+        isPremium: false,
       );
 
       await mockNetworkImages(
@@ -29,6 +31,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: true,
+        isPremium: true,
       );
 
       await mockNetworkImages(
@@ -36,6 +39,74 @@ void main() {
       );
       expect(find.byType(InlineImage), findsNothing);
       expect(find.byType(OverlaidImage), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders LockIcon '
+        'when premium is true and '
+        'when isContentOverlaid is true', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: true,
+        isContentOverlaid: true,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders LockIcon '
+        'when premium is true and '
+        'when isContentOverlaid is false', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: true,
+        isContentOverlaid: false,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsOneWidget);
+    });
+
+    testWidgets(
+        'does not render LockIcon '
+        'when premium is false and '
+        'when isContentOverlaid is true', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: false,
+        isContentOverlaid: true,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsNothing);
+    });
+
+    testWidgets(
+        'does not render LockIcon '
+        'when premium is false and '
+        'when isContentOverlaid is false', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: false,
+        isContentOverlaid: false,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsNothing);
     });
   });
 }
