@@ -37,7 +37,7 @@ void main() {
       testWidgets(
         'when MagicLinkPromptOpenEmailButton is pressed',
         (tester) async {
-          when(() => emailLauncher.launchEmailApp()).thenAnswer((_) async {});
+          when(emailLauncher.launchEmailApp).thenAnswer((_) async {});
           await tester.pumpApp(
             MagicLinkPromptOpenEmailButton(
               emailLauncher: emailLauncher,
