@@ -1,5 +1,4 @@
 import 'package:deep_link_client/deep_link_client.dart';
-import 'package:email_launcher/email_launcher.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:google_news_template/app/app.dart';
@@ -35,13 +34,10 @@ void main() {
         apiClient: GoogleNewsTemplateApiClient(),
       );
 
-      final emailLauncher = EmailLauncher();
-
       return App(
         userRepository: userRepository,
         newsRepository: newsRepository,
         user: await userRepository.user.first,
-        emailLauncher: emailLauncher,
       );
     },
   );

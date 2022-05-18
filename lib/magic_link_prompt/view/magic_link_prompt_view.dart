@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart'
     show AppSpacing, ScrollableColumn, AppColors, AppButton;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
@@ -10,7 +9,6 @@ class MagicLinkPromptView extends StatelessWidget {
   const MagicLinkPromptView({super.key, required this.email});
 
   final String email;
-
   @override
   Widget build(BuildContext context) {
     return ScrollableColumn(
@@ -28,7 +26,7 @@ class MagicLinkPromptView extends StatelessWidget {
         const SizedBox(height: AppSpacing.xxxlg),
         MagicLinkPromptSubtitle(email: email),
         const Spacer(),
-        const MagicLinkPromptOpenEmailButton()
+        MagicLinkPromptOpenEmailButton()
       ],
     );
   }
@@ -87,13 +85,18 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
 
 @visibleForTesting
 class MagicLinkPromptOpenEmailButton extends StatelessWidget {
-  const MagicLinkPromptOpenEmailButton({super.key});
+  MagicLinkPromptOpenEmailButton({
+    EmailLauncher? emailLauncher,
+    super.key,
+  }) : _emailLauncher = emailLauncher ?? EmailLauncher();
+
+  final EmailLauncher _emailLauncher;
 
   @override
   Widget build(BuildContext context) {
     return AppButton.darkAqua(
       key: const Key('magicLinkPrompt_openMailButton_appButton'),
-      onPressed: () => context.read<EmailLauncher>().launchEmailApp(),
+      onPressed: _emailLauncher.launchEmailApp,
       child: Text(context.l10n.openMailAppButtonText),
     );
   }

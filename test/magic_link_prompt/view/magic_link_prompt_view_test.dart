@@ -1,5 +1,4 @@
 import 'package:email_launcher/email_launcher.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 import 'package:mocktail/mocktail.dart';
@@ -40,13 +39,11 @@ void main() {
         (tester) async {
           when(() => emailLauncher.launchEmailApp()).thenAnswer((_) async {});
           await tester.pumpApp(
-            RepositoryProvider.value(
-              value: emailLauncher,
-              child: const MagicLinkPromptView(email: testEmail),
+            MagicLinkPromptOpenEmailButton(
+              emailLauncher: emailLauncher,
             ),
           );
-          await tester
-              .ensureVisible(find.byType(MagicLinkPromptOpenEmailButton));
+
           await tester.tap(find.byType(MagicLinkPromptOpenEmailButton));
           await tester.pumpAndSettle();
           verify(() => emailLauncher.launchEmailApp()).called(1);
