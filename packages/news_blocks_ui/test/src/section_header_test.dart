@@ -29,7 +29,7 @@ void main() {
         child: SectionHeader(
           block: SectionHeaderBlock(
             title: 'example',
-            action: BlockAction(type: BlockActionType.navigation),
+            action: NavigateToFeedCategoryAction(category: Category.top),
           ),
         ),
       );
@@ -44,7 +44,8 @@ void main() {
 
     testWidgets('onPressed is called with action on tap', (tester) async {
       final actions = <BlockAction>[];
-      const action = BlockAction(type: BlockActionType.navigation);
+      const action = NavigateToFeedCategoryAction(category: Category.top);
+
       final widget = Center(
         child: SectionHeader(
           block: const SectionHeaderBlock(
