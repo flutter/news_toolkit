@@ -4,15 +4,15 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('VideoIntroBlock', () {
+  group('VideoIntroductionBlock', () {
     test('can be (de)serialized', () {
-      final block = VideoIntroBlock(
+      final block = VideoIntroductionBlock(
         category: PostCategory.technology,
         title: 'title',
         videoUrl: 'videoUrl',
       );
 
-      expect(VideoIntroBlock.fromJson(block.toJson()), equals(block));
+      expect(VideoIntroductionBlock.fromJson(block.toJson()), equals(block));
     });
   });
 }

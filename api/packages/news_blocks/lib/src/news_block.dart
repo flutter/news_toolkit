@@ -50,8 +50,8 @@ abstract class NewsBlock {
         return ArticleIntroductionBlock.fromJson(json);
       case VideoBlock.identifier:
         return VideoBlock.fromJson(json);
-      case VideoIntroBlock.identifier:
-        return VideoIntroBlock.fromJson(json);
+      case VideoIntroductionBlock.identifier:
+        return VideoIntroductionBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
