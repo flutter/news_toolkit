@@ -22,6 +22,22 @@ final technologyItems = <NewsItem>[
             'and prices are finally falling',
       ),
     ],
+    relatedArticles: [
+      PostSmallBlock(
+        id: '2224b86e-60d6-461a-a5d8-e8e71589669f',
+        category: PostCategory.technology,
+        author: 'The Drive',
+        publishedAt: DateTime(2022, 3, 17),
+        imageUrl:
+            'https://www.thedrive.com/uploads/2022/05/17/asdrf.jpg?auto=webp',
+        title: 'Leaked Pic Hints Ford F-150 Raptor R '
+            'Will Get the Mustang GT500 V8',
+        description:
+            'A build sheet leaked to Instagram indicates that the upcoming '
+            "F-150 Raptor R will likely get the GT500's "
+            'supercharged V8 engine.',
+      ),
+    ],
   )
 ];
 
@@ -52,6 +68,23 @@ final sportsItems = <NewsItem>[
             'for Ja Morant struggles',
       ),
     ],
+    relatedArticles: [
+      PostSmallBlock(
+        id: 'b77f8854-7483-4353-ac91-5a8a10e576b0',
+        category: PostCategory.sports,
+        author: 'Bleacher Report',
+        publishedAt: DateTime(2022, 3, 17),
+        imageUrl:
+            'https://img.bleacherreport.net/img/images/photos/003/921/731/fb79b6bfb3d129622735c307266f225c_crop_exact.jpg?w=1200&h=1200&q=75',
+        title: '1 Trade Every Lottery Team Must Consider '
+            'If It Wins No. 1 Draft Pick',
+        description:
+            'The 2022  NBA draft  lottery is Tuesday, and it could change '
+            'everything for whichever team lands the first overall pick. '
+            'In most cases, the squad that secures that top '
+            'selection should keep it...',
+      ),
+    ],
   ),
 ];
 
@@ -80,6 +113,22 @@ final healthItems = <NewsItem>[
             'Lost Due to Aging or Noise',
       ),
     ],
+    relatedArticles: [
+      PostSmallBlock(
+        id: '7a5661d7-32a3-4b05-9fe2-7bc5ff8ea904',
+        category: PostCategory.health,
+        author: 'New York Times',
+        publishedAt: DateTime(2022, 3, 17),
+        imageUrl:
+            'https://static01.nyt.com/images/2022/05/17/science/00kidney1/00kidney1-facebookJumbo.jpg',
+        title: 'Targeting the Uneven Burden of Kidney Disease '
+            'on Black Americans',
+        description:
+            'New treatments aim for a gene variant causing the illness in '
+            'people of sub-Saharan African descent. '
+            'Some experts worry that focus will neglect other factors.',
+      ),
+    ],
   ),
 ];
 
@@ -104,6 +153,24 @@ final scienceItems = <NewsItem>[
       SectionHeaderBlock(
         title: 'SpaceX successfully returns four astronauts from the '
             'International Space Station',
+      ),
+    ],
+    relatedArticles: [
+      PostSmallBlock(
+        id: 'bfd5aa62-4c50-40c6-9aef-5511535c7b68',
+        category: PostCategory.science,
+        author: 'SciTechDaily',
+        publishedAt: DateTime(2022, 3, 17),
+        imageUrl:
+            'https://scitechdaily.com/images/Sample-of-Hypatia-Stone-From-Outside-Solar-System.jpg',
+        title: 'Extraterrestrial Stone Could Be First Evidence '
+            'on Earth of Supernova Ia Explosion',
+        description:
+            'New chemistry ‘forensics’ indicates that the stone named Hypatia '
+            'from the Egyptian desert could be the first physical evidence '
+            'found on Earth of a supernova type Ia explosion. '
+            'These rare supernovas are some of the most energetic '
+            'events in the universe.',
       ),
     ],
   ),

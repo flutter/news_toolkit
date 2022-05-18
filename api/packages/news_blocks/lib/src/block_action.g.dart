@@ -18,8 +18,6 @@ NavigateToArticleAction _$NavigateToArticleActionFromJson(
           articleId: $checkedConvert('article_id', (v) => v as String),
           type: $checkedConvert('type',
               (v) => v as String? ?? NavigateToArticleAction.identifier),
-          uri: $checkedConvert(
-              'uri', (v) => v == null ? null : Uri.parse(v as String)),
         );
         return val;
       },
@@ -27,21 +25,11 @@ NavigateToArticleAction _$NavigateToArticleActionFromJson(
     );
 
 Map<String, dynamic> _$NavigateToArticleActionToJson(
-    NavigateToArticleAction instance) {
-  final val = <String, dynamic>{
-    'article_id': instance.articleId,
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('uri', instance.uri?.toString());
-  return val;
-}
+        NavigateToArticleAction instance) =>
+    <String, dynamic>{
+      'article_id': instance.articleId,
+      'type': instance.type,
+    };
 
 NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
         Map<String, dynamic> json) =>
@@ -54,29 +42,17 @@ NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
               'category', (v) => $enumDecode(_$CategoryEnumMap, v)),
           type: $checkedConvert('type',
               (v) => v as String? ?? NavigateToFeedCategoryAction.identifier),
-          uri: $checkedConvert(
-              'uri', (v) => v == null ? null : Uri.parse(v as String)),
         );
         return val;
       },
     );
 
 Map<String, dynamic> _$NavigateToFeedCategoryActionToJson(
-    NavigateToFeedCategoryAction instance) {
-  final val = <String, dynamic>{
-    'category': _$CategoryEnumMap[instance.category],
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('uri', instance.uri?.toString());
-  return val;
-}
+        NavigateToFeedCategoryAction instance) =>
+    <String, dynamic>{
+      'category': _$CategoryEnumMap[instance.category],
+      'type': instance.type,
+    };
 
 const _$CategoryEnumMap = {
   Category.business: 'business',
@@ -96,24 +72,12 @@ UnknownBlockAction _$UnknownBlockActionFromJson(Map<String, dynamic> json) =>
         final val = UnknownBlockAction(
           type: $checkedConvert(
               'type', (v) => v as String? ?? UnknownBlockAction.identifier),
-          uri: $checkedConvert(
-              'uri', (v) => v == null ? null : Uri.parse(v as String)),
         );
         return val;
       },
     );
 
-Map<String, dynamic> _$UnknownBlockActionToJson(UnknownBlockAction instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('uri', instance.uri?.toString());
-  return val;
-}
+Map<String, dynamic> _$UnknownBlockActionToJson(UnknownBlockAction instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+    };

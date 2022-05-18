@@ -22,7 +22,6 @@ abstract class BlockAction {
   const BlockAction({
     required this.type,
     required this.actionType,
-    this.uri,
   });
 
   /// The type key used to identify the type of this action.
@@ -30,9 +29,6 @@ abstract class BlockAction {
 
   /// The type of this action.
   final BlockActionType actionType;
-
-  /// An optional uri used to determine where to route.
-  final Uri? uri;
 
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson();
@@ -60,7 +56,6 @@ class NavigateToArticleAction with EquatableMixin implements BlockAction {
   const NavigateToArticleAction({
     required this.articleId,
     this.type = NavigateToArticleAction.identifier,
-    this.uri,
   });
 
   /// Converts a `Map<String, dynamic>`
@@ -81,13 +76,10 @@ class NavigateToArticleAction with EquatableMixin implements BlockAction {
   final String type;
 
   @override
-  final Uri? uri;
-
-  @override
   Map<String, dynamic> toJson() => _$NavigateToArticleActionToJson(this);
 
   @override
-  List<Object?> get props => [uri, type, actionType, articleId];
+  List<Object?> get props => [type, actionType, articleId];
 }
 
 /// {@template navigate_to_feed_category_action}
@@ -99,7 +91,6 @@ class NavigateToFeedCategoryAction with EquatableMixin implements BlockAction {
   const NavigateToFeedCategoryAction({
     required this.category,
     this.type = NavigateToFeedCategoryAction.identifier,
-    this.uri,
   });
 
   /// Converts a `Map<String, dynamic>`
@@ -120,13 +111,10 @@ class NavigateToFeedCategoryAction with EquatableMixin implements BlockAction {
   final String type;
 
   @override
-  final Uri? uri;
-
-  @override
   Map<String, dynamic> toJson() => _$NavigateToFeedCategoryActionToJson(this);
 
   @override
-  List<Object?> get props => [uri, type, actionType, category];
+  List<Object?> get props => [type, actionType, category];
 }
 
 /// {@template unknown_block_action}
@@ -137,7 +125,6 @@ class UnknownBlockAction with EquatableMixin implements BlockAction {
   /// {@macro unknown_block_action}
   const UnknownBlockAction({
     this.type = UnknownBlockAction.identifier,
-    this.uri,
   });
 
   /// Converts a `Map<String, dynamic>` into a [UnknownBlock] instance.
@@ -154,11 +141,8 @@ class UnknownBlockAction with EquatableMixin implements BlockAction {
   final String type;
 
   @override
-  final Uri? uri;
-
-  @override
   Map<String, dynamic> toJson() => _$UnknownBlockActionToJson(this);
 
   @override
-  List<Object?> get props => [uri, type, actionType];
+  List<Object?> get props => [type, actionType];
 }
