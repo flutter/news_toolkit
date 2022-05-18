@@ -13,6 +13,7 @@ class PostContentCategory extends StatelessWidget {
     required this.isPremium,
     required this.premiumText,
     required this.isContentOverlaid,
+    required this.isSubscriberExclusive,
   });
 
   /// Category of post.
@@ -27,19 +28,28 @@ class PostContentCategory extends StatelessWidget {
   /// Whether this category should be overlaid on the image.
   final bool isContentOverlaid;
 
+  /// Whether this post is subscriber exclusive.
+  final bool isSubscriberExclusive;
+
   @override
   Widget build(BuildContext context) {
-    // Premium category label is always prioritized over overlaid category view.
-    final backgroundColor = isPremium
-        ? AppColors.redWine
-        : isContentOverlaid
-            ? AppColors.secondary
-            : AppColors.transparent;
+    // Category label hierarchy
+    // isSubscriberExclusive > isPremium > isContentOverlaid
+    final backgroundColor = isSubscriberExclusive
+        ? AppColors.secondary
+        : isPremium
+            ? AppColors.redWine
+            : isContentOverlaid
+                ? AppColors.secondary
+                : AppColors.transparent;
+    final isCategoryBackgroundDark =
+        isPremium || isContentOverlaid || isSubscriberExclusive;
+
     final textColor =
-        isPremium || isContentOverlaid ? AppColors.white : AppColors.secondary;
-    final categoryDisplay = isPremium ? premiumText : categoryName;
-    final horizontalSpacing =
-        isPremium || isContentOverlaid ? AppSpacing.xs : 0.0;
+        isCategoryBackgroundDark ? AppColors.white : AppColors.secondary;
+    final shouldCategoryNameDisplay =
+        isPremium || isSubscriberExclusive ? premiumText : categoryName;
+    final horizontalSpacing = isCategoryBackgroundDark ? AppSpacing.xs : 0.0;
 
     return Column(
       children: [
@@ -55,7 +65,7 @@ class PostContentCategory extends StatelessWidget {
                 AppSpacing.xxs,
               ),
               child: Text(
-                categoryDisplay.toUpperCase(),
+                shouldCategoryNameDisplay.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .overline

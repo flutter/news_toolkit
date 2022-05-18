@@ -28,6 +28,9 @@ class ArticleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    return Scaffold(
+      appBar: AppBar(),
+      body: const SizedBox(),
+    );
   }
 }

@@ -6,12 +6,8 @@ import 'package:test/test.dart';
 void main() {
   group('SectionHeaderBlock', () {
     test('can be (de)serialized', () {
-      final action = BlockAction(
-        type: BlockActionType.navigation,
-        uri: Uri.parse('https://flutter.dev'),
-      );
+      final action = NavigateToFeedCategoryAction(category: Category.top);
       final block = SectionHeaderBlock(title: 'example_title', action: action);
-
       expect(SectionHeaderBlock.fromJson(block.toJson()), equals(block));
     });
   });
