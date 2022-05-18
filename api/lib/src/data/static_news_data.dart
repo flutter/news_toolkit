@@ -18,7 +18,6 @@ final technologyItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        id: '499305f6-5096-4051-afda-824dcfc7df23',
         category: PostCategory.technology,
         author: 'Sean Hollister',
         publishedAt: DateTime(2022, 3, 9),
