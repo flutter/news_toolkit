@@ -26,6 +26,15 @@ class MyNewsDataSource extends NewsDataSource {
 
   @override
   Future<List<Category>> getCategories() => throw UnimplementedError();
+
+  @override
+  Future<RelatedArticles> getRelatedArticles({
+    required String id,
+    int limit = 20,
+    int offset = 0,
+  }) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -37,6 +46,23 @@ void main() {
         if (totalBlocks != article.totalBlocks) return false;
         for (var i = 0; i < blocks.length; i++) {
           if (blocks[i] != article.blocks[i]) return false;
+        }
+        return true;
+      },
+    );
+  }
+
+  Matcher relatedArticlesHaving({
+    required List<NewsBlock> blocks,
+    int? totalBlocks,
+  }) {
+    return predicate<RelatedArticles>(
+      (relatedArticles) {
+        totalBlocks ??= relatedArticles.totalBlocks;
+        if (blocks.length != relatedArticles.blocks.length) return false;
+        if (totalBlocks != relatedArticles.totalBlocks) return false;
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i] != relatedArticles.blocks[i]) return false;
         }
         return true;
       },
@@ -230,6 +256,64 @@ void main() {
             articleHaving(
               blocks: item.content.sublist(1).toList(),
               totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+    });
+
+    group('getRelatedArticles', () {
+      test('returns empty when article id cannot be found', () {
+        expect(
+          newsDataSource.getRelatedArticles(id: '__invalid_article_id__'),
+          completion(equals(RelatedArticles.empty())),
+        );
+      });
+
+      test('returns null when related articles cannot be found', () {
+        expect(
+          newsDataSource.getRelatedArticles(id: scienceItems.last.post.id),
+          completion(equals(RelatedArticles.empty())),
+        );
+      });
+
+      test('returns related articles when article exists', () {
+        final item = healthItems.first;
+        final relatedArticles = item.relatedArticles;
+        expect(
+          newsDataSource.getRelatedArticles(id: item.post.id),
+          completion(
+            relatedArticlesHaving(
+              blocks: relatedArticles,
+              totalBlocks: relatedArticles.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports limit if specified', () {
+        final item = healthItems.first;
+        final relatedArticles = item.relatedArticles;
+        expect(
+          newsDataSource.getRelatedArticles(id: item.post.id, limit: 1),
+          completion(
+            relatedArticlesHaving(
+              blocks: relatedArticles.take(1).toList(),
+              totalBlocks: relatedArticles.length,
+            ),
+          ),
+        );
+      });
+
+      test('supports offset if specified', () {
+        final item = healthItems.first;
+        final relatedArticles = item.relatedArticles;
+        expect(
+          newsDataSource.getRelatedArticles(id: item.post.id, offset: 1),
+          completion(
+            relatedArticlesHaving(
+              blocks: relatedArticles.sublist(1).toList(),
+              totalBlocks: relatedArticles.length,
             ),
           ),
         );

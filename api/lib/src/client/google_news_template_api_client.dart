@@ -98,6 +98,38 @@ class GoogleNewsTemplateApiClient {
     return ArticleResponse.fromJson(body);
   }
 
+  /// GET /api/v1/articles/<id>/related
+  /// Requests related articles.
+  ///
+  /// Supported parameters:
+  /// * [id] - article id for which related content is requested.
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<RelatedArticlesResponse> getRelatedArticles({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/articles/$id/related').replace(
+      queryParameters: <String, String>{
+        if (limit != null) 'limit': '$limit',
+        if (offset != null) 'offset': '$offset',
+      },
+    );
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return RelatedArticlesResponse.fromJson(body);
+  }
+
   /// GET /api/v1/feed
   /// Requests news feed metadata.
   ///
