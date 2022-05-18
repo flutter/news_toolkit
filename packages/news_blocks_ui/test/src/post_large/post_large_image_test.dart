@@ -93,7 +93,7 @@ void main() {
     });
 
     testWidgets(
-        'not renders LockIcon '
+        'does not render LockIcon '
         'when premium is false and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
