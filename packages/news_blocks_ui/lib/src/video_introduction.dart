@@ -29,7 +29,12 @@ class VideoIntroduction extends StatelessWidget {
           progressIndicator: const ProgressIndicator(),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            0,
+            AppSpacing.lg,
+            AppSpacing.lg,
+          ),
           child: PostContent(
             categoryName: block.category.name,
             title: block.title,
