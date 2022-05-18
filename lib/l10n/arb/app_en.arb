@@ -265,7 +265,7 @@
   },
   "subscribeEmailHint": "Email address",
   "@subscribeEmailHint": {
-    "description": "Text shown as a hint in email text field",
+    "description": "Text shown as a hint in subscribe email text field",
     "type": "text",
     "placeholders": {}
   },
