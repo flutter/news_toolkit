@@ -14,11 +14,7 @@ class TermsOfServicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          key: const Key('termsOfService_close_iconButton'),
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: const AppBackButton(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

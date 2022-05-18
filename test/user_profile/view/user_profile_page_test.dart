@@ -48,7 +48,7 @@ void main() {
 
       testWidgets(
           'navigates back '
-          'when tapped on close icon', (tester) async {
+          'when app back button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -56,7 +56,7 @@ void main() {
           ),
         );
 
-        await tester.tap(find.byKey(Key('userProfilePage_closeIcon')));
+        await tester.tap(find.byType(AppBackButton));
         await tester.pumpAndSettle();
 
         expect(find.byType(UserProfileView), findsNothing);
