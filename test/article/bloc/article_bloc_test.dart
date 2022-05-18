@@ -13,6 +13,8 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
   group('ArticleBloc', () {
+    const articleId = 'articleId';
+
     late NewsRepository newsRepository;
 
     final articleResponse = ArticleResponse(
@@ -38,14 +40,15 @@ void main() {
 
     test('can be instantiated', () {
       expect(
-        ArticleBloc(newsRepository: newsRepository),
+        ArticleBloc(
+          articleId: articleId,
+          newsRepository: newsRepository,
+        ),
         isNotNull,
       );
     });
 
     group('ArticleRequested', () {
-      const articleId = 'articleId';
-
       blocTest<ArticleBloc, ArticleState>(
         'emits [loading, populated] '
         'when getArticle succeeds '
@@ -57,8 +60,11 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => articleResponse),
-        build: () => ArticleBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(ArticleRequested(id: articleId)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          newsRepository: newsRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
           ArticleState(
@@ -82,8 +88,11 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => articleResponse),
-        build: () => ArticleBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(ArticleRequested(id: articleId)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          newsRepository: newsRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           articleStatePopulated.copyWith(status: ArticleStatus.loading),
           articleStatePopulated.copyWith(
@@ -107,8 +116,11 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenThrow(Exception()),
-        build: () => ArticleBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(ArticleRequested(id: articleId)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          newsRepository: newsRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
           ArticleState(status: ArticleStatus.failure),

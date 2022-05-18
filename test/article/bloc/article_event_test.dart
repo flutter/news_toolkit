@@ -7,8 +7,8 @@ void main() {
   group('ArticleEvent', () {
     group('ArticleRequested', () {
       test('supports value comparisons', () {
-        final event1 = ArticleRequested(id: 'id');
-        final event2 = ArticleRequested(id: 'id');
+        final event1 = ArticleRequested();
+        final event2 = ArticleRequested();
 
         expect(event1, equals(event2));
       });

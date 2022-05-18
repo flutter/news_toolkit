@@ -1,17 +1,39 @@
 // ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
+import 'package:google_news_template_api/client.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
 
+class MockNewsRepository extends Mock implements NewsRepository {}
+
 void main() {
   group('CategoryFeedItem', () {
+    late NewsRepository newsRepository;
+
+    setUp(() {
+      newsRepository = MockNewsRepository();
+
+      when(
+        () => newsRepository.getArticle(
+          id: any(named: 'id'),
+          limit: any(named: 'limit'),
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer(
+        (_) async => ArticleResponse(content: [], totalCount: 0),
+      );
+    });
+
     testWidgets(
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
@@ -191,6 +213,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -225,6 +248,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -258,6 +282,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -296,6 +321,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 

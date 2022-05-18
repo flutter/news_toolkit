@@ -256,5 +256,11 @@
     "description": "Premium text shown on the news block widgets",
     "type": "text",
     "placeholders": {}
+  },
+  "newsBlockShareText": "Share",
+  "@newsBlockShareText": {
+    "description": "Share text shown on the news block widgets",
+    "type": "text",
+    "placeholders": {}
   }
 }
