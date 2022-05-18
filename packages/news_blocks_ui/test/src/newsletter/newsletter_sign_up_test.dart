@@ -13,8 +13,8 @@ void main() {
   group('NewsletterSignUp', () {
     testWidgets('renders correctly', (tester) async {
       final widget = NewsletterSignUp(
-        header: 'header',
-        body: 'body',
+        headerText: 'header',
+        bodyText: 'body',
         email: Text('email'),
         buttonText: 'buttonText',
         onPressed: null,
@@ -29,8 +29,8 @@ void main() {
       final completer = Completer<void>();
 
       final widget = NewsletterSignUp(
-        header: 'header',
-        body: 'body',
+        headerText: 'header',
+        bodyText: 'body',
         email: Text('email'),
         buttonText: 'buttonText',
         onPressed: completer.complete,
