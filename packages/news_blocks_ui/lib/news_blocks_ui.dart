@@ -1,5 +1,6 @@
 library news_blocks_ui;
 
+export 'src/article_introduction.dart';
 export 'src/block_action_callback.dart';
 export 'src/divider_horizontal.dart';
 export 'src/image.dart';
@@ -14,4 +15,4 @@ export 'src/text_caption.dart';
 export 'src/text_headline.dart';
 export 'src/text_lead_paragraph.dart';
 export 'src/text_paragraph.dart';
-export 'src/widgets/widgets.dart';
+export 'src/video.dart';

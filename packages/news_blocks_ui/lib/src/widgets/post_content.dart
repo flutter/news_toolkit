@@ -1,6 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template post_content}
 /// A post widget displaying post content.
@@ -17,6 +17,7 @@ class PostContent extends StatelessWidget {
     this.onShare,
     this.isPremium = false,
     this.isContentOverlaid = false,
+    this.isSubscriberExclusive = false,
     required this.premiumText,
   });
 
@@ -43,6 +44,11 @@ class PostContent extends StatelessWidget {
   /// Defaults to false.
   final bool isPremium;
 
+  /// Whether this post is subscriber exclusive.
+  ///
+  /// Defaults to false.
+  final bool isSubscriberExclusive;
+
   /// Whether content is displayed overlaid.
   ///
   /// Defaults to false.
@@ -68,6 +74,7 @@ class PostContent extends StatelessWidget {
               isPremium: isPremium,
               premiumText: premiumText,
               isContentOverlaid: isContentOverlaid,
+              isSubscriberExclusive: isSubscriberExclusive,
             ),
           Text(
             title,
@@ -86,7 +93,7 @@ class PostContent extends StatelessWidget {
             onShare: onShare,
             isContentOverlaid: isContentOverlaid,
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.xlg + AppSpacing.sm),
         ],
       ),
     );
