@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -40,7 +39,74 @@ void main() {
       );
       expect(find.byType(InlineImage), findsNothing);
       expect(find.byType(OverlaidImage), findsOneWidget);
-      expect(find.byType(Icon), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders LockIcon '
+        'when premium is true and '
+        'when isContentOverlaid is true', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: true,
+        isContentOverlaid: true,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders LockIcon '
+        'when premium is true and '
+        'when isContentOverlaid is false', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: true,
+        isContentOverlaid: false,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsOneWidget);
+    });
+
+    testWidgets(
+        'not renders LockIcon '
+        'when premium is false and '
+        'when isContentOverlaid is true', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: false,
+        isContentOverlaid: true,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsNothing);
+    });
+
+    testWidgets(
+        'not renders LockIcon '
+        'when premium is false and '
+        'when isContentOverlaid is false', (tester) async {
+      final postLargeImage = PostLargeImage(
+        imageUrl: 'url',
+        isPremium: false,
+        isContentOverlaid: false,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(postLargeImage),
+      );
+
+      expect(find.byType(LockIcon), findsNothing);
     });
   });
 }
