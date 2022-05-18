@@ -81,7 +81,7 @@ void main() {
           category: PostCategory.technology,
           title: 'title',
           videoUrl: 'videoUrl',
-          );
+        );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
