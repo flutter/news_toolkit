@@ -7,11 +7,18 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class NewsItem {
   /// {@macro post}
-  const NewsItem({required this.content, required this.post});
+  const NewsItem({
+    required this.content,
+    required this.post,
+    this.relatedArticles = const [],
+  });
 
   /// The associated contents.
   final List<NewsBlock> content;
 
   /// The associated [PostBlock] for the feed.
   final PostBlock post;
+
+  /// The related articles.
+  final List<NewsBlock> relatedArticles;
 }
