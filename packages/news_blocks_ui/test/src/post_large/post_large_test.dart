@@ -80,7 +80,7 @@ void main() {
   });
 
   testWidgets('onPressed is called with action when tapped', (tester) async {
-    final action = BlockAction(type: BlockActionType.navigation);
+    final action = NavigateToArticleAction(articleId: id);
     final actions = <BlockAction>[];
 
     final _technologyPostLarge = PostLargeBlock(
