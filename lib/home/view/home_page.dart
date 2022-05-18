@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
+import 'package:google_news_template/home/home.dart';
+import 'package:google_news_template/navigation/view/view.dart';
 import 'package:news_repository/news_repository.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +13,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedTab =
+        context.select((HomeCubit cubit) => cubit.state.selectedIndex);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -24,7 +29,19 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ],
-      child: const FeedView(),
+      child: Scaffold(
+        body: IndexedStack(
+          index: selectedTab,
+          children: const [
+            FeedView(),
+            // TODO(ana): add search and subscribe pages
+          ],
+        ),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: selectedTab,
+          onTap: (value) => context.read<HomeCubit>().setTab(value),
+        ),
+      ),
     );
   }
 }

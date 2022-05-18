@@ -9,6 +9,8 @@ import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
+import '../../home/home.dart';
+
 class App extends StatelessWidget {
   const App({
     super.key,
@@ -39,6 +41,7 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
+          BlocProvider(create: (context) => HomeCubit())
         ],
         child: const AppView(),
       ),

@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/home/home.dart';
@@ -73,7 +74,10 @@ void main() {
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       when(() => appBloc.state).thenReturn(const AppState.unauthenticated());
       await tester.pumpApp(
-        const AppView(),
+        BlocProvider(
+          create: (context) => HomeCubit(),
+          child: const AppView(),
+        ),
         appBloc: appBloc,
         userRepository: userRepository,
       );
@@ -86,7 +90,10 @@ void main() {
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
       await tester.pumpApp(
-        const AppView(),
+        BlocProvider(
+          create: (context) => HomeCubit(),
+          child: const AppView(),
+        ),
         appBloc: appBloc,
         userRepository: userRepository,
       );
