@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template post_small}
 /// A reusable post small news block widget.
@@ -30,7 +31,7 @@ class PostSmall extends StatelessWidget {
         if (block.hasNavigationAction) onPressed?.call(block.action!);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
