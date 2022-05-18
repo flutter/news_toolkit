@@ -87,7 +87,6 @@ void main() {
 
       test('returns Article', () {
         final block = ArticleIntroductionBlock(
-          id: 'id',
           category: PostCategory.technology,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
