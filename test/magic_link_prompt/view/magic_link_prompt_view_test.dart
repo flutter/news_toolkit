@@ -33,7 +33,7 @@ void main() {
       });
     });
 
-    group('open default email app', () {
+    group('opens default email app', () {
       testWidgets(
         'when MagicLinkPromptOpenEmailButton is pressed',
         (tester) async {
