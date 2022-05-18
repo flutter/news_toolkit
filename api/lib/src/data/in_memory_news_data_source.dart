@@ -31,6 +31,21 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }
 
   @override
+  Future<RelatedArticles> getRelatedArticles({
+    required String id,
+    int limit = 20,
+    int offset = 0,
+  }) async {
+    final result = _newsItems.where((item) => item.post.id == id);
+    if (result.isEmpty) return const RelatedArticles.empty();
+    final articles = result.first.relatedArticles;
+    final totalBlocks = articles.length;
+    final normalizedOffset = math.min(offset, totalBlocks);
+    final blocks = articles.sublist(normalizedOffset).take(limit).toList();
+    return RelatedArticles(blocks: blocks, totalBlocks: totalBlocks);
+  }
+
+  @override
   Future<Feed> getFeed({
     Category category = Category.top,
     int limit = 20,
