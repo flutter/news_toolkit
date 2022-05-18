@@ -33,7 +33,9 @@ class ArticleView extends StatelessWidget {
       appBar: AppBar(
         leading: const AppBackButton(),
       ),
-      body: const SizedBox(),
+      body: const SizedBox(
+        key: Key('articleView_sizedBox'),
+      ),
     );
   }
 }

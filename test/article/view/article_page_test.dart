@@ -30,7 +30,7 @@ void main() {
   group('ArticleView', () {
     testWidgets('renders SizedBox', (tester) async {
       await tester.pumpApp(ArticleView());
-      expect(find.byType(SizedBox), findsOneWidget);
+      expect(find.byKey(Key('articleView_sizedBox')), findsOneWidget);
     });
 
     group('navigates', () {
