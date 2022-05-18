@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../helpers/helpers.dart';
