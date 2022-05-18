@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template lock_icon}
-/// Reusable lock icon
+/// Reusable lock icon. 
 /// {@endtemplate}
 class LockIcon extends StatelessWidget {
   /// {@macro lock_icon}
