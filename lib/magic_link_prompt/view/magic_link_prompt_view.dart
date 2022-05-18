@@ -22,7 +22,7 @@ class MagicLinkPromptView extends StatelessWidget {
       children: [
         const MagicLinkPromptHeader(),
         const SizedBox(height: AppSpacing.xxxlg),
-        Assets.images.magicLinkPromptEmail.svg(),
+        Assets.icons.envelopeOpen.svg(),
         const SizedBox(height: AppSpacing.xxxlg),
         MagicLinkPromptSubtitle(email: email),
         const Spacer(),
