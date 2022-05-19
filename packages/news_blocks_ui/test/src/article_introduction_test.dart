@@ -28,7 +28,6 @@ void main() {
 
     testWidgets('renders correctly', (tester) async {
       final _technologyArticleIntroduction = ArticleIntroductionBlock(
-        id: id,
         category: category,
         author: author,
         publishedAt: publishedAt,
