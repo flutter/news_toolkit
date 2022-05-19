@@ -88,7 +88,7 @@ void main() {
 
       testWidgets('calls onShare when clicked on share icon', (tester) async {
         final completer = Completer<void>();
-        final testPostHeaderContent = PostContent(
+        final postContent = PostContent(
           publishedAt: DateTime(2000, 12, 31),
           premiumText: 'premiumText',
           title: 'title',
@@ -98,7 +98,7 @@ void main() {
           onShare: completer.complete,
         );
 
-        await tester.pumpContentThemedApp(testPostHeaderContent);
+        await tester.pumpContentThemedApp(postContent);
 
         await tester.tap(find.byType(IconButton));
 
