@@ -16,10 +16,48 @@ final technologyItems = <NewsItem>[
         articleId: '499305f6-5096-4051-afda-824dcfc7df23',
       ),
     ),
-    content: const [
-      SectionHeaderBlock(
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Sean Hollister',
+        publishedAt: DateTime(2022, 3, 9),
         title: 'Nvidia and AMD GPUs are returning to shelves '
             'and prices are finally falling',
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
+      ),
+      const TextLeadParagraphBlock(
+        text:
+            'Scientists at the University of Copenhagen research institute have'
+            ' developed an Artificial Intelligence (AI) algorithm that can help'
+            ' communicate with animals in the future. Currently, AI algorithms '
+            'are being used on pigs to decode their emotions and researchers '
+            'claim that they have achieved 60% of success in translating '
+            'positive & negative emotions hidden in pig grunts.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const TextParagraphBlock(
+        text:
+            'Cybersecurity Insiders has learned that an algorithm induced with '
+            '7,414 recordings of pig calls from over 411 pigs was analyzed and '
+            'will be used further to improve the mental health of swine.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const VideoBlock(
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const TextParagraphBlock(
+        text: 'Apparently, the breakthrough can also pave the way to a new '
+            'world where humans could communicate with animals and that can '
+            'lead to an ecosystem where every living being receives equal '
+            'respect in this supernatural power-driven world.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const ImageBlock(
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
       ),
     ],
     relatedArticles: [
