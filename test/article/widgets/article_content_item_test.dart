@@ -121,7 +121,6 @@ void main() {
         'renders ArticleIntroduction '
         'for ArticleIntroductionBlock', (tester) async {
       final block = ArticleIntroductionBlock(
-        id: 'id',
         category: PostCategory.technology,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),
