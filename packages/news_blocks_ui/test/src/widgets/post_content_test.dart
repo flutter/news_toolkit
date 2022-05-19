@@ -1,5 +1,8 @@
 // ignore_for_file: unnecessary_const, prefer_const_constructors
 
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
@@ -81,6 +84,25 @@ void main() {
           find.byType(PostFooter),
           findsOneWidget,
         );
+      });
+
+      testWidgets('calls onShare when clicked on share icon', (tester) async {
+        final completer = Completer<void>();
+        final testPostHeaderContent = PostContent(
+          publishedAt: DateTime(2000, 12, 31),
+          premiumText: 'premiumText',
+          title: 'title',
+          author: 'author',
+          description: 'description',
+          categoryName: 'Category',
+          onShare: completer.complete,
+        );
+
+        await tester.pumpContentThemedApp(testPostHeaderContent);
+
+        await tester.tap(find.byType(IconButton));
+
+        expect(completer.isCompleted, isTrue);
       });
     });
   });
