@@ -18,8 +18,6 @@ void main() {
   const title = 'Nvidia and AMD GPUs are returning to shelves '
       'and prices are finally falling';
 
-  const premiumText = 'Subscriber Exclusive';
-
   group('VideoIntroduction', () {
     setUpAll(setUpTolerantComparator);
 
@@ -35,10 +33,7 @@ void main() {
           SingleChildScrollView(
             child: Column(
               children: [
-                VideoIntroduction(
-                  block: _technologyVideoIntroduction,
-                  premiumText: premiumText,
-                ),
+                VideoIntroduction(block: _technologyVideoIntroduction),
               ],
             ),
           ),
