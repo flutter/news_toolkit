@@ -57,5 +57,18 @@ void main() {
         errors: () => [isA<Exception>()],
       );
     });
+
+    group('CategorySelected', () {
+      blocTest<CategoriesBloc, CategoriesState>(
+        'emits selectedCategory',
+        build: () => CategoriesBloc(newsRepository: newsRepository),
+        act: (bloc) => bloc.add(CategorySelected(category: Category.top)),
+        expect: () => <CategoriesState>[
+          CategoriesState.initial().copyWith(
+            selectedCategory: Category.top,
+          ),
+        ],
+      );
+    });
   });
 }

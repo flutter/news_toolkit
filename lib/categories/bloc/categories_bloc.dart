@@ -13,6 +13,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   })  : _newsRepository = newsRepository,
         super(const CategoriesState.initial()) {
     on<CategoriesRequested>(_onCategoriesRequested);
+    on<CategorySelected>(_onCategorySelected);
   }
 
   final NewsRepository _newsRepository;
@@ -36,4 +37,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       addError(error, stackTrace);
     }
   }
+
+  void _onCategorySelected(
+    CategorySelected event,
+    Emitter<CategoriesState> emit,
+  ) =>
+      emit(state.copyWith(selectedCategory: event.category));
 }
