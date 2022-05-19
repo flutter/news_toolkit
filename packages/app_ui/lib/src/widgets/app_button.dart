@@ -18,6 +18,7 @@ class AppButton extends StatelessWidget {
     double? elevation,
     TextStyle? textStyle,
     Size? maximumSize,
+    Size? minimumSize,
     EdgeInsets? padding,
   })  : _buttonColor = buttonColor ?? Colors.white,
         _disabledButtonColor = disabledButtonColor ?? AppColors.disabledButton,
@@ -28,6 +29,7 @@ class AppButton extends StatelessWidget {
         _elevation = elevation ?? 0,
         _textStyle = textStyle,
         _maximumSize = maximumSize ?? _defaultMaximumSize,
+        _minimumSize = minimumSize ?? _defaultMinimumSize,
         _padding = padding ?? _defaultPadding;
 
   /// Filled black button.
@@ -190,6 +192,7 @@ class AppButton extends StatelessWidget {
           foregroundColor: AppColors.white,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
           padding: _smallPadding,
         );
 
@@ -207,6 +210,7 @@ class AppButton extends StatelessWidget {
           foregroundColor: AppColors.white,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
           padding: _smallPadding,
         );
 
@@ -224,6 +228,7 @@ class AppButton extends StatelessWidget {
           foregroundColor: AppColors.liver,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
           padding: _smallPadding,
         );
 
@@ -244,11 +249,15 @@ class AppButton extends StatelessWidget {
           foregroundColor: AppColors.darkAqua,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
           padding: _smallPadding,
         );
 
   /// The maximum size of the small variant of the button.
   static const _smallMaximumSize = Size(double.infinity, 40);
+
+  /// The minimum size of the small variant of the button.
+  static const _smallMinimumSize = Size(0, 40);
 
   /// The maximum size of the button.
   static const _defaultMaximumSize = Size(double.infinity, 56);
@@ -257,10 +266,10 @@ class AppButton extends StatelessWidget {
   static const _defaultMinimumSize = Size(double.infinity, 40);
 
   /// The padding of the small variant of the button.
-  static const _smallPadding = EdgeInsets.zero;
+  static const _smallPadding = EdgeInsets.symmetric(horizontal: AppSpacing.xlg);
 
   /// The padding of the the button.
-  static const _defaultPadding = EdgeInsets.symmetric(vertical: 16);
+  static const _defaultPadding = EdgeInsets.symmetric(vertical: AppSpacing.lg);
 
   /// [VoidCallback] called when button is pressed.
   /// Button is disabled when null.
@@ -302,6 +311,11 @@ class AppButton extends StatelessWidget {
   /// Defaults to [_defaultMaximumSize].
   final Size _maximumSize;
 
+  /// The minimum size of the button.
+  ///
+  /// Defaults to [_defaultMinimumSize].
+  final Size _minimumSize;
+
   /// The padding of the button.
   ///
   /// Defaults to [EdgeInsets.zero].
@@ -319,7 +333,7 @@ class AppButton extends StatelessWidget {
       style: ButtonStyle(
         maximumSize: MaterialStateProperty.all(_maximumSize),
         padding: MaterialStateProperty.all(_padding),
-        minimumSize: MaterialStateProperty.all(_defaultMinimumSize),
+        minimumSize: MaterialStateProperty.all(_minimumSize),
         textStyle: MaterialStateProperty.all(textStyle),
         backgroundColor: onPressed == null
             ? MaterialStateProperty.all(_disabledButtonColor)
