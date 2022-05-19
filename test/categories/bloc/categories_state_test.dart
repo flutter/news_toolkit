@@ -61,6 +61,23 @@ void main() {
           ),
         );
       });
+
+      test(
+          'returns object with updated selectedCategory '
+          'when selectedCategory is passed', () {
+        const selectedCategory = Category.top;
+
+        expect(
+          CategoriesState(status: CategoriesStatus.populated)
+              .copyWith(selectedCategory: selectedCategory),
+          equals(
+            CategoriesState(
+              status: CategoriesStatus.populated,
+              selectedCategory: selectedCategory,
+            ),
+          ),
+        );
+      });
     });
   });
 }
