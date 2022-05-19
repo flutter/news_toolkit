@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, lines_longer_than_80_chars
 
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks/src/banner_ad_block.dart';
 import 'package:test/test.dart';
 
 class CustomBlock extends NewsBlock {
@@ -85,7 +86,7 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
-      test('returns Article', () {
+      test('returns ArticleIntroductionBlock', () {
         final block = ArticleIntroductionBlock(
           category: PostCategory.technology,
           author: 'author',
@@ -169,6 +170,13 @@ void main() {
       test('returns NewsletterBlock', () {
         final block = NewsletterBlock();
 
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns BannerAdBlock', () {
+        final block = BannerAdBlock(
+          size: BannerAdSize.normal,
+        );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
     });
