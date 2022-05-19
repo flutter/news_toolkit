@@ -1,4 +1,3 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
@@ -31,9 +30,6 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      backgroundColor: AppColors.darkBackground,
-      selectedItemColor: AppColors.white,
-      unselectedItemColor: AppColors.white.withOpacity(0.74),
       onTap: onTap,
     );
   }

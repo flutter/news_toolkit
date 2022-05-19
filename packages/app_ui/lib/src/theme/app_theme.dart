@@ -32,6 +32,7 @@ class AppTheme {
       switchTheme: _switchTheme,
       progressIndicatorTheme: _progressIndicatorTheme,
       tabBarTheme: _tabBarTheme,
+      bottomNavigationBarTheme: _bottomAppBarTheme,
     );
   }
 
@@ -256,6 +257,14 @@ InputBorder get _textFieldBorder => const UnderlineInputBorder(
         color: AppColors.darkAqua,
       ),
     );
+
+BottomNavigationBarThemeData get _bottomAppBarTheme {
+  return BottomNavigationBarThemeData(
+    backgroundColor: AppColors.darkBackground,
+    selectedItemColor: AppColors.white,
+    unselectedItemColor: AppColors.white.withOpacity(0.74),
+  );
+}
 
 /// {@template app_dark_theme}
 /// Dark Mode App [ThemeData].

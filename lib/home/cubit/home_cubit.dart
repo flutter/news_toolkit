@@ -1,11 +1,21 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
+  HomeCubit() : super(HomeState.topStories);
 
-  void setTab(int selectedIndex) =>
-      emit(HomeState(selectedIndex: selectedIndex));
+  void setTab(int selectedTab) {
+    switch (selectedTab) {
+      case 0:
+        emit(HomeState.topStories);
+        break;
+      case 1:
+        emit(HomeState.search);
+        break;
+      case 2:
+        emit(HomeState.subscribe);
+        break;
+    }
+  }
 }

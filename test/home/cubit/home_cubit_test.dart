@@ -14,18 +14,27 @@ void main() {
       test('has correct initial state', () {
         expect(
           buildCubit().state,
-          equals(const HomeState()),
+          equals(HomeState.topStories),
         );
       });
     });
 
     group('setTab', () {
       blocTest<HomeCubit, HomeState>(
+        'sets tab on top stories',
+        build: buildCubit,
+        act: (cubit) => cubit.setTab(0),
+        expect: () => [
+          HomeState.topStories,
+        ],
+      );
+
+      blocTest<HomeCubit, HomeState>(
         'sets tab on search',
         build: buildCubit,
         act: (cubit) => cubit.setTab(1),
         expect: () => [
-          const HomeState(selectedIndex: 1),
+          HomeState.search,
         ],
       );
 
@@ -34,7 +43,7 @@ void main() {
         build: buildCubit,
         act: (cubit) => cubit.setTab(2),
         expect: () => [
-          const HomeState(selectedIndex: 2),
+          HomeState.subscribe,
         ],
       );
     });

@@ -1,12 +1,10 @@
 part of 'home_cubit.dart';
 
-class HomeState extends Equatable {
-  const HomeState({
-    this.selectedIndex = 0,
-  });
+enum HomeState {
+  topStories(0),
+  search(1),
+  subscribe(2);
 
-  final int selectedIndex;
-
-  @override
-  List<Object?> get props => [selectedIndex];
+  const HomeState(this.selectedTab);
+  final int selectedTab;
 }

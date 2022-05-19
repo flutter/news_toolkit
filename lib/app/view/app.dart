@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:news_repository/news_repository.dart';
@@ -40,7 +39,6 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
-          BlocProvider(create: (context) => HomeCubit())
         ],
         child: const AppView(),
       ),
