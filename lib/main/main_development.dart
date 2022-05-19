@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/main/bootstrap/bootstrap.dart';
 import 'package:google_news_template/src/version.dart';
