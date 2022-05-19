@@ -15,7 +15,8 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
       json,
       ($checkedConvert) {
         final val = ArticleIntroductionBlock(
-          id: $checkedConvert('id', (v) => v as String),
+          type: $checkedConvert('type',
+              (v) => v as String? ?? ArticleIntroductionBlock.identifier),
           category: $checkedConvert(
               'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
           author: $checkedConvert('author', (v) => v as String),
@@ -23,8 +24,6 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
               'published_at', (v) => DateTime.parse(v as String)),
           title: $checkedConvert('title', (v) => v as String),
           imageUrl: $checkedConvert('image_url', (v) => v as String?),
-          type: $checkedConvert('type',
-              (v) => v as String? ?? ArticleIntroductionBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
         );
         return val;
@@ -39,7 +38,6 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
 Map<String, dynamic> _$ArticleIntroductionBlockToJson(
     ArticleIntroductionBlock instance) {
   final val = <String, dynamic>{
-    'id': instance.id,
     'category': _$PostCategoryEnumMap[instance.category],
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
