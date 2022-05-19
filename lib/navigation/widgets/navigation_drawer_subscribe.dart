@@ -70,7 +70,7 @@ class NavigationDrawerSubscribeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.redWine(
       onPressed: () {},
-      child: Text(context.l10n.navigationDrawerSubscribeButtonText),
+      child: Text(context.l10n.subscribeButtonText),
     );
   }
 }

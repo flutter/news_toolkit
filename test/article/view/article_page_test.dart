@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -38,6 +40,56 @@ void main() {
       articleBloc = MockArticleBloc();
 
       when(() => articleBloc.state).thenReturn(ArticleState.initial());
+    });
+
+    testWidgets('renders AppBar', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(),
+        ),
+      );
+      expect(find.byType(AppBar), findsOneWidget);
+    });
+
+    testWidgets('renders ShareButton', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(),
+        ),
+      );
+      expect(find.byType(ShareButton), findsOneWidget);
+    });
+
+    testWidgets('renders ArticleSubscribeButton', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(),
+        ),
+      );
+      expect(find.byType(ArticleSubscribeButton), findsOneWidget);
+    });
+
+    group('ArticleSubscribeButton', () {
+      testWidgets('renders AppButton', (tester) async {
+        await tester.pumpApp(
+          Row(
+            children: [ArticleSubscribeButton()],
+          ),
+        );
+        expect(find.byType(AppButton), findsOneWidget);
+      });
+
+      testWidgets('does nothing when tapped', (tester) async {
+        await tester.pumpApp(
+          Row(
+            children: [ArticleSubscribeButton()],
+          ),
+        );
+        await tester.tap(find.byType(ArticleSubscribeButton));
+      });
     });
 
     testWidgets('renders ArticleContent', (tester) async {
