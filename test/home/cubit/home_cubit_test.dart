@@ -4,16 +4,10 @@ import 'package:google_news_template/home/home.dart';
 
 void main() {
   group('HomeCubit', () {
-    HomeCubit buildCubit() => HomeCubit();
-
     group('constructor', () {
-      test('works properly', () {
-        expect(buildCubit, returnsNormally);
-      });
-
       test('has correct initial state', () {
         expect(
-          buildCubit().state,
+          HomeCubit().state,
           equals(HomeState.topStories),
         );
       });
@@ -22,7 +16,7 @@ void main() {
     group('setTab', () {
       blocTest<HomeCubit, HomeState>(
         'sets tab on top stories',
-        build: buildCubit,
+        build: HomeCubit.new,
         act: (cubit) => cubit.setTab(0),
         expect: () => [
           HomeState.topStories,
@@ -31,7 +25,7 @@ void main() {
 
       blocTest<HomeCubit, HomeState>(
         'sets tab on search',
-        build: buildCubit,
+        build: HomeCubit.new,
         act: (cubit) => cubit.setTab(1),
         expect: () => [
           HomeState.search,
@@ -40,7 +34,7 @@ void main() {
 
       blocTest<HomeCubit, HomeState>(
         'sets tab on subscribe',
-        build: buildCubit,
+        build: HomeCubit.new,
         act: (cubit) => cubit.setTab(2),
         expect: () => [
           HomeState.subscribe,
