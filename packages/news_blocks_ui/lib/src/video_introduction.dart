@@ -11,14 +11,10 @@ class VideoIntroduction extends StatelessWidget {
   const VideoIntroduction({
     super.key,
     required this.block,
-    required this.premiumText,
   });
 
   /// The associated [VideoIntroductionBlock] instance.
   final VideoIntroductionBlock block;
-
-  /// Text displayed when video is premium content.
-  final String premiumText;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +29,7 @@ class VideoIntroduction extends StatelessWidget {
           child: PostContent(
             categoryName: block.category.name,
             title: block.title,
-            premiumText: premiumText,
+            premiumText: '',
           ),
         ),
       ],
