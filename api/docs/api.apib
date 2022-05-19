@@ -255,6 +255,69 @@ This action allows you to subscribe a user to a newsletter.
 
 + Response 201 (application/json)
 
+## Search [/api/v1/search]
+
+Resources related to search.
+
+### Popular Search [GET /api/v1/search/popular]
+
+This action allows you to search for popular news content.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + topics (required, array[string]) - The list of popular topics.
+        + articles (required, array[Block]) - The list of popular article blocks.
+
+    + Body
+        
+            {
+                "topics": ["Aging", "Health", "Genetics"],
+                "articles": [
+                    {
+                        "id": "b1fc2ffc-eb02-42ce-af65-79702172a987",
+                        "category": "health",
+                        "author": "Northwestern University",
+                        "published_at": "2022-03-11T00:00:00.000",
+                        "image_url": "https://scitechdaily.com/images/Ear-Hearing-Concept.jpg",
+                        "title": "Restoring Hearing: New Tool To Create Ear Hair Cells Lost Due to Aging or Noise - SciTechDaily",
+                        "description": "‘We have overcome a major hurdle’ to restore hearing, investigators say. Gene discovery allows the production of inner or outer ear hair cells, death of outer hair cells due to aging or noise cause most hearing loss...",
+                        "is_premium": false,
+                        "type": "__post_small__"
+                    }
+                ],
+            }
+
+### Relevant Search [GET /api/v1/search/relevant{?q}]
+
+This action allows you to search for relevant news content.
+
++ Parameters
+    + q (required, string) - The query string.    
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + topics (required, array[string]) - The list of relevant topics.
+        + articles (required, array[Block]) - The list of relevant article blocks.
+
+    + Body
+        
+            {
+                "topics": ["Aging", "Health", "Genetics"],
+                "articles": [
+                    {
+                        "id": "b1fc2ffc-eb02-42ce-af65-79702172a987",
+                        "category": "health",
+                        "author": "Northwestern University",
+                        "published_at": "2022-03-11T00:00:00.000",
+                        "image_url": "https://scitechdaily.com/images/Ear-Hearing-Concept.jpg",
+                        "title": "Restoring Hearing: New Tool To Create Ear Hair Cells Lost Due to Aging or Noise - SciTechDaily",
+                        "description": "‘We have overcome a major hurdle’ to restore hearing, investigators say. Gene discovery allows the production of inner or outer ear hair cells, death of outer hair cells due to aging or noise cause most hearing loss...",
+                        "is_premium": false,
+                        "type": "__post_small__"
+                    }
+                ],
+            }
+
 # Data Structures
 
 ## Block (object)
