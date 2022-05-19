@@ -27,8 +27,9 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _logo.image(
-      fit: BoxFit.cover,
+      fit: BoxFit.contain,
       width: 172,
+      height: 24,
     );
   }
 }
