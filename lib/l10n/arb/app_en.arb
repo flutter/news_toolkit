@@ -256,5 +256,47 @@
     "description": "Premium text shown on the news block widgets",
     "type": "text",
     "placeholders": {}
+  },
+  "subscribeEmailHeader": "Get top stories in your inbox.",
+  "@subscribeEmailHeader": {
+    "description": "Subscribe header shown in subscribe box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeEmailHint": "Email address",
+  "@subscribeEmailHint": {
+    "description": "Text shown as a hint in subscribe email text field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeEmailBody": "Subscribe to our newsletter for fresh headlines every morning.",
+  "@subscribeEmailBody": {
+    "description": "Subscribe body shown in subscribe box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeEmailButtonText": "Sign Up",
+  "@subscribeEmailButtonText": {
+    "description": "Text shown in a button of a subscribe box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeSuccessfulHeader": "Thank you for signing up!",
+  "@subscribeSuccessfulHeader": {
+    "description": "Subscribe successful header shown in subscribe box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeSuccessfulEmailBody": "Check your email for all of your newsletter details. ",
+  "@subscribeSuccessfulEmailBody": {
+    "description": "Subscribe body shown in subscribe box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeErrorMessage": "Problem ocurred when subscribing to the newsletter",
+  "@subscribeErrorMessage": {
+    "description": "Message displayed when error ocurred during subscribing to newsletter",
+    "type": "text",
+    "placeholders": {}
   }
 }

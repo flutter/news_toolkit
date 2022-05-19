@@ -1,10 +1,19 @@
+import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
+class MockEmailLauncher extends Mock implements EmailLauncher {}
+
 void main() {
   const testEmail = 'test@gmail.com';
+  late EmailLauncher emailLauncher;
+
+  setUp(() {
+    emailLauncher = MockEmailLauncher();
+  });
 
   group('MagicLinkPromptView', () {
     group('renders', () {
@@ -24,14 +33,20 @@ void main() {
       });
     });
 
-    group('does nothing', () {
+    group('opens default email app', () {
       testWidgets(
         'when MagicLinkPromptOpenEmailButton is pressed',
         (tester) async {
-          await tester.pumpApp(const MagicLinkPromptView(email: testEmail));
-          final button = find.byType(MagicLinkPromptOpenEmailButton);
-          await tester.tap(button);
+          when(emailLauncher.launchEmailApp).thenAnswer((_) async {});
+          await tester.pumpApp(
+            MagicLinkPromptOpenEmailButton(
+              emailLauncher: emailLauncher,
+            ),
+          );
+
+          await tester.tap(find.byType(MagicLinkPromptOpenEmailButton));
           await tester.pumpAndSettle();
+          verify(emailLauncher.launchEmailApp).called(1);
         },
       );
     });
