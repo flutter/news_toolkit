@@ -4,7 +4,7 @@ import 'package:news_blocks/news_blocks.dart';
 
 part 'banner_ad_block.g.dart';
 
-/// The size of [BannerAdBlock].
+/// The size of a [BannerAdBlock].
 enum BannerAdSize {
   /// The normal size of a banner ad.
   normal,
