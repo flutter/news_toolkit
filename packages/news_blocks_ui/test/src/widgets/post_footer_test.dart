@@ -43,6 +43,18 @@ void main() {
       );
     });
 
+    testWidgets('renders correctly with author and publishedAt date',
+        (tester) async {
+      await tester.pumpApp(
+        PostFooter(author: 'Author', publishedAt: DateTime(2022, 5, 9)),
+      );
+
+      await expectLater(
+        find.byType(PostFooter),
+        matchesGoldenFile('post_footer_with_author_and_published_at.png'),
+      );
+    });
+
     testWidgets('onShare is called when tapped', (tester) async {
       var onShareTapped = 0;
       await tester.pumpApp(
