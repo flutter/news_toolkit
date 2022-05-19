@@ -17,8 +17,6 @@ void main() {
     () async {
       final firebaseDynamicLinks = FirebaseDynamicLinks.instance;
 
-      unawaited(MobileAds.instance.initialize());
-
       final packageInfoClient = PackageInfoClient(
         appName: 'Google News Template [DEV]',
         packageName: 'com.google.news.template.dev',

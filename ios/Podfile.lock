@@ -299,7 +299,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
   FirebaseCrashlytics: feb07e4e9187be3c23c6a846cce4824e5ce2dd0b
   FirebaseDynamicLinks: 1dc816ef789c5adac6fede0b46d11478175c70e4
-  FirebaseFirestore: cb361b7f8f225a225c9f11b8d42066baebb1630c
+  FirebaseFirestore: 3a0a7e1e72e4359b92d4c38de06d84e4c4900c0a
   FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_facebook_auth: a030aef1c2552fdc7cb090acc716ac836e3bb63c
