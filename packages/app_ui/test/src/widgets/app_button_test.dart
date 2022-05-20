@@ -275,6 +275,10 @@ void main() {
         widget.style?.maximumSize?.resolve({}),
         Size(double.infinity, 40),
       );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(0, 40),
+      );
     });
 
     testWidgets(
@@ -304,6 +308,10 @@ void main() {
       expect(
         widget.style?.maximumSize?.resolve({}),
         Size(double.infinity, 40),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(0, 40),
       );
     });
 
@@ -335,6 +343,10 @@ void main() {
         widget.style?.maximumSize?.resolve({}),
         Size(double.infinity, 40),
       );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(0, 40),
+      );
     });
 
     testWidgets(
@@ -364,6 +376,10 @@ void main() {
       expect(
         widget.style?.maximumSize?.resolve({}),
         Size(double.infinity, 40),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(0, 40),
       );
     });
 
