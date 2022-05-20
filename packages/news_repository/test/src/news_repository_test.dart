@@ -207,6 +207,40 @@ void main() {
       });
     });
 
+    group('popularSearch', () {
+      test(
+          'returns PopularSearchResponse '
+          'from ApiClient.popularSearch', () {
+        const popularResponse = PopularSearchResponse(
+          articles: [
+            SpacerBlock(spacing: Spacing.extraLarge),
+            DividerHorizontalBlock(),
+          ],
+          topics: ['Topic'],
+        );
+
+        when(apiClient.popularSearch).thenAnswer((_) async => popularResponse);
+
+        expect(
+          newsRepository.popularSearch(),
+          completion(equals(popularResponse)),
+        );
+
+        verify(apiClient.popularSearch).called(1);
+      });
+
+      test(
+          'throws PopularSearchFailure '
+          'if ApiClient.popularSearch fails', () async {
+        when(apiClient.popularSearch).thenThrow(Exception);
+
+        expect(
+          newsRepository.popularSearch,
+          throwsA(isA<PopularSearchFailure>()),
+        );
+      });
+    });
+
     group('NewsFailure', () {
       final error = Exception('errorMessage');
 
