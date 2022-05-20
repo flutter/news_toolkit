@@ -1,5 +1,47 @@
 part of 'in_memory_news_data_source.dart';
 
+/// List of popular search topics.
+const popularTopics = [
+  'Ukraine',
+  'Supreme Court',
+  'China',
+  'Inflation',
+  'Oil Prices',
+  'Plane Crash',
+];
+
+/// List of popular search articles.
+final popularArticles = <NewsItem>[
+  NewsItem(
+    post: PostSmallBlock(
+      id: '5c47495a-608b-4e8b-a7f0-642a02594888',
+      category: PostCategory.technology,
+      author: 'CNN',
+      publishedAt: DateTime(2022, 3, 17),
+      imageUrl:
+          'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
+      title: 'Boeing makes third attempt to launch its '
+          'Starliner capsule to the ISS',
+      description: 'Boeing will try yet again Thursday to send the capsule it '
+          'designed to ferry astronauts to and from the International '
+          'Space Station on a successful, uncrewed test mission. '
+          'After two prior attempts to complete such a mission failed, '
+          "Boeing's goal is to prove th…",
+    ),
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Sean Hollister',
+        publishedAt: DateTime(2022, 3, 17),
+        title: 'Boeing makes third attempt to launch its '
+            'Starliner capsule to the ISS',
+        imageUrl:
+            'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
+      ),
+    ],
+  )
+];
+
 /// The static news feed content.
 final technologyItems = <NewsItem>[
   NewsItem(
