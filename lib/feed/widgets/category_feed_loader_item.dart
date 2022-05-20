@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 /// Renders a widget containing a progress indicator that calls
 /// [onPresented] when the item becomes visible.
-@visibleForTesting
 class CategoryFeedLoaderItem extends StatefulWidget {
   const CategoryFeedLoaderItem({super.key, this.onPresented});
 

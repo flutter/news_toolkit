@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
   const CategoryFeed({super.key, required this.category});

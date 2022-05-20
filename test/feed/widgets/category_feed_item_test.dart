@@ -1,18 +1,45 @@
 // ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart' hide Spacer;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
 
+class MockNewsRepository extends Mock implements NewsRepository {}
+
+class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
+    implements CategoriesBloc {}
+
 void main() {
   group('CategoryFeedItem', () {
+    late NewsRepository newsRepository;
+
+    setUp(() {
+      newsRepository = MockNewsRepository();
+
+      when(
+        () => newsRepository.getArticle(
+          id: any(named: 'id'),
+          limit: any(named: 'limit'),
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer(
+        (_) async => ArticleResponse(content: [], totalCount: 0),
+      );
+    });
+
     testWidgets(
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
@@ -180,7 +207,7 @@ void main() {
 
     group(
         'navigates to ArticlePage '
-        'when action is NavigateToArticleAction', () {
+        'on NavigateToArticleAction', () {
       const articleId = 'articleId';
 
       testWidgets('from PostLarge', (tester) async {
@@ -202,6 +229,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -236,6 +264,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -269,6 +298,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -307,6 +337,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -323,6 +354,32 @@ void main() {
           findsOneWidget,
         );
       });
+    });
+
+    testWidgets(
+        'adds CategorySelected to CategoriesBloc '
+        'on NavigateToFeedCategoryAction', (tester) async {
+      final categoriesBloc = MockCategoriesBloc();
+
+      const category = Category.top;
+      const block = SectionHeaderBlock(
+        title: 'title',
+        action: NavigateToFeedCategoryAction(category: category),
+      );
+
+      await tester.pumpApp(
+        BlocProvider<CategoriesBloc>.value(
+          value: categoriesBloc,
+          child: CategoryFeedItem(block: block),
+        ),
+      );
+
+      await tester.ensureVisible(find.byType(IconButton));
+      await tester.tap(find.byType(IconButton));
+      await tester.pumpAndSettle();
+
+      verify(() => categoriesBloc.add(CategorySelected(category: category)))
+          .called(1);
     });
   });
 }

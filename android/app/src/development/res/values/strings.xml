@@ -4,4 +4,5 @@
     <string name="facebook_client_token">7a51baf0a329829a55e6ab8ced3da73a</string>
     <string name="twitter_redirect_uri_scheme">google-news-template</string>
     <string name="flavor_deep_link_domain">googlenewstemplatedev.page.link</string>
+    <string name="admob_app_id">ca-app-pub-9749057021250251~9903333570</string>
 </resources>
