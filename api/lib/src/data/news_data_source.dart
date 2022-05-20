@@ -32,6 +32,10 @@ abstract class NewsDataSource {
   /// Returns a list of current popular article blocks.
   Future<List<NewsBlock>> getPopularArticles();
 
+  /// Returns a list of relevant article blocks
+  /// based on the provided [term].
+  Future<List<NewsBlock>> getRelevantArticles({required String term});
+
   /// Returns [RelatedArticles] for the provided article [id].
   ///
   /// In addition, the contents can be paginated by supplying
