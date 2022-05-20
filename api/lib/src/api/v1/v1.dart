@@ -2,6 +2,7 @@ import 'package:google_news_template_api/src/api/v1/articles/articles.dart';
 import 'package:google_news_template_api/src/api/v1/categories/categories.dart';
 import 'package:google_news_template_api/src/api/v1/feed/feed.dart';
 import 'package:google_news_template_api/src/api/v1/newsletter/newsletter.dart';
+import 'package:google_news_template_api/src/api/v1/search/search.dart';
 import 'package:google_news_template_api/src/controller.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -19,6 +20,7 @@ class ApiV1Controller extends Controller {
       ..register('/articles', const ArticlesController())
       ..register('/categories', const CategoriesController())
       ..register('/feed', const FeedController())
-      ..register('/newsletter', const NewsletterController());
+      ..register('/newsletter', const NewsletterController())
+      ..register('/search', const SearchController());
   }
 }
