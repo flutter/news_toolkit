@@ -32,6 +32,8 @@ export 'src/api/v1/categories/get_categories/models/models.dart'
 export 'src/api/v1/feed/get_feed/models/models.dart' show FeedResponse;
 export 'src/api/v1/search/popular_search/models/models.dart'
     show PopularSearchResponse;
+export 'src/api/v1/search/relevant_search/models/models.dart'
+    show RelevantSearchResponse;
 export 'src/client/google_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
