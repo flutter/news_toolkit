@@ -10,6 +10,13 @@ const popularTopics = [
   'Plane Crash',
 ];
 
+/// List of relevant search topics.
+const relevantTopics = [
+  'South China Sea',
+  'US-China Relations',
+  'China at the Olymptics',
+];
+
 /// List of popular search articles.
 final popularArticles = <NewsItem>[
   NewsItem(
