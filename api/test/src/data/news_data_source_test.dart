@@ -35,6 +35,16 @@ class MyNewsDataSource extends NewsDataSource {
   }) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<NewsBlock>> getPopularArticles() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<String>> getPopularTopics() {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -258,6 +268,24 @@ void main() {
               totalBlocks: item.content.length,
             ),
           ),
+        );
+      });
+    });
+
+    group('getPopularArticles', () {
+      test('returns correct list of articles', () async {
+        expect(
+          newsDataSource.getPopularArticles(),
+          completion(equals(popularArticles.map((item) => item.post).toList())),
+        );
+      });
+    });
+
+    group('getPopularTopics', () {
+      test('returns correct list of topics', () async {
+        expect(
+          newsDataSource.getPopularTopics(),
+          completion(equals(popularTopics)),
         );
       });
     });
