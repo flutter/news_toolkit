@@ -10,7 +10,7 @@ class PostContent extends StatelessWidget {
   const PostContent({
     super.key,
     required this.title,
-    required this.publishedAt,
+    this.publishedAt,
     this.categoryName,
     this.description,
     this.author,
@@ -25,7 +25,7 @@ class PostContent extends StatelessWidget {
   final String title;
 
   /// The date when this post was published.
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
 
   /// Category of post.
   final String? categoryName;
@@ -86,13 +86,15 @@ class PostContent extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: AppSpacing.md),
-          PostFooter(
-            publishedAt: publishedAt,
-            author: author,
-            onShare: onShare,
-            isContentOverlaid: isContentOverlaid,
-          ),
+          if (publishedAt != null || author != null || onShare != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            PostFooter(
+              publishedAt: publishedAt,
+              author: author,
+              onShare: onShare,
+              isContentOverlaid: isContentOverlaid,
+            ),
+          ],
           const SizedBox(height: AppSpacing.xlg + AppSpacing.sm),
         ],
       ),
