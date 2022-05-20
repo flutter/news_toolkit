@@ -25,6 +25,10 @@ abstract class NewsDataSource {
   /// Returns a list of current popular topics.
   Future<List<String>> getPopularTopics();
 
+  /// Returns a list of current relevant topics
+  /// based on the provided [term].
+  Future<List<String>> getRelevantTopics({required String term});
+
   /// Returns a list of current popular article blocks.
   Future<List<NewsBlock>> getPopularArticles();
 
