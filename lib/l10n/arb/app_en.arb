@@ -257,6 +257,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "newsBlockShareText": "Share",
+  "@newsBlockShareText": {
+    "description": "Share text shown on the news block widgets",
+    "type": "text",
+    "placeholders": {}
+  },
   "subscribeEmailHeader": "Get top stories in your inbox.",
   "@subscribeEmailHeader": {
     "description": "Subscribe header shown in subscribe box",
