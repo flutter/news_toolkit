@@ -155,9 +155,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "navigationDrawerSubscribeButtonText": "Subscribe",
-  "@navigationDrawerSubscribeButtonText": {
-    "description": "Navigation drawer subscribe button text",
+  "subscribeButtonText": "Subscribe",
+  "@subscribeButtonText": {
+    "description": "Subscribe button text",
     "type": "text",
     "placeholders": {}
   },
@@ -254,6 +254,12 @@
   "newsBlockPremiumText": "Premium",
   "@newsBlockPremiumText": {
     "description": "Premium text shown on the news block widgets",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareText": "Share",
+  "@shareText": {
+    "description": "Share text shown on the news block widgets and article page",
     "type": "text",
     "placeholders": {}
   },

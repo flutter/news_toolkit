@@ -10,12 +10,15 @@ part 'article_state.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc({
+    required String articleId,
     required NewsRepository newsRepository,
-  })  : _newsRepository = newsRepository,
+  })  : _articleId = articleId,
+        _newsRepository = newsRepository,
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested);
   }
 
+  final String _articleId;
   final NewsRepository _newsRepository;
 
   FutureOr<void> _onArticleRequested(
@@ -25,7 +28,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     emit(state.copyWith(status: ArticleStatus.loading));
     try {
       final response = await _newsRepository.getArticle(
-        id: event.id,
+        id: _articleId,
         offset: state.content.length,
       );
 
