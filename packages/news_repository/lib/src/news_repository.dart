@@ -39,6 +39,14 @@ class GetCategoriesFailure extends NewsFailure {
   const GetCategoriesFailure(super.error);
 }
 
+/// {@template popular_search_failure}
+/// Thrown when fetching popular searches fails.
+/// {@endtemplate}
+class PopularSearchFailure extends NewsFailure {
+  /// {@macro popular_search_failure}
+  const PopularSearchFailure(super.error);
+}
+
 /// {@template news_repository}
 /// A repository that manages news data.
 /// {@endtemplate}
@@ -111,6 +119,15 @@ class NewsRepository {
       await _apiClient.subscribeToNewsletter(email: email);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(GetFeedFailure(error), stackTrace);
+    }
+  }
+
+  /// Requests the popular searches.
+  Future<PopularSearchResponse> popularSearch() async {
+    try {
+      return await _apiClient.popularSearch();
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(PopularSearchFailure(error), stackTrace);
     }
   }
 }
