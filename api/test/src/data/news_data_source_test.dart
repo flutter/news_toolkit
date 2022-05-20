@@ -50,6 +50,11 @@ class MyNewsDataSource extends NewsDataSource {
   Future<List<String>> getRelevantTopics({required String term}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<NewsBlock>> getRelevantArticles({required String term}) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -291,6 +296,17 @@ void main() {
         expect(
           newsDataSource.getPopularTopics(),
           completion(equals(popularTopics)),
+        );
+      });
+    });
+
+    group('getRelevantArticles', () {
+      test('returns correct list of articles', () async {
+        expect(
+          newsDataSource.getRelevantArticles(term: 'term'),
+          completion(
+            equals(relevantArticles.map((item) => item.post).toList()),
+          ),
         );
       });
     });
