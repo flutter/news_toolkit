@@ -3,15 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   group('CategoriesTabBar', () {
-    test('has correct preferredSize', () {
+    testWidgets('has correct preferredSize', (tester) async {
       expect(
-        CategoriesTabBar(tabs: const []).preferredSize,
+        CategoriesTabBar(
+          controller: TabController(length: 0, vsync: tester),
+          tabs: const [],
+        ).preferredSize,
         equals(const Size(double.infinity, 48)),
       );
     });
@@ -28,16 +31,21 @@ void main() {
         ),
       ];
 
+      final tabController = TabController(length: tabs.length, vsync: tester);
+
       await tester.pumpApp(
-        DefaultTabController(
-          length: tabs.length,
-          child: CategoriesTabBar(tabs: tabs),
+        CategoriesTabBar(
+          controller: tabController,
+          tabs: tabs,
         ),
       );
 
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is TabBar && widget.isScrollable == true,
+          (widget) =>
+              widget is TabBar &&
+              widget.controller == tabController &&
+              widget.isScrollable == true,
         ),
         findsOneWidget,
       );

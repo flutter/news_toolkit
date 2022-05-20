@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/src/widgets/share_button.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template article_introduction}

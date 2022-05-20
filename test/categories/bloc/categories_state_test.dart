@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:news_repository/news_repository.dart';
 
 void main() {
   group('CategoriesState', () {
@@ -57,6 +57,23 @@ void main() {
             CategoriesState(
               status: CategoriesStatus.populated,
               categories: categories,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated selectedCategory '
+          'when selectedCategory is passed', () {
+        const selectedCategory = Category.top;
+
+        expect(
+          CategoriesState(status: CategoriesStatus.populated)
+              .copyWith(selectedCategory: selectedCategory),
+          equals(
+            CategoriesState(
+              status: CategoriesStatus.populated,
+              selectedCategory: selectedCategory,
             ),
           ),
         );
