@@ -17,8 +17,9 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ArticleBloc>(
       create: (_) => ArticleBloc(
+        articleId: id,
         newsRepository: context.read<NewsRepository>(),
-      )..add(ArticleRequested(id: id)),
+      )..add(ArticleRequested()),
       child: const ArticleView(),
     );
   }
@@ -33,9 +34,7 @@ class ArticleView extends StatelessWidget {
       appBar: AppBar(
         leading: const AppBackButton(),
       ),
-      body: const SizedBox(
-        key: Key('articleView_sizedBox'),
-      ),
+      body: const ArticleContent(),
     );
   }
 }

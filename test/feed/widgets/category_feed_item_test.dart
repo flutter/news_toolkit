@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart' hide Spacer;
@@ -12,14 +13,33 @@ import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
+
+class MockNewsRepository extends Mock implements NewsRepository {}
 
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
 void main() {
   group('CategoryFeedItem', () {
+    late NewsRepository newsRepository;
+
+    setUp(() {
+      newsRepository = MockNewsRepository();
+
+      when(
+        () => newsRepository.getArticle(
+          id: any(named: 'id'),
+          limit: any(named: 'limit'),
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer(
+        (_) async => ArticleResponse(content: [], totalCount: 0),
+      );
+    });
+
     testWidgets(
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
@@ -209,6 +229,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -243,6 +264,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -276,6 +298,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
@@ -314,6 +337,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            newsRepository: newsRepository,
           );
         });
 
