@@ -21,7 +21,7 @@ class RelevantSearchResponse extends Equatable {
   @NewsBlocksConverter()
   final List<NewsBlock> articles;
 
-  /// The total number of available content blocks.
+  /// The associated relevant topics.
   final List<String> topics;
 
   /// Converts the current instance to a `Map<String, dynamic>`.
