@@ -47,6 +47,14 @@ class PopularSearchFailure extends NewsFailure {
   const PopularSearchFailure(super.error);
 }
 
+/// {@template relevant_search_failure}
+/// Thrown when fetching relevant searches fails.
+/// {@endtemplate}
+class RelevantSearchFailure extends NewsFailure {
+  /// {@macro relevant_search_failure}
+  const RelevantSearchFailure(super.error);
+}
+
 /// {@template news_repository}
 /// A repository that manages news data.
 /// {@endtemplate}
@@ -128,6 +136,15 @@ class NewsRepository {
       return await _apiClient.popularSearch();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(PopularSearchFailure(error), stackTrace);
+    }
+  }
+
+  /// Requests the searches relevant to [term].
+  Future<RelevantSearchResponse> relevantSearch({required String term}) async {
+    try {
+      return await _apiClient.relevantSearch(term: term);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(RelevantSearchFailure(error), stackTrace);
     }
   }
 }

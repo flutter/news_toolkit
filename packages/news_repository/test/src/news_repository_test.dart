@@ -241,6 +241,43 @@ void main() {
       });
     });
 
+    group('relevantSearch', () {
+      test(
+          'returns RelevantSearchResponse '
+          'from ApiClient.relevantSearch', () {
+        const relevantResponse = RelevantSearchResponse(
+          articles: [
+            SpacerBlock(spacing: Spacing.extraLarge),
+            DividerHorizontalBlock(),
+          ],
+          topics: ['Topic'],
+        );
+
+        when(() => apiClient.relevantSearch(term: ''))
+            .thenAnswer((_) async => relevantResponse);
+
+        expect(
+          newsRepository.relevantSearch(term: ''),
+          completion(equals(relevantResponse)),
+        );
+
+        verify(() => apiClient.relevantSearch(term: any(named: 'term')))
+            .called(1);
+      });
+
+      test(
+          'throws RelevantSearchFailure '
+          'if ApiClient.relevantSearch fails', () async {
+        when(() => apiClient.relevantSearch(term: any(named: 'term')))
+            .thenThrow(Exception);
+
+        expect(
+          newsRepository.relevantSearch(term: 'term'),
+          throwsA(isA<RelevantSearchFailure>()),
+        );
+      });
+    });
+
     group('NewsFailure', () {
       final error = Exception('errorMessage');
 
