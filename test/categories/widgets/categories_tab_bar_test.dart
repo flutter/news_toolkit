@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
-import 'package:news_blocks/news_blocks.dart';
+import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
 
