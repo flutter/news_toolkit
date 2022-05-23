@@ -8,7 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
-import 'package:google_news_template/home/view/home_view.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template_api/api.dart';
 import 'package:mocktail/mocktail.dart';
@@ -156,26 +155,28 @@ void main() {
   });
 }
 
-Future<void> pumpHomeView(
-    {required WidgetTester tester,
-    required HomeCubit cubit,
-    required CategoriesBloc categoriesBloc,
-    required FeedBloc feedBloc,
-    required NewsRepository newsRepository}) async {
+Future<void> pumpHomeView({
+  required WidgetTester tester,
+  required HomeCubit cubit,
+  required CategoriesBloc categoriesBloc,
+  required FeedBloc feedBloc,
+  required NewsRepository newsRepository,
+}) async {
   await tester.pumpApp(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider.value(
-            value: categoriesBloc,
-          ),
-          BlocProvider.value(
-            value: feedBloc,
-          ),
-          BlocProvider.value(
-            value: cubit,
-          ),
-        ],
-        child: HomeView(),
-      ),
-      newsRepository: newsRepository);
+    MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: categoriesBloc,
+        ),
+        BlocProvider.value(
+          value: feedBloc,
+        ),
+        BlocProvider.value(
+          value: cubit,
+        ),
+      ],
+      child: HomeView(),
+    ),
+    newsRepository: newsRepository,
+  );
 }

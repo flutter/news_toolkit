@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
-import 'package:google_news_template/home/view/home_view.dart';
 import 'package:news_repository/news_repository.dart';
 
 class HomePage extends StatelessWidget {

@@ -10,13 +10,12 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedTab =
-        context.select((HomeCubit cubit) => cubit.state.selectedTab);
+        context.select((HomeCubit cubit) => cubit.state.tabIndex);
     return Scaffold(
       body: IndexedStack(
         index: selectedTab,
         children: const [
           FeedView(),
-          // TODO(ana): add search and subscribe pages
         ],
       ),
       bottomNavigationBar: BottomNavBar(

@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/home/home.dart';
-import 'package:google_news_template/home/view/home_view.dart';
 
 import '../../helpers/helpers.dart';
 

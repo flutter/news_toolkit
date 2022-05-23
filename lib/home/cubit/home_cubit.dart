@@ -8,14 +8,11 @@ class HomeCubit extends Cubit<HomeState> {
   void setTab(int selectedTab) {
     switch (selectedTab) {
       case 0:
-        emit(HomeState.topStories);
-        break;
+        return emit(HomeState.topStories);
       case 1:
-        emit(HomeState.search);
-        break;
+        return emit(HomeState.search);
       case 2:
-        emit(HomeState.subscribe);
-        break;
+        return emit(HomeState.subscribe);
     }
   }
 }

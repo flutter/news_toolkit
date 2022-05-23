@@ -5,6 +5,6 @@ enum HomeState {
   search(1),
   subscribe(2);
 
-  const HomeState(this.selectedTab);
-  final int selectedTab;
+  const HomeState(this.tabIndex);
+  final int tabIndex;
 }
