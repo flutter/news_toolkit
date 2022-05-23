@@ -1,6 +1,7 @@
 library news_blocks;
 
 export 'src/article_introduction_block.dart' show ArticleIntroductionBlock;
+export 'src/banner_ad_block.dart' show BannerAdBlock, BannerAdSize;
 export 'src/block_action.dart'
     show
         BlockAction,
