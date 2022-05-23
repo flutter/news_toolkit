@@ -64,7 +64,8 @@ void main() {
     blocTest<SearchBloc, SearchState>(
       'emits [loading, populated] '
       'with articles and topics '
-      'when relevantSearch succeeds.',
+      'and awaited debounce time '
+      'when relevantSearch succeeds',
       setUp: () => when(
         () => newsRepository.relevantSearch(
           term: any(named: 'term'),
@@ -73,7 +74,10 @@ void main() {
         (invocation) => Future.value(relevantResponseSuccess),
       ),
       build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(KeywordChanged(keyword: 'term')),
+      act: (bloc) {
+        bloc.add(KeywordChanged(keyword: 'term'));
+      },
+      wait: const Duration(milliseconds: 300),
       expect: () => <SearchState>[
         SearchState(
           keyword: 'term',
