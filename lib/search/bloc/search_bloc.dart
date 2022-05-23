@@ -4,9 +4,18 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
+
+EventTransformer<E> debounce<E>() {
+  return (events, mapper) {
+    return events
+        .debounceTime(const Duration(milliseconds: 300))
+        .switchMap(mapper);
+  };
+}
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc({
@@ -14,7 +23,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
     on<LoadPopular>(_onLoadPopular);
-    on<KeywordChanged>(_onKeywordChanged);
+    on<KeywordChanged>(
+      _onKeywordChanged,
+      transformer: debounce(),
+    );
   }
 
   final NewsRepository _newsRepository;
