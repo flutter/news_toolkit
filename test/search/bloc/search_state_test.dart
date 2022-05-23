@@ -61,7 +61,7 @@ void main() {
 
       test(
           'returns object with updated keyword '
-          'when hasMoreNews is passed', () {
+          'when keyword is passed', () {
         expect(
           SearchState.initial().copyWith(keyword: 'keyword'),
           equals(
