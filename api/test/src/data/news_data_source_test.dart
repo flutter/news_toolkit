@@ -35,6 +35,26 @@ class MyNewsDataSource extends NewsDataSource {
   }) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<NewsBlock>> getPopularArticles() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<String>> getPopularTopics() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<String>> getRelevantTopics({required String term}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<NewsBlock>> getRelevantArticles({required String term}) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -258,6 +278,44 @@ void main() {
               totalBlocks: item.content.length,
             ),
           ),
+        );
+      });
+    });
+
+    group('getPopularArticles', () {
+      test('returns correct list of articles', () async {
+        expect(
+          newsDataSource.getPopularArticles(),
+          completion(equals(popularArticles.map((item) => item.post).toList())),
+        );
+      });
+    });
+
+    group('getPopularTopics', () {
+      test('returns correct list of topics', () async {
+        expect(
+          newsDataSource.getPopularTopics(),
+          completion(equals(popularTopics)),
+        );
+      });
+    });
+
+    group('getRelevantArticles', () {
+      test('returns correct list of articles', () async {
+        expect(
+          newsDataSource.getRelevantArticles(term: 'term'),
+          completion(
+            equals(relevantArticles.map((item) => item.post).toList()),
+          ),
+        );
+      });
+    });
+
+    group('getRelevantTopics', () {
+      test('returns correct list of topics', () async {
+        expect(
+          newsDataSource.getRelevantTopics(term: 'term'),
+          completion(equals(relevantTopics)),
         );
       });
     });

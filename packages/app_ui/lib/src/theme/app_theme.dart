@@ -62,6 +62,7 @@ class AppTheme {
       iconTheme: _iconTheme,
       titleTextStyle: _textTheme.headline6,
       elevation: 0,
+      toolbarHeight: 64,
       backgroundColor: AppColors.transparent,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,

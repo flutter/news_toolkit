@@ -4,7 +4,7 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 class CustomBlock extends NewsBlock {
-  CustomBlock() : super(type: '__custom_block__');
+  CustomBlock({super.type = '__custom_block__'});
 
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'type': type};
@@ -76,9 +76,17 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
-      test('returns Article', () {
+      test('returns VideoIntroductionBlock', () {
+        final block = VideoIntroductionBlock(
+          category: PostCategory.technology,
+          title: 'title',
+          videoUrl: 'videoUrl',
+        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns ArticleIntroductionBlock', () {
         final block = ArticleIntroductionBlock(
-          id: 'id',
           category: PostCategory.technology,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
@@ -155,6 +163,19 @@ void main() {
           title: 'title',
         );
 
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns NewsletterBlock', () {
+        final block = NewsletterBlock();
+
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns BannerAdBlock', () {
+        final block = BannerAdBlock(
+          size: BannerAdSize.normal,
+        );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
     });

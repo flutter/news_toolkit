@@ -12,6 +12,8 @@ dependencies:
   app_ui:
     path: packages/app_ui
   bloc: ^8.0.3
+  email_launcher:
+    path: packages/email_launcher
   equatable: ^2.0.3
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
@@ -26,6 +28,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
+  google_mobile_ads: ^1.2.0
   google_news_template_api:
     path: api
   hydrated_bloc: ^9.0.0-dev.1

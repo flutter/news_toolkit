@@ -418,6 +418,141 @@ void main() {
       });
     });
 
+    group('popularSearch', () {
+      test('makes correct http request.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient.popularSearch().ignore();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: '/api/v1/search/popular')),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiMalformedResponse '
+          'when response body is malformed.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        expect(
+          apiClient.popularSearch,
+          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+        );
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-200 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        final body = <String, dynamic>{};
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(json.encode(body), statusCode),
+        );
+
+        expect(
+          apiClient.popularSearch,
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', body),
+          ),
+        );
+      });
+
+      test('returns a PopularSearchResponse on a 200 response.', () {
+        const expectedResponse = PopularSearchResponse(
+          articles: [],
+          topics: [],
+        );
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(
+            json.encode(expectedResponse.toJson()),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(apiClient.popularSearch(), completion(equals(expectedResponse)));
+      });
+    });
+
+    group('relevantSearch', () {
+      const term = '__test_term__';
+      test('makes correct http request.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        apiClient.relevantSearch(term: term).ignore();
+
+        verify(
+          () => httpClient.get(
+            any(
+              that: isAUriHaving(
+                path: '/api/v1/search/relevant',
+                query: 'q=$term',
+              ),
+            ),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiMalformedResponse '
+          'when response body is malformed.', () {
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        expect(
+          () => apiClient.relevantSearch(term: term),
+          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+        );
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-200 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        final body = <String, dynamic>{};
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(json.encode(body), statusCode),
+        );
+
+        expect(
+          () => apiClient.relevantSearch(term: term),
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', body),
+          ),
+        );
+      });
+
+      test('returns a RelevantSearchResponse on a 200 response.', () {
+        const expectedResponse = RelevantSearchResponse(
+          articles: [],
+          topics: [],
+        );
+        when(() => httpClient.get(any())).thenAnswer(
+          (_) async => http.Response(
+            json.encode(expectedResponse.toJson()),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          apiClient.relevantSearch(term: term),
+          completion(equals(expectedResponse)),
+        );
+      });
+    });
+
     group('subscribeToNewsletter', () {
       const email = 'test@gmail.com';
       test('makes correct http request.', () {

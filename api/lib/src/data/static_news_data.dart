@@ -1,5 +1,81 @@
 part of 'in_memory_news_data_source.dart';
 
+/// List of popular search topics.
+const popularTopics = [
+  'Ukraine',
+  'Supreme Court',
+  'China',
+  'Inflation',
+  'Oil Prices',
+  'Plane Crash',
+];
+
+/// List of relevant search topics.
+const relevantTopics = [
+  'South China Sea',
+  'US-China Relations',
+  'China at the Olymptics',
+];
+
+/// List of popular search articles.
+final popularArticles = <NewsItem>[
+  NewsItem(
+    post: PostSmallBlock(
+      id: '5c47495a-608b-4e8b-a7f0-642a02594888',
+      category: PostCategory.technology,
+      author: 'CNN',
+      publishedAt: DateTime(2022, 3, 17),
+      imageUrl:
+          'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
+      title: 'Boeing makes third attempt to launch its '
+          'Starliner capsule to the ISS',
+      description: 'Boeing will try yet again Thursday to send the capsule it '
+          'designed to ferry astronauts to and from the International '
+          'Space Station on a successful, uncrewed test mission. '
+          'After two prior attempts to complete such a mission failed, '
+          "Boeing's goal is to prove th…",
+    ),
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Sean Hollister',
+        publishedAt: DateTime(2022, 3, 17),
+        title: 'Boeing makes third attempt to launch its '
+            'Starliner capsule to the ISS',
+        imageUrl:
+            'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
+      ),
+    ],
+  )
+];
+
+/// List of relevant search articles.
+final relevantArticles = <NewsItem>[
+  NewsItem(
+    post: PostSmallBlock(
+      id: '781b6a65-0357-45c7-8789-3ee890e43e0e',
+      category: PostCategory.health,
+      author: 'CNN',
+      publishedAt: DateTime(2022, 5, 20),
+      imageUrl:
+          'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
+      title: 'What is monkeypox and its signs and symptoms?',
+      description: 'Where did monkeypox come from, what are the signs and '
+          "symptoms and how worried should you be? Here's what we know.",
+    ),
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Sandee LaMotte',
+        publishedAt: DateTime(2022, 5, 20),
+        title: 'What is monkeypox and its signs and symptoms?',
+        imageUrl:
+            'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
+      ),
+    ],
+  )
+];
+
 /// The static news feed content.
 final technologyItems = <NewsItem>[
   NewsItem(
@@ -12,11 +88,52 @@ final technologyItems = <NewsItem>[
           'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
       title: 'Nvidia and AMD GPUs are returning to shelves '
           'and prices are finally falling',
+      action: const NavigateToArticleAction(
+        articleId: '499305f6-5096-4051-afda-824dcfc7df23',
+      ),
     ),
-    content: const [
-      SectionHeaderBlock(
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Sean Hollister',
+        publishedAt: DateTime(2022, 3, 9),
         title: 'Nvidia and AMD GPUs are returning to shelves '
             'and prices are finally falling',
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
+      ),
+      const TextLeadParagraphBlock(
+        text:
+            'Scientists at the University of Copenhagen research institute have'
+            ' developed an Artificial Intelligence (AI) algorithm that can help'
+            ' communicate with animals in the future. Currently, AI algorithms '
+            'are being used on pigs to decode their emotions and researchers '
+            'claim that they have achieved 60% of success in translating '
+            'positive & negative emotions hidden in pig grunts.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const TextParagraphBlock(
+        text:
+            'Cybersecurity Insiders has learned that an algorithm induced with '
+            '7,414 recordings of pig calls from over 411 pigs was analyzed and '
+            'will be used further to improve the mental health of swine.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const VideoBlock(
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const TextParagraphBlock(
+        text: 'Apparently, the breakthrough can also pave the way to a new '
+            'world where humans could communicate with animals and that can '
+            'lead to an ecosystem where every living being receives equal '
+            'respect in this supernatural power-driven world.',
+      ),
+      const SpacerBlock(spacing: Spacing.large),
+      const ImageBlock(
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
       ),
     ],
     relatedArticles: [
@@ -55,6 +172,9 @@ final sportsItems = <NewsItem>[
           'but he sure has a lot to say. In Game 2 between the Warriors and '
           'Memphis Grizzlies on Tuesday night, Ja Morant torched the Dubs '
           'for 47 points...',
+      action: const NavigateToArticleAction(
+        articleId: '82c49bf1-946d-4920-a801-302291f367b5',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -97,6 +217,9 @@ final healthItems = <NewsItem>[
           'investigators say. Gene discovery allows the production of inner '
           'or outer ear hair cells, death of outer hair cells due to aging '
           'or noise cause most hearing loss...',
+      action: const NavigateToArticleAction(
+        articleId: 'b1fc2ffc-eb02-42ce-af65-79702172a987',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -136,6 +259,9 @@ final scienceItems = <NewsItem>[
       title:
           'SpaceX successfully returns four astronauts from the International '
           'Space Station',
+      action: const NavigateToArticleAction(
+        articleId: '384a15ff-a50e-46d5-96a7-8864facdcc48',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -173,6 +299,9 @@ final scienceItems = <NewsItem>[
       title:
           'A surging glow in a distant galaxy could change the way we look at '
           'black holes',
+      action: const NavigateToArticleAction(
+        articleId: '13e448bb-cd26-4ae0-b138-4a67067f7a93',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -191,6 +320,9 @@ final scienceItems = <NewsItem>[
           'https://scitechdaily.com/images/Qubit-Platform-Single-Electron-on-Solid-Neon.jpg',
       title: 'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
           'Revolutionize Quantum Computing',
+      action: const NavigateToArticleAction(
+        articleId: '842e3193-86d2-4069-a7e6-f769faa6f970',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -209,6 +341,9 @@ final scienceItems = <NewsItem>[
       imageUrl: 'https://scitechdaily.com/images/Black-Hole-Sonification.gif',
       title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '
           'Sonifications With a Remix',
+      action: const NavigateToArticleAction(
+        articleId: '1f79da6f-64cb-430a-b7b2-2318d23b719f',
+      ),
     ),
     content: const [
       SectionHeaderBlock(
@@ -221,50 +356,67 @@ final scienceItems = <NewsItem>[
 
 /// Top news feed blocks.
 final topNewsFeedBlocks = <NewsBlock>[
-  const SectionHeaderBlock(title: 'Breaking News'),
-  const DividerHorizontalBlock(),
-  const SpacerBlock(spacing: Spacing.medium),
-  technologyItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
-  sportsItems.first.post,
   const SpacerBlock(spacing: Spacing.small),
+  const SectionHeaderBlock(title: 'Breaking News'),
+  technologyItems.first.post,
+  const DividerHorizontalBlock(),
+  const SectionHeaderBlock(
+    title: 'Technology',
+    action: NavigateToFeedCategoryAction(
+      category: Category.technology,
+    ),
+  ),
+  technologyItems.first.post,
+  const DividerHorizontalBlock(),
+  const SectionHeaderBlock(
+    title: 'Sports',
+    action: NavigateToFeedCategoryAction(
+      category: Category.sports,
+    ),
+  ),
+  sportsItems.first.post,
+  const DividerHorizontalBlock(),
+  const SectionHeaderBlock(
+    title: 'Health',
+    action: NavigateToFeedCategoryAction(
+      category: Category.health,
+    ),
+  ),
   healthItems.first.post,
-  const SpacerBlock(spacing: Spacing.extraSmall),
 ];
 
 /// Technology feed blocks.
 final technologyFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Technology'),
-  const DividerHorizontalBlock(),
   technologyItems.first.post,
+  const SpacerBlock(spacing: Spacing.medium),
+  const NewsletterBlock(),
   const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Sports feed blocks.
 final sportsFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Sports'),
-  const DividerHorizontalBlock(),
   sportsItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Health feed blocks.
 final healthFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Health'),
-  const DividerHorizontalBlock(),
   healthItems.first.post,
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 /// Science feed blocks.
 final scienceFeedBlocks = <NewsBlock>[
+  const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Science'),
-  const DividerHorizontalBlock(),
   PostGridGroupBlock(
     category: PostCategory.science,
     tiles: [...scienceItems.map((e) => e.post).cast<PostGridTileBlock>()],
   ),
-  const SpacerBlock(spacing: Spacing.medium),
 ];
 
 List<NewsItem> get _newsItems {

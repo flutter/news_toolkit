@@ -9,6 +9,10 @@ export 'src/api/v1/articles/get_related_articles/models/models.dart'
 export 'src/api/v1/categories/get_categories/models/models.dart'
     show CategoriesResponse;
 export 'src/api/v1/feed/get_feed/models/models.dart' show FeedResponse;
+export 'src/api/v1/search/popular_search/models/models.dart'
+    show PopularSearchResponse;
+export 'src/api/v1/search/relevant_search/models/models.dart'
+    show RelevantSearchResponse;
 export 'src/data/in_memory_news_data_source.dart' show InMemoryNewsDataSource;
 export 'src/data/models/models.dart'
     show Article, Category, Feed, RelatedArticles;

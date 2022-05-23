@@ -180,6 +180,42 @@ class GoogleNewsTemplateApiClient {
     return CategoriesResponse.fromJson(body);
   }
 
+  /// GET /api/v1/search/popular
+  /// Requests current, popular content.
+  Future<PopularSearchResponse> popularSearch() async {
+    final uri = Uri.parse('$_baseUrl/api/v1/search/popular');
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return PopularSearchResponse.fromJson(body);
+  }
+
+  /// GET /api/v1/search/relevant?q=term
+  /// Requests relevant content based on the provided search [term].
+  Future<RelevantSearchResponse> relevantSearch({required String term}) async {
+    final uri = Uri.parse('$_baseUrl/api/v1/search/relevant').replace(
+      queryParameters: <String, String>{'q': term},
+    );
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return RelevantSearchResponse.fromJson(body);
+  }
+
   /// POST /api/v1/newsletter/subscription
   /// Subscribes the provided [email] to the newsletter.
   Future<void> subscribeToNewsletter({required String email}) async {

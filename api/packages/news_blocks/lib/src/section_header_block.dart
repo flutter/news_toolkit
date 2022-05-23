@@ -28,6 +28,7 @@ class SectionHeaderBlock with EquatableMixin implements NewsBlock {
   final String title;
 
   /// An optional action which occurs upon interaction.
+  @BlockActionConverter()
   final BlockAction? action;
 
   @override

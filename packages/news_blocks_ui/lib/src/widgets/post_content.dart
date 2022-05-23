@@ -1,6 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template post_content}
 /// A post widget displaying post content.
@@ -10,13 +10,14 @@ class PostContent extends StatelessWidget {
   const PostContent({
     super.key,
     required this.title,
-    required this.publishedAt,
+    this.publishedAt,
     this.categoryName,
     this.description,
     this.author,
     this.onShare,
     this.isPremium = false,
     this.isContentOverlaid = false,
+    this.isSubscriberExclusive = false,
     required this.premiumText,
   });
 
@@ -24,7 +25,7 @@ class PostContent extends StatelessWidget {
   final String title;
 
   /// The date when this post was published.
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
 
   /// Category of post.
   final String? categoryName;
@@ -42,6 +43,11 @@ class PostContent extends StatelessWidget {
   ///
   /// Defaults to false.
   final bool isPremium;
+
+  /// Whether this post is subscriber exclusive.
+  ///
+  /// Defaults to false.
+  final bool isSubscriberExclusive;
 
   /// Whether content is displayed overlaid.
   ///
@@ -68,6 +74,7 @@ class PostContent extends StatelessWidget {
               isPremium: isPremium,
               premiumText: premiumText,
               isContentOverlaid: isContentOverlaid,
+              isSubscriberExclusive: isSubscriberExclusive,
             ),
           Text(
             title,
@@ -79,13 +86,15 @@ class PostContent extends StatelessWidget {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: AppSpacing.md),
-          PostFooter(
-            publishedAt: publishedAt,
-            author: author,
-            onShare: onShare,
-            isContentOverlaid: isContentOverlaid,
-          ),
+          if (publishedAt != null || author != null || onShare != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            PostFooter(
+              publishedAt: publishedAt,
+              author: author,
+              onShare: onShare,
+              isContentOverlaid: isContentOverlaid,
+            ),
+          ],
           const SizedBox(height: AppSpacing.xlg + AppSpacing.sm),
         ],
       ),

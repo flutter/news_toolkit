@@ -10,3 +10,12 @@ class CategoriesRequested extends CategoriesEvent {
   @override
   List<Object> get props => [];
 }
+
+class CategorySelected extends CategoriesEvent {
+  const CategorySelected({required this.category});
+
+  final Category category;
+
+  @override
+  List<Object> get props => [category];
+}

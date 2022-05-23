@@ -1,4 +1,5 @@
 import 'package:google_news_template_api/api.dart';
+import 'package:news_blocks/news_blocks.dart';
 
 /// {@template news_data_source}
 /// An interface for a news content data source.
@@ -20,6 +21,20 @@ abstract class NewsDataSource {
     int limit = 20,
     int offset = 0,
   });
+
+  /// Returns a list of current popular topics.
+  Future<List<String>> getPopularTopics();
+
+  /// Returns a list of current relevant topics
+  /// based on the provided [term].
+  Future<List<String>> getRelevantTopics({required String term});
+
+  /// Returns a list of current popular article blocks.
+  Future<List<NewsBlock>> getPopularArticles();
+
+  /// Returns a list of relevant article blocks
+  /// based on the provided [term].
+  Future<List<NewsBlock>> getRelevantArticles({required String term});
 
   /// Returns [RelatedArticles] for the provided article [id].
   ///
