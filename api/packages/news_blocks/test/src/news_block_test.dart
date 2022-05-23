@@ -85,7 +85,7 @@ void main() {
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
 
-      test('returns Article', () {
+      test('returns ArticleIntroductionBlock', () {
         final block = ArticleIntroductionBlock(
           category: PostCategory.technology,
           author: 'author',
@@ -169,6 +169,13 @@ void main() {
       test('returns NewsletterBlock', () {
         final block = NewsletterBlock();
 
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns BannerAdBlock', () {
+        final block = BannerAdBlock(
+          size: BannerAdSize.normal,
+        );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
     });
