@@ -119,6 +119,8 @@ final technologyItems = <NewsItem>[
             'will be used further to improve the mental health of swine.',
       ),
       const SpacerBlock(spacing: Spacing.large),
+      const BannerAdBlock(size: BannerAdSize.large),
+      const SpacerBlock(spacing: Spacing.large),
       const VideoBlock(
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
@@ -359,6 +361,8 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Breaking News'),
   technologyItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.normal),
+  const SpacerBlock(spacing: Spacing.small),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Technology',
@@ -367,6 +371,8 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   technologyItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.large),
+  const SpacerBlock(spacing: Spacing.small),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Sports',
@@ -375,6 +381,8 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   sportsItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.extraLarge),
+  const SpacerBlock(spacing: Spacing.medium),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Health',
