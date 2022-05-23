@@ -9,7 +9,6 @@ import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/navigation/navigation.dart';
-import 'package:google_news_template_api/api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';

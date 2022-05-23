@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:google_news_template_api/client.dart';
+import 'package:news_blocks/news_blocks.dart';
 
 /// {@template news_failure}
 /// Base failure class for the news repository failures.

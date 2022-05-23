@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
-import 'package:news_repository/news_repository.dart';
+import 'package:news_blocks/news_blocks.dart';
 
 void main() {
   group('FeedEvent', () {

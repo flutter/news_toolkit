@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/api.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:news_blocks/news_blocks.dart';
 
 part 'categories_response.g.dart';
 
