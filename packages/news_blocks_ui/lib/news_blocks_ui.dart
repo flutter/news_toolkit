@@ -1,6 +1,7 @@
 library news_blocks_ui;
 
 export 'src/article_introduction.dart';
+export 'src/banner_ad.dart' show BannerAd;
 export 'src/block_action_callback.dart';
 export 'src/divider_horizontal.dart';
 export 'src/image.dart';
