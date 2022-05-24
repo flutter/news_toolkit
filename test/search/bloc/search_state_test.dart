@@ -34,7 +34,6 @@ void main() {
             SearchState(
               status: SearchStatus.loading,
               articles: const [],
-              keyword: '',
               topics: const [],
             ),
           ),
@@ -52,7 +51,6 @@ void main() {
             SearchState(
               articles: articles,
               status: SearchStatus.initial,
-              keyword: '',
               topics: const [],
             ),
           ),
@@ -70,24 +68,7 @@ void main() {
             SearchState(
               topics: topics,
               status: SearchStatus.initial,
-              keyword: '',
               articles: const [],
-            ),
-          ),
-        );
-      });
-
-      test(
-          'returns object with updated keyword '
-          'when keyword is passed', () {
-        expect(
-          SearchState.initial().copyWith(keyword: 'keyword'),
-          equals(
-            SearchState(
-              articles: const [],
-              status: SearchStatus.initial,
-              keyword: 'keyword',
-              topics: const [],
             ),
           ),
         );

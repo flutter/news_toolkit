@@ -80,13 +80,11 @@ void main() {
       wait: const Duration(milliseconds: 300),
       expect: () => <SearchState>[
         SearchState(
-          keyword: 'term',
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
         ),
         SearchState(
-          keyword: 'term',
           status: SearchStatus.populated,
           articles: popularResponseSuccess.articles,
           topics: popularResponseSuccess.topics,
@@ -103,13 +101,11 @@ void main() {
       act: (bloc) => bloc.add(KeywordChanged(keyword: 'term')),
       expect: () => <SearchState>[
         SearchState(
-          keyword: 'term',
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
         ),
         SearchState(
-          keyword: 'term',
           status: SearchStatus.failure,
           articles: const [],
           topics: const [],

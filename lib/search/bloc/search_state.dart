@@ -9,7 +9,6 @@ enum SearchStatus {
 
 class SearchState extends Equatable {
   const SearchState({
-    required this.keyword,
     required this.articles,
     required this.topics,
     required this.status,
@@ -17,13 +16,10 @@ class SearchState extends Equatable {
 
   const SearchState.initial()
       : this(
-          keyword: '',
           articles: const [],
           topics: const [],
           status: SearchStatus.initial,
         );
-
-  final String keyword;
 
   final List<NewsBlock> articles;
 
@@ -32,16 +28,14 @@ class SearchState extends Equatable {
   final SearchStatus status;
 
   @override
-  List<Object?> get props => [keyword, articles, topics, status];
+  List<Object?> get props => [articles, topics, status];
 
   SearchState copyWith({
-    String? keyword,
     List<NewsBlock>? articles,
     List<String>? topics,
     SearchStatus? status,
   }) =>
       SearchState(
-        keyword: keyword ?? this.keyword,
         articles: articles ?? this.articles,
         topics: topics ?? this.topics,
         status: status ?? this.status,

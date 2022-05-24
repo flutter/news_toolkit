@@ -58,7 +58,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(
       state.copyWith(
         status: SearchStatus.loading,
-        keyword: event.keyword,
       ),
     );
     try {
