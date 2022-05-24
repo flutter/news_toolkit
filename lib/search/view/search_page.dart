@@ -76,7 +76,10 @@ class _SearchViewState extends State<SearchView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SearchTextField(controller: _controller),
+                SearchTextField(
+                  key: const Key('search_page_search_text_field'),
+                  controller: _controller,
+                ),
                 const Divider(),
                 SearchHeadlineText(
                   headerText: state.displayMode == SearchDisplayMode.popular
