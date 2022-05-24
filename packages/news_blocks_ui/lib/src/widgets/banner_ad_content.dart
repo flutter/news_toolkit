@@ -166,9 +166,10 @@ class _BannerAdContentState extends State<BannerAdContent>
 
     setState(
       () => _ad = widget.adBuilder(
-        adUnitId: widget.currentPlatform.isAndroid
-            ? BannerAdContent.androidTestUnitId
-            : BannerAdContent.iosTestUnitAd,
+        adUnitId: widget.adUnitId ??
+            (widget.currentPlatform.isAndroid
+                ? BannerAdContent.androidTestUnitId
+                : BannerAdContent.iosTestUnitAd),
         request: const AdRequest(),
         size: _adSize!,
         listener: BannerAdListener(

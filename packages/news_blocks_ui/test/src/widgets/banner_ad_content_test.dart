@@ -91,6 +91,31 @@ void main() {
     });
 
     testWidgets(
+        'loads ad object correctly '
+        'with provided adUnitId', (tester) async {
+      const adUnitId = 'adUnitId';
+
+      await tester.pumpApp(
+        BannerAdContent(
+          adUnitId: adUnitId,
+          size: BannerAdSize.anchoredAdaptive,
+          adBuilder: adBuilder,
+          currentPlatform: platform,
+          anchoredAdaptiveAdSizeProvider: (orientation, width) async =>
+              AnchoredAdaptiveBannerAdSize(
+            Orientation.portrait,
+            width: 100,
+            height: 100,
+          ),
+        ),
+      );
+
+      expect(capturedAdUnitId, equals(adUnitId));
+
+      verify(ad.load).called(1);
+    });
+
+    testWidgets(
         'renders ProgressIndicator '
         'when ad is loading '
         'and showProgressIndicator is true', (tester) async {
