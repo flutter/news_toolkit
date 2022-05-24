@@ -75,7 +75,7 @@ class BannerAdContent extends StatefulWidget {
   /// The builder of this banner ad.
   final BannerAdBuilder adBuilder;
 
-  /// The provider for this banner ad of size [BannerAdSize.anchoredAdaptive].
+  /// The provider for this banner ad for [BannerAdSize.anchoredAdaptive].
   final AnchoredAdaptiveAdSizeProvider anchoredAdaptiveAdSizeProvider;
 
   /// The current platform where this banner ad is displayed.
