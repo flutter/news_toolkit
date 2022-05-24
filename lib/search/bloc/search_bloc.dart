@@ -35,7 +35,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     LoadPopular event,
     Emitter<SearchState> emit,
   ) async {
-    emit(state.copyWith(status: SearchStatus.loading));
+    emit(
+      state.copyWith(
+        status: SearchStatus.loading,
+        displayMode: SearchDisplayMode.popular,
+      ),
+    );
     try {
       final popularSearch = await _newsRepository.popularSearch();
       emit(
@@ -58,6 +63,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(
       state.copyWith(
         status: SearchStatus.loading,
+        displayMode: SearchDisplayMode.relevant,
       ),
     );
     try {
