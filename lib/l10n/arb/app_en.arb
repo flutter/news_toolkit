@@ -304,5 +304,41 @@
     "description": "Message displayed when error ocurred during subscribing to newsletter",
     "type": "text",
     "placeholders": {}
+  },
+  "searchPopularSearches": "Popular Searches",
+  "@searchPopularSearches": {
+    "description": "Text displayed at the top of the popular searches.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchPopularArticles": "Popular articles",
+  "@searchPopularSearches": {
+    "description": "Text displayed at the top of the popular articles",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchRelevantTopics": "Relevant Topics / Sections",
+  "@searchPopularSearches": {
+    "description": "Text displayed at the top of the relevant search.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchRelevantArticles": "Relevant Articles",
+  "@searchPopularSearches": {
+    "description": "Text displayed at the top of the relevant articles.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchByKeyword": "Search by keyword",
+  "@searchPopularSearches": {
+    "description": "Hint displayed in search text field.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchErrorMessage": "Problem ocurred finding popular searches.",
+  "@searchErrorMessage": {
+    "description": "Message displayed when error occurred during fetching popular articles.",
+    "type": "text",
+    "placeholders": {}
   }
 }
