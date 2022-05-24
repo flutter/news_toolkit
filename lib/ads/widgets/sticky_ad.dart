@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
+/// {@template sticky_ad}
+/// A bottom-anchored, adaptive ad widget.
+/// https://developers.google.com/admob/flutter/banner/anchored-adaptive
+/// {@endtemplate}
 class StickyAd extends StatefulWidget {
+  /// {@macro sticky_ad}
   const StickyAd({super.key});
 
   static const padding = EdgeInsets.symmetric(
