@@ -83,11 +83,13 @@ void main() {
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
+          displayMode: SearchDisplayMode.popular,
         ),
         SearchState(
           status: SearchStatus.populated,
           articles: popularResponseSuccess.articles,
           topics: popularResponseSuccess.topics,
+          displayMode: SearchDisplayMode.popular,
         ),
       ],
     );
@@ -104,11 +106,13 @@ void main() {
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
+          displayMode: SearchDisplayMode.popular,
         ),
         SearchState(
           status: SearchStatus.failure,
           articles: const [],
           topics: const [],
+          displayMode: SearchDisplayMode.popular,
         ),
       ],
     );

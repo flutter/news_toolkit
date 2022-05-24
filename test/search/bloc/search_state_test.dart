@@ -35,6 +35,7 @@ void main() {
               status: SearchStatus.loading,
               articles: const [],
               topics: const [],
+              displayMode: SearchDisplayMode.popular,
             ),
           ),
         );
@@ -52,6 +53,7 @@ void main() {
               articles: articles,
               status: SearchStatus.initial,
               topics: const [],
+              displayMode: SearchDisplayMode.popular,
             ),
           ),
         );
@@ -69,6 +71,25 @@ void main() {
               topics: topics,
               status: SearchStatus.initial,
               articles: const [],
+              displayMode: SearchDisplayMode.popular,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated displayMode '
+          'when displayMode is passed', () {
+        expect(
+          SearchState.initial().copyWith(
+            displayMode: SearchDisplayMode.relevant,
+          ),
+          equals(
+            SearchState(
+              topics: const [],
+              status: SearchStatus.initial,
+              articles: const [],
+              displayMode: SearchDisplayMode.relevant,
             ),
           ),
         );
