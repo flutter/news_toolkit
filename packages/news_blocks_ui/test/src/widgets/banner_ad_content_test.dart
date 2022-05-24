@@ -73,9 +73,15 @@ void main() {
 
       await tester.pumpApp(
         BannerAdContent(
-          size: BannerAdSize.normal,
+          size: BannerAdSize.anchoredAdaptive,
           adBuilder: adBuilder,
           currentPlatform: platform,
+          anchoredAdaptiveAdSizeProvider: (orientation, width) async =>
+              AnchoredAdaptiveBannerAdSize(
+            Orientation.portrait,
+            width: 100,
+            height: 100,
+          ),
         ),
       );
 
@@ -84,7 +90,10 @@ void main() {
       verify(ad.load).called(1);
     });
 
-    testWidgets('renders ProgressIndicator when ad is loading', (tester) async {
+    testWidgets(
+        'renders ProgressIndicator '
+        'when ad is loading '
+        'and showProgressIndicator is true', (tester) async {
       await tester.pumpApp(
         BannerAdContent(
           size: BannerAdSize.normal,
@@ -94,6 +103,23 @@ void main() {
       );
 
       expect(find.byType(ProgressIndicator), findsOneWidget);
+      expect(find.byType(AdWidget), findsNothing);
+    });
+
+    testWidgets(
+        'does not render ProgressIndicator '
+        'when ad is loading '
+        'and showProgressIndicator is false', (tester) async {
+      await tester.pumpApp(
+        BannerAdContent(
+          size: BannerAdSize.normal,
+          adBuilder: adBuilder,
+          currentPlatform: platform,
+          showProgressIndicator: false,
+        ),
+      );
+
+      expect(find.byType(ProgressIndicator), findsNothing);
       expect(find.byType(AdWidget), findsNothing);
     });
 
@@ -215,7 +241,7 @@ void main() {
     testWidgets(
         'throws BannerAdFailedToLoadException '
         'and disposes ad object '
-        'on ad failed to load', (tester) async {
+        'when ad fails to load', (tester) async {
       await tester.pumpApp(
         BannerAdContent(
           size: BannerAdSize.normal,
@@ -236,6 +262,28 @@ void main() {
       );
 
       verify(ad.dispose).called(1);
+    });
+
+    testWidgets(
+        'throws BannerAdFailedToGetSizeException '
+        'for BannerAdSize.anchoredAdaptive '
+        'when ad size fails to load', (tester) async {
+      late FlutterErrorDetails capturedErrorDetails;
+      FlutterError.onError = (details) => capturedErrorDetails = details;
+
+      await tester.pumpApp(
+        BannerAdContent(
+          size: BannerAdSize.anchoredAdaptive,
+          adBuilder: adBuilder,
+          currentPlatform: platform,
+          anchoredAdaptiveAdSizeProvider: (orientation, width) async => null,
+        ),
+      );
+
+      expect(
+        capturedErrorDetails.exception,
+        isA<BannerAdFailedToGetSizeException>(),
+      );
     });
   });
 }

@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:platform/platform.dart' as platform;
+import 'package:very_good_analysis/very_good_analysis.dart';
 
 /// {@template banner_ad_failed_to_load_exception}
 /// An exception thrown when loading a banner ad fails.
@@ -16,6 +17,14 @@ class BannerAdFailedToLoadException implements Exception {
   final Object error;
 }
 
+/// {@template banner_ad_failed_to_get_size_exception}
+/// An exception thrown when getting a banner ad size fails.
+/// {@endtemplate}
+class BannerAdFailedToGetSizeException implements Exception {
+  /// {@macro banner_ad_failed_to_get_size_exception}
+  BannerAdFailedToGetSizeException();
+}
+
 /// Signature for [BannerAd] builder.
 typedef BannerAdBuilder = BannerAd Function({
   required AdSize size,
@@ -23,6 +32,13 @@ typedef BannerAdBuilder = BannerAd Function({
   required BannerAdListener listener,
   required AdRequest request,
 });
+
+/// Signature for [AnchoredAdaptiveBannerAdSize] provider.
+typedef AnchoredAdaptiveAdSizeProvider = Future<AnchoredAdaptiveBannerAdSize?>
+    Function(
+  Orientation orientation,
+  int width,
+);
 
 /// {@template banner_ad_content}
 /// A reusable content of a banner ad.
@@ -32,13 +48,23 @@ class BannerAdContent extends StatefulWidget {
   const BannerAdContent({
     super.key,
     required this.size,
+    this.anchoredAdaptiveWidth,
     this.adUnitId,
     this.adBuilder = BannerAd.new,
+    this.anchoredAdaptiveAdSizeProvider =
+        AdSize.getAnchoredAdaptiveBannerAdSize,
     this.currentPlatform = const platform.LocalPlatform(),
+    this.onAdLoaded,
+    this.showProgressIndicator = true,
   });
 
   /// The size of this banner ad.
   final BannerAdSize size;
+
+  /// The width of this banner ad for [BannerAdSize.anchoredAdaptive].
+  ///
+  /// Defaults to the width of the device.
+  final int? anchoredAdaptiveWidth;
 
   /// The unit id of this banner ad.
   ///
@@ -49,8 +75,19 @@ class BannerAdContent extends StatefulWidget {
   /// The builder of this banner ad.
   final BannerAdBuilder adBuilder;
 
+  /// The provider for this banner ad of size [BannerAdSize.anchoredAdaptive].
+  final AnchoredAdaptiveAdSizeProvider anchoredAdaptiveAdSizeProvider;
+
   /// The current platform where this banner ad is displayed.
   final platform.Platform currentPlatform;
+
+  /// Called once when this banner ad loads.
+  final VoidCallback? onAdLoaded;
+
+  /// Whether the progress indicator should be shown when the ad is loading.
+  ///
+  /// Defaults to true.
+  final bool showProgressIndicator;
 
   /// The Android test unit id of this banner ad.
   @visibleForTesting
@@ -61,6 +98,11 @@ class BannerAdContent extends StatefulWidget {
   static const iosTestUnitAd = 'ca-app-pub-3940256099942544/2934735716';
 
   /// The size values of this banner ad.
+  ///
+  /// The width of [BannerAdSize.anchoredAdaptive] depends on
+  /// [anchoredAdaptiveWidth] and is defined in
+  /// [_BannerAdContentState._getAnchoredAdaptiveAdSize].
+  /// The height of such an ad is determined by Google.
   static const _sizeValues = <BannerAdSize, AdSize>{
     BannerAdSize.normal: AdSize.banner,
     BannerAdSize.large: AdSize.mediumRectangle,
@@ -73,36 +115,19 @@ class BannerAdContent extends StatefulWidget {
 
 class _BannerAdContentState extends State<BannerAdContent>
     with AutomaticKeepAliveClientMixin {
-  late final BannerAd _ad;
+  BannerAd? _ad;
+  AdSize? _adSize;
   bool _adLoaded = false;
 
   @override
-  void initState() {
-    super.initState();
-    _ad = widget.adBuilder(
-      adUnitId: widget.currentPlatform.isAndroid
-          ? BannerAdContent.androidTestUnitId
-          : BannerAdContent.iosTestUnitAd,
-      request: const AdRequest(),
-      size: BannerAdContent._sizeValues[widget.size]!,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() => _adLoaded = true),
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          FlutterError.reportError(
-            FlutterErrorDetails(
-              exception: BannerAdFailedToLoadException(error),
-              stack: StackTrace.current,
-            ),
-          );
-        },
-      ),
-    )..load();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    unawaited(_loadAd());
   }
 
   @override
   void dispose() {
-    _ad.dispose();
+    _ad?.dispose();
     super.dispose();
   }
 
@@ -111,16 +136,82 @@ class _BannerAdContentState extends State<BannerAdContent>
     super.build(context);
     return SizedBox(
       key: const Key('bannerAdContent_sizedBox'),
-      width: _ad.size.width.toDouble(),
-      height: _ad.size.height.toDouble(),
+      width: (_adSize?.width ?? 0).toDouble(),
+      height: (_adSize?.height ?? 0).toDouble(),
       child: Center(
         child: _adLoaded
-            ? AdWidget(ad: _ad)
-            : const ProgressIndicator(color: AppColors.transparent),
+            ? AdWidget(ad: _ad!)
+            : widget.showProgressIndicator
+                ? const ProgressIndicator(color: AppColors.transparent)
+                : const SizedBox(),
       ),
     );
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> _loadAd() async {
+    AdSize? adSize;
+    if (widget.size == BannerAdSize.anchoredAdaptive) {
+      adSize = await _getAnchoredAdaptiveAdSize();
+    } else {
+      adSize = BannerAdContent._sizeValues[widget.size];
+    }
+    setState(() => _adSize = adSize);
+
+    if (_adSize == null) {
+      return _reportError(BannerAdFailedToGetSizeException());
+    }
+
+    setState(
+      () => _ad = widget.adBuilder(
+        adUnitId: widget.currentPlatform.isAndroid
+            ? BannerAdContent.androidTestUnitId
+            : BannerAdContent.iosTestUnitAd,
+        request: const AdRequest(),
+        size: _adSize!,
+        listener: BannerAdListener(
+          onAdLoaded: _onAdLoaded,
+          onAdFailedToLoad: _onAdFailedToLoad,
+        ),
+      ),
+    );
+
+    return _ad!.load();
+  }
+
+  void _onAdLoaded(Ad ad) {
+    if (mounted) {
+      setState(() {
+        _ad = ad as BannerAd;
+        _adLoaded = true;
+      });
+      widget.onAdLoaded?.call();
+    }
+  }
+
+  void _onAdFailedToLoad(Ad ad, LoadAdError error) {
+    ad.dispose();
+    _reportError(BannerAdFailedToLoadException(error));
+  }
+
+  /// Returns an ad size for [BannerAdSize.anchoredAdaptive].
+  ///
+  /// Only supports the portrait mode.
+  Future<AnchoredAdaptiveBannerAdSize?> _getAnchoredAdaptiveAdSize() async {
+    final adWidth = widget.anchoredAdaptiveWidth ??
+        MediaQuery.of(context).size.width.truncate();
+    return widget.anchoredAdaptiveAdSizeProvider(
+      Orientation.portrait,
+      adWidth,
+    );
+  }
+
+  void _reportError(Exception exception) => FlutterError.reportError(
+        FlutterErrorDetails(
+          exception: exception,
+          stack: StackTrace.current,
+        ),
+      );
 }
