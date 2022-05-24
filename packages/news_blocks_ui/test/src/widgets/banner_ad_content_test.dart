@@ -275,14 +275,11 @@ void main() {
         ),
       );
 
-      late FlutterErrorDetails capturedErrorDetails;
-      FlutterError.onError = (details) => capturedErrorDetails = details;
-
       final error = MockLoadAdError();
       capturedListener.onAdFailedToLoad!(ad, error);
 
       expect(
-        capturedErrorDetails.exception,
+        tester.takeException(),
         isA<BannerAdFailedToLoadException>(),
       );
 
@@ -293,9 +290,6 @@ void main() {
         'throws BannerAdFailedToGetSizeException '
         'for BannerAdSize.anchoredAdaptive '
         'when ad size fails to load', (tester) async {
-      late FlutterErrorDetails capturedErrorDetails;
-      FlutterError.onError = (details) => capturedErrorDetails = details;
-
       await tester.pumpApp(
         BannerAdContent(
           size: BannerAdSize.anchoredAdaptive,
@@ -306,7 +300,7 @@ void main() {
       );
 
       expect(
-        capturedErrorDetails.exception,
+        tester.takeException(),
         isA<BannerAdFailedToGetSizeException>(),
       );
     });
