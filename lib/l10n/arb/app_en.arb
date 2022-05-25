@@ -311,7 +311,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchPopularArticles": "Popular articles",
+  "searchPopularArticles": "Popular Articles",
   "@searchPopularSearches": {
     "description": "Text displayed at the top of the popular articles.",
     "type": "text",
