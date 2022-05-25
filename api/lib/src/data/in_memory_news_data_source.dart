@@ -36,6 +36,16 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }
 
   @override
+  Future<List<NewsBlock>> getRelevantArticles({required String term}) async {
+    return relevantArticles.map((item) => item.post).toList();
+  }
+
+  @override
+  Future<List<String>> getRelevantTopics({required String term}) async {
+    return relevantTopics;
+  }
+
+  @override
   Future<List<String>> getPopularTopics() async => popularTopics;
 
   @override

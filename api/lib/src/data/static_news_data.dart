@@ -10,6 +10,13 @@ const popularTopics = [
   'Plane Crash',
 ];
 
+/// List of relevant search topics.
+const relevantTopics = [
+  'South China Sea',
+  'US-China Relations',
+  'China at the Olymptics',
+];
+
 /// List of popular search articles.
 final popularArticles = <NewsItem>[
   NewsItem(
@@ -37,6 +44,33 @@ final popularArticles = <NewsItem>[
             'Starliner capsule to the ISS',
         imageUrl:
             'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
+      ),
+    ],
+  )
+];
+
+/// List of relevant search articles.
+final relevantArticles = <NewsItem>[
+  NewsItem(
+    post: PostSmallBlock(
+      id: '781b6a65-0357-45c7-8789-3ee890e43e0e',
+      category: PostCategory.health,
+      author: 'CNN',
+      publishedAt: DateTime(2022, 5, 20),
+      imageUrl:
+          'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
+      title: 'What is monkeypox and its signs and symptoms?',
+      description: 'Where did monkeypox come from, what are the signs and '
+          "symptoms and how worried should you be? Here's what we know.",
+    ),
+    content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Sandee LaMotte',
+        publishedAt: DateTime(2022, 5, 20),
+        title: 'What is monkeypox and its signs and symptoms?',
+        imageUrl:
+            'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
       ),
     ],
   )
@@ -84,6 +118,8 @@ final technologyItems = <NewsItem>[
             '7,414 recordings of pig calls from over 411 pigs was analyzed and '
             'will be used further to improve the mental health of swine.',
       ),
+      const SpacerBlock(spacing: Spacing.large),
+      const BannerAdBlock(size: BannerAdSize.large),
       const SpacerBlock(spacing: Spacing.large),
       const VideoBlock(
         videoUrl:
@@ -325,6 +361,8 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Breaking News'),
   technologyItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.normal),
+  const SpacerBlock(spacing: Spacing.small),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Technology',
@@ -333,6 +371,8 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   technologyItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.large),
+  const SpacerBlock(spacing: Spacing.small),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Sports',
@@ -341,6 +381,8 @@ final topNewsFeedBlocks = <NewsBlock>[
     ),
   ),
   sportsItems.first.post,
+  const BannerAdBlock(size: BannerAdSize.extraLarge),
+  const SpacerBlock(spacing: Spacing.medium),
   const DividerHorizontalBlock(),
   const SectionHeaderBlock(
     title: 'Health',
