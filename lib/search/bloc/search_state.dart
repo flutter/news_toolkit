@@ -7,7 +7,7 @@ enum SearchStatus {
   failure,
 }
 
-enum SearchDisplayMode {
+enum SearchType {
   popular,
   relevant,
 }
@@ -17,7 +17,7 @@ class SearchState extends Equatable {
     required this.articles,
     required this.topics,
     required this.status,
-    required this.displayMode,
+    required this.searchType,
   });
 
   const SearchState.initial()
@@ -25,7 +25,7 @@ class SearchState extends Equatable {
           articles: const [],
           topics: const [],
           status: SearchStatus.initial,
-          displayMode: SearchDisplayMode.popular,
+          searchType: SearchType.popular,
         );
 
   final List<NewsBlock> articles;
@@ -34,21 +34,21 @@ class SearchState extends Equatable {
 
   final SearchStatus status;
 
-  final SearchDisplayMode displayMode;
+  final SearchType searchType;
 
   @override
-  List<Object?> get props => [articles, topics, status, displayMode];
+  List<Object?> get props => [articles, topics, status, searchType];
 
   SearchState copyWith({
     List<NewsBlock>? articles,
     List<String>? topics,
     SearchStatus? status,
-    SearchDisplayMode? displayMode,
+    SearchType? searchType,
   }) =>
       SearchState(
         articles: articles ?? this.articles,
         topics: topics ?? this.topics,
         status: status ?? this.status,
-        displayMode: displayMode ?? this.displayMode,
+        searchType: searchType ?? this.searchType,
       );
 }

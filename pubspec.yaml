@@ -42,9 +42,9 @@ dependencies:
     path: packages/news_repository
   path_provider: ^2.0.2
   platform: ^3.0.2
-  rxdart: ^0.27.3
   secure_storage:
     path: packages/storage/secure_storage
+  stream_transform: ^2.0.0
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository

@@ -35,7 +35,7 @@ void main() {
               status: SearchStatus.loading,
               articles: const [],
               topics: const [],
-              displayMode: SearchDisplayMode.popular,
+              searchType: SearchType.popular,
             ),
           ),
         );
@@ -53,7 +53,7 @@ void main() {
               articles: articles,
               status: SearchStatus.initial,
               topics: const [],
-              displayMode: SearchDisplayMode.popular,
+              searchType: SearchType.popular,
             ),
           ),
         );
@@ -71,7 +71,7 @@ void main() {
               topics: topics,
               status: SearchStatus.initial,
               articles: const [],
-              displayMode: SearchDisplayMode.popular,
+              searchType: SearchType.popular,
             ),
           ),
         );
@@ -82,14 +82,14 @@ void main() {
           'when displayMode is passed', () {
         expect(
           SearchState.initial().copyWith(
-            displayMode: SearchDisplayMode.relevant,
+            searchType: SearchType.relevant,
           ),
           equals(
             SearchState(
               topics: const [],
               status: SearchStatus.initial,
               articles: const [],
-              displayMode: SearchDisplayMode.relevant,
+              searchType: SearchType.relevant,
             ),
           ),
         );

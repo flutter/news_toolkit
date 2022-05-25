@@ -4,17 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
-EventTransformer<E> debounce<E>() {
-  return (events, mapper) {
-    return events
-        .debounceTime(const Duration(milliseconds: 300))
-        .switchMap(mapper);
-  };
+const _duration = Duration(milliseconds: 300);
+
+EventTransformer<Event> debounce<Event>(Duration duration) {
+  return (events, mapper) => events.debounce(duration).switchMap(mapper);
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
@@ -22,23 +20,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
-    on<LoadPopular>(_onLoadPopular);
-    on<KeywordChanged>(
+    on<PopularSearchRequested>(_onLoadPopular);
+    on<SearchTermChanged>(
       _onKeywordChanged,
-      transformer: debounce(),
+      transformer: debounce(_duration),
     );
   }
 
   final NewsRepository _newsRepository;
 
   FutureOr<void> _onLoadPopular(
-    LoadPopular event,
+    PopularSearchRequested event,
     Emitter<SearchState> emit,
   ) async {
     emit(
       state.copyWith(
         status: SearchStatus.loading,
-        displayMode: SearchDisplayMode.popular,
+        searchType: SearchType.popular,
       ),
     );
     try {
@@ -57,18 +55,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onKeywordChanged(
-    KeywordChanged event,
+    SearchTermChanged event,
     Emitter<SearchState> emit,
   ) async {
     emit(
       state.copyWith(
         status: SearchStatus.loading,
-        displayMode: SearchDisplayMode.relevant,
+        searchType: SearchType.relevant,
       ),
     );
     try {
       final relevantSearch = await _newsRepository.relevantSearch(
-        term: event.keyword,
+        term: event.searchTerm,
       );
       emit(
         state.copyWith(
