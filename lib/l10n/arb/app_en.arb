@@ -95,15 +95,69 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingWelcomeTitle": "Welcome!",
+  "onboardingWelcomeTitle": "Welcome to\nThe Daily GLobe!",
   "@onboardingWelcomeTitle": {
-    "description": "Title text shown on first onboarding page",
+    "description": "Text shown as title on the onboarding page",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingNextButtonText": "NEXT",
-  "@onboardingNextButtonText": {
-    "description": "Button text on next button in onboarding pages",
+  "onboardingSubtitle": "Please set your preferences to\nget the app up and running.",
+  "@onboardingSubtitle": {
+    "description": "Text shown as subtitle on the onboarding page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemFirstNumberTitle": "1 OF 2",
+  "@onboardingItemFirstNumberTitle": {
+    "description": "Text of the first number page in the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemSecondNumberTitle": "2 OF 2",
+  "@onboardingItemSecondNumberTitle": {
+    "description": "Text of the second number page in the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemFirstTitle": "This publication is\nad-supported.",
+  "@onboardingItemFirstTitle": {
+    "description": "Text of the first page title of the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemFirstSubtitleTitle": "Enable ad tracking to see personalized\nadvertising that is relevant to your\ninterests.",
+  "@onboardingItemFirstSubtitleTitle": {
+    "description": "Text of the first page subtitle of the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemFirstButtonTitle": "Personalize my Ads",
+  "@onboardingItemFirstButtonTitle": {
+    "description": "Text of the primary button of the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemSecondTitle": "Don’t miss our\ntop stories!",
+  "@onboardingItemSecondTitle": {
+    "description": "Text of the primary button on the first page of the onboarding",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemSecondSubtitleTitle": "Subscribe to our notifications to stay up\nto date on the latest breaking news.",
+  "@onboardingItemFonboardingItemSecondSubtitleTitleirstSubtitleTitle": {
+    "description": "Text of the second page subtitle of the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemSecondButtonTitle": "Subscribe to Notifications Now",
+  "@onboardingItemSecondButtonTitle": {
+    "description": "Text of the primary button on the second page of the onboarding.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "onboardingItemSecondaryButtonTitle": "No thanks",
+  "@onboardingItemSecondaryButtonTitle": {
+    "description": "Text of the secondary button of the onboarding.",
     "type": "text",
     "placeholders": {}
   },

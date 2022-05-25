@@ -225,7 +225,7 @@ class AppButton extends StatelessWidget {
           onPressed: onPressed,
           buttonColor: AppColors.transparent,
           child: child,
-          foregroundColor: AppColors.liver,
+          foregroundColor: AppColors.darkAqua,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
           minimumSize: _smallMinimumSize,
