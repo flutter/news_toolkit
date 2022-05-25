@@ -7,8 +7,8 @@ void main() {
   group('SearchEvent', () {
     group('LoadPopular', () {
       test('supports value comparisons', () {
-        final event1 = LoadPopular();
-        final event2 = LoadPopular();
+        final event1 = PopularSearchRequested();
+        final event2 = PopularSearchRequested();
 
         expect(event1, equals(event2));
       });
@@ -16,8 +16,8 @@ void main() {
 
     group('KeywordChanged', () {
       test('supports value comparisons', () {
-        final event1 = KeywordChanged(keyword: 'keyword');
-        final event2 = KeywordChanged(keyword: 'keyword');
+        final event1 = SearchTermChanged(searchTerm: 'keyword');
+        final event2 = SearchTermChanged(searchTerm: 'keyword');
 
         expect(event1, equals(event2));
       });

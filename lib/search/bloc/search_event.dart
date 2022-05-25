@@ -4,16 +4,16 @@ abstract class SearchEvent extends Equatable {
   const SearchEvent();
 }
 
-class LoadPopular extends SearchEvent {
+class PopularSearchRequested extends SearchEvent {
   @override
   List<Object?> get props => [];
 }
 
-class KeywordChanged extends SearchEvent {
-  const KeywordChanged({required this.keyword});
+class SearchTermChanged extends SearchEvent {
+  const SearchTermChanged({required this.searchTerm});
 
-  final String keyword;
+  final String searchTerm;
 
   @override
-  List<Object?> get props => [keyword];
+  List<Object?> get props => [searchTerm];
 }

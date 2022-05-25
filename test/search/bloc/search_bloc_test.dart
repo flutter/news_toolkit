@@ -35,7 +35,7 @@ void main() {
         (invocation) => Future.value(popularResponseSuccess),
       ),
       build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(LoadPopular()),
+      act: (bloc) => bloc.add(PopularSearchRequested()),
       expect: () => <SearchState>[
         const SearchState.initial().copyWith(status: SearchStatus.loading),
         const SearchState.initial().copyWith(
@@ -52,7 +52,7 @@ void main() {
       setUp: () => when(() => newsRepository.popularSearch())
           .thenThrow(PopularSearchFailure),
       build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(LoadPopular()),
+      act: (bloc) => bloc.add(PopularSearchRequested()),
       expect: () => <SearchState>[
         const SearchState.initial().copyWith(status: SearchStatus.loading),
         const SearchState.initial().copyWith(
@@ -75,7 +75,7 @@ void main() {
       ),
       build: () => SearchBloc(newsRepository: newsRepository),
       act: (bloc) {
-        bloc.add(KeywordChanged(keyword: 'term'));
+        bloc.add(SearchTermChanged(searchTerm: 'term'));
       },
       wait: const Duration(milliseconds: 300),
       expect: () => <SearchState>[
@@ -83,13 +83,13 @@ void main() {
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
-          displayMode: SearchDisplayMode.popular,
+          searchType: SearchType.popular,
         ),
         SearchState(
           status: SearchStatus.populated,
           articles: popularResponseSuccess.articles,
           topics: popularResponseSuccess.topics,
-          displayMode: SearchDisplayMode.popular,
+          searchType: SearchType.popular,
         ),
       ],
     );
@@ -100,19 +100,19 @@ void main() {
       setUp: () => when(() => newsRepository.relevantSearch(term: 'term'))
           .thenThrow(RelevantSearchFailure),
       build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(KeywordChanged(keyword: 'term')),
+      act: (bloc) => bloc.add(SearchTermChanged(searchTerm: 'term')),
       expect: () => <SearchState>[
         SearchState(
           status: SearchStatus.loading,
           articles: const [],
           topics: const [],
-          displayMode: SearchDisplayMode.popular,
+          searchType: SearchType.popular,
         ),
         SearchState(
           status: SearchStatus.failure,
           articles: const [],
           topics: const [],
-          displayMode: SearchDisplayMode.popular,
+          searchType: SearchType.popular,
         ),
       ],
     );
