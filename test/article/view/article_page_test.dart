@@ -6,6 +6,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -90,6 +91,16 @@ void main() {
         );
         await tester.tap(find.byType(ArticleSubscribeButton));
       });
+    });
+
+    testWidgets('renders InterstitialAd', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(),
+        ),
+      );
+      expect(find.byType(InterstitialAd), findsOneWidget);
     });
 
     testWidgets('renders ArticleContent', (tester) async {

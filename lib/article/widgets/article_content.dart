@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
@@ -26,27 +27,34 @@ class ArticleContent extends StatelessWidget {
           _handleFailure(context);
         }
       },
-      child: ListView.builder(
-        itemCount: content.length + 1,
-        itemBuilder: (context, index) {
-          if (index == content.length) {
-            return hasMoreContent
-                ? Padding(
-                    padding: EdgeInsets.only(
-                      top: content.isEmpty ? AppSpacing.xxxlg : 0,
-                    ),
-                    child: ArticleContentLoaderItem(
-                      key: ValueKey(index),
-                      onPresented: () =>
-                          context.read<ArticleBloc>().add(ArticleRequested()),
-                    ),
-                  )
-                : const SizedBox();
-          }
+      child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          ListView.builder(
+            itemCount: content.length + 1,
+            itemBuilder: (context, index) {
+              if (index == content.length) {
+                return hasMoreContent
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                          top: content.isEmpty ? AppSpacing.xxxlg : 0,
+                        ),
+                        child: ArticleContentLoaderItem(
+                          key: ValueKey(index),
+                          onPresented: () => context
+                              .read<ArticleBloc>()
+                              .add(ArticleRequested()),
+                        ),
+                      )
+                    : const SizedBox();
+              }
 
-          final block = content[index];
-          return ArticleContentItem(block: block);
-        },
+              final block = content[index];
+              return ArticleContentItem(block: block);
+            },
+          ),
+          const StickyAd()
+        ],
       ),
     );
   }
