@@ -8,7 +8,7 @@ class SearchFilterChip extends StatelessWidget {
     required this.onSelected,
   });
 
-  final Function(String) onSelected;
+  final ValueSetter<String> onSelected;
 
   final String chipText;
 

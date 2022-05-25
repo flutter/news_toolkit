@@ -30,11 +30,11 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  late TextEditingController _controller;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
-    _controller = TextEditingController();
+    super.initState();
     _controller.addListener(() {
       _controller.text.isEmpty
           ? context.read<SearchBloc>().add(LoadPopular())
@@ -42,7 +42,6 @@ class _SearchViewState extends State<SearchView> {
               .read<SearchBloc>()
               .add(KeywordChanged(keyword: _controller.text));
     });
-    super.initState();
   }
 
   @override

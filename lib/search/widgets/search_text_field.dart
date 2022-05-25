@@ -9,7 +9,7 @@ class SearchTextField extends StatelessWidget {
     required this.controller,
   });
 
-  final Function(String)? onChanged;
+  final ValueSetter<String>? onChanged;
 
   final TextEditingController controller;
 
