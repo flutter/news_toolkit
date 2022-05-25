@@ -76,7 +76,7 @@ class _SearchViewState extends State<SearchView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SearchTextField(
-                  key: const Key('search_page_search_text_field'),
+                  key: const Key('searchPage_searchTextField'),
                   controller: _controller,
                 ),
                 const Divider(),
