@@ -259,9 +259,33 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Push Notifications 📢
+
+This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
+
+Out of the box, the application subscribes to supported topics corresponding to supported news categories such as `health`, `science`, `sports`, etc.
+
+### Triggering a Notification 📬
+
+A notification can be triggered via the [Firebase Cloud Messaging REST API][firebase_cloud_messaging_rest_api_link]:
+
+```
+curl -X POST -H "Authorization: Bearer ya29.ElqKBGN2Ri_Uz...HnS_uNreA" -H "Content-Type: application/json" -d '{
+  "message": {
+    "topic" : "sports",
+    "notification": {
+      "body": "This is a Firebase Cloud Messaging Sports Topic Message!",
+      "title": "Sports Notification"
+    }
+  }
+}' https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send HTTP/1.1
+```
+
 [build_status_badge]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml/badge.svg
-[workflow_link]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml
 [coverage_badge]: coverage_badge.svg
+[firebase_cloud_messaging_link]: https://firebase.google.com/docs/cloud-messaging
+[firebase_cloud_messaging_rest_api_link]: https://firebase.google.com/docs/cloud-messaging/send-message#rest_3
+[workflow_link]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
