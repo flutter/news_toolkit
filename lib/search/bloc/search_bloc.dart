@@ -20,16 +20,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
-    on<PopularSearchRequested>(_onLoadPopular);
+    on<PopularSearchRequested>(_onPopularSearchRequested);
     on<SearchTermChanged>(
-      _onKeywordChanged,
+      _onSearchTermChanged,
       transformer: debounce(_duration),
     );
   }
 
   final NewsRepository _newsRepository;
 
-  FutureOr<void> _onLoadPopular(
+  FutureOr<void> _onPopularSearchRequested(
     PopularSearchRequested event,
     Emitter<SearchState> emit,
   ) async {
@@ -54,7 +54,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  FutureOr<void> _onKeywordChanged(
+  FutureOr<void> _onSearchTermChanged(
     SearchTermChanged event,
     Emitter<SearchState> emit,
   ) async {

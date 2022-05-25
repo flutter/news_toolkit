@@ -33,7 +33,7 @@ void main() {
         'with articles and topics '
         'when popularSearch succeeds.',
         setUp: () => when(() => newsRepository.popularSearch()).thenAnswer(
-          (invocation) => Future.value(popularResponseSuccess),
+          (_) async => popularResponseSuccess,
         ),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(PopularSearchRequested()),
@@ -78,7 +78,7 @@ void main() {
             term: any(named: 'term'),
           ),
         ).thenAnswer(
-          (invocation) => Future.value(relevantResponseSuccess),
+          (_) async => relevantResponseSuccess,
         ),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) {

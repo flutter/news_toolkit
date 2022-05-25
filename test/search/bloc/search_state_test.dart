@@ -78,8 +78,8 @@ void main() {
       });
 
       test(
-          'returns object with updated displayMode '
-          'when displayMode is passed', () {
+          'returns object with updated searchType '
+          'when searchType is passed', () {
         expect(
           SearchState.initial().copyWith(
             searchType: SearchType.relevant,
