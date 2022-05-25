@@ -27,94 +27,98 @@ void main() {
       newsRepository = MockNewsRepository();
     });
 
-    blocTest<SearchBloc, SearchState>(
-      'emits [loading, populated] '
-      'with articles and topics '
-      'when popularSearch succeeds.',
-      setUp: () => when(() => newsRepository.popularSearch()).thenAnswer(
-        (invocation) => Future.value(popularResponseSuccess),
-      ),
-      build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(PopularSearchRequested()),
-      expect: () => <SearchState>[
-        const SearchState.initial().copyWith(status: SearchStatus.loading),
-        const SearchState.initial().copyWith(
-          status: SearchStatus.populated,
-          articles: popularResponseSuccess.articles,
-          topics: popularResponseSuccess.topics,
+    group('on PopularSearchRequested', () {
+      blocTest<SearchBloc, SearchState>(
+        'emits [loading, populated] '
+        'with articles and topics '
+        'when popularSearch succeeds.',
+        setUp: () => when(() => newsRepository.popularSearch()).thenAnswer(
+          (invocation) => Future.value(popularResponseSuccess),
         ),
-      ],
-    );
+        build: () => SearchBloc(newsRepository: newsRepository),
+        act: (bloc) => bloc.add(PopularSearchRequested()),
+        expect: () => <SearchState>[
+          const SearchState.initial().copyWith(status: SearchStatus.loading),
+          const SearchState.initial().copyWith(
+            status: SearchStatus.populated,
+            articles: popularResponseSuccess.articles,
+            topics: popularResponseSuccess.topics,
+          ),
+        ],
+      );
 
-    blocTest<SearchBloc, SearchState>(
-      'emits [loading, failure] '
-      'when popularSearch throws.',
-      setUp: () => when(() => newsRepository.popularSearch())
-          .thenThrow(PopularSearchFailure),
-      build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(PopularSearchRequested()),
-      expect: () => <SearchState>[
-        const SearchState.initial().copyWith(status: SearchStatus.loading),
-        const SearchState.initial().copyWith(
-          status: SearchStatus.failure,
-        ),
-      ],
-    );
+      blocTest<SearchBloc, SearchState>(
+        'emits [loading, failure] '
+        'when popularSearch throws.',
+        setUp: () => when(() => newsRepository.popularSearch())
+            .thenThrow(PopularSearchFailure),
+        build: () => SearchBloc(newsRepository: newsRepository),
+        act: (bloc) => bloc.add(PopularSearchRequested()),
+        expect: () => <SearchState>[
+          const SearchState.initial().copyWith(status: SearchStatus.loading),
+          const SearchState.initial().copyWith(
+            status: SearchStatus.failure,
+          ),
+        ],
+      );
+    });
 
-    blocTest<SearchBloc, SearchState>(
-      'emits [loading, populated] '
-      'with articles and topics '
-      'and awaited debounce time '
-      'when relevantSearch succeeds',
-      setUp: () => when(
-        () => newsRepository.relevantSearch(
-          term: any(named: 'term'),
+    group('on SearchTermChanged', () {
+      blocTest<SearchBloc, SearchState>(
+        'emits [loading, populated] '
+        'with articles and topics '
+        'and awaited debounce time '
+        'when relevantSearch succeeds',
+        setUp: () => when(
+          () => newsRepository.relevantSearch(
+            term: any(named: 'term'),
+          ),
+        ).thenAnswer(
+          (invocation) => Future.value(relevantResponseSuccess),
         ),
-      ).thenAnswer(
-        (invocation) => Future.value(relevantResponseSuccess),
-      ),
-      build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) {
-        bloc.add(SearchTermChanged(searchTerm: 'term'));
-      },
-      wait: const Duration(milliseconds: 300),
-      expect: () => <SearchState>[
-        SearchState(
-          status: SearchStatus.loading,
-          articles: const [],
-          topics: const [],
-          searchType: SearchType.popular,
-        ),
-        SearchState(
-          status: SearchStatus.populated,
-          articles: popularResponseSuccess.articles,
-          topics: popularResponseSuccess.topics,
-          searchType: SearchType.popular,
-        ),
-      ],
-    );
+        build: () => SearchBloc(newsRepository: newsRepository),
+        act: (bloc) {
+          bloc.add(SearchTermChanged(searchTerm: 'term'));
+        },
+        wait: const Duration(milliseconds: 300),
+        expect: () => <SearchState>[
+          SearchState(
+            status: SearchStatus.loading,
+            articles: const [],
+            topics: const [],
+            searchType: SearchType.popular,
+          ),
+          SearchState(
+            status: SearchStatus.populated,
+            articles: popularResponseSuccess.articles,
+            topics: popularResponseSuccess.topics,
+            searchType: SearchType.popular,
+          ),
+        ],
+      );
 
-    blocTest<SearchBloc, SearchState>(
-      'emits [loading, failure] '
-      'when relevantSearch throws.',
-      setUp: () => when(() => newsRepository.relevantSearch(term: 'term'))
-          .thenThrow(RelevantSearchFailure),
-      build: () => SearchBloc(newsRepository: newsRepository),
-      act: (bloc) => bloc.add(SearchTermChanged(searchTerm: 'term')),
-      expect: () => <SearchState>[
-        SearchState(
-          status: SearchStatus.loading,
-          articles: const [],
-          topics: const [],
-          searchType: SearchType.popular,
-        ),
-        SearchState(
-          status: SearchStatus.failure,
-          articles: const [],
-          topics: const [],
-          searchType: SearchType.popular,
-        ),
-      ],
-    );
+      blocTest<SearchBloc, SearchState>(
+        'emits [loading, failure] '
+        'when relevantSearch throws.',
+        setUp: () => when(() => newsRepository.relevantSearch(term: 'term'))
+            .thenThrow(RelevantSearchFailure),
+        build: () => SearchBloc(newsRepository: newsRepository),
+        act: (bloc) => bloc.add(SearchTermChanged(searchTerm: 'term')),
+        expect: () => <SearchState>[
+          SearchState(
+            status: SearchStatus.loading,
+            articles: const [],
+            topics: const [],
+            searchType: SearchType.popular,
+          ),
+          SearchState(
+            status: SearchStatus.failure,
+            articles: const [],
+            topics: const [],
+            searchType: SearchType.popular,
+          ),
+        ],
+      );
+    });
   });
 }
