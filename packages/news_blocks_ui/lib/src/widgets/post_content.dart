@@ -18,7 +18,7 @@ class PostContent extends StatelessWidget {
     this.isPremium = false,
     this.isContentOverlaid = false,
     this.isSubscriberExclusive = false,
-    required this.premiumText,
+    this.premiumText = '',
   });
 
   /// Title of post.
@@ -55,6 +55,8 @@ class PostContent extends StatelessWidget {
   final bool isContentOverlaid;
 
   /// Text displayed when post is premium content.
+  ///
+  /// Defaults to empty string.
   final String premiumText;
 
   @override
