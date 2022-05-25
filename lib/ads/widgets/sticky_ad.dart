@@ -21,8 +21,8 @@ class StickyAd extends StatefulWidget {
 }
 
 class _StickyAdState extends State<StickyAd> {
-  var adLoaded = false;
-  var adClosed = false;
+  var _adLoaded = false;
+  var _adClosed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +31,23 @@ class _StickyAdState extends State<StickyAd> {
         (deviceWidth - StickyAd.padding.left - StickyAd.padding.right)
             .truncate();
 
-    return !adClosed
+    return !_adClosed
         ? Stack(
             children: [
-              if (adLoaded) const StickyAdCloseIconBackground(),
+              if (_adLoaded) const StickyAdCloseIconBackground(),
               StickyAdContainer(
                 key: const Key('stickyAd_container'),
-                shadowEnabled: adLoaded,
+                shadowEnabled: _adLoaded,
                 child: BannerAdContent(
                   size: BannerAdSize.anchoredAdaptive,
                   anchoredAdaptiveWidth: adWidth,
-                  onAdLoaded: () => setState(() => adLoaded = true),
+                  onAdLoaded: () => setState(() => _adLoaded = true),
                   showProgressIndicator: false,
                 ),
               ),
-              if (adLoaded)
+              if (_adLoaded)
                 StickyAdCloseIcon(
-                  onAdClosed: () => setState(() => adClosed = true),
+                  onAdClosed: () => setState(() => _adClosed = true),
                 ),
             ],
           )
