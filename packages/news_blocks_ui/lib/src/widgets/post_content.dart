@@ -56,7 +56,7 @@ class PostContent extends StatelessWidget {
 
   /// Text displayed when post is premium content.
   ///
-  /// Defaults to empty string
+  /// Defaults to empty string.
   final String premiumText;
 
   @override
