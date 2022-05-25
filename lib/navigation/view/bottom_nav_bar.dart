@@ -10,7 +10,7 @@ class BottomNavBar extends StatelessWidget {
   });
 
   final int currentIndex;
-  final Function(int value) onTap;
+  final ValueSetter<int> onTap;
 
   @override
   Widget build(BuildContext context) {
