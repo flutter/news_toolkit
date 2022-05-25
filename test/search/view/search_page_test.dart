@@ -50,7 +50,7 @@ void main() {
 
       await tester.pump();
 
-      expect(find.byKey(Key('search_filter_chip_topic')), findsOneWidget);
+      expect(find.byKey(Key('searchFilterChip_topic')), findsOneWidget);
     });
 
     testWidgets(
@@ -111,7 +111,7 @@ void main() {
       );
 
       await tester.enterText(
-        find.byKey(Key('search_page_search_text_field')),
+        find.byKey(Key('searchPage_searchTextField')),
         'test',
       );
 
@@ -139,7 +139,7 @@ void main() {
       );
 
       await tester.enterText(
-        find.byKey(Key('search_page_search_text_field')),
+        find.byKey(Key('searchPage_searchTextField')),
         '',
       );
 
