@@ -21,8 +21,8 @@ class StickyAd extends StatefulWidget {
 }
 
 class _StickyAdState extends State<StickyAd> {
-  bool adLoaded = false;
-  bool adClosed = false;
+  var adLoaded = false;
+  var adClosed = false;
 
   @override
   Widget build(BuildContext context) {
