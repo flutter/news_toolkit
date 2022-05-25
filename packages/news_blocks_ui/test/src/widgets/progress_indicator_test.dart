@@ -9,7 +9,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ProgressIndicator', () {
-    testWidgets('renders ColoredBox with gainsboro color', (tester) async {
+    testWidgets(
+        'renders ColoredBox '
+        'with gainsboro color as default', (tester) async {
       await tester.pumpApp(
         ProgressIndicator(progress: 0.5),
       );
@@ -18,6 +20,23 @@ void main() {
         find.byWidgetPredicate(
           (widget) =>
               widget is ColoredBox && widget.color == AppColors.gainsboro,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders ColoredBox '
+        'with provided color', (tester) async {
+      const color = Colors.orange;
+
+      await tester.pumpApp(
+        ProgressIndicator(progress: 0.5, color: color),
+      );
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is ColoredBox && widget.color == color,
         ),
         findsOneWidget,
       );
