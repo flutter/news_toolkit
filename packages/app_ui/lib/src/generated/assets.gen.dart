@@ -22,6 +22,10 @@ class $AssetsIconsGen {
   SvgGenImage get closeCircle =>
       const SvgGenImage('assets/icons/close_circle.svg');
 
+  /// File path: assets/icons/close_circle_filled.svg
+  SvgGenImage get closeCircleFilled =>
+      const SvgGenImage('assets/icons/close_circle_filled.svg');
+
   /// File path: assets/icons/email_outline.svg
   SvgGenImage get emailOutline =>
       const SvgGenImage('assets/icons/email_outline.svg');
