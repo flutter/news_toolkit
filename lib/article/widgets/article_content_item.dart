@@ -35,6 +35,8 @@ class ArticleContentItem extends StatelessWidget {
         shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
       );
+    } else if (newsBlock is BannerAdBlock) {
+      return BannerAd(block: newsBlock);
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
