@@ -55,9 +55,13 @@ void main() {
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(PopularSearchRequested()),
         expect: () => <SearchState>[
-          const SearchState.initial().copyWith(status: SearchStatus.loading),
+          const SearchState.initial().copyWith(
+            status: SearchStatus.loading,
+            searchType: SearchType.relevant,
+          ),
           const SearchState.initial().copyWith(
             status: SearchStatus.failure,
+            searchType: SearchType.relevant,
           ),
         ],
       );
@@ -109,13 +113,13 @@ void main() {
             status: SearchStatus.loading,
             articles: const [],
             topics: const [],
-            searchType: SearchType.popular,
+            searchType: SearchType.relevant,
           ),
           SearchState(
             status: SearchStatus.failure,
             articles: const [],
             topics: const [],
-            searchType: SearchType.popular,
+            searchType: SearchType.relevant,
           ),
         ],
       );
