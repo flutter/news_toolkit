@@ -10,23 +10,19 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(this._userRepository) : super(const LoginState()) {
+  LoginBloc({
+    required UserRepository userRepository,
+  })  : _userRepository = userRepository,
+        super(const LoginState()) {
     on<LoginEmailChanged>(_onEmailChanged);
     on<SendEmailLinkSubmitted>(_onSendEmailLinkSubmitted);
-    on<LoginWithEmailLinkSubmitted>(_onLoginWithEmailLinkSubmitted);
     on<LoginGoogleSubmitted>(_onGoogleSubmitted);
     on<LoginAppleSubmitted>(_onAppleSubmitted);
     on<LoginTwitterSubmitted>(_onTwitterSubmitted);
     on<LoginFacebookSubmitted>(_onFacebookSubmitted);
-
-    _incomingEmailLinksSub = _userRepository.incomingEmailLinks
-        .handleError(addError)
-        .listen((emailLink) => add(LoginWithEmailLinkSubmitted(emailLink)));
   }
 
   final UserRepository _userRepository;
-
-  late StreamSubscription<Uri> _incomingEmailLinksSub;
 
   void _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
     final email = Email.dirty(event.email);
@@ -48,54 +44,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await _userRepository.sendLoginEmailLink(
         email: state.email.value,
       );
-      emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (error, stackTrace) {
-      emit(state.copyWith(status: FormzSubmissionStatus.failure));
-      addError(error, stackTrace);
-    }
-  }
-
-  Future<void> _onLoginWithEmailLinkSubmitted(
-    LoginWithEmailLinkSubmitted event,
-    Emitter<LoginState> emit,
-  ) async {
-    try {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-
-      final currentUser = await _userRepository.user.first;
-      if (!currentUser.isAnonymous) {
-        throw LogInWithEmailLinkFailure(
-          Exception(
-            'The user is already logged in',
-          ),
-        );
-      }
-
-      final emailLink = event.emailLink;
-      if (!emailLink.queryParameters.containsKey('continueUrl')) {
-        throw LogInWithEmailLinkFailure(
-          Exception(
-            'No `continueUrl` parameter found in the received email link',
-          ),
-        );
-      }
-
-      final redirectUrl =
-          Uri.tryParse(emailLink.queryParameters['continueUrl']!);
-
-      if (!(redirectUrl?.queryParameters.containsKey('email') ?? false)) {
-        throw LogInWithEmailLinkFailure(
-          Exception(
-            'No `email` parameter found in the received email link',
-          ),
-        );
-      }
-
-      await _userRepository.logInWithEmailLink(
-        email: redirectUrl!.queryParameters['email']!,
-        emailLink: emailLink.toString(),
-      );
-
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error, stackTrace) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
@@ -163,11 +111,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error, stackTrace);
     }
-  }
-
-  @override
-  Future<void> close() {
-    _incomingEmailLinksSub.cancel();
-    return super.close();
   }
 }

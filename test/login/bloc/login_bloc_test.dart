@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,7 +20,6 @@ void main() {
 
   group('LoginBloc', () {
     late UserRepository userRepository;
-    late StreamController<Uri> incomingEmailLinksController;
 
     setUp(() {
       userRepository = MockUserRepository();
@@ -42,20 +40,16 @@ void main() {
           email: any(named: 'email'),
         ),
       ).thenAnswer((_) => Future<void>.value());
-
-      incomingEmailLinksController = StreamController<Uri>();
-      when(() => userRepository.incomingEmailLinks)
-          .thenAnswer((_) => incomingEmailLinksController.stream);
     });
 
     test('initial state is LoginState', () {
-      expect(LoginBloc(userRepository).state, LoginState());
+      expect(LoginBloc(userRepository: userRepository).state, LoginState());
     });
 
     group('EmailChanged', () {
       blocTest<LoginBloc, LoginState>(
         'emits [invalid] when email is invalid',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(invalidEmailString)),
         expect: () => const <LoginState>[
           LoginState(email: invalidEmail),
@@ -64,7 +58,7 @@ void main() {
 
       blocTest<LoginBloc, LoginState>(
         'emits [valid] when email is valid',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginEmailChanged(validEmailString)),
         expect: () => const <LoginState>[
           LoginState(email: validEmail, valid: true),
@@ -75,14 +69,14 @@ void main() {
     group('SendEmailLinkSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'does nothing when status is not validated',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         expect: () => const <LoginState>[],
       );
 
       blocTest<LoginBloc, LoginState>(
         'calls sendLoginEmailLink with correct email',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         verify: (_) {
@@ -97,7 +91,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when sendLoginEmailLink succeeds',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         expect: () => const <LoginState>[
@@ -124,7 +118,7 @@ void main() {
             ),
           ).thenThrow(Exception('oops'));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         seed: () => LoginState(email: validEmail, valid: true),
         act: (bloc) => bloc.add(SendEmailLinkSubmitted()),
         expect: () => const <LoginState>[
@@ -142,148 +136,10 @@ void main() {
       );
     });
 
-    group('on incomingEmailLinks stream update', () {
-      const email = 'email@example.com';
-
-      final user = MockUser();
-      final continueUrl =
-          Uri.https('continue.link', '', <String, String>{'email': email});
-
-      final validEmailLink = Uri.https(
-        'email.link',
-        '/email_login',
-        <String, String>{'continueUrl': continueUrl.toString()},
-      );
-
-      final emailLinkWithoutContinueUrl = Uri.https(
-        'email.link',
-        '/email_login',
-      );
-
-      final emailLinkWithInvalidContinueUrl = Uri.https(
-        'email.link',
-        '/email_login',
-        <String, String>{'continueUrl': Uri.https('', '').toString()},
-      );
-
-      setUp(() {
-        when(() => userRepository.user)
-            .thenAnswer((invocation) => Stream.value(user));
-
-        when(
-          () => userRepository.logInWithEmailLink(
-            email: any(named: 'email'),
-            emailLink: any(named: 'emailLink'),
-          ),
-        ).thenAnswer((_) async {});
-      });
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionFailure] '
-        'when the user is already logged in',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(false);
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) => incomingEmailLinksController.add(validEmailLink),
-        expect: () => const <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.failure)
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionFailure] '
-        'when the user is anonymous and '
-        'continueUrl is missing in the email link',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(true);
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) =>
-            incomingEmailLinksController.add(emailLinkWithoutContinueUrl),
-        expect: () => const <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.failure)
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionFailure] '
-        'when the user is anonymous and '
-        'invalid continueUrl is provided in the email link',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(true);
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) =>
-            incomingEmailLinksController.add(emailLinkWithInvalidContinueUrl),
-        expect: () => const <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.failure)
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionSuccess] '
-        'when the user is anonymous and '
-        'valid continueUrl is provided in the email link and '
-        'logInWithEmailLink fails',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(true);
-          when(
-            () => userRepository.logInWithEmailLink(
-              email: any(named: 'email'),
-              emailLink: any(named: 'emailLink'),
-            ),
-          ).thenThrow(Exception());
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) => incomingEmailLinksController.add(validEmailLink),
-        expect: () => const <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.failure)
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [submissionInProgress, submissionSuccess] '
-        'when the user is anonymous and '
-        'valid continueUrl is provided in the email link and '
-        'logInWithEmailLink succeeds',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(true);
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) => incomingEmailLinksController.add(validEmailLink),
-        expect: () => const <LoginState>[
-          LoginState(status: FormzSubmissionStatus.inProgress),
-          LoginState(status: FormzSubmissionStatus.success)
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'calls logInWithEmailLink',
-        setUp: () {
-          when(() => user.isAnonymous).thenReturn(true);
-        },
-        build: () => LoginBloc(userRepository),
-        act: (bloc) => incomingEmailLinksController.add(validEmailLink),
-        verify: (_) {
-          verify(
-            () => userRepository.logInWithEmailLink(
-              email: email,
-              emailLink: validEmailLink.toString(),
-            ),
-          ).called(1);
-        },
-      );
-    });
-
     group('LoginGoogleSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'calls logInWithGoogle',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         verify: (_) {
           verify(() => userRepository.logInWithGoogle()).called(1);
@@ -293,7 +149,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when logInWithGoogle succeeds',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -309,7 +165,7 @@ void main() {
             () => userRepository.logInWithGoogle(),
           ).thenThrow(Exception('oops'));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -325,7 +181,7 @@ void main() {
             () => userRepository.logInWithGoogle(),
           ).thenThrow(LogInWithGoogleCanceled(Exception()));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginGoogleSubmitted()),
         expect: () => <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -337,7 +193,7 @@ void main() {
     group('LoginTwitterSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'calls logInWithTwitter',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         verify: (_) {
           verify(() => userRepository.logInWithTwitter()).called(1);
@@ -347,7 +203,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when logInWithTwitter succeeds',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -363,7 +219,7 @@ void main() {
             () => userRepository.logInWithTwitter(),
           ).thenThrow(Exception('oops'));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -381,7 +237,7 @@ void main() {
             LogInWithTwitterCanceled(Exception()),
           );
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginTwitterSubmitted()),
         expect: () => <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -393,7 +249,7 @@ void main() {
     group('LoginFacebookSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'calls logInWithFacebook',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         verify: (_) {
           verify(() => userRepository.logInWithFacebook()).called(1);
@@ -403,7 +259,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when logInWithFacebook succeeds',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -419,7 +275,7 @@ void main() {
             () => userRepository.logInWithFacebook(),
           ).thenThrow(Exception('oops'));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -437,7 +293,7 @@ void main() {
             LogInWithFacebookCanceled(Exception()),
           );
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginFacebookSubmitted()),
         expect: () => <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -449,7 +305,7 @@ void main() {
     group('LogInWithAppleSubmitted', () {
       blocTest<LoginBloc, LoginState>(
         'calls logInWithApple',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginAppleSubmitted()),
         verify: (_) {
           verify(() => userRepository.logInWithApple()).called(1);
@@ -459,7 +315,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [submissionInProgress, submissionSuccess] '
         'when logInWithApple succeeds',
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginAppleSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
@@ -475,22 +331,12 @@ void main() {
             () => userRepository.logInWithApple(),
           ).thenThrow(Exception('oops'));
         },
-        build: () => LoginBloc(userRepository),
+        build: () => LoginBloc(userRepository: userRepository),
         act: (bloc) => bloc.add(LoginAppleSubmitted()),
         expect: () => const <LoginState>[
           LoginState(status: FormzSubmissionStatus.inProgress),
           LoginState(status: FormzSubmissionStatus.failure)
         ],
-      );
-    });
-
-    group('close', () {
-      blocTest<LoginBloc, LoginState>(
-        'cancels UserRepository.incomingEmailLinks subscription',
-        build: () => LoginBloc(userRepository),
-        tearDown: () {
-          expect(incomingEmailLinksController.hasListener, isFalse);
-        },
       );
     });
   });
