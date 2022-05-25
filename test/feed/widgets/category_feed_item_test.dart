@@ -188,10 +188,16 @@ void main() {
         'renders Newsletter '
         'for NewsletterBlock', (tester) async {
       final block = NewsletterBlock();
-
       await tester.pumpApp(CategoryFeedItem(block: block));
-
       expect(find.byType(Newsletter), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders BannerAd '
+        'for BannerAdBlock', (tester) async {
+      final block = BannerAdBlock(size: BannerAdSize.normal);
+      await tester.pumpApp(CategoryFeedItem(block: block));
+      expect(find.byType(BannerAd), findsOneWidget);
     });
 
     testWidgets(
