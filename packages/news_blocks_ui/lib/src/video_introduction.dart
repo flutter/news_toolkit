@@ -34,7 +34,6 @@ class VideoIntroduction extends StatelessWidget {
           child: PostContent(
             categoryName: block.category.name,
             title: block.title,
-            premiumText: '',
           ),
         ),
       ],
