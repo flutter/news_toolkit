@@ -18,7 +18,7 @@ class MockSearchBloc extends MockBloc<SearchEvent, SearchState>
 void main() {
   late SearchBloc searchBloc;
 
-  setUpAll(() async {
+  setUp(() async {
     searchBloc = MockSearchBloc();
 
     when(() => searchBloc.state).thenReturn(
@@ -48,7 +48,9 @@ void main() {
         ),
       );
 
-      expect(find.byType(SearchFilterChip), findsOneWidget);
+      await tester.pump();
+
+      expect(find.byKey(Key('search_filter_chip_topic')), findsOneWidget);
     });
 
     testWidgets('when FilterChip clicked adds KeywordChanged to SearchBloc',
@@ -60,7 +62,7 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byType(SearchFilterChip));
+      await tester.tap(find.byKey(Key('search_filter_chip_topic')));
 
       verify(() => searchBloc.add(KeywordChanged(keyword: 'topic'))).called(1);
     });
@@ -139,7 +141,7 @@ void main() {
         '',
       );
 
-      verify(() => searchBloc.add(LoadPopular())).called(2);
+      verify(() => searchBloc.add(LoadPopular())).called(1);
     });
 
     testWidgets('shows snackbar when SearchBloc SearchStatus is failure',

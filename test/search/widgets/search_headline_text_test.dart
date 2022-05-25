@@ -5,14 +5,14 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('SearchHeadlineText', () {
-    testWidgets('renders headerText', (tester) async {
+    testWidgets('renders headerText uppercased', (tester) async {
       await tester.pumpApp(
         const SearchHeadlineText(
           headerText: 'text',
         ),
       );
 
-      expect(find.text('text'), findsOneWidget);
+      expect(find.text('TEXT'), findsOneWidget);
     });
   });
 }

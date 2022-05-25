@@ -98,6 +98,7 @@ class _SearchViewState extends State<SearchView> {
                     children: state.topics
                         .map<Widget>(
                           (topic) => SearchFilterChip(
+                            key: Key('search_filter_chip_$topic'),
                             chipText: topic,
                             onSelected: (text) => _controller.text = text,
                           ),
