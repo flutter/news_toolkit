@@ -25,7 +25,7 @@ void main() {
       expect(completer.isCompleted, isTrue);
     });
 
-    testWidgets('clears controller on cross pressed', (tester) async {
+    testWidgets('clears controller on IconButton pressed', (tester) async {
       final controller = TextEditingController(text: 'text');
       final completer = Completer<void>();
 

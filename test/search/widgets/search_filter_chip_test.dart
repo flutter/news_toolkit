@@ -7,7 +7,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('SearchFilterChip', () {
-    testWidgets('renders headerText', (tester) async {
+    testWidgets('renders chipText', (tester) async {
       await tester.pumpApp(
         SearchFilterChip(
           chipText: 'text',

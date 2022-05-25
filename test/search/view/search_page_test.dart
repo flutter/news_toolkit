@@ -24,7 +24,7 @@ void main() {
     when(() => searchBloc.state).thenReturn(
       const SearchState(
         articles: [DividerHorizontalBlock()],
-        displayMode: SearchDisplayMode.popular,
+        searchType: SearchType.popular,
         status: SearchStatus.initial,
         topics: ['topic'],
       ),
@@ -53,7 +53,8 @@ void main() {
       expect(find.byKey(Key('search_filter_chip_topic')), findsOneWidget);
     });
 
-    testWidgets('when FilterChip clicked adds KeywordChanged to SearchBloc',
+    testWidgets(
+        'when SearchFilterChip clicked adds SearchTermChanged to SearchBloc',
         (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
@@ -62,9 +63,10 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byKey(Key('search_filter_chip_topic')));
+      await tester.tap(find.byKey(Key('searchFilterChip_topic')));
 
-      verify(() => searchBloc.add(KeywordChanged(keyword: 'topic'))).called(1);
+      verify(() => searchBloc.add(SearchTermChanged(searchTerm: 'topic')))
+          .called(1);
     });
 
     testWidgets('renders articles', (tester) async {
@@ -78,12 +80,11 @@ void main() {
       expect(find.byType(CategoryFeedItem), findsOneWidget);
     });
 
-    testWidgets('in SearchDisplayMode.relevant renders two titles',
-        (tester) async {
+    testWidgets('in SearchType.relevant renders two titles', (tester) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
           articles: [],
-          displayMode: SearchDisplayMode.relevant,
+          searchType: SearchType.relevant,
           status: SearchStatus.initial,
           topics: [],
         ),
@@ -100,8 +101,8 @@ void main() {
     });
 
     testWidgets(
-        'when SearchTextField changes to non empty value '
-        'emits KeywordChanged on SearchBloc', (tester) async {
+        'when SearchTextField changes to non-empty value '
+        'adds SearchTermChanged to SearchBloc', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: searchBloc,
@@ -114,16 +115,17 @@ void main() {
         'test',
       );
 
-      verify(() => searchBloc.add(KeywordChanged(keyword: 'test'))).called(1);
+      verify(() => searchBloc.add(SearchTermChanged(searchTerm: 'test')))
+          .called(1);
     });
 
     testWidgets(
         'when SearchTextField changes to an empty value '
-        'emits LoadPopular on SearchBloc', (tester) async {
+        'adds PopularSearchRequested to SearchBloc', (tester) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
           articles: [],
-          displayMode: SearchDisplayMode.relevant,
+          searchType: SearchType.relevant,
           status: SearchStatus.initial,
           topics: [],
         ),
@@ -141,7 +143,7 @@ void main() {
         '',
       );
 
-      verify(() => searchBloc.add(LoadPopular())).called(1);
+      verify(() => searchBloc.add(PopularSearchRequested())).called(1);
     });
 
     testWidgets('shows snackbar when SearchBloc SearchStatus is failure',

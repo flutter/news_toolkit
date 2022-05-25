@@ -16,7 +16,7 @@ class SearchPage extends StatelessWidget {
     return BlocProvider<SearchBloc>(
       create: (context) => SearchBloc(
         newsRepository: context.read<NewsRepository>(),
-      )..add(LoadPopular()),
+      )..add(PopularSearchRequested()),
       child: const SearchView(),
     );
   }
@@ -35,13 +35,13 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
-      _controller.text.isEmpty
-          ? context.read<SearchBloc>().add(LoadPopular())
-          : context
-              .read<SearchBloc>()
-              .add(KeywordChanged(keyword: _controller.text));
-    });
+    _controller.addListener(
+      () => context.read<SearchBloc>().add(
+            _controller.text.isEmpty
+                ? PopularSearchRequested()
+                : SearchTermChanged(searchTerm: _controller.text),
+          ),
+    );
   }
 
   @override
@@ -81,7 +81,7 @@ class _SearchViewState extends State<SearchView> {
                 ),
                 const Divider(),
                 SearchHeadlineText(
-                  headerText: state.displayMode == SearchDisplayMode.popular
+                  headerText: state.searchType == SearchType.popular
                       ? l10n.searchPopularSearches
                       : l10n.searchRelevantTopics,
                 ),
@@ -97,7 +97,7 @@ class _SearchViewState extends State<SearchView> {
                     children: state.topics
                         .map<Widget>(
                           (topic) => SearchFilterChip(
-                            key: Key('search_filter_chip_$topic'),
+                            key: Key('searchFilterChip_$topic'),
                             chipText: topic,
                             onSelected: (text) => _controller.text = text,
                           ),
@@ -107,7 +107,7 @@ class _SearchViewState extends State<SearchView> {
                 ),
                 const Divider(),
                 SearchHeadlineText(
-                  headerText: state.displayMode == SearchDisplayMode.popular
+                  headerText: state.searchType == SearchType.popular
                       ? l10n.searchPopularArticles
                       : l10n.searchRelevantArticles,
                 ),
