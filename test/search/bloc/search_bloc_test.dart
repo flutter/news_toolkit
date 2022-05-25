@@ -57,11 +57,11 @@ void main() {
         expect: () => <SearchState>[
           const SearchState.initial().copyWith(
             status: SearchStatus.loading,
-            searchType: SearchType.relevant,
+            searchType: SearchType.popular,
           ),
           const SearchState.initial().copyWith(
             status: SearchStatus.failure,
-            searchType: SearchType.relevant,
+            searchType: SearchType.popular,
           ),
         ],
       );
@@ -90,13 +90,13 @@ void main() {
             status: SearchStatus.loading,
             articles: const [],
             topics: const [],
-            searchType: SearchType.popular,
+            searchType: SearchType.relevant,
           ),
           SearchState(
             status: SearchStatus.populated,
             articles: popularResponseSuccess.articles,
             topics: popularResponseSuccess.topics,
-            searchType: SearchType.popular,
+            searchType: SearchType.relevant,
           ),
         ],
       );
@@ -104,10 +104,14 @@ void main() {
       blocTest<SearchBloc, SearchState>(
         'emits [loading, failure] '
         'when relevantSearch throws.',
-        setUp: () => when(() => newsRepository.relevantSearch(term: 'term'))
-            .thenThrow(RelevantSearchFailure),
+        setUp: () => when(
+          () => newsRepository.relevantSearch(
+            term: any(named: 'term'),
+          ),
+        ).thenThrow(RelevantSearchFailure),
         build: () => SearchBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(SearchTermChanged(searchTerm: 'term')),
+        wait: const Duration(milliseconds: 300),
         expect: () => <SearchState>[
           SearchState(
             status: SearchStatus.loading,
