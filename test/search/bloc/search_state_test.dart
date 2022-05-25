@@ -82,7 +82,7 @@ void main() {
           'when displayMode is passed', () {
         expect(
           SearchState.initial().copyWith(
-            displayMode: SearchType.relevant,
+            searchType: SearchType.relevant,
           ),
           equals(
             SearchState(
