@@ -23,7 +23,7 @@ typedef RewardedAdLoader = Future<void> Function({
 
 /// {@template rewarded_ad}
 /// A widget that shows a rewarded ad when loaded.
-/// https://developers.google.com/admob/flutter/interstitial
+/// https://developers.google.com/admob/flutter/rewarded
 /// {@endtemplate}
 class RewardedAd extends StatefulWidget {
   /// {@macro rewarded_ad}
