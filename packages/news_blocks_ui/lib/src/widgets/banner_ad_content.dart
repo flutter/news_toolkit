@@ -161,7 +161,10 @@ class _BannerAdContentState extends State<BannerAdContent>
     setState(() => _adSize = adSize);
 
     if (_adSize == null) {
-      return _reportError(BannerAdFailedToGetSizeException());
+      return _reportError(
+        BannerAdFailedToGetSizeException(),
+        StackTrace.current,
+      );
     }
 
     setState(
@@ -194,7 +197,7 @@ class _BannerAdContentState extends State<BannerAdContent>
 
   void _onAdFailedToLoad(Ad ad, LoadAdError error) {
     ad.dispose();
-    _reportError(BannerAdFailedToLoadException(error));
+    _reportError(BannerAdFailedToLoadException(error), StackTrace.current);
   }
 
   /// Returns an ad size for [BannerAdSize.anchoredAdaptive].
@@ -209,10 +212,11 @@ class _BannerAdContentState extends State<BannerAdContent>
     );
   }
 
-  void _reportError(Exception exception) => FlutterError.reportError(
+  void _reportError(Exception exception, StackTrace stackTrace) =>
+      FlutterError.reportError(
         FlutterErrorDetails(
           exception: exception,
-          stack: StackTrace.current,
+          stack: stackTrace,
         ),
       );
 }
