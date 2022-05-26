@@ -36,7 +36,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       case AppStatus.onboardingRequired:
       case AppStatus.authenticated:
       case AppStatus.unauthenticated:
-        // TODO(ana): change to not anonymous
         return event.user == User.anonymous && event.user.isNewUser
             ? emit(AppState.onboardingRequired(event.user))
             : event.user == User.anonymous
