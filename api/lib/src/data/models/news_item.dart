@@ -10,6 +10,7 @@ class NewsItem {
   const NewsItem({
     required this.content,
     required this.post,
+    required this.url,
     this.relatedArticles = const [],
   });
 
@@ -18,6 +19,9 @@ class NewsItem {
 
   /// The associated [PostBlock] for the feed.
   final PostBlock post;
+
+  /// The associated article url.
+  final Uri url;
 
   /// The related articles.
   final List<NewsBlock> relatedArticles;
