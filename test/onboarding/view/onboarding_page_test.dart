@@ -16,9 +16,9 @@ void main() {
       expect(OnboardingPage.page(), isA<MaterialPage>());
     });
 
-    testWidgets('renders OnboardingPage', (tester) async {
+    testWidgets('renders OnboardingView', (tester) async {
       await tester.pumpApp(OnboardingPage());
-      expect(find.byType(OnboardingPage), findsOneWidget);
+      expect(find.byType(OnboardingView), findsOneWidget);
     });
   });
 }

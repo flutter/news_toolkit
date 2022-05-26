@@ -44,22 +44,6 @@ void main() {
       });
 
       blocTest<AppBloc, AppState>(
-        'emits nothing when '
-        'state is unauthenticated and user is anonymous',
-        setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
-        },
-        build: () => AppBloc(
-          userRepository: userRepository,
-          user: user,
-        ),
-        seed: AppState.unauthenticated,
-        expect: () => <AppState>[],
-      );
-
-      blocTest<AppBloc, AppState>(
         'emits unauthenticated when '
         'state is onboardingRequired and user is anonymous',
         setUp: () {
@@ -86,7 +70,7 @@ void main() {
           userRepository: userRepository,
           user: user,
         ),
-        expect: () => [AppState.authenticated(newUser)],
+        expect: () => [AppState.onboardingRequired(newUser)],
       );
 
       blocTest<AppBloc, AppState>(
@@ -139,6 +123,22 @@ void main() {
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits nothing when '
+        'state is unauthenticated and user is anonymous',
+        setUp: () {
+          when(() => userRepository.user).thenAnswer(
+            (_) => Stream.value(User.anonymous),
+          );
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          user: user,
+        ),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
       );
     });
 

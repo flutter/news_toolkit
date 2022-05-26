@@ -1,41 +1,41 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:google_news_template/l10n/l10n.dart';
 
 class OnboardingViewItem extends StatelessWidget {
   const OnboardingViewItem({
     required this.numberPageTitle,
     required this.title,
     required this.subtitle,
-    required this.primaryButtonTitle,
-    required this.primaryButtonOnPressed,
-    required this.secondaryButtonOnPressed,
+    required this.primaryButton,
+    required this.secondaryButton,
+    super.key,
   });
 
   final String numberPageTitle;
   final String title;
   final String subtitle;
-  final String primaryButtonTitle;
-  final VoidCallback primaryButtonOnPressed;
-  final VoidCallback secondaryButtonOnPressed;
+  final Widget primaryButton;
+  final Widget secondaryButton;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.xxlg,
-        AppSpacing.lg,
-        0,
+      padding: const EdgeInsets.only(
+        top: AppSpacing.xxlg,
+        left: AppSpacing.lg,
+        right: AppSpacing.lg,
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+        padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * .032,
+          horizontal: MediaQuery.of(context).size.height * .016,
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: AppColors.white,
         ),
-        child: Column(
+        child: ScrollableColumn(
           children: [
             Text(
               key: const Key('onboardingItem_pageNumberTitle'),
@@ -45,7 +45,7 @@ class OnboardingViewItem extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg + AppSpacing.sm),
             Text(
               key: const Key('onboardingItem_title'),
               title,
@@ -64,17 +64,9 @@ class OnboardingViewItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            AppButton.darkAqua(
-              key: const Key('onboardingItem_primaryButton'),
-              onPressed: primaryButtonOnPressed,
-              child: Text(primaryButtonTitle),
-            ),
+            primaryButton,
             const SizedBox(height: AppSpacing.sm),
-            AppButton.smallTransparent(
-              key: const Key('onboardingItem_secondaryButton'),
-              onPressed: secondaryButtonOnPressed,
-              child: Text(context.l10n.onboardingItemSecondaryButtonTitle),
-            )
+            secondaryButton
           ],
         ),
       ),
