@@ -11,26 +11,40 @@ class NotificationPreferencesState extends Equatable {
   const NotificationPreferencesState({
     required this.togglesState,
     required this.status,
+    required this.categories,
   });
 
-  NotificationPreferencesState.initial()
+  NotificationPreferencesState.initial({required List<Category>? categories})
       : this(
-          togglesState: {},
+          togglesState: {
+            for (final category in categories ?? <Category>[]) category: false
+          },
           status: NotificationPreferencesStatus.initial,
+          categories: categories ?? [],
         );
 
-  final Map<String, bool> togglesState;
+  final Map<Category, bool> togglesState;
   final NotificationPreferencesStatus status;
+  final List<Category> categories;
 
   @override
-  List<Object?> get props => [togglesState, status];
+  List<Object?> get props => [togglesState, status, categories];
 
   NotificationPreferencesState copyWith({
-    Map<String, bool>? togglesState,
+    Map<Category, bool>? togglesState,
     NotificationPreferencesStatus? status,
-  }) =>
-      NotificationPreferencesState(
-        togglesState: togglesState ?? this.togglesState,
-        status: status ?? this.status,
-      );
+    List<Category>? categories,
+  }) {
+    final updatedToggles = categories == null
+        ? togglesState ?? this.togglesState
+        : {
+            ...{for (final category in categories) category: false},
+            ...togglesState ?? this.togglesState
+          };
+    return NotificationPreferencesState(
+      togglesState: updatedToggles,
+      status: status ?? this.status,
+      categories: categories ?? this.categories,
+    );
+  }
 }
