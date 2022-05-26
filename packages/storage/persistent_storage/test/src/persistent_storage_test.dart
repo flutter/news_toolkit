@@ -40,7 +40,7 @@ void main() {
       });
 
       test(
-          'throws StorageException '
+          'throws a StorageException '
           'when sharedPreferences.getString fails', () async {
         when(() => sharedPreferences.getString(any())).thenThrow(mockException);
 
@@ -70,7 +70,7 @@ void main() {
       });
 
       test(
-          'throws StorageException '
+          'throws a StorageException '
           'when sharedPreferences.setString fails', () async {
         when(() => sharedPreferences.setString(any(), any()))
             .thenThrow(mockException);
@@ -100,7 +100,7 @@ void main() {
       });
 
       test(
-          'throws StorageException '
+          'throws a StorageException '
           'when sharedPreferences.remove fails', () async {
         when(() => sharedPreferences.remove(any())).thenThrow(mockException);
         expect(
@@ -125,7 +125,7 @@ void main() {
       });
 
       test(
-          'throws StorageException '
+          'throws a StorageException '
           'when sharedPreferences.clear fails', () async {
         when(sharedPreferences.clear).thenThrow(mockException);
         expect(
