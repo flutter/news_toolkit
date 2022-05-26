@@ -80,30 +80,28 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       },
       listenWhen: (previous, current) =>
           previous.selectedCategory != current.selectedCategory,
-      child: Scaffold(
-        appBar: AppBar(
-          title: AppLogo.dark(),
-          centerTitle: true,
-          actions: const [UserProfileButton()],
-          bottom: CategoriesTabBar(
+      child: Column(
+        children: [
+          CategoriesTabBar(
             controller: _tabController,
             tabs: widget.categories
                 .map((category) => CategoryTab(categoryName: category.name))
                 .toList(),
           ),
-        ),
-        drawer: const NavigationDrawer(),
-        body: TabBarView(
-          controller: _tabController,
-          children: widget.categories
-              .map(
-                (category) => CategoryFeed(
-                  key: PageStorageKey(category),
-                  category: category,
-                ),
-              )
-              .toList(),
-        ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: widget.categories
+                  .map(
+                    (category) => CategoryFeed(
+                      key: PageStorageKey(category),
+                      category: category,
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
