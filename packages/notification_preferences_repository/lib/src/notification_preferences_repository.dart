@@ -48,7 +48,7 @@ class NotificationPreferencesRepository {
 
   final Storage _storage;
 
-  static const _categoriesPreferencesKey = 'categories_preferences';
+  static const _categoriesPreferencesStorageKey = 'categories_preferences';
 
   /// Fetches the user's notification preferences for news categories.
   ///
@@ -59,7 +59,7 @@ class NotificationPreferencesRepository {
   Future<Set<Category>?> fetchCategoriesPreferences() async {
     try {
       final categories = await _storage.read(
-        key: _categoriesPreferencesKey,
+        key: _categoriesPreferencesStorageKey,
       );
       if (categories == null) {
         return null;
@@ -86,7 +86,7 @@ class NotificationPreferencesRepository {
       final preferencesEncoded =
           json.encode(categories.map((category) => category.name).toList());
       await _storage.write(
-        key: _categoriesPreferencesKey,
+        key: _categoriesPreferencesStorageKey,
         value: preferencesEncoded,
       );
     } on StorageException catch (error, stackTrace) {
