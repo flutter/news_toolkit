@@ -28,5 +28,12 @@ void main() {
         LoginState(email: email),
       );
     });
+
+    test('returns object with updated valid when valid is passed', () {
+      expect(
+        LoginState().copyWith(valid: true),
+        LoginState(valid: true),
+      );
+    });
   });
 }

@@ -29,6 +29,9 @@ void main() {
       when(() => userRepository.user).thenAnswer(
         (_) => const Stream.empty(),
       );
+      when(() => userRepository.incomingEmailLinks).thenAnswer(
+        (_) => const Stream.empty(),
+      );
       user = User.anonymous;
       newsRepository = MockNewsRepository();
     });
