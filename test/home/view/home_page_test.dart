@@ -29,6 +29,11 @@ void main() {
     expect(HomePage.page(), isA<MaterialPage>());
   });
 
+  testWidgets('renders a HomeView', (tester) async {
+    await tester.pumpApp(const HomePage());
+    expect(find.byType(HomeView), findsOneWidget);
+  });
+
   testWidgets('renders FeedView', (tester) async {
     await tester.pumpApp(
       HomePage(),
