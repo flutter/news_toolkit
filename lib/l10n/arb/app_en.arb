@@ -340,5 +340,23 @@
     "description": "Message displayed when error occurred during fetching popular articles.",
     "type": "text",
     "placeholders": {}
+  },
+  "bottomNavBarTopStories": "Top Stories",
+  "@bottomNavBarTopStories": {
+    "description": "Top stories text shown in the bottom nav bar widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavBarSearch": "Search",
+  "@bottomNavBarSearch": {
+    "description": "Search text shown in the bottom nav bar widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavBarSubscribe": "Subscribe",
+  "@bottomNavBarSubscribe": {
+    "description": "Subscribe text shown in the bottom nav bar widget.",
+    "type": "text",
+    "placeholders": {}
   }
 }
