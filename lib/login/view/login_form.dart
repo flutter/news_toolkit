@@ -16,7 +16,7 @@ class LoginForm extends StatelessWidget {
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
         if (state.status == AppStatus.authenticated) {
-          Navigator.pop(context);
+          Navigator.of(context).popUntil((route) => route.isFirst);
         }
       },
       child: BlocListener<LoginBloc, LoginState>(
@@ -198,6 +198,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
       onPressed: () => Navigator.of(context).push<void>(
         LoginWithEmailPage.route(),
       ),
+      textStyle: Theme.of(context).textTheme.subtitle1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

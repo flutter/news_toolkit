@@ -23,16 +23,6 @@ void main() {
       });
     });
 
-    group('LoginWithEmailLinkSubmitted', () {
-      test('supports value comparisons', () {
-        final emailLink = Uri.https('example.com', '');
-        expect(
-          LoginWithEmailLinkSubmitted(emailLink),
-          LoginWithEmailLinkSubmitted(emailLink),
-        );
-      });
-    });
-
     group('LoginGoogleSubmitted', () {
       test('supports value comparisons', () {
         expect(LoginGoogleSubmitted(), LoginGoogleSubmitted());

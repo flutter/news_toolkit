@@ -13,7 +13,9 @@ class LoginWithEmailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginBloc(context.read<UserRepository>()),
+      create: (_) => LoginBloc(
+        userRepository: context.read<UserRepository>(),
+      ),
       child: Scaffold(
         appBar: AppBar(
           leading: const AppBackButton(),
