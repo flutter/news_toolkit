@@ -58,13 +58,13 @@ class NotificationPreferencesRepository {
   /// Throws [FetchCategoriesPreferencesFailure] when fetching fails.
   Future<Set<Category>?> fetchCategoriesPreferences() async {
     try {
-      final preferences = await _storage.read(
+      final categories = await _storage.read(
         key: _categoriesPreferencesKey,
       );
-      if (preferences == null) {
+      if (categories == null) {
         return null;
       }
-      return List<String>.from(json.decode(preferences) as List)
+      return List<String>.from(json.decode(categories) as List)
           .map(Category.fromString)
           .toSet();
     } on StorageException catch (error, stackTrace) {
@@ -77,14 +77,14 @@ class NotificationPreferencesRepository {
 
   /// Updates the user's notification preferences for news categories.
   ///
-  /// [preferences] represents a set of categories the user has agreed to
+  /// [categories] represents a set of categories the user has agreed to
   /// receive notifications from.
   ///
   /// Throws [UpdateCategoriesPreferencesFailure] when updating fails.
-  Future<void> updateCategoriesPreferences(Set<Category> preferences) async {
+  Future<void> updateCategoriesPreferences(Set<Category> categories) async {
     try {
       final preferencesEncoded =
-          json.encode(preferences.map((category) => category.name).toList());
+          json.encode(categories.map((category) => category.name).toList());
       await _storage.write(
         key: _categoriesPreferencesKey,
         value: preferencesEncoded,
