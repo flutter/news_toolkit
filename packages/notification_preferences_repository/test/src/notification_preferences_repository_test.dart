@@ -69,7 +69,7 @@ void main() {
       });
 
       test(
-          'throws FetchCategoriesPreferencesFailure '
+          'throws a FetchCategoriesPreferencesFailure '
           'when read fails', () async {
         when(() => storage.read(key: any(named: 'key')))
             .thenThrow(storageException);
@@ -81,7 +81,7 @@ void main() {
       });
     });
 
-    group('updateCategoriesPreferences', () {
+    group('setCategoriesPreferences', () {
       test(
           'succeeds '
           'when write succeeds with encoded preferences', () async {
@@ -94,7 +94,7 @@ void main() {
 
         expect(
           notificationPreferencesRepository
-              .updateCategoriesPreferences(categoriesPreferences),
+              .setCategoriesPreferences(categoriesPreferences),
           completes,
         );
 
@@ -109,12 +109,12 @@ void main() {
       });
 
       test(
-          'throws UpdateCategoriesPreferencesFailure '
+          'throws a SetCategoriesPreferencesFailure '
           'when write fails', () async {
         expect(
           notificationPreferencesRepository
-              .updateCategoriesPreferences(categoriesPreferences),
-          throwsA(isA<UpdateCategoriesPreferencesFailure>()),
+              .setCategoriesPreferences(categoriesPreferences),
+          throwsA(isA<SetCategoriesPreferencesFailure>()),
         );
       });
     });
@@ -128,9 +128,9 @@ void main() {
         });
       });
 
-      group('UpdateCategoriesPreferencesFailure', () {
+      group('SetCategoriesPreferencesFailure', () {
         test('has correct props', () {
-          expect(UpdateCategoriesPreferencesFailure(error).props, [error]);
+          expect(SetCategoriesPreferencesFailure(error).props, [error]);
         });
       });
     });

@@ -31,10 +31,9 @@ class FetchCategoriesPreferencesFailure extends NotificationPreferencesFailure {
 /// {@template update_categories_preferences_failure}
 /// Thrown when updating categories preferences fails.
 /// {@endtemplate}
-class UpdateCategoriesPreferencesFailure
-    extends NotificationPreferencesFailure {
+class SetCategoriesPreferencesFailure extends NotificationPreferencesFailure {
   /// {@macro update_categories_preferences_failure}
-  const UpdateCategoriesPreferencesFailure(super.error);
+  const SetCategoriesPreferencesFailure(super.error);
 }
 
 /// {@template notification_preferences_repository}
@@ -80,8 +79,8 @@ class NotificationPreferencesRepository {
   /// [categories] represents a set of categories the user has agreed to
   /// receive notifications from.
   ///
-  /// Throws [UpdateCategoriesPreferencesFailure] when updating fails.
-  Future<void> updateCategoriesPreferences(Set<Category> categories) async {
+  /// Throws [SetCategoriesPreferencesFailure] when updating fails.
+  Future<void> setCategoriesPreferences(Set<Category> categories) async {
     try {
       final preferencesEncoded =
           json.encode(categories.map((category) => category.name).toList());
@@ -91,7 +90,7 @@ class NotificationPreferencesRepository {
       );
     } on StorageException catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        UpdateCategoriesPreferencesFailure(error),
+        SetCategoriesPreferencesFailure(error),
         stackTrace,
       );
     }
