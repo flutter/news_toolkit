@@ -12,6 +12,7 @@ void main() {
       final response = ArticleResponse(
         content: [blockA, blockB],
         totalCount: 2,
+        url: Uri.parse('https://dailyglobe.com'),
       );
 
       expect(ArticleResponse.fromJson(response.toJson()), equals(response));

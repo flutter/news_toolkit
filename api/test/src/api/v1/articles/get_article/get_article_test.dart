@@ -41,13 +41,15 @@ void main() {
     testServer(
       'returns a 200 on success',
       (host) async {
-        final article = Article(blocks: const [], totalBlocks: 0, url: Uri());
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(id: articleId),
         ).thenAnswer((_) async => article);
         final expected = ArticleResponse(
           content: article.blocks,
           totalCount: article.totalBlocks,
+          url: url,
         );
         final response = await get(Uri.parse('$host/$articleId'));
         expect(response.statusCode, equals(HttpStatus.ok));
