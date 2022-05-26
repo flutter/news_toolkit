@@ -14,13 +14,11 @@ class NotificationPreferencesState extends Equatable {
     required this.categories,
   });
 
-  NotificationPreferencesState.initial({required List<Category>? categories})
+  NotificationPreferencesState.initial({required List<Category> categories})
       : this(
-          togglesState: {
-            for (final category in categories ?? <Category>[]) category: false
-          },
+          togglesState: {for (final category in categories) category: false},
           status: NotificationPreferencesStatus.initial,
-          categories: categories ?? [],
+          categories: categories,
         );
 
   final Map<Category, bool> togglesState;

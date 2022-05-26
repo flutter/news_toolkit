@@ -9,7 +9,7 @@ part 'notification_preferences_event.dart';
 
 class NotificationPreferencesBloc
     extends Bloc<NotificationPreferencesEvent, NotificationPreferencesState> {
-  NotificationPreferencesBloc({required List<Category>? categories})
+  NotificationPreferencesBloc({required List<Category> categories})
       : super(
           NotificationPreferencesState.initial(categories: categories),
         ) {
@@ -23,11 +23,7 @@ class NotificationPreferencesBloc
     emit(state.copyWith(status: NotificationPreferencesStatus.loading));
 
     final updatedToggles = Map<Category, bool>.from(state.togglesState)
-      ..update(
-        event.category,
-        (value) => !state.togglesState[event.category]!,
-        ifAbsent: () => true,
-      );
+      ..update(event.category, (value) => !state.togglesState[event.category]!);
     // TODO(bselwe): Add FCM
     // notificationRepository.subscribeToTopic(event.preference)
     emit(
