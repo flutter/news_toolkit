@@ -1,4 +1,4 @@
-name: news_blocks
+name: notification_preferences_repository
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,8 +7,8 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "api/packages/news_blocks/**"
-      - ".github/workflows/news_blocks.yaml"
+      - "api/packages/notification_preferences_repository/**"
+      - ".github/workflows/notification_preferences_repository.yaml"
     branches:
       - main
 
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
       coverage_excludes: "**/*.g.dart"
-      working_directory: api/packages/news_blocks
+      working_directory: api/packages/notification_preferences_repository
