@@ -41,7 +41,7 @@ void main() {
     testServer(
       'returns a 200 on success',
       (host) async {
-        const article = Article(blocks: [], totalBlocks: 0);
+        final article = Article(blocks: const [], totalBlocks: 0, url: Uri());
         when(
           () => newsDataSource.getArticle(id: articleId),
         ).thenAnswer((_) async => article);
