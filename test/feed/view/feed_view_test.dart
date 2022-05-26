@@ -2,15 +2,12 @@
 
 import 'dart:async';
 
-import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
-import 'package:google_news_template/navigation/navigation.dart';
-import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -108,37 +105,6 @@ void main() {
     });
 
     group('FeedViewPopulated', () {
-      testWidgets('renders AppBar with AppLogo', (tester) async {
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: categoriesBloc),
-              BlocProvider.value(value: feedBloc),
-            ],
-            child: FeedViewPopulated(categories: categories),
-          ),
-        );
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is AppBar && widget.title is AppLogo,
-          ),
-          findsOneWidget,
-        );
-      });
-
-      testWidgets('renders UserProfileButton', (tester) async {
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: categoriesBloc),
-              BlocProvider.value(value: feedBloc),
-            ],
-            child: FeedViewPopulated(categories: categories),
-          ),
-        );
-        expect(find.byType(UserProfileButton), findsOneWidget);
-      });
-
       testWidgets('renders CategoryTabBar with CategoryTab for each category',
           (tester) async {
         await tester.pumpApp(
@@ -166,27 +132,6 @@ void main() {
             findsOneWidget,
           );
         }
-      });
-
-      testWidgets(
-          'renders NavigationDrawer '
-          'when menu icon is tapped', (tester) async {
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: categoriesBloc),
-              BlocProvider.value(value: feedBloc),
-            ],
-            child: FeedViewPopulated(categories: categories),
-          ),
-        );
-
-        expect(find.byType(NavigationDrawer), findsNothing);
-
-        await tester.tap(find.byIcon(Icons.menu));
-        await tester.pump();
-
-        expect(find.byType(NavigationDrawer), findsOneWidget);
       });
 
       testWidgets('renders TabBarView', (tester) async {
