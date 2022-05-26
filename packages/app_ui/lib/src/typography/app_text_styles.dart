@@ -68,7 +68,7 @@ abstract class UITextStyle {
   /// Headline 5 Text Style
   static final TextStyle headline5 = _baseTextStyle.copyWith(
     fontSize: 22,
-    fontWeight: AppFontWeight.medium,
+    fontWeight: AppFontWeight.regular,
     height: 1.27,
   );
 
@@ -82,7 +82,6 @@ abstract class UITextStyle {
   /// Subtitle 1 Text Style
   static final TextStyle subtitle1 = _baseTextStyle.copyWith(
     fontSize: 16,
-    fontWeight: AppFontWeight.medium,
     height: 1.5,
     letterSpacing: 0.1,
   );
@@ -90,7 +89,6 @@ abstract class UITextStyle {
   /// Subtitle 2 Text Style
   static final TextStyle subtitle2 = _baseTextStyle.copyWith(
     fontSize: 14,
-    fontWeight: AppFontWeight.medium,
     height: 1.42,
     letterSpacing: 0.1,
   );
@@ -119,7 +117,6 @@ abstract class UITextStyle {
   /// Button Text Style
   static final TextStyle button = _baseTextStyle.copyWith(
     fontSize: 16,
-    fontWeight: AppFontWeight.medium,
     height: 1.42,
     letterSpacing: 0.1,
   );
@@ -127,7 +124,6 @@ abstract class UITextStyle {
   /// Overline Text Style
   static final TextStyle overline = _baseTextStyle.copyWith(
     fontSize: 12,
-    fontWeight: AppFontWeight.medium,
     height: 1.33,
     letterSpacing: 0.5,
   );

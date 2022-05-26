@@ -11,8 +11,15 @@ part 'search_state.dart';
 
 const _duration = Duration(milliseconds: 300);
 
-EventTransformer<Event> debounce<Event>(Duration duration) {
-  return (events, mapper) => events.debounce(duration).switchMap(mapper);
+EventTransformer<Event> restartableDebounce<Event>(
+  Duration duration, {
+  required bool Function(Event) isDebounced,
+}) {
+  return (events, mapper) {
+    final debouncedEvents = events.where(isDebounced).debounce(duration);
+    final otherEvents = events.where((event) => !isDebounced(event));
+    return debouncedEvents.merge(otherEvents).switchMap(Stream<Event>.value);
+  };
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
@@ -20,10 +27,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
-    on<PopularSearchRequested>(_onPopularSearchRequested);
-    on<SearchTermChanged>(
-      _onSearchTermChanged,
-      transformer: debounce(_duration),
+    on<SearchEvent>(
+      (event, emit) {
+        if (event is PopularSearchRequested) {
+          _onPopularSearchRequested(event, emit);
+        } else if (event is SearchTermChanged) {
+          _onSearchTermChanged(event, emit);
+        }
+      },
+      transformer: restartableDebounce(
+        _duration,
+        isDebounced: (event) => event is SearchTermChanged,
+      ),
     );
   }
 
