@@ -283,7 +283,7 @@ curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: applica
     "topic" : "<TOPIC-NAME>",
     "notification": {
       "body": "This is a Firebase Cloud Messaging Topic Test Message!",
-      "title": "SpTestorts Notification"
+      "title": "Test Notification"
     }
   }
 }' https://fcm.googleapis.com/v1/projects/<PROJECT-ID>/messages:send HTTP/1.1
