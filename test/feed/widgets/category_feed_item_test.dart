@@ -36,7 +36,11 @@ void main() {
           offset: any(named: 'offset'),
         ),
       ).thenAnswer(
-        (_) async => ArticleResponse(content: [], totalCount: 0),
+        (_) async => ArticleResponse(
+          content: [],
+          totalCount: 0,
+          url: Uri.parse('https://www.dglobe.com/'),
+        ),
       );
     });
 
