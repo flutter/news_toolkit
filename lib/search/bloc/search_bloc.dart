@@ -18,7 +18,7 @@ EventTransformer<Event> restartableDebounce<Event>(
   return (events, mapper) {
     final debouncedEvents = events.where(isDebounced).debounce(duration);
     final otherEvents = events.where((event) => !isDebounced(event));
-    return debouncedEvents.merge(otherEvents).switchMap(Stream<Event>.value);
+    return otherEvents.merge(debouncedEvents).switchMap(mapper);
   };
 }
 
@@ -27,25 +27,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
-    on<SearchEvent>(
+    on<SearchTermChanged>(
       (event, emit) {
-        if (event is PopularSearchRequested) {
-          _onPopularSearchRequested(event, emit);
-        } else if (event is SearchTermChanged) {
-          _onSearchTermChanged(event, emit);
-        }
+        event.searchTerm.isEmpty
+            ? _onEmptySearchRequested(event, emit)
+            : _onSearchTermChanged(event, emit);
       },
       transformer: restartableDebounce(
         _duration,
-        isDebounced: (event) => event is SearchTermChanged,
+        isDebounced: (event) => event.searchTerm.isNotEmpty,
       ),
     );
   }
 
   final NewsRepository _newsRepository;
 
-  FutureOr<void> _onPopularSearchRequested(
-    PopularSearchRequested event,
+  FutureOr<void> _onEmptySearchRequested(
+    SearchTermChanged event,
     Emitter<SearchState> emit,
   ) async {
     emit(

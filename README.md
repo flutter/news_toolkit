@@ -259,9 +259,50 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Push Notifications 📢
+
+This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
+
+Out of the box, the application subscribes to supported topics corresponding to supported news categories such as `health`, `science`, `sports`, etc.
+
+### Triggering a Notification 📬
+
+A notification can be triggered via the [Firebase Cloud Messaging REST API][firebase_cloud_messaging_rest_api_link].
+
+All you need is an access token which can be generated via the [Google OAuth 2.0 Playground][google_oauth2_playground_link].
+
+Select the `https://www.googleapis.com/auth/firebase.messaging` scope under Firebase Cloud Messaging API v1 and click "Authorize APIs".
+
+Then, sign in with the Google Account that has access to the respective Firebase project and click "Exchange authorization code for tokens".
+
+Now you can send a message to a topic by using the following cURL:
+
+```
+curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: application/json" -d '{
+  "message": {
+    "topic" : "<TOPIC-NAME>",
+    "notification": {
+      "body": "This is a Firebase Cloud Messaging Topic Test Message!",
+      "title": "Test Notification"
+    }
+  }
+}' https://fcm.googleapis.com/v1/projects/<PROJECT-ID>/messages:send HTTP/1.1
+```
+
+**❗️ Important**
+
+> Replace `<ACCESS_TOKEN>` with the access token generated from the Google OAuth 2.0 Playground, `<TOPIC-NAME>` with the desired topic name, and `<PROJECT-ID>` with the corresponding Firebase project ID.
+
+**💡 Note**
+
+> Ensure you are running the application on a physical device in order to receive FCM messages.
+
 [build_status_badge]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml/badge.svg
-[workflow_link]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml
 [coverage_badge]: coverage_badge.svg
+[firebase_cloud_messaging_link]: https://firebase.google.com/docs/cloud-messaging
+[firebase_cloud_messaging_rest_api_link]: https://firebase.google.com/docs/cloud-messaging/send-message#rest_3
+[google_oauth2_playground_link]: https://developers.google.com/oauthplayground
+[workflow_link]: https://github.com/VGVentures/google_news_template/actions/workflows/main.yaml
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg

@@ -32,6 +32,7 @@ This action allows you to query article content for a specific article.
     + Attributes (object)
         + content (required, array[Block]) - The list of blocks that composes the article content.
         + total_count (optional, number) - The total number of available blocks.
+        + url (required, string) - The url for the associated article.
 
     + Body
         
@@ -43,6 +44,7 @@ This action allows you to query article content for a specific article.
                     },                    
                 ],
                 "total_count": 42,
+                "url": "https://dailyglobe.com"
             }
 
 ### Get Related Articles [GET /api/v1/articles/{id}/related{?limit,offset}]

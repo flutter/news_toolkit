@@ -37,6 +37,7 @@ void main() {
         final articleResponse = ArticleResponse(
           content: content,
           totalCount: content.length,
+          url: Uri.parse('https://www.dglobe.com/'),
         );
 
         when(

@@ -5,10 +5,10 @@ import 'package:google_news_template/search/search.dart';
 
 void main() {
   group('SearchEvent', () {
-    group('LoadPopular', () {
-      test('supports value comparisons', () {
-        final event1 = PopularSearchRequested();
-        final event2 = PopularSearchRequested();
+    group('SearchTermChanged', () {
+      test('supports empty value comparisons', () {
+        final event1 = SearchTermChanged();
+        final event2 = SearchTermChanged();
 
         expect(event1, equals(event2));
       });

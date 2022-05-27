@@ -17,6 +17,7 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
           content: $checkedConvert('content',
               (v) => const NewsBlocksConverter().fromJson(v as List)),
           totalCount: $checkedConvert('total_count', (v) => v as int),
+          url: $checkedConvert('url', (v) => Uri.parse(v as String)),
         );
         return val;
       },
@@ -34,5 +35,6 @@ Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) {
 
   writeNotNull('content', const NewsBlocksConverter().toJson(instance.content));
   val['total_count'] = instance.totalCount;
+  val['url'] = instance.url.toString();
   return val;
 }
