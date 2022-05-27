@@ -17,7 +17,7 @@ abstract class NotificationPreferencesFailure
   final Object error;
 
   @override
-  List<Object?> get props => [error];
+  List<Object> get props => [error];
 }
 
 /// {@template fetch_categories_preferences_failure}
