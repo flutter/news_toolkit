@@ -4,9 +4,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/feed/widgets/widgets.dart';
+import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/search/search.dart';
-import 'package:google_news_template/search/view/search_page.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -80,7 +79,8 @@ void main() {
       expect(find.byType(CategoryFeedItem), findsOneWidget);
     });
 
-    testWidgets('in SearchType.relevant renders two titles', (tester) async {
+    testWidgets('in SearchType.relevant renders two headline titles',
+        (tester) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
           articles: [],
