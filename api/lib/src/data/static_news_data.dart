@@ -46,6 +46,9 @@ final popularArticles = <NewsItem>[
             'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
       ),
     ],
+    url: Uri.parse(
+      'https://nbc-2.com/news/2022/05/19/boeing-makes-third-attempt-to-launch-its-starliner-capsule-to-the-iss',
+    ),
   )
 ];
 
@@ -73,6 +76,9 @@ final relevantArticles = <NewsItem>[
             'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
       ),
     ],
+    url: Uri.parse(
+      'https://www.cnn.com/2022/05/24/health/what-is-monkeypox-virus-explainer-update-wellness',
+    ),
   )
 ];
 
@@ -154,6 +160,9 @@ final technologyItems = <NewsItem>[
             'supercharged V8 engine.',
       ),
     ],
+    url: Uri.parse(
+      'https://www.theverge.com/2022/4/19/23031309/nvidia-amd-gpu-price-in-stock-retail-ebay',
+    ),
   )
 ];
 
@@ -201,6 +210,9 @@ final sportsItems = <NewsItem>[
             'selection should keep it...',
       ),
     ],
+    url: Uri.parse(
+      'https://www.nbcsports.com/bayarea/warriors/patrick-beverley-throws-shade-warriors-ja-morant-struggles',
+    ),
   ),
 ];
 
@@ -245,6 +257,9 @@ final healthItems = <NewsItem>[
             'Some experts worry that focus will neglect other factors.',
       ),
     ],
+    url: Uri.parse(
+      'https://scitechdaily.com/restoring-hearing-new-tool-to-create-ear-hair-cells-lost-due-to-aging-or-noise',
+    ),
   ),
 ];
 
@@ -289,6 +304,9 @@ final scienceItems = <NewsItem>[
             'events in the universe.',
       ),
     ],
+    url: Uri.parse(
+      'https://www.theverge.com/2022/5/6/23055274/spacex-crew-3-return-iss-nasa-crew-dragon',
+    ),
   ),
   NewsItem(
     post: PostGridTileBlock(
@@ -311,6 +329,9 @@ final scienceItems = <NewsItem>[
             'the way we look at black holes',
       ),
     ],
+    url: Uri.parse(
+      'https://phys.org/news/2022-05-surging-distant-galaxy-black-holes.html',
+    ),
   ),
   NewsItem(
     post: PostGridTileBlock(
@@ -333,6 +354,9 @@ final scienceItems = <NewsItem>[
             'Revolutionize Quantum Computing',
       ),
     ],
+    url: Uri.parse(
+      'https://scitechdaily.com/the-quest-for-an-ideal-quantum-bit-new-qubit-breakthrough-could-revolutionize-quantum-computing',
+    ),
   ),
   NewsItem(
     post: PostGridTileBlock(
@@ -353,6 +377,9 @@ final scienceItems = <NewsItem>[
             'Sonifications With a Remix',
       ),
     ],
+    url: Uri.parse(
+      'https://www.cbsnews.com/news/black-hole-audio-perseus-galaxy-cluster',
+    ),
   )
 ];
 
@@ -446,5 +473,11 @@ final _newsFeedData = <Category, Feed>{
 
 extension on List<NewsBlock> {
   Feed toFeed() => Feed(blocks: this, totalBlocks: length);
-  Article toArticle() => Article(blocks: this, totalBlocks: length);
+  Article toArticle({required Uri url}) {
+    return Article(
+      blocks: this,
+      totalBlocks: length,
+      url: url,
+    );
+  }
 }

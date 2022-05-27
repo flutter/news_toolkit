@@ -195,7 +195,7 @@ void main() {
           appBloc: appBloc,
         );
         await tester.pumpAndSettle();
-        verify(navigator.pop).called(1);
+        verify(() => navigator.popUntil(any())).called(1);
       });
     });
   });

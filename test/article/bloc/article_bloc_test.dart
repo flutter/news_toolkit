@@ -22,6 +22,7 @@ void main() {
         TextParagraphBlock(text: 'text'),
       ],
       totalCount: 4,
+      url: Uri.parse('https://www.dglobe.com/'),
     );
 
     final articleStatePopulated = ArticleState(

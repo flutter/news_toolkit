@@ -10,7 +10,11 @@ part 'article_response.g.dart';
 @JsonSerializable()
 class ArticleResponse extends Equatable {
   /// {@macro article_response}
-  const ArticleResponse({required this.content, required this.totalCount});
+  const ArticleResponse({
+    required this.content,
+    required this.totalCount,
+    required this.url,
+  });
 
   /// Converts a `Map<String, dynamic>` into a [ArticleResponse] instance.
   factory ArticleResponse.fromJson(Map<String, dynamic> json) =>
@@ -23,9 +27,12 @@ class ArticleResponse extends Equatable {
   /// The total number of available content blocks.
   final int totalCount;
 
+  /// The url for the associated article.
+  final Uri url;
+
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson() => _$ArticleResponseToJson(this);
 
   @override
-  List<Object> get props => [content, totalCount];
+  List<Object> get props => [content, totalCount, url];
 }
