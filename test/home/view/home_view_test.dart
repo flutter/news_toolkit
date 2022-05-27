@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/navigation/navigation.dart';
+import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
@@ -74,18 +76,72 @@ void main() {
 
     when(() => cubit.state).thenReturn(HomeState.topStories);
   });
+  group('HomeView', () {
+    testWidgets('renders AppBar with AppLogo', (tester) async {
+      when(() => cubit.state).thenReturn(HomeState.topStories);
 
-  testWidgets('renders FeedView', (tester) async {
-    await pumpHomeView(
-      tester: tester,
-      cubit: cubit,
-      categoriesBloc: categoriesBloc,
-      feedBloc: feedBloc,
-      newsRepository: newsRepository,
-    );
-    expect(find.byType(FeedView), findsOneWidget);
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is AppBar && widget.title is AppLogo,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('renders UserProfileButton', (tester) async {
+      when(() => cubit.state).thenReturn(HomeState.topStories);
+
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+
+      expect(find.byType(UserProfileButton), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders NavigationDrawer '
+        'when menu icon is tapped', (tester) async {
+      when(() => cubit.state).thenReturn(HomeState.topStories);
+
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+
+      expect(find.byType(NavigationDrawer), findsNothing);
+
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pump();
+
+      expect(find.byType(NavigationDrawer), findsOneWidget);
+    });
+
+    testWidgets('renders FeedView', (tester) async {
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+      );
+      expect(find.byType(FeedView), findsOneWidget);
+    });
   });
-
   group('BottomNavigationBar', () {
     testWidgets(
       'has selected index to 0 by default.',

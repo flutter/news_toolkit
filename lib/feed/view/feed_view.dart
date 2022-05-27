@@ -1,10 +1,7 @@
-import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
-import 'package:google_news_template/navigation/navigation.dart';
-import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 class FeedView extends StatelessWidget {
@@ -80,30 +77,28 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       },
       listenWhen: (previous, current) =>
           previous.selectedCategory != current.selectedCategory,
-      child: Scaffold(
-        appBar: AppBar(
-          title: AppLogo.dark(),
-          centerTitle: true,
-          actions: const [UserProfileButton()],
-          bottom: CategoriesTabBar(
+      child: Column(
+        children: [
+          CategoriesTabBar(
             controller: _tabController,
             tabs: widget.categories
                 .map((category) => CategoryTab(categoryName: category.name))
                 .toList(),
           ),
-        ),
-        drawer: const NavigationDrawer(),
-        body: TabBarView(
-          controller: _tabController,
-          children: widget.categories
-              .map(
-                (category) => CategoryFeed(
-                  key: PageStorageKey(category),
-                  category: category,
-                ),
-              )
-              .toList(),
-        ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: widget.categories
+                  .map(
+                    (category) => CategoryFeed(
+                      key: PageStorageKey(category),
+                      category: category,
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
