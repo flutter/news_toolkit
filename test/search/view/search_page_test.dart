@@ -143,7 +143,7 @@ void main() {
         '',
       );
 
-      verify(() => searchBloc.add(PopularSearchRequested())).called(1);
+      verify(() => searchBloc.add(SearchTermChanged())).called(1);
     });
 
     testWidgets('shows snackbar when SearchBloc SearchStatus is failure',

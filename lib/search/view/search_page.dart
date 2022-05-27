@@ -16,7 +16,7 @@ class SearchPage extends StatelessWidget {
     return BlocProvider<SearchBloc>(
       create: (context) => SearchBloc(
         newsRepository: context.read<NewsRepository>(),
-      )..add(PopularSearchRequested()),
+      )..add(const SearchTermChanged()),
       child: const SearchView(),
     );
   }
@@ -36,11 +36,9 @@ class _SearchViewState extends State<SearchView> {
   void initState() {
     super.initState();
     _controller.addListener(
-      () => context.read<SearchBloc>().add(
-            _controller.text.isEmpty
-                ? PopularSearchRequested()
-                : SearchTermChanged(searchTerm: _controller.text),
-          ),
+      () => context
+          .read<SearchBloc>()
+          .add(SearchTermChanged(searchTerm: _controller.text)),
     );
   }
 
