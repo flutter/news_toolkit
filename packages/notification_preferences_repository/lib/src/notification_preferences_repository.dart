@@ -47,7 +47,7 @@ class NotificationPreferencesRepository {
 
   final Storage _storage;
 
-  static const _categoriesPreferencesStorageKey = 'categories_preferences';
+  static const _categoriesPreferencesStorageKey = '__categories_preferences_storage_key__';
 
   /// Fetches the user's notification preferences for news categories.
   ///
