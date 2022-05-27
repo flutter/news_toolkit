@@ -36,7 +36,7 @@ void main() {
           (_) async => popularResponseSuccess,
         ),
         build: () => SearchBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(PopularSearchRequested()),
+        act: (bloc) => bloc.add(SearchTermChanged()),
         expect: () => <SearchState>[
           const SearchState.initial().copyWith(status: SearchStatus.loading),
           const SearchState.initial().copyWith(
@@ -53,7 +53,7 @@ void main() {
         setUp: () => when(() => newsRepository.popularSearch())
             .thenThrow(PopularSearchFailure),
         build: () => SearchBloc(newsRepository: newsRepository),
-        act: (bloc) => bloc.add(PopularSearchRequested()),
+        act: (bloc) => bloc.add(SearchTermChanged()),
         expect: () => <SearchState>[
           const SearchState.initial().copyWith(
             status: SearchStatus.loading,
