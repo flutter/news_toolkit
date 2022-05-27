@@ -25,7 +25,7 @@ class NotificationPreferencesBloc
     final updatedToggles = Map<Category, bool>.from(state.togglesState)
       ..update(event.category, (value) => !state.togglesState[event.category]!);
     // TODO(bselwe): Add FCM
-    // notificationRepository.subscribeToTopic(event.preference)
+    // notificationRepository.subscribeToTopic(event.category)
     emit(
       state.copyWith(
         status: NotificationPreferencesStatus.success,
