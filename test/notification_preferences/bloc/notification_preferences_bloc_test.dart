@@ -3,20 +3,33 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:notification_preferences_repository/notification_preferences_repository.dart';
+
+class MockNotificationPreferencesRepository extends Mock
+    implements NotificationPreferencesRepository {}
 
 void main() {
-  final categories = [Category.business, Category.entertainment];
+  final categories = {Category.business, Category.entertainment};
   final initialState =
       NotificationPreferencesState.initial(categories: categories);
-  final initialToggles = {for (final category in categories) category: false};
+  final notificationPreferencesRepository =
+      MockNotificationPreferencesRepository();
 
   group('NotificationPreferencesBloc', () {
     group(' on NotificationPreferencesToggled ', () {
+      when(
+        () => notificationPreferencesRepository.setCategoriesPreferences(any()),
+      ).thenAnswer((_) async {});
+
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, success, loading, success] '
         'when toggled category twice ',
-        build: () => NotificationPreferencesBloc(categories: categories),
+        build: () => NotificationPreferencesBloc(
+          categories: categories,
+          notificationPreferencesRepository: notificationPreferencesRepository,
+        ),
         seed: () => initialState,
         act: (bloc) => bloc
           ..add(
@@ -34,17 +47,15 @@ void main() {
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            togglesState: Map.from(initialToggles)
-              ..update(Category.business, (value) => true),
+            selectedCategories: Set.from(categories)..remove(Category.business),
             status: NotificationPreferencesStatus.success,
           ),
           initialState.copyWith(
-            togglesState: Map.from(initialToggles)
-              ..update(Category.business, (value) => true),
+            selectedCategories: Set.from(categories)..remove(Category.business),
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            togglesState: initialToggles,
+            selectedCategories: categories,
             status: NotificationPreferencesStatus.success,
           ),
         ],

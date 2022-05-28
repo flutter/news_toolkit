@@ -9,15 +9,15 @@ void main() {
   group('NotificationPreferencesState', () {
     test('initial has correct status', () {
       final initialState =
-          NotificationPreferencesState.initial(categories: [Category.business]);
+          NotificationPreferencesState.initial(categories: {Category.business});
 
       expect(
         initialState,
         equals(
           NotificationPreferencesState(
-            togglesState: {Category.business: false},
+            selectedCategories: {Category.business},
             status: NotificationPreferencesStatus.initial,
-            categories: [Category.business],
+            categories: {Category.business},
           ),
         ),
       );
@@ -25,9 +25,9 @@ void main() {
 
     test('supports value comparison', () {
       expect(
-        NotificationPreferencesState.initial(categories: [Category.business]),
+        NotificationPreferencesState.initial(categories: {Category.business}),
         equals(
-          NotificationPreferencesState.initial(categories: [Category.business]),
+          NotificationPreferencesState.initial(categories: {Category.business}),
         ),
       );
     });
@@ -37,8 +37,8 @@ void main() {
           'returns same object '
           'when no parameters changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: []).copyWith(),
-          equals(NotificationPreferencesState.initial(categories: [])),
+          NotificationPreferencesState.initial(categories: {}).copyWith(),
+          equals(NotificationPreferencesState.initial(categories: {})),
         );
       });
 
@@ -46,13 +46,13 @@ void main() {
           'returns object with updated categories and togglesState '
           'when categories changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: []).copyWith(
-            categories: [Category.business],
+          NotificationPreferencesState.initial(categories: {}).copyWith(
+            categories: {Category.business},
           ),
           equals(
             NotificationPreferencesState(
-              categories: [Category.business],
-              togglesState: {Category.business: false},
+              categories: {Category.business},
+              selectedCategories: {},
               status: NotificationPreferencesStatus.initial,
             ),
           ),
@@ -62,14 +62,14 @@ void main() {
           'returns object with updated status '
           'when status changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: []).copyWith(
+          NotificationPreferencesState.initial(categories: {}).copyWith(
             status: NotificationPreferencesStatus.success,
           ),
           equals(
             NotificationPreferencesState(
-              categories: [],
+              categories: {},
               status: NotificationPreferencesStatus.success,
-              togglesState: {},
+              selectedCategories: {},
             ),
           ),
         );
@@ -79,15 +79,15 @@ void main() {
           'returns object with updated toggleState '
           'when toggleState changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: [Category.business])
+          NotificationPreferencesState.initial(categories: {Category.business})
               .copyWith(
-            togglesState: {Category.business: true},
+            selectedCategories: {Category.business},
           ),
           equals(
             NotificationPreferencesState(
-              categories: [Category.business],
+              categories: {Category.business},
               status: NotificationPreferencesStatus.initial,
-              togglesState: {Category.business: true},
+              selectedCategories: {Category.business},
             ),
           ),
         );
