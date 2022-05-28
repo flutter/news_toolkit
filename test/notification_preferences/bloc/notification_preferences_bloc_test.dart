@@ -19,13 +19,13 @@ void main() {
 
   group('NotificationPreferencesBloc', () {
     group(' on NotificationPreferencesToggled ', () {
-      when(
-        () => notificationPreferencesRepository.setCategoriesPreferences(any()),
-      ).thenAnswer((_) async {});
-
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, success, loading, success] '
         'when toggled category twice ',
+        setUp: () => when(
+          () =>
+              notificationPreferencesRepository.setCategoriesPreferences(any()),
+        ).thenAnswer((_) async {}),
         build: () => NotificationPreferencesBloc(
           categories: categories,
           notificationPreferencesRepository: notificationPreferencesRepository,
@@ -57,6 +57,85 @@ void main() {
           initialState.copyWith(
             selectedCategories: categories,
             status: NotificationPreferencesStatus.success,
+          ),
+        ],
+      );
+
+      blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
+        'emits [loading, failed] '
+        'when toggled category '
+        'and setCategoriesPreferences throws',
+        setUp: () => when(
+          () =>
+              notificationPreferencesRepository.setCategoriesPreferences(any()),
+        ).thenThrow(Exception()),
+        build: () => NotificationPreferencesBloc(
+          categories: categories,
+          notificationPreferencesRepository: notificationPreferencesRepository,
+        ),
+        seed: () => initialState,
+        act: (bloc) => bloc
+          ..add(
+            NotificationPreferencesToggled(
+              category: Category.business,
+            ),
+          ),
+        expect: () => <NotificationPreferencesState>[
+          initialState.copyWith(
+            status: NotificationPreferencesStatus.loading,
+          ),
+          initialState.copyWith(
+            status: NotificationPreferencesStatus.failure,
+          ),
+        ],
+      );
+    });
+
+    group(' on InitialCategoriesRequested ', () {
+      blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
+        'emits [loading, success] '
+        'returning categories ',
+        setUp: () => when(
+          notificationPreferencesRepository.fetchCategoriesPreferences,
+        ).thenAnswer((_) async => {Category.business}),
+        build: () => NotificationPreferencesBloc(
+          categories: categories,
+          notificationPreferencesRepository: notificationPreferencesRepository,
+        ),
+        seed: () => initialState,
+        act: (bloc) => bloc..add(InitialCategoriesRequested()),
+        expect: () => <NotificationPreferencesState>[
+          initialState.copyWith(
+            status: NotificationPreferencesStatus.loading,
+          ),
+          initialState.copyWith(
+            selectedCategories: {Category.business},
+            status: NotificationPreferencesStatus.success,
+          ),
+        ],
+      );
+
+      blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
+        'emits [loading, failed] '
+        'when fetchCategoriesPreferences throws ',
+        setUp: () => when(
+          notificationPreferencesRepository.fetchCategoriesPreferences,
+        ).thenThrow(Exception()),
+        build: () => NotificationPreferencesBloc(
+          categories: categories,
+          notificationPreferencesRepository: notificationPreferencesRepository,
+        ),
+        seed: () => initialState,
+        act: (bloc) => bloc
+          ..add(
+            InitialCategoriesRequested(),
+          ),
+        expect: () => <NotificationPreferencesState>[
+          initialState.copyWith(
+            status: NotificationPreferencesStatus.loading,
+          ),
+          initialState.copyWith(
+            status: NotificationPreferencesStatus.failure,
           ),
         ],
       );

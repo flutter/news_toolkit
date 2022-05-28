@@ -17,6 +17,7 @@ class NotificationPreferencesBloc
           NotificationPreferencesState.initial(categories: categories),
         ) {
     on<NotificationPreferencesToggled>(_onNotificationPreferencesToggled);
+    on<InitialCategoriesRequested>(_onInitialCategoriesRequested);
   }
 
   final NotificationPreferencesRepository notificationPreferencesRepository;
@@ -33,14 +34,45 @@ class NotificationPreferencesBloc
         ? updatedCategories.remove(event.category)
         : updatedCategories.add(event.category);
 
-    await notificationPreferencesRepository
-        .setCategoriesPreferences(updatedCategories);
+    try {
+      await notificationPreferencesRepository
+          .setCategoriesPreferences(updatedCategories);
 
-    emit(
-      state.copyWith(
-        status: NotificationPreferencesStatus.success,
-        selectedCategories: updatedCategories,
-      ),
-    );
+      emit(
+        state.copyWith(
+          status: NotificationPreferencesStatus.success,
+          selectedCategories: updatedCategories,
+        ),
+      );
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+      emit(
+        state.copyWith(status: NotificationPreferencesStatus.failure),
+      );
+    }
+  }
+
+  FutureOr<void> _onInitialCategoriesRequested(
+    InitialCategoriesRequested event,
+    Emitter<NotificationPreferencesState> emit,
+  ) async {
+    emit(state.copyWith(status: NotificationPreferencesStatus.loading));
+
+    try {
+      final selectedCategories =
+          await notificationPreferencesRepository.fetchCategoriesPreferences();
+
+      emit(
+        state.copyWith(
+          status: NotificationPreferencesStatus.success,
+          selectedCategories: selectedCategories,
+        ),
+      );
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+      emit(
+        state.copyWith(status: NotificationPreferencesStatus.failure),
+      );
+    }
   }
 }

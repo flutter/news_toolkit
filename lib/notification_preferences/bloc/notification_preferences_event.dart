@@ -12,3 +12,8 @@ class NotificationPreferencesToggled extends NotificationPreferencesEvent {
   @override
   List<Object?> get props => [category];
 }
+
+class InitialCategoriesRequested extends NotificationPreferencesEvent {
+  @override
+  List<Object?> get props => [];
+}
