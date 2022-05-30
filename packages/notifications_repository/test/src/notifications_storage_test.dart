@@ -32,7 +32,7 @@ void main() {
 
         verify(
           () => storage.write(
-            key: StorageKeys.notificationsEnabled,
+            key: NotificationsStorageKeys.notificationsEnabled,
             value: enabled.toString(),
           ),
         ).called(1);
@@ -42,7 +42,8 @@ void main() {
     group('fetchNotificationsEnabled', () {
       test('returns the value from Storage', () async {
         when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
+          () =>
+              storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).thenAnswer((_) async => 'true');
 
         final result = await NotificationsStorage(storage: storage)
@@ -50,7 +51,7 @@ void main() {
 
         verify(
           () => storage.read(
-            key: StorageKeys.notificationsEnabled,
+            key: NotificationsStorageKeys.notificationsEnabled,
           ),
         ).called(1);
 
@@ -59,7 +60,8 @@ void main() {
 
       test('returns false when no value exists in Storage', () async {
         when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
+          () =>
+              storage.read(key: NotificationsStorageKeys.notificationsEnabled),
         ).thenAnswer((_) async => null);
 
         final result = await NotificationsStorage(storage: storage)
@@ -67,7 +69,7 @@ void main() {
 
         verify(
           () => storage.read(
-            key: StorageKeys.notificationsEnabled,
+            key: NotificationsStorageKeys.notificationsEnabled,
           ),
         ).called(1);
 
@@ -88,7 +90,7 @@ void main() {
 
         verify(
           () => storage.write(
-            key: StorageKeys.categoriesPreferences,
+            key: NotificationsStorageKeys.categoriesPreferences,
             value: json.encode(
               preferences.map((category) => category.name).toList(),
             ),
@@ -105,7 +107,8 @@ void main() {
         };
 
         when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
+          () =>
+              storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).thenAnswer(
           (_) async => json.encode(
             preferences.map((preference) => preference.name).toList(),
@@ -117,7 +120,7 @@ void main() {
 
         verify(
           () => storage.read(
-            key: StorageKeys.categoriesPreferences,
+            key: NotificationsStorageKeys.categoriesPreferences,
           ),
         ).called(1);
 
@@ -126,7 +129,8 @@ void main() {
 
       test('returns null when no value exists in Storage', () async {
         when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
+          () =>
+              storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).thenAnswer((_) async => null);
 
         final result = await NotificationsStorage(storage: storage)
@@ -134,7 +138,7 @@ void main() {
 
         verify(
           () => storage.read(
-            key: StorageKeys.categoriesPreferences,
+            key: NotificationsStorageKeys.categoriesPreferences,
           ),
         ).called(1);
 
