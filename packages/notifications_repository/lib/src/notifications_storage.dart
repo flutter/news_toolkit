@@ -10,11 +10,10 @@ abstract class NotificationsStorageKeys {
   static const categoriesPreferences = '__categories_preferences_storage_key__';
 }
 
-@visibleForTesting
-
 /// {@template notifications_storage}
 /// Storage of the [NotificationsRepository].
 /// {@endtemplate}
+@visibleForTesting
 class NotificationsStorage {
   /// {@macro notifications_storage}
   const NotificationsStorage({
