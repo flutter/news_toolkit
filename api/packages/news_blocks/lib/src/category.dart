@@ -19,5 +19,9 @@ enum Category {
   sports,
 
   /// News relating to technology.
-  technology,
+  technology;
+
+  /// Returns a [Category] for the [categoryName].
+  static Category fromString(String categoryName) =>
+      Category.values.firstWhere((category) => category.name == categoryName);
 }
