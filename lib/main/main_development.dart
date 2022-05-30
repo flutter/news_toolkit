@@ -44,7 +44,7 @@ void main() {
 
       final notificationsRepository = NotificationsRepository(
         permissionClient: permissionClient,
-        storage: persistentStorage,
+        storage: NotificationsStorage(storage: persistentStorage),
         firebaseMessaging: firebaseMessaging,
         apiClient: apiClient,
       );
