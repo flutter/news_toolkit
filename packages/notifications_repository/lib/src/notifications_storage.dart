@@ -2,7 +2,7 @@ part of 'notifications_repository.dart';
 
 /// Storage keys of the [NotificationsStorage].
 @visibleForTesting
-abstract class StorageKeys {
+abstract class NotificationsStorageKeys {
   /// Whether the notifications are enabled.
   static const notificationsEnabled = '__notifications_enabled_storage_key__';
 
@@ -26,13 +26,13 @@ class NotificationsStorage {
   /// Sets the notifications enabled to [enabled] in Storage.
   Future<void> setNotificationsEnabled({required bool enabled}) =>
       _storage.write(
-        key: StorageKeys.notificationsEnabled,
+        key: NotificationsStorageKeys.notificationsEnabled,
         value: enabled.toString(),
       );
 
   /// Fetches the notifications enabled value from Storage.
   Future<bool> fetchNotificationsEnabled() async =>
-      (await _storage.read(key: StorageKeys.notificationsEnabled))
+      (await _storage.read(key: NotificationsStorageKeys.notificationsEnabled))
           ?.parseBool() ??
       false;
 
@@ -44,7 +44,7 @@ class NotificationsStorage {
       categories.map((category) => category.name).toList(),
     );
     await _storage.write(
-      key: StorageKeys.categoriesPreferences,
+      key: NotificationsStorageKeys.categoriesPreferences,
       value: categoriesEncoded,
     );
   }
@@ -52,7 +52,7 @@ class NotificationsStorage {
   /// Fetches the categories preferences value from Storage.
   Future<Set<Category>?> fetchCategoriesPreferences() async {
     final categories = await _storage.read(
-      key: StorageKeys.categoriesPreferences,
+      key: NotificationsStorageKeys.categoriesPreferences,
     );
     if (categories == null) {
       return null;
