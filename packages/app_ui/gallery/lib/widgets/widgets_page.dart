@@ -37,6 +37,11 @@ class WidgetsPage extends StatelessWidget {
         onTap: () =>
             Navigator.of(context).push<void>(AppBackButtonPage.route()),
       ),
+      _ListItem(
+        icon: const Icon(Icons.switch_left),
+        title: const Text('Switch'),
+        onTap: () => Navigator.of(context).push<void>(AppSwitchPage.route()),
+      ),
     ];
 
     return Scaffold(
