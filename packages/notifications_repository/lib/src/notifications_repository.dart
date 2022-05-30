@@ -152,11 +152,19 @@ class NotificationsRepository {
   /// and the notification setting is enabled.
   Future<bool> fetchNotificationsEnabled() async {
     try {
-      final permissionStatus = await _permissionClient.notificationsStatus();
-      final notificationsEnabled =
+      Future<bool> getNotificationsEnabled() async =>
           (await _storage.read(key: StorageKeys.notificationsEnabled))
-                  ?.parseBool() ??
-              false;
+              ?.parseBool() ??
+          false;
+
+      final results = await Future.wait([
+        _permissionClient.notificationsStatus(),
+        getNotificationsEnabled(),
+      ]);
+
+      final permissionStatus = results.first as PermissionStatus;
+      final notificationsEnabled = results.last as bool;
+
       return permissionStatus.isGranted && notificationsEnabled;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
