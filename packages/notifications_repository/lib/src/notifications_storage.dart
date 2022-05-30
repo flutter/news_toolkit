@@ -61,3 +61,9 @@ class NotificationsStorage {
         .toSet();
   }
 }
+
+extension _BoolFromStringParsing on String {
+  bool parseBool() {
+    return toLowerCase() == 'true';
+  }
+}
