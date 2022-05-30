@@ -27,7 +27,7 @@ void main() {
       newsRepository = MockNewsRepository();
     });
 
-    group('on PopularSearchRequested', () {
+    group('on SearchTermChanged with empty search term', () {
       blocTest<SearchBloc, SearchState>(
         'emits [loading, populated] '
         'with articles and topics '
