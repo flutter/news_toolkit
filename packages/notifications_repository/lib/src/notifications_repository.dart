@@ -8,6 +8,8 @@ import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
+part 'notifications_storage.dart';
+
 /// {@template notifications_failure}
 /// A base failure for the notifications repository failures.
 /// {@endtemplate}
@@ -62,16 +64,6 @@ class FetchCategoriesPreferencesFailure extends NotificationsFailure {
   const FetchCategoriesPreferencesFailure(super.error);
 }
 
-/// Storage keys of the notifications repository.
-@visibleForTesting
-abstract class StorageKeys {
-  /// Whether the notifications are enabled.
-  static const notificationsEnabled = '__notifications_enabled_storage_key__';
-
-  /// The list of user's categories preferences.
-  static const categoriesPreferences = '__categories_preferences_storage_key__';
-}
-
 /// {@template notifications_repository}
 /// A repository that manages notification permissions and topic subscriptions.
 ///
@@ -86,7 +78,7 @@ class NotificationsRepository {
   /// {@macro notifications_repository}
   NotificationsRepository({
     required PermissionClient permissionClient,
-    required Storage storage,
+    required NotificationsStorage storage,
     required FirebaseMessaging firebaseMessaging,
     required GoogleNewsTemplateApiClient apiClient,
   })  : _permissionClient = permissionClient,
@@ -97,7 +89,7 @@ class NotificationsRepository {
   }
 
   final PermissionClient _permissionClient;
-  final Storage _storage;
+  final NotificationsStorage _storage;
   final FirebaseMessaging _firebaseMessaging;
   final GoogleNewsTemplateApiClient _apiClient;
 
@@ -139,10 +131,7 @@ class NotificationsRepository {
       await _toggleCategoriesPreferencesSubscriptions(enable: enable);
 
       // Update the notifications enabled in Storage.
-      await _storage.write(
-        key: StorageKeys.notificationsEnabled,
-        value: enable.toString(),
-      );
+      await _storage.setNotificationsEnabled(enabled: enable);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(ToggleNotificationsFailure(error), stackTrace);
     }
@@ -152,14 +141,9 @@ class NotificationsRepository {
   /// and the notification setting is enabled.
   Future<bool> fetchNotificationsEnabled() async {
     try {
-      Future<bool> fetchNotificationSetting() async =>
-          (await _storage.read(key: StorageKeys.notificationsEnabled))
-              ?.parseBool() ??
-          false;
-
       final results = await Future.wait([
         _permissionClient.notificationsStatus(),
-        fetchNotificationSetting(),
+        _storage.fetchNotificationsEnabled(),
       ]);
 
       final permissionStatus = results.first as PermissionStatus;
@@ -187,12 +171,7 @@ class NotificationsRepository {
       await _toggleCategoriesPreferencesSubscriptions(enable: false);
 
       // Update categories preferences in Storage.
-      final preferencesEncoded =
-          json.encode(categories.map((category) => category.name).toList());
-      await _storage.write(
-        key: StorageKeys.categoriesPreferences,
-        value: preferencesEncoded,
-      );
+      await _storage.setCategoriesPreferences(categories: categories);
 
       // Enable notification subscriptions for updated categories preferences.
       if (await fetchNotificationsEnabled()) {
@@ -214,15 +193,7 @@ class NotificationsRepository {
   /// Throws [FetchCategoriesPreferencesFailure] when fetching fails.
   Future<Set<Category>?> fetchCategoriesPreferences() async {
     try {
-      final categories = await _storage.read(
-        key: StorageKeys.categoriesPreferences,
-      );
-      if (categories == null) {
-        return null;
-      }
-      return List<String>.from(json.decode(categories) as List)
-          .map(Category.fromString)
-          .toSet();
+      return await _storage.fetchCategoriesPreferences();
     } on StorageException catch (error, stackTrace) {
       Error.throwWithStackTrace(
         FetchCategoriesPreferencesFailure(error),
@@ -235,7 +206,8 @@ class NotificationsRepository {
   Future<void> _toggleCategoriesPreferencesSubscriptions({
     required bool enable,
   }) async {
-    final categoriesPreferences = await fetchCategoriesPreferences() ?? {};
+    final categoriesPreferences =
+        await _storage.fetchCategoriesPreferences() ?? {};
     await Future.wait(
       categoriesPreferences.map((category) {
         return enable
@@ -249,10 +221,12 @@ class NotificationsRepository {
   /// if they have not been set before.
   Future<void> _initializeCategoriesPreferences() async {
     try {
-      final categoriesPreferences = await fetchCategoriesPreferences();
+      final categoriesPreferences = await _storage.fetchCategoriesPreferences();
       if (categoriesPreferences == null) {
         final categoriesResponse = await _apiClient.getCategories();
-        await setCategoriesPreferences(categoriesResponse.categories.toSet());
+        await _storage.setCategoriesPreferences(
+          categories: categoriesResponse.categories.toSet(),
+        );
       }
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(

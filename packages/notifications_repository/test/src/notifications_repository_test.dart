@@ -2,7 +2,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +13,7 @@ import 'package:storage/storage.dart';
 
 class MockPermissionClient extends Mock implements PermissionClient {}
 
-class MockStorage extends Mock implements Storage {}
+class MockNotificationsStorage extends Mock implements NotificationsStorage {}
 
 class MockFirebaseMessaging extends Mock implements FirebaseMessaging {}
 
@@ -26,13 +25,13 @@ void main() {
 
   group('NotificationsRepository', () {
     late PermissionClient permissionClient;
-    late Storage storage;
+    late NotificationsStorage storage;
     late FirebaseMessaging firebaseMessaging;
     late GoogleNewsTemplateApiClient apiClient;
 
     setUp(() {
       permissionClient = MockPermissionClient();
-      storage = MockStorage();
+      storage = MockNotificationsStorage();
       firebaseMessaging = MockFirebaseMessaging();
       apiClient = MockGoogleNewsTemplateApiClient();
 
@@ -40,19 +39,21 @@ void main() {
           .thenAnswer((_) async => PermissionStatus.denied);
 
       when(
-        () => storage.read(key: StorageKeys.notificationsEnabled),
-      ).thenAnswer((_) async => 'false');
-
-      when(
-        () => storage.read(key: StorageKeys.categoriesPreferences),
-      ).thenAnswer((_) async => json.encode([Category.top.name]));
-
-      when(
-        () => storage.write(
-          key: any(named: 'key'),
-          value: any(named: 'value'),
+        () => storage.setNotificationsEnabled(
+          enabled: any(named: 'enabled'),
         ),
       ).thenAnswer((_) async {});
+
+      when(
+        () => storage.setCategoriesPreferences(
+          categories: any(named: 'categories'),
+        ),
+      ).thenAnswer((_) async {});
+
+      when(storage.fetchNotificationsEnabled).thenAnswer((_) async => false);
+
+      when(storage.fetchCategoriesPreferences)
+          .thenAnswer((_) async => {Category.top});
 
       when(() => firebaseMessaging.subscribeToTopic(any()))
           .thenAnswer((_) async {});
@@ -80,9 +81,7 @@ void main() {
       test(
           'initializes categories preferences '
           'from GoogleNewsTemplateApiClient.getCategories', () async {
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenAnswer((_) async => null);
+        when(storage.fetchCategoriesPreferences).thenAnswer((_) async => null);
 
         final completer = Completer<void>();
         const categories = [Category.top, Category.technology];
@@ -92,9 +91,8 @@ void main() {
         );
 
         when(
-          () => storage.write(
-            key: any(named: 'key'),
-            value: any(named: 'value'),
+          () => storage.setCategoriesPreferences(
+            categories: any(named: 'categories'),
           ),
         ).thenAnswer((_) async => completer.complete());
 
@@ -108,11 +106,8 @@ void main() {
         await expectLater(completer.future, completes);
 
         verify(
-          () => storage.write(
-            key: any(named: 'key'),
-            value: json.encode(
-              categories.map((category) => category.name).toList(),
-            ),
+          () => storage.setCategoriesPreferences(
+            categories: categories.toSet(),
           ),
         ).called(1);
       });
@@ -122,9 +117,7 @@ void main() {
           'when initialization fails', () async {
         Object? caughtError;
         await runZonedGuarded(() async {
-          when(
-            () => storage.read(key: StorageKeys.categoriesPreferences),
-          ).thenThrow(Exception());
+          when(storage.fetchCategoriesPreferences).thenThrow(Exception());
 
           final _ = NotificationsRepository(
             permissionClient: permissionClient,
@@ -208,15 +201,8 @@ void main() {
             Category.technology,
           };
 
-          when(
-            () => storage.read(key: StorageKeys.categoriesPreferences),
-          ).thenAnswer(
-            (_) async => json.encode(
-              categoriesPreferences
-                  .map((preference) => preference.name)
-                  .toList(),
-            ),
-          );
+          when(storage.fetchCategoriesPreferences)
+              .thenAnswer((_) async => categoriesPreferences);
 
           when(permissionClient.notificationsStatus)
               .thenAnswer((_) async => PermissionStatus.granted);
@@ -235,8 +221,8 @@ void main() {
         });
 
         test(
-            'sets the notifications enabled value to true '
-            'in Storage', () async {
+            'calls setNotificationsEnabled with true '
+            'on NotificationsStorage', () async {
           when(permissionClient.notificationsStatus)
               .thenAnswer((_) async => PermissionStatus.granted);
 
@@ -248,10 +234,7 @@ void main() {
           ).toggleNotifications(enable: true);
 
           verify(
-            () => storage.write(
-              key: any(named: 'key'),
-              value: true.toString(),
-            ),
+            () => storage.setNotificationsEnabled(enabled: true),
           ).called(1);
         });
       });
@@ -263,15 +246,8 @@ void main() {
             Category.technology,
           };
 
-          when(
-            () => storage.read(key: StorageKeys.categoriesPreferences),
-          ).thenAnswer(
-            (_) async => json.encode(
-              categoriesPreferences
-                  .map((preference) => preference.name)
-                  .toList(),
-            ),
-          );
+          when(storage.fetchCategoriesPreferences)
+              .thenAnswer((_) async => categoriesPreferences);
 
           await NotificationsRepository(
             permissionClient: permissionClient,
@@ -287,8 +263,8 @@ void main() {
         });
 
         test(
-            'sets the notifications enabled value to false '
-            'in Storage', () async {
+            'calls setNotificationsEnabled with false '
+            'on NotificationsStorage', () async {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
@@ -297,10 +273,7 @@ void main() {
           ).toggleNotifications(enable: false);
 
           verify(
-            () => storage.write(
-              key: any(named: 'key'),
-              value: false.toString(),
-            ),
+            () => storage.setNotificationsEnabled(enabled: false),
           ).called(1);
         });
       });
@@ -329,9 +302,8 @@ void main() {
           'and the notification setting is enabled', () async {
         when(permissionClient.notificationsStatus)
             .thenAnswer((_) async => PermissionStatus.granted);
-        when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
-        ).thenAnswer((_) async => 'true');
+
+        when(storage.fetchNotificationsEnabled).thenAnswer((_) async => true);
 
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -349,9 +321,8 @@ void main() {
           'and the notification setting is enabled', () async {
         when(permissionClient.notificationsStatus)
             .thenAnswer((_) async => PermissionStatus.denied);
-        when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
-        ).thenAnswer((_) async => 'true');
+
+        when(storage.fetchNotificationsEnabled).thenAnswer((_) async => true);
 
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -369,9 +340,8 @@ void main() {
           'and the notification setting is disabled', () async {
         when(permissionClient.notificationsStatus)
             .thenAnswer((_) async => PermissionStatus.denied);
-        when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
-        ).thenAnswer((_) async => 'false');
+
+        when(storage.fetchNotificationsEnabled).thenAnswer((_) async => false);
 
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -389,9 +359,8 @@ void main() {
           'and the notification setting is disabled', () async {
         when(permissionClient.notificationsStatus)
             .thenAnswer((_) async => PermissionStatus.granted);
-        when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
-        ).thenAnswer((_) async => 'false');
+
+        when(storage.fetchNotificationsEnabled).thenAnswer((_) async => false);
 
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -426,11 +395,10 @@ void main() {
         Category.technology,
       };
 
-      test('sets categories preferences in Storage', () async {
+      test('calls setCategoriesPreferences on NotificationsStorage', () async {
         when(
-          () => storage.write(
-            key: any(named: 'key'),
-            value: any(named: 'value'),
+          () => storage.setCategoriesPreferences(
+            categories: any(named: 'categories'),
           ),
         ).thenAnswer((_) async {});
 
@@ -445,11 +413,8 @@ void main() {
         );
 
         verify(
-          () => storage.write(
-            key: StorageKeys.categoriesPreferences,
-            value: json.encode(
-              categoriesPreferences.map((category) => category.name).toList(),
-            ),
+          () => storage.setCategoriesPreferences(
+            categories: categoriesPreferences,
           ),
         ).called(1);
       });
@@ -460,15 +425,8 @@ void main() {
           Category.entertainment,
         };
 
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenAnswer(
-          (_) async => json.encode(
-            previousCategoriesPreferences
-                .map((preference) => preference.name)
-                .toList(),
-          ),
-        );
+        when(storage.fetchCategoriesPreferences)
+            .thenAnswer((_) async => previousCategoriesPreferences);
 
         await NotificationsRepository(
           permissionClient: permissionClient,
@@ -486,19 +444,13 @@ void main() {
       test(
           'subscribes to categories preferences '
           'when notifications are enabled', () async {
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenAnswer(
-          (_) async => json.encode(
-            categoriesPreferences.map((preference) => preference.name).toList(),
-          ),
-        );
+        when(storage.fetchCategoriesPreferences)
+            .thenAnswer((_) async => categoriesPreferences);
+
+        when(storage.fetchNotificationsEnabled).thenAnswer((_) async => true);
 
         when(permissionClient.notificationsStatus)
             .thenAnswer((_) async => PermissionStatus.granted);
-        when(
-          () => storage.read(key: StorageKeys.notificationsEnabled),
-        ).thenAnswer((_) async => 'true');
 
         await NotificationsRepository(
           permissionClient: permissionClient,
@@ -517,9 +469,8 @@ void main() {
           'throws a SetCategoriesPreferencesFailure '
           'when setting categories preferences fails', () async {
         when(
-          () => storage.write(
-            key: any(named: 'key'),
-            value: any(named: 'value'),
+          () => storage.setCategoriesPreferences(
+            categories: any(named: 'categories'),
           ),
         ).thenThrow(Exception());
 
@@ -541,16 +492,10 @@ void main() {
         Category.technology,
       };
 
-      test(
-          'returns categories preferences '
-          'when read succeeds with encoded preferences', () async {
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenAnswer(
-          (_) async => json.encode(
-            categoriesPreferences.map((preference) => preference.name).toList(),
-          ),
-        );
+      test('returns categories preferences from NotificationsStorage',
+          () async {
+        when(storage.fetchCategoriesPreferences)
+            .thenAnswer((_) async => categoriesPreferences);
 
         final actualPreferences = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -564,10 +509,9 @@ void main() {
 
       test(
           'returns null '
-          'when read succeeds with null', () async {
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenAnswer((_) async => null);
+          'when categories preferences do not exist in NotificationsStorage',
+          () async {
+        when(storage.fetchCategoriesPreferences).thenAnswer((_) async => null);
 
         final preferences = await NotificationsRepository(
           permissionClient: permissionClient,
@@ -589,9 +533,8 @@ void main() {
           apiClient: apiClient,
         );
 
-        when(
-          () => storage.read(key: StorageKeys.categoriesPreferences),
-        ).thenThrow(StorageException(Error()));
+        when(storage.fetchCategoriesPreferences)
+            .thenThrow(StorageException(Error()));
 
         expect(
           notificationsRepository.fetchCategoriesPreferences,
