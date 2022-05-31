@@ -33,6 +33,7 @@ class AppTheme {
       progressIndicatorTheme: _progressIndicatorTheme,
       tabBarTheme: _tabBarTheme,
       bottomNavigationBarTheme: _bottomAppBarTheme,
+      chipTheme: _chipTheme,
     );
   }
 
@@ -264,6 +265,12 @@ BottomNavigationBarThemeData get _bottomAppBarTheme {
     backgroundColor: AppColors.darkBackground,
     selectedItemColor: AppColors.white,
     unselectedItemColor: AppColors.white.withOpacity(0.74),
+  );
+}
+
+ChipThemeData get _chipTheme {
+  return const ChipThemeData(
+    backgroundColor: AppColors.transparent,
   );
 }
 
