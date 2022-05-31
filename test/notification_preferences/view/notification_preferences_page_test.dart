@@ -6,7 +6,7 @@ import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
-import 'package:notification_preferences_repository/notification_preferences_repository.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -14,13 +14,13 @@ class MockNotificationPreferencesBloc extends Mock
     implements NotificationPreferencesBloc {}
 
 class MockNotificationPreferencesRepository extends Mock
-    implements NotificationPreferencesRepository {}
+    implements NotificationsRepository {}
 
 class MockCategoriesBloc extends Mock implements CategoriesBloc {}
 
 void main() {
   final NotificationPreferencesBloc bloc = MockNotificationPreferencesBloc();
-  final NotificationPreferencesRepository repository =
+  final NotificationsRepository repository =
       MockNotificationPreferencesRepository();
   final CategoriesBloc categoryBloc = MockCategoriesBloc();
 

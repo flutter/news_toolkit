@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
-import 'package:notification_preferences_repository/notification_preferences_repository.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 
 class NotificationPreferencesPage extends StatelessWidget {
   const NotificationPreferencesPage({super.key});
@@ -21,8 +21,7 @@ class NotificationPreferencesPage extends StatelessWidget {
       create: (_) => NotificationPreferencesBloc(
         categories:
             context.read<CategoriesBloc>().state.categories?.toSet() ?? {},
-        notificationPreferencesRepository:
-            context.read<NotificationPreferencesRepository>(),
+        notificationsRepository: context.read<NotificationsRepository>(),
       ),
       child: const NotificationPreferencesView(),
     );
@@ -65,7 +64,7 @@ class NotificationPreferencesView extends StatelessWidget {
                           value: state.selectedCategories.contains(category),
                           onChanged: (value) =>
                               context.read<NotificationPreferencesBloc>().add(
-                                    NotificationPreferencesToggled(
+                                    CategoriesPreferenceToggled(
                                       category: category,
                                     ),
                                   ),
