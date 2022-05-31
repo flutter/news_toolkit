@@ -20,7 +20,7 @@ class AppSwitchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('App switches')),
+      appBar: AppBar(title: const Text('App Switches')),
       body: ListView(shrinkWrap: true, children: appSwitchList),
     );
   }

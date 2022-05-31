@@ -39,7 +39,7 @@ class WidgetsPage extends StatelessWidget {
       ),
       _ListItem(
         icon: const Icon(Icons.switch_left),
-        title: const Text('Switch'),
+        title: const Text('App Switch'),
         onTap: () => Navigator.of(context).push<void>(AppSwitchPage.route()),
       ),
     ];
