@@ -60,7 +60,7 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: notificationsRepository ?? MockNotificationsRepository(),
-          )
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
