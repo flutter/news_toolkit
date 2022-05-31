@@ -95,7 +95,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingWelcomeTitle": "Welcome to\nThe Daily GLobe!",
+  "onboardingWelcomeTitle": "Welcome to\nThe Daily Globe!",
   "@onboardingWelcomeTitle": {
     "description": "Text shown as title on the onboarding page",
     "type": "text",
@@ -139,12 +139,12 @@
   },
   "onboardingItemSecondTitle": "Don’t miss our\ntop stories!",
   "@onboardingItemSecondTitle": {
-    "description": "Text of the primary button on the first page of the onboarding",
+    "description": "Text of the primary button on the second page of the onboarding",
     "type": "text",
     "placeholders": {}
   },
   "onboardingItemSecondSubtitleTitle": "Subscribe to our notifications to stay up\nto date on the latest breaking news.",
-  "@onboardingItemFonboardingItemSecondSubtitleTitleirstSubtitleTitle": {
+  "@onboardingItemSecondSubtitleTitle": {
     "description": "Text of the second page subtitle of the onboarding.",
     "type": "text",
     "placeholders": {}

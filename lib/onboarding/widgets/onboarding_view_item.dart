@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class OnboardingViewItem extends StatelessWidget {
   const OnboardingViewItem({
-    required this.numberPageTitle,
+    required this.pageNumberTitle,
     required this.title,
     required this.subtitle,
     required this.primaryButton,
@@ -11,7 +11,7 @@ class OnboardingViewItem extends StatelessWidget {
     super.key,
   });
 
-  final String numberPageTitle;
+  final String pageNumberTitle;
   final String title;
   final String subtitle;
   final Widget primaryButton;
@@ -27,9 +27,9 @@ class OnboardingViewItem extends StatelessWidget {
         right: AppSpacing.lg,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * .032,
-          horizontal: MediaQuery.of(context).size.height * .016,
+        padding: const EdgeInsets.symmetric(
+          vertical: AppSpacing.xlg + AppSpacing.sm,
+          horizontal: AppSpacing.lg,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -39,7 +39,7 @@ class OnboardingViewItem extends StatelessWidget {
           children: [
             Text(
               key: const Key('onboardingItem_pageNumberTitle'),
-              numberPageTitle,
+              pageNumberTitle,
               style: theme.textTheme.overline?.apply(
                 color: AppColors.secondary.shade600,
               ),

@@ -14,7 +14,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 void main() {
   late AppBloc appBloc;
   const onboardingViewTitleKey = Key('onboardingView_onboardingTitle');
-  const onboardingViewSubtitleKey = Key('onboardingView_onboardingsubTitle');
+  const onboardingViewSubtitleKey = Key('onboardingView_onboardingSubtitle');
   const onboardingViewPageOneKey = Key('onboarding_pageOne');
   const onboardingViewPageTwoKey = Key('onboarding_pageTwo');
   const onboardingViewPageOnePrimaryButtonKey =
@@ -48,8 +48,9 @@ void main() {
     });
   });
 
-  group('Navigates', () {
-    testWidgets('to onboarding item two', (tester) async {
+  group('navigates', () {
+    testWidgets('to onboarding page two when button page one is tapped',
+        (tester) async {
       await tester.pumpApp(
         OnboardingView(),
       );

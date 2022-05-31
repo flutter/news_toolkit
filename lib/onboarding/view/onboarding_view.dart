@@ -5,12 +5,18 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/onboarding/onboarding.dart';
 
-class OnboardingView extends StatelessWidget {
+class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
 
   @override
+  State<OnboardingView> createState() => _OnboardingViewState();
+}
+
+class _OnboardingViewState extends State<OnboardingView> {
+  final controller = PageController();
+
+  @override
   Widget build(BuildContext context) {
-    final controller = PageController();
     final l10n = context.l10n;
 
     return ScrollableColumn(
@@ -26,7 +32,7 @@ class OnboardingView extends StatelessWidget {
             children: [
               OnboardingViewItem(
                 key: const Key('onboarding_pageOne'),
-                numberPageTitle: l10n.onboardingItemFirstNumberTitle,
+                pageNumberTitle: l10n.onboardingItemFirstNumberTitle,
                 title: l10n.onboardingItemFirstTitle,
                 subtitle: l10n.onboardingItemFirstSubtitleTitle,
                 primaryButton: AppButton.darkAqua(
@@ -46,7 +52,7 @@ class OnboardingView extends StatelessWidget {
               ),
               OnboardingViewItem(
                 key: const Key('onboarding_pageTwo'),
-                numberPageTitle: l10n.onboardingItemSecondNumberTitle,
+                pageNumberTitle: l10n.onboardingItemSecondNumberTitle,
                 title: l10n.onboardingItemSecondTitle,
                 subtitle: l10n.onboardingItemSecondSubtitleTitle,
                 primaryButton: AppButton.darkAqua(
@@ -67,6 +73,12 @@ class OnboardingView extends StatelessWidget {
       ],
     );
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }
 
 class _OnboardingTitle extends StatelessWidget {
@@ -74,13 +86,12 @@ class _OnboardingTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const contentPadding = AppSpacing.sm;
     final theme = Theme.of(context);
 
     return Padding(
       key: const Key('onboardingView_onboardingTitle'),
       padding: const EdgeInsets.only(
-        top: AppSpacing.xxxlg + contentPadding,
+        top: AppSpacing.xxxlg + AppSpacing.sm,
         bottom: AppSpacing.xxs,
       ),
       child: Text(
@@ -102,7 +113,7 @@ class _OnboardingSubtitle extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      key: const Key('onboardingView_onboardingsubTitle'),
+      key: const Key('onboardingView_onboardingSubtitle'),
       padding: const EdgeInsets.only(
         top: AppSpacing.xlg,
       ),

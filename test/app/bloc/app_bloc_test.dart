@@ -60,7 +60,7 @@ void main() {
       );
 
       blocTest<AppBloc, AppState>(
-        'emits authenticated when user is new and not anonymous',
+        'emits onboardingRequired when user is new and not anonymous',
         setUp: () {
           when(() => userRepository.user).thenAnswer(
             (_) => Stream.value(newUser),
