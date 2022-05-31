@@ -197,6 +197,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "userProfileSettingsNotificationPreferencesCategoriesSubtitle": "Notifications will be sent for all active categories below.",
+  "@userProfileSettingsNotificationPreferencesCategoriesSubtitle": {
+    "description": "User profile settings categories notifications subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
   "userProfileLegalSubtitle": "Legal",
   "@userProfileLegalSubtitle": {
     "description": "User profile legal section subtitle",

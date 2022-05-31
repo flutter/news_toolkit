@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:user_repository/user_repository.dart';
@@ -87,6 +88,9 @@ class UserProfileView extends StatelessWidget {
                 ),
                 icon: const Icon(Icons.chevron_right),
                 onPressed: () {},
+              ),
+              onTap: () => Navigator.of(context).push(
+                NotificationPreferencesPage.route(),
               ),
             ),
             const _UserProfileDivider(),
