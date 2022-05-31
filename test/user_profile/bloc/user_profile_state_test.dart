@@ -6,23 +6,75 @@ import 'package:user_repository/user_repository.dart';
 
 void main() {
   group('UserProfileState', () {
-    group('UserProfileInitial', () {
-      test('supports value comparisons', () {
-        final userProfileInitial = UserProfileInitial();
-        final userProfileInitial2 = UserProfileInitial();
-
-        expect(userProfileInitial, equals(userProfileInitial2));
-      });
+    test('initial has correct status', () {
+      expect(
+        UserProfileState.initial().status,
+        equals(UserProfileStatus.initial),
+      );
     });
 
-    group('UserProfilePopulated', () {
-      test('supports value comparisons', () {
-        const user = User.anonymous;
+    test('supports value comparisons', () {
+      expect(
+        UserProfileState.initial(),
+        equals(UserProfileState.initial()),
+      );
+    });
 
-        final userProfilePopulated = UserProfilePopulated(user);
-        final userProfilePopulated2 = UserProfilePopulated(user);
+    group('copyWith', () {
+      test(
+          'returns same object '
+          'when no properties are passed', () {
+        expect(
+          UserProfileState.initial().copyWith(),
+          equals(UserProfileState.initial()),
+        );
+      });
 
-        expect(userProfilePopulated, equals(userProfilePopulated2));
+      test(
+          'returns object with updated status '
+          'when status is passed', () {
+        expect(
+          UserProfileState.initial().copyWith(
+            status: UserProfileStatus.fetchingNotificationsEnabled,
+          ),
+          equals(
+            UserProfileState(
+              status: UserProfileStatus.fetchingNotificationsEnabled,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated notificationsEnabled '
+          'when notificationsEnabled is passed', () {
+        expect(
+          UserProfileState.initial().copyWith(
+            notificationsEnabled: true,
+          ),
+          equals(
+            UserProfileState(
+              status: UserProfileStatus.initial,
+              notificationsEnabled: true,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated user '
+          'when user is passed', () {
+        expect(
+          UserProfileState.initial().copyWith(
+            user: User.anonymous,
+          ),
+          equals(
+            UserProfileState(
+              status: UserProfileStatus.initial,
+              user: User.anonymous,
+            ),
+          ),
+        );
       });
     });
   });
