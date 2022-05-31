@@ -5,43 +5,34 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
-import 'package:notification_preferences_repository/notification_preferences_repository.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 
-class MockNotificationPreferencesRepository extends Mock
-    implements NotificationPreferencesRepository {}
+class MockNotificationsRepository extends Mock
+    implements NotificationsRepository {}
 
 void main() {
   final categories = {Category.business, Category.entertainment};
   final initialState =
       NotificationPreferencesState.initial(categories: categories);
-  final notificationPreferencesRepository =
-      MockNotificationPreferencesRepository();
+  final notificationsRepository = MockNotificationsRepository();
 
   group('NotificationPreferencesBloc', () {
-    group(' on NotificationPreferencesToggled ', () {
+    group('on CategoriesPreferenceToggled ', () {
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, success, loading, success] '
+        'with updated selectedCategories '
         'when toggled category twice ',
         setUp: () => when(
-          () =>
-              notificationPreferencesRepository.setCategoriesPreferences(any()),
+          () => notificationsRepository.setCategoriesPreferences(any()),
         ).thenAnswer((_) async {}),
         build: () => NotificationPreferencesBloc(
           categories: categories,
-          notificationPreferencesRepository: notificationPreferencesRepository,
+          notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
         act: (bloc) => bloc
-          ..add(
-            NotificationPreferencesToggled(
-              category: Category.business,
-            ),
-          )
-          ..add(
-            NotificationPreferencesToggled(
-              category: Category.business,
-            ),
-          ),
+          ..add(CategoriesPreferenceToggled(category: Category.business))
+          ..add(CategoriesPreferenceToggled(category: Category.business)),
         expect: () => <NotificationPreferencesState>[
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,
@@ -66,20 +57,15 @@ void main() {
         'when toggled category '
         'and setCategoriesPreferences throws',
         setUp: () => when(
-          () =>
-              notificationPreferencesRepository.setCategoriesPreferences(any()),
+          () => notificationsRepository.setCategoriesPreferences(any()),
         ).thenThrow(Exception()),
         build: () => NotificationPreferencesBloc(
           categories: categories,
-          notificationPreferencesRepository: notificationPreferencesRepository,
+          notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
-        act: (bloc) => bloc
-          ..add(
-            NotificationPreferencesToggled(
-              category: Category.business,
-            ),
-          ),
+        act: (bloc) =>
+            bloc..add(CategoriesPreferenceToggled(category: Category.business)),
         expect: () => <NotificationPreferencesState>[
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,
@@ -91,19 +77,19 @@ void main() {
       );
     });
 
-    group(' on InitialCategoriesRequested ', () {
+    group('on InitialCategoriesPreferencesRequested ', () {
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, success] '
-        'returning categories ',
+        'with updated selectedCategories ',
         setUp: () => when(
-          notificationPreferencesRepository.fetchCategoriesPreferences,
+          notificationsRepository.fetchCategoriesPreferences,
         ).thenAnswer((_) async => {Category.business}),
         build: () => NotificationPreferencesBloc(
           categories: categories,
-          notificationPreferencesRepository: notificationPreferencesRepository,
+          notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
-        act: (bloc) => bloc..add(InitialCategoriesRequested()),
+        act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,
@@ -117,19 +103,16 @@ void main() {
 
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, failed] '
-        'when fetchCategoriesPreferences throws ',
+        'when fetchCategoriesPreferences throws',
         setUp: () => when(
-          notificationPreferencesRepository.fetchCategoriesPreferences,
+          notificationsRepository.fetchCategoriesPreferences,
         ).thenThrow(Exception()),
         build: () => NotificationPreferencesBloc(
           categories: categories,
-          notificationPreferencesRepository: notificationPreferencesRepository,
+          notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
-        act: (bloc) => bloc
-          ..add(
-            InitialCategoriesRequested(),
-          ),
+        act: (bloc) => bloc..add(InitialCategoriesPreferencesRequested()),
         expect: () => <NotificationPreferencesState>[
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,

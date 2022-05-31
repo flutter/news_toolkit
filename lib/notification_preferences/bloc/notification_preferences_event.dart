@@ -4,8 +4,8 @@ abstract class NotificationPreferencesEvent extends Equatable {
   const NotificationPreferencesEvent();
 }
 
-class NotificationPreferencesToggled extends NotificationPreferencesEvent {
-  const NotificationPreferencesToggled({required this.category});
+class CategoriesPreferenceToggled extends NotificationPreferencesEvent {
+  const CategoriesPreferenceToggled({required this.category});
 
   final Category category;
 
@@ -13,7 +13,8 @@ class NotificationPreferencesToggled extends NotificationPreferencesEvent {
   List<Object?> get props => [category];
 }
 
-class InitialCategoriesRequested extends NotificationPreferencesEvent {
+class InitialCategoriesPreferencesRequested
+    extends NotificationPreferencesEvent {
   @override
   List<Object?> get props => [];
 }

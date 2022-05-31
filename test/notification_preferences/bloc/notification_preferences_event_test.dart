@@ -6,13 +6,22 @@ import 'package:news_blocks/news_blocks.dart';
 
 void main() {
   group('NotificationPreferencesEvent', () {
-    test('supports value comparison', () {
-      final event1 =
-          NotificationPreferencesToggled(category: Category.business);
-      final event2 =
-          NotificationPreferencesToggled(category: Category.business);
+    group('CategoriesPreferenceToggled', () {
+      test('supports value comparisons', () {
+        final event1 = CategoriesPreferenceToggled(category: Category.business);
+        final event2 = CategoriesPreferenceToggled(category: Category.business);
 
-      expect(event1, equals(event2));
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('InitialCategoriesPreferencesRequested', () {
+      test('supports value comparisons', () {
+        final event1 = InitialCategoriesPreferencesRequested();
+        final event2 = InitialCategoriesPreferencesRequested();
+
+        expect(event1, equals(event2));
+      });
     });
   });
 }
