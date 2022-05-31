@@ -5,11 +5,8 @@ import 'package:google_news_template/l10n/l10n.dart';
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
     super.key,
-    this.onChanged,
     required this.controller,
   });
-
-  final ValueSetter<String>? onChanged;
 
   final TextEditingController controller;
 
@@ -25,7 +22,6 @@ class SearchTextField extends StatelessWidget {
           icon: const Icon(Icons.clear),
         ),
         hintText: context.l10n.searchByKeyword,
-        onChanged: onChanged,
       ),
     );
   }

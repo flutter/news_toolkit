@@ -121,7 +121,7 @@ void main() {
 
     testWidgets(
         'when SearchTextField changes to an empty value '
-        'adds PopularSearchRequested to SearchBloc', (tester) async {
+        'adds empty SearchTermChanged to SearchBloc', (tester) async {
       when(() => searchBloc.state).thenReturn(
         const SearchState(
           articles: [],

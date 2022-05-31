@@ -312,25 +312,25 @@
     "placeholders": {}
   },
   "searchPopularArticles": "Popular Articles",
-  "@searchPopularSearches": {
+  "@searchPopularArticles": {
     "description": "Text displayed at the top of the popular articles.",
     "type": "text",
     "placeholders": {}
   },
   "searchRelevantTopics": "Relevant Topics / Sections",
-  "@searchPopularSearches": {
+  "@searchRelevantTopics": {
     "description": "Text displayed at the top of the relevant search.",
     "type": "text",
     "placeholders": {}
   },
   "searchRelevantArticles": "Relevant Articles",
-  "@searchPopularSearches": {
+  "@searchRelevantArticles": {
     "description": "Text displayed at the top of the relevant articles.",
     "type": "text",
     "placeholders": {}
   },
   "searchByKeyword": "Search by keyword",
-  "@searchPopularSearches": {
+  "@searchByKeyword": {
     "description": "Hint displayed in search text field.",
     "type": "text",
     "placeholders": {}
