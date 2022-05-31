@@ -50,10 +50,10 @@ class NotificationPreferencesBloc
         ),
       );
     } catch (error, stackTrace) {
-      addError(error, stackTrace);
       emit(
         state.copyWith(status: NotificationPreferencesStatus.failure),
       );
+      addError(error, stackTrace);
     }
   }
 
@@ -74,10 +74,10 @@ class NotificationPreferencesBloc
         ),
       );
     } catch (error, stackTrace) {
-      addError(error, stackTrace);
       emit(
         state.copyWith(status: NotificationPreferencesStatus.failure),
       );
+      addError(error, stackTrace);
     }
   }
 }
