@@ -8,7 +8,7 @@ on:
   pull_request:
     paths:
       - "api/packages/news_blocks/**"
-      - ".github/workflows/storage.yaml"
+      - ".github/workflows/news_blocks.yaml"
     branches:
       - main
 
