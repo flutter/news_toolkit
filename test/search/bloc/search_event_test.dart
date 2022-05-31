@@ -14,13 +14,11 @@ void main() {
       });
     });
 
-    group('KeywordChanged', () {
-      test('supports value comparisons', () {
-        final event1 = SearchTermChanged(searchTerm: 'keyword');
-        final event2 = SearchTermChanged(searchTerm: 'keyword');
+    test('supports searchTerm value comparisons', () {
+      final event1 = SearchTermChanged(searchTerm: 'keyword');
+      final event2 = SearchTermChanged(searchTerm: 'keyword');
 
-        expect(event1, equals(event2));
-      });
+      expect(event1, equals(event2));
     });
   });
 }
