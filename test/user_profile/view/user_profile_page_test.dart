@@ -9,6 +9,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
@@ -22,6 +23,8 @@ void main() {
   const termsOfServiceItemKey = Key('userProfilePage_termsOfServiceItem');
 
   group('UserProfilePage', () {
+    late NotificationsRepository notificationsRepository;
+
     test('has a route', () {
       expect(UserProfilePage.route(), isA<MaterialPageRoute>());
     });
@@ -41,8 +44,8 @@ void main() {
 
         whenListen(
           userProfileBloc,
-          Stream.value(UserProfilePopulated(user)),
-          initialState: UserProfilePopulated(user),
+          Stream.value(UserProfileState.initial().copyWith(user: user)),
+          initialState: UserProfileState.initial().copyWith(user: user),
         );
       });
 
