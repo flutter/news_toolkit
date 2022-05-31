@@ -45,6 +45,7 @@ dependencies:
   persistent_storage:
     path: packages/storage/persistent_storage
   platform: ^3.0.2
+  stream_transform: ^2.0.0
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
