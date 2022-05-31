@@ -335,9 +335,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchErrorMessage": "Problem ocurred finding popular searches.",
+  "searchErrorMessage": "Problem ocurred finding search results.",
   "@searchErrorMessage": {
-    "description": "Message displayed when error occurred during fetching popular articles.",
+    "description": "Message displayed when error occurred during fetching search results.",
     "type": "text",
     "placeholders": {}
   },
