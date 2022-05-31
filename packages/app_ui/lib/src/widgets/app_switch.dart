@@ -16,7 +16,7 @@ class AppSwitch extends StatelessWidget {
 
   /// Text displayed when this switch is set to true.
   ///
-  /// Defaults to an empty string
+  /// Defaults to an empty string.
   final String onText;
 
   /// Text displayed when this switch is set to false.
