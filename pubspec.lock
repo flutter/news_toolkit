@@ -385,14 +385,14 @@ packages:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.5"
+    version: "4.4.0"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.2"
+    version: "1.6.4"
   firebase_crashlytics:
     dependency: "direct main"
     description:
@@ -421,6 +421,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.3"
+  firebase_messaging:
+    dependency: transitive
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "11.4.1"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.5.1"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.1"
   fixnum:
     dependency: transitive
     description:
@@ -501,13 +522,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_secure_storage:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.2.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -770,10 +784,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  notification_preferences_repository:
+  notifications_repository:
     dependency: "direct main"
     description:
-      path: "packages/notification_preferences_repository"
+      path: "packages/notifications_repository"
       relative: true
     source: path
     version: "1.0.0+1"
@@ -875,8 +889,50 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
-  persistent_storage:
+  permission_client:
     dependency: transitive
+    description:
+      path: "packages/permission_client"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  permission_handler:
+    dependency: transitive
+    description:
+      name: permission_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.2.0"
+  permission_handler_android:
+    dependency: transitive
+    description:
+      name: permission_handler_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.2+1"
+  permission_handler_apple:
+    dependency: transitive
+    description:
+      name: permission_handler_apple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.4"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.7.0"
+  permission_handler_windows:
+    dependency: transitive
+    description:
+      name: permission_handler_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  persistent_storage:
+    dependency: "direct main"
     description:
       path: "packages/storage/persistent_storage"
       relative: true
@@ -954,13 +1010,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.3"
-  secure_storage:
-    dependency: "direct main"
-    description:
-      path: "packages/storage/secure_storage"
-      relative: true
-    source: path
-    version: "0.0.0"
   shared_preferences:
     dependency: transitive
     description:

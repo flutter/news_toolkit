@@ -1,18 +1,26 @@
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/main/bootstrap/bootstrap.dart';
 import 'package:google_news_template/src/version.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:package_info_client/package_info_client.dart';
+import 'package:permission_client/permission_client.dart';
+import 'package:persistent_storage/persistent_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
 void main() {
   bootstrap(
-    () async {
-      final firebaseDynamicLinks = FirebaseDynamicLinks.instance;
+    (firebaseDynamicLinks, firebaseMessaging, sharedPreferences) async {
+      final apiClient = GoogleNewsTemplateApiClient();
+
+      const permissionClient = PermissionClient();
+
+      final persistentStorage = PersistentStorage(
+        sharedPreferences: sharedPreferences,
+      );
 
       final packageInfoClient = PackageInfoClient(
         appName: 'Google News Template',
@@ -31,12 +39,20 @@ void main() {
       );
 
       final newsRepository = NewsRepository(
-        apiClient: GoogleNewsTemplateApiClient(),
+        apiClient: apiClient,
+      );
+
+      final notificationsRepository = NotificationsRepository(
+        permissionClient: permissionClient,
+        storage: NotificationsStorage(storage: persistentStorage),
+        firebaseMessaging: firebaseMessaging,
+        apiClient: apiClient,
       );
 
       return App(
         userRepository: userRepository,
         newsRepository: newsRepository,
+        notificationsRepository: notificationsRepository,
         user: await userRepository.user.first,
       );
     },
