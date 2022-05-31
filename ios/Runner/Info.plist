@@ -74,18 +74,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>TODO</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>TODO</string>
-	<key>NSContactsUsageDescription</key>
-	<string>TODO</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>TODO</string>
-	<key>NSMotionUsageDescription</key>
-	<string>TODO</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>TODO</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -112,5 +100,7 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>PermissionGroupNotification</key>
+	<string>Google News Template requires access to notifications to send news notifications.</string>
 </dict>
 </plist>

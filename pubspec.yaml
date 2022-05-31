@@ -39,10 +39,12 @@ dependencies:
     path: packages/news_blocks_ui
   news_repository:
     path: packages/news_repository
+  notifications_repository:
+    path: packages/notifications_repository
   path_provider: ^2.0.2
+  persistent_storage:
+    path: packages/storage/persistent_storage
   platform: ^3.0.2
-  secure_storage:
-    path: packages/storage/secure_storage
   stream_transform: ^2.0.0
   url_launcher: ^6.0.9
   user_repository:
