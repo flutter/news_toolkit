@@ -358,5 +358,35 @@
     "description": "Subscribe text shown in the bottom nav bar widget.",
     "type": "text",
     "placeholders": {}
+  },
+  "subscribeLoggedInTitle": "Subscribe today for\nunlimited access.",
+  "@subscribeLoggedInTitle": {
+    "description": "Title text shown in the subscribe logged in modal.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeLoggedInSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribeLoggedInSubtitle": {
+    "description": "Subtitle text shown in the subscribe logged in modal.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribePayWallnTitle": "You've reached your 4\narticle limit.",
+  "@subscribePayWallnTitle": {
+    "description": "Title text shown in the subscribe paywall modal.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribePayWallnSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribePayWallnSubtitle": {
+    "description": "Subtitle text shown in the subscribe paywall modal.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribePayWallnWatchVideo": "Watch a video to view this article",
+  "@subscribePayWallnWatchVideo": {
+    "description": "Button text shown in the watch a video button on the paywall modal.",
+    "type": "text",
+    "placeholders": {}
   }
 }
