@@ -9,6 +9,7 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/subscribe/widgets/widgets.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -366,6 +367,41 @@ void main() {
       });
     });
 
+    testWidgets(
+        'opens subscribe logged in modal when  '
+        'newsBlock tapped is a PostBlock and is premium', (tester) async {
+      final block = PostMediumBlock(
+        id: 'id',
+        category: PostCategory.sports,
+        author: 'author',
+        publishedAt: DateTime(2022, 3, 10),
+        imageUrl: 'imageUrl',
+        title: 'title',
+        isPremium: true,
+        isContentOverlaid: true,
+        action: NavigateToArticleAction(articleId: 'articleId'),
+      );
+
+      await mockNetworkImages(() async {
+        await tester.pumpApp(
+          ListView(
+            children: [
+              CategoryFeedItem(block: block),
+            ],
+          ),
+          newsRepository: newsRepository,
+        );
+      });
+
+      await tester.ensureVisible(find.byType(PostMedium));
+      await tester.tap(find.byType(PostMedium));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byType(SubscribeLoggedInModal),
+        findsOneWidget,
+      );
+    });
     testWidgets(
         'adds CategorySelected to CategoriesBloc '
         'on NavigateToFeedCategoryAction', (tester) async {

@@ -5,10 +5,9 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/subscribe/widgets/widgets.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-
-import '../../subscribe/widgets/widgets.dart';
 
 class CategoryFeedItem extends StatelessWidget {
   const CategoryFeedItem({super.key, required this.block});
