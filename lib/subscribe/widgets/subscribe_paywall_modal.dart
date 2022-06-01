@@ -45,7 +45,7 @@ class _SubscribePayWallHeader extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: AppSpacing.sm, top: AppSpacing.lg),
           child: Text(
-            key: const Key('susbcribePayWallModal_title'),
+            key: const Key('subscribePayWallModal_title'),
             context.l10n.subscribePayWallTitle,
             style: theme.textTheme.headline5?.apply(
               color: AppColors.highEmphasisSurface,
@@ -70,7 +70,7 @@ class _SubscribePayWallSubtitle extends StatelessWidget {
         top: AppSpacing.sm,
       ),
       child: Text(
-        key: const Key('susbcribePayWallModal_subtitle'),
+        key: const Key('subscribePayWallModal_subtitle'),
         context.l10n.subscribePayWallSubtitle,
         style: theme.textTheme.subtitle1?.apply(
           color: AppColors.mediumEmphasisSurface,
@@ -93,7 +93,7 @@ class _SubscribePayWallSubscribeButton extends StatelessWidget {
         AppSpacing.lg,
       ),
       child: AppButton.redWine(
-        key: const Key('susbcribePayWallModal_subscribeButton'),
+        key: const Key('subscribePayWallModal_subscribeButton'),
         child: Text(context.l10n.subscribeButtonText),
         onPressed: () {},
       ),
@@ -114,7 +114,7 @@ class _SubscribePayWallWatchVideo extends StatelessWidget {
         AppSpacing.lg,
       ),
       child: AppButton.transparentDarkAqua(
-        key: const Key('susbcribePayWallModal_watchVideo'),
+        key: const Key('subscribePayWallModal_watchVideo'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

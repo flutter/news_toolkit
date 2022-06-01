@@ -7,10 +7,10 @@ import '../../helpers/helpers.dart';
 
 void main() {
   const closesModalKey = Key('subscribeLoggedInModal_closeModal');
-  const subscribeLoggedInTitleKey = Key('susbcribeLoggedInModal_title');
-  const subscribeLoggedInSubtitleKey = Key('susbcribeLoggedInModal_subtitle');
-  const susbscribeLoggedInSubscribeButtonKey =
-      Key('susbcribeLoggedInModal_subscribeButton');
+  const subscribeLoggedInTitleKey = Key('subscribeLoggedInModal_title');
+  const subscribeLoggedInSubtitleKey = Key('subscribeLoggedInModal_subtitle');
+  const subscribeLoggedInSubscribeButtonKey =
+      Key('subscribeLoggedInModal_subscribeButton');
 
   group('renders', () {
     testWidgets('Subscribe logged in modal title', (tester) async {
@@ -31,7 +31,7 @@ void main() {
       await tester.pumpApp(
         const SubscribeLoggedInModal(),
       );
-      expect(find.byKey(susbscribeLoggedInSubscribeButtonKey), findsOneWidget);
+      expect(find.byKey(subscribeLoggedInSubscribeButtonKey), findsOneWidget);
     });
   });
 
@@ -54,12 +54,12 @@ void main() {
           const SubscribeLoggedInModal(),
         );
         await tester
-            .ensureVisible(find.byKey(susbscribeLoggedInSubscribeButtonKey));
+            .ensureVisible(find.byKey(subscribeLoggedInSubscribeButtonKey));
 
-        await tester.tap(find.byKey(susbscribeLoggedInSubscribeButtonKey));
+        await tester.tap(find.byKey(subscribeLoggedInSubscribeButtonKey));
         await tester.pumpAndSettle();
         expect(
-          find.byKey(susbscribeLoggedInSubscribeButtonKey),
+          find.byKey(subscribeLoggedInSubscribeButtonKey),
           findsOneWidget,
         );
       });

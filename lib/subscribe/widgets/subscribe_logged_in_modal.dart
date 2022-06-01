@@ -45,7 +45,7 @@ class _SubscribeLoggedInHeader extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: AppSpacing.sm, top: AppSpacing.lg),
           child: Text(
-            key: const Key('susbcribeLoggedInModal_title'),
+            key: const Key('subscribeLoggedInModal_title'),
             context.l10n.subscribeLoggedInTitle,
             style: theme.textTheme.headline5?.apply(
               color: AppColors.highEmphasisSurface,
@@ -70,7 +70,7 @@ class _SubscribeLoggedInSubtitle extends StatelessWidget {
         top: AppSpacing.sm,
       ),
       child: Text(
-        key: const Key('susbcribeLoggedInModal_subtitle'),
+        key: const Key('subscribeLoggedInModal_subtitle'),
         context.l10n.subscribeLoggedInSubtitle,
         style: theme.textTheme.subtitle1?.apply(
           color: AppColors.mediumEmphasisSurface,
@@ -93,7 +93,7 @@ class _SubscribeLoggedInButton extends StatelessWidget {
         AppSpacing.lg,
       ),
       child: AppButton.redWine(
-        key: const Key('susbcribeLoggedInModal_subscribeButton'),
+        key: const Key('subscribeLoggedInModal_subscribeButton'),
         child: Text(context.l10n.subscribeButtonText),
         onPressed: () {},
       ),
