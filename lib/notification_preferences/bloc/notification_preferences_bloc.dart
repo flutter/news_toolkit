@@ -11,11 +11,12 @@ part 'notification_preferences_event.dart';
 class NotificationPreferencesBloc
     extends Bloc<NotificationPreferencesEvent, NotificationPreferencesState> {
   NotificationPreferencesBloc({
-    required Set<Category> categories,
+    required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
   })  : _notificationsRepository = notificationsRepository,
+        _newsRepository = newsRepository,
         super(
-          NotificationPreferencesState.initial(categories: categories),
+          NotificationPreferencesState.initial(),
         ) {
     on<CategoriesPreferenceToggled>(
       _onCategoriesPreferenceToggled,
@@ -26,6 +27,7 @@ class NotificationPreferencesBloc
   }
 
   final NotificationsRepository _notificationsRepository;
+  final NewsRepository _newsRepository;
 
   FutureOr<void> _onCategoriesPreferenceToggled(
     CategoriesPreferenceToggled event,
@@ -65,12 +67,15 @@ class NotificationPreferencesBloc
 
     try {
       final selectedCategories =
-          await _notificationsRepository.fetchCategoriesPreferences();
+          _notificationsRepository.fetchCategoriesPreferences();
+
+      final categories = _newsRepository.getCategories();
 
       emit(
         state.copyWith(
           status: NotificationPreferencesStatus.success,
-          selectedCategories: selectedCategories,
+          selectedCategories: await selectedCategories,
+          categories: (await categories).categories.toSet(),
         ),
       );
     } catch (error, stackTrace) {

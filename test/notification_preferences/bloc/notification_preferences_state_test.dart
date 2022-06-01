@@ -8,16 +8,15 @@ import 'package:news_blocks/news_blocks.dart';
 void main() {
   group('NotificationPreferencesState', () {
     test('initial has correct status', () {
-      final initialState =
-          NotificationPreferencesState.initial(categories: {Category.business});
+      final initialState = NotificationPreferencesState.initial();
 
       expect(
         initialState,
         equals(
           NotificationPreferencesState(
-            selectedCategories: {Category.business},
+            selectedCategories: {},
             status: NotificationPreferencesStatus.initial,
-            categories: {Category.business},
+            categories: {},
           ),
         ),
       );
@@ -25,9 +24,9 @@ void main() {
 
     test('supports value comparison', () {
       expect(
-        NotificationPreferencesState.initial(categories: {Category.business}),
+        NotificationPreferencesState.initial(),
         equals(
-          NotificationPreferencesState.initial(categories: {Category.business}),
+          NotificationPreferencesState.initial(),
         ),
       );
     });
@@ -37,16 +36,16 @@ void main() {
           'returns same object '
           'when no parameters changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: {}).copyWith(),
-          equals(NotificationPreferencesState.initial(categories: {})),
+          NotificationPreferencesState.initial().copyWith(),
+          equals(NotificationPreferencesState.initial()),
         );
       });
 
       test(
-          'returns object with updated categories and togglesState '
+          'returns object with updated categories '
           'when categories changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: {}).copyWith(
+          NotificationPreferencesState.initial().copyWith(
             categories: {Category.business},
           ),
           equals(
@@ -62,7 +61,7 @@ void main() {
           'returns object with updated status '
           'when status changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: {}).copyWith(
+          NotificationPreferencesState.initial().copyWith(
             status: NotificationPreferencesStatus.success,
           ),
           equals(
@@ -76,16 +75,15 @@ void main() {
       });
 
       test(
-          'returns object with updated toggleState '
-          'when toggleState changed', () {
+          'returns object with updated selectedCategories '
+          'when selectedCategories changed', () {
         expect(
-          NotificationPreferencesState.initial(categories: {Category.business})
-              .copyWith(
+          NotificationPreferencesState.initial().copyWith(
             selectedCategories: {Category.business},
           ),
           equals(
             NotificationPreferencesState(
-              categories: {Category.business},
+              categories: {},
               status: NotificationPreferencesStatus.initial,
               selectedCategories: {Category.business},
             ),

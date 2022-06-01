@@ -27,10 +27,8 @@ class NotificationCategoryTile extends StatelessWidget {
       horizontalTitleGap: 0,
       onTap: onTap,
       title: Text(
-        title,
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-              color: AppColors.highEmphasisSurface,
-            ),
+        title.isNotEmpty ? title[0].toUpperCase() + title.substring(1) : '',
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }

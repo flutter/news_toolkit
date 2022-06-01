@@ -1,9 +1,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
+import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 
 class NotificationPreferencesPage extends StatelessWidget {
@@ -11,18 +11,17 @@ class NotificationPreferencesPage extends StatelessWidget {
 
   static MaterialPageRoute<void> route() {
     return MaterialPageRoute(
-      builder: (_) => const NotificationPreferencesView(),
+      builder: (_) => const NotificationPreferencesPage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<NotificationPreferencesBloc>(
       create: (_) => NotificationPreferencesBloc(
-        categories:
-            context.read<CategoriesBloc>().state.categories?.toSet() ?? {},
+        newsRepository: context.read<NewsRepository>(),
         notificationsRepository: context.read<NotificationsRepository>(),
-      ),
+      )..add(InitialCategoriesPreferencesRequested()),
       child: const NotificationPreferencesView(),
     );
   }
@@ -36,46 +35,59 @@ class NotificationPreferencesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Column(
-        children: [
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            l10n.userProfileSettingsNotificationPreferencesTitle,
-            style: theme.textTheme.headline4,
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            l10n.userProfileSettingsNotificationPreferencesCategoriesSubtitle,
-            style: theme.textTheme.bodyText1,
-          ),
-          BlocBuilder<NotificationPreferencesBloc,
-              NotificationPreferencesState>(
-            builder: (context, state) => Expanded(
-              child: ListView(
-                children: state.categories
-                    .map<Widget>(
-                      (category) => NotificationCategoryTile(
-                        title: category.name,
-                        trailing: AppSwitch(
-                          onText: l10n.userProfileCheckboxOnTitle,
-                          offText: l10n.userProfileCheckboxOffTitle,
-                          value: state.selectedCategories.contains(category),
-                          onChanged: (value) =>
-                              context.read<NotificationPreferencesBloc>().add(
+    return Scaffold(
+      appBar: AppBar(
+        leading: const AppBackButton(),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                l10n.userProfileSettingsNotificationPreferencesTitle,
+                style: theme.textTheme.headline4,
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                l10n.userProfileSettingsNotificationPreferencesCategoriesSubtitle,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: AppColors.mediumEmphasisSurface,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              BlocBuilder<NotificationPreferencesBloc,
+                  NotificationPreferencesState>(
+                builder: (context, state) => Expanded(
+                  child: ListView(
+                    children: state.categories
+                        .map<Widget>(
+                          (category) => NotificationCategoryTile(
+                            title: category.name,
+                            trailing: AppSwitch(
+                              onText: l10n.userProfileCheckboxOnTitle,
+                              offText: l10n.userProfileCheckboxOffTitle,
+                              value:
+                                  state.selectedCategories.contains(category),
+                              onChanged: (value) => context
+                                  .read<NotificationPreferencesBloc>()
+                                  .add(
                                     CategoriesPreferenceToggled(
                                       category: category,
                                     ),
                                   ),
-                        ),
-                      ),
-                    )
-                    .toList(),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
