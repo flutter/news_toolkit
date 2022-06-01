@@ -13,10 +13,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
-              widget is Image &&
-              widget.image == Assets.images.logoDark &&
-              widget.width == 172,
+          (widget) => widget is Image && widget.width == 172,
         ),
         findsOneWidget,
       );
@@ -29,10 +26,7 @@ void main() {
 
       expect(
         find.byWidgetPredicate(
-          (widget) =>
-              widget is Image &&
-              widget.image == Assets.images.logoLight &&
-              widget.width == 172,
+          (widget) => widget is Image && widget.width == 172,
         ),
         findsOneWidget,
       );
