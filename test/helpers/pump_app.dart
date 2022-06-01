@@ -13,8 +13,6 @@ import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
-import '../notification_preferences/bloc/notification_preferences_bloc_test.dart';
-
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
   @override
   AppState get state => const AppState.unauthenticated();
