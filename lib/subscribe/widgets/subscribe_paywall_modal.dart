@@ -113,7 +113,7 @@ class _SubscribePayWallWatchVideo extends StatelessWidget {
         AppSpacing.lg,
         AppSpacing.lg,
       ),
-      child: AppButton.transparentDarkAqua(
+      child: AppButton.smallTransparent(
         key: const Key('subscribePayWallModal_watchVideo'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
