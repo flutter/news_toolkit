@@ -1,13 +1,28 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:google_news_template/l10n/l10n.dart';
 
-class UserProfileSwitch extends StatelessWidget {
-  const UserProfileSwitch({
+/// {@template app_switch}
+/// Switch with optional leading text displayed in the application.
+/// {@endtemplate}
+class AppSwitch extends StatelessWidget {
+  /// {@macro app_switch}
+  const AppSwitch({
     super.key,
     required this.value,
     required this.onChanged,
+    this.onText = '',
+    this.offText = '',
   });
+
+  /// Text displayed when this switch is set to true.
+  ///
+  /// Defaults to an empty string.
+  final String onText;
+
+  /// Text displayed when this switch is set to false.
+  ///
+  /// Defaults to an empty string.
+  final String offText;
 
   /// Whether this checkbox is checked.
   final bool value;
@@ -17,15 +32,11 @@ class UserProfileSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          value
-              ? l10n.userProfileCheckboxOnTitle
-              : l10n.userProfileCheckboxOffTitle,
+          value ? onText : offText,
           style: Theme.of(context).textTheme.bodyText2,
         ),
         Padding(
