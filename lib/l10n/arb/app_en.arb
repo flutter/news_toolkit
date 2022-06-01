@@ -311,6 +311,42 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchPopularSearches": "Popular Searches",
+  "@searchPopularSearches": {
+    "description": "Text displayed at the top of the popular searches.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchPopularArticles": "Popular Articles",
+  "@searchPopularArticles": {
+    "description": "Text displayed at the top of the popular articles.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchRelevantTopics": "Relevant Topics / Sections",
+  "@searchRelevantTopics": {
+    "description": "Text displayed at the top of the relevant search.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchRelevantArticles": "Relevant Articles",
+  "@searchRelevantArticles": {
+    "description": "Text displayed at the top of the relevant articles.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchByKeyword": "Search by keyword",
+  "@searchByKeyword": {
+    "description": "Hint displayed in search text field.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchErrorMessage": "Problem ocurred finding search results.",
+  "@searchErrorMessage": {
+    "description": "Message displayed when error occurred during fetching search results.",
+    "type": "text",
+    "placeholders": {}
+  },
   "bottomNavBarTopStories": "Top Stories",
   "@bottomNavBarTopStories": {
     "description": "Top stories text shown in the bottom nav bar widget.",
