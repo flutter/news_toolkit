@@ -35,6 +35,8 @@ class NotificationPreferencesView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
+    final subtitle =
+        l10n.userProfileSettingsNotificationPreferencesCategoriesSubtitle;
     return Scaffold(
       appBar: AppBar(
         leading: const AppBackButton(),
@@ -52,7 +54,7 @@ class NotificationPreferencesView extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                l10n.userProfileSettingsNotificationPreferencesCategoriesSubtitle,
+                subtitle,
                 style: theme.textTheme.bodyText1?.copyWith(
                   color: AppColors.mediumEmphasisSurface,
                 ),
