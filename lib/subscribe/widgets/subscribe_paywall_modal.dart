@@ -10,11 +10,14 @@ class SubscribePayWallModal extends StatelessWidget {
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      padding: const EdgeInsets.all(AppSpacing.lg),
       children: const [
         _SubscribePayWallHeader(),
-        _SubscribePayWallSubtitle(),
+        SizedBox(height: AppSpacing.lg),
         _SubscribePayWallSubscribeButton(),
+        SizedBox(height: AppSpacing.lg),
         _SubscribePayWallWatchVideo(),
+        SizedBox(height: AppSpacing.xlg),
       ],
     );
   }
@@ -30,52 +33,36 @@ class _SubscribePayWallHeader extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(
-            left: AppSpacing.lg,
-            top: AppSpacing.lg,
+        GestureDetector(
+          key: const Key('subscribePayWallModal_closeModal'),
+          child: const Padding(
+            padding: EdgeInsets.only(top: AppSpacing.xxs),
+            child: Icon(Icons.close),
           ),
-          child: GestureDetector(
-            key: const Key('subscribePayWallModal_closeModal'),
-            child: const Icon(Icons.close),
-            onTap: () => Navigator.pop(context),
-          ),
+          onTap: () => Navigator.pop(context),
         ),
-        Padding(
-          padding:
-              const EdgeInsets.only(left: AppSpacing.sm, top: AppSpacing.lg),
-          child: Text(
-            key: const Key('subscribePayWallModal_title'),
-            context.l10n.subscribePayWallTitle,
-            style: theme.textTheme.headline5?.apply(
-              color: AppColors.highEmphasisSurface,
+        const SizedBox(width: AppSpacing.md),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              key: const Key('subscribePayWallModal_title'),
+              context.l10n.subscribePayWallTitle,
+              style: theme.textTheme.headline5?.apply(
+                color: AppColors.highEmphasisSurface,
+              ),
             ),
-          ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              key: const Key('subscribePayWallModal_subtitle'),
+              context.l10n.subscribePayWallSubtitle,
+              style: theme.textTheme.subtitle1?.apply(
+                color: AppColors.mediumEmphasisSurface,
+              ),
+            ),
+          ],
         ),
       ],
-    );
-  }
-}
-
-class _SubscribePayWallSubtitle extends StatelessWidget {
-  const _SubscribePayWallSubtitle();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: AppSpacing.xlg + AppSpacing.xlg,
-        top: AppSpacing.sm,
-      ),
-      child: Text(
-        key: const Key('subscribePayWallModal_subtitle'),
-        context.l10n.subscribePayWallSubtitle,
-        style: theme.textTheme.subtitle1?.apply(
-          color: AppColors.mediumEmphasisSurface,
-        ),
-      ),
     );
   }
 }
@@ -85,18 +72,10 @@ class _SubscribePayWallSubscribeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.lg + AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.lg,
-      ),
-      child: AppButton.redWine(
-        key: const Key('subscribePayWallModal_subscribeButton'),
-        child: Text(context.l10n.subscribeButtonText),
-        onPressed: () {},
-      ),
+    return AppButton.redWine(
+      key: const Key('subscribePayWallModal_subscribeButton'),
+      child: Text(context.l10n.subscribeButtonText),
+      onPressed: () {},
     );
   }
 }
@@ -106,27 +85,19 @@ class _SubscribePayWallWatchVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        0,
-        AppSpacing.lg,
-        AppSpacing.lg,
+    return AppButton.transparentDarkAqua(
+      key: const Key('subscribePayWallModal_watchVideo'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Assets.icons.videoIcon.svg(),
+          const SizedBox(width: AppSpacing.sm),
+          Text(
+            context.l10n.subscribePayWallWatchVideo,
+          ),
+        ],
       ),
-      child: AppButton.smallTransparent(
-        key: const Key('subscribePayWallModal_watchVideo'),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Assets.icons.videoIcon.svg(),
-            const SizedBox(width: AppSpacing.sm),
-            Text(
-              context.l10n.subscribePayWallWatchVideo,
-            ),
-          ],
-        ),
-        onPressed: () {},
-      ),
+      onPressed: () {},
     );
   }
 }
