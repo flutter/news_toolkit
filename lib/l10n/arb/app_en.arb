@@ -371,20 +371,20 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribePayWallnTitle": "You've reached your 4\narticle limit.",
-  "@subscribePayWallnTitle": {
+  "subscribePayWallTitle": "You've reached your 4\narticle limit.",
+  "@subscribePayWallTitle": {
     "description": "Title text shown in the subscribe paywall modal.",
     "type": "text",
     "placeholders": {}
   },
-  "subscribePayWallnSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
-  "@subscribePayWallnSubtitle": {
+  "subscribePayWallSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribePayWallSubtitle": {
     "description": "Subtitle text shown in the subscribe paywall modal.",
     "type": "text",
     "placeholders": {}
   },
-  "subscribePayWallnWatchVideo": "Watch a video to view this article",
-  "@subscribePayWallnWatchVideo": {
+  "subscribePayWallWatchVideo": "Watch a video to view this article",
+  "@subscribePayWallWatchVideo": {
     "description": "Button text shown in the watch a video button on the paywall modal.",
     "type": "text",
     "placeholders": {}

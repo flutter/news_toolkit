@@ -9,7 +9,7 @@ void main() {
   const closesModalKey = Key('subscribePayWallModal_closeModal');
   const subscribePayWallTitleKey = Key('susbcribePayWallModal_title');
   const subscribePayWallSubtitleKey = Key('susbcribePayWallModal_subtitle');
-  const susbscribePayWallSubscribeButtonKey =
+  const susbcribePayWallSubscribeButtonKey =
       Key('susbcribePayWallModal_subscribeButton');
   const susbcribePayWallWatchVideoButtonKey =
       Key('susbcribePayWallModal_watchVideo');
@@ -33,14 +33,14 @@ void main() {
       await tester.pumpApp(
         const SubscribePayWallModal(),
       );
-      expect(find.byKey(susbscribePayWallSubscribeButtonKey), findsOneWidget);
+      expect(find.byKey(susbcribePayWallSubscribeButtonKey), findsOneWidget);
     });
 
     testWidgets('Subscribe paywall modal watch video button', (tester) async {
       await tester.pumpApp(
         const SubscribePayWallModal(),
       );
-      expect(find.byKey(susbscribePayWallSubscribeButtonKey), findsOneWidget);
+      expect(find.byKey(susbcribePayWallSubscribeButtonKey), findsOneWidget);
     });
   });
 
@@ -65,12 +65,12 @@ void main() {
           const SubscribePayWallModal(),
         );
         await tester
-            .ensureVisible(find.byKey(susbscribePayWallSubscribeButtonKey));
+            .ensureVisible(find.byKey(susbcribePayWallSubscribeButtonKey));
 
-        await tester.tap(find.byKey(susbscribePayWallSubscribeButtonKey));
+        await tester.tap(find.byKey(susbcribePayWallSubscribeButtonKey));
         await tester.pumpAndSettle();
         expect(
-          find.byKey(susbscribePayWallSubscribeButtonKey),
+          find.byKey(susbcribePayWallSubscribeButtonKey),
           findsOneWidget,
         );
       });
