@@ -13,7 +13,6 @@ class MockNotificationsRepository extends Mock
 class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
-  final categories = {Category.business, Category.entertainment};
   final initialState = NotificationPreferencesState.initial();
 
   final notificationsRepository = MockNotificationsRepository();
