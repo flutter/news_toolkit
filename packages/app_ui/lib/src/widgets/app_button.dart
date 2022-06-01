@@ -266,6 +266,9 @@ class AppButton extends StatelessWidget {
           ),
           foregroundColor: AppColors.darkAqua,
           elevation: elevation,
+          maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
+          padding: _smallPadding,
         );
 
   /// The maximum size of the small variant of the button.

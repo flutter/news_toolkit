@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
-
-import '../../login/login.dart';
 
 /// A user profile button which displays a [LoginButton]
 /// for the unauthenticated user or an [OpenProfileButton]

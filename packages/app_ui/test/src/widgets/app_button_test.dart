@@ -442,11 +442,11 @@ void main() {
       );
       expect(
         widget.style?.maximumSize?.resolve({}),
-        Size(double.infinity, 40),
+        Size(double.infinity, 56),
       );
       expect(
         widget.style?.minimumSize?.resolve({}),
-        Size(0, 40),
+        Size(double.infinity, 56),
       );
     });
 
