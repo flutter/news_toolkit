@@ -41,15 +41,15 @@ void main() {
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            selectedCategories: Set.from(categories)..remove(Category.business),
+            selectedCategories: {Category.business},
             status: NotificationPreferencesStatus.success,
           ),
           initialState.copyWith(
-            selectedCategories: Set.from(categories)..remove(Category.business),
+            selectedCategories: {Category.business},
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            selectedCategories: categories,
+            selectedCategories: {},
             status: NotificationPreferencesStatus.success,
           ),
         ],
@@ -107,8 +107,12 @@ void main() {
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,
           ),
-          initialState.copyWith(
-            selectedCategories: {Category.business},
+          NotificationPreferencesState(
+            categories: const {
+              Category.business,
+              Category.entertainment,
+            },
+            selectedCategories: const {Category.business},
             status: NotificationPreferencesStatus.success,
           ),
         ],

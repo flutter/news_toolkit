@@ -25,6 +25,34 @@ class NavigationDrawerSections extends StatelessWidget {
           title: 'Subscriber Exclusives',
           leading: Assets.icons.lockedContentIcon.svg(),
         ),
+        const NavigationDrawerSectionItem(
+          title: 'Top Stories',
+          selected: true,
+        ),
+        const NavigationDrawerSectionItem(
+          title: 'Technology',
+        ),
+        const NavigationDrawerSectionItem(
+          title: 'Sports',
+        ),
+        NavigationDrawerSectionItem(
+          title: 'Subscriber Exclusives',
+          leading: Assets.icons.lockedContentIcon.svg(),
+        ),
+        const NavigationDrawerSectionItem(
+          title: 'Top Stories',
+          selected: true,
+        ),
+        const NavigationDrawerSectionItem(
+          title: 'Technology',
+        ),
+        const NavigationDrawerSectionItem(
+          title: 'Sports',
+        ),
+        NavigationDrawerSectionItem(
+          title: 'Subscriber Exclusives',
+          leading: Assets.icons.lockedContentIcon.svg(),
+        ),
       ],
     );
   }
