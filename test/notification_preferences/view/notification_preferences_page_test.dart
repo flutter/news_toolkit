@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
@@ -29,6 +32,11 @@ void main() {
       status: CategoriesStatus.populated,
       categories: [Category.business, Category.entertainment],
     );
+
+    test('has a route', () {
+      expect(NotificationPreferencesPage.route(), isA<MaterialPageRoute>());
+    });
+
     testWidgets('renders NotificationPreferencesView', (tester) async {
       whenListen(
         categoryBloc,
@@ -83,6 +91,37 @@ void main() {
       final appSwitchWidget2 = tester.firstWidget<AppSwitch>(appSwitch2);
 
       expect(appSwitchWidget2.value, false);
+    });
+
+    testWidgets(
+        'adds CategoriesPreferenceToggled to NotificationPreferencesBloc '
+        'on AppSwitch toggled', (tester) async {
+      const notificationState = NotificationPreferencesState(
+        selectedCategories: {Category.business},
+        status: NotificationPreferencesStatus.success,
+        categories: {Category.business},
+      );
+
+      whenListen(
+        bloc,
+        Stream.value(notificationState),
+        initialState: notificationState,
+      );
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: bloc,
+          child: const NotificationPreferencesView(),
+        ),
+      );
+
+      await tester.tap(find.byType(AppSwitch));
+
+      verify(
+        () => bloc.add(
+          CategoriesPreferenceToggled(category: Category.business),
+        ),
+      ).called(1);
     });
   });
 }
