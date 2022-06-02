@@ -133,7 +133,7 @@
   },
   "onboardingItemFirstButtonTitle": "Personalize my Ads",
   "@onboardingItemFirstButtonTitle": {
-    "description": "Text of the primary button of the onboarding.",
+    "description": "Text of the primary button on the first page of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
