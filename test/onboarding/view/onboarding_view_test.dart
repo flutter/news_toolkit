@@ -62,6 +62,7 @@ void main() {
       );
 
       final button = find.byWidgetPredicate(
+        skipOffstage: false,
         (widget) =>
             widget is OnboardingViewItem &&
             widget.key == onboardingViewPageOneKey &&
@@ -91,6 +92,7 @@ void main() {
       );
 
       final buttonOne = find.byWidgetPredicate(
+        skipOffstage: false,
         (widget) =>
             widget is OnboardingViewItem &&
             widget.key == onboardingViewPageOneKey &&
@@ -108,6 +110,7 @@ void main() {
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
 
       final button = find.byWidgetPredicate(
+        skipOffstage: false,
         (widget) =>
             widget is OnboardingViewItem &&
             widget.key == onboardingViewPageTwoKey &&
@@ -128,6 +131,7 @@ void main() {
       testWidgets('when personalized my ads button is pressed', (tester) async {
         await tester.pumpApp(OnboardingView());
         final button = find.byWidgetPredicate(
+          skipOffstage: false,
           (widget) =>
               widget is OnboardingViewItem &&
               widget.key == onboardingViewPageOneKey &&
@@ -138,7 +142,6 @@ void main() {
           find.byKey(
             onboardingViewPageOnePrimaryButtonKey,
           ),
-          warnIfMissed: false,
         );
         await tester.pumpAndSettle();
 
@@ -152,6 +155,7 @@ void main() {
           (tester) async {
         await tester.pumpApp(OnboardingView());
         final buttonOne = find.byWidgetPredicate(
+          skipOffstage: false,
           (widget) =>
               widget is OnboardingViewItem &&
               widget.key == onboardingViewPageOneKey &&
@@ -168,6 +172,7 @@ void main() {
 
         expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
         final button = find.byWidgetPredicate(
+          skipOffstage: false,
           (widget) =>
               widget is OnboardingViewItem &&
               widget.key == onboardingViewPageTwoKey &&
