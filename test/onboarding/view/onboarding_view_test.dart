@@ -138,6 +138,7 @@ void main() {
           find.byKey(
             onboardingViewPageOnePrimaryButtonKey,
           ),
+          warnIfMissed: false,
         );
         await tester.pumpAndSettle();
 
@@ -162,6 +163,7 @@ void main() {
           find.byKey(
             onboardingViewPageOneSecondaryButtonKey,
           ),
+          warnIfMissed: false,
         );
         await tester.pumpAndSettle();
 
