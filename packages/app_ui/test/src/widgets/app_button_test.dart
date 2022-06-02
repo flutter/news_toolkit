@@ -447,14 +447,15 @@ void main() {
     });
 
     testWidgets(
-        'renders transparentDarkAqua button '
-        'when `AppButton.transparentDarkAqua()` called', (tester) async {
+        'renders transparent button '
+        'when `AppButton.transparent()` called', (tester) async {
       final buttonText = Text('buttonText');
 
       await tester.pumpApp(
-        AppButton.transparentDarkAqua(
-          child: buttonText,
+        AppButton.transparent(
+          foregroundColor: AppColors.darkAqua,
           onPressed: () {},
+          child: buttonText,
         ),
         theme: theme,
       );
