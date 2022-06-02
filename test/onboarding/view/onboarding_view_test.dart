@@ -13,6 +13,8 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
   late AppBloc appBloc;
+
+  const onboardingPageViewKey = Key('onboarding_pageView');
   const onboardingViewTitleKey = Key('onboardingView_onboardingTitle');
   const onboardingViewSubtitleKey = Key('onboardingView_onboardingSubtitle');
   const onboardingViewPageOneKey = Key('onboarding_pageOne');
@@ -54,6 +56,11 @@ void main() {
       await tester.pumpApp(
         OnboardingView(),
       );
+
+      final pageView = tester.widget<PageView>(
+        find.byKey(onboardingPageViewKey),
+      );
+
       final button = find.byWidgetPredicate(
         (widget) =>
             widget is OnboardingViewItem &&
@@ -68,7 +75,11 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-
+      await pageView.controller.animateToPage(
+        1,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
     });
 

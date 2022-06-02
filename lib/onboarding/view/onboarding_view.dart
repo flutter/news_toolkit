@@ -27,6 +27,7 @@ class _OnboardingViewState extends State<OnboardingView> {
         SizedBox(
           height: MediaQuery.of(context).size.height * .59,
           child: PageView(
+            key: const Key('onboarding_pageView'),
             controller: controller,
             physics: const NeverScrollableScrollPhysics(),
             children: [
