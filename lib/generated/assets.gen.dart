@@ -60,6 +60,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/twitter.svg
   SvgGenImage get twitter => const SvgGenImage('assets/icons/twitter.svg');
+
+  /// File path: assets/icons/video_icon.svg
+  SvgGenImage get videoIcon => const SvgGenImage('assets/icons/video_icon.svg');
 }
 
 class $AssetsImagesGen {

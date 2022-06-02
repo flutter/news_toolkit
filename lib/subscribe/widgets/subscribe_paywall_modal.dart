@@ -1,5 +1,6 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppButton;
 import 'package:flutter/material.dart';
+import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class SubscribePayWallModal extends StatelessWidget {
@@ -85,8 +86,9 @@ class _SubscribePayWallWatchVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton.transparentDarkAqua(
+    return AppButton.transparent(
       key: const Key('subscribePayWallModal_watchVideo'),
+      foregroundColor: AppColors.darkAqua,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
