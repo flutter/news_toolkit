@@ -73,6 +73,7 @@ void main() {
         find.byKey(
           onboardingViewPageOneSecondaryButtonKey,
         ),
+        warnIfMissed: false,
       );
       await tester.pumpAndSettle();
       await pageView.controller.animateToPage(
