@@ -40,6 +40,7 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (_) => AppBloc(
               userRepository: _userRepository,
+              notificationsRepository: _notificationsRepository,
               user: _user,
             ),
           ),
