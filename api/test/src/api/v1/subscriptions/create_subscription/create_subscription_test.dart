@@ -19,7 +19,7 @@ void main() {
     testServer(
       'returns a 201 on success',
       (host) async {
-        final response = await post(Uri.parse('$host'));
+        final response = await post(host);
         expect(response.statusCode, equals(HttpStatus.created));
       },
       handler: () => controller.handler,
