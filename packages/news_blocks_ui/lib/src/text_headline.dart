@@ -18,10 +18,7 @@ class TextHeadline extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context)
-            .textTheme
-            .headline2
-            ?.copyWith(color: AppColors.highEmphasisSurface),
+        style: Theme.of(context).textTheme.headline2,
       ),
     );
   }

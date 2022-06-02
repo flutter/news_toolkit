@@ -7,30 +7,37 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextCaption extends StatelessWidget {
   /// {@macro text_caption}
-  const TextCaption({super.key, required this.block});
+  const TextCaption({
+    super.key,
+    required this.block,
+    this.colorValues = _defaultColorValues,
+  });
 
   /// The associated [TextCaption] instance.
   final TextCaptionBlock block;
 
   /// The color values of this text caption.
-  static const _colorValues = <TextCaptionColor, Color>{
+  ///
+  /// Defaults to [_defaultColorValues].
+  final Map<TextCaptionColor, Color> colorValues;
+
+  /// The default color values of this text caption.
+  static const _defaultColorValues = <TextCaptionColor, Color>{
     TextCaptionColor.normal: AppColors.highEmphasisSurface,
     TextCaptionColor.light: AppColors.mediumEmphasisSurface,
   };
 
   @override
   Widget build(BuildContext context) {
-    final color = _colorValues.containsKey(block.color)
-        ? _colorValues[block.color]
+    final color = colorValues.containsKey(block.color)
+        ? colorValues[block.color]
         : AppColors.highEmphasisSurface;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context).textTheme.caption?.apply(
-              color: color,
-            ),
+        style: Theme.of(context).textTheme.caption?.apply(color: color),
       ),
     );
   }
