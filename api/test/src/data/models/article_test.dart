@@ -12,6 +12,7 @@ void main() {
       final article = Article(
         blocks: [blockA, blockB],
         totalBlocks: 2,
+        url: Uri.parse('http://flutter.dev'),
       );
 
       expect(Article.fromJson(article.toJson()), equals(article));

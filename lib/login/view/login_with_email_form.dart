@@ -163,7 +163,10 @@ class _NextButton extends StatelessWidget {
           ? () => context.read<LoginBloc>().add(SendEmailLinkSubmitted())
           : null,
       child: state.status.isInProgress
-          ? const CircularProgressIndicator()
+          ? const SizedBox.square(
+              dimension: 24,
+              child: CircularProgressIndicator(),
+            )
           : Text(l10n.nextButtonText),
     );
   }

@@ -119,6 +119,7 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
           padding: _smallPadding,
           maximumSize: _smallMaximumSize,
+          minimumSize: _smallMinimumSize,
         );
 
   /// Filled dark aqua button.
@@ -263,7 +264,7 @@ class AppButton extends StatelessWidget {
   static const _defaultMaximumSize = Size(double.infinity, 56);
 
   /// The minimum size of the button.
-  static const _defaultMinimumSize = Size(double.infinity, 40);
+  static const _defaultMinimumSize = Size(double.infinity, 56);
 
   /// The padding of the small variant of the button.
   static const _smallPadding = EdgeInsets.symmetric(horizontal: AppSpacing.xlg);

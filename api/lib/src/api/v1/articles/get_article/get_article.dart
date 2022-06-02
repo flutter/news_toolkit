@@ -12,6 +12,7 @@ mixin GetArticleMixin on Controller {
     final response = ArticleResponse(
       content: article.blocks,
       totalCount: article.totalBlocks,
+      url: article.url,
     );
     return JsonResponse.ok(body: response.toJson());
   }

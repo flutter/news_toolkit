@@ -1,26 +1,39 @@
 import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class NavigationDrawerSections extends StatelessWidget {
   const NavigationDrawerSections({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final categories =
+        context.select((CategoriesBloc bloc) => bloc.state.categories) ?? [];
+
+    final selectedCategory =
+        context.select((CategoriesBloc bloc) => bloc.state.selectedCategory);
+
     return Column(
       children: [
         const NavigationDrawerSectionsTitle(),
-        const NavigationDrawerSectionItem(
-          title: 'Top Stories',
-          selected: true,
-        ),
-        const NavigationDrawerSectionItem(
-          title: 'Technology',
-        ),
-        const NavigationDrawerSectionItem(
-          title: 'Sports',
-        ),
+        ...[
+          for (final category in categories)
+            NavigationDrawerSectionItem(
+              key: ValueKey(category),
+              title: toBeginningOfSentenceCase(category.name) ?? '',
+              selected: category == selectedCategory,
+              onTap: () {
+                Scaffold.of(context).closeDrawer();
+                context
+                    .read<CategoriesBloc>()
+                    .add(CategorySelected(category: category));
+              },
+            )
+        ],
         NavigationDrawerSectionItem(
           title: 'Subscriber Exclusives',
           leading: Assets.icons.lockedContentIcon.svg(),

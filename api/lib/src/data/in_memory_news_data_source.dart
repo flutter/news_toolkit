@@ -22,12 +22,12 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }) async {
     final result = _newsItems.where((item) => item.post.id == id);
     if (result.isEmpty) return null;
-    final article = result.first.content.toArticle();
+    final article = result.first.content.toArticle(url: result.first.url);
     final totalBlocks = article.totalBlocks;
     final normalizedOffset = math.min(offset, totalBlocks);
     final blocks =
         article.blocks.sublist(normalizedOffset).take(limit).toList();
-    return Article(blocks: blocks, totalBlocks: totalBlocks);
+    return Article(blocks: blocks, totalBlocks: totalBlocks, url: article.url);
   }
 
   @override

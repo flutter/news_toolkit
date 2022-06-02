@@ -161,7 +161,11 @@ void main() {
 
       test('returns a ArticleResponse on a 200 response.', () {
         const articleId = '__article_id__';
-        const expectedResponse = ArticleResponse(content: [], totalCount: 0);
+        final expectedResponse = ArticleResponse(
+          content: const [],
+          totalCount: 0,
+          url: Uri.parse('http://dailyglobe.com'),
+        );
         when(() => httpClient.get(any())).thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
