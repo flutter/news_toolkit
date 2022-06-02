@@ -85,7 +85,7 @@ void main() {
       );
 
       blocTest<AppBloc, AppState>(
-        'emits authenticated when user is new and not anonymous',
+        'emits onboardingRequired when user is new and not anonymous',
         setUp: () {
           when(() => userRepository.user).thenAnswer(
             (_) => Stream.value(newUser),
@@ -96,7 +96,7 @@ void main() {
           notificationsRepository: notificationsRepository,
           user: user,
         ),
-        expect: () => [AppState.authenticated(newUser)],
+        expect: () => [AppState.onboardingRequired(newUser)],
       );
 
       blocTest<AppBloc, AppState>(
@@ -153,6 +153,23 @@ void main() {
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits nothing when '
+        'state is unauthenticated and user is anonymous',
+        setUp: () {
+          when(() => userRepository.user).thenAnswer(
+            (_) => Stream.value(User.anonymous),
+          );
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
       );
     });
 
