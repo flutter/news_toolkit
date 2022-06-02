@@ -163,7 +163,6 @@ void main() {
           find.byKey(
             onboardingViewPageOneSecondaryButtonKey,
           ),
-          warnIfMissed: false,
         );
         await tester.pumpAndSettle();
 
