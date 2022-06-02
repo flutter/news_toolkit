@@ -36,12 +36,43 @@ class UserProfilePage extends StatelessWidget {
 }
 
 @visibleForTesting
-class UserProfileView extends StatelessWidget {
+class UserProfileView extends StatefulWidget {
   const UserProfileView({super.key});
+
+  @override
+  State<UserProfileView> createState() => _UserProfileViewState();
+}
+
+class _UserProfileViewState extends State<UserProfileView>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    context.read<UserProfileBloc>().add(const FetchNotificationsEnabled());
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Fetch current notification status each time a user enters the app.
+    // This may happen when a user changes permissions in app settings.
+    if (state == AppLifecycleState.resumed) {
+      WidgetsFlutterBinding.ensureInitialized();
+      context.read<UserProfileBloc>().add(const FetchNotificationsEnabled());
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
+    final notificationsEnabled = context
+        .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
     final l10n = context.l10n;
 
     return BlocListener<AppBloc, AppState>(
@@ -61,6 +92,7 @@ class UserProfileView extends StatelessWidget {
             const UserProfileTitle(),
             if (user != null) ...[
               UserProfileItem(
+                key: const Key('userProfilePage_userItem'),
                 leading: Assets.icons.profileIcon.svg(),
                 title: user.email ?? '',
               ),
@@ -78,8 +110,10 @@ class UserProfileView extends StatelessWidget {
               trailing: AppSwitch(
                 onText: l10n.userProfileCheckboxOnTitle,
                 offText: l10n.userProfileCheckboxOffTitle,
-                value: true,
-                onChanged: (_) {},
+                value: notificationsEnabled,
+                onChanged: (_) => context
+                    .read<UserProfileBloc>()
+                    .add(const ToggleNotifications()),
               ),
             ),
             UserProfileItem(
