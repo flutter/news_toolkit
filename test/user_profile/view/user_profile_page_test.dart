@@ -41,8 +41,8 @@ void main() {
 
         whenListen(
           userProfileBloc,
-          Stream.value(UserProfilePopulated(user)),
-          initialState: UserProfilePopulated(user),
+          Stream.value(UserProfileState.initial().copyWith(user: user)),
+          initialState: UserProfileState.initial().copyWith(user: user),
         );
       });
 

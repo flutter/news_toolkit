@@ -15,5 +15,23 @@ void main() {
         expect(userProfileUpdated, equals(userProfileUpdated2));
       });
     });
+
+    group('FetchNotificationsEnabled', () {
+      test('supports value comparisons', () {
+        final event1 = FetchNotificationsEnabled();
+        final event2 = FetchNotificationsEnabled();
+
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('ToggleNotifications', () {
+      test('supports value comparisons', () {
+        final event1 = ToggleNotifications();
+        final event2 = ToggleNotifications();
+
+        expect(event1, equals(event2));
+      });
+    });
   });
 }

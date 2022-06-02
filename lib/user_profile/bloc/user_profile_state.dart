@@ -1,19 +1,40 @@
 part of 'user_profile_bloc.dart';
 
-abstract class UserProfileState extends Equatable {
-  const UserProfileState();
-
-  @override
-  List<Object> get props => [];
+enum UserProfileStatus {
+  initial,
+  fetchingNotificationsEnabled,
+  fetchingNotificationsEnabledFailed,
+  fetchingNotificationsEnabledSucceeded,
+  togglingNotifications,
+  togglingNotificationsFailed,
+  togglingNotificationsSucceeded,
+  userUpdated,
 }
 
-class UserProfileInitial extends UserProfileState {}
+class UserProfileState extends Equatable {
+  const UserProfileState({
+    required this.status,
+    this.notificationsEnabled = false,
+    this.user,
+  });
 
-class UserProfilePopulated extends UserProfileState {
-  const UserProfilePopulated(this.user);
+  const UserProfileState.initial() : this(status: UserProfileStatus.initial);
 
-  final User user;
+  final UserProfileStatus status;
+  final bool notificationsEnabled;
+  final User? user;
 
   @override
-  List<Object> get props => [user];
+  List<Object?> get props => [status, user];
+
+  UserProfileState copyWith({
+    UserProfileStatus? status,
+    bool? notificationsEnabled,
+    User? user,
+  }) =>
+      UserProfileState(
+        status: status ?? this.status,
+        notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+        user: user ?? this.user,
+      );
 }
