@@ -12,3 +12,17 @@ class UserProfileUpdated extends UserProfileEvent {
   @override
   List<Object> get props => [user];
 }
+
+class FetchNotificationsEnabled extends UserProfileEvent {
+  const FetchNotificationsEnabled();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ToggleNotifications extends UserProfileEvent {
+  const ToggleNotifications() : super();
+
+  @override
+  List<Object?> get props => [];
+}

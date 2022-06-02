@@ -3,9 +3,13 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
+
+class MockNotificationsRepository extends Mock
+    implements NotificationsRepository {}
 
 class MockUser extends Mock implements User {}
 
@@ -13,9 +17,11 @@ void main() {
   group('AppBloc', () {
     final user = MockUser();
     late UserRepository userRepository;
+    late NotificationsRepository notificationsRepository;
 
     setUp(() {
       userRepository = MockUserRepository();
+      notificationsRepository = MockNotificationsRepository();
 
       when(() => userRepository.user).thenAnswer(
         (_) => Stream.empty(),
@@ -26,6 +32,7 @@ void main() {
       expect(
         AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: User.anonymous,
         ).state,
         AppState.unauthenticated(),
@@ -53,6 +60,7 @@ void main() {
         },
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -69,6 +77,7 @@ void main() {
         },
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -84,6 +93,7 @@ void main() {
         },
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         expect: () => [AppState.authenticated(newUser)],
@@ -98,6 +108,7 @@ void main() {
         },
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         expect: () => [AppState.authenticated(returningUser)],
@@ -108,6 +119,7 @@ void main() {
         'user is not anonymous and onboarding is complete',
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -120,6 +132,7 @@ void main() {
         'user is anonymous and onboarding is complete',
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: User.anonymous,
         ),
         seed: () => AppState.onboardingRequired(User.anonymous),
@@ -136,6 +149,7 @@ void main() {
         },
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
@@ -143,13 +157,35 @@ void main() {
     });
 
     group('LogoutRequested', () {
+      setUp(() {
+        when(
+          () => notificationsRepository.toggleNotifications(
+            enable: any(named: 'enable'),
+          ),
+        ).thenAnswer((_) async {});
+
+        when(() => userRepository.logOut()).thenAnswer((_) async {});
+      });
       blocTest<AppBloc, AppState>(
-        'invokes logOut',
-        setUp: () {
-          when(() => userRepository.logOut()).thenAnswer((_) async {});
-        },
+        'calls toggleNotifications off on NotificationsRepository',
         build: () => AppBloc(
           userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppLogoutRequested()),
+        verify: (_) {
+          verify(
+            () => notificationsRepository.toggleNotifications(enable: false),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls logOut on UserRepository',
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
