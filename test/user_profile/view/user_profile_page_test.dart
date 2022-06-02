@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-// ignore_for_file: cast_nullable_to_non_nullable
 
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -156,7 +155,7 @@ void main() {
 
       testWidgets(
           'renders notifications item '
-          'with trailing UserProfileSwitch', (tester) async {
+          'with trailing AppSwitch', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -169,8 +168,15 @@ void main() {
             (widget) =>
                 widget is UserProfileItem &&
                 widget.key == Key('userProfilePage_notificationsItem') &&
-                widget.trailing is AppSwitch &&
-                (widget.trailing as AppSwitch).value == notificationsEnabled,
+                widget.trailing is AppSwitch,
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is AppSwitch && widget.value == notificationsEnabled,
           ),
           findsOneWidget,
         );
