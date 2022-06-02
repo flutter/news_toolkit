@@ -15,11 +15,14 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final _controller = PageController();
 
+  static const _onboardingItemSwitchDuration = Duration(milliseconds: 500);
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return ScrollableColumn(
+      key: const Key('onboarding_scrollableColumn'),
       mainAxisSize: MainAxisSize.min,
       children: [
         const _OnboardingTitle(),
@@ -45,7 +48,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   key: const Key('onboardingItem_secondaryButton_pageOne'),
                   onPressed: () => _controller.animateToPage(
                     1,
-                    duration: const Duration(milliseconds: 500),
+                    duration: _onboardingItemSwitchDuration,
                     curve: Curves.easeInOut,
                   ),
                   child: Text(context.l10n.onboardingItemSecondaryButtonTitle),

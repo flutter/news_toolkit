@@ -14,10 +14,8 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 void main() {
   late AppBloc appBloc;
 
-  const onboardingPageViewKey = Key('onboarding_pageView');
   const onboardingViewTitleKey = Key('onboardingView_onboardingTitle');
   const onboardingViewSubtitleKey = Key('onboardingView_onboardingSubtitle');
-  const onboardingViewPageOneKey = Key('onboarding_pageOne');
   const onboardingViewPageTwoKey = Key('onboarding_pageTwo');
   const onboardingViewPageOnePrimaryButtonKey =
       Key('onboardingItem_primaryButton_pageOne');
@@ -53,35 +51,20 @@ void main() {
   group('navigates', () {
     testWidgets('to onboarding page two when button page one is tapped',
         (tester) async {
-      await tester.pumpApp(
-        OnboardingView(),
-      );
+      await tester.pumpApp(OnboardingView());
 
-      final pageView = tester.widget<PageView>(
-        find.byKey(onboardingPageViewKey),
-      );
+      final button = find.byKey(onboardingViewPageOneSecondaryButtonKey);
 
-      final button = find.byWidgetPredicate(
-        skipOffstage: false,
-        (widget) =>
-            widget is OnboardingViewItem &&
-            widget.key == onboardingViewPageOneKey &&
-            widget.secondaryButton.key ==
-                onboardingViewPageOneSecondaryButtonKey,
-      );
-      await tester.ensureVisible(button);
-      await tester.tap(
-        find.byKey(
-          onboardingViewPageOneSecondaryButtonKey,
-        ),
-        warnIfMissed: false,
+      await tester.dragUntilVisible(
+        button,
+        find.byType(OnboardingView),
+        Offset(0, -100),
+        duration: Duration.zero,
       );
       await tester.pumpAndSettle();
-      await pageView.controller.animateToPage(
-        1,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
     });
 
@@ -91,38 +74,22 @@ void main() {
         appBloc: appBloc,
       );
 
-      final buttonOne = find.byWidgetPredicate(
-        skipOffstage: false,
-        (widget) =>
-            widget is OnboardingViewItem &&
-            widget.key == onboardingViewPageOneKey &&
-            widget.secondaryButton.key ==
-                onboardingViewPageOneSecondaryButtonKey,
+      final buttonOne = find.byKey(onboardingViewPageOneSecondaryButtonKey);
+
+      await tester.dragUntilVisible(
+        buttonOne,
+        find.byType(OnboardingView),
+        Offset(0, -100),
+        duration: Duration.zero,
       );
-      await tester.ensureVisible(buttonOne);
-      await tester.tap(
-        find.byKey(
-          onboardingViewPageOneSecondaryButtonKey,
-        ),
-      );
+      await tester.pumpAndSettle();
+      await tester.tap(buttonOne);
       await tester.pumpAndSettle();
 
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
 
-      final button = find.byWidgetPredicate(
-        skipOffstage: false,
-        (widget) =>
-            widget is OnboardingViewItem &&
-            widget.key == onboardingViewPageTwoKey &&
-            widget.secondaryButton.key ==
-                onboardingViewPageTwoSecondaryButtonKey,
-      );
-      await tester.ensureVisible(button);
-      await tester.tap(
-        find.byKey(
-          onboardingViewPageTwoSecondaryButtonKey,
-        ),
-      );
+      final button = find.byKey(onboardingViewPageTwoSecondaryButtonKey);
+      await tester.tap(button);
 
       verify(() => appBloc.add(AppOnboardingCompleted())).called(1);
     });
@@ -130,19 +97,17 @@ void main() {
     group('does nothing', () {
       testWidgets('when personalized my ads button is pressed', (tester) async {
         await tester.pumpApp(OnboardingView());
-        final button = find.byWidgetPredicate(
-          skipOffstage: false,
-          (widget) =>
-              widget is OnboardingViewItem &&
-              widget.key == onboardingViewPageOneKey &&
-              widget.primaryButton.key == onboardingViewPageOnePrimaryButtonKey,
+
+        final button = find.byKey(onboardingViewPageOnePrimaryButtonKey);
+
+        await tester.dragUntilVisible(
+          button,
+          find.byType(OnboardingView),
+          Offset(0, -100),
+          duration: Duration.zero,
         );
-        await tester.ensureVisible(button);
-        await tester.tap(
-          find.byKey(
-            onboardingViewPageOnePrimaryButtonKey,
-          ),
-        );
+        await tester.pumpAndSettle();
+        await tester.tap(button);
         await tester.pumpAndSettle();
 
         expect(
@@ -154,36 +119,31 @@ void main() {
       testWidgets('when subscribe to notifications now button is pressed',
           (tester) async {
         await tester.pumpApp(OnboardingView());
-        final buttonOne = find.byWidgetPredicate(
-          skipOffstage: false,
-          (widget) =>
-              widget is OnboardingViewItem &&
-              widget.key == onboardingViewPageOneKey &&
-              widget.secondaryButton.key ==
-                  onboardingViewPageOneSecondaryButtonKey,
+
+        final buttonOne = find.byKey(onboardingViewPageOneSecondaryButtonKey);
+
+        await tester.dragUntilVisible(
+          buttonOne,
+          find.byType(OnboardingView),
+          Offset(0, -100),
+          duration: Duration.zero,
         );
-        await tester.ensureVisible(buttonOne);
-        await tester.tap(
-          find.byKey(
-            onboardingViewPageOneSecondaryButtonKey,
-          ),
-        );
+        await tester.pumpAndSettle();
+        await tester.tap(buttonOne);
         await tester.pumpAndSettle();
 
         expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
-        final button = find.byWidgetPredicate(
-          skipOffstage: false,
-          (widget) =>
-              widget is OnboardingViewItem &&
-              widget.key == onboardingViewPageTwoKey &&
-              widget.primaryButton.key == onboardingViewPageTwoPrimaryButtonKey,
+
+        final button = find.byKey(onboardingViewPageTwoPrimaryButtonKey);
+
+        await tester.dragUntilVisible(
+          button,
+          find.byType(OnboardingView),
+          Offset(0, -100),
+          duration: Duration.zero,
         );
-        await tester.ensureVisible(button);
-        await tester.tap(
-          find.byKey(
-            onboardingViewPageTwoPrimaryButtonKey,
-          ),
-        );
+        await tester.pumpAndSettle();
+        await tester.tap(button);
         await tester.pumpAndSettle();
 
         expect(
