@@ -13,7 +13,7 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  final controller = PageController();
+  final _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           height: MediaQuery.of(context).size.height * .59,
           child: PageView(
             key: const Key('onboarding_pageView'),
-            controller: controller,
+            controller: _controller,
             physics: const NeverScrollableScrollPhysics(),
             children: [
               OnboardingViewItem(
@@ -43,7 +43,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
                 secondaryButton: AppButton.smallTransparent(
                   key: const Key('onboardingItem_secondaryButton_pageOne'),
-                  onPressed: () => controller.animateToPage(
+                  onPressed: () => _controller.animateToPage(
                     1,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
@@ -77,7 +77,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
