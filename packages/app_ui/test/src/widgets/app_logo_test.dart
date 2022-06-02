@@ -6,9 +6,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppLogo', () {
-    testWidgets(
-        'renders dark logo '
-        'for AppLogo.dark', (tester) async {
+    testWidgets('renders Image for AppLogo.dark', (tester) async {
       await tester.pumpApp(AppLogo.dark());
 
       expect(
@@ -19,9 +17,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        'renders light logo '
-        'for AppLogo.light', (tester) async {
+    testWidgets('renders Image for AppLogo.light', (tester) async {
       await tester.pumpApp(AppLogo.light());
 
       expect(

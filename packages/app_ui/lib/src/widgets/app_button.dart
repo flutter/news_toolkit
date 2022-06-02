@@ -179,12 +179,13 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
-  /// Filled transparent dark aqua button.
-  const AppButton.transparentDarkAqua({
+  /// Filled transparent button.
+  const AppButton.transparent({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
+    Color? foregroundColor,
     required Widget child,
   }) : this._(
           key: key,
@@ -192,7 +193,7 @@ class AppButton extends StatelessWidget {
           child: child,
           buttonColor: AppColors.transparent,
           elevation: elevation,
-          foregroundColor: AppColors.darkAqua,
+          foregroundColor: foregroundColor,
           textStyle: textStyle,
         );
 
