@@ -619,5 +619,47 @@ void main() {
         expect(apiClient.subscribeToNewsletter(email: email), completes);
       });
     });
+
+    group('createSubscription', () {
+      test('makes correct http request.', () {
+        when(() => httpClient.post(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        apiClient.createSubscription().ignore();
+
+        verify(
+          () => httpClient.post(
+            any(that: isAUriHaving(path: '/api/v1/subscriptions')),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-201 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        when(() => httpClient.post(any())).thenAnswer(
+          (_) async => http.Response('', statusCode),
+        );
+
+        expect(
+          () => apiClient.createSubscription(),
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', isEmpty),
+          ),
+        );
+      });
+
+      test('resolves on a 201 response.', () {
+        when(() => httpClient.post(any())).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        expect(apiClient.createSubscription(), completes);
+      });
+    });
   });
 }
