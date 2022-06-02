@@ -29,24 +29,73 @@ class ArticlePage extends StatelessWidget {
 }
 
 class ArticleView extends StatelessWidget {
-  const ArticleView({super.key});
+  const ArticleView({
+    super.key,
+    bool? isSubscriber,
+  }) : _isSubscriber = isSubscriber ?? false;
+
+  final bool _isSubscriber;
 
   @override
   Widget build(BuildContext context) {
+    late PreferredSizeWidget appBar;
+    if (_isSubscriber) {
+      appBar = const PremiumAppBar();
+    } else {
+      appBar = const NotPremiumAppBar();
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        leading: const AppBackButton(),
-        title: ShareButton(
-          shareText: context.l10n.shareText,
-          color: AppColors.highEmphasisSurface,
-        ),
-        actions: const [ArticleSubscribeButton()],
-      ),
+      appBar: appBar,
       body: const InterstitialAd(
         child: ArticleContent(),
       ),
     );
   }
+}
+
+@visibleForTesting
+class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const PremiumAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: const AppBackButton(),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: AppSpacing.lg),
+          child: ShareButton(
+            shareText: context.l10n.shareText,
+            color: AppColors.highEmphasisSurface,
+          ),
+        )
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+@visibleForTesting
+class NotPremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const NotPremiumAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: const AppBackButton(),
+      title: ShareButton(
+        shareText: context.l10n.shareText,
+        color: AppColors.highEmphasisSurface,
+      ),
+      actions: const [ArticleSubscribeButton()],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 @visibleForTesting

@@ -113,6 +113,28 @@ void main() {
       expect(find.byType(ArticleContent), findsOneWidget);
     });
 
+    testWidgets('renders NotPremiumAppBar when is not a subscriber',
+        (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(),
+        ),
+      );
+      expect(find.byType(NotPremiumAppBar), findsOneWidget);
+    });
+
+    testWidgets('renders PremiumAppBar when is a subscriber', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isSubscriber: true),
+        ),
+      );
+
+      expect(find.byType(PremiumAppBar), findsOneWidget);
+    });
+
     group('navigates', () {
       testWidgets('back when back button is pressed', (tester) async {
         final navigator = MockNavigator();
