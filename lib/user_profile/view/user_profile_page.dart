@@ -1,5 +1,11 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, AppButton, AppColors, ScrollableColumn, AppBackButton;
+    show
+        AppBackButton,
+        AppButton,
+        AppColors,
+        AppSpacing,
+        AppSwitch,
+        ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
@@ -101,7 +107,9 @@ class _UserProfileViewState extends State<UserProfileView>
               key: const Key('userProfilePage_notificationsItem'),
               leading: Assets.icons.notificationsIcon.svg(),
               title: l10n.userProfileSettingsNotificationsTitle,
-              trailing: UserProfileSwitch(
+              trailing: AppSwitch(
+                onText: l10n.userProfileCheckboxOnTitle,
+                offText: l10n.userProfileCheckboxOffTitle,
                 value: notificationsEnabled,
                 onChanged: (_) => context
                     .read<UserProfileBloc>()

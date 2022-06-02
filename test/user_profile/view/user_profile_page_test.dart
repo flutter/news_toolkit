@@ -169,9 +169,8 @@ void main() {
             (widget) =>
                 widget is UserProfileItem &&
                 widget.key == Key('userProfilePage_notificationsItem') &&
-                widget.trailing is UserProfileSwitch &&
-                (widget.trailing as UserProfileSwitch).value ==
-                    notificationsEnabled,
+                widget.trailing is AppSwitch &&
+                (widget.trailing as AppSwitch).value == notificationsEnabled,
           ),
           findsOneWidget,
         );
@@ -242,7 +241,7 @@ void main() {
             child: UserProfileView(),
           ),
         );
-        await tester.tap(find.byType(UserProfileSwitch));
+        await tester.tap(find.byType(AppSwitch));
         verify(() => userProfileBloc.add(ToggleNotifications())).called(1);
       });
 

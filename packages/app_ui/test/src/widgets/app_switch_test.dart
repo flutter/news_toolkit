@@ -1,49 +1,44 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/user_profile/user_profile.dart';
 
-import '../../helpers/helpers.dart';
+import '../helpers/helpers.dart';
 
 void main() {
-  group('UserProfileSwitch', () {
-    late AppLocalizations l10n;
-
-    setUpAll(() async {
-      l10n = await AppLocalizations.delegate.load(Locale('en'));
-    });
-
+  group('AppSwitch', () {
     testWidgets(
-        'renders `On` text '
+        'renders onText '
         'when enabled', (tester) async {
       await tester.pumpApp(
-        UserProfileSwitch(
+        AppSwitch(
           value: true,
+          onText: 'On',
           onChanged: (_) {},
         ),
       );
 
-      expect(find.text(l10n.userProfileCheckboxOnTitle), findsOneWidget);
+      expect(find.text('On'), findsOneWidget);
     });
 
     testWidgets(
-        'renders `Off` text '
+        'renders offText '
         'when disabled', (tester) async {
       await tester.pumpApp(
-        UserProfileSwitch(
+        AppSwitch(
           value: false,
+          offText: 'Off',
           onChanged: (_) {},
         ),
       );
 
-      expect(find.text(l10n.userProfileCheckboxOffTitle), findsOneWidget);
+      expect(find.text('Off'), findsOneWidget);
     });
 
     testWidgets('renders Switch', (tester) async {
       await tester.pumpApp(
-        UserProfileSwitch(
+        AppSwitch(
           value: true,
           onChanged: (_) {},
         ),
@@ -60,7 +55,7 @@ void main() {
     testWidgets('calls onChanged when tapped', (tester) async {
       var tapped = false;
       await tester.pumpApp(
-        UserProfileSwitch(
+        AppSwitch(
           value: true,
           onChanged: (_) => tapped = true,
         ),
