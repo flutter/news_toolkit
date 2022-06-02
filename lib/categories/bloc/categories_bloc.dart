@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_repository/news_repository.dart';
 
@@ -30,6 +31,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         state.copyWith(
           status: CategoriesStatus.populated,
           categories: response.categories,
+          selectedCategory: response.categories.firstOrNull,
         ),
       );
     } catch (error, stackTrace) {
