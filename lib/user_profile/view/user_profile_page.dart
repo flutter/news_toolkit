@@ -1,5 +1,11 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, AppButton, AppColors, ScrollableColumn, AppBackButton;
+    show
+        AppBackButton,
+        AppButton,
+        AppColors,
+        AppSpacing,
+        AppSwitch,
+        ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
@@ -7,6 +13,7 @@ import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -19,7 +26,10 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => UserProfileBloc(context.read<UserRepository>()),
+      create: (_) => UserProfileBloc(
+        userRepository: context.read<UserRepository>(),
+        notificationsRepository: context.read<NotificationsRepository>(),
+      ),
       child: const UserProfileView(),
     );
   }
@@ -31,7 +41,7 @@ class UserProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<UserProfileBloc>().state;
+    final user = context.select((UserProfileBloc bloc) => bloc.state.user);
     final l10n = context.l10n;
 
     return BlocListener<AppBloc, AppState>(
@@ -49,10 +59,10 @@ class UserProfileView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const UserProfileTitle(),
-            if (state is UserProfilePopulated) ...[
+            if (user != null) ...[
               UserProfileItem(
                 leading: Assets.icons.profileIcon.svg(),
-                title: state.user.email ?? '',
+                title: user.email ?? '',
               ),
               const UserProfileLogoutButton(),
             ],
@@ -65,7 +75,9 @@ class UserProfileView extends StatelessWidget {
               key: const Key('userProfilePage_notificationsItem'),
               leading: Assets.icons.notificationsIcon.svg(),
               title: l10n.userProfileSettingsNotificationsTitle,
-              trailing: UserProfileSwitch(
+              trailing: AppSwitch(
+                onText: l10n.userProfileCheckboxOnTitle,
+                offText: l10n.userProfileCheckboxOffTitle,
                 value: true,
                 onChanged: (_) {},
               ),

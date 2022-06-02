@@ -41,8 +41,8 @@ void main() {
 
         whenListen(
           userProfileBloc,
-          Stream.value(UserProfilePopulated(user)),
-          initialState: UserProfilePopulated(user),
+          Stream.value(UserProfileState.initial().copyWith(user: user)),
+          initialState: UserProfileState.initial().copyWith(user: user),
         );
       });
 
@@ -102,7 +102,7 @@ void main() {
             (widget) =>
                 widget is UserProfileItem &&
                 widget.key == Key('userProfilePage_notificationsItem') &&
-                widget.trailing is UserProfileSwitch,
+                widget.trailing is AppSwitch,
           ),
           findsOneWidget,
         );
@@ -173,7 +173,7 @@ void main() {
             child: UserProfileView(),
           ),
         );
-        await tester.tap(find.byType(UserProfileSwitch));
+        await tester.tap(find.byType(AppSwitch));
         await tester.pumpAndSettle();
       });
 
