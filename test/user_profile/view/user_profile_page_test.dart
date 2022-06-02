@@ -34,16 +34,52 @@ void main() {
     group('UserProfileView', () {
       late UserProfileBloc userProfileBloc;
 
-      final user = User(id: '1');
+      final user = User(id: '1', email: 'email');
+      const notificationsEnabled = true;
 
       setUp(() {
         userProfileBloc = MockUserProfileBloc();
 
+        final initialState = UserProfileState.initial().copyWith(
+          user: user,
+          notificationsEnabled: notificationsEnabled,
+        );
+
         whenListen(
           userProfileBloc,
-          Stream.value(UserProfilePopulated(user)),
-          initialState: UserProfilePopulated(user),
+          Stream.value(initialState),
+          initialState: initialState,
         );
+      });
+
+      testWidgets(
+          'adds FetchNotificationsEnabled to UserProfileBloc '
+          'when initialized and each time the app is resumed', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: userProfileBloc,
+            child: UserProfileView(),
+          ),
+        );
+
+        verify(
+          () => userProfileBloc.add(FetchNotificationsEnabled()),
+        ).called(1);
+
+        tester.binding
+            .handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+
+        verify(
+          () => userProfileBloc.add(FetchNotificationsEnabled()),
+        ).called(1);
+
+        tester.binding
+          ..handleAppLifecycleStateChanged(AppLifecycleState.inactive)
+          ..handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+
+        verify(
+          () => userProfileBloc.add(FetchNotificationsEnabled()),
+        ).called(1);
       });
 
       testWidgets(
@@ -87,9 +123,39 @@ void main() {
         expect(find.byType(UserProfileView), findsNothing);
       });
 
+      testWidgets('renders UserProfileTitle', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: userProfileBloc,
+            child: UserProfileView(),
+          ),
+        );
+
+        expect(
+          find.byType(UserProfileTitle),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('renders user email', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: userProfileBloc,
+            child: UserProfileView(),
+          ),
+        );
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is UserProfileItem && widget.title == user.email,
+          ),
+          findsOneWidget,
+        );
+      });
+
       testWidgets(
           'renders notifications item '
-          'with trailing UserProfileSwitch', (tester) async {
+          'with trailing AppSwitch', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -103,6 +169,14 @@ void main() {
                 widget is UserProfileItem &&
                 widget.key == Key('userProfilePage_notificationsItem') &&
                 widget.trailing is AppSwitch,
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is AppSwitch && widget.value == notificationsEnabled,
           ),
           findsOneWidget,
         );
@@ -165,7 +239,7 @@ void main() {
       });
 
       testWidgets(
-          'does nothing '
+          'adds ToggleNotifications to UserProfileBloc '
           'when notifications item trailing is tapped', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
@@ -174,7 +248,7 @@ void main() {
           ),
         );
         await tester.tap(find.byType(AppSwitch));
-        await tester.pumpAndSettle();
+        verify(() => userProfileBloc.add(ToggleNotifications())).called(1);
       });
 
       testWidgets(

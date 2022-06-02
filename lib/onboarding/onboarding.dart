@@ -1,2 +1,2 @@
-export 'routes/routes.dart';
-export 'view/onboarding_page.dart';
+export 'view/view.dart';
+export 'widgets/widgets.dart';
