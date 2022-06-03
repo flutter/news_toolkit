@@ -65,6 +65,9 @@ abstract class AppColors {
   /// The pastel grey color.
   static const Color pastelGrey = Color(0xFFCCCCCC);
 
+  /// The bright grey color.
+  static const Color brightGrey = Color(0xFFEAEAEA);
+
   /// The yellow primary color.
   static const MaterialColor yellow = Colors.yellow;
 
@@ -147,4 +150,7 @@ abstract class AppColors {
 
   /// The gainsboro color.
   static const Color gainsboro = Color(0xFFDADCE0);
+
+  /// The orange color.
+  static const Color orange = Color(0xFFFB8B24);
 }
