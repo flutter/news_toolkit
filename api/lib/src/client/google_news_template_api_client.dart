@@ -233,6 +233,20 @@ class GoogleNewsTemplateApiClient {
       );
     }
   }
+
+  /// POST /api/v1/subscriptions
+  /// Creates a new subscription for the associated user.
+  Future<void> createSubscription() async {
+    final uri = Uri.parse('$_baseUrl/api/v1/subscriptions');
+    final response = await _httpClient.post(uri);
+
+    if (response.statusCode != HttpStatus.created) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: const <String, dynamic>{},
+        statusCode: response.statusCode,
+      );
+    }
+  }
 }
 
 extension on http.Response {
