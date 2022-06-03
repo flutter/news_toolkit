@@ -58,5 +58,49 @@ void main() {
       pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
       handler: () => controller.handler,
     );
+
+    testServer(
+      'parses limit and offset correctly',
+      (host) async {
+        const limit = 42;
+        const offset = 7;
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+
+        when(
+          () => newsDataSource.getArticle(
+            id: any(named: 'id'),
+            limit: any(named: 'limit'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenAnswer((_) async => article);
+
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+        );
+
+        final response = await get(
+          Uri.parse('$host/$articleId').replace(
+            queryParameters: <String, String>{
+              'limit': '$limit',
+              'offset': '$offset',
+            },
+          ),
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+        verify(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            limit: limit,
+            offset: offset,
+          ),
+        ).called(1);
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
   });
 }
