@@ -125,7 +125,7 @@ void main() {
     group('getFeed', () {
       test('returns stubbed feed (default category)', () {
         expect(
-          newsDataSource.getFeed(),
+          newsDataSource.getFeed(limit: 100),
           completion(feedHaving(blocks: topNewsFeedBlocks)),
         );
       });
@@ -188,7 +188,7 @@ void main() {
 
       test('returns correct feed when offset is specified', () {
         expect(
-          newsDataSource.getFeed(offset: 1),
+          newsDataSource.getFeed(offset: 1, limit: 100),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(1),
@@ -198,7 +198,7 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 2),
+          newsDataSource.getFeed(offset: 2, limit: 100),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(2),
@@ -208,7 +208,7 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 100),
+          newsDataSource.getFeed(offset: 100, limit: 100),
           completion(
             feedHaving(
               blocks: [],
@@ -330,7 +330,7 @@ void main() {
 
       test('returns null when related articles cannot be found', () {
         expect(
-          newsDataSource.getRelatedArticles(id: scienceItems.last.post.id),
+          newsDataSource.getRelatedArticles(id: scienceVideoItems.last.post.id),
           completion(equals(RelatedArticles.empty())),
         );
       });
@@ -364,7 +364,7 @@ void main() {
       });
 
       test('supports offset if specified', () {
-        final item = healthItems.first;
+        final item = healthSmallItems.first;
         final relatedArticles = item.relatedArticles;
         expect(
           newsDataSource.getRelatedArticles(id: item.post.id, offset: 1),

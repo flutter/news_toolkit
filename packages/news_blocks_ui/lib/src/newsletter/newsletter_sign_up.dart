@@ -36,6 +36,7 @@ class NewsletterSignUp extends StatelessWidget {
     final theme = Theme.of(context);
     return NewsletterContainer(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             headerText,
