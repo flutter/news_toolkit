@@ -14,6 +14,7 @@ void main() {
         isContentOverlaid: false,
         isPremium: false,
         isSubscriberExclusive: false,
+        isVideoContent: false,
       );
 
       await tester.pumpContentThemedApp(testPostContentCategory);

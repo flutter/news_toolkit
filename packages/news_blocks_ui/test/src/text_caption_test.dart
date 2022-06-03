@@ -11,7 +11,9 @@ void main() {
   group('TextCaption', () {
     setUpAll(setUpTolerantComparator);
 
-    testWidgets('renders correctly with normal color', (tester) async {
+    testWidgets(
+        'renders correctly '
+        'with default normal color', (tester) async {
       final widget = Center(
         child: TextCaption(
           block: TextCaptionBlock(
@@ -25,11 +27,13 @@ void main() {
 
       await expectLater(
         find.byType(TextCaption),
-        matchesGoldenFile('text_caption_normal_color.png'),
+        matchesGoldenFile('text_caption_normal_color_default.png'),
       );
     });
 
-    testWidgets('renders correctly with light color', (tester) async {
+    testWidgets(
+        'renders correctly '
+        'with default light color', (tester) async {
       final widget = Center(
         child: TextCaption(
           block: TextCaptionBlock(
@@ -43,7 +47,53 @@ void main() {
 
       await expectLater(
         find.byType(TextCaption),
-        matchesGoldenFile('text_caption_light_color.png'),
+        matchesGoldenFile('text_caption_light_color_default.png'),
+      );
+    });
+
+    testWidgets(
+        'renders correctly '
+        'with provided normal color', (tester) async {
+      final widget = Center(
+        child: TextCaption(
+          block: TextCaptionBlock(
+            text: 'Text caption',
+            color: TextCaptionColor.normal,
+          ),
+          colorValues: const {
+            TextCaptionColor.normal: Colors.green,
+          },
+        ),
+      );
+
+      await tester.pumpApp(widget);
+
+      await expectLater(
+        find.byType(TextCaption),
+        matchesGoldenFile('text_caption_normal_color_provided.png'),
+      );
+    });
+
+    testWidgets(
+        'renders correctly '
+        'with provided light color', (tester) async {
+      final widget = Center(
+        child: TextCaption(
+          block: TextCaptionBlock(
+            text: 'Text caption',
+            color: TextCaptionColor.light,
+          ),
+          colorValues: const {
+            TextCaptionColor.light: Colors.green,
+          },
+        ),
+      );
+
+      await tester.pumpApp(widget);
+
+      await expectLater(
+        find.byType(TextCaption),
+        matchesGoldenFile('text_caption_light_color_provided.png'),
       );
     });
   });

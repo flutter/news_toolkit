@@ -31,7 +31,7 @@ class BannerAdContainer extends StatelessWidget {
 
     return ColoredBox(
       key: const Key('bannerAdContainer_coloredBox'),
-      color: AppColors.onBackground.withOpacity(0.08),
+      color: AppColors.brightGrey,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding,
