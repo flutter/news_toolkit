@@ -143,6 +143,17 @@ final technologyItems = <NewsItem>[
         imageUrl:
             'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
       ),
+      const SpacerBlock(spacing: Spacing.medium),
+      const TextCaptionBlock(
+        text: 'Caption. Et has minim elitr intellegat. Mea aeterno eleifend '
+            'antiopam ad, nam no suscipit quaerendum. '
+            'At nam minimum ponderum.',
+        color: TextCaptionColor.normal,
+      ),
+      const TextCaptionBlock(
+        text: 'Credit: Phineas Photographer',
+        color: TextCaptionColor.light,
+      ),
     ],
     relatedArticles: [
       PostSmallBlock(
