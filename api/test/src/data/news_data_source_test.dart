@@ -364,7 +364,7 @@ void main() {
       });
 
       test('supports offset if specified', () {
-        final item = healthItems.first;
+        final item = healthSmallItems.first;
         final relatedArticles = item.relatedArticles;
         expect(
           newsDataSource.getRelatedArticles(id: item.post.id, offset: 1),
