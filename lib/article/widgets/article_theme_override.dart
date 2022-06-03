@@ -80,5 +80,5 @@ class ArticleThemeColors extends ThemeExtension<ArticleThemeColors>
   }
 
   @override
-  List<Object?> get props => [captionNormal, captionLight];
+  List<Object> get props => [captionNormal, captionLight];
 }
