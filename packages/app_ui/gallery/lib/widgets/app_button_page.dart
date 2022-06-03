@@ -137,6 +137,26 @@ class AppButtonPage extends StatelessWidget {
           ),
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
+        child: Container(
+          height: 100,
+          color: AppColors.darkAqua,
+          child: _AppButtonItem(
+            buttonType: ButtonType.watchVideoDark,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.video_call_sharp),
+                SizedBox(width: AppSpacing.sm),
+                Text('Watch a video to view this article'),
+              ],
+            ),
+          ),
+        ),
+      ),
     ];
 
     return Scaffold(
@@ -159,7 +179,8 @@ enum ButtonType {
   logout,
   details,
   cancel,
-  watchVideo
+  watchVideo,
+  watchVideoDark
 }
 
 class _AppButtonItem extends StatelessWidget {
@@ -228,9 +249,13 @@ class _AppButtonItem extends StatelessWidget {
           child: child,
         );
       case ButtonType.watchVideo:
-        return AppButton.transparent(
+        return AppButton.transparentDarkAqua(
           onPressed: () {},
-          foregroundColor: AppColors.darkAqua,
+          child: child,
+        );
+      case ButtonType.watchVideoDark:
+        return AppButton.transparentWhite(
+          onPressed: () {},
           child: child,
         );
     }

@@ -447,13 +447,12 @@ void main() {
     });
 
     testWidgets(
-        'renders transparent button '
-        'when `AppButton.transparent()` called', (tester) async {
+        'renders transparentDarkAqua button '
+        'when `AppButton.transparentDarkAqua()` called', (tester) async {
       final buttonText = Text('buttonText');
 
       await tester.pumpApp(
-        AppButton.transparent(
-          foregroundColor: AppColors.darkAqua,
+        AppButton.transparentDarkAqua(
           onPressed: () {},
           child: buttonText,
         ),
@@ -470,6 +469,44 @@ void main() {
       expect(
         widget.style?.foregroundColor?.resolve({}),
         AppColors.darkAqua,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+    });
+
+    testWidgets(
+        'renders transparentWhite button '
+        'when `AppButton.transparentWhite()` called', (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.transparentWhite(
+          onPressed: () {},
+          child: buttonText,
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.transparent,
+      );
+      expect(
+        widget.style?.foregroundColor?.resolve({}),
+        AppColors.white,
       );
       expect(
         widget.style?.textStyle?.resolve({}),
