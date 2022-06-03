@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -23,7 +24,15 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is VideoBlock) {
       return Video(block: newsBlock);
     } else if (newsBlock is TextCaptionBlock) {
-      return TextCaption(block: newsBlock);
+      final articleThemeColors =
+          Theme.of(context).extension<ArticleThemeColors>()!;
+      return TextCaption(
+        block: newsBlock,
+        colorValues: {
+          TextCaptionColor.normal: articleThemeColors.captionNormal,
+          TextCaptionColor.light: articleThemeColors.captionLight,
+        },
+      );
     } else if (newsBlock is TextHeadlineBlock) {
       return TextHeadline(block: newsBlock);
     } else if (newsBlock is TextLeadParagraphBlock) {
@@ -36,6 +45,8 @@ class ArticleContentItem extends StatelessWidget {
         shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
       );
+    } else if (newsBlock is VideoIntroductionBlock) {
+      return VideoIntroduction(block: newsBlock);
     } else if (newsBlock is BannerAdBlock) {
       return BannerAd(block: newsBlock);
     } else if (newsBlock is NewsletterBlock) {

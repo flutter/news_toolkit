@@ -52,15 +52,34 @@ void main() {
 
     testWidgets(
         'renders TextCaption '
+        'with colorValues from ArticleThemeColors '
         'for TextCaptionBlock', (tester) async {
       const block = TextCaptionBlock(
         text: 'text',
         color: TextCaptionColor.normal,
       );
-      await tester.pumpApp(ArticleContentItem(block: block));
+
+      late ArticleThemeColors colors;
+      await tester.pumpApp(
+        ArticleThemeOverride(
+          isVideoArticle: false,
+          child: Builder(
+            builder: (context) {
+              colors = Theme.of(context).extension<ArticleThemeColors>()!;
+              return ArticleContentItem(block: block);
+            },
+          ),
+        ),
+      );
+
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is TextCaption && widget.block == block,
+          (widget) =>
+              widget is TextCaption &&
+              widget.block == block &&
+              widget.colorValues[TextCaptionColor.normal] ==
+                  colors.captionNormal &&
+              widget.colorValues[TextCaptionColor.light] == colors.captionLight,
         ),
         findsOneWidget,
       );
@@ -138,6 +157,29 @@ void main() {
       expect(
         find.byWidgetPredicate(
           (widget) => widget is ArticleIntroduction && widget.block == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders VideoIntroduction '
+        'for VideoIntroductionBlock', (tester) async {
+      final block = VideoIntroductionBlock(
+        category: PostCategory.technology,
+        title: 'title',
+        videoUrl: 'videoUrl',
+      );
+      await tester.pumpApp(
+        ListView(
+          children: [
+            ArticleContentItem(block: block),
+          ],
+        ),
+      );
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is VideoIntroduction && widget.block == block,
         ),
         findsOneWidget,
       );
