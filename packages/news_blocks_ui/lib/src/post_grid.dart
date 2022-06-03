@@ -45,6 +45,7 @@ class PostGrid extends StatelessWidget {
             ),
           const SizedBox(height: AppSpacing.md),
           GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
             shrinkWrap: true,
             childAspectRatio: OverlaidImage.aspectRatio,
