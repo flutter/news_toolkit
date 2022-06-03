@@ -67,6 +67,10 @@ class CategoryFeedItem extends StatelessWidget {
       await Navigator.of(context).push<void>(
         ArticlePage.route(id: action.articleId),
       );
+    } else if (action is NavigateToVideoArticleAction) {
+      await Navigator.of(context).push<void>(
+        ArticlePage.route(id: action.articleId, isVideoArticle: true),
+      );
     } else if (action is NavigateToFeedCategoryAction) {
       context
           .read<CategoriesBloc>()
