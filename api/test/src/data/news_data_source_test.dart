@@ -330,7 +330,7 @@ void main() {
 
       test('returns null when related articles cannot be found', () {
         expect(
-          newsDataSource.getRelatedArticles(id: scienceItems.last.post.id),
+          newsDataSource.getRelatedArticles(id: scienceVideoItems.last.post.id),
           completion(equals(RelatedArticles.empty())),
         );
       });
