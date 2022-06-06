@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_const, prefer_const_constructors
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,15 +26,15 @@ void main() {
   group('ArticleIntroduction', () {
     setUpAll(setUpTolerantComparator);
 
-    testWidgets('renders correctly', (tester) async {
-      final _technologyArticleIntroduction = ArticleIntroductionBlock(
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl,
-        title: title,
-      );
+    final _technologyArticleIntroduction = ArticleIntroductionBlock(
+      category: category,
+      author: author,
+      publishedAt: publishedAt,
+      imageUrl: imageUrl,
+      title: title,
+    );
 
+    testWidgets('renders correctly', (tester) async {
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
           SingleChildScrollView(
@@ -51,6 +52,34 @@ void main() {
       );
 
       expect(find.byType(ArticleIntroduction), findsOneWidget);
+    });
+
+    testWidgets('calls onSharePressed when ShareButton pressed',
+        (tester) async {
+      final completer = Completer<void>();
+
+      await tester.pumpContentThemedApp(
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              ArticleIntroduction(
+                block: _technologyArticleIntroduction,
+                premiumText: premiumText,
+                shareText: shareText,
+                onSharePressed: completer.complete,
+              ),
+            ],
+          ),
+        ),
+      );
+
+      final shareButton = find.byKey(Key('articleIntroduction_shareButton'));
+
+      await tester.ensureVisible(shareButton);
+
+      await tester.tap(shareButton);
+
+      expect(completer.isCompleted, isTrue);
     });
   });
 }

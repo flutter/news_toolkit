@@ -13,6 +13,7 @@ class ArticleIntroduction extends StatelessWidget {
     required this.block,
     required this.premiumText,
     required this.shareText,
+    this.onSharePressed,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
@@ -23,6 +24,9 @@ class ArticleIntroduction extends StatelessWidget {
 
   /// Text displayed over the share button.
   final String shareText;
+
+  /// An optional callback which is invoked when the share button is pressed.
+  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +50,10 @@ class ArticleIntroduction extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: ShareButton(
+              key: const Key('articleIntroduction_shareButton'),
               shareText: shareText,
               color: AppColors.darkAqua,
+              onPressed: onSharePressed,
             ),
           ),
         ),
