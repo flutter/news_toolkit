@@ -38,8 +38,8 @@ class LoginButton extends StatelessWidget {
       ),
       onPressed: () => showAppModal<void>(
         context: context,
-        builder: (context) => const LoginPage(),
-        routeSettings: const RouteSettings(name: LoginPage.name),
+        builder: (context) => const LoginModal(),
+        routeSettings: const RouteSettings(name: LoginModal.name),
       ),
       tooltip: context.l10n.loginTooltip,
     );

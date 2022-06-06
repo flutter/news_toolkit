@@ -24,7 +24,7 @@ class MagicLinkPromptPage extends StatelessWidget {
             key: const Key('magicLinkPrompt_closeIcon'),
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context)
-                .popUntil((route) => route.settings.name == LoginPage.name),
+                .popUntil((route) => route.settings.name == LoginModal.name),
           )
         ],
       ),
