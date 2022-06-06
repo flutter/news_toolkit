@@ -1,5 +1,5 @@
 name: share_launcher
-description: A Very Good Project created by Very Good CLI.
+description: A launcher that handles share functionality on a device.
 version: 1.0.0+1
 publish_to: none
 
