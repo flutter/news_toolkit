@@ -6,6 +6,7 @@ import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
+import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({super.key});
@@ -124,19 +125,10 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
                 color: AppColors.darkAqua,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () async {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          context.l10n.loginWithEmailTermsAndPolicyInfo,
-                          style: theme.textTheme.button
-                              ?.apply(color: AppColors.white),
-                        ),
-                      ),
-                    );
-                },
+                ..onTap = () => showAppModal<void>(
+                      context: context,
+                      builder: (context) => const TermsOfServiceModal(),
+                    ),
             ),
             TextSpan(
               text: '.',

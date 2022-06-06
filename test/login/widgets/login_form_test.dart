@@ -24,7 +24,7 @@ void main() {
   const signInWithAppleButtonKey = Key('loginForm_appleLogin_appButton');
   const signInWithFacebookButtonKey = Key('loginForm_facebookLogin_appButton');
   const signInWithTwitterButtonKey = Key('loginForm_twitterLogin_appButton');
-  const loginFormCloseModalKey = Key('loginForm_closeModal');
+  const loginFormCloseModalKey = Key('loginForm_closeModal_iconButton');
 
   group('LoginForm', () {
     late LoginBloc loginBloc;
