@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+
 import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
@@ -95,9 +96,8 @@ void main() {
   MethodChannelFirebaseAuth.channel.setMockMethodCallHandler((call) async {
     if (call.method == 'Auth#registerIdTokenListener' ||
         call.method == 'Auth#registerAuthStateListener') {
-      return 'authChannel';
+      return 'mockAuthChannel';
     }
-
     return null;
   });
 
