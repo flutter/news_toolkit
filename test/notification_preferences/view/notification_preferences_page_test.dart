@@ -59,7 +59,7 @@ void main() {
   });
 
   group('NotificationPreferencesView', () {
-    testWidgets('renders AppSwitch with state value ', (tester) async {
+    testWidgets('renders AppSwitch with state value', (tester) async {
       const notificationState = NotificationPreferencesState(
         selectedCategories: {Category.business},
         status: NotificationPreferencesStatus.success,

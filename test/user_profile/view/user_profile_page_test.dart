@@ -286,7 +286,9 @@ void main() {
           expect(find.byType(TermsOfServicePage), findsOneWidget);
         });
 
-        testWidgets('when tapped on NotificationPreferences', (tester) async {
+        testWidgets(
+            'to NotificationPreferencesPage '
+            'when tapped on NotificationPreferences', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
               value: userProfileBloc,

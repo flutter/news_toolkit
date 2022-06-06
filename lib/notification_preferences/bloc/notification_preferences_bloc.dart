@@ -66,16 +66,23 @@ class NotificationPreferencesBloc
     emit(state.copyWith(status: NotificationPreferencesStatus.loading));
 
     try {
-      final selectedCategories =
-          _notificationsRepository.fetchCategoriesPreferences();
+      Set<Category>? selectedCategories;
+      CategoriesResponse? categoriesResponse;
 
-      final categories = _newsRepository.getCategories();
+      await Future.wait(
+        [
+          (() async => selectedCategories =
+              await _notificationsRepository.fetchCategoriesPreferences())(),
+          (() async =>
+              categoriesResponse = await _newsRepository.getCategories())(),
+        ],
+      );
 
       emit(
         state.copyWith(
           status: NotificationPreferencesStatus.success,
-          selectedCategories: await selectedCategories,
-          categories: (await categories).categories.toSet(),
+          selectedCategories: selectedCategories,
+          categories: categoriesResponse?.categories.toSet(),
         ),
       );
     } catch (error, stackTrace) {

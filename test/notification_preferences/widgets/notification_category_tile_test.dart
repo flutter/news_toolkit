@@ -8,7 +8,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('NotificationCategoryTile', () {
-    testWidgets('renders trailing ', (tester) async {
+    testWidgets('renders trailing', (tester) async {
       await tester.pumpApp(
         const NotificationCategoryTile(
           title: 'title',
@@ -19,7 +19,7 @@ void main() {
       expect(find.byType(Icon), findsOneWidget);
     });
 
-    testWidgets('calls onTap on ListTile click ', (tester) async {
+    testWidgets('calls onTap on ListTile click', (tester) async {
       final completer = Completer<void>();
 
       await tester.pumpApp(
