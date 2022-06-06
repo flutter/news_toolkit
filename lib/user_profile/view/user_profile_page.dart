@@ -109,7 +109,7 @@ class _UserProfileViewState extends State<UserProfileView>
               leading: Assets.icons.notificationsIcon.svg(),
               title: l10n.userProfileSettingsNotificationsTitle,
               trailing: AppSwitch(
-                onText: l10n.userProfileCheckboxOnTitle,
+                onText: l10n.checkboxOnTitle,
                 offText: l10n.userProfileCheckboxOffTitle,
                 value: notificationsEnabled,
                 onChanged: (_) => context
@@ -119,7 +119,7 @@ class _UserProfileViewState extends State<UserProfileView>
             ),
             UserProfileItem(
               key: const Key('userProfilePage_notificationPreferencesItem'),
-              title: l10n.userProfileSettingsNotificationPreferencesTitle,
+              title: l10n.notificationPreferencesTitle,
               trailing: IconButton(
                 key: const Key(
                   'userProfilePage_notificationPreferencesItem_trailing',

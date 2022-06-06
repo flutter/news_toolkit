@@ -47,7 +47,7 @@ class NotificationPreferencesView extends StatelessWidget {
             children: [
               const SizedBox(height: AppSpacing.lg),
               Text(
-                l10n.userProfileSettingsNotificationPreferencesTitle,
+                l10n.notificationPreferencesTitle,
                 style: theme.textTheme.headline4,
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -67,7 +67,7 @@ class NotificationPreferencesView extends StatelessWidget {
                           (category) => NotificationCategoryTile(
                             title: category.name,
                             trailing: AppSwitch(
-                              onText: l10n.userProfileCheckboxOnTitle,
+                              onText: l10n.checkboxOnTitle,
                               offText: l10n.userProfileCheckboxOffTitle,
                               value:
                                   state.selectedCategories.contains(category),

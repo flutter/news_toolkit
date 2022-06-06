@@ -245,8 +245,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "userProfileSettingsNotificationPreferencesTitle": "Notification Preferences",
-  "@userProfileSettingsNotificationPreferencesTitle": {
+  "notificationPreferencesTitle": "Notification Preferences",
+  "@notificationPreferencesTitle": {
     "description": "User profile settings section - notification preferences item title",
     "type": "text",
     "placeholders": {}
@@ -275,8 +275,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "userProfileCheckboxOnTitle": "On",
-  "@userProfileCheckboxOnTitle": {
+  "checkboxOnTitle": "On",
+  "@checkboxOnTitle": {
     "description": "User profile checkbox on title",
     "type": "text",
     "placeholders": {}
