@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
+import 'dart:async';
+
 import 'package:authentication_client/authentication_client.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth_platform_interface/src/method_channel/method_channel_firebase_auth.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
@@ -11,6 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:token_storage/token_storage.dart';
 import 'package:twitter_login/entity/auth_result.dart' as twitter_auth;
 import 'package:twitter_login/twitter_login.dart' as twitter_auth;
 
@@ -56,6 +60,8 @@ class MockTwitterLogin extends Mock implements twitter_auth.TwitterLogin {}
 
 class MockTwitterAuthResult extends Mock implements twitter_auth.AuthResult {}
 
+class MockTokenStorage extends Mock implements TokenStorage {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MethodChannelFirebase.channel.setMockMethodCallHandler((call) async {
@@ -86,6 +92,15 @@ void main() {
     return null;
   });
 
+  MethodChannelFirebaseAuth.channel.setMockMethodCallHandler((call) async {
+    if (call.method == 'Auth#registerIdTokenListener' ||
+        call.method == 'Auth#registerAuthStateListener') {
+      return 'authChannel';
+    }
+
+    return null;
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
 
@@ -94,6 +109,7 @@ void main() {
   const appPackageName = 'app.package.name';
 
   group('FirebaseAuthenticationClient', () {
+    late TokenStorage tokenStorage;
     late firebase_auth.FirebaseAuth firebaseAuth;
     late GoogleSignIn googleSignIn;
     late FirebaseAuthenticationClient firebaseAuthenticationClient;
@@ -103,12 +119,15 @@ void main() {
     late facebook_auth.FacebookAuth facebookAuth;
     late twitter_auth.TwitterLogin twitterLogin;
 
+    late StreamController<firebase_auth.User?> authStateChangesController;
+
     setUpAll(() {
       registerFallbackValue(FakeAuthCredential());
       registerFallbackValue(FakeActionCodeSettings());
     });
 
     setUp(() {
+      tokenStorage = MockTokenStorage();
       firebaseAuth = MockFirebaseAuth();
       googleSignIn = MockGoogleSignIn();
       authorizationCredentialAppleID = MockAuthorizationCredentialAppleID();
@@ -124,7 +143,14 @@ void main() {
       };
       facebookAuth = MockFacebookAuth();
       twitterLogin = MockTwitterLogin();
+
+      authStateChangesController =
+          StreamController<firebase_auth.User?>.broadcast();
+      when(firebaseAuth.authStateChanges)
+          .thenAnswer((_) => authStateChangesController.stream);
+
       firebaseAuthenticationClient = FirebaseAuthenticationClient(
+        tokenStorage: tokenStorage,
         firebaseAuth: firebaseAuth,
         googleSignIn: googleSignIn,
         getAppleCredentials: getAppleCredentials,
@@ -134,7 +160,10 @@ void main() {
     });
 
     test('creates FirebaseAuth instance internally when not injected', () {
-      expect(FirebaseAuthenticationClient.new, isNot(throwsException));
+      expect(
+        () => FirebaseAuthenticationClient(tokenStorage: tokenStorage),
+        isNot(throwsException),
+      );
     });
 
     group('logInWithApple', () {
@@ -567,10 +596,10 @@ void main() {
       const email = 'mock-email';
       const newUser = User(id: userId, email: email);
       const returningUser = User(id: userId, email: email, isNewUser: false);
+
       test('emits User.anonymous when firebase user is null', () async {
-        when(() => firebaseAuth.authStateChanges()).thenAnswer(
-          (_) => Stream.value(null),
-        );
+        when(firebaseAuth.authStateChanges)
+            .thenAnswer((_) => Stream.value(null));
         await expectLater(
           firebaseAuthenticationClient.user,
           emitsInOrder(const <User>[User.anonymous]),
@@ -587,16 +616,15 @@ void main() {
         when(() => userMetadata.lastSignInTime).thenReturn(creationTime);
         when(() => firebaseUser.photoURL).thenReturn(null);
         when(() => firebaseUser.metadata).thenReturn(userMetadata);
-        when(() => firebaseAuth.authStateChanges()).thenAnswer(
-          (_) => Stream.value(firebaseUser),
-        );
+        when(firebaseAuth.authStateChanges)
+            .thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
           emitsInOrder(const <User>[newUser]),
         );
       });
 
-      test('emits new user when firebase user is not null', () async {
+      test('emits returningUser user when firebase user is not null', () async {
         final firebaseUser = MockFirebaseUser();
         final userMetadata = MockUserMetadata();
         final creationTime = DateTime(2020);
@@ -607,13 +635,35 @@ void main() {
         when(() => userMetadata.lastSignInTime).thenReturn(lastSignInTime);
         when(() => firebaseUser.photoURL).thenReturn(null);
         when(() => firebaseUser.metadata).thenReturn(userMetadata);
-        when(() => firebaseAuth.authStateChanges()).thenAnswer(
-          (_) => Stream.value(firebaseUser),
-        );
+        when(firebaseAuth.authStateChanges)
+            .thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
           emitsInOrder(const <User>[returningUser]),
         );
+      });
+
+      test(
+          'calls saveToken on TokenStorage '
+          'when authenticated user changes', () async {
+        final firebaseUser = MockFirebaseUser();
+        final userMetadata = MockUserMetadata();
+        final creationTime = DateTime(2020);
+        final lastSignInTime = DateTime(2019);
+        when(() => firebaseUser.uid).thenReturn(userId);
+        when(() => firebaseUser.email).thenReturn(email);
+        when(() => userMetadata.creationTime).thenReturn(creationTime);
+        when(() => userMetadata.lastSignInTime).thenReturn(lastSignInTime);
+        when(() => firebaseUser.photoURL).thenReturn(null);
+        when(() => firebaseUser.metadata).thenReturn(userMetadata);
+
+        authStateChangesController.add(null);
+        await Future.microtask(() {});
+        verifyNever(() => tokenStorage.saveToken(any()));
+
+        authStateChangesController.add(firebaseUser);
+        await Future.microtask(() {});
+        verify(() => tokenStorage.saveToken(userId)).called(1);
       });
     });
   });
