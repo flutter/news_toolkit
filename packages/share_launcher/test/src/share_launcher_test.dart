@@ -40,10 +40,15 @@ void main() {
 
       MethodChannel('dev.fluttercommunity.plus/share')
           .setMockMethodCallHandler((_) async => called = true);
+      // Support GitHub action running on linux.
+      MethodChannel('plugins.flutter.io/url_launcher_linux')
+          .setMockMethodCallHandler((_) async {});
 
       await ShareLauncher().share(text: 'text');
 
       expect(called, isTrue);
+
+      debugDefaultTargetPlatformOverride = null;
     });
 
     test(
@@ -56,10 +61,15 @@ void main() {
 
       MethodChannel('dev.fluttercommunity.plus/share')
           .setMockMethodCallHandler((_) async => called = true);
+      // Support GitHub action running on linux.
+      MethodChannel('plugins.flutter.io/url_launcher_linux')
+          .setMockMethodCallHandler((_) async {});
 
       await ShareLauncher().share(text: 'text');
 
       expect(called, isTrue);
+
+      debugDefaultTargetPlatformOverride = null;
     });
   });
 }
