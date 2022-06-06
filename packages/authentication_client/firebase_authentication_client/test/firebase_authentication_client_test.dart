@@ -96,9 +96,8 @@ void main() {
   MethodChannelFirebaseAuth.channel.setMockMethodCallHandler((call) async {
     if (call.method == 'Auth#registerIdTokenListener' ||
         call.method == 'Auth#registerAuthStateListener') {
-      return 'authChannel';
+      return 'mockAuthChannel';
     }
-
     return null;
   });
 
