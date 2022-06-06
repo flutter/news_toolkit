@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginModal extends StatelessWidget {
+  const LoginModal({super.key});
 
   static Route route() =>
-      MaterialPageRoute<void>(builder: (_) => const LoginPage());
+      MaterialPageRoute<void>(builder: (_) => const LoginModal());
 
-  static const String name = '/loginPage';
+  static const String name = '/loginModal';
 
   @override
   Widget build(BuildContext context) {
