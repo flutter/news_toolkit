@@ -42,7 +42,7 @@ void main() {
           .setMockMethodCallHandler((_) async => called = true);
       // Support GitHub action running on linux.
       MethodChannel('plugins.flutter.io/url_launcher_linux')
-          .setMockMethodCallHandler((_) async {});
+          .setMockMethodCallHandler((_) async => called = true);
 
       await ShareLauncher().share(text: 'text');
 
@@ -63,7 +63,7 @@ void main() {
           .setMockMethodCallHandler((_) async => called = true);
       // Support GitHub action running on linux.
       MethodChannel('plugins.flutter.io/url_launcher_linux')
-          .setMockMethodCallHandler((_) async {});
+          .setMockMethodCallHandler((_) async => called = true);
 
       await ShareLauncher().share(text: 'text');
 
