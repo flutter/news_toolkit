@@ -10,7 +10,7 @@ abstract class TokenStorage {
 }
 
 /// {@template in_memory_token_storage}
-/// in-memory token storage for the authentication client.
+/// In-memory token storage for the authentication client.
 /// {@endtemplate}
 class InMemoryTokenStorage implements TokenStorage {
   String? _token;
