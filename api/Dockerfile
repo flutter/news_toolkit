@@ -8,6 +8,10 @@ WORKDIR /app
 COPY packages/news_blocks ./packages/news_blocks
 RUN dart pub get -C packages/news_blocks
 
+# package:token_storage
+COPY ../packages/authentication_client/token_storage ../packages/authentication_client/token_storage
+RUN dart pub get -C ../packages/authentication_client/token_storage
+
 COPY pubspec.* ./
 RUN dart pub get
 
