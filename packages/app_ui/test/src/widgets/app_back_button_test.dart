@@ -7,7 +7,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('AppBackButton', () {
-    testWidgets('renders the app back button', (tester) async {
+    testWidgets('renders IconButton', (tester) async {
       await tester.pumpApp(
         Scaffold(
           appBar: AppBar(
@@ -17,7 +17,22 @@ void main() {
       );
 
       expect(
-        find.byType(AppBackButton),
+        find.byType(IconButton),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('renders IconButton when light', (tester) async {
+      await tester.pumpApp(
+        Scaffold(
+          appBar: AppBar(
+            leading: const AppBackButton.light(),
+          ),
+        ),
+      );
+
+      expect(
+        find.byType(IconButton),
         findsOneWidget,
       );
     });

@@ -14,6 +14,7 @@ class PostContentCategory extends StatelessWidget {
     required this.premiumText,
     required this.isContentOverlaid,
     required this.isSubscriberExclusive,
+    required this.isVideoContent,
   });
 
   /// Category of post.
@@ -31,6 +32,9 @@ class PostContentCategory extends StatelessWidget {
   /// Whether this post is subscriber exclusive.
   final bool isSubscriberExclusive;
 
+  /// Whether content is a part of a video article.
+  final bool isVideoContent;
+
   @override
   Widget build(BuildContext context) {
     // Category label hierarchy
@@ -42,11 +46,15 @@ class PostContentCategory extends StatelessWidget {
             : isContentOverlaid
                 ? AppColors.secondary
                 : AppColors.transparent;
+
     final isCategoryBackgroundDark =
         isPremium || isContentOverlaid || isSubscriberExclusive;
 
-    final textColor =
-        isCategoryBackgroundDark ? AppColors.white : AppColors.secondary;
+    final textColor = isVideoContent
+        ? AppColors.orange
+        : isCategoryBackgroundDark
+            ? AppColors.white
+            : AppColors.secondary;
     final shouldCategoryNameDisplay =
         isPremium || isSubscriberExclusive ? premiumText : categoryName;
     final horizontalSpacing = isCategoryBackgroundDark ? AppSpacing.xs : 0.0;

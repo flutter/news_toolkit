@@ -40,6 +40,8 @@ abstract class BlockAction {
     switch (type) {
       case NavigateToArticleAction.identifier:
         return NavigateToArticleAction.fromJson(json);
+      case NavigateToVideoArticleAction.identifier:
+        return NavigateToVideoArticleAction.fromJson(json);
       case NavigateToFeedCategoryAction.identifier:
         return NavigateToFeedCategoryAction.fromJson(json);
     }
@@ -77,6 +79,42 @@ class NavigateToArticleAction with EquatableMixin implements BlockAction {
 
   @override
   Map<String, dynamic> toJson() => _$NavigateToArticleActionToJson(this);
+
+  @override
+  List<Object?> get props => [type, actionType, articleId];
+}
+
+/// {@template navigate_to_video_article_action}
+/// A block action which represents navigation to the video article
+/// with [articleId].
+/// {@endtemplate}
+@JsonSerializable()
+class NavigateToVideoArticleAction with EquatableMixin implements BlockAction {
+  /// {@macro navigate_to_video_article_action}
+  const NavigateToVideoArticleAction({
+    required this.articleId,
+    this.type = NavigateToVideoArticleAction.identifier,
+  });
+
+  /// Converts a `Map<String, dynamic>`
+  /// into a [NavigateToVideoArticleAction] instance.
+  factory NavigateToVideoArticleAction.fromJson(Map<String, dynamic> json) =>
+      _$NavigateToVideoArticleActionFromJson(json);
+
+  /// The identifier of this block action.
+  static const identifier = '__navigate_to_video_article__';
+
+  /// The id of the video article to navigate to.
+  final String articleId;
+
+  @override
+  BlockActionType get actionType => BlockActionType.navigation;
+
+  @override
+  final String type;
+
+  @override
+  Map<String, dynamic> toJson() => _$NavigateToVideoArticleActionToJson(this);
 
   @override
   List<Object?> get props => [type, actionType, articleId];

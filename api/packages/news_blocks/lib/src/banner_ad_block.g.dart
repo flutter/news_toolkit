@@ -33,4 +33,5 @@ const _$BannerAdSizeEnumMap = {
   BannerAdSize.normal: 'normal',
   BannerAdSize.large: 'large',
   BannerAdSize.extraLarge: 'extraLarge',
+  BannerAdSize.anchoredAdaptive: 'anchoredAdaptive',
 };

@@ -40,6 +40,11 @@ void main() {
         expect(BlockAction.fromJson(action.toJson()), equals(action));
       });
 
+      test('returns NavigateToVideoArticleAction', () {
+        final action = NavigateToVideoArticleAction(articleId: 'articleId');
+        expect(BlockAction.fromJson(action.toJson()), equals(action));
+      });
+
       test('returns NavigateToFeedCategoryAction', () {
         final action = NavigateToFeedCategoryAction(category: Category.top);
         expect(BlockAction.fromJson(action.toJson()), equals(action));
@@ -61,6 +66,16 @@ void main() {
         final action = NavigateToArticleAction(articleId: 'articleId');
         expect(
           NavigateToArticleAction.fromJson(action.toJson()),
+          equals(action),
+        );
+      });
+    });
+
+    group('NavigateToVideoArticleAction', () {
+      test('can be (de)serialized', () {
+        final action = NavigateToVideoArticleAction(articleId: 'articleId');
+        expect(
+          NavigateToVideoArticleAction.fromJson(action.toJson()),
           equals(action),
         );
       });

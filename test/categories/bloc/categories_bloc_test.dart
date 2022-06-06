@@ -40,6 +40,7 @@ void main() {
           CategoriesState(
             status: CategoriesStatus.populated,
             categories: categoriesResponse.categories,
+            selectedCategory: categoriesResponse.categories.first,
           ),
         ],
       );

@@ -179,6 +179,40 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
+  /// Filled transparent dark aqua button.
+  const AppButton.transparentDarkAqua({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          elevation: elevation,
+          foregroundColor: AppColors.darkAqua,
+          textStyle: textStyle,
+        );
+
+  /// Filled transparent white button.
+  const AppButton.transparentWhite({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          elevation: elevation,
+          foregroundColor: AppColors.white,
+          textStyle: textStyle,
+        );
+
   /// Filled small red wine blue button.
   const AppButton.smallRedWine({
     Key? key,
@@ -226,7 +260,7 @@ class AppButton extends StatelessWidget {
           onPressed: onPressed,
           buttonColor: AppColors.transparent,
           child: child,
-          foregroundColor: AppColors.liver,
+          foregroundColor: AppColors.darkAqua,
           elevation: elevation,
           maximumSize: _smallMaximumSize,
           minimumSize: _smallMinimumSize,
