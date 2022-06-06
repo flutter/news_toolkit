@@ -42,5 +42,13 @@ void main() {
       await storage.saveToken(updatedToken);
       expect(await storage.readToken(), equals(updatedToken));
     });
+
+    test('clearToken clears token', () async {
+      const token = 'token';
+      final storage = InMemoryTokenStorage();
+      await storage.saveToken(token);
+      await storage.clearToken();
+      expect(await storage.readToken(), isNull);
+    });
   });
 }
