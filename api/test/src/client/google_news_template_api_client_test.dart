@@ -53,7 +53,7 @@ void main() {
     setUp(() {
       httpClient = MockHttpClient();
       tokenStorage = MockTokenStorage();
-      when(tokenStorage.readToken).thenReturn(null);
+      when(tokenStorage.readToken).thenAnswer((_) async => null);
       apiClient = GoogleNewsTemplateApiClient(
         httpClient: httpClient,
         tokenStorage: tokenStorage,
@@ -69,16 +69,20 @@ void main() {
         );
       });
 
-      test('has correct baseUrl', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      test('has correct baseUrl', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
+            HttpStatus.ok,
+          ),
         );
         final apiClient = GoogleNewsTemplateApiClient.localhost(
           httpClient: httpClient,
           tokenStorage: tokenStorage,
         );
 
-        apiClient.getFeed().ignore();
+        await apiClient.getFeed();
 
         verify(
           () => httpClient.get(
@@ -97,17 +101,20 @@ void main() {
         );
       });
 
-      test('has correct baseUrl.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      test('has correct baseUrl.', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
+            HttpStatus.ok,
+          ),
         );
         final apiClient = GoogleNewsTemplateApiClient(
           httpClient: httpClient,
           tokenStorage: tokenStorage,
         );
 
-        apiClient.getFeed().ignore();
-
+        await apiClient.getFeed();
         verify(
           () => httpClient.get(
             any(
@@ -122,16 +129,24 @@ void main() {
     });
 
     group('getArticle', () {
-      test('makes correct http request (no query params).', () {
+      final articleResponse = ArticleResponse(
+        content: const [],
+        totalCount: 0,
+        url: Uri.parse('https://dailyglobe.com'),
+      );
+
+      test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
         const query = '';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        apiClient.getArticle(id: articleId).ignore();
+        await apiClient.getArticle(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -141,20 +156,20 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const limit = 42;
         const offset = 7;
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
         const query = 'limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getArticle(id: articleId, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getArticle(id: articleId, limit: limit, offset: offset);
 
         verify(
           () => httpClient.get(
@@ -164,18 +179,20 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
+      test('makes correct http request (with authorization token).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
         const query = '';
 
-        when(tokenStorage.readToken).thenReturn(token);
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        apiClient.getArticle(id: articleId).ignore();
+        await apiClient.getArticle(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -247,17 +264,23 @@ void main() {
     });
 
     group('getRelatedArticles', () {
-      test('makes correct http request (no query params).', () {
+      const relatedArticlesResponse = RelatedArticlesResponse(
+        relatedArticles: [],
+        totalCount: 0,
+      );
+
+      test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId/related';
         const query = '';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        apiClient.getRelatedArticles(id: articleId).ignore();
+        await apiClient.getRelatedArticles(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -267,7 +290,7 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const limit = 42;
         const offset = 7;
         const articleId = '__article_id__';
@@ -276,12 +299,15 @@ void main() {
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getRelatedArticles(id: articleId, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getRelatedArticles(
+          id: articleId,
+          limit: limit,
+          offset: offset,
+        );
 
         verify(
           () => httpClient.get(
@@ -291,19 +317,20 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
+      test('makes correct http request (with authorization token).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId/related';
         const query = '';
 
-        when(tokenStorage.readToken).thenReturn(token);
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        apiClient.getRelatedArticles(id: articleId).ignore();
+        await apiClient.getRelatedArticles(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -374,16 +401,21 @@ void main() {
     });
 
     group('getFeed', () {
-      test('makes correct http request (no query params).', () {
+      const feedResponse = FeedResponse(
+        feed: [],
+        totalCount: 0,
+      );
+
+      test('makes correct http request (no query params).', () async {
         const path = '/api/v1/feed';
         const query = '';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        apiClient.getFeed().ignore();
+        await apiClient.getFeed();
 
         verify(
           () => httpClient.get(
@@ -393,7 +425,7 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const category = Category.science;
         const limit = 42;
         const offset = 7;
@@ -402,12 +434,14 @@ void main() {
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getFeed(category: category, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getFeed(
+          category: category,
+          limit: limit,
+          offset: offset,
+        );
 
         verify(
           () => httpClient.get(
@@ -417,18 +451,18 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
+      test('makes correct http request (with authorization token).', () async {
         const path = '/api/v1/feed';
         const query = '';
 
-        when(tokenStorage.readToken).thenReturn(token);
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        apiClient.getFeed().ignore();
+        await apiClient.getFeed();
 
         verify(
           () => httpClient.get(
@@ -490,13 +524,16 @@ void main() {
     });
 
     group('getCategories', () {
-      test('makes correct http request.', () {
+      const categoriesResponse = CategoriesResponse(categories: []);
+
+      test('makes correct http request.', () async {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
 
-        apiClient.getCategories().ignore();
+        await apiClient.getCategories();
 
         verify(
           () => httpClient.get(
@@ -506,15 +543,16 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
-        when(tokenStorage.readToken).thenReturn(token);
+      test('makes correct http request (with authorization token).', () async {
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
 
-        apiClient.getCategories().ignore();
+        await apiClient.getCategories();
 
         verify(
           () => httpClient.get(
@@ -578,13 +616,19 @@ void main() {
     });
 
     group('popularSearch', () {
-      test('makes correct http request.', () {
+      const popularSearchResponse = PopularSearchResponse(
+        articles: [],
+        topics: [],
+      );
+
+      test('makes correct http request.', () async {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.popularSearch().ignore();
+        await apiClient.popularSearch();
 
         verify(
           () => httpClient.get(
@@ -594,15 +638,16 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
-        when(tokenStorage.readToken).thenReturn(token);
+      test('makes correct http request (with authorization token).', () async {
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.popularSearch().ignore();
+        await apiClient.popularSearch();
 
         verify(
           () => httpClient.get(
@@ -669,13 +714,19 @@ void main() {
     group('relevantSearch', () {
       const term = '__test_term__';
 
-      test('makes correct http request.', () {
+      const relevantSearchResponse = RelevantSearchResponse(
+        articles: [],
+        topics: [],
+      );
+
+      test('makes correct http request.', () async {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.relevantSearch(term: term).ignore();
+        await apiClient.relevantSearch(term: term);
 
         verify(
           () => httpClient.get(
@@ -690,15 +741,16 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
-        when(tokenStorage.readToken).thenReturn(token);
+      test('makes correct http request (with authorization token).', () async {
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+          (_) async =>
+              http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.relevantSearch(term: term).ignore();
+        await apiClient.relevantSearch(term: term);
 
         verify(
           () => httpClient.get(
@@ -773,7 +825,7 @@ void main() {
     group('subscribeToNewsletter', () {
       const email = 'test@gmail.com';
 
-      test('makes correct http request.', () {
+      test('makes correct http request.', () async {
         when(
           () => httpClient.post(
             any(),
@@ -784,7 +836,7 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.subscribeToNewsletter(email: email).ignore();
+        await apiClient.subscribeToNewsletter(email: email);
 
         verify(
           () => httpClient.post(
@@ -795,8 +847,8 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
-        when(tokenStorage.readToken).thenReturn(token);
+      test('makes correct http request (with authorization token).', () async {
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(
           () => httpClient.post(
@@ -808,7 +860,7 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.subscribeToNewsletter(email: email).ignore();
+        await apiClient.subscribeToNewsletter(email: email);
 
         verify(
           () => httpClient.post(
@@ -862,14 +914,14 @@ void main() {
     });
 
     group('createSubscription', () {
-      test('makes correct http request.', () {
+      test('makes correct http request.', () async {
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
         ).thenAnswer(
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.createSubscription().ignore();
+        await apiClient.createSubscription();
 
         verify(
           () => httpClient.post(
@@ -879,8 +931,8 @@ void main() {
         ).called(1);
       });
 
-      test('makes correct http request (with authorization token).', () {
-        when(tokenStorage.readToken).thenReturn(token);
+      test('makes correct http request (with authorization token).', () async {
+        when(tokenStorage.readToken).thenAnswer((_) async => token);
 
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
@@ -888,7 +940,7 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.createSubscription().ignore();
+        await apiClient.createSubscription();
 
         verify(
           () => httpClient.post(
