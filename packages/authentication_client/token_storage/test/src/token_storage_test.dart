@@ -17,28 +17,30 @@ void main() {
   group('InMemoryTokenStorage', () {
     test(
         'readToken returns null '
-        'when no token is saved', () {
+        'when no token is saved', () async {
       final storage = InMemoryTokenStorage();
-      expect(storage.readToken(), isNull);
+      expect(await storage.readToken(), isNull);
     });
 
     test(
         'readToken returns token '
-        'when token is saved with saveToken', () {
+        'when token is saved with saveToken', () async {
       const token = 'token';
-      final storage = InMemoryTokenStorage()..saveToken(token);
-      expect(storage.readToken(), equals(token));
+      final storage = InMemoryTokenStorage();
+      await storage.saveToken(token);
+      expect(await storage.readToken(), equals(token));
     });
 
     test(
         'readToken returns updated token '
-        'when token is overridden with saveToken', () {
+        'when token is overridden with saveToken', () async {
       const token = 'token';
       const updatedToken = 'updatedToken';
-      final storage = InMemoryTokenStorage()..saveToken(token);
-      expect(storage.readToken(), equals(token));
-      storage.saveToken(updatedToken);
-      expect(storage.readToken(), equals(updatedToken));
+      final storage = InMemoryTokenStorage();
+      await storage.saveToken(token);
+      expect(await storage.readToken(), equals(token));
+      await storage.saveToken(updatedToken);
+      expect(await storage.readToken(), equals(updatedToken));
     });
   });
 }

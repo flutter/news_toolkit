@@ -3,10 +3,13 @@
 /// {@endtemplate}
 abstract class TokenStorage {
   /// Returns the current token.
-  String? readToken();
+  Future<String?> readToken();
 
   /// Saves the current token.
-  void saveToken(String token);
+  Future<void> saveToken(String token);
+
+  /// Clears the current token.
+  Future<void> clearToken();
 }
 
 /// {@template in_memory_token_storage}
@@ -16,8 +19,11 @@ class InMemoryTokenStorage implements TokenStorage {
   String? _token;
 
   @override
-  String? readToken() => _token;
+  Future<String?> readToken() async => _token;
 
   @override
-  void saveToken(String token) => _token = token;
+  Future<void> saveToken(String token) async => _token = token;
+
+  @override
+  Future<void> clearToken() async => _token = null;
 }
