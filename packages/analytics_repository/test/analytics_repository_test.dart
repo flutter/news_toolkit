@@ -59,7 +59,7 @@ void main() {
       });
 
       test(
-          'throws AnalyticsTrackEventFailure '
+          'throws TrackEventFailure '
           'when logEvent throws exception', () async {
         when(
           () => firebaseAnalytics.logEvent(
