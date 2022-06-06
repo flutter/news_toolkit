@@ -15,6 +15,8 @@ class TestAnalyticsEvent extends Equatable with AnalyticsEventMixin {
   AnalyticsEvent get event => const AnalyticsEvent('TestAnalyticsEvent');
 }
 
+class FakeAnalyticsEvent extends Fake implements AnalyticsEvent {}
+
 void main() {
   group('AppBlocObserver', () {
     late Bloc bloc;
@@ -24,7 +26,12 @@ void main() {
     setUp(() {
       bloc = FakeBloc();
       analyticsRepository = MockAnalyticsRepository();
+      when(() => analyticsRepository.track(any())).thenAnswer((_) async {});
       observer = AppBlocObserver(analyticsRepository: analyticsRepository);
+    });
+
+    setUpAll(() {
+      registerFallbackValue(FakeAnalyticsEvent());
     });
 
     group('onTransition', () {

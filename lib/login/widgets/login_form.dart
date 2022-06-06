@@ -52,7 +52,7 @@ class _LoginContent extends StatelessWidget {
       shrinkWrap: true,
       children: [
         const _LoginTitleAndCloseButton(),
-        const SizedBox(height: AppSpacing.md),
+        const SizedBox(height: AppSpacing.sm),
         const _LoginSubtitle(),
         const SizedBox(height: AppSpacing.lg),
         _GoogleLoginButton(),
@@ -74,23 +74,25 @@ class _LoginContent extends StatelessWidget {
 class _LoginTitleAndCloseButton extends StatelessWidget {
   const _LoginTitleAndCloseButton();
 
-  static const _contentSpace = 2.0;
-
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          key: const Key('loginForm_closeModal'),
-          child: const Icon(Icons.close),
-          onTap: () => Navigator.pop(context),
+        Padding(
+          padding: const EdgeInsets.only(right: AppSpacing.sm),
+          child: Text(
+            context.l10n.loginModalTitle,
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
-        const SizedBox(
-          width: AppSpacing.md + _contentSpace,
-        ),
-        Text(
-          context.l10n.loginModalTitle,
-          style: Theme.of(context).textTheme.headline5,
+        IconButton(
+          key: const Key('loginForm_closeModal_iconButton'),
+          constraints: const BoxConstraints.tightFor(width: 24, height: 36),
+          padding: EdgeInsets.zero,
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.close),
         ),
       ],
     );
@@ -102,12 +104,9 @@ class _LoginSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: AppSpacing.xxlg),
-      child: Text(
-        context.l10n.loginModalSubtitle,
-        style: Theme.of(context).textTheme.subtitle1,
-      ),
+    return Text(
+      context.l10n.loginModalSubtitle,
+      style: Theme.of(context).textTheme.subtitle1,
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
+import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -145,7 +146,7 @@ void main() {
         });
 
         testWidgets(
-            'Terms and Privacy Policy SnackBar when tapped on '
+            'TermsOfServiceModal when tapped on '
             'Terms of Use and Privacy Policy text', (tester) async {
           await tester.pumpApp(
             BlocProvider.value(
@@ -163,7 +164,7 @@ void main() {
           );
 
           await tester.pumpAndSettle();
-          expect(find.byType(SnackBar), findsOneWidget);
+          expect(find.byType(TermsOfServiceModal), findsOneWidget);
         });
 
         testWidgets('disabled next button when status is not validated',
