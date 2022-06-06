@@ -5,13 +5,13 @@ import 'package:google_news_template/login/login.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('LoginPage', () {
+  group('LoginModal', () {
     test('has a route', () {
-      expect(LoginPage.route(), isA<MaterialPageRoute>());
+      expect(LoginModal.route(), isA<MaterialPageRoute>());
     });
 
     testWidgets('renders a LoginForm', (tester) async {
-      await tester.pumpApp(const LoginPage());
+      await tester.pumpApp(const LoginModal());
       expect(find.byType(LoginForm), findsOneWidget);
     });
   });

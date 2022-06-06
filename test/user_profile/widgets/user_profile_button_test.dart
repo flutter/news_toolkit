@@ -108,7 +108,7 @@ void main() {
     });
 
     testWidgets(
-        'navigates to LoginPage '
+        'shows LoginModal '
         'when tapped on LoginButton', (tester) async {
       whenListen(
         appBloc,
@@ -124,7 +124,7 @@ void main() {
       await tester.tap(find.byType(LoginButton));
       await tester.pumpAndSettle();
 
-      expect(find.byType(LoginPage), findsOneWidget);
+      expect(find.byType(LoginModal), findsOneWidget);
     });
   });
 }
