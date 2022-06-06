@@ -1,4 +1,2 @@
-export 'login_form.dart';
-export 'login_page.dart';
-export 'login_with_email_form.dart';
+export 'login_modal.dart';
 export 'login_with_email_page.dart';
