@@ -149,6 +149,9 @@ void main() {
       when(firebaseAuth.authStateChanges)
           .thenAnswer((_) => authStateChangesController.stream);
 
+      when(() => tokenStorage.saveToken(any())).thenAnswer((_) async {});
+      when(tokenStorage.clearToken).thenAnswer((_) async {});
+
       firebaseAuthenticationClient = FirebaseAuthenticationClient(
         tokenStorage: tokenStorage,
         firebaseAuth: firebaseAuth,
@@ -645,7 +648,7 @@ void main() {
 
       test(
           'calls saveToken on TokenStorage '
-          'when authenticated user changes', () async {
+          'when user changes to authenticated', () async {
         final firebaseUser = MockFirebaseUser();
         final userMetadata = MockUserMetadata();
         final creationTime = DateTime(2020);
@@ -657,13 +660,19 @@ void main() {
         when(() => firebaseUser.photoURL).thenReturn(null);
         when(() => firebaseUser.metadata).thenReturn(userMetadata);
 
-        authStateChangesController.add(null);
-        await Future.microtask(() {});
-        verifyNever(() => tokenStorage.saveToken(any()));
-
         authStateChangesController.add(firebaseUser);
         await Future.microtask(() {});
         verify(() => tokenStorage.saveToken(userId)).called(1);
+        verifyNever(tokenStorage.clearToken);
+      });
+
+      test(
+          'calls clearToken on TokenStorage '
+          'when user changes to unauthenticated', () async {
+        authStateChangesController.add(null);
+        await Future.microtask(() {});
+        verify(tokenStorage.clearToken).called(1);
+        verifyNever(() => tokenStorage.saveToken(any()));
       });
     });
   });

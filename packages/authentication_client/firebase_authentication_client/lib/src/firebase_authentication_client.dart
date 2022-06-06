@@ -270,9 +270,11 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   }
 
   /// Updates the user token in [TokenStorage] if the user is authenticated.
-  void _onUserChanged(User user) {
+  Future<void> _onUserChanged(User user) async {
     if (!user.isAnonymous) {
-      _tokenStorage.saveToken(user.id);
+      await _tokenStorage.saveToken(user.id);
+    } else {
+      await _tokenStorage.clearToken();
     }
   }
 }
