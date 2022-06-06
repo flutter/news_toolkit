@@ -5,6 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:share_launcher/share_launcher.dart';
 
 void main() {
+  group('ShareFailure', () {
+    test('supports value comparison', () {
+      final shareFailure1 = ShareFailure('error');
+      final shareFailure2 = ShareFailure('error');
+      expect(shareFailure1, equals(shareFailure2));
+    });
+  });
+
   group('ShareLauncher', () {
     TestWidgetsFlutterBinding.ensureInitialized();
     test('calls share with text', () async {
