@@ -311,6 +311,44 @@ void main() {
     });
 
     testWidgets(
+        'renders outlinedTransparentWhite button '
+        'when `AppButton.outlinedTransparentWhite()` called', (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.outlinedTransparentWhite(
+          onPressed: () {},
+          child: buttonText,
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.transparent,
+      );
+      expect(
+        widget.style?.foregroundColor?.resolve({}),
+        AppColors.white,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+    });
+
+    testWidgets(
         'renders smallRedWine button '
         'when `AppButton.smallRedWine()` called', (tester) async {
       final buttonText = Text('buttonText');

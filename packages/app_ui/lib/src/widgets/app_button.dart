@@ -179,6 +179,26 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
+  /// Outlined transparent white button.
+  const AppButton.outlinedTransparentWhite({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          borderSide: const BorderSide(
+            color: AppColors.white,
+          ),
+          elevation: elevation,
+          foregroundColor: AppColors.white,
+          textStyle: textStyle,
+        );
+
   /// Filled transparent dark aqua button.
   const AppButton.transparentDarkAqua({
     Key? key,
