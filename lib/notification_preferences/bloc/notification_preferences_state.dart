@@ -14,11 +14,11 @@ class NotificationPreferencesState extends Equatable {
     required this.categories,
   });
 
-  NotificationPreferencesState.initial({required Set<Category> categories})
+  NotificationPreferencesState.initial()
       : this(
-          selectedCategories: categories.toSet(),
+          selectedCategories: {},
           status: NotificationPreferencesStatus.initial,
-          categories: categories,
+          categories: {},
         );
 
   final NotificationPreferencesStatus status;
