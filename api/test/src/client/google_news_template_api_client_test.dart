@@ -42,7 +42,7 @@ void main() {
   group('GoogleNewsTemplateApiClient', () {
     late http.Client httpClient;
     late GoogleNewsTemplateApiClient apiClient;
-    late TokenStorage tokenStorage;
+    late TokenProvider tokenProvider;
 
     const token = 'token';
 
@@ -52,19 +52,19 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      tokenStorage = MockTokenStorage();
-      when(tokenStorage.readToken).thenAnswer((_) async => null);
+      tokenProvider = () async => null;
       apiClient = GoogleNewsTemplateApiClient(
         httpClient: httpClient,
-        tokenStorage: tokenStorage,
+        tokenProvider: tokenProvider,
       );
     });
 
     group('localhost constructor', () {
       test('can be instantiated (no params)', () {
         expect(
-          () =>
-              GoogleNewsTemplateApiClient.localhost(tokenStorage: tokenStorage),
+          () => GoogleNewsTemplateApiClient.localhost(
+            tokenProvider: tokenProvider,
+          ),
           returnsNormally,
         );
       });
@@ -79,7 +79,7 @@ void main() {
         );
         final apiClient = GoogleNewsTemplateApiClient.localhost(
           httpClient: httpClient,
-          tokenStorage: tokenStorage,
+          tokenProvider: tokenProvider,
         );
 
         await apiClient.getFeed();
@@ -96,7 +96,7 @@ void main() {
     group('default constructor', () {
       test('can be instantiated (no params).', () {
         expect(
-          () => GoogleNewsTemplateApiClient(tokenStorage: tokenStorage),
+          () => GoogleNewsTemplateApiClient(tokenProvider: tokenProvider),
           returnsNormally,
         );
       });
@@ -111,7 +111,7 @@ void main() {
         );
         final apiClient = GoogleNewsTemplateApiClient(
           httpClient: httpClient,
-          tokenStorage: tokenStorage,
+          tokenProvider: tokenProvider,
         );
 
         await apiClient.getFeed();
@@ -184,7 +184,7 @@ void main() {
         const path = '/api/v1/articles/$articleId';
         const query = '';
 
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -192,7 +192,10 @@ void main() {
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        await apiClient.getArticle(id: articleId);
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getArticle(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -322,7 +325,7 @@ void main() {
         const path = '/api/v1/articles/$articleId/related';
         const query = '';
 
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -330,7 +333,10 @@ void main() {
               http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        await apiClient.getRelatedArticles(id: articleId);
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getRelatedArticles(id: articleId);
 
         verify(
           () => httpClient.get(
@@ -455,14 +461,17 @@ void main() {
         const path = '/api/v1/feed';
         const query = '';
 
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
           (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        await apiClient.getFeed();
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getFeed();
 
         verify(
           () => httpClient.get(
@@ -544,7 +553,7 @@ void main() {
       });
 
       test('makes correct http request (with authorization token).', () async {
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -552,7 +561,10 @@ void main() {
               http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
 
-        await apiClient.getCategories();
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getCategories();
 
         verify(
           () => httpClient.get(
@@ -639,7 +651,7 @@ void main() {
       });
 
       test('makes correct http request (with authorization token).', () async {
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -647,7 +659,10 @@ void main() {
               http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
 
-        await apiClient.popularSearch();
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).popularSearch();
 
         verify(
           () => httpClient.get(
@@ -742,7 +757,7 @@ void main() {
       });
 
       test('makes correct http request (with authorization token).', () async {
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -750,7 +765,10 @@ void main() {
               http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
 
-        await apiClient.relevantSearch(term: term);
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).relevantSearch(term: term);
 
         verify(
           () => httpClient.get(
@@ -848,7 +866,7 @@ void main() {
       });
 
       test('makes correct http request (with authorization token).', () async {
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(
           () => httpClient.post(
@@ -860,7 +878,10 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await apiClient.subscribeToNewsletter(email: email);
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).subscribeToNewsletter(email: email);
 
         verify(
           () => httpClient.post(
@@ -932,7 +953,7 @@ void main() {
       });
 
       test('makes correct http request (with authorization token).', () async {
-        when(tokenStorage.readToken).thenAnswer((_) async => token);
+        tokenProvider = () async => token;
 
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
@@ -940,7 +961,10 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await apiClient.createSubscription();
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).createSubscription();
 
         verify(
           () => httpClient.post(

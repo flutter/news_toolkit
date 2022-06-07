@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:google_news_template_api/client.dart';
 import 'package:http/http.dart' as http;
-import 'package:token_storage/token_storage.dart';
 
 /// {@template google_news_template_api_malformed_response}
 /// An exception thrown when there is a problem decoded the response body.
@@ -33,6 +32,9 @@ class GoogleNewsTemplateApiRequestFailure implements Exception {
   final Map<String, dynamic> body;
 }
 
+/// Signature for the authentication token provider.
+typedef TokenProvider = Future<String?> Function();
+
 /// {@template google_news_template_api_client}
 /// A Dart API client for the Google News Template API.
 /// {@endtemplate}
@@ -43,11 +45,11 @@ class GoogleNewsTemplateApiClient {
   /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient({
     http.Client? httpClient,
-    required TokenStorage tokenStorage,
+    required TokenProvider tokenProvider,
   }) : this._(
           baseUrl: 'https://google-news-template-api-q66trdlzja-uc.a.run.app',
           httpClient: httpClient,
-          tokenStorage: tokenStorage,
+          tokenProvider: tokenProvider,
         );
 
   /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
@@ -56,25 +58,25 @@ class GoogleNewsTemplateApiClient {
   /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient.localhost({
     http.Client? httpClient,
-    required TokenStorage tokenStorage,
+    required TokenProvider tokenProvider,
   }) : this._(
           baseUrl: 'http://localhost:8080',
           httpClient: httpClient,
-          tokenStorage: tokenStorage,
+          tokenProvider: tokenProvider,
         );
 
   /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient._({
     required String baseUrl,
     http.Client? httpClient,
-    required TokenStorage tokenStorage,
+    required TokenProvider tokenProvider,
   })  : _baseUrl = baseUrl,
         _httpClient = httpClient ?? http.Client(),
-        _tokenStorage = tokenStorage;
+        _tokenProvider = tokenProvider;
 
   final String _baseUrl;
   final http.Client _httpClient;
-  final TokenStorage _tokenStorage;
+  final TokenProvider _tokenProvider;
 
   /// GET /api/v1/articles/<id>
   /// Requests article content metadata.
@@ -280,7 +282,7 @@ class GoogleNewsTemplateApiClient {
   }
 
   Future<Map<String, String>> _getRequestHeaders() async {
-    final token = await _tokenStorage.readToken();
+    final token = await _tokenProvider();
     return <String, String>{
       HttpHeaders.contentTypeHeader: ContentType.json.value,
       HttpHeaders.acceptHeader: ContentType.json.value,

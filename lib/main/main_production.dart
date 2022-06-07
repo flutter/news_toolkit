@@ -18,7 +18,7 @@ void main() {
       final tokenStorage = InMemoryTokenStorage();
 
       final apiClient = GoogleNewsTemplateApiClient(
-        tokenStorage: tokenStorage,
+        tokenProvider: tokenStorage.readToken,
       );
 
       const permissionClient = PermissionClient();
