@@ -59,12 +59,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "loginWithEmailTermsAndPolicyInfo": "Link to relevant info on your site.",
-  "@loginWithEmailTermsAndPolicyInfo": {
-    "description": "Message shown when the user clicks on Terms of Use and Privacy Policy",
-    "type": "text",
-    "placeholders": {}
-  },
   "termsOfServiceModalTitle": "Terms of Use &\nPrivacy Policy",
   "@termsOfServiceModalTitle": {
     "description": "Title shown on the TOS modal",
