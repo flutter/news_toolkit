@@ -40,7 +40,6 @@ class ArticleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: const Key('article_page_appbar'),
         leading: const AppBackButton(),
         title: _isSubscriber
             ? const SizedBox()
