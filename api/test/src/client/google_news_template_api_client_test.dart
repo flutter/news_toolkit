@@ -5,11 +5,8 @@ import 'package:google_news_template_api/client.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import 'package:token_storage/token_storage.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
-
-class MockTokenStorage extends Mock implements TokenStorage {}
 
 void main() {
   Matcher isAUriHaving({String? authority, String? path, String? query}) {
