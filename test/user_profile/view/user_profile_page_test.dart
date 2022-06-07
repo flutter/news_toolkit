@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -357,6 +358,24 @@ void main() {
           await tester.pumpAndSettle();
 
           expect(find.byType(TermsOfServicePage), findsOneWidget);
+        });
+
+        testWidgets(
+            'to NotificationPreferencesPage '
+            'when tapped on NotificationPreferences', (tester) async {
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+          );
+
+          await tester.tap(
+            find.byKey(Key('userProfilePage_notificationPreferencesItem')),
+          );
+          await tester.pumpAndSettle();
+
+          expect(find.byType(NotificationPreferencesPage), findsOneWidget);
         });
       });
     });

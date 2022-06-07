@@ -57,6 +57,40 @@ void main() {
           ),
         ).called(1);
       });
+
+      test(
+          'throws TrackEventFailure '
+          'when logEvent throws exception', () async {
+        when(
+          () => firebaseAnalytics.logEvent(
+            name: any(named: 'name'),
+            parameters: any(named: 'parameters'),
+          ),
+        ).thenThrow(Exception());
+
+        const analyticEvent1 = AnalyticsEvent(
+          'event1',
+          properties: <String, dynamic>{
+            'property1': 'value1',
+            'property2': 'value2',
+          },
+        );
+
+        expect(
+          () => analyticsRepository.track(analyticEvent1),
+          throwsA(isA<TrackEventFailure>()),
+        );
+      });
+    });
+
+    group('AnalyticsFailure', () {
+      final error = Exception('errorMessage');
+
+      group('TrackEventFailure', () {
+        test('has correct props', () {
+          expect(TrackEventFailure(error).props, [error]);
+        });
+      });
     });
   });
 }

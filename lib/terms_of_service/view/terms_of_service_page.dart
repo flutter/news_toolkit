@@ -20,7 +20,12 @@ class TermsOfServicePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           TermsOfServiceHeader(),
-          TermsOfServiceBody(),
+          TermsOfServiceBody(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.xlg,
+              vertical: AppSpacing.xs,
+            ),
+          ),
           SizedBox(height: AppSpacing.lg)
         ],
       ),

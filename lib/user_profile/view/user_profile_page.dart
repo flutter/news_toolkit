@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -108,7 +109,7 @@ class _UserProfileViewState extends State<UserProfileView>
               leading: Assets.icons.notificationsIcon.svg(),
               title: l10n.userProfileSettingsNotificationsTitle,
               trailing: AppSwitch(
-                onText: l10n.userProfileCheckboxOnTitle,
+                onText: l10n.checkboxOnTitle,
                 offText: l10n.userProfileCheckboxOffTitle,
                 value: notificationsEnabled,
                 onChanged: (_) => context
@@ -118,13 +119,16 @@ class _UserProfileViewState extends State<UserProfileView>
             ),
             UserProfileItem(
               key: const Key('userProfilePage_notificationPreferencesItem'),
-              title: l10n.userProfileSettingsNotificationPreferencesTitle,
+              title: l10n.notificationPreferencesTitle,
               trailing: IconButton(
                 key: const Key(
                   'userProfilePage_notificationPreferencesItem_trailing',
                 ),
                 icon: const Icon(Icons.chevron_right),
                 onPressed: () {},
+              ),
+              onTap: () => Navigator.of(context).push(
+                NotificationPreferencesPage.route(),
               ),
             ),
             const _UserProfileDivider(),

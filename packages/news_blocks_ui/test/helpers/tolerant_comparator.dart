@@ -12,13 +12,21 @@ import 'package:flutter_test/flutter_test.dart';
 /// In case of failure this comparator will provide output to illustrate the
 /// difference.
 class TolerantComparator extends LocalFileComparator {
-  TolerantComparator(super.testFile);
+  TolerantComparator.from(
+    super.testFile, {
+    required LocalFileComparator comparator,
+  }) : _comparator = comparator;
 
   /// The difference tolerance that this comparator allows for.
   ///
   /// If compared files produce less than [differenceTolerance]% difference,
   /// then the test is accepted. Otherwise, the test fails.
   static const differenceTolerance = .06;
+
+  final LocalFileComparator _comparator;
+
+  @override
+  Uri getTestUri(Uri key, int? version) => _comparator.getTestUri(key, version);
 
   @override
   Future<bool> compare(Uint8List imageBytes, Uri golden) async {
@@ -45,8 +53,10 @@ class TolerantComparator extends LocalFileComparator {
 /// Sets [TolerantComparator] as the default golden file comparator in tests.
 void setUpTolerantComparator() {
   final oldComparator = goldenFileComparator as LocalFileComparator;
-  final newComparator =
-      TolerantComparator(Uri.parse('${oldComparator.basedir}test'));
+  final newComparator = TolerantComparator.from(
+    comparator: oldComparator,
+    Uri.parse('${oldComparator.basedir}test'),
+  );
   expect(oldComparator.basedir, newComparator.basedir);
   goldenFileComparator = newComparator;
 }
