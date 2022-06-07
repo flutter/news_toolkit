@@ -113,7 +113,10 @@ void main() {
       expect(find.byType(ArticleContent), findsOneWidget);
     });
 
-    testWidgets('renders AppBar when is not a subscriber', (tester) async {
+    testWidgets(
+        'renders AppBar with ShareButton title and '
+        'ArticleSubscribeButton action when user is not a subscriber',
+        (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
@@ -136,7 +139,9 @@ void main() {
       );
     });
 
-    testWidgets('renders AppBar when is a subscriber', (tester) async {
+    testWidgets(
+        'renders AppBar with empty title and ShareButton '
+        ' action when user is a subscriber', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
@@ -147,7 +152,7 @@ void main() {
       final shareButton = tester.widget<Padding>(
         find.byWidgetPredicate(
           (widget) =>
-              widget.key == Key('article_page_share_button') &&
+              widget.key == Key('articlePage_shareButton') &&
               widget is Padding &&
               widget.child is ShareButton,
         ),

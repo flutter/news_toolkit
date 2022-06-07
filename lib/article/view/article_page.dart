@@ -50,7 +50,7 @@ class ArticleView extends StatelessWidget {
         actions: [
           if (_isSubscriber)
             Padding(
-              key: const Key('article_page_share_button'),
+              key: const Key('articlePage_shareButton'),
               padding: const EdgeInsets.only(right: AppSpacing.lg),
               child: ShareButton(
                 shareText: context.l10n.shareText,
