@@ -43,7 +43,7 @@ extension AppTester on WidgetTester {
     AppBloc? appBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
-    NotificationsRepository? notificationsRepository,
+    NotificationsRepository? notificationRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -59,7 +59,7 @@ extension AppTester on WidgetTester {
             value: newsRepository ?? MockNewsRepository(),
           ),
           RepositoryProvider.value(
-            value: notificationsRepository ?? MockNotificationsRepository(),
+            value: notificationRepository ?? MockNotificationsRepository(),
           ),
         ],
         child: MultiBlocProvider(
