@@ -20,7 +20,8 @@ void main() {
 
   group('ShareLauncher', () {
     TestWidgetsFlutterBinding.ensureInitialized();
-    test('calls share with text', () async {
+
+    test('calls shareProvider with text', () async {
       var called = false;
 
       final shareLauncher = ShareLauncher(
