@@ -16,7 +16,6 @@ class SubscribeWhiteShadow extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            key: const Key('susbcribeWhiteShadow_gradientContainer'),
             height: MediaQuery.of(context).size.height * .2,
             decoration: BoxDecoration(
               gradient: LinearGradient(
