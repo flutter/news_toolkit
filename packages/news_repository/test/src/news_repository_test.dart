@@ -331,7 +331,7 @@ void main() {
           () => apiClient.getRelatedArticles(
             id: any(named: 'id'),
           ),
-        ).thenThrow(Exception);
+        ).thenThrow(Exception());
 
         expect(
           newsRepository.getRelatedArticles(id: 'id'),
