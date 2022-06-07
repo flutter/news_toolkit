@@ -1,8 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/ads/ads.dart';
-import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/subscribe/subscribe.dart';
@@ -22,9 +20,6 @@ class ArticleContent extends StatelessWidget {
     final content = context.select((ArticleBloc bloc) => bloc.state.content);
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
-    final isLoggedIn = context.select((AppBloc bloc) => bloc.state.status) ==
-        AppStatus.authenticated;
-    final showLoggedInSubscribedModal = isLoggedIn && !_isSubscribed;
 
     if (status == ArticleStatus.initial || status == ArticleStatus.loading) {
       return const ArticleContentLoaderItem(
@@ -43,9 +38,6 @@ class ArticleContent extends StatelessWidget {
         children: [
           ListView.builder(
             itemCount: content.length + 1,
-            physics: showLoggedInSubscribedModal
-                ? const NeverScrollableScrollPhysics()
-                : const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               if (index == content.length) {
                 return hasMoreContent
@@ -67,11 +59,10 @@ class ArticleContent extends StatelessWidget {
               return ArticleContentItem(block: block);
             },
           ),
-          if (showLoggedInSubscribedModal)
-            const SubscribeWhiteShadow(
-              child: SubscribeLoggedIn(),
-            ),
-          if (!showLoggedInSubscribedModal) const StickyAd()
+          const SubscribeWhiteShadow(
+            child: SubscribeLoggedIn(),
+          ),
+          // const StickyAd()
         ],
       ),
     );

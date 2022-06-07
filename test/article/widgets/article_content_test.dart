@@ -7,26 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/ads/ads.dart';
-import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/subscribe/subscribe.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
 class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
 
-class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
-
-class MockUser extends Mock implements User {}
-
 void main() {
   late ArticleBloc articleBloc;
-  late AppBloc appBloc;
-  late User user;
 
   final content = <NewsBlock>[
     DividerHorizontalBlock(),
@@ -36,8 +27,6 @@ void main() {
   ];
 
   setUp(() {
-    appBloc = MockAppBloc();
-    user = MockUser();
     articleBloc = MockArticleBloc();
     when(() => articleBloc.state).thenReturn(
       ArticleState(content: content, status: ArticleStatus.populated),
@@ -45,32 +34,12 @@ void main() {
   });
 
   group('ArticleContent', () {
-    testWidgets(
-        'renders SubscribeWhiteShadow with SubscribeLoggedIn as a child'
-        ' when user is authenticathed and is not a subscriber', (tester) async {
-      when(() => appBloc.state).thenAnswer((_) => AppState.authenticated(user));
-
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: ArticleContent(isSubscribed: false),
-        ),
-        appBloc: appBloc,
-      );
-
-      expect(find.byType(SubscribeWhiteShadow), findsOneWidget);
-      expect(find.byType(SubscribeLoggedIn), findsOneWidget);
-    });
-
     testWidgets('renders StickyAd', (tester) async {
-      when(() => appBloc.state).thenAnswer((_) => AppState.authenticated(user));
-
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleContent(isSubscribed: true),
+          child: ArticleContent(),
         ),
-        appBloc: appBloc,
       );
 
       expect(find.byType(StickyAd), findsOneWidget);
