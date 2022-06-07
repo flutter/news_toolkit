@@ -2,9 +2,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:share_launcher/share_launcher.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
+
+class MockUrlLauncher extends Mock
+    with MockPlatformInterfaceMixin
+    implements UrlLauncherPlatform {}
 
 void main() {
+  setUpAll(() {
+    UrlLauncherPlatform.instance = MockUrlLauncher();
+  });
+
   group('ShareFailure', () {
     test('supports value comparison', () {
       final shareFailure1 = ShareFailure('error');
@@ -48,9 +59,6 @@ void main() {
 
       MethodChannel('dev.fluttercommunity.plus/share')
           .setMockMethodCallHandler((_) async => called = true);
-      // Support GitHub action running on linux.
-      MethodChannel('plugins.flutter.io/url_launcher_linux')
-          .setMockMethodCallHandler((_) async => called = true);
 
       await ShareLauncher().share(text: 'text');
 
@@ -68,9 +76,6 @@ void main() {
       var called = false;
 
       MethodChannel('dev.fluttercommunity.plus/share')
-          .setMockMethodCallHandler((_) async => called = true);
-      // Support GitHub action running on linux.
-      MethodChannel('plugins.flutter.io/url_launcher_linux')
           .setMockMethodCallHandler((_) async => called = true);
 
       await ShareLauncher().share(text: 'text');
