@@ -14,6 +14,18 @@ class MockUrlLauncher extends Mock
 void main() {
   setUpAll(() {
     UrlLauncherPlatform.instance = MockUrlLauncher();
+
+    when(
+      () => UrlLauncherPlatform.instance.launch(
+        any(that: isA<String>()),
+        useSafariVC: any(named: 'useSafariVC'),
+        useWebView: any(named: 'useWebView'),
+        enableJavaScript: any(named: 'enableJavaScript'),
+        enableDomStorage: any(named: 'enableDomStorage'),
+        universalLinksOnly: any(named: 'universalLinksOnly'),
+        headers: any(named: 'headers'),
+      ),
+    ).thenAnswer((_) async => true);
   });
 
   group('ShareFailure', () {
