@@ -6,13 +6,7 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class ArticleContent extends StatelessWidget {
-  const ArticleContent({
-    super.key,
-    bool? isSubscribed,
-  }) : _isSubscribed = isSubscribed ?? false;
-
-  // TODO(ana): change when susbcribe logic is implemented
-  final bool _isSubscribed;
+  const ArticleContent({super.key});
 
   @override
   Widget build(BuildContext context) {
