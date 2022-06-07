@@ -54,7 +54,7 @@ void main() {
       expect(find.byType(ArticleIntroduction), findsOneWidget);
     });
 
-    testWidgets('calls onSharePressed when ShareButton pressed',
+    testWidgets('calls onSharePressed when ShareButton is pressed',
         (tester) async {
       final completer = Completer<void>();
 
