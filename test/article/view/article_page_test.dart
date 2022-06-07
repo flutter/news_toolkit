@@ -113,18 +113,30 @@ void main() {
       expect(find.byType(ArticleContent), findsOneWidget);
     });
 
-    testWidgets('renders NotPremiumAppBar when is not a subscriber',
-        (tester) async {
+    testWidgets('renders AppBar when is not a subscriber', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
           child: ArticleView(),
         ),
       );
-      expect(find.byType(NotPremiumAppBar), findsOneWidget);
+
+      final subscribeButton = tester
+          .widget<ArticleSubscribeButton>(find.byType(ArticleSubscribeButton));
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is ShareButton &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(subscribeButton),
+        ),
+        findsOneWidget,
+      );
     });
 
-    testWidgets('renders PremiumAppBar when is a subscriber', (tester) async {
+    testWidgets('renders AppBar when is a subscriber', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
@@ -132,7 +144,25 @@ void main() {
         ),
       );
 
-      expect(find.byType(PremiumAppBar), findsOneWidget);
+      final shareButton = tester.widget<Padding>(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget.key == Key('article_page_share_button') &&
+              widget is Padding &&
+              widget.child is ShareButton,
+        ),
+      );
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is SizedBox &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(shareButton),
+        ),
+        findsOneWidget,
+      );
     });
 
     group('navigates', () {

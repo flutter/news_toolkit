@@ -24,45 +24,29 @@ class CategoryFeedItem extends StatelessWidget {
     } else if (newsBlock is SectionHeaderBlock) {
       return SectionHeader(
         block: newsBlock,
-        onPressed: (action) => _onFeedItemAction(
-          context,
-          action,
-          false,
-        ),
+        onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostLargeBlock) {
       return PostLarge(
         block: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
-        onPressed: (action) => _onFeedItemAction(
-          context,
-          action,
-          newsBlock.isPremium,
-        ),
+        onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostMediumBlock) {
       return PostMedium(
         block: newsBlock,
-        onPressed: (action) => _onFeedItemAction(
-          context,
-          action,
-          newsBlock.isPremium,
-        ),
+        onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostSmallBlock) {
       return PostSmall(
         block: newsBlock,
-        onPressed: (action) => _onFeedItemAction(
-          context,
-          action,
-          newsBlock.isPremium,
-        ),
+        onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostGridGroupBlock) {
       return PostGrid(
         gridGroupBlock: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
-        onPressed: (action) => _onFeedItemAction(context, action, false),
+        onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is NewsletterBlock) {
       return const Newsletter();
@@ -76,10 +60,7 @@ class CategoryFeedItem extends StatelessWidget {
 
   /// Handles actions triggered by tapping on feed items.
   Future<void> _onFeedItemAction(
-    BuildContext context,
-    BlockAction action,
-    bool isPremium,
-  ) async {
+      BuildContext context, BlockAction action) async {
     if (action is NavigateToArticleAction) {
       await Navigator.of(context).push<void>(
         ArticlePage.route(id: action.articleId),
