@@ -300,5 +300,44 @@ void main() {
         });
       });
     });
+
+    group('getRelatedArticles', () {
+      test(
+          'returns RelatedArticlesResponse '
+          'from ApiClient.getRelatedArticles', () async {
+        const relatedArticlesResponse = RelatedArticlesResponse(
+          relatedArticles: [
+            SpacerBlock(spacing: Spacing.extraLarge),
+            DividerHorizontalBlock(),
+          ],
+          totalCount: 2,
+        );
+
+        when(
+          () => apiClient.getRelatedArticles(
+            id: any(named: 'id'),
+          ),
+        ).thenAnswer((_) async => relatedArticlesResponse);
+
+        final response = await newsRepository.getRelatedArticles(id: 'id');
+
+        expect(response, equals(relatedArticlesResponse));
+      });
+
+      test(
+          'throws GetRelatedArticlesFailure '
+          'if ApiClient.getRelatedArticles fails', () async {
+        when(
+          () => apiClient.getRelatedArticles(
+            id: any(named: 'id'),
+          ),
+        ).thenThrow(Exception);
+
+        expect(
+          newsRepository.getRelatedArticles(id: 'id'),
+          throwsA(isA<GetRelatedArticlesFailure>()),
+        );
+      });
+    });
   });
 }
