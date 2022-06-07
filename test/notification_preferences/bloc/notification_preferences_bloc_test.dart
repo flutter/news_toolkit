@@ -10,11 +10,13 @@ import 'package:notifications_repository/notifications_repository.dart';
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+class MockNewsRepository extends Mock implements NewsRepository {}
+
 void main() {
-  final categories = {Category.business, Category.entertainment};
-  final initialState =
-      NotificationPreferencesState.initial(categories: categories);
+  final initialState = NotificationPreferencesState.initial();
+
   final notificationsRepository = MockNotificationsRepository();
+  final newsRepository = MockNewsRepository();
 
   group('NotificationPreferencesBloc', () {
     group('on CategoriesPreferenceToggled ', () {
@@ -26,7 +28,7 @@ void main() {
           () => notificationsRepository.setCategoriesPreferences(any()),
         ).thenAnswer((_) async {}),
         build: () => NotificationPreferencesBloc(
-          categories: categories,
+          newsRepository: newsRepository,
           notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
@@ -38,15 +40,15 @@ void main() {
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            selectedCategories: Set.from(categories)..remove(Category.business),
+            selectedCategories: {Category.business},
             status: NotificationPreferencesStatus.success,
           ),
           initialState.copyWith(
-            selectedCategories: Set.from(categories)..remove(Category.business),
+            selectedCategories: {Category.business},
             status: NotificationPreferencesStatus.loading,
           ),
           initialState.copyWith(
-            selectedCategories: categories,
+            selectedCategories: {},
             status: NotificationPreferencesStatus.success,
           ),
         ],
@@ -60,7 +62,7 @@ void main() {
           () => notificationsRepository.setCategoriesPreferences(any()),
         ).thenThrow(Exception()),
         build: () => NotificationPreferencesBloc(
-          categories: categories,
+          newsRepository: newsRepository,
           notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
@@ -80,12 +82,22 @@ void main() {
     group('on InitialCategoriesPreferencesRequested ', () {
       blocTest<NotificationPreferencesBloc, NotificationPreferencesState>(
         'emits [loading, success] '
-        'with updated selectedCategories ',
-        setUp: () => when(
-          notificationsRepository.fetchCategoriesPreferences,
-        ).thenAnswer((_) async => {Category.business}),
+        'with updated selectedCategories and categories ',
+        setUp: () {
+          when(
+            notificationsRepository.fetchCategoriesPreferences,
+          ).thenAnswer((_) async => {Category.business});
+          when(newsRepository.getCategories).thenAnswer(
+            (_) async => CategoriesResponse(
+              categories: const [
+                Category.business,
+                Category.entertainment,
+              ],
+            ),
+          );
+        },
         build: () => NotificationPreferencesBloc(
-          categories: categories,
+          newsRepository: newsRepository,
           notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
@@ -94,8 +106,12 @@ void main() {
           initialState.copyWith(
             status: NotificationPreferencesStatus.loading,
           ),
-          initialState.copyWith(
-            selectedCategories: {Category.business},
+          NotificationPreferencesState(
+            categories: const {
+              Category.business,
+              Category.entertainment,
+            },
+            selectedCategories: const {Category.business},
             status: NotificationPreferencesStatus.success,
           ),
         ],
@@ -108,7 +124,7 @@ void main() {
           notificationsRepository.fetchCategoriesPreferences,
         ).thenThrow(Exception()),
         build: () => NotificationPreferencesBloc(
-          categories: categories,
+          newsRepository: newsRepository,
           notificationsRepository: notificationsRepository,
         ),
         seed: () => initialState,
