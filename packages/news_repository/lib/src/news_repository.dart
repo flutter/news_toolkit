@@ -156,7 +156,7 @@ class NewsRepository {
     }
   }
 
-  /// Requests related articles feed.
+  /// Requests related articles.
   ///
   /// Supported parameters:
   /// * [id] - article id for which related content is requested.
