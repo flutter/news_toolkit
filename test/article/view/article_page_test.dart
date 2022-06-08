@@ -141,7 +141,7 @@ void main() {
 
     testWidgets(
         'renders AppBar with empty title and ShareButton '
-        ' action when user is a subscriber', (tester) async {
+        'action when user is a subscriber', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
