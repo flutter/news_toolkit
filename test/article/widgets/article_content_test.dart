@@ -225,6 +225,7 @@ void main() {
               hasMoreContent: true,
             )
           ]),
+          initialState: ArticleState.initial(),
         );
 
         await tester.pumpApp(
@@ -235,6 +236,32 @@ void main() {
         );
 
         verify(() => articleBloc.add(ArticleRequested())).called(1);
+      });
+
+      testWidgets(
+          'does not add ArticleRequested to ArticleBloc '
+          'when ArticleStatus is loading', (tester) async {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(
+              status: ArticleStatus.loading,
+              content: content,
+              hasMoreContent: true,
+            )
+          ]),
+          initialState: ArticleState.initial(),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        verifyNever(() => articleBloc.add(ArticleRequested()));
       });
     });
   });
