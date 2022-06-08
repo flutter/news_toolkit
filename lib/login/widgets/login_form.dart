@@ -192,7 +192,7 @@ class _TwitterLoginButton extends StatelessWidget {
 class _ContinueWithEmailLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AppButton.outlinedTransparent(
+    return AppButton.outlinedTransparentDarkAqua(
       key: const Key('loginForm_emailLogin_appButton'),
       onPressed: () => Navigator.of(context).push<void>(
         LoginWithEmailPage.route(),
