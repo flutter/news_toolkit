@@ -11,7 +11,10 @@ dependencies:
     path: packages/analytics_repository
   app_ui:
     path: packages/app_ui
+  article_repository:
+    path: packages/article_repository
   bloc: ^8.0.3
+  clock: ^1.1.0
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3

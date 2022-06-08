@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0"
+  article_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/article_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   async:
     dependency: transitive
     description:
@@ -198,7 +205,7 @@ packages:
     source: hosted
     version: "0.3.5"
   clock:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: clock
       url: "https://pub.dartlang.org"

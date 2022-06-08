@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,11 +12,14 @@ import 'package:news_repository/news_repository.dart';
 
 class MockNewsRepository extends Mock implements NewsRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {}
+
 void main() {
   group('ArticleBloc', () {
     const articleId = 'articleId';
 
     late NewsRepository newsRepository;
+    late ArticleRepository articleRepository;
 
     final articleResponse = ArticleResponse(
       content: [
@@ -36,6 +41,7 @@ void main() {
 
     setUp(() {
       newsRepository = MockNewsRepository();
+      articleRepository = MockArticleRepository();
     });
 
     test('can be instantiated', () {
@@ -43,26 +49,36 @@ void main() {
         ArticleBloc(
           articleId: articleId,
           newsRepository: newsRepository,
+          articleRepository: articleRepository,
         ),
         isNotNull,
       );
     });
 
     group('ArticleRequested', () {
-      blocTest<ArticleBloc, ArticleState>(
-        'emits [loading, populated] '
-        'when getArticle succeeds '
-        'and there is more content to fetch',
-        setUp: () => when(
+      setUp(() {
+        when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
+        when(articleRepository.resetArticleViews).thenAnswer((_) async {});
+        when(articleRepository.fetchArticleViews)
+            .thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
+
+        when(
           () => newsRepository.getArticle(
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
-        ).thenAnswer((_) async => articleResponse),
+        ).thenAnswer((_) async => articleResponse);
+      });
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [loading, populated] '
+        'when getArticle succeeds '
+        'and there is more content to fetch',
         build: () => ArticleBloc(
           articleId: articleId,
           newsRepository: newsRepository,
+          articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
@@ -81,16 +97,10 @@ void main() {
         'when getArticle succeeds '
         'and there is no more content to fetch',
         seed: () => articleStatePopulated,
-        setUp: () => when(
-          () => newsRepository.getArticle(
-            id: articleId,
-            offset: any(named: 'offset'),
-            limit: any(named: 'limit'),
-          ),
-        ).thenAnswer((_) async => articleResponse),
         build: () => ArticleBloc(
           articleId: articleId,
           newsRepository: newsRepository,
+          articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
@@ -119,6 +129,7 @@ void main() {
         build: () => ArticleBloc(
           articleId: articleId,
           newsRepository: newsRepository,
+          articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
@@ -127,6 +138,142 @@ void main() {
         ],
         errors: () => [isA<Exception>()],
       );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'calls ArticleRepository.resetArticleViews and '
+        'ArticleRepository.incrementArticleViews '
+        'and emits hasReachedArticleViewsLimit as false '
+        'when the number of article views was never reset',
+        setUp: () => when(articleRepository.fetchArticleViews)
+            .thenAnswer((_) async => ArticleViews(0, null)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          newsRepository: newsRepository,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
+        expect: () => <ArticleState>[
+          ArticleState(status: ArticleStatus.loading),
+          ArticleState(
+            status: ArticleStatus.populated,
+            content: articleResponse.content,
+            hasMoreContent: true,
+            hasReachedArticleViewsLimit: false,
+          ),
+        ],
+        verify: (bloc) {
+          verify(articleRepository.resetArticleViews).called(1);
+          verify(articleRepository.incrementArticleViews).called(1);
+        },
+      );
+
+      test(
+          'calls ArticleRepository.resetArticleViews and '
+          'ArticleRepository.incrementArticleViews '
+          'and emits hasReachedArticleViewsLimit as false '
+          'when the number of article views was last reset '
+          'more than a day ago', () async {
+        final resetAt = DateTime(2022, 6, 7);
+        final now = DateTime(2022, 6, 8, 0, 0, 1);
+
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(3, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              newsRepository: newsRepository,
+              articleRepository: articleRepository,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                content: articleResponse.content,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: false,
+              ),
+            ],
+            verify: (bloc) {
+              verify(articleRepository.resetArticleViews).called(1);
+              verify(articleRepository.incrementArticleViews).called(1);
+            },
+          );
+        });
+      });
+
+      test(
+          'calls ArticleRepository.incrementArticleViews '
+          'and emits hasReachedArticleViewsLimit as false '
+          'when the article views limit of 4 was not reached '
+          'and the the number of article views was last reset '
+          'less than a day ago', () async {
+        final resetAt = DateTime(2022, 6, 7);
+        final now = DateTime(2022, 6, 7, 12, 0, 0);
+
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(2, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              newsRepository: newsRepository,
+              articleRepository: articleRepository,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                content: articleResponse.content,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: false,
+              ),
+            ],
+            verify: (bloc) {
+              verifyNever(articleRepository.resetArticleViews);
+              verify(articleRepository.incrementArticleViews).called(1);
+            },
+          );
+        });
+      });
+
+      test(
+          'calls ArticleRepository.incrementArticleViews '
+          'and emits hasReachedArticleViewsLimit as true '
+          'when the article views limit of 4 was reached '
+          'and the the number of article views was last reset '
+          'less than a day ago', () async {
+        final resetAt = DateTime(2022, 6, 7);
+        final now = DateTime(2022, 6, 7, 12, 0, 0);
+
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(4, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              newsRepository: newsRepository,
+              articleRepository: articleRepository,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                content: articleResponse.content,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: true,
+              ),
+            ],
+            verify: (bloc) {
+              verifyNever(articleRepository.resetArticleViews);
+              verify(articleRepository.incrementArticleViews).called(1);
+            },
+          );
+        });
+      });
     });
   });
 }
