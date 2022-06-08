@@ -18,7 +18,9 @@ void main() {
     (firebaseDynamicLinks, firebaseMessaging, sharedPreferences) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = GoogleNewsTemplateApiClient();
+      final apiClient = GoogleNewsTemplateApiClient(
+        tokenProvider: tokenStorage.readToken,
+      );
 
       const permissionClient = PermissionClient();
 
