@@ -12,6 +12,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
+import 'package:google_news_template/subscribe/subscribe.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -100,6 +101,18 @@ class _UserProfileViewState extends State<UserProfileView>
               const UserProfileLogoutButton(),
             ],
             const SizedBox(height: AppSpacing.lg),
+            const _UserProfileDivider(),
+            UserProfileSubtitle(
+              subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
+            ),
+            UserProfileItem(
+              key: const Key('userProfilePage_subscriptionItem'),
+              title: l10n.manageSubscriptionTile,
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                ManageSubscriptionPage.route(),
+              ),
+            ),
             const _UserProfileDivider(),
             UserProfileSubtitle(
               subtitle: l10n.userProfileSettingsSubtitle,
