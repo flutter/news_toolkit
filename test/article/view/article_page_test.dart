@@ -130,6 +130,63 @@ void main() {
       );
     });
 
+    testWidgets(
+        'renders AppBar with ShareButton title and '
+        'ArticleSubscribeButton action when user is not a subscriber',
+        (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isVideoArticle: false),
+        ),
+      );
+
+      final subscribeButton = tester
+          .widget<ArticleSubscribeButton>(find.byType(ArticleSubscribeButton));
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is ShareButton &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(subscribeButton),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders AppBar with empty title and ShareButton '
+        'action when user is a subscriber', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isSubscriber: true, isVideoArticle: false),
+        ),
+      );
+
+      final shareButton = tester.widget<Padding>(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget.key == Key('articlePage_shareButton') &&
+              widget is Padding &&
+              widget.child is ShareButton,
+        ),
+      );
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is SizedBox &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(shareButton),
+        ),
+        findsOneWidget,
+      );
+    });
+
     group('navigates', () {
       testWidgets('back when back button is pressed', (tester) async {
         final navigator = MockNavigator();
