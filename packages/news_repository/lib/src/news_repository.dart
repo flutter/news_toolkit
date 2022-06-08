@@ -55,6 +55,14 @@ class RelevantSearchFailure extends NewsFailure {
   const RelevantSearchFailure(super.error);
 }
 
+/// {@template get_related_articles_failure}
+/// Thrown when fetching related articles fails.
+/// {@endtemplate}
+class GetRelatedArticlesFailure extends NewsFailure {
+  /// {@macro get_related_articles_failure}
+  const GetRelatedArticlesFailure(super.error);
+}
+
 /// {@template news_repository}
 /// A repository that manages news data.
 /// {@endtemplate}
@@ -145,6 +153,29 @@ class NewsRepository {
       return await _apiClient.relevantSearch(term: term);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(RelevantSearchFailure(error), stackTrace);
+    }
+  }
+
+  /// Requests related articles.
+  ///
+  /// Supported parameters:
+  /// * [id] - article id for which related content is requested.
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<RelatedArticlesResponse> getRelatedArticles({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      return await _apiClient.getRelatedArticles(
+        id: id,
+        limit: limit,
+        offset: offset,
+      );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(GetRelatedArticlesFailure(error), stackTrace);
     }
   }
 }
