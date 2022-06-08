@@ -8,5 +8,38 @@ void main() {
     test('can be instantiated', () {
       expect(SubscriptionsRepository(), isNotNull);
     });
+
+    test('currentSubscriptionPlan emits none when initialized', () {
+      expectLater(
+        SubscriptionsRepository().currentSubscriptionPlan,
+        emits(SubscriptionPlan.none),
+      );
+    });
+
+    group('requestSubscriptionPlan', () {
+      test('adds plan to currentSubscriptionPlan stream', () {
+        final repository = SubscriptionsRepository();
+
+        expectLater(
+          repository.currentSubscriptionPlan,
+          emitsInOrder(<SubscriptionPlan>[
+            SubscriptionPlan.none,
+            SubscriptionPlan.premium,
+          ]),
+        );
+
+        repository.requestSubscriptionPlan(SubscriptionPlan.premium);
+      });
+    });
+
+    group('SubscriptionsFailure', () {
+      final error = Exception('errorMessage');
+
+      group('RequestSubscriptionPlanFailure', () {
+        test('has correct props', () {
+          expect(RequestSubscriptionPlanFailure(error).props, [error]);
+        });
+      });
+    });
   });
 }
