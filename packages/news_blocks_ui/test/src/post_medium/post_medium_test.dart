@@ -43,13 +43,10 @@ void main() {
         ),
       );
 
-      expect(find.byType(PostMediumOverlaidLayout), findsOneWidget);
-
-      // TODO(jan-stepien): Update golden tests containing network images
-      // expect(
-      //   find.byType(PostMediumBlock),
-      //   matchesGoldenFile('post_medium_overlaid_layout.png'),
-      // );
+      expect(
+        find.byType(PostMediumOverlaidLayout),
+        matchesGoldenFile('post_medium_overlaid_layout.png'),
+      );
     });
 
     testWidgets('renders correctly description layout', (tester) async {
@@ -69,13 +66,10 @@ void main() {
         ),
       );
 
-      expect(find.byType(PostMediumDescriptionLayout), findsOneWidget);
-
-      // TODO(jan-stepien): Update golden tests containing network images
-      // expect(
-      //   find.byType(PostMediumBlock),
-      //   matchesGoldenFile('post_medium_description_layout.png'),
-      // );
+      expect(
+        find.byType(PostMediumDescriptionLayout),
+        matchesGoldenFile('post_medium_description_layout.png'),
+      );
     });
 
     testWidgets('onPressed is called with action when tapped', (tester) async {
