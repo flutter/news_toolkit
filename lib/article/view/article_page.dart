@@ -49,9 +49,11 @@ class ArticlePage extends StatelessWidget {
 class ArticleView extends StatelessWidget {
   const ArticleView({
     super.key,
+    this.isSubscriber = false,
     required this.isVideoArticle,
   });
 
+  final bool isSubscriber;
   final bool isVideoArticle;
 
   @override
@@ -73,11 +75,25 @@ class ArticleView extends StatelessWidget {
         leading: isVideoArticle
             ? const AppBackButton.light()
             : const AppBackButton(),
-        title: ShareButton(
-          shareText: context.l10n.shareText,
-          color: foregroundColor,
-        ),
-        actions: const [ArticleSubscribeButton()],
+        title: isSubscriber
+            ? const SizedBox()
+            : ShareButton(
+                shareText: context.l10n.shareText,
+                color: foregroundColor,
+              ),
+        actions: [
+          if (isSubscriber)
+            Padding(
+              key: const Key('articlePage_shareButton'),
+              padding: const EdgeInsets.only(right: AppSpacing.lg),
+              child: ShareButton(
+                shareText: context.l10n.shareText,
+                color: foregroundColor,
+              ),
+            )
+          else
+            const ArticleSubscribeButton()
+        ],
       ),
       body: InterstitialAd(
         child: ArticleThemeOverride(
