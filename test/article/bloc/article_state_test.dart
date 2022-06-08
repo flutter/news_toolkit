@@ -84,6 +84,24 @@ void main() {
           ),
         );
       });
+
+      test(
+          'returns object with updated hasReachedArticleViewsLimit '
+          'when hasReachedArticleViewsLimit is passed', () {
+        const hasReachedArticleViewsLimit = true;
+
+        expect(
+          ArticleState(
+            status: ArticleStatus.populated,
+          ).copyWith(hasReachedArticleViewsLimit: hasReachedArticleViewsLimit),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
+            ),
+          ),
+        );
+      });
     });
   });
 }

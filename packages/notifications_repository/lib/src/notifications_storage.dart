@@ -1,7 +1,6 @@
 part of 'notifications_repository.dart';
 
-/// Storage keys of the [NotificationsStorage].
-@visibleForTesting
+/// Storage keys for the [NotificationsStorage].
 abstract class NotificationsStorageKeys {
   /// Whether the notifications are enabled.
   static const notificationsEnabled = '__notifications_enabled_storage_key__';
@@ -11,9 +10,8 @@ abstract class NotificationsStorageKeys {
 }
 
 /// {@template notifications_storage}
-/// Storage of the [NotificationsRepository].
+/// Storage for the [NotificationsRepository].
 /// {@endtemplate}
-@visibleForTesting
 class NotificationsStorage {
   /// {@macro notifications_storage}
   const NotificationsStorage({
