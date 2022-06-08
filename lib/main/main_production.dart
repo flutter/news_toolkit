@@ -59,6 +59,7 @@ void main() {
 
       final articleRepository = ArticleRepository(
         storage: ArticleStorage(storage: persistentStorage),
+        apiClient: apiClient,
       );
 
       return App(

@@ -7,7 +7,6 @@ import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_repository/news_repository.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
@@ -38,7 +37,6 @@ class ArticlePage extends StatelessWidget {
     return BlocProvider<ArticleBloc>(
       create: (_) => ArticleBloc(
         articleId: id,
-        newsRepository: context.read<NewsRepository>(),
         articleRepository: context.read<ArticleRepository>(),
       )..add(ArticleRequested()),
       child: ArticleView(

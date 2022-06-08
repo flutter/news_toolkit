@@ -9,6 +9,8 @@ environment:
 dependencies:
   clock: ^1.1.0
   equatable: ^2.0.3
+  google_news_template_api:
+    path: ../../api
   storage:
     path: ../storage/storage
 
