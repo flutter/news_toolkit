@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// {@template subscriptions_failure}
@@ -37,9 +38,13 @@ enum SubscriptionPlan {
 /// {@endtemplate}
 class SubscriptionsRepository {
   /// {@macro subscriptions_repository}
-  SubscriptionsRepository()
-      : _currentSubscriptionPlanSubject =
+  SubscriptionsRepository({
+    required GoogleNewsTemplateApiClient apiClient,
+  })  : _apiClient = apiClient,
+        _currentSubscriptionPlanSubject =
             BehaviorSubject.seeded(SubscriptionPlan.none);
+
+  final GoogleNewsTemplateApiClient _apiClient;
 
   final BehaviorSubject<SubscriptionPlan> _currentSubscriptionPlanSubject;
 
@@ -49,6 +54,14 @@ class SubscriptionsRepository {
 
   /// Requests to set the current subscription plan to [plan].
   Future<void> requestSubscriptionPlan(SubscriptionPlan plan) async {
-    _currentSubscriptionPlanSubject.add(plan);
+    try {
+      await _apiClient.createSubscription();
+      _currentSubscriptionPlanSubject.add(plan);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        RequestSubscriptionPlanFailure(error),
+        stackTrace,
+      );
+    }
   }
 }
