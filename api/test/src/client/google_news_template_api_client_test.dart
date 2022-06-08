@@ -21,9 +21,27 @@ void main() {
     });
   }
 
+  Matcher areJsonHeaders({String? authorizationToken}) {
+    return predicate<Map<String, String>?>((headers) {
+      if (headers?[HttpHeaders.contentTypeHeader] != ContentType.json.value ||
+          headers?[HttpHeaders.acceptHeader] != ContentType.json.value) {
+        return false;
+      }
+      if (authorizationToken != null &&
+          headers?[HttpHeaders.authorizationHeader] !=
+              'Bearer $authorizationToken') {
+        return false;
+      }
+      return true;
+    });
+  }
+
   group('GoogleNewsTemplateApiClient', () {
     late http.Client httpClient;
     late GoogleNewsTemplateApiClient apiClient;
+    late TokenProvider tokenProvider;
+
+    const token = 'token';
 
     setUpAll(() {
       registerFallbackValue(Uri());
@@ -31,27 +49,42 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      apiClient = GoogleNewsTemplateApiClient(httpClient: httpClient);
+      tokenProvider = () async => null;
+      apiClient = GoogleNewsTemplateApiClient(
+        httpClient: httpClient,
+        tokenProvider: tokenProvider,
+      );
     });
 
     group('localhost constructor', () {
       test('can be instantiated (no params)', () {
-        expect(GoogleNewsTemplateApiClient.localhost, returnsNormally);
+        expect(
+          () => GoogleNewsTemplateApiClient.localhost(
+            tokenProvider: tokenProvider,
+          ),
+          returnsNormally,
+        );
       });
 
-      test('has correct baseUrl', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      test('has correct baseUrl', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
+            HttpStatus.ok,
+          ),
         );
         final apiClient = GoogleNewsTemplateApiClient.localhost(
           httpClient: httpClient,
+          tokenProvider: tokenProvider,
         );
 
-        apiClient.getFeed().ignore();
+        await apiClient.getFeed();
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(authority: 'localhost:8080')),
+            headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
@@ -59,19 +92,26 @@ void main() {
 
     group('default constructor', () {
       test('can be instantiated (no params).', () {
-        expect(GoogleNewsTemplateApiClient.new, returnsNormally);
+        expect(
+          () => GoogleNewsTemplateApiClient(tokenProvider: tokenProvider),
+          returnsNormally,
+        );
       });
 
-      test('has correct baseUrl.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      test('has correct baseUrl.', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(const FeedResponse(feed: [], totalCount: 0)),
+            HttpStatus.ok,
+          ),
         );
         final apiClient = GoogleNewsTemplateApiClient(
           httpClient: httpClient,
+          tokenProvider: tokenProvider,
         );
 
-        apiClient.getFeed().ignore();
-
+        await apiClient.getFeed();
         verify(
           () => httpClient.get(
             any(
@@ -79,48 +119,88 @@ void main() {
                 authority: 'google-news-template-api-q66trdlzja-uc.a.run.app',
               ),
             ),
+            headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
     });
 
     group('getArticle', () {
-      test('makes correct http request (no query params).', () {
+      final articleResponse = ArticleResponse(
+        content: const [],
+        totalCount: 0,
+        url: Uri.parse('https://dailyglobe.com'),
+      );
+
+      test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
         const query = '';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        apiClient.getArticle(id: articleId).ignore();
+        await apiClient.getArticle(id: articleId);
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const limit = 42;
         const offset = 7;
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
         const query = 'limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getArticle(id: articleId, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getArticle(id: articleId, limit: limit, offset: offset);
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        const articleId = '__article_id__';
+        const path = '/api/v1/articles/$articleId';
+        const query = '';
+
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(articleResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getArticle(id: articleId);
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -129,7 +209,8 @@ void main() {
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -145,7 +226,8 @@ void main() {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -166,7 +248,8 @@ void main() {
           totalCount: 0,
           url: Uri.parse('http://dailyglobe.com'),
         );
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -181,42 +264,84 @@ void main() {
     });
 
     group('getRelatedArticles', () {
-      test('makes correct http request (no query params).', () {
+      const relatedArticlesResponse = RelatedArticlesResponse(
+        relatedArticles: [],
+        totalCount: 0,
+      );
+
+      test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId/related';
         const query = '';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        apiClient.getRelatedArticles(id: articleId).ignore();
+        await apiClient.getRelatedArticles(id: articleId);
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const limit = 42;
         const offset = 7;
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId/related';
         const query = 'limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getRelatedArticles(id: articleId, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getRelatedArticles(
+          id: articleId,
+          limit: limit,
+          offset: offset,
+        );
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        const articleId = '__article_id__';
+        const path = '/api/v1/articles/$articleId/related';
+        const query = '';
+
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getRelatedArticles(id: articleId);
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -225,7 +350,8 @@ void main() {
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -241,7 +367,8 @@ void main() {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -261,7 +388,8 @@ void main() {
           relatedArticles: [],
           totalCount: 0,
         );
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -276,41 +404,79 @@ void main() {
     });
 
     group('getFeed', () {
-      test('makes correct http request (no query params).', () {
+      const feedResponse = FeedResponse(
+        feed: [],
+        totalCount: 0,
+      );
+
+      test('makes correct http request (no query params).', () async {
         const path = '/api/v1/feed';
         const query = '';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        apiClient.getFeed().ignore();
+        await apiClient.getFeed();
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
 
-      test('makes correct http request (with query params).', () {
+      test('makes correct http request (with query params).', () async {
         const category = Category.science;
         const limit = 42;
         const offset = 7;
         const path = '/api/v1/feed';
         final query = 'category=${category.name}&limit=$limit&offset=$offset';
 
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        apiClient
-            .getFeed(category: category, limit: limit, offset: offset)
-            .ignore();
+        await apiClient.getFeed(
+          category: category,
+          limit: limit,
+          offset: offset,
+        );
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: path, query: query)),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        const path = '/api/v1/feed';
+        const query = '';
+
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getFeed();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: path, query: query)),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -318,7 +484,8 @@ void main() {
       test(
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -333,7 +500,8 @@ void main() {
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -349,7 +517,8 @@ void main() {
 
       test('returns a FeedResponse on a 200 response.', () {
         const expectedResponse = FeedResponse(feed: [], totalCount: 0);
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -361,16 +530,46 @@ void main() {
     });
 
     group('getCategories', () {
-      test('makes correct http request.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      const categoriesResponse = CategoriesResponse(categories: []);
+
+      test('makes correct http request.', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
 
-        apiClient.getCategories().ignore();
+        await apiClient.getCategories();
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: '/api/v1/categories')),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getCategories();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: '/api/v1/categories')),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -378,7 +577,8 @@ void main() {
       test(
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -393,7 +593,8 @@ void main() {
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -411,7 +612,8 @@ void main() {
         const expectedResponse = CategoriesResponse(
           categories: [Category.business, Category.top],
         );
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -423,16 +625,49 @@ void main() {
     });
 
     group('popularSearch', () {
-      test('makes correct http request.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+      const popularSearchResponse = PopularSearchResponse(
+        articles: [],
+        topics: [],
+      );
+
+      test('makes correct http request.', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.popularSearch().ignore();
+        await apiClient.popularSearch();
 
         verify(
           () => httpClient.get(
             any(that: isAUriHaving(path: '/api/v1/search/popular')),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).popularSearch();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: '/api/v1/search/popular')),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -440,7 +675,8 @@ void main() {
       test(
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -455,7 +691,8 @@ void main() {
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -474,7 +711,8 @@ void main() {
           articles: [],
           topics: [],
         );
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -487,12 +725,20 @@ void main() {
 
     group('relevantSearch', () {
       const term = '__test_term__';
-      test('makes correct http request.', () {
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => http.Response('', HttpStatus.ok),
+
+      const relevantSearchResponse = RelevantSearchResponse(
+        articles: [],
+        topics: [],
+      );
+
+      test('makes correct http request.', () async {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
 
-        apiClient.relevantSearch(term: term).ignore();
+        await apiClient.relevantSearch(term: term);
 
         verify(
           () => httpClient.get(
@@ -502,6 +748,37 @@ void main() {
                 query: 'q=$term',
               ),
             ),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async =>
+              http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).relevantSearch(term: term);
+
+        verify(
+          () => httpClient.get(
+            any(
+              that: isAUriHaving(
+                path: '/api/v1/search/relevant',
+                query: 'q=$term',
+              ),
+            ),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -509,7 +786,8 @@ void main() {
       test(
           'throws GoogleNewsTemplateApiMalformedResponse '
           'when response body is malformed.', () {
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
         );
 
@@ -524,7 +802,8 @@ void main() {
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(json.encode(body), statusCode),
         );
 
@@ -543,7 +822,8 @@ void main() {
           articles: [],
           topics: [],
         );
-        when(() => httpClient.get(any())).thenAnswer(
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response(
             json.encode(expectedResponse.toJson()),
             HttpStatus.ok,
@@ -559,7 +839,8 @@ void main() {
 
     group('subscribeToNewsletter', () {
       const email = 'test@gmail.com';
-      test('makes correct http request.', () {
+
+      test('makes correct http request.', () async {
         when(
           () => httpClient.post(
             any(),
@@ -570,12 +851,42 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.subscribeToNewsletter(email: email).ignore();
+        await apiClient.subscribeToNewsletter(email: email);
 
         verify(
           () => httpClient.post(
             any(that: isAUriHaving(path: '/api/v1/newsletter/subscription')),
-            headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+            headers: any(named: 'headers', that: areJsonHeaders()),
+            body: json.encode({'email': email}),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(
+          () => httpClient.post(
+            any(),
+            body: any(named: 'body'),
+            headers: any(named: 'headers'),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).subscribeToNewsletter(email: email);
+
+        verify(
+          () => httpClient.post(
+            any(that: isAUriHaving(path: '/api/v1/newsletter/subscription')),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
             body: json.encode({'email': email}),
           ),
         ).called(1);
@@ -621,16 +932,44 @@ void main() {
     });
 
     group('createSubscription', () {
-      test('makes correct http request.', () {
-        when(() => httpClient.post(any())).thenAnswer(
+      test('makes correct http request.', () async {
+        when(
+          () => httpClient.post(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        apiClient.createSubscription().ignore();
+        await apiClient.createSubscription();
 
         verify(
           () => httpClient.post(
             any(that: isAUriHaving(path: '/api/v1/subscriptions')),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(
+          () => httpClient.post(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
+          (_) async => http.Response('', HttpStatus.created),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).createSubscription();
+
+        verify(
+          () => httpClient.post(
+            any(that: isAUriHaving(path: '/api/v1/subscriptions')),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
           ),
         ).called(1);
       });
@@ -639,7 +978,8 @@ void main() {
           'throws GoogleNewsTemplateApiRequestFailure '
           'when response has a non-201 status code.', () {
         const statusCode = HttpStatus.internalServerError;
-        when(() => httpClient.post(any())).thenAnswer(
+        when(() => httpClient.post(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', statusCode),
         );
 
@@ -654,7 +994,8 @@ void main() {
       });
 
       test('resolves on a 201 response.', () {
-        when(() => httpClient.post(any())).thenAnswer(
+        when(() => httpClient.post(any(), headers: any(named: 'headers')))
+            .thenAnswer(
           (_) async => http.Response('', HttpStatus.created),
         );
 
