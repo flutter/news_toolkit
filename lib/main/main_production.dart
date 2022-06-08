@@ -62,7 +62,9 @@ void main() {
         storage: ArticleStorage(storage: persistentStorage),
       );
 
-      final subscriptionsRepository = SubscriptionsRepository();
+      final subscriptionsRepository = SubscriptionsRepository(
+        apiClient: apiClient,
+      );
 
       return App(
         userRepository: userRepository,
