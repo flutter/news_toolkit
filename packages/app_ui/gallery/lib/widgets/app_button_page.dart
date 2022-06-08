@@ -157,6 +157,15 @@ class AppButtonPage extends StatelessWidget {
           ),
         ),
       ),
+      const SizedBox(height: AppSpacing.md),
+      Container(
+        height: 100,
+        color: AppColors.darkBackground,
+        child: const _AppButtonItem(
+          buttonType: ButtonType.logInSubscribe,
+          child: Text('Log In'),
+        ),
+      ),
     ];
 
     return Scaffold(
@@ -180,7 +189,8 @@ enum ButtonType {
   details,
   cancel,
   watchVideo,
-  watchVideoDark
+  watchVideoDark,
+  logInSubscribe
 }
 
 class _AppButtonItem extends StatelessWidget {
@@ -209,12 +219,12 @@ class _AppButtonItem extends StatelessWidget {
           child: child,
         );
       case ButtonType.email:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
       case ButtonType.login:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
@@ -255,6 +265,11 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.watchVideoDark:
         return AppButton.transparentWhite(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.logInSubscribe:
+        return AppButton.outlinedTransparentWhite(
           onPressed: () {},
           child: child,
         );
