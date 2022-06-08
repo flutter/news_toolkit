@@ -1246,6 +1246,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  token_storage:
+    dependency: "direct main"
+    description:
+      path: "packages/authentication_client/token_storage"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   twitter_login:
     dependency: transitive
     description:

@@ -60,10 +60,16 @@ class CategoryFeedItem extends StatelessWidget {
 
   /// Handles actions triggered by tapping on feed items.
   Future<void> _onFeedItemAction(
-      BuildContext context, BlockAction action) async {
+    BuildContext context,
+    BlockAction action,
+  ) async {
     if (action is NavigateToArticleAction) {
       await Navigator.of(context).push<void>(
         ArticlePage.route(id: action.articleId),
+      );
+    } else if (action is NavigateToVideoArticleAction) {
+      await Navigator.of(context).push<void>(
+        ArticlePage.route(id: action.articleId, isVideoArticle: true),
       );
     } else if (action is NavigateToFeedCategoryAction) {
       context

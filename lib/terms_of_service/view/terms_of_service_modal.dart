@@ -8,17 +8,26 @@ class TermsOfServiceModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: AppSpacing.lg,
-        horizontal: AppSpacing.sm,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          TermsOfServiceModalHeader(),
-          TermsOfServiceBody(),
-        ],
+    return FractionallySizedBox(
+      heightFactor: 0.9,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              TermsOfServiceModalHeader(),
+              TermsOfServiceBody(
+                contentPadding: EdgeInsets.only(
+                  right: AppSpacing.xlg + AppSpacing.sm,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -31,27 +40,31 @@ class TermsOfServiceModalHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        IconButton(
-          key: const Key('termsOfServiceModal_closeButton'),
-          padding: const EdgeInsets.only(
-            bottom: AppSpacing.lg,
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: AppSpacing.lg,
+        bottom: AppSpacing.sm,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.sm),
+            child: Text(
+              context.l10n.termsOfServiceModalTitle,
+              style: theme.textTheme.headline3,
+            ),
           ),
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            bottom: AppSpacing.md,
+          IconButton(
+            key: const Key('termsOfServiceModal_closeModal_iconButton'),
+            constraints: const BoxConstraints.tightFor(width: 24, height: 36),
+            padding: EdgeInsets.zero,
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.close),
           ),
-          child: Text(
-            context.l10n.termsOfServiceModalTitle,
-            style: theme.textTheme.headline5,
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

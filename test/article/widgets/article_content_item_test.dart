@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -51,15 +52,34 @@ void main() {
 
     testWidgets(
         'renders TextCaption '
+        'with colorValues from ArticleThemeColors '
         'for TextCaptionBlock', (tester) async {
       const block = TextCaptionBlock(
         text: 'text',
         color: TextCaptionColor.normal,
       );
-      await tester.pumpApp(ArticleContentItem(block: block));
+
+      late ArticleThemeColors colors;
+      await tester.pumpApp(
+        ArticleThemeOverride(
+          isVideoArticle: false,
+          child: Builder(
+            builder: (context) {
+              colors = Theme.of(context).extension<ArticleThemeColors>()!;
+              return ArticleContentItem(block: block);
+            },
+          ),
+        ),
+      );
+
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is TextCaption && widget.block == block,
+          (widget) =>
+              widget is TextCaption &&
+              widget.block == block &&
+              widget.colorValues[TextCaptionColor.normal] ==
+                  colors.captionNormal &&
+              widget.colorValues[TextCaptionColor.light] == colors.captionLight,
         ),
         findsOneWidget,
       );
@@ -143,11 +163,42 @@ void main() {
     });
 
     testWidgets(
+        'renders VideoIntroduction '
+        'for VideoIntroductionBlock', (tester) async {
+      final block = VideoIntroductionBlock(
+        category: PostCategory.technology,
+        title: 'title',
+        videoUrl: 'videoUrl',
+      );
+      await tester.pumpApp(
+        ListView(
+          children: [
+            ArticleContentItem(block: block),
+          ],
+        ),
+      );
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is VideoIntroduction && widget.block == block,
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
         'renders BannerAd '
         'for BannerAdBlock', (tester) async {
       final block = BannerAdBlock(size: BannerAdSize.normal);
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(BannerAd), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders Newsletter '
+        'for NewsletterBlock', (tester) async {
+      final block = NewsletterBlock();
+      await tester.pumpApp(ArticleContentItem(block: block));
+      expect(find.byType(Newsletter), findsOneWidget);
     });
 
     testWidgets(
