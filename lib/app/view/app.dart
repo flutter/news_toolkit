@@ -1,4 +1,5 @@
 import 'package:app_ui/app_ui.dart';
+import 'package:article_repository/article_repository.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,14 +18,18 @@ class App extends StatelessWidget {
     required UserRepository userRepository,
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
+    required ArticleRepository articleRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,
+        _articleRepository = articleRepository,
         _user = user;
+
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final NotificationsRepository _notificationsRepository;
+  final ArticleRepository _articleRepository;
   final User _user;
 
   @override
@@ -34,6 +39,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _userRepository),
         RepositoryProvider.value(value: _newsRepository),
         RepositoryProvider.value(value: _notificationsRepository),
+        RepositoryProvider.value(value: _articleRepository),
       ],
       child: MultiBlocProvider(
         providers: [

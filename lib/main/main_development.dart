@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:google_news_template/app/app.dart';
@@ -56,10 +57,15 @@ void main() {
         apiClient: apiClient,
       );
 
+      final articleRepository = ArticleRepository(
+        storage: ArticleStorage(storage: persistentStorage),
+      );
+
       return App(
         userRepository: userRepository,
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
+        articleRepository: articleRepository,
         user: await userRepository.user.first,
       );
     },
