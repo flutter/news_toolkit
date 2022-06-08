@@ -14,6 +14,7 @@ dependencies:
   article_repository:
     path: packages/article_repository
   bloc: ^8.0.3
+  bloc_concurrency: ^0.2.0
   clock: ^1.1.0
   email_launcher:
     path: packages/email_launcher

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -16,7 +17,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   })  : _articleId = articleId,
         _articleRepository = articleRepository,
         super(const ArticleState.initial()) {
-    on<ArticleRequested>(_onArticleRequested);
+    on<ArticleRequested>(_onArticleRequested, transformer: sequential());
   }
 
   final String _articleId;

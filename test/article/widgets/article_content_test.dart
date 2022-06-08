@@ -159,10 +159,7 @@ void main() {
             ),
           );
 
-          expect(
-            find.byKey(Key('articleContent_empty_loaderItem')),
-            findsOneWidget,
-          );
+          expect(find.byType(ArticleContentLoaderItem), findsOneWidget);
         });
 
         testWidgets(
