@@ -139,26 +139,6 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
-  /// Outlined transparent button.
-  const AppButton.outlinedTransparent({
-    Key? key,
-    VoidCallback? onPressed,
-    double? elevation,
-    TextStyle? textStyle,
-    required Widget child,
-  }) : this._(
-          key: key,
-          onPressed: onPressed,
-          child: child,
-          buttonColor: AppColors.transparent,
-          borderSide: const BorderSide(
-            color: AppColors.paleSky,
-          ),
-          elevation: elevation,
-          foregroundColor: AppColors.darkAqua,
-          textStyle: textStyle,
-        );
-
   /// Outlined white button.
   const AppButton.outlinedWhite({
     Key? key,
@@ -176,6 +156,26 @@ class AppButton extends StatelessWidget {
           ),
           elevation: elevation,
           foregroundColor: AppColors.lightBlack,
+          textStyle: textStyle,
+        );
+
+  /// Outlined transparent dark aqua button.
+  const AppButton.outlinedTransparentDarkAqua({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          borderSide: const BorderSide(
+            color: AppColors.paleSky,
+          ),
+          elevation: elevation,
+          foregroundColor: AppColors.darkAqua,
           textStyle: textStyle,
         );
 

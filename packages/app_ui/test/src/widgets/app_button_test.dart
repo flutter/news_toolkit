@@ -243,40 +243,6 @@ void main() {
     });
 
     testWidgets(
-        'renders outlinedTransparent button '
-        'when `AppButton.outlinedTransparent()` called', (tester) async {
-      final buttonText = Text('buttonText');
-
-      await tester.pumpApp(
-        AppButton.outlinedTransparent(
-          child: buttonText,
-          onPressed: () {},
-        ),
-        theme: theme,
-      );
-
-      final finder = find.byType(ElevatedButton);
-      final widget = tester.widget(finder) as ElevatedButton;
-
-      expect(
-        widget.style?.backgroundColor?.resolve({}),
-        AppColors.transparent,
-      );
-      expect(
-        widget.style?.textStyle?.resolve({}),
-        buttonTextTheme,
-      );
-      expect(
-        widget.style?.maximumSize?.resolve({}),
-        Size(double.infinity, 56),
-      );
-      expect(
-        widget.style?.minimumSize?.resolve({}),
-        Size(double.infinity, 56),
-      );
-    });
-
-    testWidgets(
         'renders outlinedWhite button '
         'when `AppButton.outlinedWhite()` called', (tester) async {
       final buttonText = Text('buttonText');
@@ -295,6 +261,41 @@ void main() {
       expect(
         widget.style?.backgroundColor?.resolve({}),
         AppColors.white,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+    });
+
+    testWidgets(
+        'renders outlinedTransparentDarkAqua button '
+        'when `AppButton.outlinedTransparentDarkAqua()` called',
+        (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.outlinedTransparentDarkAqua(
+          child: buttonText,
+          onPressed: () {},
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.transparent,
       );
       expect(
         widget.style?.textStyle?.resolve({}),

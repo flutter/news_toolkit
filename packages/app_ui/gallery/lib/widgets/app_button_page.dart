@@ -219,12 +219,12 @@ class _AppButtonItem extends StatelessWidget {
           child: child,
         );
       case ButtonType.email:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
       case ButtonType.login:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
