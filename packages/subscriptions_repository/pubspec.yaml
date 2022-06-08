@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
+  google_news_template_api:
+    path: ../../api
   rxdart: ^0.27.4
 
 dev_dependencies:
