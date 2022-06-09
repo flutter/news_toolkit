@@ -412,11 +412,5 @@
     "description": "Search text shown in the bottom nav bar widget.",
     "type": "text",
     "placeholders": {}
-  },
-  "bottomNavBarSubscribe": "Subscribe",
-  "@bottomNavBarSubscribe": {
-    "description": "Subscribe text shown in the bottom nav bar widget.",
-    "type": "text",
-    "placeholders": {}
   }
 }
