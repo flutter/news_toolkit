@@ -48,6 +48,8 @@ dependencies:
   persistent_storage:
     path: packages/storage/persistent_storage
   platform: ^3.0.2
+  share_launcher:
+    path: packages/share_launcher
   stream_transform: ^2.0.0
   subscriptions_repository:
     path: packages/subscriptions_repository

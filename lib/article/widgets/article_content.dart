@@ -12,6 +12,7 @@ class ArticleContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
     final content = context.select((ArticleBloc bloc) => bloc.state.content);
+    final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
 
@@ -50,7 +51,14 @@ class ArticleContent extends StatelessWidget {
               }
 
               final block = content[index];
-              return ArticleContentItem(block: block);
+              return ArticleContentItem(
+                block: block,
+                onSharePressed: uri != null && uri.toString().isNotEmpty
+                    ? () => context.read<ArticleBloc>().add(
+                          ShareRequested(uri: uri),
+                        )
+                    : null,
+              );
             },
           ),
           const StickyAd()

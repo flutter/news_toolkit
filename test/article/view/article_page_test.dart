@@ -63,14 +63,54 @@ void main() {
       expect(find.byType(AppBar), findsOneWidget);
     });
 
-    testWidgets('renders ShareButton', (tester) async {
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: ArticleView(isVideoArticle: false),
-        ),
-      );
-      expect(find.byType(ShareButton), findsOneWidget);
+    group('renders ShareButton ', () {
+      testWidgets('when url not empty', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(uri: Uri(path: 'notEmptyUrl')),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
+          ),
+        );
+        expect(find.byType(ShareButton), findsOneWidget);
+      });
+
+      testWidgets('when url empty', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
+          ),
+        );
+        expect(find.byType(ShareButton), findsNothing);
+      });
+
+      testWidgets('that adds ShareRequested on ShareButton tap',
+          (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(
+            uri: Uri(path: 'notEmptyUrl'),
+          ),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
+          ),
+        );
+
+        await tester.tap(find.byType(ShareButton));
+
+        verify(
+          () => articleBloc.add(
+            ShareRequested(
+              uri: Uri(path: 'notEmptyUrl'),
+            ),
+          ),
+        ).called(1);
+      });
     });
 
     testWidgets('renders ArticleSubscribeButton', (tester) async {
@@ -132,8 +172,13 @@ void main() {
 
     testWidgets(
         'renders AppBar with ShareButton title and '
-        'ArticleSubscribeButton action when user is not a subscriber',
-        (tester) async {
+        'ArticleSubscribeButton action when user is not a subscriber '
+        'and uri provided', (tester) async {
+      when(() => articleBloc.state).thenReturn(
+        ArticleState.initial().copyWith(
+          uri: Uri(path: 'notEmptyUrl'),
+        ),
+      );
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
@@ -154,6 +199,32 @@ void main() {
         ),
         findsOneWidget,
       );
+    });
+
+    testWidgets(
+        'renders AppBar without ShareButton '
+        'when user is not a subscriber '
+        'and uri not provided', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isVideoArticle: false),
+        ),
+      );
+
+      final subscribeButton = tester
+          .widget<ArticleSubscribeButton>(find.byType(ArticleSubscribeButton));
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(subscribeButton),
+        ),
+        findsOneWidget,
+      );
+      expect(find.byType(ShareButton), findsNothing);
     });
 
     testWidgets(

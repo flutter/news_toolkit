@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:app_ui/app_ui.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:share_launcher/share_launcher.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
@@ -37,6 +40,7 @@ class ArticlePage extends StatelessWidget {
     return BlocProvider<ArticleBloc>(
       create: (_) => ArticleBloc(
         articleId: id,
+        shareLauncher: ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
       )..add(ArticleRequested()),
       child: ArticleView(
@@ -62,6 +66,7 @@ class ArticleView extends StatelessWidget {
         isVideoArticle ? AppColors.darkBackground : AppColors.white;
     final foregroundColor =
         isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
+    final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -75,11 +80,13 @@ class ArticleView extends StatelessWidget {
         leading: isVideoArticle
             ? const AppBackButton.light()
             : const AppBackButton(),
-        title: isSubscriber
+        title: isSubscriber || uri == null || uri.toString().isEmpty
             ? const SizedBox()
             : ShareButton(
                 shareText: context.l10n.shareText,
                 color: foregroundColor,
+                onPressed: () =>
+                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
               ),
         actions: [
           if (isSubscriber)

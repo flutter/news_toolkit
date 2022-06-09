@@ -8,3 +8,12 @@ abstract class ArticleEvent extends Equatable {
 }
 
 class ArticleRequested extends ArticleEvent {}
+
+class ShareRequested extends ArticleEvent {
+  const ShareRequested({required this.uri});
+
+  final Uri uri;
+
+  @override
+  List<Object> get props => [uri];
+}
