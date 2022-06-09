@@ -26,6 +26,8 @@ class ArticleContent extends StatelessWidget {
       listener: (context, state) {
         if (state.status == ArticleStatus.failure) {
           _handleFailure(context);
+        } else if (state.status == ArticleStatus.shareFailure) {
+          _handleShareFailure(context);
         }
       },
       child: Stack(
@@ -75,6 +77,19 @@ class ArticleContent extends StatelessWidget {
           key: const Key('articleContent_failure_snackBar'),
           content: Text(
             context.l10n.unexpectedFailure,
+          ),
+        ),
+      );
+  }
+
+  void _handleShareFailure(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          key: const Key('articleContent_shareFailure_snackBar'),
+          content: Text(
+            context.l10n.shareFailure,
           ),
         ),
       );

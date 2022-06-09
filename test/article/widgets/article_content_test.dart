@@ -90,6 +90,32 @@ void main() {
       });
     });
 
+    group('when ArticleStatus is shareFailure', () {
+      setUp(() {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(content: content, status: ArticleStatus.shareFailure),
+          ]),
+        );
+      });
+
+      testWidgets('shows SnackBar with error message', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.byKey(const Key('articleContent_shareFailure_snackBar')),
+          findsOneWidget,
+        );
+      });
+    });
+
     group('when ArticleStatus is populated', () {
       final uri = Uri(path: 'notEmptyUrl');
       setUp(() {
