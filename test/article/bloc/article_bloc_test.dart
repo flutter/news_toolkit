@@ -40,8 +40,21 @@ void main() {
       hasMoreContent: true,
     );
 
+    final relatedArticlesResponse = RelatedArticlesResponse(
+      relatedArticles: articleResponse.content,
+      totalCount: 2,
+    );
+
     setUp(() {
       articleRepository = MockArticleRepository();
+
+      when(
+        () => articleRepository.getRelatedArticles(
+          id: any(named: 'id'),
+          offset: any(named: 'offset'),
+          limit: any(named: 'limit'),
+        ),
+      ).thenAnswer((_) async => relatedArticlesResponse);
       shareLauncher = MockShareLauncher();
     });
 
@@ -87,6 +100,7 @@ void main() {
           ArticleState(
             status: ArticleStatus.populated,
             content: articleResponse.content,
+            relatedArticles: [],
             uri: articleResponse.url,
             hasMoreContent: true,
           ),
@@ -95,7 +109,7 @@ void main() {
 
       blocTest<ArticleBloc, ArticleState>(
         'emits [loading, populated] '
-        'with appended content '
+        'with appended content and relatedArticles '
         'when getArticle succeeds '
         'and there is no more content to fetch',
         seed: () => articleStatePopulated,
@@ -113,6 +127,7 @@ void main() {
               ...articleStatePopulated.content,
               ...articleResponse.content,
             ],
+            relatedArticles: relatedArticlesResponse.relatedArticles,
             uri: articleResponse.url,
             hasMoreContent: false,
           )
@@ -138,6 +153,39 @@ void main() {
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
           ArticleState(status: ArticleStatus.failure),
+        ],
+        errors: () => [isA<Exception>()],
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [loading, failure] '
+        'when getRelatedArticles fails',
+        seed: () => articleStatePopulated,
+        setUp: () {
+          when(
+            () => articleRepository.getArticle(
+              id: articleId,
+              offset: any(named: 'offset'),
+              limit: any(named: 'limit'),
+            ),
+          ).thenAnswer((_) async => articleResponse);
+          when(
+            () => articleRepository.getRelatedArticles(
+              id: articleId,
+              offset: any(named: 'offset'),
+              limit: any(named: 'limit'),
+            ),
+          ).thenThrow(Exception());
+        },
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
+        expect: () => <ArticleState>[
+          articleStatePopulated.copyWith(status: ArticleStatus.loading),
+          articleStatePopulated.copyWith(status: ArticleStatus.failure),
         ],
         errors: () => [isA<Exception>()],
       );
@@ -205,6 +253,7 @@ void main() {
           ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
         ],
       );
+
       test(
           'calls ArticleRepository.resetArticleViews and '
           'ArticleRepository.incrementArticleViews '
