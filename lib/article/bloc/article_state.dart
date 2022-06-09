@@ -5,6 +5,7 @@ enum ArticleStatus {
   loading,
   populated,
   failure,
+  shareFailure,
 }
 
 class ArticleState extends Equatable {

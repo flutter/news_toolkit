@@ -199,7 +199,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(ShareRequested(uri: uri)),
         expect: () => <ArticleState>[
-          ArticleState.initial().copyWith(status: ArticleStatus.failure),
+          ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
         ],
       );
       test(

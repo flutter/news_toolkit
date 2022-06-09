@@ -79,7 +79,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     try {
       await _shareLauncher.share(text: event.uri.toString());
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: ArticleStatus.failure));
+      emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }
   }
