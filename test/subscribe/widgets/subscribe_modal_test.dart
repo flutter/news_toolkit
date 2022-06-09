@@ -38,6 +38,7 @@ void main() {
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
+        expect(find.byKey(logInButtonKey), findsNothing);
       });
 
       testWidgets('subscribe and log in buttons when user is unauthenticated',
