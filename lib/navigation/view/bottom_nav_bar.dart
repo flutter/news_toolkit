@@ -24,10 +24,6 @@ class BottomNavBar extends StatelessWidget {
           icon: const Icon(Icons.search),
           label: context.l10n.bottomNavBarSearch,
         ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.subscriptions_outlined),
-          label: context.l10n.bottomNavBarSubscribe,
-        ),
       ],
       currentIndex: currentIndex,
       onTap: onTap,

@@ -44,7 +44,7 @@ void main() {
   testWidgets(
     'renders BottomNavigationBar with currentIndex',
     (tester) async {
-      const currentIndex = 2;
+      const currentIndex = 1;
       await tester.pumpApp(
         BottomNavBar(
           currentIndex: currentIndex,
