@@ -172,7 +172,7 @@ void main() {
       );
 
       blocTest<ArticleBloc, ArticleState>(
-        'calls calls ShareLauncher.share '
+        'calls ShareLauncher.share '
         'and emits nothing '
         'when share succeeds',
         setUp: () => when(
