@@ -90,13 +90,44 @@ void main() {
       });
     });
 
-    group('when ArticleStatus is populated', () {
+    group('when ArticleStatus is shareFailure', () {
       setUp(() {
         whenListen(
           articleBloc,
           Stream.fromIterable([
             ArticleState.initial(),
-            ArticleState(status: ArticleStatus.populated, content: content),
+            ArticleState(content: content, status: ArticleStatus.shareFailure),
+          ]),
+        );
+      });
+
+      testWidgets('shows SnackBar with error message', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.byKey(const Key('articleContent_shareFailure_snackBar')),
+          findsOneWidget,
+        );
+      });
+    });
+
+    group('when ArticleStatus is populated', () {
+      final uri = Uri(path: 'notEmptyUrl');
+      setUp(() {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(
+              status: ArticleStatus.populated,
+              content: content,
+              uri: uri,
+            ),
           ]),
         );
       });
@@ -118,6 +149,22 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+
+      testWidgets(
+          'adds ShareRequested to ArticleBloc '
+          'when ArticleContentItem onSharePressed is called', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        final articleItem = find.byType(ArticleContentItem).first;
+        tester.widget<ArticleContentItem>(articleItem).onSharePressed?.call();
+
+        verify(() => articleBloc.add(ShareRequested(uri: uri))).called(1);
       });
     });
 
