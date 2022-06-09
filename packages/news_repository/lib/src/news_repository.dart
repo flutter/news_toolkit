@@ -15,14 +15,6 @@ abstract class NewsFailure with EquatableMixin implements Exception {
   List<Object?> get props => [error];
 }
 
-/// {@template get_article_failure}
-/// Thrown when fetching an article fails.
-/// {@endtemplate}
-class GetArticleFailure extends NewsFailure {
-  /// {@macro get_article_failure}
-  const GetArticleFailure(super.error);
-}
-
 /// {@template get_feed_failure}
 /// Thrown when fetching feed fails.
 /// {@endtemplate}
@@ -55,14 +47,6 @@ class RelevantSearchFailure extends NewsFailure {
   const RelevantSearchFailure(super.error);
 }
 
-/// {@template get_related_articles_failure}
-/// Thrown when fetching related articles fails.
-/// {@endtemplate}
-class GetRelatedArticlesFailure extends NewsFailure {
-  /// {@macro get_related_articles_failure}
-  const GetRelatedArticlesFailure(super.error);
-}
-
 /// {@template news_repository}
 /// A repository that manages news data.
 /// {@endtemplate}
@@ -73,29 +57,6 @@ class NewsRepository {
   }) : _apiClient = apiClient;
 
   final GoogleNewsTemplateApiClient _apiClient;
-
-  /// Requests article content metadata.
-  ///
-  /// Supported parameters:
-  /// * [id] - article id for which content is requested.
-  /// * [limit] - The number of results to return.
-  /// * [offset] - The (zero-based) offset of the first item
-  /// in the collection to return.
-  Future<ArticleResponse> getArticle({
-    required String id,
-    int? limit,
-    int? offset,
-  }) async {
-    try {
-      return await _apiClient.getArticle(
-        id: id,
-        limit: limit,
-        offset: offset,
-      );
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(GetArticleFailure(error), stackTrace);
-    }
-  }
 
   /// Requests news feed metadata.
   ///
@@ -153,29 +114,6 @@ class NewsRepository {
       return await _apiClient.relevantSearch(term: term);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(RelevantSearchFailure(error), stackTrace);
-    }
-  }
-
-  /// Requests related articles.
-  ///
-  /// Supported parameters:
-  /// * [id] - article id for which related content is requested.
-  /// * [limit] - The number of results to return.
-  /// * [offset] - The (zero-based) offset of the first item
-  /// in the collection to return.
-  Future<RelatedArticlesResponse> getRelatedArticles({
-    required String id,
-    int? limit,
-    int? offset,
-  }) async {
-    try {
-      return await _apiClient.getRelatedArticles(
-        id: id,
-        limit: limit,
-        offset: offset,
-      );
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(GetRelatedArticlesFailure(error), stackTrace);
     }
   }
 }

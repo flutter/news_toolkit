@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_repository/news_repository.dart';
+import 'package:share_launcher/share_launcher.dart';
 
 part 'article_event.dart';
 part 'article_state.dart';
@@ -13,17 +14,18 @@ part 'article_state.dart';
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc({
     required String articleId,
-    required NewsRepository newsRepository,
     required ArticleRepository articleRepository,
+    required ShareLauncher shareLauncher,
   })  : _articleId = articleId,
-        _newsRepository = newsRepository,
         _articleRepository = articleRepository,
+        _shareLauncher = shareLauncher,
         super(const ArticleState.initial()) {
-    on<ArticleRequested>(_onArticleRequested);
+    on<ArticleRequested>(_onArticleRequested, transformer: sequential());
+    on<ShareRequested>(_onShareRequested);
   }
 
   final String _articleId;
-  final NewsRepository _newsRepository;
+  final ShareLauncher _shareLauncher;
   final ArticleRepository _articleRepository;
 
   /// The number of articles the user may view without being a subscriber.
@@ -31,6 +33,9 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
   /// The duration after which the number of article views will be reset.
   static const _resetArticleViewsAfterDuration = Duration(days: 1);
+
+  ///The number of related articles the user may view in the article.
+  static const _relatedArticlesLimit = 5;
 
   FutureOr<void> _onArticleRequested(
     ArticleRequested event,
@@ -47,7 +52,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
       final hasReachedArticleViewsLimit = await _hasReachedArticleViewsLimit();
 
-      final response = await _newsRepository.getArticle(
+      final response = await _articleRepository.getArticle(
         id: _articleId,
         offset: state.content.length,
       );
@@ -56,16 +61,38 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       final updatedContent = [...state.content, ...response.content];
       final hasMoreContent = response.totalCount > updatedContent.length;
 
+      RelatedArticlesResponse? relatedArticlesResponse;
+      if (!hasMoreContent && state.relatedArticles.isEmpty) {
+        relatedArticlesResponse = await _articleRepository.getRelatedArticles(
+          id: _articleId,
+          limit: _relatedArticlesLimit,
+        );
+      }
+
       emit(
         state.copyWith(
           status: ArticleStatus.populated,
           content: updatedContent,
+          relatedArticles: relatedArticlesResponse?.relatedArticles ?? [],
           hasMoreContent: hasMoreContent,
+          uri: response.url,
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
         ),
       );
     } catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.failure));
+      addError(error, stackTrace);
+    }
+  }
+
+  FutureOr<void> _onShareRequested(
+    ShareRequested event,
+    Emitter<ArticleState> emit,
+  ) async {
+    try {
+      await _shareLauncher.share(text: event.uri.toString());
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }
   }
