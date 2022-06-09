@@ -3,6 +3,7 @@ library client;
 
 export 'package:news_blocks/news_blocks.dart'
     show
+        NewsBlock,
         BlockAction,
         BlockActionType,
         SectionHeaderBlock,
@@ -17,6 +18,7 @@ export 'package:news_blocks/news_blocks.dart'
         PostCategory,
         NewsBlocksConverter,
         TextCaptionBlock,
+        TextCaptionColor,
         TextHeadlineBlock,
         TextLeadParagraphBlock,
         TextParagraphBlock,
@@ -38,5 +40,6 @@ export 'src/client/google_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
         GoogleNewsTemplateApiMalformedResponse,
-        GoogleNewsTemplateApiRequestFailure;
+        GoogleNewsTemplateApiRequestFailure,
+        TokenProvider;
 export 'src/data/models/models.dart' show Category, Feed;

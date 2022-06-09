@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,24 +14,28 @@ import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_repository/news_repository.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockNewsRepository extends Mock implements NewsRepository {}
+class MockArticleRepository extends Mock implements ArticleRepository {}
 
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
 void main() {
   group('CategoryFeedItem', () {
-    late NewsRepository newsRepository;
+    late ArticleRepository articleRepository;
 
     setUp(() {
-      newsRepository = MockNewsRepository();
+      articleRepository = MockArticleRepository();
+
+      when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
+      when(articleRepository.resetArticleViews).thenAnswer((_) async {});
+      when(articleRepository.fetchArticleViews)
+          .thenAnswer((_) async => ArticleViews(0, null));
 
       when(
-        () => newsRepository.getArticle(
+        () => articleRepository.getArticle(
           id: any(named: 'id'),
           limit: any(named: 'limit'),
           offset: any(named: 'offset'),
@@ -239,7 +244,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -274,7 +279,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -308,7 +313,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -347,7 +352,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -390,7 +395,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -428,7 +433,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -465,7 +470,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 
@@ -507,7 +512,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
-            newsRepository: newsRepository,
+            articleRepository: articleRepository,
           );
         });
 

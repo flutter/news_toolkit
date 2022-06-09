@@ -17,6 +17,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareFailure": "Problem sharing your content. Please try again.",
+  "@shareFailure": {
+    "description": "Text displayed when a share error occurs",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
@@ -446,12 +452,6 @@
   "bottomNavBarSearch": "Search",
   "@bottomNavBarSearch": {
     "description": "Search text shown in the bottom nav bar widget.",
-    "type": "text",
-    "placeholders": {}
-  },
-  "bottomNavBarSubscribe": "Subscribe",
-  "@bottomNavBarSubscribe": {
-    "description": "Subscribe text shown in the bottom nav bar widget.",
     "type": "text",
     "placeholders": {}
   }

@@ -5,6 +5,7 @@ enum ArticleStatus {
   loading,
   populated,
   failure,
+  shareFailure,
 }
 
 class ArticleState extends Equatable {
@@ -12,6 +13,8 @@ class ArticleState extends Equatable {
     required this.status,
     this.content = const [],
     this.hasMoreContent = true,
+    this.uri,
+    this.hasReachedArticleViewsLimit = false,
   });
 
   const ArticleState.initial()
@@ -22,23 +25,32 @@ class ArticleState extends Equatable {
   final ArticleStatus status;
   final List<NewsBlock> content;
   final bool hasMoreContent;
+  final Uri? uri;
+  final bool hasReachedArticleViewsLimit;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         content,
         hasMoreContent,
+        uri,
+        hasReachedArticleViewsLimit,
       ];
 
   ArticleState copyWith({
     ArticleStatus? status,
     List<NewsBlock>? content,
     bool? hasMoreContent,
+    Uri? uri,
+    bool? hasReachedArticleViewsLimit,
   }) {
     return ArticleState(
       status: status ?? this.status,
       content: content ?? this.content,
       hasMoreContent: hasMoreContent ?? this.hasMoreContent,
+      uri: uri ?? this.uri,
+      hasReachedArticleViewsLimit:
+          hasReachedArticleViewsLimit ?? this.hasReachedArticleViewsLimit,
     );
   }
 }

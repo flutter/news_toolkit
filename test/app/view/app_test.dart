@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
@@ -6,6 +7,7 @@ import 'package:google_news_template/onboarding/onboarding.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
@@ -20,6 +22,11 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {}
+
+class MockSubscriptionsRepository extends Mock
+    implements SubscriptionsRepository {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
@@ -27,19 +34,23 @@ void main() {
     late UserRepository userRepository;
     late NewsRepository newsRepository;
     late NotificationsRepository notificationsRepository;
+    late ArticleRepository articleRepository;
+    late SubscriptionsRepository subscriptionsRepository;
     late User user;
 
     setUp(() {
       userRepository = MockUserRepository();
-      when(() => userRepository.user).thenAnswer(
-        (_) => const Stream.empty(),
-      );
-      when(() => userRepository.incomingEmailLinks).thenAnswer(
-        (_) => const Stream.empty(),
-      );
       user = User.anonymous;
       newsRepository = MockNewsRepository();
       notificationsRepository = MockNotificationsRepository();
+      articleRepository = MockArticleRepository();
+      subscriptionsRepository = MockSubscriptionsRepository();
+
+      when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
+      when(() => userRepository.incomingEmailLinks)
+          .thenAnswer((_) => const Stream.empty());
+      when(() => subscriptionsRepository.currentSubscriptionPlan)
+          .thenAnswer((_) => const Stream.empty());
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -49,6 +60,8 @@ void main() {
             userRepository: userRepository,
             newsRepository: newsRepository,
             notificationsRepository: notificationsRepository,
+            articleRepository: articleRepository,
+            subscriptionsRepository: subscriptionsRepository,
             user: user,
           ),
         );

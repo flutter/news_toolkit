@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
@@ -21,7 +20,7 @@ abstract class NotificationsFailure with EquatableMixin implements Exception {
   final Object error;
 
   @override
-  List<Object?> get props => [error];
+  List<Object> get props => [error];
 }
 
 /// {@template initialize_categories_preferences_failure}

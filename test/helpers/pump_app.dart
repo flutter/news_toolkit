@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:mockingjay/mockingjay.dart'
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
@@ -37,6 +39,20 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {
+  @override
+  Future<ArticleViews> fetchArticleViews() async => ArticleViews(0, null);
+
+  @override
+  Future<void> incrementArticleViews() async {}
+
+  @override
+  Future<void> resetArticleViews() async {}
+}
+
+class MockSubscriptionsRepository extends Mock
+    implements SubscriptionsRepository {}
+
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
@@ -44,6 +60,8 @@ extension AppTester on WidgetTester {
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
+    ArticleRepository? articleRepository,
+    SubscriptionsRepository? subscriptionsRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -60,6 +78,12 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: notificationRepository ?? MockNotificationsRepository(),
+          ),
+          RepositoryProvider.value(
+            value: articleRepository ?? MockArticleRepository(),
+          ),
+          RepositoryProvider.value(
+            value: subscriptionsRepository ?? MockSubscriptionsRepository(),
           ),
         ],
         child: MultiBlocProvider(

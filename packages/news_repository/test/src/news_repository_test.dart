@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:test/test.dart';
 
@@ -23,65 +22,6 @@ void main() {
         NewsRepository(apiClient: apiClient),
         isNotNull,
       );
-    });
-
-    group('getArticle', () {
-      test(
-          'returns ArticleResponse '
-          'from ApiClient.getArticle', () {
-        final content = <NewsBlock>[
-          TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
-          TextParagraphBlock(text: 'text'),
-        ];
-
-        final articleResponse = ArticleResponse(
-          content: content,
-          totalCount: content.length,
-          url: Uri.parse('https://www.dglobe.com/'),
-        );
-
-        when(
-          () => apiClient.getArticle(
-            id: any(named: 'id'),
-            offset: any(named: 'offset'),
-            limit: any(named: 'limit'),
-          ),
-        ).thenAnswer((_) async => articleResponse);
-
-        expect(
-          newsRepository.getArticle(
-            id: 'id',
-            offset: 10,
-            limit: 20,
-          ),
-          completion(equals(articleResponse)),
-        );
-
-        verify(
-          () => apiClient.getArticle(
-            id: 'id',
-            offset: 10,
-            limit: 20,
-          ),
-        ).called(1);
-      });
-
-      test(
-          'throws GetArticleFailure '
-          'if ApiClient.getArticle fails', () async {
-        when(
-          () => apiClient.getArticle(
-            id: any(named: 'id'),
-            offset: any(named: 'offset'),
-            limit: any(named: 'limit'),
-          ),
-        ).thenThrow(Exception);
-
-        expect(
-          () => newsRepository.getArticle(id: 'id'),
-          throwsA(isA<GetArticleFailure>()),
-        );
-      });
     });
 
     group('getFeed', () {
@@ -282,12 +222,6 @@ void main() {
     group('NewsFailure', () {
       final error = Exception('errorMessage');
 
-      group('GetArticleFailure', () {
-        test('has correct props', () {
-          expect(GetArticleFailure(error).props, [error]);
-        });
-      });
-
       group('GetFeedFailure', () {
         test('has correct props', () {
           expect(GetFeedFailure(error).props, [error]);
@@ -299,44 +233,17 @@ void main() {
           expect(GetCategoriesFailure(error).props, [error]);
         });
       });
-    });
 
-    group('getRelatedArticles', () {
-      test(
-          'returns RelatedArticlesResponse '
-          'from ApiClient.getRelatedArticles', () async {
-        const relatedArticlesResponse = RelatedArticlesResponse(
-          relatedArticles: [
-            SpacerBlock(spacing: Spacing.extraLarge),
-            DividerHorizontalBlock(),
-          ],
-          totalCount: 2,
-        );
-
-        when(
-          () => apiClient.getRelatedArticles(
-            id: any(named: 'id'),
-          ),
-        ).thenAnswer((_) async => relatedArticlesResponse);
-
-        final response = await newsRepository.getRelatedArticles(id: 'id');
-
-        expect(response, equals(relatedArticlesResponse));
+      group('PopularSearchFailure', () {
+        test('has correct props', () {
+          expect(PopularSearchFailure(error).props, [error]);
+        });
       });
 
-      test(
-          'throws GetRelatedArticlesFailure '
-          'if ApiClient.getRelatedArticles fails', () async {
-        when(
-          () => apiClient.getRelatedArticles(
-            id: any(named: 'id'),
-          ),
-        ).thenThrow(Exception());
-
-        expect(
-          newsRepository.getRelatedArticles(id: 'id'),
-          throwsA(isA<GetRelatedArticlesFailure>()),
-        );
+      group('RelevantSearchFailure', () {
+        test('has correct props', () {
+          expect(RelevantSearchFailure(error).props, [error]);
+        });
       });
     });
   });

@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:google_news_template/app/app.dart';
@@ -9,6 +10,7 @@ import 'package:notifications_repository/notifications_repository.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:persistent_storage/persistent_storage.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -17,7 +19,9 @@ void main() {
     (firebaseDynamicLinks, firebaseMessaging, sharedPreferences) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = GoogleNewsTemplateApiClient();
+      final apiClient = GoogleNewsTemplateApiClient(
+        tokenProvider: tokenStorage.readToken,
+      );
 
       const permissionClient = PermissionClient();
 
@@ -54,10 +58,21 @@ void main() {
         apiClient: apiClient,
       );
 
+      final articleRepository = ArticleRepository(
+        storage: ArticleStorage(storage: persistentStorage),
+        apiClient: apiClient,
+      );
+
+      final subscriptionsRepository = SubscriptionsRepository(
+        apiClient: apiClient,
+      );
+
       return App(
         userRepository: userRepository,
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
+        articleRepository: articleRepository,
+        subscriptionsRepository: subscriptionsRepository,
         user: await userRepository.user.first,
       );
     },
