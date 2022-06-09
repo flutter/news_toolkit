@@ -3,6 +3,7 @@ library client;
 
 export 'package:news_blocks/news_blocks.dart'
     show
+        NewsBlock,
         BlockAction,
         BlockActionType,
         SectionHeaderBlock,
@@ -17,6 +18,7 @@ export 'package:news_blocks/news_blocks.dart'
         PostCategory,
         NewsBlocksConverter,
         TextCaptionBlock,
+        TextCaptionColor,
         TextHeadlineBlock,
         TextLeadParagraphBlock,
         TextParagraphBlock,

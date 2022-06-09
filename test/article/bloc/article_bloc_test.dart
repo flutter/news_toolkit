@@ -8,9 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_repository/news_repository.dart';
-
-class MockNewsRepository extends Mock implements NewsRepository {}
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
 
@@ -18,7 +15,6 @@ void main() {
   group('ArticleBloc', () {
     const articleId = 'articleId';
 
-    late NewsRepository newsRepository;
     late ArticleRepository articleRepository;
 
     final articleResponse = ArticleResponse(
@@ -40,7 +36,6 @@ void main() {
     );
 
     setUp(() {
-      newsRepository = MockNewsRepository();
       articleRepository = MockArticleRepository();
     });
 
@@ -48,7 +43,6 @@ void main() {
       expect(
         ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
           articleRepository: articleRepository,
         ),
         isNotNull,
@@ -63,7 +57,7 @@ void main() {
             .thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
 
         when(
-          () => newsRepository.getArticle(
+          () => articleRepository.getArticle(
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
@@ -77,7 +71,6 @@ void main() {
         'and there is more content to fetch',
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -99,7 +92,6 @@ void main() {
         seed: () => articleStatePopulated,
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -120,7 +112,7 @@ void main() {
         'emits [loading, error] '
         'when getArticle fails',
         setUp: () => when(
-          () => newsRepository.getArticle(
+          () => articleRepository.getArticle(
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
@@ -128,7 +120,6 @@ void main() {
         ).thenThrow(Exception()),
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -148,7 +139,6 @@ void main() {
             .thenAnswer((_) async => ArticleViews(0, null)),
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -182,7 +172,6 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(3, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
@@ -218,7 +207,6 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(2, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
@@ -254,7 +242,6 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(4, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
