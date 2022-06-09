@@ -18,7 +18,7 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
 void main() {
   final ArticleBloc bloc = MockArticleBloc();
 
-  final postBlockSmall = PostSmallBlock(
+  final postSmallBlock = PostSmallBlock(
     id: '36f4a017-d099-4fce-8727-1d9ca6a0398c',
     category: PostCategory.technology,
     author: 'Tom Phillips',
@@ -35,8 +35,8 @@ void main() {
   );
 
   final relatedArticles = [
-    postBlockSmall,
-    PostSmallBlock.fromJson(postBlockSmall.toJson()..['id'] = 'newId'),
+    postSmallBlock,
+    PostSmallBlock.fromJson(postSmallBlock.toJson()..['id'] = 'newId'),
   ];
 
   group('ArticleTrailingContent', () {

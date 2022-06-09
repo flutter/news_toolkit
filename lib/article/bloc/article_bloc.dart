@@ -28,6 +28,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   /// The duration after which the number of article views will be reset.
   static const _resetArticleViewsAfterDuration = Duration(days: 1);
 
+  ///The number of related articles the user may view in the article.
   static const _relatedArticlesLimit = 5;
 
   FutureOr<void> _onArticleRequested(
