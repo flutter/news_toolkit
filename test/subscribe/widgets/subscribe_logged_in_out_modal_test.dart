@@ -30,7 +30,7 @@ void main() {
 
   group('SubscribeLoggedInOutModal', () {
     group('renders', () {
-      testWidgets(' SubscribeLoggedIn', (tester) async {
+      testWidgets('SubscribeLoggedInOutModal', (tester) async {
         await tester.pumpApp(
           SubscribeLoggedInOutModal(),
           appBloc: appBloc,
@@ -49,7 +49,7 @@ void main() {
       });
 
       testWidgets(
-          'Subscribe and Log In buttons when when user is unauthenticated',
+          'subscribe and log in buttons when when user is unauthenticated',
           (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
@@ -62,7 +62,7 @@ void main() {
     });
 
     group('does nothing', () {
-      testWidgets('when tap on Subscribe button', (tester) async {
+      testWidgets('when tap on subscribe button', (tester) async {
         await tester.pumpApp(SubscribeLoggedInOutModal());
         await tester.tap(find.byKey(subscribeButtonKey));
         await tester.pumpAndSettle();
@@ -73,7 +73,7 @@ void main() {
     group('navigates', () {
       testWidgets(
           'shows LoginModal '
-          'when tapped on Log In button', (tester) async {
+          'when tapped on log in button', (tester) async {
         whenListen(
           appBloc,
           Stream.value(AppState.unauthenticated()),
