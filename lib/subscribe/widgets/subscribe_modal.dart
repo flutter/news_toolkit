@@ -6,8 +6,8 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 
 @visibleForTesting
-class SubscribeLoggedInOutModal extends StatelessWidget {
-  const SubscribeLoggedInOutModal({super.key});
+class SubscribeModal extends StatelessWidget {
+  const SubscribeModal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,33 +24,34 @@ class SubscribeLoggedInOutModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            l10n.subscribeModalLoggedInOutTitle,
+            l10n.subscribeModalTitle,
             style: theme.textTheme.headline3?.apply(color: AppColors.white),
           ),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
           Text(
-            l10n.subscribeModalLoggedInOutSubtitle,
+            l10n.subscribeModalSubtitle,
             style: theme.textTheme.subtitle1
                 ?.apply(color: AppColors.mediumEmphasisPrimary),
           ),
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
           AppButton.redWine(
-            key: const Key('subscribeLoggedInOutModal_subscribeButton'),
+            key: const Key('subscribeModal_subscribeButton'),
             child: Text(l10n.subscribeButtonText),
             onPressed: () {},
           ),
           const SizedBox(height: AppSpacing.lg),
-          if (!isLoggedIn)
+          if (!isLoggedIn) ...[
             AppButton.outlinedTransparentWhite(
-              key: const Key('subscribeLoggedInOutModal_logInButton'),
-              child: Text(l10n.subscribeModalLoggedInOutLogInButton),
+              key: const Key('subscribeModal_logInButton'),
+              child: Text(l10n.subscribeModalLogInlButton),
               onPressed: () => showAppModal<void>(
                 context: context,
                 builder: (context) => const LoginModal(),
                 routeSettings: const RouteSettings(name: LoginModal.name),
               ),
             ),
-          if (!isLoggedIn) const SizedBox(height: AppSpacing.xlg),
+            const SizedBox(height: AppSpacing.xlg),
+          ]
         ],
       ),
     );
