@@ -5,7 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_repository/news_repository.dart';
 
 part 'article_event.dart';
 part 'article_state.dart';
@@ -13,17 +12,14 @@ part 'article_state.dart';
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc({
     required String articleId,
-    required NewsRepository newsRepository,
     required ArticleRepository articleRepository,
   })  : _articleId = articleId,
-        _newsRepository = newsRepository,
         _articleRepository = articleRepository,
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested);
   }
 
   final String _articleId;
-  final NewsRepository _newsRepository;
   final ArticleRepository _articleRepository;
 
   /// The number of articles the user may view without being a subscriber.
@@ -47,7 +43,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
       final hasReachedArticleViewsLimit = await _hasReachedArticleViewsLimit();
 
-      final response = await _newsRepository.getArticle(
+      final response = await _articleRepository.getArticle(
         id: _articleId,
         offset: state.content.length,
       );
