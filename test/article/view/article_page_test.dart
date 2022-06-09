@@ -114,6 +114,7 @@ void main() {
         expect(find.byType(ShareButton), findsNothing);
       });
     });
+
     testWidgets('renders ArticleSubscribeButton', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
