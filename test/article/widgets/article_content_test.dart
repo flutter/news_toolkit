@@ -159,7 +159,10 @@ void main() {
             ),
           );
 
-          expect(find.byType(ArticleContentLoaderItem), findsOneWidget);
+          expect(
+            find.byKey(Key('articleContent_moreContent_loaderItem')),
+            findsOneWidget,
+          );
         });
 
         testWidgets(
@@ -184,7 +187,10 @@ void main() {
             ),
           );
 
-          expect(find.byType(ArticleContentLoaderItem), findsOneWidget);
+          expect(
+            find.byKey(Key('articleContent_moreContent_loaderItem')),
+            findsOneWidget,
+          );
         });
       });
 

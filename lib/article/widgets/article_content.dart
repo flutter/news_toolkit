@@ -40,7 +40,9 @@ class ArticleContent extends StatelessWidget {
                           top: content.isEmpty ? AppSpacing.xxxlg : 0,
                         ),
                         child: ArticleContentLoaderItem(
-                          key: ValueKey(index),
+                          key: const Key(
+                            'articleContent_moreContent_loaderItem',
+                          ),
                           onPresented: () {
                             if (status != ArticleStatus.loading) {
                               context
