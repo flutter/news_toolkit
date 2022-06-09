@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
@@ -20,6 +21,8 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
@@ -27,6 +30,7 @@ void main() {
     late UserRepository userRepository;
     late NewsRepository newsRepository;
     late NotificationsRepository notificationsRepository;
+    late ArticleRepository articleRepository;
     late User user;
 
     setUp(() {
@@ -40,6 +44,7 @@ void main() {
       user = User.anonymous;
       newsRepository = MockNewsRepository();
       notificationsRepository = MockNotificationsRepository();
+      articleRepository = MockArticleRepository();
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -49,6 +54,7 @@ void main() {
             userRepository: userRepository,
             newsRepository: newsRepository,
             notificationsRepository: notificationsRepository,
+            articleRepository: articleRepository,
             user: user,
           ),
         );

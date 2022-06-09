@@ -9,7 +9,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   const termsOfServiceModalCloseButtonKey =
-      Key('termsOfServiceModal_closeButton');
+      Key('termsOfServiceModal_closeModal_iconButton');
 
   group('TermsOfServiceModal', () {
     group('renders', () {

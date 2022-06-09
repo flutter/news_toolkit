@@ -1,0 +1,19 @@
+name: subscriptions_repository
+description: A repository that manages user subscriptions.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  google_news_template_api:
+    path: ../../api
+  rxdart: ^0.27.4
+
+dev_dependencies:
+  coverage: ^1.3.2
+  mocktail: ^0.3.0
+  test: ^1.21.1
+  very_good_analysis: ^3.0.0

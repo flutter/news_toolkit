@@ -139,8 +139,28 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
-  /// Outlined transparent button.
-  const AppButton.outlinedTransparent({
+  /// Outlined white button.
+  const AppButton.outlinedWhite({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.white,
+          borderSide: const BorderSide(
+            color: AppColors.pastelGrey,
+          ),
+          elevation: elevation,
+          foregroundColor: AppColors.lightBlack,
+          textStyle: textStyle,
+        );
+
+  /// Outlined transparent dark aqua button.
+  const AppButton.outlinedTransparentDarkAqua({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -159,8 +179,8 @@ class AppButton extends StatelessWidget {
           textStyle: textStyle,
         );
 
-  /// Outlined white button.
-  const AppButton.outlinedWhite({
+  /// Outlined transparent white button.
+  const AppButton.outlinedTransparentWhite({
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
@@ -170,12 +190,46 @@ class AppButton extends StatelessWidget {
           key: key,
           onPressed: onPressed,
           child: child,
-          buttonColor: AppColors.white,
+          buttonColor: AppColors.transparent,
           borderSide: const BorderSide(
-            color: AppColors.pastelGrey,
+            color: AppColors.white,
           ),
           elevation: elevation,
-          foregroundColor: AppColors.lightBlack,
+          foregroundColor: AppColors.white,
+          textStyle: textStyle,
+        );
+
+  /// Filled transparent dark aqua button.
+  const AppButton.transparentDarkAqua({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          elevation: elevation,
+          foregroundColor: AppColors.darkAqua,
+          textStyle: textStyle,
+        );
+
+  /// Filled transparent white button.
+  const AppButton.transparentWhite({
+    Key? key,
+    VoidCallback? onPressed,
+    double? elevation,
+    TextStyle? textStyle,
+    required Widget child,
+  }) : this._(
+          key: key,
+          onPressed: onPressed,
+          child: child,
+          buttonColor: AppColors.transparent,
+          elevation: elevation,
+          foregroundColor: AppColors.white,
           textStyle: textStyle,
         );
 

@@ -32,6 +32,9 @@ class GoogleNewsTemplateApiRequestFailure implements Exception {
   final Map<String, dynamic> body;
 }
 
+/// Signature for the authentication token provider.
+typedef TokenProvider = Future<String?> Function();
+
 /// {@template google_news_template_api_client}
 /// A Dart API client for the Google News Template API.
 /// {@endtemplate}
@@ -40,31 +43,40 @@ class GoogleNewsTemplateApiClient {
   /// with the remote API.
   ///
   /// {@macro google_news_template_api_client}
-  GoogleNewsTemplateApiClient({http.Client? httpClient})
-      : this._(
+  GoogleNewsTemplateApiClient({
+    http.Client? httpClient,
+    required TokenProvider tokenProvider,
+  }) : this._(
           baseUrl: 'https://google-news-template-api-q66trdlzja-uc.a.run.app',
           httpClient: httpClient,
+          tokenProvider: tokenProvider,
         );
 
   /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
   /// with a local instance of the API (http://localhost:8080).
   ///
   /// {@macro google_news_template_api_client}
-  GoogleNewsTemplateApiClient.localhost({http.Client? httpClient})
-      : this._(
+  GoogleNewsTemplateApiClient.localhost({
+    http.Client? httpClient,
+    required TokenProvider tokenProvider,
+  }) : this._(
           baseUrl: 'http://localhost:8080',
           httpClient: httpClient,
+          tokenProvider: tokenProvider,
         );
 
   /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient._({
     required String baseUrl,
     http.Client? httpClient,
+    required TokenProvider tokenProvider,
   })  : _baseUrl = baseUrl,
-        _httpClient = httpClient ?? http.Client();
+        _httpClient = httpClient ?? http.Client(),
+        _tokenProvider = tokenProvider;
 
   final String _baseUrl;
   final http.Client _httpClient;
+  final TokenProvider _tokenProvider;
 
   /// GET /api/v1/articles/<id>
   /// Requests article content metadata.
@@ -85,7 +97,10 @@ class GoogleNewsTemplateApiClient {
         if (offset != null) 'offset': '$offset',
       },
     );
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -117,7 +132,10 @@ class GoogleNewsTemplateApiClient {
         if (offset != null) 'offset': '$offset',
       },
     );
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -150,7 +168,10 @@ class GoogleNewsTemplateApiClient {
         if (offset != null) 'offset': '$offset',
       },
     );
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -167,7 +188,10 @@ class GoogleNewsTemplateApiClient {
   /// Requests the available news categories.
   Future<CategoriesResponse> getCategories() async {
     final uri = Uri.parse('$_baseUrl/api/v1/categories');
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -184,7 +208,10 @@ class GoogleNewsTemplateApiClient {
   /// Requests current, popular content.
   Future<PopularSearchResponse> popularSearch() async {
     final uri = Uri.parse('$_baseUrl/api/v1/search/popular');
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -203,7 +230,10 @@ class GoogleNewsTemplateApiClient {
     final uri = Uri.parse('$_baseUrl/api/v1/search/relevant').replace(
       queryParameters: <String, String>{'q': term},
     );
-    final response = await _httpClient.get(uri);
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
@@ -222,7 +252,7 @@ class GoogleNewsTemplateApiClient {
     final uri = Uri.parse('$_baseUrl/api/v1/newsletter/subscription');
     final response = await _httpClient.post(
       uri,
-      headers: {HttpHeaders.contentTypeHeader: ContentType.json.value},
+      headers: await _getRequestHeaders(),
       body: json.encode(<String, String>{'email': email}),
     );
 
@@ -238,7 +268,10 @@ class GoogleNewsTemplateApiClient {
   /// Creates a new subscription for the associated user.
   Future<void> createSubscription() async {
     final uri = Uri.parse('$_baseUrl/api/v1/subscriptions');
-    final response = await _httpClient.post(uri);
+    final response = await _httpClient.post(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
 
     if (response.statusCode != HttpStatus.created) {
       throw GoogleNewsTemplateApiRequestFailure(
@@ -246,6 +279,15 @@ class GoogleNewsTemplateApiClient {
         statusCode: response.statusCode,
       );
     }
+  }
+
+  Future<Map<String, String>> _getRequestHeaders() async {
+    final token = await _tokenProvider();
+    return <String, String>{
+      HttpHeaders.contentTypeHeader: ContentType.json.value,
+      HttpHeaders.acceptHeader: ContentType.json.value,
+      if (token != null) HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
   }
 }
 

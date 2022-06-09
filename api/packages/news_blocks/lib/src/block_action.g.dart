@@ -31,6 +31,29 @@ Map<String, dynamic> _$NavigateToArticleActionToJson(
       'type': instance.type,
     };
 
+NavigateToVideoArticleAction _$NavigateToVideoArticleActionFromJson(
+        Map<String, dynamic> json) =>
+    $checkedCreate(
+      'NavigateToVideoArticleAction',
+      json,
+      ($checkedConvert) {
+        final val = NavigateToVideoArticleAction(
+          articleId: $checkedConvert('article_id', (v) => v as String),
+          type: $checkedConvert('type',
+              (v) => v as String? ?? NavigateToVideoArticleAction.identifier),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'articleId': 'article_id'},
+    );
+
+Map<String, dynamic> _$NavigateToVideoArticleActionToJson(
+        NavigateToVideoArticleAction instance) =>
+    <String, dynamic>{
+      'article_id': instance.articleId,
+      'type': instance.type,
+    };
+
 NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(

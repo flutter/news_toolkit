@@ -7,6 +7,7 @@ export 'src/block_action.dart'
         BlockAction,
         BlockActionType,
         NavigateToArticleAction,
+        NavigateToVideoArticleAction,
         NavigateToFeedCategoryAction,
         UnknownBlockAction;
 export 'src/block_action_converter.dart' show BlockActionConverter;

@@ -330,6 +330,34 @@ This action allows you to create a subscription for the associated user.
 
 + Response 201 (application/json)
 
+### Get a Subscription [GET]
+
+This action allows you to query all available subscriptions.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + subscriptions (required, array[Subscription]) - The list of subscriptions.
+
+    + Body
+        
+            {
+                "subscriptions": [
+                    {
+                        "id": "17e79fca-853a-40e3-b4a7-291a64d3846b",
+                        "name": "premium",
+                        "cost": {
+                            "monthly": 1499,
+                            "annual":16200
+                        },
+                        "benefits": [
+                            "No ads",
+                            "Access to premium content",
+                            "Unlimited reads"
+                        ]
+                    }
+                ],
+            }
+
 # Data Structures
 
 ## Block (object)
@@ -363,3 +391,16 @@ This action allows you to create a subscription for the associated user.
 + science - news relating to science
 + sports - news relating to sports
 + technology - news relating to technology
+
+## Subscription (object)
+
++ id (required, string) - the unique subscription identifier
++ name (required, string) - the human readable subscription name
++ cost (required, SubscriptionCost) - the cost for the subscription
++ benefits (required, array[string]) - list of benefits associated with the subscription
+
+
+## SubscriptionCost (object)
+
++ monthly (required, number) - the monthly cost of the subscription in cents
++ annual (required, number) - the annual cost of the subscription in cents

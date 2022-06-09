@@ -37,6 +37,7 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Input Hover', color: AppColors.inputHover),
       _ColorItem(name: 'Input Focused', color: AppColors.inputFocused),
       _ColorItem(name: 'Pastel Grey', color: AppColors.pastelGrey),
+      _ColorItem(name: 'Bright Grey', color: AppColors.brightGrey),
       _ColorItem(name: 'Pale Sky', color: AppColors.paleSky),
       _ColorItem(name: 'Green', color: AppColors.green),
       _ColorItem(name: 'Rangoon Green', color: AppColors.rangoonGreen),
@@ -44,6 +45,7 @@ class ColorsPage extends StatelessWidget {
       _ColorItem(name: 'Dark Aqua', color: AppColors.darkAqua),
       _ColorItem(name: 'Eerie Black', color: AppColors.eerieBlack),
       _ColorItem(name: 'Gainsboro', color: AppColors.gainsboro),
+      _ColorItem(name: 'Orange', color: AppColors.orange),
       _ColorItem(name: 'Outline Light', color: AppColors.outlineLight),
       _ColorItem(name: 'Outline On Dark', color: AppColors.outlineOnDark),
       _ColorItem(

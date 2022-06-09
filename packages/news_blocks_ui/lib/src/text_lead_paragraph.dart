@@ -18,10 +18,7 @@ class TextLeadParagraph extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(color: AppColors.highEmphasisSurface),
+        style: Theme.of(context).textTheme.headline6,
       ),
     );
   }

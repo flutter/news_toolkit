@@ -18,6 +18,7 @@ class PostContent extends StatelessWidget {
     this.isPremium = false,
     this.isContentOverlaid = false,
     this.isSubscriberExclusive = false,
+    this.isVideoContent = false,
     this.premiumText = '',
   });
 
@@ -59,6 +60,11 @@ class PostContent extends StatelessWidget {
   /// Defaults to empty string.
   final String premiumText;
 
+  /// Whether content is a part of a video article.
+  ///
+  /// Defaults to false.
+  final bool isVideoContent;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -77,11 +83,12 @@ class PostContent extends StatelessWidget {
               premiumText: premiumText,
               isContentOverlaid: isContentOverlaid,
               isSubscriberExclusive: isSubscriberExclusive,
+              isVideoContent: isVideoContent,
             ),
           Text(
             title,
             style: textTheme.headline3?.copyWith(
-              color: isContentOverlaid
+              color: isContentOverlaid || isVideoContent
                   ? AppColors.highEmphasisPrimary
                   : AppColors.highEmphasisSurface,
             ),

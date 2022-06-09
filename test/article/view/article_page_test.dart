@@ -23,12 +23,22 @@ void main() {
     });
 
     testWidgets('renders ArticleView', (tester) async {
-      await tester.pumpApp(ArticlePage(id: 'id'));
+      await tester.pumpApp(
+        ArticlePage(
+          id: 'id',
+          isVideoArticle: false,
+        ),
+      );
       expect(find.byType(ArticleView), findsOneWidget);
     });
 
     testWidgets('provides ArticleBloc', (tester) async {
-      await tester.pumpApp(ArticlePage(id: 'id'));
+      await tester.pumpApp(
+        ArticlePage(
+          id: 'id',
+          isVideoArticle: false,
+        ),
+      );
       final BuildContext viewContext = tester.element(find.byType(ArticleView));
       expect(viewContext.read<ArticleBloc>(), isNotNull);
     });
@@ -47,7 +57,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleView(),
+          child: ArticleView(isVideoArticle: false),
         ),
       );
       expect(find.byType(AppBar), findsOneWidget);
@@ -57,7 +67,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleView(),
+          child: ArticleView(isVideoArticle: false),
         ),
       );
       expect(find.byType(ShareButton), findsOneWidget);
@@ -67,7 +77,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleView(),
+          child: ArticleView(isVideoArticle: false),
         ),
       );
       expect(find.byType(ArticleSubscribeButton), findsOneWidget);
@@ -97,20 +107,84 @@ void main() {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleView(),
+          child: ArticleView(isVideoArticle: false),
         ),
       );
       expect(find.byType(InterstitialAd), findsOneWidget);
     });
 
-    testWidgets('renders ArticleContent', (tester) async {
+    testWidgets('renders ArticleContent in ArticleThemeOverride',
+        (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: ArticleView(),
+          child: ArticleView(isVideoArticle: false),
         ),
       );
-      expect(find.byType(ArticleContent), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(ArticleThemeOverride),
+          matching: find.byType(ArticleContent),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders AppBar with ShareButton title and '
+        'ArticleSubscribeButton action when user is not a subscriber',
+        (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isVideoArticle: false),
+        ),
+      );
+
+      final subscribeButton = tester
+          .widget<ArticleSubscribeButton>(find.byType(ArticleSubscribeButton));
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is ShareButton &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(subscribeButton),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders AppBar with empty title and ShareButton '
+        'action when user is a subscriber', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isSubscriber: true, isVideoArticle: false),
+        ),
+      );
+
+      final shareButton = tester.widget<Padding>(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget.key == Key('articlePage_shareButton') &&
+              widget is Padding &&
+              widget.child is ShareButton,
+        ),
+      );
+
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AppBar &&
+              widget.title is SizedBox &&
+              widget.actions!.isNotEmpty &&
+              widget.actions!.contains(shareButton),
+        ),
+        findsOneWidget,
+      );
     });
 
     group('navigates', () {
@@ -120,7 +194,7 @@ void main() {
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(),
+            child: ArticleView(isVideoArticle: false),
           ),
           navigator: navigator,
         );

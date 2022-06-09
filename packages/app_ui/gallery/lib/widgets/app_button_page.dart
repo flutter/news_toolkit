@@ -121,6 +121,51 @@ class AppButtonPage extends StatelessWidget {
           child: Text('Cancel anytime'),
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
+        child: _AppButtonItem(
+          buttonType: ButtonType.watchVideo,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.video_call_sharp),
+              SizedBox(width: AppSpacing.sm),
+              Text('Watch a video to view this article'),
+            ],
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg + _contentSpacing,
+        ),
+        child: Container(
+          height: 100,
+          color: AppColors.darkAqua,
+          child: _AppButtonItem(
+            buttonType: ButtonType.watchVideoDark,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.video_call_sharp),
+                SizedBox(width: AppSpacing.sm),
+                Text('Watch a video to view this article'),
+              ],
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: AppSpacing.md),
+      Container(
+        height: 100,
+        color: AppColors.darkBackground,
+        child: const _AppButtonItem(
+          buttonType: ButtonType.logInSubscribe,
+          child: Text('Log In'),
+        ),
+      ),
     ];
 
     return Scaffold(
@@ -142,7 +187,10 @@ enum ButtonType {
   trial,
   logout,
   details,
-  cancel
+  cancel,
+  watchVideo,
+  watchVideoDark,
+  logInSubscribe
 }
 
 class _AppButtonItem extends StatelessWidget {
@@ -171,12 +219,12 @@ class _AppButtonItem extends StatelessWidget {
           child: child,
         );
       case ButtonType.email:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
       case ButtonType.login:
-        return AppButton.outlinedTransparent(
+        return AppButton.outlinedTransparentDarkAqua(
           onPressed: () {},
           child: child,
         );
@@ -207,6 +255,21 @@ class _AppButtonItem extends StatelessWidget {
         );
       case ButtonType.cancel:
         return AppButton.smallTransparent(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.watchVideo:
+        return AppButton.transparentDarkAqua(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.watchVideoDark:
+        return AppButton.transparentWhite(
+          onPressed: () {},
+          child: child,
+        );
+      case ButtonType.logInSubscribe:
+        return AppButton.outlinedTransparentWhite(
           onPressed: () {},
           child: child,
         );

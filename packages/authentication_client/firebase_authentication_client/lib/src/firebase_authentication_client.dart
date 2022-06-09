@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:token_storage/token_storage.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 /// Signature for [SignInWithApple.getAppleIDCredential].
@@ -19,12 +20,14 @@ typedef GetAppleCredentials = Future<AuthorizationCredentialAppleID> Function({
 class FirebaseAuthenticationClient implements AuthenticationClient {
   /// {@macro firebase_authentication_client}
   FirebaseAuthenticationClient({
+    required TokenStorage tokenStorage,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
     GetAppleCredentials? getAppleCredentials,
     FacebookAuth? facebookAuth,
     TwitterLogin? twitterLogin,
-  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+  })  : _tokenStorage = tokenStorage,
+        _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _getAppleCredentials =
             getAppleCredentials ?? SignInWithApple.getAppleIDCredential,
@@ -34,8 +37,11 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
               apiKey: const String.fromEnvironment('TWITTER_API_KEY'),
               apiSecretKey: const String.fromEnvironment('TWITTER_API_SECRET'),
               redirectURI: const String.fromEnvironment('TWITTER_REDIRECT_URI'),
-            );
+            ) {
+    user.listen(_onUserChanged);
+  }
 
+  final TokenStorage _tokenStorage;
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final GetAppleCredentials _getAppleCredentials;
@@ -260,6 +266,15 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
       ]);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(LogOutFailure(error), stackTrace);
+    }
+  }
+
+  /// Updates the user token in [TokenStorage] if the user is authenticated.
+  Future<void> _onUserChanged(User user) async {
+    if (!user.isAnonymous) {
+      await _tokenStorage.saveToken(user.id);
+    } else {
+      await _tokenStorage.clearToken();
     }
   }
 }

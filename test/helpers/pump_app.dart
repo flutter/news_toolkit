@@ -1,3 +1,4 @@
+import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,13 +38,25 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {
+  @override
+  Future<ArticleViews> fetchArticleViews() async => ArticleViews(0, null);
+
+  @override
+  Future<void> incrementArticleViews() async {}
+
+  @override
+  Future<void> resetArticleViews() async {}
+}
+
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     AppBloc? appBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
-    NotificationsRepository? notificationsRepository,
+    NotificationsRepository? notificationRepository,
+    ArticleRepository? articleRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -59,7 +72,10 @@ extension AppTester on WidgetTester {
             value: newsRepository ?? MockNewsRepository(),
           ),
           RepositoryProvider.value(
-            value: notificationsRepository ?? MockNotificationsRepository(),
+            value: notificationRepository ?? MockNotificationsRepository(),
+          ),
+          RepositoryProvider.value(
+            value: articleRepository ?? MockArticleRepository(),
           ),
         ],
         child: MultiBlocProvider(
