@@ -2,6 +2,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockUser extends Mock implements User {}
@@ -23,6 +24,16 @@ void main() {
         expect(state.status, AppStatus.authenticated);
         expect(state.user, user);
       });
+
+      test('has correct userSubscriptionPlan', () {
+        const userSubscriptionPlan = SubscriptionPlan.premium;
+        final state = AppState.authenticated(
+          MockUser(),
+          userSubscriptionPlan: userSubscriptionPlan,
+        );
+        expect(state.status, AppStatus.authenticated);
+        expect(state.userSubscriptionPlan, userSubscriptionPlan);
+      });
     });
 
     group('onboardingRequired', () {
@@ -31,6 +42,66 @@ void main() {
         final state = AppState.onboardingRequired(user);
         expect(state.status, AppStatus.onboardingRequired);
         expect(state.user, user);
+      });
+    });
+
+    group('copyWith', () {
+      test(
+          'returns same object '
+          'when no properties are passed', () {
+        expect(
+          AppState.unauthenticated().copyWith(),
+          equals(AppState.unauthenticated()),
+        );
+      });
+
+      test(
+          'returns object with updated status '
+          'when status is passed', () {
+        expect(
+          AppState.unauthenticated().copyWith(
+            status: AppStatus.onboardingRequired,
+          ),
+          equals(
+            AppState(
+              status: AppStatus.onboardingRequired,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated user '
+          'when user is passed', () {
+        final user = MockUser();
+        expect(
+          AppState.unauthenticated().copyWith(
+            user: user,
+          ),
+          equals(
+            AppState(
+              status: AppStatus.unauthenticated,
+              user: user,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated userSubscriptionPlan '
+          'when userSubscriptionPlan is passed', () {
+        const userSubscriptionPlan = SubscriptionPlan.premium;
+        expect(
+          AppState.unauthenticated().copyWith(
+            userSubscriptionPlan: userSubscriptionPlan,
+          ),
+          equals(
+            AppState(
+              status: AppStatus.unauthenticated,
+              userSubscriptionPlan: userSubscriptionPlan,
+            ),
+          ),
+        );
       });
     });
   });

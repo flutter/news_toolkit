@@ -49,6 +49,8 @@ dependencies:
     path: packages/storage/persistent_storage
   platform: ^3.0.2
   stream_transform: ^2.0.0
+  subscriptions_repository:
+    path: packages/subscriptions_repository
   token_storage:
     path: packages/authentication_client/token_storage
   url_launcher: ^6.0.9
