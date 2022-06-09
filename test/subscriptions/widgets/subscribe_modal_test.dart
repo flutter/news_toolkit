@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
-import 'package:google_news_template/subscribe/subscribe.dart';
+import 'package:google_news_template/subscriptions/subscribe.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 
