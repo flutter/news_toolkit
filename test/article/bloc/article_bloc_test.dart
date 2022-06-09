@@ -253,6 +253,7 @@ void main() {
           ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
         ],
       );
+
       test(
           'calls ArticleRepository.resetArticleViews and '
           'ArticleRepository.incrementArticleViews '
