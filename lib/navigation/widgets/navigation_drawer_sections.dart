@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
-import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
@@ -34,10 +33,6 @@ class NavigationDrawerSections extends StatelessWidget {
               },
             )
         ],
-        NavigationDrawerSectionItem(
-          title: 'Subscriber Exclusives',
-          leading: Assets.icons.lockedContentIcon.svg(),
-        ),
       ],
     );
   }
