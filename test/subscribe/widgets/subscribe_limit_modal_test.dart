@@ -31,7 +31,7 @@ void main() {
 
   group('SubscribeLimitModal', () {
     group('renders', () {
-      testWidgets('subscribeLimitModal', (tester) async {
+      testWidgets('SubscribeLimitModal', (tester) async {
         await tester.pumpApp(
           SubscribeLimitModal(),
           appBloc: appBloc,
@@ -40,7 +40,7 @@ void main() {
       });
 
       testWidgets(
-          'subscribe and watch video buttons when when user is authenticated',
+          'subscribe and watch video buttons when user is authenticated',
           (tester) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
@@ -53,7 +53,7 @@ void main() {
 
       testWidgets(
           'subscribe log in and watch video buttons'
-          ' when when user is unauthenticated', (tester) async {
+          ' when user is unauthenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
           SubscribeLimitModal(),
