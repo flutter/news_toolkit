@@ -31,6 +31,10 @@ class AppState extends Equatable {
   final User user;
   final SubscriptionPlan? userSubscriptionPlan;
 
+  bool get isUserSubscribed =>
+      userSubscriptionPlan != null &&
+      userSubscriptionPlan != SubscriptionPlan.none;
+
   @override
   List<Object?> get props => [
         status,

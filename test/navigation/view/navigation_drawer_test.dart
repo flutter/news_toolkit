@@ -5,25 +5,40 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
 
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockUser extends Mock implements User {}
+
 const _scaffoldKey = Key('__scaffold__');
 
 extension on WidgetTester {
   Future<void> pumpDrawer({
     required CategoriesBloc categoriesBloc,
+    required AppBloc appBloc,
   }) async {
     await pumpApp(
-      BlocProvider.value(
-        value: categoriesBloc,
+      MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: categoriesBloc,
+          ),
+          BlocProvider.value(
+            value: appBloc,
+          )
+        ],
         child: Scaffold(
           key: _scaffoldKey,
           drawer: NavigationDrawer(),
@@ -40,19 +55,24 @@ extension on WidgetTester {
 void main() {
   group('NavigationDrawer', () {
     late CategoriesBloc categoriesBloc;
+    late AppBloc appBloc;
 
     const categories = [Category.top, Category.health];
 
     setUp(() {
       categoriesBloc = MockCategoriesBloc();
+      appBloc = MockAppBloc();
+
       when(() => categoriesBloc.state).thenReturn(
         CategoriesState.initial().copyWith(categories: categories),
       );
+      when(() => appBloc.state).thenReturn(AppState.authenticated(MockUser()));
     });
 
     testWidgets('renders Drawer', (tester) async {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
+        appBloc: appBloc,
       );
       expect(find.byType(Drawer), findsOneWidget);
     });
@@ -60,6 +80,7 @@ void main() {
     testWidgets('renders AppLogo', (tester) async {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
+        appBloc: appBloc,
       );
       expect(find.byType(AppLogo), findsOneWidget);
     });
@@ -67,21 +88,48 @@ void main() {
     testWidgets('renders NavigationDrawerSections', (tester) async {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
+        appBloc: appBloc,
       );
       expect(find.byType(NavigationDrawerSections), findsOneWidget);
     });
 
-    testWidgets('renders NavigationDrawerSubscribe', (tester) async {
+    testWidgets(
+        'renders NavigationDrawerSubscribe '
+        'when user is not subscribed', (tester) async {
+      when(() => appBloc.state).thenReturn(
+        AppState.authenticated(
+          MockUser(),
+          userSubscriptionPlan: SubscriptionPlan.none,
+        ),
+      );
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
+        appBloc: appBloc,
       );
       expect(find.byType(NavigationDrawerSubscribe), findsOneWidget);
+    });
+
+    testWidgets(
+        'does not render NavigationDrawerSubscribe '
+        'when user is subscribed', (tester) async {
+      when(() => appBloc.state).thenReturn(
+        AppState.authenticated(
+          MockUser(),
+          userSubscriptionPlan: SubscriptionPlan.premium,
+        ),
+      );
+      await tester.pumpDrawer(
+        categoriesBloc: categoriesBloc,
+        appBloc: appBloc,
+      );
+      expect(find.byType(NavigationDrawerSubscribe), findsNothing);
     });
 
     group('when NavigationDrawerSectionItem is tapped', () {
       testWidgets('closes drawer', (tester) async {
         await tester.pumpDrawer(
           categoriesBloc: categoriesBloc,
+          appBloc: appBloc,
         );
 
         await tester.tap(
@@ -105,6 +153,7 @@ void main() {
 
         await tester.pumpDrawer(
           categoriesBloc: categoriesBloc,
+          appBloc: appBloc,
         );
 
         await tester.tap(
