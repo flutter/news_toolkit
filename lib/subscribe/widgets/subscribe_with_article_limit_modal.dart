@@ -8,8 +8,8 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
 
 @visibleForTesting
-class SubscribeLimitModal extends StatelessWidget {
-  const SubscribeLimitModal({super.key});
+class SubscribeWithArticleLimitModal extends StatelessWidget {
+  const SubscribeWithArticleLimitModal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,41 +26,42 @@ class SubscribeLimitModal extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            l10n.subscribeLimitModalTitle,
+            l10n.subscribeWithArticleLimitModalTitle,
             style: theme.textTheme.headline3?.apply(color: AppColors.white),
           ),
           const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
           Text(
-            l10n.subscribeLimitModalSubtitle,
+            l10n.subscribeWithArticleLimitModalSubtitle,
             style: theme.textTheme.subtitle1
                 ?.apply(color: AppColors.mediumEmphasisPrimary),
           ),
           const SizedBox(height: AppSpacing.lg + AppSpacing.lg),
           AppButton.redWine(
-            key: const Key('subscribeLimitModal_subscribeButton'),
+            key: const Key('subscribeWithArticleLimitModal_subscribeButton'),
             child: Text(l10n.subscribeButtonText),
             onPressed: () {},
           ),
           const SizedBox(height: AppSpacing.lg),
-          if (!isLoggedIn)
+          if (!isLoggedIn) ...[
             AppButton.outlinedTransparentWhite(
-              key: const Key('subscribeLimitModal_logInButton'),
-              child: Text(l10n.subscribeLimitModalLogInButton),
+              key: const Key('subscribeWithArticleLimitModal_logInButton'),
+              child: Text(l10n.subscribeWithArticleLimitModalLogInButton),
               onPressed: () => showAppModal<void>(
                 context: context,
                 builder: (context) => const LoginModal(),
                 routeSettings: const RouteSettings(name: LoginModal.name),
               ),
             ),
-          if (!isLoggedIn) const SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
+          ],
           AppButton.transparentWhite(
-            key: const Key('subscribeLimitModal_watchVideo'),
+            key: const Key('subscribeWithArticleLimitModal_watchVideoButton'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Assets.icons.video.svg(),
                 const SizedBox(width: AppSpacing.sm),
-                Text(l10n.subscribeLimitModalWatchVideoButton),
+                Text(l10n.subscribeWithArticleLimitModalWatchVideoButton),
               ],
             ),
             onPressed: () {},

@@ -19,9 +19,11 @@ void main() {
   late AppBloc appBloc;
   late User user;
 
-  const subscribeButtonKey = Key('subscribeLimitModal_subscribeButton');
-  const logInButtonKey = Key('subscribeLimitModal_logInButton');
-  const watchVideoButton = Key('subscribeLimitModal_watchVideo');
+  const subscribeButtonKey =
+      Key('subscribeWithArticleLimitModal_subscribeButton');
+  const logInButtonKey = Key('subscribeWithArticleLimitModal_logInButton');
+  const watchVideoButton =
+      Key('subscribeWithArticleLimitModal_watchVideoButton');
 
   setUp(() {
     user = MockUser();
@@ -29,26 +31,19 @@ void main() {
     when(() => appBloc.state).thenReturn(AppState.unauthenticated());
   });
 
-  group('SubscribeLimitModal', () {
+  group('SubscribeWithArticleLimitModal', () {
     group('renders', () {
-      testWidgets('SubscribeLimitModal', (tester) async {
-        await tester.pumpApp(
-          SubscribeLimitModal(),
-          appBloc: appBloc,
-        );
-        expect(find.byType(SubscribeLimitModal), findsOneWidget);
-      });
-
       testWidgets(
           'subscribe and watch video buttons when user is authenticated',
           (tester) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
-          SubscribeLimitModal(),
+          SubscribeWithArticleLimitModal(),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
         expect(find.byKey(watchVideoButton), findsOneWidget);
+        expect(find.byKey(logInButtonKey), findsNothing);
       });
 
       testWidgets(
@@ -56,7 +51,7 @@ void main() {
           ' when user is unauthenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
-          SubscribeLimitModal(),
+          SubscribeWithArticleLimitModal(),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -66,41 +61,39 @@ void main() {
     });
 
     group('does nothing', () {
-      testWidgets('when tap on subscribe button', (tester) async {
-        await tester.pumpApp(SubscribeLimitModal());
+      testWidgets('when tapped on subscribe button', (tester) async {
+        await tester.pumpApp(SubscribeWithArticleLimitModal());
         await tester.tap(find.byKey(subscribeButtonKey));
         await tester.pumpAndSettle();
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
       });
 
-      testWidgets('when tap on watch video button', (tester) async {
-        await tester.pumpApp(SubscribeLimitModal());
+      testWidgets('when tapped on watch video button', (tester) async {
+        await tester.pumpApp(SubscribeWithArticleLimitModal());
         await tester.tap(find.byKey(watchVideoButton));
         await tester.pumpAndSettle();
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
       });
     });
 
-    group('navigates', () {
-      testWidgets(
-          'shows LoginModal '
-          'when tapped on log in button', (tester) async {
-        whenListen(
-          appBloc,
-          Stream.value(AppState.unauthenticated()),
-          initialState: AppState.unauthenticated(),
-        );
+    testWidgets(
+        'shows LoginModal '
+        'when tapped on log in button', (tester) async {
+      whenListen(
+        appBloc,
+        Stream.value(AppState.unauthenticated()),
+        initialState: AppState.unauthenticated(),
+      );
 
-        await tester.pumpApp(
-          SubscribeLimitModal(),
-          appBloc: appBloc,
-        );
+      await tester.pumpApp(
+        SubscribeWithArticleLimitModal(),
+        appBloc: appBloc,
+      );
 
-        await tester.tap(find.byKey(logInButtonKey));
-        await tester.pumpAndSettle();
+      await tester.tap(find.byKey(logInButtonKey));
+      await tester.pumpAndSettle();
 
-        expect(find.byType(LoginModal), findsOneWidget);
-      });
+      expect(find.byType(LoginModal), findsOneWidget);
     });
   });
 }

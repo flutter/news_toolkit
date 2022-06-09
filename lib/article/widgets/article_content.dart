@@ -53,7 +53,7 @@ class ArticleContent extends StatelessWidget {
               return ArticleContentItem(block: block);
             },
           ),
-          const StickyAd(),
+          const StickyAd()
         ],
       ),
     );
