@@ -60,7 +60,7 @@ class ManageSubscriptionView extends StatelessWidget {
                   style: theme.textTheme.subtitle2
                       ?.copyWith(color: AppColors.darkAqua),
                 ),
-                // TODO(jan-stepien): onTap opens subscriptions settings page.,
+                // TODO(jan-stepien): onTap opens subscriptions settings page.
               ),
             ],
           ),
