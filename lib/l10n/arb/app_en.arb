@@ -425,8 +425,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalLoggedInOutlogInButton": "Log In",
-  "@subscribeModalLoggedInOutlogInButton": {
+  "subscribeModalLoggedInOutLogInButton": "Log In",
+  "@subscribeModalLoggedInOutLogInButton": {
     "description": "Text shown in log in button on the subscribe logged in out modal widget.",
     "type": "text",
     "placeholders": {}
