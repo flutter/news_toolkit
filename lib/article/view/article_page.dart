@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:app_ui/app_ui.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +38,7 @@ class ArticlePage extends StatelessWidget {
     return BlocProvider<ArticleBloc>(
       create: (_) => ArticleBloc(
         articleId: id,
-        shareLauncher: ShareLauncher(),
+        shareLauncher: const ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
       )..add(ArticleRequested()),
       child: ArticleView(

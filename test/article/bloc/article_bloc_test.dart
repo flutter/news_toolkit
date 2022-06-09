@@ -172,7 +172,8 @@ void main() {
       );
 
       blocTest<ArticleBloc, ArticleState>(
-        'emits nothing '
+        'calls calls ShareLauncher.share '
+        'and emits nothing '
         'when share succeeds',
         setUp: () => when(
           () => shareLauncher.share(text: any(named: 'text')),
@@ -184,10 +185,12 @@ void main() {
         ),
         act: (bloc) => bloc.add(ShareRequested(uri: uri)),
         expect: () => <ArticleState>[],
+        verify: (bloc) =>
+            verify(() => shareLauncher.share(text: uri.toString())).called(1),
       );
 
       blocTest<ArticleBloc, ArticleState>(
-        'emits error '
+        'emits [shareFailure] '
         'when share throws',
         setUp: () => when(
           () => shareLauncher.share(text: any(named: 'text')),

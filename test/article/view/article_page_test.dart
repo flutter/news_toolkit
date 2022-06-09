@@ -64,7 +64,7 @@ void main() {
     });
 
     group('renders ShareButton ', () {
-      testWidgets('when url not empty', (tester) async {
+      testWidgets('when url is not empty', (tester) async {
         when(() => articleBloc.state).thenReturn(
           ArticleState.initial().copyWith(uri: Uri(path: 'notEmptyUrl')),
         );
@@ -75,16 +75,6 @@ void main() {
           ),
         );
         expect(find.byType(ShareButton), findsOneWidget);
-      });
-
-      testWidgets('when url empty', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
-          ),
-        );
-        expect(find.byType(ShareButton), findsNothing);
       });
 
       testWidgets('that adds ShareRequested on ShareButton tap',
@@ -113,6 +103,17 @@ void main() {
       });
     });
 
+    group('does not render ShareButton', () {
+      testWidgets('when url is empty', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
+          ),
+        );
+        expect(find.byType(ShareButton), findsNothing);
+      });
+    });
     testWidgets('renders ArticleSubscribeButton', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
@@ -173,7 +174,7 @@ void main() {
     testWidgets(
         'renders AppBar with ShareButton title and '
         'ArticleSubscribeButton action when user is not a subscriber '
-        'and uri provided', (tester) async {
+        'and uri is provided', (tester) async {
       when(() => articleBloc.state).thenReturn(
         ArticleState.initial().copyWith(
           uri: Uri(path: 'notEmptyUrl'),
@@ -204,7 +205,7 @@ void main() {
     testWidgets(
         'renders AppBar without ShareButton '
         'when user is not a subscriber '
-        'and uri not provided', (tester) async {
+        'and uri is not provided', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
