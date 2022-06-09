@@ -1,5 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:storage/storage.dart';
 
 part 'article_storage.dart';
@@ -16,6 +17,22 @@ abstract class ArticleFailure with EquatableMixin implements Exception {
 
   @override
   List<Object> get props => [error];
+}
+
+/// {@template get_article_failure}
+/// Thrown when fetching an article fails.
+/// {@endtemplate}
+class GetArticleFailure extends ArticleFailure {
+  /// {@macro get_article_failure}
+  const GetArticleFailure(super.error);
+}
+
+/// {@template get_related_articles_failure}
+/// Thrown when fetching related articles fails.
+/// {@endtemplate}
+class GetRelatedArticlesFailure extends ArticleFailure {
+  /// {@macro get_related_articles_failure}
+  const GetRelatedArticlesFailure(super.error);
 }
 
 /// {@template increment_article_views_failure}
@@ -63,10 +80,59 @@ class ArticleViews {
 class ArticleRepository {
   /// {@macro article_repository}
   const ArticleRepository({
+    required GoogleNewsTemplateApiClient apiClient,
     required ArticleStorage storage,
-  }) : _storage = storage;
+  })  : _apiClient = apiClient,
+        _storage = storage;
 
+  final GoogleNewsTemplateApiClient _apiClient;
   final ArticleStorage _storage;
+
+  /// Requests article content metadata.
+  ///
+  /// Supported parameters:
+  /// * [id] - article id for which content is requested.
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<ArticleResponse> getArticle({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      return await _apiClient.getArticle(
+        id: id,
+        limit: limit,
+        offset: offset,
+      );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(GetArticleFailure(error), stackTrace);
+    }
+  }
+
+  /// Requests related articles.
+  ///
+  /// Supported parameters:
+  /// * [id] - article id for which related content is requested.
+  /// * [limit] - The number of results to return.
+  /// * [offset] - The (zero-based) offset of the first item
+  /// in the collection to return.
+  Future<RelatedArticlesResponse> getRelatedArticles({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    try {
+      return await _apiClient.getRelatedArticles(
+        id: id,
+        limit: limit,
+        offset: offset,
+      );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(GetRelatedArticlesFailure(error), stackTrace);
+    }
+  }
 
   /// Increments the number of article views by 1.
   Future<void> incrementArticleViews() async {
