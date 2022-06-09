@@ -55,7 +55,7 @@ class ArticleContent extends StatelessWidget {
                           },
                         ),
                       )
-                    : const SizedBox();
+                    : const ArticleTrailingContent();
               }
 
               final block = content[index];
