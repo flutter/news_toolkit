@@ -413,15 +413,21 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalLoggedInTitle": "Subscribe today for\nunlimited access.",
-  "@subscribeModalLoggedInTitle": {
-    "description": "Title text shown in the subscribe logged in modal widget.",
+  "subscribeModalLoggedInOutTitle": "Subscribe today for\nunlimited access.",
+  "@subscribeModalLoggedInOutTitle": {
+    "description": "Title text shown in the subscribe logged in out modal widget.",
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalLoggedInSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
-  "@subscribeModalLoggedInSubtitle": {
-    "description": "Subtitle text shown in the subscribe logged in modal widget.",
+  "subscribeModalLoggedInOutSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribeModalLoggedInOutSubtitle": {
+    "description": "Subtitle text shown in the subscribe logged in out modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeModalLoggedInOutlogInButton": "Log In",
+  "@subscribeModalLoggedInOutlogInButton": {
+    "description": "Text shown in log in button on the subscribe logged in out modal widget.",
     "type": "text",
     "placeholders": {}
   }
