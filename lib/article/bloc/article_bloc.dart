@@ -28,6 +28,8 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   /// The duration after which the number of article views will be reset.
   static const _resetArticleViewsAfterDuration = Duration(days: 1);
 
+  static const _relatedArticlesLimit = 5;
+
   FutureOr<void> _onArticleRequested(
     ArticleRequested event,
     Emitter<ArticleState> emit,
@@ -52,10 +54,19 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       final updatedContent = [...state.content, ...response.content];
       final hasMoreContent = response.totalCount > updatedContent.length;
 
+      RelatedArticlesResponse? relatedArticlesResponse;
+      if (!hasMoreContent && state.relatedArticles.isEmpty) {
+        relatedArticlesResponse = await _articleRepository.getRelatedArticles(
+          id: _articleId,
+          limit: _relatedArticlesLimit,
+        );
+      }
+
       emit(
         state.copyWith(
           status: ArticleStatus.populated,
           content: updatedContent,
+          relatedArticles: relatedArticlesResponse?.relatedArticles ?? [],
           hasMoreContent: hasMoreContent,
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
         ),

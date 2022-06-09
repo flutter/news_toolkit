@@ -412,5 +412,11 @@
     "description": "Subscribe text shown in the bottom nav bar widget.",
     "type": "text",
     "placeholders": {}
+  },
+  "relatedStories": "Related Stories",
+  "@relatedStories": {
+    "description": "Header text shown in the bottom of article content.",
+    "type": "text",
+    "placeholders": {}
   }
 }
