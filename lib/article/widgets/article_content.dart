@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/subscribe/widgets/subscribe_limit_modal.dart';
 
 class ArticleContent extends StatelessWidget {
   const ArticleContent({super.key});
@@ -53,7 +54,8 @@ class ArticleContent extends StatelessWidget {
               return ArticleContentItem(block: block);
             },
           ),
-          const StickyAd()
+          const StickyAd(),
+          SubscribeLimitModal()
         ],
       ),
     );

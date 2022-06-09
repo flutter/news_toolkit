@@ -430,5 +430,29 @@
     "description": "Text shown in log in button on the subscribe logged in out modal widget.",
     "type": "text",
     "placeholders": {}
+  },
+  "subscribeLimitModalTitle": "You've reached your\n4 article limit.",
+  "@subscribeLimitModalTitle": {
+    "description": "Title text shown in the subscribe limit modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeLimitModalSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribeLimitModalSubtitle": {
+    "description": "Subtitle text shown in the subscribe limit modal modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeLimitModalLogInButton": "Log In",
+  "@subscribeLimitModalLogInButton": {
+    "description": "Text shown in log in button on the subscribe limit modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeLimitModalWatchVideoButton": "Watch a video to view this article",
+  "@subscribeLimitModalWatchVideoButton": {
+    "description": "Text shown in watch video button on the subscribe limit modal widget.",
+    "type": "text",
+    "placeholders": {}
   }
 }
