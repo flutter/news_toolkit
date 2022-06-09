@@ -239,7 +239,7 @@ void main() {
       });
 
       testWidgets(
-          'is not shown '
+          'is not shown and ArticleTrailingContent is shown '
           'when ArticleStatus is populated '
           'and hasMoreContent is false', (tester) async {
         whenListen(
@@ -262,6 +262,7 @@ void main() {
         );
 
         expect(find.byType(ArticleContentLoaderItem), findsNothing);
+        expect(find.byType(ArticleTrailingContent), findsOneWidget);
       });
 
       testWidgets('adds ArticleRequested to ArticleBloc', (tester) async {

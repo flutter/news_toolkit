@@ -47,6 +47,18 @@ void main() {
           url: Uri.parse('https://www.dglobe.com/'),
         ),
       );
+      when(
+        () => articleRepository.getRelatedArticles(
+          id: any(named: 'id'),
+          limit: any(named: 'limit'),
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer(
+        (_) async => RelatedArticlesResponse(
+          relatedArticles: [],
+          totalCount: 0,
+        ),
+      );
     });
 
     testWidgets(
