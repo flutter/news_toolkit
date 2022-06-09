@@ -1023,7 +1023,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.3"
+    version: "0.27.4"
   shared_preferences:
     dependency: transitive
     description:
@@ -1211,6 +1211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  subscriptions_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/subscriptions_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   synchronized:
     dependency: transitive
     description:
