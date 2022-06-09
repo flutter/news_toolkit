@@ -6,6 +6,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:share_launcher/share_launcher.dart';
 
 part 'article_event.dart';
 part 'article_state.dart';
@@ -14,13 +15,17 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc({
     required String articleId,
     required ArticleRepository articleRepository,
+    required ShareLauncher shareLauncher,
   })  : _articleId = articleId,
         _articleRepository = articleRepository,
+        _shareLauncher = shareLauncher,
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
+    on<ShareRequested>(_onShareRequested);
   }
 
   final String _articleId;
+  final ShareLauncher _shareLauncher;
   final ArticleRepository _articleRepository;
 
   /// The number of articles the user may view without being a subscriber.
@@ -58,11 +63,24 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
           status: ArticleStatus.populated,
           content: updatedContent,
           hasMoreContent: hasMoreContent,
+          uri: response.url,
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
         ),
       );
     } catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.failure));
+      addError(error, stackTrace);
+    }
+  }
+
+  FutureOr<void> _onShareRequested(
+    ShareRequested event,
+    Emitter<ArticleState> emit,
+  ) async {
+    try {
+      await _shareLauncher.share(text: event.uri.toString());
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }
   }

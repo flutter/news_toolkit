@@ -13,5 +13,14 @@ void main() {
         expect(event1, equals(event2));
       });
     });
+
+    group('ShareRequested', () {
+      test('supports value comparisons', () {
+        final event1 = ShareRequested(uri: Uri(path: 'text'));
+        final event2 = ShareRequested(uri: Uri(path: 'text'));
+
+        expect(event1, equals(event2));
+      });
+    });
   });
 }
