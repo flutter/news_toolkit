@@ -9,13 +9,13 @@ import '../../helpers/helpers.dart';
 void main() {
   const subscribeButtonKey = Key('subscribeLoggedIn_subscribeButton');
   testWidgets('renders SubscribeLoggedIn', (tester) async {
-    await tester.pumpApp(SubscribeLoggedIn());
+    await tester.pumpApp(SubscribeLoggedInOutModal());
 
-    expect(find.byType(SubscribeLoggedIn), findsOneWidget);
+    expect(find.byType(SubscribeLoggedInOutModal), findsOneWidget);
   });
 
   testWidgets('does nothing when tap on subscribe button', (tester) async {
-    await tester.pumpApp(SubscribeLoggedIn());
+    await tester.pumpApp(SubscribeLoggedInOutModal());
     await tester.tap(find.byKey(subscribeButtonKey));
     await tester.pumpAndSettle();
     expect(find.byKey(subscribeButtonKey), findsOneWidget);

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 @visibleForTesting
-class SubscribeLoggedIn extends StatelessWidget {
-  const SubscribeLoggedIn({super.key});
+class SubscribeLoggedInOutModal extends StatelessWidget {
+  const SubscribeLoggedInOutModal({super.key});
 
   @override
   Widget build(BuildContext context) {
