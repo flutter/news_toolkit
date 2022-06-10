@@ -44,9 +44,6 @@ class ArticlePage extends StatelessWidget {
       )..add(ArticleRequested()),
       child: ArticleView(
         isVideoArticle: isVideoArticle,
-        isSubscriber: context.select<AppBloc, bool>(
-          (bloc) => bloc.state.isUserSubscribed,
-        ),
       ),
     );
   }
@@ -55,11 +52,9 @@ class ArticlePage extends StatelessWidget {
 class ArticleView extends StatelessWidget {
   const ArticleView({
     super.key,
-    this.isSubscriber = false,
     required this.isVideoArticle,
   });
 
-  final bool isSubscriber;
   final bool isVideoArticle;
 
   @override
@@ -69,6 +64,8 @@ class ArticleView extends StatelessWidget {
     final foregroundColor =
         isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
+    final isSubscriber =
+        context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
     return Scaffold(
       backgroundColor: backgroundColor,
