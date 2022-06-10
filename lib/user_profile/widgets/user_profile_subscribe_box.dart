@@ -2,8 +2,8 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
-class SubscribeBox extends StatelessWidget {
-  const SubscribeBox({
+class UserProfileSubscribeBox extends StatelessWidget {
+  const UserProfileSubscribeBox({
     super.key,
     required this.onButtonPressed,
   });
@@ -21,20 +21,20 @@ class SubscribeBox extends StatelessWidget {
         children: [
           const SizedBox(height: AppSpacing.sm),
           Text(
-            l10n.userProfileNotSubscriberSubtitle,
+            l10n.userProfileSubscribeBoxSubtitle,
             style: theme.textTheme.subtitle1?.copyWith(
               fontWeight: AppFontWeight.medium,
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
-            l10n.userProfileNotSubscriberMessage,
+            l10n.userProfileSubscribeBoxMessage,
             style: theme.textTheme.bodyText2
                 ?.copyWith(color: AppColors.mediumEmphasisSurface),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppButton.smallRedWine(
-            key: const Key('subscribeBox_appButton'),
+            key: const Key('userProfileSubscribeBox_appButton'),
             onPressed: onButtonPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

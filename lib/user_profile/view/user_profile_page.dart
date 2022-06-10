@@ -120,7 +120,9 @@ class _UserProfileViewState extends State<UserProfileView>
                 ),
               )
             else
-              SubscribeBox(
+              // TODO(jan-stepien): onTap opens in_app_purchase
+              // subscriptions settings page instead.
+              UserProfileSubscribeBox(
                 onButtonPressed: () => context.read<AppBloc>().add(
                       const AppUserSubscriptionPlanChanged(
                         SubscriptionPlan.premium,

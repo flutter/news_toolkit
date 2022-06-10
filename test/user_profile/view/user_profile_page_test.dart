@@ -189,7 +189,7 @@ void main() {
         );
       });
 
-      group('renders SubscribeBox', () {
+      group('renders UserProfileSubscribeBox', () {
         testWidgets('when isUserSubscribed is false', (tester) async {
           whenListen(
             appBloc,
@@ -209,7 +209,7 @@ void main() {
             ),
           );
 
-          expect(find.byType(SubscribeBox), findsOneWidget);
+          expect(find.byType(UserProfileSubscribeBox), findsOneWidget);
         });
 
         testWidgets(
@@ -234,7 +234,8 @@ void main() {
             ),
           );
 
-          final subscriptionButton = find.byKey(Key('subscribeBox_appButton'));
+          final subscriptionButton =
+              find.byKey(Key('userProfileSubscribeBox_appButton'));
           await tester.ensureVisible(subscriptionButton);
           await tester.tap(subscriptionButton);
           await tester.pumpAndSettle();

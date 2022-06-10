@@ -245,14 +245,14 @@
     "type": "text",
     "placeholders": {}
   },
-  "userProfileNotSubscriberSubtitle": "You are not currently a subscriber.",
-  "@userProfileNotSubscriberSubtitle": {
+  "userProfileSubscribeBoxSubtitle": "You are not currently a subscriber.",
+  "@userProfileSubscribeBoxSubtitle": {
     "description": "User profile not a subscriber subtitle",
     "type": "text",
     "placeholders": {}
   },
-  "userProfileNotSubscriberMessage": "Become a subscriber to access premium content and exclusive online events.",
-  "@userProfileNotSubscriberMessage": {
+  "userProfileSubscribeBoxMessage": "Become a subscriber to access premium content and exclusive online events.",
+  "@userProfileSubscribeBoxMessage": {
     "description": "User profile not a subscriber message",
     "type": "text",
     "placeholders": {}

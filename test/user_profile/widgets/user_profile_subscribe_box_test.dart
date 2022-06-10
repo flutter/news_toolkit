@@ -9,14 +9,14 @@ import 'package:google_news_template/user_profile/user_profile.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('SubscribeBox', () {
+  group('UserProfileSubscribeBox', () {
     testWidgets('calls onButtonPressed when AppButton tapped', (tester) async {
       final completer = Completer<void>();
       await tester.pumpApp(
-        SubscribeBox(onButtonPressed: completer.complete),
+        UserProfileSubscribeBox(onButtonPressed: completer.complete),
       );
 
-      await tester.tap(find.byKey(Key('subscribeBox_appButton')));
+      await tester.tap(find.byKey(Key('userProfileSubscribeBox_appButton')));
 
       expect(completer.isCompleted, isTrue);
     });
