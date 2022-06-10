@@ -3,7 +3,6 @@ import 'package:app_ui/app_ui.dart'
         AppBackButton,
         AppButton,
         AppColors,
-        AppFontWeight,
         AppSpacing,
         AppSwitch,
         ScrollableColumn;
@@ -77,12 +76,11 @@ class _UserProfileViewState extends State<UserProfileView>
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
     final notificationsEnabled = context
         .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
-    final subscriptionPlan = context.select<AppBloc, SubscriptionPlan?>(
-      (bloc) => bloc.state.userSubscriptionPlan,
+    final isUserSubscribed = context.select<AppBloc, bool?>(
+      (bloc) => bloc.state.isUserSubscribed,
     );
 
     final l10n = context.l10n;
-    final theme = Theme.of(context);
 
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
@@ -112,16 +110,7 @@ class _UserProfileViewState extends State<UserProfileView>
             UserProfileSubtitle(
               subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
             ),
-            if (subscriptionPlan == null ||
-                subscriptionPlan == SubscriptionPlan.none)
-              SubscribeBox(
-                onButtonPressed: () => context.read<AppBloc>().add(
-                      const AppUserSubscriptionPlanChanged(
-                        SubscriptionPlan.premium,
-                      ),
-                    ),
-              )
-            else
+            if (isUserSubscribed ?? false)
               UserProfileItem(
                 key: const Key('userProfilePage_subscriptionItem'),
                 title: l10n.manageSubscriptionTile,
@@ -129,6 +118,14 @@ class _UserProfileViewState extends State<UserProfileView>
                 onTap: () => Navigator.of(context).push(
                   ManageSubscriptionPage.route(),
                 ),
+              )
+            else
+              SubscribeBox(
+                onButtonPressed: () => context.read<AppBloc>().add(
+                      const AppUserSubscriptionPlanChanged(
+                        SubscriptionPlan.premium,
+                      ),
+                    ),
               ),
             const _UserProfileDivider(),
             UserProfileSubtitle(

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class SubscribeBox extends StatelessWidget {
-  const SubscribeBox({super.key, required this.onButtonPressed});
+  const SubscribeBox({
+    super.key,
+    required this.onButtonPressed,
+  });
 
   final VoidCallback onButtonPressed;
   @override
@@ -30,13 +33,15 @@ class SubscribeBox extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           AppButton.smallRedWine(
-              onPressed: onButtonPressed,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(l10n.userProfileSubscribeNowButtonText),
-                ],
-              )),
+            key: const Key('subscribeBox_appButton'),
+            onPressed: onButtonPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(l10n.userProfileSubscribeNowButtonText),
+              ],
+            ),
+          ),
           const SizedBox(height: AppSpacing.lg),
         ],
       ),

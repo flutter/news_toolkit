@@ -11,6 +11,7 @@ import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
@@ -60,7 +61,10 @@ void main() {
           Stream.fromIterable(
             <AppState>[AppState.unauthenticated()],
           ),
-          initialState: AppState.authenticated(user),
+          initialState: AppState.authenticated(
+            user,
+            userSubscriptionPlan: SubscriptionPlan.premium,
+          ),
         );
       });
 
@@ -183,6 +187,66 @@ void main() {
           ),
           findsOneWidget,
         );
+      });
+
+      group('renders SubscribeBox', () {
+        testWidgets('when isUserSubscribed is false', (tester) async {
+          whenListen(
+            appBloc,
+            Stream.fromIterable([
+              AppState.authenticated(
+                user,
+                userSubscriptionPlan: SubscriptionPlan.premium,
+              ),
+            ]),
+          );
+
+          await tester.pumpApp(
+            appBloc: appBloc,
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+          );
+
+          expect(find.byType(SubscribeBox), findsOneWidget);
+        });
+
+        testWidgets(
+            'when isUserSubscribed is false '
+            'and adds AppUserSubscriptionPlanChanged to appBloc',
+            (tester) async {
+          whenListen(
+            appBloc,
+            Stream.fromIterable([
+              AppState.authenticated(
+                user,
+                userSubscriptionPlan: SubscriptionPlan.none,
+              ),
+            ]),
+          );
+
+          await tester.pumpApp(
+            appBloc: appBloc,
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+          );
+
+          final subscriptionButton = find.byKey(Key('subscribeBox_appButton'));
+          await tester.ensureVisible(subscriptionButton);
+          await tester.tap(subscriptionButton);
+          await tester.pumpAndSettle();
+
+          verify(
+            () => appBloc.add(
+              AppUserSubscriptionPlanChanged(
+                SubscriptionPlan.premium,
+              ),
+            ),
+          ).called(1);
+        });
       });
 
       testWidgets(
@@ -364,9 +428,18 @@ void main() {
 
         testWidgets(
             'to ManageSubscriptionPage '
-            'when user isSubscriber and '
+            'when isUserSubscribed is true and '
             'tapped on Manage Subscription', (tester) async {
-          //TODO
+          whenListen(
+            appBloc,
+            Stream.fromIterable([
+              AppState.authenticated(
+                user,
+                userSubscriptionPlan: SubscriptionPlan.premium,
+              ),
+            ]),
+          );
+
           await tester.pumpApp(
             appBloc: appBloc,
             BlocProvider.value(
@@ -375,9 +448,10 @@ void main() {
             ),
           );
 
-          await tester.tap(
-            find.byKey(Key('userProfilePage_subscriptionItem')),
-          );
+          final subscriptionItem =
+              find.byKey(Key('userProfilePage_subscriptionItem'));
+          await tester.ensureVisible(subscriptionItem);
+          await tester.tap(subscriptionItem);
           await tester.pumpAndSettle();
 
           expect(find.byType(ManageSubscriptionPage), findsOneWidget);
@@ -393,9 +467,10 @@ void main() {
             ),
           );
 
-          await tester.tap(
-            find.byKey(Key('userProfilePage_notificationPreferencesItem')),
-          );
+          final subscriptionItem =
+              find.byKey(Key('userProfilePage_notificationPreferencesItem'));
+          await tester.ensureVisible(subscriptionItem);
+          await tester.tap(subscriptionItem);
           await tester.pumpAndSettle();
 
           expect(find.byType(NotificationPreferencesPage), findsOneWidget);
