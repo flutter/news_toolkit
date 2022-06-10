@@ -16,7 +16,7 @@ class ArticleContent extends StatelessWidget {
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
 
-    if (status == ArticleStatus.initial || status == ArticleStatus.loading) {
+    if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
         key: Key('articleContent_empty_loaderItem'),
       );
@@ -43,10 +43,16 @@ class ArticleContent extends StatelessWidget {
                           top: content.isEmpty ? AppSpacing.xxxlg : 0,
                         ),
                         child: ArticleContentLoaderItem(
-                          key: ValueKey(index),
-                          onPresented: () => context
-                              .read<ArticleBloc>()
-                              .add(ArticleRequested()),
+                          key: const Key(
+                            'articleContent_moreContent_loaderItem',
+                          ),
+                          onPresented: () {
+                            if (status != ArticleStatus.loading) {
+                              context
+                                  .read<ArticleBloc>()
+                                  .add(ArticleRequested());
+                            }
+                          },
                         ),
                       )
                     : const ArticleTrailingContent();

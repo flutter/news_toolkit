@@ -45,6 +45,36 @@ void main() {
       });
     });
 
+    group('isUserSubscribed', () {
+      test('returns true when userSubscriptionPlan is not null and not none',
+          () {
+        expect(
+          AppState.authenticated(
+            MockUser(),
+            userSubscriptionPlan: SubscriptionPlan.premium,
+          ).isUserSubscribed,
+          isTrue,
+        );
+      });
+
+      test('returns false when userSubscriptionPlan is null', () {
+        expect(
+          AppState.authenticated(MockUser()).isUserSubscribed,
+          isFalse,
+        );
+      });
+
+      test('returns false when userSubscriptionPlan is none', () {
+        expect(
+          AppState.authenticated(
+            MockUser(),
+            userSubscriptionPlan: SubscriptionPlan.none,
+          ).isUserSubscribed,
+          isFalse,
+        );
+      });
+    });
+
     group('copyWith', () {
       test(
           'returns same object '

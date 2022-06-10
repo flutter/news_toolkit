@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
@@ -13,7 +14,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
         super(const FeedState.initial()) {
-    on<FeedRequested>(_onFeedRequested);
+    on<FeedRequested>(_onFeedRequested, transformer: sequential());
   }
 
   final NewsRepository _newsRepository;
