@@ -187,7 +187,7 @@ void main() {
           newsRepository: newsRepository,
         );
         await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byIcon(Icons.search));
+        await tester.tap(find.byKey(Key('bottomNavBarSearch')));
         verify(() => cubit.setTab(1)).called(1);
       },
     );
