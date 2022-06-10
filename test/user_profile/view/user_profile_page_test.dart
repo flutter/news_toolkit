@@ -213,8 +213,7 @@ void main() {
         });
 
         testWidgets(
-            'when isUserSubscribed is false '
-            'and adds AppUserSubscriptionPlanChanged to appBloc',
+            'adds AppUserSubscriptionPlanChanged to AppBloc when tapped',
             (tester) async {
           whenListen(
             appBloc,
