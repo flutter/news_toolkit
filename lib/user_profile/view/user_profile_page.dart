@@ -76,7 +76,7 @@ class _UserProfileViewState extends State<UserProfileView>
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
     final notificationsEnabled = context
         .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
-    final isUserSubscribed = context.select<AppBloc, bool?>(
+    final isUserSubscribed = context.select<AppBloc, bool>(
       (bloc) => bloc.state.isUserSubscribed,
     );
 
@@ -110,7 +110,7 @@ class _UserProfileViewState extends State<UserProfileView>
             UserProfileSubtitle(
               subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
             ),
-            if (isUserSubscribed ?? false)
+            if (isUserSubscribed)
               UserProfileItem(
                 key: const Key('userProfilePage_subscriptionItem'),
                 title: l10n.manageSubscriptionTile,

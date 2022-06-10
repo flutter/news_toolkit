@@ -9,6 +9,7 @@ class SubscribeBox extends StatelessWidget {
   });
 
   final VoidCallback onButtonPressed;
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
