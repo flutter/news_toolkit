@@ -43,7 +43,7 @@ class SubscribeModal extends StatelessWidget {
           if (!isLoggedIn) ...[
             AppButton.outlinedTransparentWhite(
               key: const Key('subscribeModal_logInButton'),
-              child: Text(l10n.subscribeModalLogInlButton),
+              child: Text(l10n.subscribeModalLogInButton),
               onPressed: () => showAppModal<void>(
                 context: context,
                 builder: (context) => const LoginModal(),
