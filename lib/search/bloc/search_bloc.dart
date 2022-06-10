@@ -28,10 +28,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   })  : _newsRepository = newsRepository,
         super(const SearchState.initial()) {
     on<SearchTermChanged>(
-      (event, emit) {
+      (event, emit) async {
         event.searchTerm.isEmpty
-            ? _onEmptySearchRequested(event, emit)
-            : _onSearchTermChanged(event, emit);
+            ? await _onEmptySearchRequested(event, emit)
+            : await _onSearchTermChanged(event, emit);
       },
       transformer: restartableDebounce(
         _duration,

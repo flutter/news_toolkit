@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/navigation/navigation.dart';
+import 'package:google_news_template/search/search.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 
 class HomeView extends StatelessWidget {
@@ -24,6 +25,7 @@ class HomeView extends StatelessWidget {
         index: selectedTab,
         children: const [
           FeedView(),
+          SearchPage(),
         ],
       ),
       bottomNavigationBar: BottomNavBar(
