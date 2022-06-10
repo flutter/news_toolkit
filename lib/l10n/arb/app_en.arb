@@ -239,6 +239,48 @@
     "type": "text",
     "placeholders": {}
   },
+  "userProfileSubscriptionDetailsSubtitle": "Subscription Details",
+  "@userProfileSubscriptionDetailsSubtitle": {
+    "description": "User profile subscription details section subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSubscribeBoxSubtitle": "You are not currently a subscriber.",
+  "@userProfileSubscribeBoxSubtitle": {
+    "description": "User profile not a subscriber subtitle",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSubscribeBoxMessage": "Become a subscriber to access premium content and exclusive online events.",
+  "@userProfileSubscribeBoxMessage": {
+    "description": "User profile not a subscriber message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userProfileSubscribeNowButtonText": "Subscribe Now",
+  "@userProfileSubscribeNowButtonText": {
+    "description": "User profile settings subscribe button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageSubscriptionTile": "Manage Subscription",
+  "@manageSubscriptionTile": {
+    "description": "Manage subscription section - subscription item title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageSubscriptionBodyText": "Manage your subscription through the Subscriptions manager on your device.",
+  "@manageSubscriptionBodyText": {
+    "description": "Manage subscription section - subscription body text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "manageSubscriptionLinkText": "Subscriptions",
+  "@manageSubscriptionLinkText": {
+    "description": "Manage subscription link text",
+    "type": "text",
+    "placeholders": {}
+  },
   "userProfileSettingsNotificationsTitle": "Notifications",
   "@userProfileSettingsNotificationsTitle": {
     "description": "User profile settings section - notifications item title",

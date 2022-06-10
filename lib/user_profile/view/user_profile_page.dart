@@ -12,9 +12,11 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -74,6 +76,10 @@ class _UserProfileViewState extends State<UserProfileView>
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
     final notificationsEnabled = context
         .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
+    final isUserSubscribed = context.select<AppBloc, bool>(
+      (bloc) => bloc.state.isUserSubscribed,
+    );
+
     final l10n = context.l10n;
 
     return BlocListener<AppBloc, AppState>(
@@ -102,6 +108,29 @@ class _UserProfileViewState extends State<UserProfileView>
             const SizedBox(height: AppSpacing.lg),
             const _UserProfileDivider(),
             UserProfileSubtitle(
+              subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
+            ),
+            if (isUserSubscribed)
+              UserProfileItem(
+                key: const Key('userProfilePage_subscriptionItem'),
+                title: l10n.manageSubscriptionTile,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                  ManageSubscriptionPage.route(),
+                ),
+              )
+            else
+              // TODO(jan-stepien): onTap opens in_app_purchase
+              // subscriptions settings page instead.
+              UserProfileSubscribeBox(
+                onSubscribePressed: () => context.read<AppBloc>().add(
+                      const AppUserSubscriptionPlanChanged(
+                        SubscriptionPlan.premium,
+                      ),
+                    ),
+              ),
+            const _UserProfileDivider(),
+            UserProfileSubtitle(
               subtitle: l10n.userProfileSettingsSubtitle,
             ),
             UserProfileItem(
@@ -120,12 +149,10 @@ class _UserProfileViewState extends State<UserProfileView>
             UserProfileItem(
               key: const Key('userProfilePage_notificationPreferencesItem'),
               title: l10n.notificationPreferencesTitle,
-              trailing: IconButton(
-                key: const Key(
-                  'userProfilePage_notificationPreferencesItem_trailing',
-                ),
-                icon: const Icon(Icons.chevron_right),
-                onPressed: () {},
+              trailing: const Icon(
+                Icons.chevron_right,
+                key:
+                    Key('userProfilePage_notificationPreferencesItem_trailing'),
               ),
               onTap: () => Navigator.of(context).push(
                 NotificationPreferencesPage.route(),
