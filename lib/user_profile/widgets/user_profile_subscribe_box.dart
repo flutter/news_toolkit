@@ -5,10 +5,10 @@ import 'package:google_news_template/l10n/l10n.dart';
 class UserProfileSubscribeBox extends StatelessWidget {
   const UserProfileSubscribeBox({
     super.key,
-    required this.onButtonPressed,
+    required this.onSubscribePressed,
   });
 
-  final VoidCallback onButtonPressed;
+  final VoidCallback onSubscribePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class UserProfileSubscribeBox extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           AppButton.smallRedWine(
             key: const Key('userProfileSubscribeBox_appButton'),
-            onPressed: onButtonPressed,
+            onPressed: onSubscribePressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
