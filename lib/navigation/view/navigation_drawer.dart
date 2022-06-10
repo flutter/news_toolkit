@@ -1,5 +1,7 @@
 import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppLogo;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -9,6 +11,9 @@ class NavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isUserSubscribed =
+        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topRight: Radius.circular(AppSpacing.lg),
@@ -38,8 +43,10 @@ class NavigationDrawer extends StatelessWidget {
             ),
             const _NavigationDrawerDivider(),
             const NavigationDrawerSections(),
-            const _NavigationDrawerDivider(),
-            const NavigationDrawerSubscribe(),
+            if (!isUserSubscribed) ...[
+              const _NavigationDrawerDivider(),
+              const NavigationDrawerSubscribe(),
+            ],
           ],
         ),
       ),

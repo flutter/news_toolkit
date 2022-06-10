@@ -90,13 +90,44 @@ void main() {
       });
     });
 
-    group('when ArticleStatus is populated', () {
+    group('when ArticleStatus is shareFailure', () {
       setUp(() {
         whenListen(
           articleBloc,
           Stream.fromIterable([
             ArticleState.initial(),
-            ArticleState(status: ArticleStatus.populated, content: content),
+            ArticleState(content: content, status: ArticleStatus.shareFailure),
+          ]),
+        );
+      });
+
+      testWidgets('shows SnackBar with error message', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.byKey(const Key('articleContent_shareFailure_snackBar')),
+          findsOneWidget,
+        );
+      });
+    });
+
+    group('when ArticleStatus is populated', () {
+      final uri = Uri(path: 'notEmptyUrl');
+      setUp(() {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(
+              status: ArticleStatus.populated,
+              content: content,
+              uri: uri,
+            ),
           ]),
         );
       });
@@ -118,6 +149,22 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+
+      testWidgets(
+          'adds ShareRequested to ArticleBloc '
+          'when ArticleContentItem onSharePressed is called', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        final articleItem = find.byType(ArticleContentItem).first;
+        tester.widget<ArticleContentItem>(articleItem).onSharePressed?.call();
+
+        verify(() => articleBloc.add(ShareRequested(uri: uri))).called(1);
       });
     });
 
@@ -160,7 +207,7 @@ void main() {
           );
 
           expect(
-            find.byKey(Key('articleContent_empty_loaderItem')),
+            find.byKey(Key('articleContent_moreContent_loaderItem')),
             findsOneWidget,
           );
         });
@@ -187,12 +234,15 @@ void main() {
             ),
           );
 
-          expect(find.byType(ArticleContentLoaderItem), findsOneWidget);
+          expect(
+            find.byKey(Key('articleContent_moreContent_loaderItem')),
+            findsOneWidget,
+          );
         });
       });
 
       testWidgets(
-          'is not shown '
+          'is not shown and ArticleTrailingContent is shown '
           'when ArticleStatus is populated '
           'and hasMoreContent is false', (tester) async {
         whenListen(
@@ -215,6 +265,7 @@ void main() {
         );
 
         expect(find.byType(ArticleContentLoaderItem), findsNothing);
+        expect(find.byType(ArticleTrailingContent), findsOneWidget);
       });
 
       testWidgets('adds ArticleRequested to ArticleBloc', (tester) async {
@@ -228,6 +279,7 @@ void main() {
               hasMoreContent: true,
             )
           ]),
+          initialState: ArticleState.initial(),
         );
 
         await tester.pumpApp(
@@ -238,6 +290,32 @@ void main() {
         );
 
         verify(() => articleBloc.add(ArticleRequested())).called(1);
+      });
+
+      testWidgets(
+          'does not add ArticleRequested to ArticleBloc '
+          'when ArticleStatus is loading', (tester) async {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(
+              status: ArticleStatus.loading,
+              content: content,
+              hasMoreContent: true,
+            )
+          ]),
+          initialState: ArticleState.initial(),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        verifyNever(() => articleBloc.add(ArticleRequested()));
       });
     });
   });

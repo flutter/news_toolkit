@@ -12,10 +12,11 @@ class ArticleContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
     final content = context.select((ArticleBloc bloc) => bloc.state.content);
+    final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
 
-    if (status == ArticleStatus.initial || status == ArticleStatus.loading) {
+    if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
         key: Key('articleContent_empty_loaderItem'),
       );
@@ -25,6 +26,8 @@ class ArticleContent extends StatelessWidget {
       listener: (context, state) {
         if (state.status == ArticleStatus.failure) {
           _handleFailure(context);
+        } else if (state.status == ArticleStatus.shareFailure) {
+          _handleShareFailure(context);
         }
       },
       child: Stack(
@@ -40,17 +43,30 @@ class ArticleContent extends StatelessWidget {
                           top: content.isEmpty ? AppSpacing.xxxlg : 0,
                         ),
                         child: ArticleContentLoaderItem(
-                          key: ValueKey(index),
-                          onPresented: () => context
-                              .read<ArticleBloc>()
-                              .add(ArticleRequested()),
+                          key: const Key(
+                            'articleContent_moreContent_loaderItem',
+                          ),
+                          onPresented: () {
+                            if (status != ArticleStatus.loading) {
+                              context
+                                  .read<ArticleBloc>()
+                                  .add(ArticleRequested());
+                            }
+                          },
                         ),
                       )
-                    : const SizedBox();
+                    : const ArticleTrailingContent();
               }
 
               final block = content[index];
-              return ArticleContentItem(block: block);
+              return ArticleContentItem(
+                block: block,
+                onSharePressed: uri != null && uri.toString().isNotEmpty
+                    ? () => context.read<ArticleBloc>().add(
+                          ShareRequested(uri: uri),
+                        )
+                    : null,
+              );
             },
           ),
           const StickyAd()
@@ -67,6 +83,19 @@ class ArticleContent extends StatelessWidget {
           key: const Key('articleContent_failure_snackBar'),
           content: Text(
             context.l10n.unexpectedFailure,
+          ),
+        ),
+      );
+  }
+
+  void _handleShareFailure(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          key: const Key('articleContent_shareFailure_snackBar'),
+          content: Text(
+            context.l10n.shareFailure,
           ),
         ),
       );

@@ -17,6 +17,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareFailure": "Problem sharing your content. Please try again.",
+  "@shareFailure": {
+    "description": "Text displayed when a share error occurs",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
@@ -407,9 +413,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "bottomNavBarSubscribe": "Subscribe",
-  "@bottomNavBarSubscribe": {
-    "description": "Subscribe text shown in the bottom nav bar widget.",
+  "relatedStories": "Related Stories",
+  "@relatedStories": {
+    "description": "Header text shown in the bottom of article content.",
     "type": "text",
     "placeholders": {}
   },
@@ -425,8 +431,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalLogInlButton": "Log In",
-  "@subscribeModalLogInlButton": {
+  "subscribeModalLogInButton": "Log In",
+  "@subscribeModalLogInButton": {
     "description": "Text shown in log in button on the subscribe modal widget.",
     "type": "text",
     "placeholders": {}

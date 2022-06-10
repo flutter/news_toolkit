@@ -8,18 +8,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_repository/news_repository.dart';
-
-class MockNewsRepository extends Mock implements NewsRepository {}
+import 'package:share_launcher/share_launcher.dart';
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
+
+class MockShareLauncher extends Mock implements ShareLauncher {}
 
 void main() {
   group('ArticleBloc', () {
     const articleId = 'articleId';
+    final uri = Uri(path: 'text');
 
-    late NewsRepository newsRepository;
     late ArticleRepository articleRepository;
+    late ShareLauncher shareLauncher;
 
     final articleResponse = ArticleResponse(
       content: [
@@ -39,16 +40,29 @@ void main() {
       hasMoreContent: true,
     );
 
+    final relatedArticlesResponse = RelatedArticlesResponse(
+      relatedArticles: articleResponse.content,
+      totalCount: 2,
+    );
+
     setUp(() {
-      newsRepository = MockNewsRepository();
       articleRepository = MockArticleRepository();
+
+      when(
+        () => articleRepository.getRelatedArticles(
+          id: any(named: 'id'),
+          offset: any(named: 'offset'),
+          limit: any(named: 'limit'),
+        ),
+      ).thenAnswer((_) async => relatedArticlesResponse);
+      shareLauncher = MockShareLauncher();
     });
 
     test('can be instantiated', () {
       expect(
         ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
+          shareLauncher: shareLauncher,
           articleRepository: articleRepository,
         ),
         isNotNull,
@@ -63,7 +77,7 @@ void main() {
             .thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
 
         when(
-          () => newsRepository.getArticle(
+          () => articleRepository.getArticle(
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
@@ -77,7 +91,7 @@ void main() {
         'and there is more content to fetch',
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
+          shareLauncher: shareLauncher,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -86,6 +100,8 @@ void main() {
           ArticleState(
             status: ArticleStatus.populated,
             content: articleResponse.content,
+            relatedArticles: [],
+            uri: articleResponse.url,
             hasMoreContent: true,
           ),
         ],
@@ -93,13 +109,13 @@ void main() {
 
       blocTest<ArticleBloc, ArticleState>(
         'emits [loading, populated] '
-        'with appended content '
+        'with appended content and relatedArticles '
         'when getArticle succeeds '
         'and there is no more content to fetch',
         seed: () => articleStatePopulated,
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
+          shareLauncher: shareLauncher,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -111,6 +127,8 @@ void main() {
               ...articleStatePopulated.content,
               ...articleResponse.content,
             ],
+            relatedArticles: relatedArticlesResponse.relatedArticles,
+            uri: articleResponse.url,
             hasMoreContent: false,
           )
         ],
@@ -120,7 +138,7 @@ void main() {
         'emits [loading, error] '
         'when getArticle fails',
         setUp: () => when(
-          () => newsRepository.getArticle(
+          () => articleRepository.getArticle(
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
@@ -128,13 +146,46 @@ void main() {
         ).thenThrow(Exception()),
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
+          shareLauncher: shareLauncher,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
           ArticleState(status: ArticleStatus.failure),
+        ],
+        errors: () => [isA<Exception>()],
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [loading, failure] '
+        'when getRelatedArticles fails',
+        seed: () => articleStatePopulated,
+        setUp: () {
+          when(
+            () => articleRepository.getArticle(
+              id: articleId,
+              offset: any(named: 'offset'),
+              limit: any(named: 'limit'),
+            ),
+          ).thenAnswer((_) async => articleResponse);
+          when(
+            () => articleRepository.getRelatedArticles(
+              id: articleId,
+              offset: any(named: 'offset'),
+              limit: any(named: 'limit'),
+            ),
+          ).thenThrow(Exception());
+        },
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRequested()),
+        expect: () => <ArticleState>[
+          articleStatePopulated.copyWith(status: ArticleStatus.loading),
+          articleStatePopulated.copyWith(status: ArticleStatus.failure),
         ],
         errors: () => [isA<Exception>()],
       );
@@ -148,7 +199,7 @@ void main() {
             .thenAnswer((_) async => ArticleViews(0, null)),
         build: () => ArticleBloc(
           articleId: articleId,
-          newsRepository: newsRepository,
+          shareLauncher: shareLauncher,
           articleRepository: articleRepository,
         ),
         act: (bloc) => bloc.add(ArticleRequested()),
@@ -158,6 +209,7 @@ void main() {
             status: ArticleStatus.populated,
             content: articleResponse.content,
             hasMoreContent: true,
+            uri: articleResponse.url,
             hasReachedArticleViewsLimit: false,
           ),
         ],
@@ -165,6 +217,41 @@ void main() {
           verify(articleRepository.resetArticleViews).called(1);
           verify(articleRepository.incrementArticleViews).called(1);
         },
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'calls ShareLauncher.share '
+        'and emits nothing '
+        'when share succeeds',
+        setUp: () => when(
+          () => shareLauncher.share(text: any(named: 'text')),
+        ).thenAnswer((_) async {}),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          articleRepository: articleRepository,
+          shareLauncher: shareLauncher,
+        ),
+        act: (bloc) => bloc.add(ShareRequested(uri: uri)),
+        expect: () => <ArticleState>[],
+        verify: (bloc) =>
+            verify(() => shareLauncher.share(text: uri.toString())).called(1),
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [shareFailure] '
+        'when share throws',
+        setUp: () => when(
+          () => shareLauncher.share(text: any(named: 'text')),
+        ).thenThrow(Exception()),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          articleRepository: articleRepository,
+          shareLauncher: shareLauncher,
+        ),
+        act: (bloc) => bloc.add(ShareRequested(uri: uri)),
+        expect: () => <ArticleState>[
+          ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
+        ],
       );
 
       test(
@@ -182,7 +269,7 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(3, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
+              shareLauncher: shareLauncher,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
@@ -191,6 +278,7 @@ void main() {
               ArticleState(
                 status: ArticleStatus.populated,
                 content: articleResponse.content,
+                uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
               ),
@@ -218,7 +306,7 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(2, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
+              shareLauncher: shareLauncher,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
@@ -227,6 +315,7 @@ void main() {
               ArticleState(
                 status: ArticleStatus.populated,
                 content: articleResponse.content,
+                uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
               ),
@@ -254,7 +343,7 @@ void main() {
                 .thenAnswer((_) async => ArticleViews(4, resetAt)),
             build: () => ArticleBloc(
               articleId: articleId,
-              newsRepository: newsRepository,
+              shareLauncher: shareLauncher,
               articleRepository: articleRepository,
             ),
             act: (bloc) => bloc.add(ArticleRequested()),
@@ -263,6 +352,7 @@ void main() {
               ArticleState(
                 status: ArticleStatus.populated,
                 content: articleResponse.content,
+                uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: true,
               ),
