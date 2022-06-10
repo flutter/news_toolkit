@@ -460,5 +460,23 @@
     "description": "Header text shown in the bottom of article content.",
     "type": "text",
     "placeholders": {}
+  },
+  "subscribeModalTitle": "Subscribe today for\nunlimited access.",
+  "@subscribeModalTitle": {
+    "description": "Title text shown in the subscribe modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeModalSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "@subscribeModalSubtitle": {
+    "description": "Subtitle text shown in the subscribe modal widget.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscribeModalLogInButton": "Log In",
+  "@subscribeModalLogInButton": {
+    "description": "Text shown in log in button on the subscribe modal widget.",
+    "type": "text",
+    "placeholders": {}
   }
 }
