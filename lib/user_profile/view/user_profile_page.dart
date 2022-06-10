@@ -3,6 +3,7 @@ import 'package:app_ui/app_ui.dart'
         AppBackButton,
         AppButton,
         AppColors,
+        AppFontWeight,
         AppSpacing,
         AppSwitch,
         ScrollableColumn;
@@ -16,6 +17,7 @@ import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -75,7 +77,12 @@ class _UserProfileViewState extends State<UserProfileView>
     final user = context.select((UserProfileBloc bloc) => bloc.state.user);
     final notificationsEnabled = context
         .select((UserProfileBloc bloc) => bloc.state.notificationsEnabled);
+    final subscriptionPlan = context.select<AppBloc, SubscriptionPlan?>(
+      (bloc) => bloc.state.userSubscriptionPlan,
+    );
+
     final l10n = context.l10n;
+    final theme = Theme.of(context);
 
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
@@ -105,14 +112,24 @@ class _UserProfileViewState extends State<UserProfileView>
             UserProfileSubtitle(
               subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
             ),
-            UserProfileItem(
-              key: const Key('userProfilePage_subscriptionItem'),
-              title: l10n.manageSubscriptionTile,
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context).push(
-                ManageSubscriptionPage.route(),
+            if (subscriptionPlan == null ||
+                subscriptionPlan == SubscriptionPlan.none)
+              SubscribeBox(
+                onButtonPressed: () => context.read<AppBloc>().add(
+                      const AppUserSubscriptionPlanChanged(
+                        SubscriptionPlan.premium,
+                      ),
+                    ),
+              )
+            else
+              UserProfileItem(
+                key: const Key('userProfilePage_subscriptionItem'),
+                title: l10n.manageSubscriptionTile,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                  ManageSubscriptionPage.route(),
+                ),
               ),
-            ),
             const _UserProfileDivider(),
             UserProfileSubtitle(
               subtitle: l10n.userProfileSettingsSubtitle,

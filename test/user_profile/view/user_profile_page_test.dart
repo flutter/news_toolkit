@@ -35,12 +35,14 @@ void main() {
 
     group('UserProfileView', () {
       late UserProfileBloc userProfileBloc;
+      late AppBloc appBloc;
 
       final user = User(id: '1', email: 'email');
       const notificationsEnabled = true;
 
       setUp(() {
         userProfileBloc = MockUserProfileBloc();
+        appBloc = MockAppBloc();
 
         final initialState = UserProfileState.initial().copyWith(
           user: user,
@@ -51,6 +53,14 @@ void main() {
           userProfileBloc,
           Stream.value(initialState),
           initialState: initialState,
+        );
+
+        whenListen(
+          appBloc,
+          Stream.fromIterable(
+            <AppState>[AppState.unauthenticated()],
+          ),
+          initialState: AppState.authenticated(user),
         );
       });
 
@@ -103,15 +113,6 @@ void main() {
       testWidgets(
           'navigates back '
           'when user is unauthenticated', (tester) async {
-        final appBloc = MockAppBloc();
-        whenListen(
-          appBloc,
-          Stream.fromIterable(
-            <AppState>[AppState.unauthenticated()],
-          ),
-          initialState: AppState.authenticated(user),
-        );
-
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -332,8 +333,6 @@ void main() {
         testWidgets(
             'adds AppLogoutRequested to AppBloc '
             'when tapped', (tester) async {
-          final appBloc = MockAppBloc();
-
           await tester.pumpApp(
             UserProfileLogoutButton(),
             appBloc: appBloc,
@@ -365,8 +364,11 @@ void main() {
 
         testWidgets(
             'to ManageSubscriptionPage '
-            'when tapped on Manage Subscription', (tester) async {
+            'when user isSubscriber and '
+            'tapped on Manage Subscription', (tester) async {
+          //TODO
           await tester.pumpApp(
+            appBloc: appBloc,
             BlocProvider.value(
               value: userProfileBloc,
               child: UserProfileView(),

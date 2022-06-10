@@ -1,6 +1,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 
 class ManageSubscriptionPage extends StatelessWidget {
   const ManageSubscriptionPage({super.key});
@@ -60,7 +63,16 @@ class ManageSubscriptionView extends StatelessWidget {
                   style: theme.textTheme.subtitle2
                       ?.copyWith(color: AppColors.darkAqua),
                 ),
-                // TODO(jan-stepien): onTap opens subscriptions settings page.
+                // TODO(jan-stepien): onTap opens in_app_purchase
+                // subscriptions settings page instead.
+                onTap: () {
+                  context.read<AppBloc>().add(
+                        const AppUserSubscriptionPlanChanged(
+                          SubscriptionPlan.none,
+                        ),
+                      );
+                  Navigator.maybePop(context);
+                },
               ),
             ],
           ),
