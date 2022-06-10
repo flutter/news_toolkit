@@ -27,19 +27,6 @@ void main() {
   group('ManageSubscriptionView', () {
     final appBloc = MockAppBloc();
 
-    // when(() => appBloc.add(any(that: isA<AppEvent>()))).thenAnswer((_) {});
-
-    // setUp(() {
-    //   whenListen(
-    //     appBloc,
-    //     Stream.fromIterable(
-    //       [
-    //         AppState(status: AppStatus.authenticated),
-    //       ],
-    //     ),
-    //   );
-    // });
-
     // TODO(jan-stepien): onTap opens in_app_purchase
     // subscriptions settings page instead.
     testWidgets(
