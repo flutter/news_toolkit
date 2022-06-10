@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/ads/ads.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -43,6 +44,9 @@ class ArticlePage extends StatelessWidget {
       )..add(ArticleRequested()),
       child: ArticleView(
         isVideoArticle: isVideoArticle,
+        isSubscriber: context.select<AppBloc, bool>(
+          (bloc) => bloc.state.isUserSubscribed,
+        ),
       ),
     );
   }
