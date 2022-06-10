@@ -147,12 +147,10 @@ class _UserProfileViewState extends State<UserProfileView>
             UserProfileItem(
               key: const Key('userProfilePage_notificationPreferencesItem'),
               title: l10n.notificationPreferencesTitle,
-              trailing: IconButton(
-                key: const Key(
-                  'userProfilePage_notificationPreferencesItem_trailing',
-                ),
-                icon: const Icon(Icons.chevron_right),
-                onPressed: () {},
+              trailing: const Icon(
+                Icons.chevron_right,
+                key:
+                    Key('userProfilePage_notificationPreferencesItem_trailing'),
               ),
               onTap: () => Navigator.of(context).push(
                 NotificationPreferencesPage.route(),

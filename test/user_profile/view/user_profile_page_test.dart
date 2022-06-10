@@ -251,7 +251,7 @@ void main() {
 
       testWidgets(
           'renders notification preferences item '
-          'with trailing IconButton', (tester) async {
+          'with trailing Icon', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: userProfileBloc,
@@ -264,7 +264,7 @@ void main() {
                 widget is UserProfileItem &&
                 widget.key ==
                     Key('userProfilePage_notificationPreferencesItem') &&
-                widget.trailing is IconButton,
+                widget.trailing is Icon,
           ),
           findsOneWidget,
         );
