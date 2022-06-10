@@ -23,7 +23,7 @@ class BottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: const Icon(
             Icons.search,
-            key: Key('bottomNavBarSearch'),
+            key: Key('bottomNavBar_search'),
           ),
           label: context.l10n.bottomNavBarSearch,
         ),
