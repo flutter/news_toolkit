@@ -189,8 +189,9 @@ void main() {
         );
       });
 
-      group('renders UserProfileSubscribeBox', () {
-        testWidgets('when isUserSubscribed is false', (tester) async {
+      group('renders UserProfileSubscribeBox when isUserSubscribed is false',
+          () {
+        testWidgets('correctly', (tester) async {
           whenListen(
             appBloc,
             Stream.fromIterable([
@@ -213,9 +214,8 @@ void main() {
         });
 
         testWidgets(
-            'when isUserSubscribed is false '
-            'and adds AppUserSubscriptionPlanChanged to appBloc',
-            (tester) async {
+            'and adds AppUserSubscriptionPlanChanged '
+            'to AppBloc when tapped', (tester) async {
           whenListen(
             appBloc,
             Stream.fromIterable([
