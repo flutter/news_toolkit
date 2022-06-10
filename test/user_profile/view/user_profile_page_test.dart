@@ -196,7 +196,7 @@ void main() {
             Stream.fromIterable([
               AppState.authenticated(
                 user,
-                userSubscriptionPlan: SubscriptionPlan.premium,
+                userSubscriptionPlan: SubscriptionPlan.none,
               ),
             ]),
           );
