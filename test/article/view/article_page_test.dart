@@ -178,8 +178,9 @@ void main() {
     });
 
     testWidgets(
-        'renders AppBar with ShareButton title and '
-        'ArticleSubscribeButton action when user is not a subscriber '
+        'renders AppBar with ShareButton and '
+        'ArticleSubscribeButton action '
+        'when user is not a subscriber '
         'and uri is provided', (tester) async {
       when(() => articleBloc.state).thenReturn(
         ArticleState.initial().copyWith(
@@ -193,18 +194,22 @@ void main() {
         ),
       );
 
-      final subscribeButton = tester
-          .widget<ArticleSubscribeButton>(find.byType(ArticleSubscribeButton));
+      final articleSubscribeButton = find.byType(ArticleSubscribeButton);
+      final shareButton = find.byKey(Key('articlePage_shareButton'));
+
+      expect(articleSubscribeButton, findsOneWidget);
+      expect(shareButton, findsOneWidget);
+
+      final appBar = find.byType(AppBar).first;
 
       expect(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget is AppBar &&
-              widget.title is ShareButton &&
-              widget.actions!.isNotEmpty &&
-              widget.actions!.contains(subscribeButton),
+        tester.widget<AppBar>(appBar).actions,
+        containsAll(
+          <Widget>[
+            tester.widget<ArticleSubscribeButton>(articleSubscribeButton),
+            tester.widget(shareButton),
+          ],
         ),
-        findsOneWidget,
       );
     });
 
@@ -235,8 +240,9 @@ void main() {
     });
 
     testWidgets(
-        'renders AppBar with empty title and ShareButton '
-        'action when user is a subscriber', (tester) async {
+        'renders AppBar with ShareButton '
+        'action when user is a subscriber '
+        'and url is not empty', (tester) async {
       final appBloc = MockAppBloc();
       when(() => appBloc.state).thenReturn(
         AppState.authenticated(
@@ -249,6 +255,10 @@ void main() {
         ),
       );
 
+      when(() => articleBloc.state).thenReturn(
+        ArticleState.initial().copyWith(uri: Uri(path: 'notEmptyUrl')),
+      );
+
       await tester.pumpApp(
         appBloc: appBloc,
         BlocProvider.value(
@@ -257,24 +267,19 @@ void main() {
         ),
       );
 
-      final shareButton = tester.widget<Padding>(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget.key == Key('articlePage_shareButton') &&
-              widget is Padding &&
-              widget.child is ShareButton,
-        ),
-      );
+      final shareButton = find.byKey(Key('articlePage_shareButton'));
+
+      expect(shareButton, findsOneWidget);
+
+      final appBar = find.byType(AppBar).first;
 
       expect(
-        find.byWidgetPredicate(
-          (widget) =>
-              widget is AppBar &&
-              widget.title is SizedBox &&
-              widget.actions!.isNotEmpty &&
-              widget.actions!.contains(shareButton),
+        tester.widget<AppBar>(appBar).actions,
+        containsAll(
+          <Widget>[
+            tester.widget(shareButton),
+          ],
         ),
-        findsOneWidget,
       );
     });
 

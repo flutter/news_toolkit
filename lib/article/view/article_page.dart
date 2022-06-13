@@ -79,26 +79,19 @@ class ArticleView extends StatelessWidget {
         leading: isVideoArticle
             ? const AppBackButton.light()
             : const AppBackButton(),
-        title: isSubscriber || uri == null || uri.toString().isEmpty
-            ? const SizedBox()
-            : ShareButton(
-                shareText: context.l10n.shareText,
-                color: foregroundColor,
-                onPressed: () =>
-                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
-              ),
         actions: [
-          if (isSubscriber)
+          if (uri != null && uri.toString().isNotEmpty)
             Padding(
               key: const Key('articlePage_shareButton'),
               padding: const EdgeInsets.only(right: AppSpacing.lg),
               child: ShareButton(
                 shareText: context.l10n.shareText,
                 color: foregroundColor,
+                onPressed: () =>
+                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
               ),
-            )
-          else
-            const ArticleSubscribeButton()
+            ),
+          if (!isSubscriber) const ArticleSubscribeButton()
         ],
       ),
       body: InterstitialAd(
