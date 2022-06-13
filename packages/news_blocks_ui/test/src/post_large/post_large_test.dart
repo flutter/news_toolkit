@@ -256,6 +256,7 @@ void main() {
     expect(actions, equals([action]));
   });
 }
+// TODO(jan-stepien): Update golden tests containing network images
 //   testWidgets('renders correctly non-premium', (tester) async {
 //     final _technologyPostLarge = PostLargeBlock(
 //       id: id,
