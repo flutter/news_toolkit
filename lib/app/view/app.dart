@@ -10,6 +10,7 @@ import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
@@ -19,17 +20,20 @@ class App extends StatelessWidget {
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
     required ArticleRepository articleRepository,
+    required SubscriptionsRepository subscriptionsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,
         _articleRepository = articleRepository,
+        _subscriptionsRepository = subscriptionsRepository,
         _user = user;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final NotificationsRepository _notificationsRepository;
   final ArticleRepository _articleRepository;
+  final SubscriptionsRepository _subscriptionsRepository;
   final User _user;
 
   @override
@@ -40,6 +44,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _newsRepository),
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
+        RepositoryProvider.value(value: _subscriptionsRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -47,6 +52,7 @@ class App extends StatelessWidget {
             create: (_) => AppBloc(
               userRepository: _userRepository,
               notificationsRepository: _notificationsRepository,
+              subscriptionsRepository: _subscriptionsRepository,
               user: _user,
             ),
           ),

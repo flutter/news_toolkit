@@ -21,12 +21,11 @@ class BottomNavBar extends StatelessWidget {
           label: context.l10n.bottomNavBarTopStories,
         ),
         BottomNavigationBarItem(
-          icon: const Icon(Icons.search),
+          icon: const Icon(
+            Icons.search,
+            key: Key('bottomNavBar_search'),
+          ),
           label: context.l10n.bottomNavBarSearch,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.subscriptions_outlined),
-          label: context.l10n.bottomNavBarSubscribe,
         ),
       ],
       currentIndex: currentIndex,

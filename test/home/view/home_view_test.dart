@@ -187,24 +187,8 @@ void main() {
           newsRepository: newsRepository,
         );
         await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byIcon(Icons.search));
+        await tester.tap(find.byKey(Key('bottomNavBar_search')));
         verify(() => cubit.setTab(1)).called(1);
-      },
-    );
-
-    testWidgets(
-      'set tab to selected index 2 when subscribe is tapped.',
-      (tester) async {
-        await pumpHomeView(
-          tester: tester,
-          cubit: cubit,
-          categoriesBloc: categoriesBloc,
-          feedBloc: feedBloc,
-          newsRepository: newsRepository,
-        );
-        await tester.ensureVisible(find.byType(BottomNavBar));
-        await tester.tap(find.byIcon(Icons.subscriptions_outlined));
-        verify(() => cubit.setTab(2)).called(1);
       },
     );
   });

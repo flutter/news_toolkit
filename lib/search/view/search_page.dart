@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template/search/search.dart';
-import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:news_repository/news_repository.dart';
 
 class SearchPage extends StatelessWidget {
@@ -62,60 +60,52 @@ class _SearchViewState extends State<SearchView> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: AppLogo.dark(),
-            centerTitle: true,
-            actions: const [UserProfileButton()],
-          ),
-          drawer: const NavigationDrawer(),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SearchTextField(
-                  key: const Key('searchPage_searchTextField'),
-                  controller: _controller,
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SearchTextField(
+                key: const Key('searchPage_searchTextField'),
+                controller: _controller,
+              ),
+              const Divider(),
+              SearchHeadlineText(
+                headerText: state.searchType == SearchType.popular
+                    ? l10n.searchPopularSearches
+                    : l10n.searchRelevantTopics,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  0,
+                  AppSpacing.lg,
+                  AppSpacing.lg,
                 ),
-                const Divider(),
-                SearchHeadlineText(
-                  headerText: state.searchType == SearchType.popular
-                      ? l10n.searchPopularSearches
-                      : l10n.searchRelevantTopics,
+                child: Wrap(
+                  spacing: AppSpacing.sm,
+                  children: state.topics
+                      .map<Widget>(
+                        (topic) => SearchFilterChip(
+                          key: Key('searchFilterChip_$topic'),
+                          chipText: topic,
+                          onSelected: (text) => _controller.text = text,
+                        ),
+                      )
+                      .toList(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.lg,
-                    0,
-                    AppSpacing.lg,
-                    AppSpacing.lg,
-                  ),
-                  child: Wrap(
-                    spacing: AppSpacing.sm,
-                    children: state.topics
-                        .map<Widget>(
-                          (topic) => SearchFilterChip(
-                            key: Key('searchFilterChip_$topic'),
-                            chipText: topic,
-                            onSelected: (text) => _controller.text = text,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                const Divider(),
-                SearchHeadlineText(
-                  headerText: state.searchType == SearchType.popular
-                      ? l10n.searchPopularArticles
-                      : l10n.searchRelevantArticles,
-                ),
-                ...state.articles
-                    .map<Widget>(
-                      (newsBlock) => CategoryFeedItem(block: newsBlock),
-                    )
-                    .toList(),
-              ],
-            ),
+              ),
+              const Divider(),
+              SearchHeadlineText(
+                headerText: state.searchType == SearchType.popular
+                    ? l10n.searchPopularArticles
+                    : l10n.searchRelevantArticles,
+              ),
+              ...state.articles
+                  .map<Widget>(
+                    (newsBlock) => CategoryFeedItem(block: newsBlock),
+                  )
+                  .toList(),
+            ],
           ),
         );
       },

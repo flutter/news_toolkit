@@ -6,10 +6,17 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class ArticleContentItem extends StatelessWidget {
-  const ArticleContentItem({super.key, required this.block});
+  const ArticleContentItem({
+    super.key,
+    required this.block,
+    this.onSharePressed,
+  });
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
+
+  /// An optional callback which is invoked when the share button is pressed.
+  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +51,7 @@ class ArticleContentItem extends StatelessWidget {
         block: newsBlock,
         shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
+        onSharePressed: onSharePressed,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
       return VideoIntroduction(block: newsBlock);

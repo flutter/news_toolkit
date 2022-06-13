@@ -12,6 +12,7 @@ import 'package:mockingjay/mockingjay.dart'
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
@@ -49,6 +50,9 @@ class MockArticleRepository extends Mock implements ArticleRepository {
   Future<void> resetArticleViews() async {}
 }
 
+class MockSubscriptionsRepository extends Mock
+    implements SubscriptionsRepository {}
+
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
@@ -57,6 +61,7 @@ extension AppTester on WidgetTester {
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
+    SubscriptionsRepository? subscriptionsRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -76,6 +81,9 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: articleRepository ?? MockArticleRepository(),
+          ),
+          RepositoryProvider.value(
+            value: subscriptionsRepository ?? MockSubscriptionsRepository(),
           ),
         ],
         child: MultiBlocProvider(

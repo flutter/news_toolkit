@@ -86,6 +86,24 @@ void main() {
       });
 
       test(
+          'returns object with updated relatedArticles '
+          'when relatedArticles is passed', () {
+        const relatedArticles = <NewsBlock>[DividerHorizontalBlock()];
+
+        expect(
+          ArticleState(
+            status: ArticleStatus.populated,
+          ).copyWith(relatedArticles: relatedArticles),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              relatedArticles: relatedArticles,
+            ),
+          ),
+        );
+      });
+
+      test(
           'returns object with updated hasReachedArticleViewsLimit '
           'when hasReachedArticleViewsLimit is passed', () {
         const hasReachedArticleViewsLimit = true;

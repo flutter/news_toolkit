@@ -14,6 +14,7 @@ dependencies:
   article_repository:
     path: packages/article_repository
   bloc: ^8.0.3
+  bloc_concurrency: ^0.2.0
   clock: ^1.1.0
   email_launcher:
     path: packages/email_launcher
@@ -48,7 +49,11 @@ dependencies:
   persistent_storage:
     path: packages/storage/persistent_storage
   platform: ^3.0.2
+  share_launcher:
+    path: packages/share_launcher
   stream_transform: ^2.0.0
+  subscriptions_repository:
+    path: packages/subscriptions_repository
   token_storage:
     path: packages/authentication_client/token_storage
   url_launcher: ^6.0.9
