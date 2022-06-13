@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -12,6 +13,8 @@ class ArticleTrailingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final relatedArticles =
         context.select((ArticleBloc bloc) => bloc.state.relatedArticles);
+    final isUserSubscribed =
+        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
     return Column(
       key: const Key('articleTrailingContent_column'),
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,8 +28,12 @@ class ArticleTrailingContent extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          ...relatedArticles
-              .map((articleBlock) => CategoryFeedItem(block: articleBlock)),
+          ...relatedArticles.map(
+            (articleBlock) => CategoryFeedItem(
+              block: articleBlock,
+              isUserSubscribed: isUserSubscribed,
+            ),
+          ),
         ],
       ],
     );

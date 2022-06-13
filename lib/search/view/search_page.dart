@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart' hide Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/search/search.dart';
@@ -49,6 +50,9 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isUserSubscribed =
+        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+
     return BlocConsumer<SearchBloc, SearchState>(
       listener: (context, state) {
         if (state.status == SearchStatus.failure) {
@@ -102,7 +106,10 @@ class _SearchViewState extends State<SearchView> {
               ),
               ...state.articles
                   .map<Widget>(
-                    (newsBlock) => CategoryFeedItem(block: newsBlock),
+                    (newsBlock) => CategoryFeedItem(
+                      block: newsBlock,
+                      isUserSubscribed: isUserSubscribed,
+                    ),
                   )
                   .toList(),
             ],

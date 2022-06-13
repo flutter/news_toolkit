@@ -15,7 +15,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: false,
-        isPremium: false,
+        isLocked: false,
       );
 
       await mockNetworkImages(
@@ -31,7 +31,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: true,
-        isPremium: true,
+        isLocked: true,
       );
 
       await mockNetworkImages(
@@ -47,7 +47,7 @@ void main() {
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: true,
+        isLocked: true,
         isContentOverlaid: true,
       );
 
@@ -64,7 +64,7 @@ void main() {
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: true,
+        isLocked: true,
         isContentOverlaid: false,
       );
 
@@ -81,7 +81,7 @@ void main() {
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: false,
+        isLocked: false,
         isContentOverlaid: true,
       );
 
@@ -98,7 +98,7 @@ void main() {
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: false,
+        isLocked: false,
         isContentOverlaid: false,
       );
 

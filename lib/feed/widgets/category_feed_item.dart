@@ -8,10 +8,17 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class CategoryFeedItem extends StatelessWidget {
-  const CategoryFeedItem({super.key, required this.block});
+  const CategoryFeedItem({
+    super.key,
+    required this.block,
+    required this.isUserSubscribed,
+  });
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
+
+  /// Whether the user is premium subscriber.
+  final bool isUserSubscribed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +37,7 @@ class CategoryFeedItem extends StatelessWidget {
       return PostLarge(
         block: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
+        isLocked: newsBlock.isPremium && !isUserSubscribed,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostMediumBlock) {

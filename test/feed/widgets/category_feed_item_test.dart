@@ -65,7 +65,12 @@ void main() {
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
       const block = DividerHorizontalBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is DividerHorizontal && widget.block == block,
@@ -78,7 +83,12 @@ void main() {
         'renders Spacer '
         'for SpacerBlock', (tester) async {
       const block = SpacerBlock(spacing: Spacing.large);
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is Spacer && widget.block == block,
@@ -91,7 +101,12 @@ void main() {
         'renders SectionHeader '
         'for SectionHeaderBlock', (tester) async {
       const block = SectionHeaderBlock(title: 'title');
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is SectionHeader && widget.block == block,
@@ -115,7 +130,10 @@ void main() {
         await tester.pumpApp(
           ListView(
             children: [
-              CategoryFeedItem(block: block),
+              CategoryFeedItem(
+                block: block,
+                isUserSubscribed: false,
+              ),
             ],
           ),
         );
@@ -140,7 +158,12 @@ void main() {
         title: 'title',
       );
       await mockNetworkImages(() async {
-        await tester.pumpApp(CategoryFeedItem(block: block));
+        await tester.pumpApp(
+          CategoryFeedItem(
+            block: block,
+            isUserSubscribed: false,
+          ),
+        );
       });
       expect(
         find.byWidgetPredicate(
@@ -162,7 +185,12 @@ void main() {
         title: 'title',
       );
       await mockNetworkImages(() async {
-        await tester.pumpApp(CategoryFeedItem(block: block));
+        await tester.pumpApp(
+          CategoryFeedItem(
+            block: block,
+            isUserSubscribed: false,
+          ),
+        );
       });
       expect(
         find.byWidgetPredicate(
@@ -192,7 +220,10 @@ void main() {
         await tester.pumpApp(
           ListView(
             children: [
-              CategoryFeedItem(block: block),
+              CategoryFeedItem(
+                block: block,
+                isUserSubscribed: false,
+              ),
             ],
           ),
         );
@@ -209,7 +240,12 @@ void main() {
         'renders Newsletter '
         'for NewsletterBlock', (tester) async {
       final block = NewsletterBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(find.byType(Newsletter), findsOneWidget);
     });
 
@@ -217,7 +253,12 @@ void main() {
         'renders BannerAd '
         'for BannerAdBlock', (tester) async {
       final block = BannerAdBlock(size: BannerAdSize.normal);
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(find.byType(BannerAd), findsOneWidget);
     });
 
@@ -225,7 +266,12 @@ void main() {
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(
+          block: block,
+          isUserSubscribed: false,
+        ),
+      );
       expect(
         find.byType(SizedBox),
         findsOneWidget,
@@ -253,7 +299,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -288,7 +337,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -322,7 +374,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -361,7 +416,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -404,7 +462,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -442,7 +503,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -479,7 +543,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -521,7 +588,10 @@ void main() {
           await tester.pumpApp(
             ListView(
               children: [
-                CategoryFeedItem(block: block),
+                CategoryFeedItem(
+                  block: block,
+                  isUserSubscribed: false,
+                ),
               ],
             ),
             articleRepository: articleRepository,
@@ -560,7 +630,10 @@ void main() {
       await tester.pumpApp(
         BlocProvider<CategoriesBloc>.value(
           value: categoriesBloc,
-          child: CategoryFeedItem(block: block),
+          child: CategoryFeedItem(
+            block: block,
+            isUserSubscribed: false,
+          ),
         ),
       );
 
