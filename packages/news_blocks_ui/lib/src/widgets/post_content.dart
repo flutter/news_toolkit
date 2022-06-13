@@ -76,15 +76,29 @@ class PostContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const SizedBox(height: AppSpacing.lg),
-          if (categoryName?.isNotEmpty ?? false)
-            PostContentCategory(
-              categoryName: categoryName!,
-              isPremium: isPremium,
-              premiumText: premiumText,
-              isContentOverlaid: isContentOverlaid,
-              isSubscriberExclusive: isSubscriberExclusive,
-              isVideoContent: isVideoContent,
-            ),
+          Row(
+            children: [
+              if (categoryName?.isNotEmpty ?? false)
+                PostContentCategory(
+                  categoryName: categoryName!,
+                  isPremium: false,
+                  premiumText: '',
+                  isContentOverlaid: isContentOverlaid,
+                  isSubscriberExclusive: isSubscriberExclusive,
+                  isVideoContent: isVideoContent,
+                ),
+              if (isPremium) const SizedBox(width: AppSpacing.sm),
+              if (isPremium)
+                PostContentCategory(
+                  categoryName: categoryName!,
+                  isPremium: isPremium,
+                  premiumText: premiumText,
+                  isContentOverlaid: isContentOverlaid,
+                  isSubscriberExclusive: isSubscriberExclusive,
+                  isVideoContent: isVideoContent,
+                ),
+            ],
+          ),
           Text(
             title,
             style: textTheme.headline3?.copyWith(
