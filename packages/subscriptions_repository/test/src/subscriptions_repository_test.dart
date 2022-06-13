@@ -12,6 +12,10 @@ void main() {
   group('SubscriptionsRepository', () {
     late GoogleNewsTemplateApiClient apiClient;
 
+    setUpAll(() {
+      registerFallbackValue(SubscriptionPlan.none);
+    });
+
     setUp(() {
       apiClient = MockGoogleNewsTemplateApiClient();
       when(
