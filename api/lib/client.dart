@@ -42,4 +42,4 @@ export 'src/client/google_news_template_api_client.dart'
         GoogleNewsTemplateApiMalformedResponse,
         GoogleNewsTemplateApiRequestFailure,
         TokenProvider;
-export 'src/data/models/models.dart' show Category, Feed;
+export 'src/data/models/models.dart' show Category, Feed, SubscriptionPlan;
