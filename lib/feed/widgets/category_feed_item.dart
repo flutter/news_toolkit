@@ -17,7 +17,7 @@ class CategoryFeedItem extends StatelessWidget {
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
 
-  /// Whether the user is premium subscriber.
+  /// Whether the user is subscribed to a subscription plan.
   final bool isUserSubscribed;
 
   @override

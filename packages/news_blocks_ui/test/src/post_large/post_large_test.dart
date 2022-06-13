@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -90,136 +89,70 @@ void main() {
       });
     });
 
-    testWidgets(
-        'renders correctly overlaid '
-        'showing LockIcon '
-        'when isLocked is true', (tester) async {
-      final _technologyPostLarge = PostLargeBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl,
-        title: title,
-        isContentOverlaid: true,
-      );
-      await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostLarge(
-                  block: _technologyPostLarge,
-                  premiumText: 'Premium',
-                  isLocked: true,
-                ),
-              ],
+    group('renders correctly in column ', () {
+      testWidgets(
+          'showing LockIcon '
+          'when isLocked is true', (tester) async {
+        final _technologyPostLarge = PostLargeBlock(
+          id: id,
+          category: category,
+          author: author,
+          publishedAt: publishedAt,
+          imageUrl: imageUrl,
+          title: title,
+        );
+
+        await mockNetworkImages(
+          () async => tester.pumpContentThemedApp(
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  PostLarge(
+                    block: _technologyPostLarge,
+                    premiumText: 'Premium',
+                    isLocked: true,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byKey(Key('postLarge_stack')), findsOneWidget);
-      expect(find.byType(LockIcon), findsOneWidget);
-    });
+        expect(find.byKey(Key('postLarge_column')), findsOneWidget);
+      });
 
-    testWidgets(
-        'renders correctly overlaid '
-        'not showing LockIcon '
-        'when isLocked is false', (tester) async {
-      final _technologyPostLarge = PostLargeBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl,
-        title: title,
-        isContentOverlaid: true,
-      );
-      await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostLarge(
-                  block: _technologyPostLarge,
-                  premiumText: 'Premium',
-                  isLocked: false,
-                ),
-              ],
+      testWidgets(
+          'not showing LockIcon '
+          'when isLocked is false', (tester) async {
+        final _technologyPostLarge = PostLargeBlock(
+          id: id,
+          category: category,
+          author: author,
+          publishedAt: publishedAt,
+          imageUrl: imageUrl,
+          title: title,
+        );
+
+        await mockNetworkImages(
+          () async => tester.pumpContentThemedApp(
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  PostLarge(
+                    block: _technologyPostLarge,
+                    premiumText: 'Premium',
+                    isLocked: false,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byKey(Key('postLarge_stack')), findsOneWidget);
-      expect(find.byType(LockIcon), findsNothing);
+        expect(find.byKey(Key('postLarge_column')), findsOneWidget);
+      });
     });
   });
-
-  group('renders correctly in column ', () {
-    testWidgets(
-        'showing LockIcon '
-        'when isLocked is true', (tester) async {
-      final _technologyPostLarge = PostLargeBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl,
-        title: title,
-      );
-
-      await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostLarge(
-                  block: _technologyPostLarge,
-                  premiumText: 'Premium',
-                  isLocked: true,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byKey(Key('postLarge_column')), findsOneWidget);
-    });
-    testWidgets(
-        'not showing LockIcon '
-        'when isLocked is false', (tester) async {
-      final _technologyPostLarge = PostLargeBlock(
-        id: id,
-        category: category,
-        author: author,
-        publishedAt: publishedAt,
-        imageUrl: imageUrl,
-        title: title,
-      );
-
-      await mockNetworkImages(
-        () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostLarge(
-                  block: _technologyPostLarge,
-                  premiumText: 'Premium',
-                  isLocked: false,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byKey(Key('postLarge_column')), findsOneWidget);
-    });
-  });
-
   testWidgets('onPressed is called with action when tapped', (tester) async {
     final action = NavigateToArticleAction(articleId: id);
     final actions = <BlockAction>[];

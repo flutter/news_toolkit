@@ -43,7 +43,7 @@ void main() {
 
     testWidgets(
         'renders LockIcon '
-        'when premium is true and '
+        'when isLocked is true and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
@@ -60,7 +60,7 @@ void main() {
 
     testWidgets(
         'renders LockIcon '
-        'when premium is true and '
+        'when isLocked is true and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
@@ -77,7 +77,7 @@ void main() {
 
     testWidgets(
         'does not render LockIcon '
-        'when premium is false and '
+        'when isLocked is false and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
@@ -94,7 +94,7 @@ void main() {
 
     testWidgets(
         'does not render LockIcon '
-        'when premium is false and '
+        'when isLocked is false and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
