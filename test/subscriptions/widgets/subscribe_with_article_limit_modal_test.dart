@@ -2,8 +2,12 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
+import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -13,7 +17,14 @@ import '../../helpers/helpers.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
+class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
+    implements ArticleBloc {}
+
 class MockUser extends Mock implements User {}
+
+class MockAdWithoutView extends Mock implements ads.AdWithoutView {}
+
+class MockRewardItem extends Mock implements ads.RewardItem {}
 
 void main() {
   late AppBloc appBloc;
@@ -67,13 +78,6 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
       });
-
-      testWidgets('when tapped on watch video button', (tester) async {
-        await tester.pumpApp(SubscribeWithArticleLimitModal());
-        await tester.tap(find.byKey(watchVideoButton));
-        await tester.pumpAndSettle();
-        expect(find.byKey(subscribeButtonKey), findsOneWidget);
-      });
     });
 
     testWidgets(
@@ -94,6 +98,79 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(LoginModal), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders RewardedAd '
+        'when tapped on watch video button', (tester) async {
+      await tester.pumpApp(SubscribeWithArticleLimitModal());
+      await tester.tap(find.byKey(watchVideoButton));
+      await tester.pump();
+      expect(find.byType(RewardedAd), findsOneWidget);
+    });
+
+    testWidgets(
+        'adds ArticleRewardedAdWatched to ArticleBloc '
+        'when onUserEarnedReward is called on RewardedAd', (tester) async {
+      final ArticleBloc articleBloc = MockArticleBloc();
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
+      );
+      await tester.tap(find.byKey(watchVideoButton));
+      await tester.pump();
+
+      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
+      rewardedAd.onUserEarnedReward(MockAdWithoutView(), MockRewardItem());
+
+      verify(() => articleBloc.add(ArticleRewardedAdWatched())).called(1);
+    });
+
+    testWidgets(
+        'hides RewardedAd '
+        'when onDismissed is called on RewardedAd', (tester) async {
+      final ArticleBloc articleBloc = MockArticleBloc();
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
+      );
+      await tester.tap(find.byKey(watchVideoButton));
+      await tester.pump();
+
+      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
+      rewardedAd.onDismissed!();
+
+      await tester.pump();
+
+      expect(find.byType(RewardedAd), findsNothing);
+    });
+
+    testWidgets(
+        'hides RewardedAd '
+        'when onFailedToLoad is called on RewardedAd', (tester) async {
+      final ArticleBloc articleBloc = MockArticleBloc();
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
+      );
+      await tester.tap(find.byKey(watchVideoButton));
+      await tester.pump();
+
+      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
+      rewardedAd.onFailedToLoad!();
+
+      await tester.pump();
+
+      expect(find.byType(RewardedAd), findsNothing);
     });
   });
 }
