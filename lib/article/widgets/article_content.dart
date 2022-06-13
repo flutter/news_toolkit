@@ -50,7 +50,7 @@ class ArticleContent extends StatelessWidget {
                             if (status != ArticleStatus.loading) {
                               context
                                   .read<ArticleBloc>()
-                                  .add(ArticleRequested());
+                                  .add(const ArticleRequested());
                             }
                           },
                         ),
