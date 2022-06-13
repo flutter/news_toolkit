@@ -7,6 +7,14 @@ import 'package:test/test.dart';
 
 class MyNewsDataSource extends NewsDataSource {
   @override
+  Future<void> createSubscription({
+    required String userId,
+    required SubscriptionPlan subscription,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Article?> getArticle({
     required String id,
     int limit = 20,
@@ -120,6 +128,18 @@ void main() {
 
     setUp(() {
       newsDataSource = InMemoryNewsDataSource();
+    });
+
+    group('createSubscription', () {
+      test('completes', () async {
+        expect(
+          newsDataSource.createSubscription(
+            userId: 'userId',
+            subscription: SubscriptionPlan.premium,
+          ),
+          completes,
+        );
+      });
     });
 
     group('getFeed', () {

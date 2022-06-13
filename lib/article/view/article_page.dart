@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/ads/ads.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -51,11 +52,9 @@ class ArticlePage extends StatelessWidget {
 class ArticleView extends StatelessWidget {
   const ArticleView({
     super.key,
-    this.isSubscriber = false,
     required this.isVideoArticle,
   });
 
-  final bool isSubscriber;
   final bool isVideoArticle;
 
   @override
@@ -65,6 +64,8 @@ class ArticleView extends StatelessWidget {
     final foregroundColor =
         isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
+    final isSubscriber =
+        context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -78,26 +79,19 @@ class ArticleView extends StatelessWidget {
         leading: isVideoArticle
             ? const AppBackButton.light()
             : const AppBackButton(),
-        title: isSubscriber || uri == null || uri.toString().isEmpty
-            ? const SizedBox()
-            : ShareButton(
-                shareText: context.l10n.shareText,
-                color: foregroundColor,
-                onPressed: () =>
-                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
-              ),
         actions: [
-          if (isSubscriber)
+          if (uri != null && uri.toString().isNotEmpty)
             Padding(
               key: const Key('articlePage_shareButton'),
               padding: const EdgeInsets.only(right: AppSpacing.lg),
               child: ShareButton(
                 shareText: context.l10n.shareText,
                 color: foregroundColor,
+                onPressed: () =>
+                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
               ),
-            )
-          else
-            const ArticleSubscribeButton()
+            ),
+          if (!isSubscriber) const ArticleSubscribeButton()
         ],
       ),
       body: InterstitialAd(

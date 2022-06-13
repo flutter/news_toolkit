@@ -12,7 +12,17 @@ part 'static_news_data.dart';
 /// {@endtemplate}
 class InMemoryNewsDataSource implements NewsDataSource {
   /// {@macro in_memory_news_data_store}
-  const InMemoryNewsDataSource();
+  InMemoryNewsDataSource() : _subscriptions = <String, String>{};
+
+  final Map<String, String> _subscriptions;
+
+  @override
+  Future<void> createSubscription({
+    required String userId,
+    required SubscriptionPlan subscription,
+  }) async {
+    _subscriptions[userId] = subscription.name;
+  }
 
   @override
   Future<Article?> getArticle({

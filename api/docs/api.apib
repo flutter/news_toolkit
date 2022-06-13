@@ -330,7 +330,7 @@ This action allows you to create a subscription for the associated user.
 
 + Response 201 (application/json)
 
-### Get a Subscription [GET]
+### Get Subscriptions [GET]
 
 This action allows you to query all available subscriptions.
 
@@ -356,6 +356,27 @@ This action allows you to query all available subscriptions.
                         ]
                     }
                 ],
+            }
+
+## Users [/api/v1/users]
+
+Resources related to users.
+
+### Get Current User [GET /api/v1/users/me]
+
+This action allows you query information about the current user.
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + user (required, User) - The currently authenticated user.
+
+    + Body
+        
+            {
+                "user": {
+                  "id": "2e99887d-d672-4b96-ad6a-123c1c7fa3fa",
+                  "subscription_plan": "premium",
+                }
             }
 
 # Data Structures
@@ -404,3 +425,15 @@ This action allows you to query all available subscriptions.
 
 + monthly (required, number) - the monthly cost of the subscription in cents
 + annual (required, number) - the annual cost of the subscription in cents
+
+## SubscriptionPlan (enum)
+
++ none - no subscription plan
++ basic - a basic subscription plan
++ plus - a plus subscription plan
++ premium - a premium subscription plan
+
+## User (object)
+
++ id (required, string) - the unique user identifier (username)
++ subscription_plan (required, SubscriptionPlan) - the user's current subscription plan.
