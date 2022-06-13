@@ -34,6 +34,7 @@ class ArticleContent extends StatelessWidget {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           ListView.builder(
+            padding: EdgeInsets.zero,
             itemCount: content.length + 1,
             itemBuilder: (context, index) {
               if (index == content.length) {
@@ -69,7 +70,7 @@ class ArticleContent extends StatelessWidget {
               );
             },
           ),
-          const StickyAd()
+          const StickyAd(),
         ],
       ),
     );
