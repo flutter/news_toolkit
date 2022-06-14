@@ -17,13 +17,8 @@ class ArticleComments extends StatelessWidget {
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: AppSpacing.lg),
-        Theme(
-          data: Theme.of(context).copyWith(
-            textSelectionTheme: const TextSelectionThemeData(
-              selectionColor: Colors.transparent,
-            ),
-          ),
-          child: AppTextField(),
+        AppTextField(
+          hintText: context.l10n.commentEntryHint,
         ),
       ],
     );
