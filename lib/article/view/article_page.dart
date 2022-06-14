@@ -41,7 +41,7 @@ class ArticlePage extends StatelessWidget {
         articleId: id,
         shareLauncher: const ShareLauncher(),
         articleRepository: context.read<ArticleRepository>(),
-      )..add(ArticleRequested()),
+      )..add(const ArticleRequested()),
       child: ArticleView(
         isVideoArticle: isVideoArticle,
       ),
