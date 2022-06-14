@@ -81,8 +81,8 @@ class ArticleTrailingShadow extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0),
-                  Colors.white.withOpacity(1),
+                  AppColors.white.withOpacity(0),
+                  AppColors.white.withOpacity(1),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
