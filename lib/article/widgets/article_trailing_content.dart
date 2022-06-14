@@ -28,13 +28,11 @@ class ArticleTrailingContent extends StatelessWidget {
           ...relatedArticles
               .map((articleBlock) => CategoryFeedItem(block: articleBlock)),
         ],
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: ArticleComments(
-            // (simpson-peter) TODO internationalize
-            title: 'Discussion',
-            // (simpson-peter) TODO internationalize
-            hintText: 'Enter comment',
+            title: context.l10n.discussion,
+            hintText: context.l10n.commentEntryHint,
           ),
         ),
       ],
