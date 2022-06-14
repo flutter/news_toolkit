@@ -43,6 +43,14 @@ class IncrementArticleViewsFailure extends ArticleFailure {
   const IncrementArticleViewsFailure(super.error);
 }
 
+/// {@template decrement_article_views_failure}
+/// Thrown when decrementing article views fails.
+/// {@endtemplate}
+class DecrementArticleViewsFailure extends ArticleFailure {
+  /// {@macro decrement_article_views_failure}
+  const DecrementArticleViewsFailure(super.error);
+}
+
 /// {@template reset_article_views_failure}
 /// Thrown when resetting article views fails.
 /// {@endtemplate}
@@ -142,6 +150,19 @@ class ArticleRepository {
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         IncrementArticleViewsFailure(error),
+        stackTrace,
+      );
+    }
+  }
+
+  /// Decrements the number of article views by 1.
+  Future<void> decrementArticleViews() async {
+    try {
+      final currentArticleViews = await _storage.fetchArticleViews();
+      await _storage.setArticleViews(currentArticleViews - 1);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        DecrementArticleViewsFailure(error),
         stackTrace,
       );
     }
