@@ -28,6 +28,7 @@ class ArticleTrailingContent extends StatelessWidget {
           ...relatedArticles
               .map((articleBlock) => CategoryFeedItem(block: articleBlock)),
         ],
+        const SizedBox(height: AppSpacing.lg),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: ArticleComments(
@@ -35,6 +36,7 @@ class ArticleTrailingContent extends StatelessWidget {
             hintText: context.l10n.commentEntryHint,
           ),
         ),
+        const SizedBox(height: AppSpacing.lg),
       ],
     );
   }
