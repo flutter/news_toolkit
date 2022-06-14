@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide Spacer;
 
+//TODO (simpson-peter) do I need to add this to gallery?
 class ArticleComments extends StatelessWidget {
   const ArticleComments({
     super.key,
@@ -15,6 +16,7 @@ class ArticleComments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
@@ -24,7 +26,6 @@ class ArticleComments extends StatelessWidget {
         Theme(
           data: Theme.of(context).copyWith(
             textSelectionTheme: const TextSelectionThemeData(
-              // TODO (simpson-peter) what color should this be?
               selectionColor: Colors.transparent,
             ),
           ),
