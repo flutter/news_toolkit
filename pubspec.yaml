@@ -52,8 +52,8 @@ dependencies:
   share_launcher:
     path: packages/share_launcher
   stream_transform: ^2.0.0
-  subscriptions_repository:
-    path: packages/subscriptions_repository
+  in_app_purchase_repository:
+    path: packages/in_app_purchase_repository
   token_storage:
     path: packages/authentication_client/token_storage
   url_launcher: ^6.0.9

@@ -1,5 +1,5 @@
-name: subscriptions_repository
-description: A repository that manages user subscriptions.
+name: in_app_purchase_repository
+description: A repository that manages user purchase.
 version: 1.0.0+1
 publish_to: none
 
@@ -7,9 +7,12 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  authentication_client:
+    path: ../authentication_client/authentication_client
   equatable: ^2.0.3
   google_news_template_api:
     path: ../../api
+  in_app_purchase: ^3.0.5
   rxdart: ^0.27.4
 
 dev_dependencies:

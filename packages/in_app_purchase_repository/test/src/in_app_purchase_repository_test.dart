@@ -2,14 +2,14 @@
 
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:test/test.dart';
 
 class MockGoogleNewsTemplateApiClient extends Mock
     implements GoogleNewsTemplateApiClient {}
 
 void main() {
-  group('SubscriptionsRepository', () {
+  group('InApPurchaseRepository', () {
     late GoogleNewsTemplateApiClient apiClient;
 
     setUpAll(() {
@@ -27,21 +27,21 @@ void main() {
 
     test('can be instantiated', () {
       expect(
-        SubscriptionsRepository(apiClient: apiClient),
+        InAppPurchaseRepository(apiClient: apiClient),
         isNotNull,
       );
     });
 
     test('currentSubscriptionPlan emits none when initialized', () {
       expectLater(
-        SubscriptionsRepository(apiClient: apiClient).currentSubscriptionPlan,
+        InAppPurchaseRepository(apiClient: apiClient).currentSubscriptionPlan,
         emits(SubscriptionPlan.none),
       );
     });
 
     group('requestSubscriptionPlan', () {
       test('calls ApiClient.createSubscription', () async {
-        final repository = SubscriptionsRepository(apiClient: apiClient);
+        final repository = InAppPurchaseRepository(apiClient: apiClient);
         await repository.requestSubscriptionPlan(SubscriptionPlan.premium);
         verify(
           () => apiClient.createSubscription(
@@ -51,7 +51,7 @@ void main() {
       });
 
       test('adds plan to currentSubscriptionPlan stream', () {
-        final repository = SubscriptionsRepository(apiClient: apiClient);
+        final repository = InAppPurchaseRepository(apiClient: apiClient);
 
         expectLater(
           repository.currentSubscriptionPlan,
@@ -74,7 +74,7 @@ void main() {
         ).thenThrow(Exception());
 
         expect(
-          () => SubscriptionsRepository(apiClient: apiClient)
+          () => InAppPurchaseRepository(apiClient: apiClient)
               .requestSubscriptionPlan(SubscriptionPlan.premium),
           throwsA(isA<RequestSubscriptionPlanFailure>()),
         );

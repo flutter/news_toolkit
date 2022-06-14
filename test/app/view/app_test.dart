@@ -7,7 +7,7 @@ import 'package:google_news_template/onboarding/onboarding.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
@@ -24,8 +24,8 @@ class MockNotificationsRepository extends Mock
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
 
-class MockSubscriptionsRepository extends Mock
-    implements SubscriptionsRepository {}
+class MockInApPurchaseRepository extends Mock
+    implements InAppPurchaseRepository {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -35,7 +35,7 @@ void main() {
     late NewsRepository newsRepository;
     late NotificationsRepository notificationsRepository;
     late ArticleRepository articleRepository;
-    late SubscriptionsRepository subscriptionsRepository;
+    late InAppPurchaseRepository inApPurchaseRepository;
     late User user;
 
     setUp(() {
@@ -44,12 +44,12 @@ void main() {
       newsRepository = MockNewsRepository();
       notificationsRepository = MockNotificationsRepository();
       articleRepository = MockArticleRepository();
-      subscriptionsRepository = MockSubscriptionsRepository();
+      inApPurchaseRepository = MockInApPurchaseRepository();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
           .thenAnswer((_) => const Stream.empty());
-      when(() => subscriptionsRepository.currentSubscriptionPlan)
+      when(() => inApPurchaseRepository.currentSubscriptionPlan)
           .thenAnswer((_) => const Stream.empty());
     });
 
@@ -61,7 +61,7 @@ void main() {
             newsRepository: newsRepository,
             notificationsRepository: notificationsRepository,
             articleRepository: articleRepository,
-            subscriptionsRepository: subscriptionsRepository,
+            inApPurchaseRepository: inApPurchaseRepository,
             user: user,
           ),
         );
