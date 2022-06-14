@@ -7,11 +7,10 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  clock: ^1.1.0
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  google_news_template_api:
-    path: ../../api
   in_app_purchase: ^3.0.5
 
 dev_dependencies:
