@@ -31,10 +31,7 @@ class ArticleTrailingContent extends StatelessWidget {
         if (relatedArticles.isNotEmpty) const SizedBox(height: AppSpacing.lg),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          child: ArticleComments(
-            title: context.l10n.discussion,
-            hintText: context.l10n.commentEntryHint,
-          ),
+          child: ArticleComments(),
         ),
         const SizedBox(height: AppSpacing.lg),
       ],

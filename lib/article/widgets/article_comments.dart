@@ -1,17 +1,12 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide Spacer;
+import 'package:google_news_template/l10n/l10n.dart';
 
 //TODO (simpson-peter) do I need to add this to gallery?
 class ArticleComments extends StatelessWidget {
   const ArticleComments({
     super.key,
-    required this.title,
-    this.hintText = '',
   });
-
-  final String title;
-
-  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +14,7 @@ class ArticleComments extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          title,
+          context.l10n.discussion,
           style: Theme.of(context).textTheme.headline3,
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -31,7 +26,7 @@ class ArticleComments extends StatelessWidget {
           ),
           child: TextField(
             decoration: InputDecoration(
-              hintText: hintText,
+              hintText: context.l10n.commentEntryHint,
             ),
             showCursor: false,
           ),
