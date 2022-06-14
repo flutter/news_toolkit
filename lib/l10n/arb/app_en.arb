@@ -508,5 +508,11 @@
     "description": "Header text shown in the bottom of article content above comment entry field.",
     "type": "text",
     "placeholders": {}
+  }
+  "commentEntryHint": "Enter comment",
+  "@commentEntryHint": {
+    "description": "Text shown inside comment entry text field.",
+    "type": "text",
+    "placeholders": {}
   },
 }
