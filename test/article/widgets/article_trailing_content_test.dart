@@ -73,7 +73,7 @@ void main() {
     });
 
     testWidgets(
-        'renders empty column when '
+        'renders only discussion when '
         'relatedArticles is empty', (tester) async {
       when(() => bloc.state).thenAnswer(
         (invocation) => ArticleState(
@@ -99,7 +99,7 @@ void main() {
       final columnWidget = tester.widget<Column>(
         find.byKey(Key('articleTrailingContent_column')),
       );
-      expect(columnWidget.children, isEmpty);
+      expect(columnWidget.children.length, 2);
     });
   });
 }
