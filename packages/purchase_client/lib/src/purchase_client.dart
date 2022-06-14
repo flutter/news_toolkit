@@ -4,9 +4,10 @@ import 'package:clock/clock.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 // ignore: implementation_imports
 import 'package:in_app_purchase_platform_interface/src/in_app_purchase_platform_addition.dart';
+import 'package:purchase_client/src/products.dart';
 
-/// Extension on PurchaseDetails enabling copyWith.
-extension PurchaseDetailsCopyWith on PurchaseDetails {
+/// Extension on [PurchaseDetails] enabling copyWith.
+extension _PurchaseDetailsCopyWith on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
   PurchaseDetails copyWith({
     String? purchaseID,
@@ -41,16 +42,10 @@ class PurchaseClient implements InAppPurchase {
   /// Has to be defined in the underlying payment platform, for example,
   /// [App Store Connect](https://appstoreconnect.apple.com/) for iOS
   /// and [Google Play Console](https://play.google.com/) for Android.
-  List<ProductDetails> products = <ProductDetails>[
-    ProductDetails(
-      id: '17e79fca-853a-40e3-b4a7-291a64d3846b',
-      title: 'premium',
-      description: 'premium subscription',
-      price: r'$14.99',
-      rawPrice: 14.99,
-      currencyCode: 'USD',
-    ),
-  ];
+  final List<ProductDetails> products = availableProducts;
+
+  /// The duration after which [isAvailable] completes with true.
+  static const _isAvailableDelay = Duration(milliseconds: 100);
 
   @override
   Stream<List<PurchaseDetails>> get purchaseStream => _purchaseStream.stream;
@@ -58,6 +53,8 @@ class PurchaseClient implements InAppPurchase {
   final StreamController<List<PurchaseDetails>> _purchaseStream =
       StreamController<List<PurchaseDetails>>.broadcast();
 
+  /// This method is not implemented as the scope of this template
+  /// is limited to purchasing subscriptions which are non-consumables.
   @override
   Future<bool> buyConsumable({
     required PurchaseParam purchaseParam,
@@ -78,20 +75,16 @@ class PurchaseClient implements InAppPurchase {
       transactionDate: clock.now().millisecondsSinceEpoch.toString(),
     );
 
-    _purchaseStream.add([purchaseDetails]);
-    try {
-      _purchaseStream.add([
+    _purchaseStream
+      ..add([purchaseDetails])
+      ..add([
         purchaseDetails.copyWith(
           status: PurchaseStatus.purchased,
           pendingCompletePurchase: true,
         ),
       ]);
 
-      return Future.value(true);
-    } catch (e) {
-      _purchaseStream.add([purchaseDetails..status = PurchaseStatus.error]);
-      return Future.value(false);
-    }
+    return true;
   }
 
   @override
@@ -105,10 +98,8 @@ class PurchaseClient implements InAppPurchase {
   }
 
   @override
-  Future<bool> isAvailable() {
-    return Future<bool>.delayed(
-      const Duration(milliseconds: 100),
-    ).then((_) => true);
+  Future<bool> isAvailable() async {
+    return Future<bool>.delayed(_isAvailableDelay, () => true);
   }
 
   @override
@@ -123,7 +114,9 @@ class PurchaseClient implements InAppPurchase {
 
     return Future.value(
       ProductDetailsResponse(
-        productDetails: products,
+        productDetails: products
+            .where((element) => identifiers.contains(element.id))
+            .toList(),
         notFoundIDs: notFoundIdentifiers,
       ),
     );
