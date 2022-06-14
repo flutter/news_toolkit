@@ -29,8 +29,8 @@ class ArticleTrailingContent extends StatelessWidget {
               .map((articleBlock) => CategoryFeedItem(block: articleBlock)),
         ],
         if (relatedArticles.isNotEmpty) const SizedBox(height: AppSpacing.lg),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: ArticleComments(),
         ),
         const SizedBox(height: AppSpacing.lg),
