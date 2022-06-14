@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:google_news_template/l10n/l10n.dart';
 
-//TODO (simpson-peter) do I need to add this to gallery?
 class ArticleComments extends StatelessWidget {
   const ArticleComments({
     super.key,
@@ -24,12 +23,7 @@ class ArticleComments extends StatelessWidget {
               selectionColor: Colors.transparent,
             ),
           ),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: context.l10n.commentEntryHint,
-            ),
-            showCursor: false,
-          ),
+          child: AppTextField(),
         ),
       ],
     );
