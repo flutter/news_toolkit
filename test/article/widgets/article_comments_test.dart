@@ -16,7 +16,7 @@ void main() {
 
       expect(
         find.byType(Text),
-        findsOneWidget,
+        findsNWidgets(2),
       );
       expect(
         find.byType(TextField),
