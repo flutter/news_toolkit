@@ -53,13 +53,15 @@ class ArticleTrailingContent extends StatelessWidget {
                 const SizedBox(height: AppSpacing.lg),
                 const SubscribeWithArticleLimitModal(),
               ],
-              if (relatedArticles.isNotEmpty)
+              if (!showSubscribeWithArticleLimitModal) ...[
+                if (relatedArticles.isNotEmpty)
+                  const SizedBox(height: AppSpacing.lg),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  child: ArticleComments(),
+                ),
                 const SizedBox(height: AppSpacing.lg),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                child: ArticleComments(),
-              ),
-              const SizedBox(height: AppSpacing.lg),
+              ]
             ],
           ),
         ),
