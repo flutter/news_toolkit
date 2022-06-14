@@ -49,10 +49,6 @@ class ArticleTrailingContent extends StatelessWidget {
                   (articleBlock) => CategoryFeedItem(block: articleBlock),
                 ),
               ],
-              if (showSubscribeWithArticleLimitModal) ...[
-                const SizedBox(height: AppSpacing.lg),
-                const SubscribeWithArticleLimitModal(),
-              ],
               if (!showSubscribeWithArticleLimitModal) ...[
                 if (relatedArticles.isNotEmpty)
                   const SizedBox(height: AppSpacing.lg),
@@ -61,7 +57,11 @@ class ArticleTrailingContent extends StatelessWidget {
                   child: ArticleComments(),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-              ]
+              ],
+              if (showSubscribeWithArticleLimitModal) ...[
+                const SizedBox(height: AppSpacing.lg),
+                const SubscribeWithArticleLimitModal(),
+              ],
             ],
           ),
         ),
