@@ -14,6 +14,15 @@ void main() {
       });
     });
 
+    group('ArticleRewardedAdWatched', () {
+      test('supports value comparisons', () {
+        final event1 = ArticleRewardedAdWatched();
+        final event2 = ArticleRewardedAdWatched();
+
+        expect(event1, equals(event2));
+      });
+    });
+
     group('ShareRequested', () {
       test('supports value comparisons', () {
         final event1 = ShareRequested(uri: Uri(path: 'text'));
