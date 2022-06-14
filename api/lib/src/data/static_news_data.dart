@@ -217,6 +217,7 @@ final technologyLargeItems = <NewsItem>[
             'Meta adds new Calls tab to its Messenger app for iOS and Android',
         imageUrl:
             'https://cdn.vox-cdn.com/thumbor/TanD-HFR6zb_ZfUEMwGMRWkdl5E=/0x0:1920x1080/1820x1213/filters:focal(807x387:1113x693):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70937578/676eeda0_4ebe_4742_857e_9934a172200d.0.png',
+        isPremium: true,
       ),
     ],
     url: Uri.parse(
@@ -317,6 +318,7 @@ final technologySmallItems = <NewsItem>[
         publishedAt: DateTime(2022, 6, 2),
         title: 'Walmart has a big PS5 restock today — '
             'here’s how to have the best shot',
+        isPremium: true,
       ),
     ],
     url: Uri.parse(
