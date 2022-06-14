@@ -503,4 +503,10 @@
     "type": "text",
     "placeholders": {}
   }
+  "discussion": "Discussion",
+  "@discussion": {
+    "description": "Header text shown in the bottom of article content above comment entry field.",
+    "type": "text",
+    "placeholders": {}
+  },
 }
