@@ -68,6 +68,11 @@ class MyNewsDataSource extends NewsDataSource {
   Future<List<Subscription>> getSubscriptions() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<User?> getUser({required String userId}) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -152,6 +157,32 @@ void main() {
         expect(
           newsDataSource.getSubscriptions(),
           completion(equals(subscriptions)),
+        );
+      });
+    });
+
+    group('getUser', () {
+      test('completes with null when user does not exist', () async {
+        expect(
+          newsDataSource.getUser(userId: 'userId'),
+          completion(isNull),
+        );
+      });
+
+      test('completes with user when user exists', () async {
+        const userId = 'userId';
+        const subscription = SubscriptionPlan.basic;
+        await newsDataSource.createSubscription(
+          userId: userId,
+          subscription: subscription,
+        );
+        expect(
+          newsDataSource.getUser(userId: userId),
+          completion(
+            equals(
+              User(id: userId, subscription: subscription),
+            ),
+          ),
         );
       });
     });
