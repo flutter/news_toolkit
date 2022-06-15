@@ -26,6 +26,16 @@ extension PurchaseDetailsCopyWith on PurchaseDetails {
         status: status ?? this.status,
       )..pendingCompletePurchase =
           pendingCompletePurchase ?? this.pendingCompletePurchase;
+
+  /// Returns a copy of the current PurchaseDetails with the given parameters.
+  bool equals(PurchaseDetails purchaseDetails) =>
+      purchaseDetails.purchaseID == purchaseID &&
+      purchaseDetails.productID == productID &&
+      purchaseDetails.verificationData == verificationData &&
+      purchaseDetails.transactionDate == transactionDate &&
+      purchaseDetails.status == status &&
+      purchaseDetails.pendingCompletePurchase == pendingCompletePurchase &&
+      purchaseDetails.error == error;
 }
 
 /// {@template purchase_client}

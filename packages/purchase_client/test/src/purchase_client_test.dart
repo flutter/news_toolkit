@@ -10,6 +10,23 @@ void main() {
   group('PurchaseDetails', () {
     group('copyWith', () {
       test(
+          'returns the same object '
+          'when no parameters are passed', () {
+        final purchaseDetails = PurchaseDetails(
+          productID: 'id',
+          status: PurchaseStatus.pending,
+          transactionDate: 'date',
+          verificationData: PurchaseVerificationData(
+            localVerificationData: 'local',
+            serverVerificationData: 'server',
+            source: 'source',
+          ),
+        );
+
+        expect(purchaseDetails.copyWith().equals(purchaseDetails), isTrue);
+      });
+
+      test(
           'sets pendingCompletePurchase '
           'when pendingCompletePurchase is passed', () {
         final purchaseDetails = PurchaseDetails(
