@@ -7,7 +7,8 @@ import 'package:in_app_purchase_platform_interface/src/in_app_purchase_platform_
 import 'package:purchase_client/src/products.dart';
 
 /// Extension on [PurchaseDetails] enabling copyWith.
-extension _PurchaseDetailsCopyWith on PurchaseDetails {
+
+extension PurchaseDetailsCopyWith on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
   PurchaseDetails copyWith({
     String? purchaseID,
@@ -16,16 +17,15 @@ extension _PurchaseDetailsCopyWith on PurchaseDetails {
     String? transactionDate,
     PurchaseStatus? status,
     bool? pendingCompletePurchase,
-  }) {
-    return PurchaseDetails(
-      purchaseID: purchaseID ?? this.purchaseID,
-      productID: productID ?? this.productID,
-      verificationData: verificationData ?? this.verificationData,
-      transactionDate: transactionDate ?? this.transactionDate,
-      status: status ?? this.status,
-    )..pendingCompletePurchase =
-        pendingCompletePurchase ?? this.pendingCompletePurchase;
-  }
+  }) =>
+      PurchaseDetails(
+        purchaseID: purchaseID ?? this.purchaseID,
+        productID: productID ?? this.productID,
+        verificationData: verificationData ?? this.verificationData,
+        transactionDate: transactionDate ?? this.transactionDate,
+        status: status ?? this.status,
+      )..pendingCompletePurchase =
+          pendingCompletePurchase ?? this.pendingCompletePurchase;
 }
 
 /// {@template purchase_client}

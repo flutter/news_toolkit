@@ -7,6 +7,32 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:purchase_client/purchase_client.dart';
 
 void main() {
+  group('PurchaseDetails', () {
+    group('copyWith', () {
+      test(
+          'sets pendingCompletePurchase '
+          'when pendingCompletePurchase is passed', () {
+        final purchaseDetails = PurchaseDetails(
+          productID: 'id',
+          status: PurchaseStatus.pending,
+          transactionDate: 'date',
+          verificationData: PurchaseVerificationData(
+            localVerificationData: 'local',
+            serverVerificationData: 'server',
+            source: 'source',
+          ),
+        );
+
+        expect(
+          purchaseDetails
+              .copyWith(pendingCompletePurchase: true)
+              .pendingCompletePurchase,
+          isTrue,
+        );
+      });
+    });
+  });
+
   group('PurchaseClient', () {
     final productDetails = ProductDetails(
       id: '17e79fca-853a-40e3-b4a7-291a64d3846b',
@@ -94,6 +120,25 @@ void main() {
 
     test('restorePurchases', () async {
       await expectLater(purchaseClient.restorePurchases(), completes);
+    });
+
+    test('buyConsumable throws an exception', () async {
+      expect(
+        () => purchaseClient.buyConsumable(
+          purchaseParam: PurchaseParam(
+            productDetails: productDetails,
+            applicationUserName: 'testUserName',
+          ),
+        ),
+        throwsA(isA<UnimplementedError>()),
+      );
+    });
+
+    test('getPlatformAddition throws an exception', () async {
+      expect(
+        () => purchaseClient.getPlatformAddition(),
+        throwsA(isA<UnimplementedError>()),
+      );
     });
   });
 }
