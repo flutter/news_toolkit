@@ -38,6 +38,8 @@ export 'src/api/v1/search/relevant_search/models/models.dart'
     show RelevantSearchResponse;
 export 'src/api/v1/subscriptions/get_subscriptions/models/models.dart'
     show SubscriptionsResponse;
+export 'src/api/v1/users/get_current_user/models/models.dart'
+    show CurrentUserResponse;
 export 'src/client/google_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
@@ -45,4 +47,4 @@ export 'src/client/google_news_template_api_client.dart'
         GoogleNewsTemplateApiRequestFailure,
         TokenProvider;
 export 'src/data/models/models.dart'
-    show Category, Feed, Subscription, SubscriptionCost, SubscriptionPlan;
+    show Category, Feed, Subscription, SubscriptionCost, SubscriptionPlan, User;

@@ -204,6 +204,26 @@ class GoogleNewsTemplateApiClient {
     return CategoriesResponse.fromJson(body);
   }
 
+  /// GET /api/v1/users/me
+  /// Requests the current user.
+  Future<CurrentUserResponse> getCurrentUser() async {
+    final uri = Uri.parse('$_baseUrl/api/v1/users/me');
+    final response = await _httpClient.get(
+      uri,
+      headers: await _getRequestHeaders(),
+    );
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: body,
+        statusCode: response.statusCode,
+      );
+    }
+
+    return CurrentUserResponse.fromJson(body);
+  }
+
   /// GET /api/v1/search/popular
   /// Requests current, popular content.
   Future<PopularSearchResponse> popularSearch() async {
