@@ -193,7 +193,7 @@ void main() {
     });
 
     testWidgets(
-        'renders only discussion when '
+        'renders only ArticleComments when '
         'relatedArticles is empty', (tester) async {
       when(() => articleBloc.state).thenAnswer(
         (invocation) => ArticleState(
