@@ -3,7 +3,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 /// List of available [ProductDetails] products.
 final List<ProductDetails> availableProducts = [
   ProductDetails(
-    id: '17e79fca-853a-40e3-b4a7-291a64d3846b',
+    id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
     title: 'premium',
     description: 'premium subscription',
     price: r'$14.99',
