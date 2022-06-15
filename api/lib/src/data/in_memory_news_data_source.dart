@@ -94,7 +94,7 @@ class InMemoryNewsDataSource implements NewsDataSource {
   Future<List<Category>> getCategories() async => _newsFeedData.keys.toList();
 
   @override
-  Future<User?> getUser({required String userId}) async {
+  Future<User> getUser({required String userId}) async {
     final subscription = _userSubscriptions[userId];
     if (subscription == null) {
       return User(id: userId, subscription: SubscriptionPlan.none);
