@@ -227,9 +227,11 @@ class AppButton extends StatelessWidget {
           key: key,
           onPressed: onPressed,
           child: child,
+          disabledButtonColor: AppColors.transparent,
           buttonColor: AppColors.transparent,
           elevation: elevation,
           foregroundColor: AppColors.white,
+          disabledForegroundColor: AppColors.white,
           textStyle: textStyle,
         );
 

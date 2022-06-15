@@ -6,6 +6,7 @@ enum ArticleStatus {
   populated,
   failure,
   shareFailure,
+  rewardedAdWatchedFailure,
 }
 
 class ArticleState extends Equatable {

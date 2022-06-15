@@ -29,18 +29,26 @@ class RewardedAd extends StatefulWidget {
   /// {@macro rewarded_ad}
   const RewardedAd({
     super.key,
-    required this.child,
     required this.onUserEarnedReward,
+    this.onDismissed,
+    this.onFailedToLoad,
     this.adUnitId,
     this.adLoader = ads.RewardedAd.load,
     this.currentPlatform = const platform.LocalPlatform(),
+    this.child,
   });
 
   /// The widget below this widget in the tree.
-  final Widget child;
+  final Widget? child;
 
   /// Called when the user earns a reward from this rewarded ad.
   final ads.OnUserEarnedRewardCallback onUserEarnedReward;
+
+  /// Called when the ad is dismissed.
+  final VoidCallback? onDismissed;
+
+  /// Called when the ad has failed to load.
+  final VoidCallback? onFailedToLoad;
 
   /// The unit id of this rewarded ad.
   ///
@@ -82,7 +90,7 @@ class _RewardedAdState extends State<RewardedAd> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.child;
+  Widget build(BuildContext context) => widget.child ?? const SizedBox();
 
   Future<void> _loadAd() => widget.adLoader(
         adUnitId: widget.adUnitId ??
@@ -101,18 +109,24 @@ class _RewardedAdState extends State<RewardedAd> {
     if (mounted) {
       ad
         ..fullScreenContentCallback = ads.FullScreenContentCallback(
-          onAdDismissedFullScreenContent: (ad) => ad.dispose(),
+          onAdDismissedFullScreenContent: (ad) {
+            ad.dispose();
+            widget.onDismissed?.call();
+          },
           onAdFailedToShowFullScreenContent: (ad, error) {
             ad.dispose();
             _reportError(RewardedAdFailedToLoadException(error));
+            widget.onFailedToLoad?.call();
           },
         )
         ..show(onUserEarnedReward: widget.onUserEarnedReward);
     }
   }
 
-  void _onAdFailedToLoad(ads.LoadAdError error) =>
-      _reportError(RewardedAdFailedToLoadException(error));
+  void _onAdFailedToLoad(ads.LoadAdError error) {
+    _reportError(RewardedAdFailedToLoadException(error));
+    widget.onFailedToLoad?.call();
+  }
 
   void _reportError(Exception exception) => FlutterError.reportError(
         FlutterErrorDetails(

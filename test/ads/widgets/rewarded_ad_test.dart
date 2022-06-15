@@ -203,8 +203,12 @@ void main() {
       verify(ad.dispose).called(1);
     });
 
-    testWidgets('disposes ad object on ad dismissed', (tester) async {
+    testWidgets(
+        'disposes ad object '
+        'and calls onDismissed '
+        'on ad dismissed', (tester) async {
       final ad = FakeRewardedAd();
+      var _onDismissedCalled = false;
 
       await tester.pumpApp(
         RewardedAd(
@@ -212,6 +216,7 @@ void main() {
           currentPlatform: platform,
           child: const SizedBox(),
           onUserEarnedReward: (ad, reward) {},
+          onDismissed: () => _onDismissedCalled = true,
         ),
       );
 
@@ -221,17 +226,22 @@ void main() {
       ad.fullScreenContentCallback!.onAdDismissedFullScreenContent!(ad);
 
       expect(ad.disposeCalled, isTrue);
+      expect(_onDismissedCalled, isTrue);
     });
 
     testWidgets(
         'throws RewardedAdFailedToLoadException '
+        'and calls onFailedToLoad '
         'when ad fails to load', (tester) async {
+      var _onFailedToLoadCalled = false;
+
       await tester.pumpApp(
         RewardedAd(
           adLoader: adLoader,
           currentPlatform: platform,
           child: const SizedBox(),
           onUserEarnedReward: (ad, reward) {},
+          onFailedToLoad: () => _onFailedToLoadCalled = true,
         ),
       );
 
@@ -242,13 +252,17 @@ void main() {
         tester.takeException(),
         isA<RewardedAdFailedToLoadException>(),
       );
+
+      expect(_onFailedToLoadCalled, isTrue);
     });
 
     testWidgets(
         'throws RewardedAdFailedToLoadException '
         'and disposes ad object '
+        'and calls onFailedToLoad '
         'when ad fails to show', (tester) async {
       final ad = FakeRewardedAd();
+      var _onFailedToLoadCalled = false;
 
       await tester.pumpApp(
         RewardedAd(
@@ -256,6 +270,7 @@ void main() {
           currentPlatform: platform,
           child: const SizedBox(),
           onUserEarnedReward: (ad, reward) {},
+          onFailedToLoad: () => _onFailedToLoadCalled = true,
         ),
       );
 
@@ -274,6 +289,7 @@ void main() {
       );
 
       expect(ad.disposeCalled, isTrue);
+      expect(_onFailedToLoadCalled, isTrue);
     });
   });
 }

@@ -7,7 +7,13 @@ abstract class ArticleEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ArticleRequested extends ArticleEvent {}
+class ArticleRequested extends ArticleEvent {
+  const ArticleRequested();
+}
+
+class ArticleRewardedAdWatched extends ArticleEvent {
+  const ArticleRewardedAdWatched();
+}
 
 class ShareRequested extends ArticleEvent {
   const ShareRequested({required this.uri});

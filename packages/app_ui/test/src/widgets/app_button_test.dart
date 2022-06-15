@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 // ignore_for_file: prefer_const_constructors
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -531,6 +533,45 @@ void main() {
       await tester.pumpApp(
         AppButton.transparentWhite(
           onPressed: () {},
+          child: buttonText,
+        ),
+        theme: theme,
+      );
+
+      final finder = find.byType(ElevatedButton);
+      final widget = tester.widget(finder) as ElevatedButton;
+
+      expect(
+        widget.style?.backgroundColor?.resolve({}),
+        AppColors.transparent,
+      );
+      expect(
+        widget.style?.foregroundColor?.resolve({}),
+        AppColors.white,
+      );
+      expect(
+        widget.style?.textStyle?.resolve({}),
+        buttonTextTheme,
+      );
+      expect(
+        widget.style?.maximumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+      expect(
+        widget.style?.minimumSize?.resolve({}),
+        Size(double.infinity, 56),
+      );
+    });
+
+    testWidgets(
+        'renders disabled transparentWhite button '
+        'when `AppButton.transparentWhite()` called '
+        'with onPressed equal to null', (tester) async {
+      final buttonText = Text('buttonText');
+
+      await tester.pumpApp(
+        AppButton.transparentWhite(
+          onPressed: null,
           child: buttonText,
         ),
         theme: theme,
