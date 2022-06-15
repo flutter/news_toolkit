@@ -88,7 +88,8 @@ class PostContent extends StatelessWidget {
                   isVideoContent: isVideoContent,
                 ),
               if (isPremium) ...[
-                const SizedBox(width: AppSpacing.sm),
+                if (categoryName?.isNotEmpty ?? false)
+                  const SizedBox(width: AppSpacing.sm),
                 PostContentCategory(
                   categoryName: categoryName!,
                   isPremium: isPremium,
