@@ -5,6 +5,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 
 class ArticleTrailingContent extends StatelessWidget {
   const ArticleTrailingContent({super.key});
@@ -13,29 +14,83 @@ class ArticleTrailingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final relatedArticles =
         context.select((ArticleBloc bloc) => bloc.state.relatedArticles);
+
+    final hasReachedArticleViewsLimit = context
+        .select((ArticleBloc bloc) => bloc.state.hasReachedArticleViewsLimit);
     final isUserSubscribed =
         context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
-    return Column(
-      key: const Key('articleTrailingContent_column'),
-      crossAxisAlignment: CrossAxisAlignment.start,
+
+    final showSubscribeWithArticleLimitModal =
+        hasReachedArticleViewsLimit && !isUserSubscribed;
+
+    final isArticleContentObscured = showSubscribeWithArticleLimitModal;
+
+    return Stack(
+      clipBehavior: Clip.none,
       children: [
-        if (relatedArticles.isNotEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Text(
-              context.l10n.relatedStories,
-              style: Theme.of(context).textTheme.headline3,
-            ),
+        SafeArea(
+          bottom: !showSubscribeWithArticleLimitModal,
+          child: Column(
+            key: const Key('articleTrailingContent_column'),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (relatedArticles.isNotEmpty &&
+                  !showSubscribeWithArticleLimitModal) ...[
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  child: Text(
+                    context.l10n.relatedStories,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                ...relatedArticles.map(
+                  (articleBlock) => CategoryFeedItem(block: articleBlock),
+                ),
+              ],
+              if (showSubscribeWithArticleLimitModal) ...[
+                const SizedBox(height: AppSpacing.lg),
+                const SubscribeWithArticleLimitModal(),
+              ],
+            ],
           ),
-          const SizedBox(height: AppSpacing.lg),
-          ...relatedArticles.map(
-            (articleBlock) => CategoryFeedItem(
-              block: articleBlock,
-              isUserSubscribed: isUserSubscribed,
+        ),
+        if (isArticleContentObscured) const ArticleTrailingShadow(),
+      ],
+    );
+  }
+}
+
+@visibleForTesting
+class ArticleTrailingShadow extends StatelessWidget {
+  const ArticleTrailingShadow({super.key});
+
+  static const _gradientHeight = 256.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: -_gradientHeight,
+      left: 0,
+      right: 0,
+      child: Column(
+        children: [
+          Container(
+            height: _gradientHeight,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.white.withOpacity(0),
+                  AppColors.white.withOpacity(1),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
           ),
         ],
-      ],
+      ),
     );
   }
 }

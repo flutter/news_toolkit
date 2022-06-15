@@ -21,6 +21,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
         _shareLauncher = shareLauncher,
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
+    on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
     on<ShareRequested>(_onShareRequested);
   }
 
@@ -85,6 +86,25 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     }
   }
 
+  FutureOr<void> _onArticleRewardedAdWatched(
+    ArticleRewardedAdWatched event,
+    Emitter<ArticleState> emit,
+  ) async {
+    try {
+      await _articleRepository.decrementArticleViews();
+      final hasReachedArticleViewsLimit = await _hasReachedArticleViewsLimit();
+
+      emit(
+        state.copyWith(
+          hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
+        ),
+      );
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: ArticleStatus.rewardedAdWatchedFailure));
+      addError(error, stackTrace);
+    }
+  }
+
   FutureOr<void> _onShareRequested(
     ShareRequested event,
     Emitter<ArticleState> emit,
@@ -100,7 +120,8 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   /// Resets the number of article views if the counter was never reset or if
   /// the counter was reset more than [_resetArticleViewsAfterDuration] ago.
   ///
-  /// After, increments the total number of article views by 1.
+  /// After, increments the total number of article views by 1 if the counter
+  /// is less than or equal to [_articleViewsLimit].
   Future<void> _updateArticleViews() async {
     final currentArticleViews = await _articleRepository.fetchArticleViews();
     final resetAt = currentArticleViews.resetAt;
@@ -111,9 +132,10 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
     if (shouldResetArticleViews) {
       await _articleRepository.resetArticleViews();
+      await _articleRepository.incrementArticleViews();
+    } else if (currentArticleViews.views < _articleViewsLimit) {
+      await _articleRepository.incrementArticleViews();
     }
-
-    await _articleRepository.incrementArticleViews();
   }
 
   /// Returns whether the user has reached the limit of article views.

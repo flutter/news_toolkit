@@ -135,7 +135,7 @@ void main() {
       );
 
       blocTest<ArticleBloc, ArticleState>(
-        'emits [loading, error] '
+        'emits [loading, failure] '
         'when getArticle fails',
         setUp: () => when(
           () => articleRepository.getArticle(
@@ -191,8 +191,8 @@ void main() {
       );
 
       blocTest<ArticleBloc, ArticleState>(
-        'calls ArticleRepository.resetArticleViews and '
-        'ArticleRepository.incrementArticleViews '
+        'calls ArticleRepository.resetArticleViews '
+        'and ArticleRepository.incrementArticleViews '
         'and emits hasReachedArticleViewsLimit as false '
         'when the number of article views was never reset',
         setUp: () => when(articleRepository.fetchArticleViews)
@@ -255,8 +255,8 @@ void main() {
       );
 
       test(
-          'calls ArticleRepository.resetArticleViews and '
-          'ArticleRepository.incrementArticleViews '
+          'calls ArticleRepository.resetArticleViews '
+          'and ArticleRepository.incrementArticleViews '
           'and emits hasReachedArticleViewsLimit as false '
           'when the number of article views was last reset '
           'more than a day ago', () async {
@@ -329,7 +329,7 @@ void main() {
       });
 
       test(
-          'calls ArticleRepository.incrementArticleViews '
+          'does not call ArticleRepository.incrementArticleViews '
           'and emits hasReachedArticleViewsLimit as true '
           'when the article views limit of 4 was reached '
           'and the the number of article views was last reset '
@@ -359,11 +359,101 @@ void main() {
             ],
             verify: (bloc) {
               verifyNever(articleRepository.resetArticleViews);
-              verify(articleRepository.incrementArticleViews).called(1);
+              verifyNever(articleRepository.incrementArticleViews);
             },
           );
         });
       });
+    });
+
+    group('ArticleRewardedAdWatched', () {
+      setUp(() {
+        when(articleRepository.decrementArticleViews).thenAnswer((_) async {});
+      });
+
+      blocTest<ArticleBloc, ArticleState>(
+        'calls ArticleRepository.decrementArticleViews '
+        'and emits hasReachedArticleViewsLimit as false '
+        'when the number of article views is less than '
+        'the article views limit of 4',
+        setUp: () => when(articleRepository.fetchArticleViews)
+            .thenAnswer((_) async => ArticleViews(3, null)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
+        seed: () => articleStatePopulated.copyWith(
+          hasReachedArticleViewsLimit: true,
+        ),
+        expect: () => <ArticleState>[
+          articleStatePopulated.copyWith(
+            hasReachedArticleViewsLimit: false,
+          ),
+        ],
+        verify: (bloc) =>
+            verify(articleRepository.decrementArticleViews).called(1),
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'calls ArticleRepository.decrementArticleViews '
+        'and emits hasReachedArticleViewsLimit as true '
+        'when the number of article views is equal to '
+        'the article views limit of 4',
+        setUp: () => when(articleRepository.fetchArticleViews)
+            .thenAnswer((_) async => ArticleViews(4, null)),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
+        seed: () => articleStatePopulated.copyWith(
+          hasReachedArticleViewsLimit: false,
+        ),
+        expect: () => <ArticleState>[
+          articleStatePopulated.copyWith(
+            hasReachedArticleViewsLimit: true,
+          ),
+        ],
+        verify: (bloc) =>
+            verify(articleRepository.decrementArticleViews).called(1),
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [rewardedAdWatchedFailure] '
+        'when decrementArticleViews throws',
+        setUp: () => when(articleRepository.decrementArticleViews)
+            .thenThrow(Exception()),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          articleRepository: articleRepository,
+          shareLauncher: shareLauncher,
+        ),
+        act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
+        expect: () => <ArticleState>[
+          ArticleState.initial()
+              .copyWith(status: ArticleStatus.rewardedAdWatchedFailure),
+        ],
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits [rewardedAdWatchedFailure] '
+        'when fetchArticleViews throws',
+        setUp: () =>
+            when(articleRepository.fetchArticleViews).thenThrow(Exception()),
+        build: () => ArticleBloc(
+          articleId: articleId,
+          articleRepository: articleRepository,
+          shareLauncher: shareLauncher,
+        ),
+        act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
+        expect: () => <ArticleState>[
+          ArticleState.initial()
+              .copyWith(status: ArticleStatus.rewardedAdWatchedFailure),
+        ],
+      );
     });
   });
 }
