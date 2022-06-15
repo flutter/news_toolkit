@@ -17,7 +17,7 @@ class CurrentUserResponse extends Equatable {
   factory CurrentUserResponse.fromJson(Map<String, dynamic> json) =>
       _$CurrentUserResponseFromJson(json);
 
-  /// The article content blocks.
+  /// The associated current user.
   final User user;
 
   /// Converts the current instance to a `Map<String, dynamic>`.
