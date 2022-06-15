@@ -15,6 +15,7 @@ class ArticleComments extends StatelessWidget {
         Text(
           context.l10n.discussion,
           style: Theme.of(context).textTheme.headline3,
+          key: const Key('__discussion_text__'),
         ),
         const SizedBox(height: AppSpacing.lg),
         AppTextField(
