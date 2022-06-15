@@ -36,10 +36,13 @@ export 'src/api/v1/search/popular_search/models/models.dart'
     show PopularSearchResponse;
 export 'src/api/v1/search/relevant_search/models/models.dart'
     show RelevantSearchResponse;
+export 'src/api/v1/subscriptions/get_subscriptions/models/models.dart'
+    show SubscriptionsResponse;
 export 'src/client/google_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
         GoogleNewsTemplateApiMalformedResponse,
         GoogleNewsTemplateApiRequestFailure,
         TokenProvider;
-export 'src/data/models/models.dart' show Category, Feed, SubscriptionPlan;
+export 'src/data/models/models.dart'
+    show Category, Feed, Subscription, SubscriptionCost, SubscriptionPlan;

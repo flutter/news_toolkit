@@ -1,5 +1,40 @@
 part of 'in_memory_news_data_source.dart';
 
+/// List of available subscriptions.
+const subscriptions = <Subscription>[
+  Subscription(
+    id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
+    name: SubscriptionPlan.premium,
+    cost: SubscriptionCost(
+      annual: 16200,
+      monthly: 1499,
+    ),
+    benefits: [
+      'Ut rhoncus dui vel imperdiet ullamcorper.',
+      'Proin pellentesque erat et metus fringilla tincidunt.',
+      'Nunc scelerisque nulla quis urna auctor.',
+    ],
+  ),
+  Subscription(
+    id: '375af719-c9e0-44c4-be05-4527df45a13d',
+    name: SubscriptionPlan.plus,
+    cost: SubscriptionCost(
+      annual: 10800,
+      monthly: 999,
+    ),
+    benefits: ['Nunc scelerisque nulla quis urna auctor.'],
+  ),
+  Subscription(
+    id: '34809bc1-28e5-4967-b029-2432638b0dc7',
+    name: SubscriptionPlan.basic,
+    cost: SubscriptionCost(
+      annual: 5400,
+      monthly: 499,
+    ),
+    benefits: ['Nunc scelerisque nulla quis urna auctor.'],
+  ),
+];
+
 /// List of popular search topics.
 const popularTopics = [
   'Ukraine',

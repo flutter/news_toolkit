@@ -74,4 +74,7 @@ abstract class NewsDataSource {
     required String userId,
     required SubscriptionPlan subscription,
   });
+
+  /// Returns a list of all available news subscriptions.
+  Future<List<Subscription>> getSubscriptions();
 }
