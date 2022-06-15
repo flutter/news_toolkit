@@ -25,6 +25,9 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }
 
   @override
+  Future<List<Subscription>> getSubscriptions() async => subscriptions;
+
+  @override
   Future<Article?> getArticle({
     required String id,
     int limit = 20,

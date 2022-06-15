@@ -283,6 +283,23 @@ class GoogleNewsTemplateApiClient {
     }
   }
 
+  /// GET /api/v1/subscriptions
+  /// Requests a list of all available subscriptions.
+  Future<SubscriptionsResponse> getSubscriptions() async {
+    final uri = Uri.parse('$_baseUrl/api/v1/subscriptions');
+    final response = await _httpClient.get(uri);
+    final body = response.json();
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw GoogleNewsTemplateApiRequestFailure(
+        body: const <String, dynamic>{},
+        statusCode: response.statusCode,
+      );
+    }
+
+    return SubscriptionsResponse.fromJson(body);
+  }
+
   Future<Map<String, String>> _getRequestHeaders() async {
     final token = await _tokenProvider();
     return <String, String>{
