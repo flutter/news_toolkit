@@ -27,11 +27,21 @@ void main() {
     testServer(
       'returns a 200 on success',
       (host) async {
+        final subscription = Subscription(
+          id: 'a',
+          name: SubscriptionPlan.plus,
+          cost: SubscriptionCost(
+            annual: 4200,
+            monthly: 1200,
+          ),
+          benefits: const ['benefitA'],
+        );
+
         when(
           () => newsDataSource.getSubscriptions(),
-        ).thenAnswer((_) async => []);
+        ).thenAnswer((_) async => [subscription]);
 
-        final expected = SubscriptionsResponse(subscriptions: const []);
+        final expected = SubscriptionsResponse(subscriptions: [subscription]);
         final response = await get(host);
         expect(response.statusCode, equals(HttpStatus.ok));
         expect(response.body, equals(json.encode(expected.toJson())));

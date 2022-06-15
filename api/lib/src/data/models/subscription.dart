@@ -21,7 +21,8 @@ class Subscription extends Equatable {
   factory Subscription.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionFromJson(json);
 
-  /// The unique identifier of the subscription tier.
+  /// The unique identifier of the subscription which corresponds to the
+  /// in-app product id defined in the App Store and Google Play.
   final String id;
 
   /// The name of the subscription.
@@ -80,15 +81,3 @@ class SubscriptionCost extends Equatable {
   @override
   List<Object> get props => [monthly, annual];
 }
-
-// "id": "17e79fca-853a-40e3-b4a7-291a64d3846b",
-//                         "name": "premium",
-//                         "cost": {
-//                             "monthly": 1499,
-//                             "annual":16200
-//                         },
-//                         "benefits": [
-//                             "No ads",
-//                             "Access to premium content",
-//                             "Unlimited reads"
-//                         ]
