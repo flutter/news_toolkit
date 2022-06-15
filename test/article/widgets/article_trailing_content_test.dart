@@ -217,10 +217,8 @@ void main() {
         ),
       );
 
-      final columnWidget = tester.widget<Column>(
-        find.byKey(Key('articleTrailingContent_column')),
-      );
-      expect(columnWidget.children.length, 2);
+      expect(find.byType(CategoryFeedItem), findsNothing);
+      expect(find.byType(ArticleComments), findsOneWidget);
     });
 
     group(
