@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'current_user_response.g.dart';
 
 /// {@template current_user_response}
-/// A  response object which contains the current user.
+/// A response object which contains the current user.
 /// {@endtemplate}
 @JsonSerializable()
 class CurrentUserResponse extends Equatable {
