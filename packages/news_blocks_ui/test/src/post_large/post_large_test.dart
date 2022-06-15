@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -119,6 +120,7 @@ void main() {
         );
 
         expect(find.byKey(Key('postLarge_column')), findsOneWidget);
+        expect(find.byType(LockIcon), findsOneWidget);
       });
 
       testWidgets(
@@ -150,9 +152,11 @@ void main() {
         );
 
         expect(find.byKey(Key('postLarge_column')), findsOneWidget);
+        expect(find.byType(LockIcon), findsNothing);
       });
     });
   });
+
   testWidgets('onPressed is called with action when tapped', (tester) async {
     final action = NavigateToArticleAction(articleId: id);
     final actions = <BlockAction>[];
