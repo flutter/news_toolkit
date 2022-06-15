@@ -39,6 +39,38 @@ void main() {
       );
     });
 
+    testWidgets('renders category and premium', (tester) async {
+      final testPostContent = PostContent(
+        title: 'title',
+        categoryName: 'categoryName',
+        premiumText: 'premiumText',
+        isPremium: true,
+      );
+
+      await tester.pumpContentThemedApp(testPostContent);
+
+      expect(
+        find.byType(PostContentCategory),
+        findsNWidgets(2),
+      );
+    });
+
+    testWidgets('renders premium without category', (tester) async {
+      final testPostContent = PostContent(
+        title: 'title',
+        categoryName: '',
+        premiumText: 'premiumText',
+        isPremium: true,
+      );
+
+      await tester.pumpContentThemedApp(testPostContent);
+
+      expect(
+        find.byType(PostContentCategory),
+        findsOneWidget,
+      );
+    });
+
     group('renders PostFooter', () {
       testWidgets('when author provided', (tester) async {
         final testPostContent = PostContent(
