@@ -63,6 +63,11 @@ class MyNewsDataSource extends NewsDataSource {
   Future<List<NewsBlock>> getRelevantArticles({required String term}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<Subscription>> getSubscriptions() {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -138,6 +143,15 @@ void main() {
             subscription: SubscriptionPlan.premium,
           ),
           completes,
+        );
+      });
+    });
+
+    group('getSubscriptions', () {
+      test('returns list of subscriptions', () async {
+        expect(
+          newsDataSource.getSubscriptions(),
+          completion(equals(subscriptions)),
         );
       });
     });
