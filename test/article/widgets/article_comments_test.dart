@@ -16,8 +16,8 @@ void main() {
       );
 
       expect(
-        find.byType(Text),
-        findsNWidgets(2),
+        find.byKey(Key('__discussion_text__')),
+        findsOneWidget,
       );
       expect(
         find.byType(AppTextField),
