@@ -162,10 +162,13 @@ void main() {
     });
 
     group('getUser', () {
-      test('completes with null when user does not exist', () async {
+      test(
+          'completes with empty user '
+          'when subscription does not exist', () async {
+        const userId = 'userId';
         expect(
-          newsDataSource.getUser(userId: 'userId'),
-          completion(isNull),
+          newsDataSource.getUser(userId: userId),
+          completion(User(id: userId, subscription: SubscriptionPlan.none)),
         );
       });
 

@@ -96,7 +96,9 @@ class InMemoryNewsDataSource implements NewsDataSource {
   @override
   Future<User?> getUser({required String userId}) async {
     final subscription = _userSubscriptions[userId];
-    if (subscription == null) return null;
+    if (subscription == null) {
+      return User(id: userId, subscription: SubscriptionPlan.none);
+    }
     return User(
       id: userId,
       subscription: SubscriptionPlan.values.firstWhere(
