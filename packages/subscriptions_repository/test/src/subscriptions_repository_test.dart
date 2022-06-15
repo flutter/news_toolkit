@@ -12,9 +12,17 @@ void main() {
   group('SubscriptionsRepository', () {
     late GoogleNewsTemplateApiClient apiClient;
 
+    setUpAll(() {
+      registerFallbackValue(SubscriptionPlan.none);
+    });
+
     setUp(() {
       apiClient = MockGoogleNewsTemplateApiClient();
-      when(apiClient.createSubscription).thenAnswer((_) async {});
+      when(
+        () => apiClient.createSubscription(
+          subscription: any(named: 'subscription'),
+        ),
+      ).thenAnswer((_) async {});
     });
 
     test('can be instantiated', () {
@@ -35,7 +43,11 @@ void main() {
       test('calls ApiClient.createSubscription', () async {
         final repository = SubscriptionsRepository(apiClient: apiClient);
         await repository.requestSubscriptionPlan(SubscriptionPlan.premium);
-        verify(apiClient.createSubscription).called(1);
+        verify(
+          () => apiClient.createSubscription(
+            subscription: SubscriptionPlan.premium,
+          ),
+        ).called(1);
       });
 
       test('adds plan to currentSubscriptionPlan stream', () {
@@ -55,7 +67,11 @@ void main() {
       test(
           'throws a RequestSubscriptionPlanFailure '
           'when ApiClient.createSubscription fails', () async {
-        when(apiClient.createSubscription).thenThrow(Exception());
+        when(
+          () => apiClient.createSubscription(
+            subscription: any(named: 'subscription'),
+          ),
+        ).thenThrow(Exception());
 
         expect(
           () => SubscriptionsRepository(apiClient: apiClient)

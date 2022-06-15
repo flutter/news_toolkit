@@ -939,7 +939,9 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await apiClient.createSubscription();
+        await apiClient.createSubscription(
+          subscription: SubscriptionPlan.basic,
+        );
 
         verify(
           () => httpClient.post(
@@ -961,7 +963,9 @@ void main() {
         await GoogleNewsTemplateApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
-        ).createSubscription();
+        ).createSubscription(
+          subscription: SubscriptionPlan.basic,
+        );
 
         verify(
           () => httpClient.post(
@@ -984,7 +988,9 @@ void main() {
         );
 
         expect(
-          () => apiClient.createSubscription(),
+          () => apiClient.createSubscription(
+            subscription: SubscriptionPlan.basic,
+          ),
           throwsA(
             isA<GoogleNewsTemplateApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
@@ -999,7 +1005,12 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        expect(apiClient.createSubscription(), completes);
+        expect(
+          apiClient.createSubscription(
+            subscription: SubscriptionPlan.basic,
+          ),
+          completes,
+        );
       });
     });
   });

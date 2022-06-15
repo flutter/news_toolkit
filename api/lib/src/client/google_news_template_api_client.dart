@@ -266,7 +266,9 @@ class GoogleNewsTemplateApiClient {
 
   /// POST /api/v1/subscriptions
   /// Creates a new subscription for the associated user.
-  Future<void> createSubscription() async {
+  Future<void> createSubscription({
+    required SubscriptionPlan subscription,
+  }) async {
     final uri = Uri.parse('$_baseUrl/api/v1/subscriptions');
     final response = await _httpClient.post(
       uri,

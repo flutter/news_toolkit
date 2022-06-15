@@ -67,4 +67,11 @@ abstract class NewsDataSource {
 
   /// Returns a list of all available news categories.
   Future<List<Category>> getCategories();
+
+  /// Subscribes the user with the associated [userId] to
+  /// the [subscription].
+  Future<void> createSubscription({
+    required String userId,
+    required SubscriptionPlan subscription,
+  });
 }

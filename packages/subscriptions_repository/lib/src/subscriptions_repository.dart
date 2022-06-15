@@ -24,15 +24,6 @@ class RequestSubscriptionPlanFailure extends SubscriptionsFailure {
   const RequestSubscriptionPlanFailure(super.error);
 }
 
-/// The subscription plan of a user.
-enum SubscriptionPlan {
-  /// No subscription plan.
-  none,
-
-  /// Premium subscription plan.
-  premium
-}
-
 /// {@template subscriptions_repository}
 /// A repository that manages user subscriptions.
 /// {@endtemplate}
@@ -52,11 +43,11 @@ class SubscriptionsRepository {
   Stream<SubscriptionPlan> get currentSubscriptionPlan =>
       _currentSubscriptionPlanSubject;
 
-  /// Requests to set the current subscription plan to [plan].
-  Future<void> requestSubscriptionPlan(SubscriptionPlan plan) async {
+  /// Requests to set the current subscription plan to [subscription].
+  Future<void> requestSubscriptionPlan(SubscriptionPlan subscription) async {
     try {
-      await _apiClient.createSubscription();
-      _currentSubscriptionPlanSubject.add(plan);
+      await _apiClient.createSubscription(subscription: subscription);
+      _currentSubscriptionPlanSubject.add(subscription);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         RequestSubscriptionPlanFailure(error),
