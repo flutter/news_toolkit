@@ -13,7 +13,7 @@ class SubscriptionsController extends Controller
   const SubscriptionsController();
 
   @override
-Handler get handler {
+  Handler get handler {
     return Router()
       ..get('/', getSubscriptions)
       ..post('/', createSubscription);
