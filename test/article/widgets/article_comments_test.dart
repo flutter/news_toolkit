@@ -16,7 +16,7 @@ void main() {
       );
 
       expect(
-        find.byKey(Key('__discussion_text__')),
+        find.byKey(Key('articleComments_discussionTitle')),
         findsOneWidget,
       );
       expect(
