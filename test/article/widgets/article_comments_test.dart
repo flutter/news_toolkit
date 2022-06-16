@@ -10,7 +10,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ArticleComments', () {
-    testWidgets('renders ArticlesComments', (tester) async {
+    testWidgets('renders title and text field', (tester) async {
       await tester.pumpApp(
         ArticleComments(),
       );
