@@ -624,6 +624,112 @@ void main() {
       });
     });
 
+    group('getCurrentUser', () {
+      const currentUserResponse = CurrentUserResponse(
+        user: User(id: 'id', subscription: SubscriptionPlan.basic),
+      );
+
+      test('makes correct http request.', () async {
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(currentUserResponse),
+            HttpStatus.ok,
+          ),
+        );
+
+        await apiClient.getCurrentUser();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: '/api/v1/users/me')),
+            headers: any(named: 'headers', that: areJsonHeaders()),
+          ),
+        ).called(1);
+      });
+
+      test('makes correct http request (with authorization token).', () async {
+        tokenProvider = () async => token;
+
+        when(
+          () => httpClient.get(any(), headers: any(named: 'headers')),
+        ).thenAnswer(
+          (_) async => http.Response(
+            jsonEncode(currentUserResponse),
+            HttpStatus.ok,
+          ),
+        );
+
+        await GoogleNewsTemplateApiClient(
+          httpClient: httpClient,
+          tokenProvider: tokenProvider,
+        ).getCurrentUser();
+
+        verify(
+          () => httpClient.get(
+            any(that: isAUriHaving(path: '/api/v1/users/me')),
+            headers: any(
+              named: 'headers',
+              that: areJsonHeaders(authorizationToken: token),
+            ),
+          ),
+        ).called(1);
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiMalformedResponse '
+          'when response body is malformed.', () {
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response('', HttpStatus.ok),
+        );
+
+        expect(
+          apiClient.getCurrentUser,
+          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+        );
+      });
+
+      test(
+          'throws GoogleNewsTemplateApiRequestFailure '
+          'when response has a non-200 status code.', () {
+        const statusCode = HttpStatus.internalServerError;
+        final body = <String, dynamic>{};
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(json.encode(body), statusCode),
+        );
+
+        expect(
+          apiClient.getCurrentUser,
+          throwsA(
+            isA<GoogleNewsTemplateApiRequestFailure>()
+                .having((f) => f.statusCode, 'statusCode', statusCode)
+                .having((f) => f.body, 'body', body),
+          ),
+        );
+      });
+
+      test('returns a CurrentUserResponse on a 200 response.', () {
+        const expectedResponse = CurrentUserResponse(
+          user: User(id: 'id', subscription: SubscriptionPlan.basic),
+        );
+        when(() => httpClient.get(any(), headers: any(named: 'headers')))
+            .thenAnswer(
+          (_) async => http.Response(
+            json.encode(expectedResponse.toJson()),
+            HttpStatus.ok,
+          ),
+        );
+
+        expect(
+          apiClient.getCurrentUser(),
+          completion(equals(expectedResponse)),
+        );
+      });
+    });
+
     group('getSubscriptions', () {
       const subscriptionsResponse = SubscriptionsResponse(subscriptions: []);
 

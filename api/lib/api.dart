@@ -15,6 +15,8 @@ export 'src/api/v1/search/relevant_search/models/models.dart'
     show RelevantSearchResponse;
 export 'src/api/v1/subscriptions/get_subscriptions/models/models.dart'
     show SubscriptionsResponse;
+export 'src/api/v1/users/get_current_user/models/models.dart'
+    show CurrentUserResponse;
 export 'src/data/in_memory_news_data_source.dart' show InMemoryNewsDataSource;
 export 'src/data/models/models.dart'
     show
@@ -24,6 +26,7 @@ export 'src/data/models/models.dart'
         RelatedArticles,
         Subscription,
         SubscriptionCost,
-        SubscriptionPlan;
+        SubscriptionPlan,
+        User;
 export 'src/data/news_data_source.dart' show NewsDataSource;
 export 'src/di.dart' show GetRequest, PipelineInjection;
