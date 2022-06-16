@@ -60,6 +60,8 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       .read<CategoriesBloc>()
       .add(CategorySelected(category: widget.categories[_tabController.index]));
 
+  final _scrossController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<CategoriesBloc, CategoriesState>(
@@ -82,7 +84,18 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
           CategoriesTabBar(
             controller: _tabController,
             tabs: widget.categories
-                .map((category) => CategoryTab(categoryName: category.name))
+                .map(
+                  (category) => CategoryTab(
+                    categoryName: category.name,
+                    onDoubleTap: () {
+                      _scrossController.animateTo(
+                        0,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    },
+                  ),
+                )
                 .toList(),
           ),
           Expanded(
@@ -93,6 +106,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                     (category) => CategoryFeed(
                       key: PageStorageKey(category),
                       category: category,
+                      scrollController: _scrossController,
                     ),
                   )
                   .toList(),
