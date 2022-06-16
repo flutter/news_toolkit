@@ -24,12 +24,20 @@ class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key, required this.categoryName});
+  const CategoryTab({
+    super.key,
+    required this.categoryName,
+    this.onDoubleTap,
+  });
 
   final String categoryName;
+  final VoidCallback? onDoubleTap;
 
   @override
   Widget build(BuildContext context) {
-    return Text(categoryName.toUpperCase());
+    return GestureDetector(
+      onDoubleTap: onDoubleTap,
+      child: Text(categoryName.toUpperCase()),
+    );
   }
 }
