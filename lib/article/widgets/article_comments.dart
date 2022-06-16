@@ -18,8 +18,13 @@ class ArticleComments extends StatelessWidget {
           key: const Key('articleComments_discussionTitle'),
         ),
         const SizedBox(height: AppSpacing.lg),
-        AppTextField(
-          hintText: context.l10n.commentEntryHint,
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 148,
+          ),
+          child: AppTextField(
+            hintText: context.l10n.commentEntryHint,
+          ),
         ),
       ],
     );
