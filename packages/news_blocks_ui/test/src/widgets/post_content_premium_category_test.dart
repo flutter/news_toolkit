@@ -6,19 +6,20 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('PostContentCategory', () {
-    testWidgets('renders category name in uppercase', (tester) async {
-      final testPostContentCategory = PostContentCategory(
-        categoryName: 'Test',
+  group('PostContentPremiumCategory', () {
+    testWidgets('renders premium text in uppercase', (tester) async {
+      final testPostContentPremiumCategory = PostContentPremiumCategory(
+        isPremium: true,
+        premiumText: 'premiumText',
         isContentOverlaid: false,
         isSubscriberExclusive: false,
         isVideoContent: false,
       );
 
-      await tester.pumpContentThemedApp(testPostContentCategory);
+      await tester.pumpContentThemedApp(testPostContentPremiumCategory);
 
       expect(
-        find.text(testPostContentCategory.categoryName.toUpperCase()),
+        find.text(testPostContentPremiumCategory.premiumText.toUpperCase()),
         findsOneWidget,
       );
     });

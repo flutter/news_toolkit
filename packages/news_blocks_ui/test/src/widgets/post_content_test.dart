@@ -51,7 +51,11 @@ void main() {
 
       expect(
         find.byType(PostContentCategory),
-        findsNWidgets(2),
+        findsOneWidget,
+      );
+      expect(
+        find.byType(PostContentPremiumCategory),
+        findsOneWidget,
       );
     });
 
@@ -66,7 +70,7 @@ void main() {
       await tester.pumpContentThemedApp(testPostContent);
 
       expect(
-        find.byType(PostContentCategory),
+        find.byType(PostContentPremiumCategory),
         findsOneWidget,
       );
     });
