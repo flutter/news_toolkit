@@ -48,6 +48,14 @@ class ArticleTrailingContent extends StatelessWidget {
                 ...relatedArticles.map(
                   (articleBlock) => CategoryFeedItem(block: articleBlock),
                 ),
+                const SizedBox(height: AppSpacing.lg),
+              ],
+              if (!showSubscribeWithArticleLimitModal) ...[
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  child: ArticleComments(),
+                ),
+                const SizedBox(height: AppSpacing.lg),
               ],
               if (showSubscribeWithArticleLimitModal) ...[
                 const SizedBox(height: AppSpacing.lg),
