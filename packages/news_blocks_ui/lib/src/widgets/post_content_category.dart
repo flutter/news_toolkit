@@ -25,7 +25,6 @@ class PostContentCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Category label hierarchy
-    // isSubscriberExclusive > isContentOverlaid
     final backgroundColor =
         isContentOverlaid ? AppColors.secondary : AppColors.transparent;
 
