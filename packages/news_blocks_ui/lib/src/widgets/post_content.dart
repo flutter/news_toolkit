@@ -91,7 +91,6 @@ class PostContent extends StatelessWidget {
                 if (hasCategory) const SizedBox(width: AppSpacing.sm),
                 PostContentPremiumCategory(
                   premiumText: premiumText,
-                  isContentOverlaid: isContentOverlaid,
                   isSubscriberExclusive: isSubscriberExclusive,
                   isVideoContent: isVideoContent,
                 ),

@@ -10,16 +10,12 @@ class PostContentPremiumCategory extends StatelessWidget {
   const PostContentPremiumCategory({
     super.key,
     required this.premiumText,
-    required this.isContentOverlaid,
     required this.isSubscriberExclusive,
     required this.isVideoContent,
   });
 
   /// Text displayed when post is premium content.
   final String premiumText;
-
-  /// Whether this category should be overlaid on the image.
-  final bool isContentOverlaid;
 
   /// Whether this post is subscriber exclusive.
   final bool isSubscriberExclusive;
@@ -30,7 +26,7 @@ class PostContentPremiumCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Category label hierarchy
-    // isSubscriberExclusive > isPremium > isContentOverlaid
+    // isSubscriberExclusive > isPremium
     final backgroundColor =
         isSubscriberExclusive ? AppColors.secondary : AppColors.redWine;
 

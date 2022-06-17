@@ -10,7 +10,6 @@ void main() {
     testWidgets('renders premium text in uppercase', (tester) async {
       final testPostContentPremiumCategory = PostContentPremiumCategory(
         premiumText: 'premiumText',
-        isContentOverlaid: false,
         isSubscriberExclusive: false,
         isVideoContent: false,
       );
