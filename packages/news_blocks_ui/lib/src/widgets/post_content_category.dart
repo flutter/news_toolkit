@@ -10,7 +10,6 @@ class PostContentCategory extends StatelessWidget {
     super.key,
     required this.categoryName,
     required this.isContentOverlaid,
-    required this.isSubscriberExclusive,
     required this.isVideoContent,
   });
 
@@ -19,9 +18,6 @@ class PostContentCategory extends StatelessWidget {
 
   /// Whether this category should be overlaid on the image.
   final bool isContentOverlaid;
-
-  /// Whether this post is subscriber exclusive.
-  final bool isSubscriberExclusive;
 
   /// Whether content is a part of a video article.
   final bool isVideoContent;
@@ -33,7 +29,7 @@ class PostContentCategory extends StatelessWidget {
     final backgroundColor =
         isContentOverlaid ? AppColors.secondary : AppColors.transparent;
 
-    final isCategoryBackgroundDark = isContentOverlaid || isSubscriberExclusive;
+    final isCategoryBackgroundDark = isContentOverlaid;
 
     final textColor = isVideoContent
         ? AppColors.orange

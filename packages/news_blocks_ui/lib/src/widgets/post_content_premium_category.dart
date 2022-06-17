@@ -9,28 +9,19 @@ class PostContentPremiumCategory extends StatelessWidget {
   const PostContentPremiumCategory({
     super.key,
     required this.premiumText,
-    required this.isSubscriberExclusive,
     required this.isVideoContent,
   });
 
   /// Text displayed when post is premium content.
   final String premiumText;
 
-  /// Whether this post is subscriber exclusive.
-  final bool isSubscriberExclusive;
-
   /// Whether content is a part of a video article.
   final bool isVideoContent;
 
   @override
   Widget build(BuildContext context) {
-    // Category label hierarchy
-    // isSubscriberExclusive > isPremium
-    final backgroundColor =
-        isSubscriberExclusive ? AppColors.secondary : AppColors.redWine;
-
-    final textColor = isVideoContent ? AppColors.orange : AppColors.secondary;
-
+    const backgroundColor = AppColors.redWine;
+    const textColor = AppColors.white;
     const horizontalSpacing = AppSpacing.xs;
 
     return Column(
@@ -38,7 +29,7 @@ class PostContentPremiumCategory extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: DecoratedBox(
-            decoration: BoxDecoration(color: backgroundColor),
+            decoration: const BoxDecoration(color: backgroundColor),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(
                 horizontalSpacing,

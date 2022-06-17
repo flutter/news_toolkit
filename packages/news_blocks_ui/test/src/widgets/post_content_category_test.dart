@@ -11,7 +11,6 @@ void main() {
       final testPostContentCategory = PostContentCategory(
         categoryName: 'Test',
         isContentOverlaid: false,
-        isSubscriberExclusive: false,
         isVideoContent: false,
       );
 
