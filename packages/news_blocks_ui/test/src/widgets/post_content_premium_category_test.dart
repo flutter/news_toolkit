@@ -9,7 +9,6 @@ void main() {
   group('PostContentPremiumCategory', () {
     testWidgets('renders premium text in uppercase', (tester) async {
       final testPostContentPremiumCategory = PostContentPremiumCategory(
-        isPremium: true,
         premiumText: 'premiumText',
         isContentOverlaid: false,
         isSubscriberExclusive: false,

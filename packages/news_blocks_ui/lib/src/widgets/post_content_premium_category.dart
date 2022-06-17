@@ -9,15 +9,11 @@ class PostContentPremiumCategory extends StatelessWidget {
   /// {@macro post_content_category}
   const PostContentPremiumCategory({
     super.key,
-    required this.isPremium,
     required this.premiumText,
     required this.isContentOverlaid,
     required this.isSubscriberExclusive,
     required this.isVideoContent,
   });
-
-  /// Whether this post requires a premium subscription to access.
-  final bool isPremium;
 
   /// Text displayed when post is premium content.
   final String premiumText;
@@ -35,24 +31,12 @@ class PostContentPremiumCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     // Category label hierarchy
     // isSubscriberExclusive > isPremium > isContentOverlaid
-    final backgroundColor = isSubscriberExclusive
-        ? AppColors.secondary
-        : isPremium
-            ? AppColors.redWine
-            : isContentOverlaid
-                ? AppColors.secondary
-                : AppColors.transparent;
+    final backgroundColor =
+        isSubscriberExclusive ? AppColors.secondary : AppColors.redWine;
 
-    final isCategoryBackgroundDark =
-        isPremium || isContentOverlaid || isSubscriberExclusive;
+    final textColor = isVideoContent ? AppColors.orange : AppColors.secondary;
 
-    final textColor = isVideoContent
-        ? AppColors.orange
-        : isCategoryBackgroundDark
-            ? AppColors.white
-            : AppColors.secondary;
-
-    final horizontalSpacing = isCategoryBackgroundDark ? AppSpacing.xs : 0.0;
+    const horizontalSpacing = AppSpacing.xs;
 
     return Column(
       children: [
@@ -61,7 +45,7 @@ class PostContentPremiumCategory extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(color: backgroundColor),
             child: Padding(
-              padding: EdgeInsets.fromLTRB(
+              padding: const EdgeInsets.fromLTRB(
                 horizontalSpacing,
                 0,
                 horizontalSpacing,
