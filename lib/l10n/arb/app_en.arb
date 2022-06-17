@@ -502,5 +502,17 @@
     "description": "Text shown in watch video button on the subscribe limit modal widget.",
     "type": "text",
     "placeholders": {}
+  },
+  "discussion": "Discussion",
+  "@discussion": {
+    "description": "Header text shown in the bottom of article content above comment entry field.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "commentEntryHint": "Enter comment",
+  "@commentEntryHint": {
+    "description": "Text shown inside comment entry text field.",
+    "type": "text",
+    "placeholders": {}
   }
 }

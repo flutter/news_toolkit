@@ -9,7 +9,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart' hide User;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:user_repository/user_repository.dart';
@@ -193,7 +193,7 @@ void main() {
     });
 
     testWidgets(
-        'renders empty column when '
+        'renders only ArticleComments when '
         'relatedArticles is empty', (tester) async {
       when(() => articleBloc.state).thenAnswer(
         (invocation) => ArticleState(
@@ -217,10 +217,8 @@ void main() {
         ),
       );
 
-      final columnWidget = tester.widget<Column>(
-        find.byKey(Key('articleTrailingContent_column')),
-      );
-      expect(columnWidget.children, isEmpty);
+      expect(find.byType(CategoryFeedItem), findsNothing);
+      expect(find.byType(ArticleComments), findsOneWidget);
     });
 
     group(
