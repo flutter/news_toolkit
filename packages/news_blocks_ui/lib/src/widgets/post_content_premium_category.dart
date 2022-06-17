@@ -2,8 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template post_content_category}
-/// A widget displaying the category of a post
-/// or a premium label if the post is premium.
+/// A widget displaying premium label on a post.
 /// {@endtemplate}
 class PostContentPremiumCategory extends StatelessWidget {
   /// {@macro post_content_category}

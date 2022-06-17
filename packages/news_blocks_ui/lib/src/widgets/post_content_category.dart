@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 /// {@template post_content_category}
 /// A widget displaying the category of a post
-/// or a premium label if the post is premium.
 /// {@endtemplate}
 class PostContentCategory extends StatelessWidget {
   /// {@macro post_content_category}
@@ -30,7 +29,7 @@ class PostContentCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Category label hierarchy
-    // isSubscriberExclusive > isPremium > isContentOverlaid
+    // isSubscriberExclusive > isContentOverlaid
     final backgroundColor =
         isContentOverlaid ? AppColors.secondary : AppColors.transparent;
 
