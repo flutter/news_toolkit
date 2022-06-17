@@ -70,6 +70,10 @@ void main() {
       await tester.pumpContentThemedApp(testPostContent);
 
       expect(
+        find.byType(PostContentCategory),
+        findsNothing,
+      );
+      expect(
         find.byType(PostContentPremiumCategory),
         findsOneWidget,
       );
