@@ -10,8 +10,6 @@ class PostContentCategory extends StatelessWidget {
   const PostContentCategory({
     super.key,
     required this.categoryName,
-    required this.isPremium,
-    required this.premiumText,
     required this.isContentOverlaid,
     required this.isSubscriberExclusive,
     required this.isVideoContent,
@@ -19,12 +17,6 @@ class PostContentCategory extends StatelessWidget {
 
   /// Category of post.
   final String categoryName;
-
-  /// Whether this post requires a premium subscription to access.
-  final bool isPremium;
-
-  /// Text displayed when post is premium content.
-  final String premiumText;
 
   /// Whether this category should be overlaid on the image.
   final bool isContentOverlaid;
@@ -39,24 +31,17 @@ class PostContentCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     // Category label hierarchy
     // isSubscriberExclusive > isPremium > isContentOverlaid
-    final backgroundColor = isSubscriberExclusive
-        ? AppColors.secondary
-        : isPremium
-            ? AppColors.redWine
-            : isContentOverlaid
-                ? AppColors.secondary
-                : AppColors.transparent;
+    final backgroundColor =
+        isContentOverlaid ? AppColors.secondary : AppColors.transparent;
 
-    final isCategoryBackgroundDark =
-        isPremium || isContentOverlaid || isSubscriberExclusive;
+    final isCategoryBackgroundDark = isContentOverlaid || isSubscriberExclusive;
 
     final textColor = isVideoContent
         ? AppColors.orange
         : isCategoryBackgroundDark
             ? AppColors.white
             : AppColors.secondary;
-    final shouldCategoryNameDisplay =
-        isPremium || isSubscriberExclusive ? premiumText : categoryName;
+
     final horizontalSpacing = isCategoryBackgroundDark ? AppSpacing.xs : 0.0;
 
     return Column(
@@ -73,7 +58,7 @@ class PostContentCategory extends StatelessWidget {
                 AppSpacing.xxs,
               ),
               child: Text(
-                shouldCategoryNameDisplay.toUpperCase(),
+                categoryName.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .overline
