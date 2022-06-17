@@ -68,6 +68,8 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final category = categoryName;
+    final hasCategory = category != null && category.isNotEmpty;
     return Padding(
       padding: isContentOverlaid
           ? const EdgeInsets.symmetric(horizontal: AppSpacing.lg)
@@ -78,7 +80,7 @@ class PostContent extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           Row(
             children: [
-              if (categoryName?.isNotEmpty ?? false)
+              if (hasCategory)
                 PostContentCategory(
                   categoryName: categoryName!,
                   isContentOverlaid: isContentOverlaid,
@@ -86,8 +88,7 @@ class PostContent extends StatelessWidget {
                   isVideoContent: isVideoContent,
                 ),
               if (isPremium) ...[
-                if (categoryName?.isNotEmpty ?? false)
-                  const SizedBox(width: AppSpacing.sm),
+                if (hasCategory) const SizedBox(width: AppSpacing.sm),
                 PostContentPremiumCategory(
                   isPremium: isPremium,
                   premiumText: premiumText,
