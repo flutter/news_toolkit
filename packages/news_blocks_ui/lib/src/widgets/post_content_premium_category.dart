@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 /// A widget displaying the category of a post
 /// or a premium label if the post is premium.
 /// {@endtemplate}
-class PostContentCategory extends StatelessWidget {
+class PostContentPremiumCategory extends StatelessWidget {
   /// {@macro post_content_category}
-  const PostContentCategory({
+  const PostContentPremiumCategory({
     super.key,
     required this.isPremium,
     required this.premiumText,
@@ -15,9 +15,6 @@ class PostContentCategory extends StatelessWidget {
     required this.isSubscriberExclusive,
     required this.isVideoContent,
   });
-
-  /// Category of post.
-  final String categoryName;
 
   /// Whether this post requires a premium subscription to access.
   final bool isPremium;
