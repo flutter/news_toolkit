@@ -67,19 +67,23 @@ void main() {
         when(
           () => newsDataSource.createSubscription(
             userId: any(named: 'userId'),
-            subscription: any(named: 'subscription'),
+            subscriptionId: any(named: 'subscriptionId'),
           ),
         ).thenAnswer((_) async {});
 
         final response = await post(
-          host,
+          host.replace(
+            queryParameters: <String, String>{
+              'subscriptionId': 'subscriptionId',
+            },
+          ),
           headers: const {'authorization': 'Bearer $userId'},
         );
         expect(response.statusCode, equals(HttpStatus.created));
         verify(
           () => newsDataSource.createSubscription(
             userId: userId,
-            subscription: SubscriptionPlan.premium,
+            subscriptionId: 'subscriptionId',
           ),
         ).called(1);
       },
