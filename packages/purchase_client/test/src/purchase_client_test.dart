@@ -5,41 +5,91 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:purchase_client/purchase_client.dart';
+import 'package:purchase_client/src/products.dart';
+
+extension PurchaseDetailsEquals on PurchaseDetails {
+  /// Returns a copy of the current PurchaseDetails with the given parameters.
+  bool equals(PurchaseDetails purchaseDetails) =>
+      purchaseDetails.purchaseID == purchaseID &&
+      purchaseDetails.productID == productID &&
+      purchaseDetails.verificationData == verificationData &&
+      purchaseDetails.transactionDate == transactionDate &&
+      purchaseDetails.status == status &&
+      purchaseDetails.pendingCompletePurchase == pendingCompletePurchase &&
+      purchaseDetails.error == error;
+}
 
 void main() {
   group('PurchaseDetails', () {
     group('copyWith', () {
+      final purchaseDetails = PurchaseDetails(
+        productID: 'id',
+        status: PurchaseStatus.pending,
+        transactionDate: 'date',
+        verificationData: PurchaseVerificationData(
+          localVerificationData: 'local',
+          serverVerificationData: 'server',
+          source: 'source',
+        ),
+      );
+
       test(
           'returns the same object '
           'when no parameters are passed', () {
-        final purchaseDetails = PurchaseDetails(
-          productID: 'id',
-          status: PurchaseStatus.pending,
-          transactionDate: 'date',
-          verificationData: PurchaseVerificationData(
-            localVerificationData: 'local',
-            serverVerificationData: 'server',
-            source: 'source',
-          ),
-        );
-
         expect(purchaseDetails.copyWith().equals(purchaseDetails), isTrue);
+      });
+
+      test(
+          'sets purchaseID '
+          'when purchaseID is passed', () {
+        expect(
+          purchaseDetails.copyWith(purchaseID: 'newId').purchaseID,
+          'newId',
+        );
+      });
+
+      test(
+          'sets productID '
+          'when productID is passed', () {
+        expect(purchaseDetails.copyWith(productID: 'newId').productID, 'newId');
+      });
+
+      test(
+          'sets status '
+          'when status is passed', () {
+        expect(
+          purchaseDetails.copyWith(status: PurchaseStatus.purchased).status,
+          PurchaseStatus.purchased,
+        );
+      });
+      test(
+          'sets transactionDate '
+          'when transactionDate is passed', () {
+        expect(
+          purchaseDetails.copyWith(transactionDate: 'newDate').transactionDate,
+          'newDate',
+        );
+      });
+
+      test(
+          'sets verificationData '
+          'when verificationData is passed', () {
+        final verificationData = PurchaseVerificationData(
+          localVerificationData: 'newLocal',
+          serverVerificationData: 'newServer',
+          source: 'newSource',
+        );
+        expect(
+          purchaseDetails
+              .copyWith(verificationData: verificationData)
+              .verificationData,
+          verificationData,
+        );
       });
 
       test(
           'sets pendingCompletePurchase '
           'when pendingCompletePurchase is passed', () {
-        final purchaseDetails = PurchaseDetails(
-          productID: 'id',
-          status: PurchaseStatus.pending,
-          transactionDate: 'date',
-          verificationData: PurchaseVerificationData(
-            localVerificationData: 'local',
-            serverVerificationData: 'server',
-            source: 'source',
-          ),
-        );
-
         expect(
           purchaseDetails
               .copyWith(pendingCompletePurchase: true)
@@ -51,14 +101,7 @@ void main() {
   });
 
   group('PurchaseClient', () {
-    final productDetails = ProductDetails(
-      id: '17e79fca-853a-40e3-b4a7-291a64d3846b',
-      title: 'premium',
-      description: 'premium subscription',
-      price: r'$14.99',
-      rawPrice: 14.99,
-      currencyCode: 'USD',
-    );
+    final productDetails = availableProducts.values.first;
 
     final purchaseDetails = PurchaseDetails(
       productID: 'productID',
@@ -113,7 +156,9 @@ void main() {
 
     test(
         'buyNonConsumable returns true '
-        'and adds to purchaseStream ', () async {
+        'and adds purchase '
+        'with purchase status PurchaseStatus.pending '
+        'to purchaseStream', () async {
       final result = await purchaseClient.buyNonConsumable(
         purchaseParam: PurchaseParam(
           productDetails: productDetails,
@@ -123,10 +168,12 @@ void main() {
 
       purchaseClient.purchaseStream.listen((purchases) {
         expect(purchases, equals([purchaseDetails]));
+        expect(purchases.first.status, equals(PurchaseStatus.pending));
       });
 
       expect(result, true);
     });
+
     test('completePurchase', () async {
       await purchaseClient.completePurchase(purchaseDetails);
 
@@ -135,11 +182,11 @@ void main() {
       });
     });
 
-    test('restorePurchases', () async {
+    test('restorePurchases completes', () async {
       await expectLater(purchaseClient.restorePurchases(), completes);
     });
 
-    test('buyConsumable throws an exception', () async {
+    test('buyConsumable throws an UnimplementedError', () async {
       expect(
         () => purchaseClient.buyConsumable(
           purchaseParam: PurchaseParam(
@@ -151,7 +198,7 @@ void main() {
       );
     });
 
-    test('getPlatformAddition throws an exception', () async {
+    test('getPlatformAddition throws an UnimplementedError', () async {
       expect(
         () => purchaseClient.getPlatformAddition(),
         throwsA(isA<UnimplementedError>()),

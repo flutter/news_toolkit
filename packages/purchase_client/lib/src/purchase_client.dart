@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:clock/clock.dart';
+import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-// ignore: implementation_imports
-import 'package:in_app_purchase_platform_interface/src/in_app_purchase_platform_addition.dart';
+import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 import 'package:purchase_client/src/products.dart';
 
 /// Extension on [PurchaseDetails] enabling copyWith.
-
+@visibleForTesting
 extension PurchaseDetailsCopyWith on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
   PurchaseDetails copyWith({
@@ -26,16 +26,6 @@ extension PurchaseDetailsCopyWith on PurchaseDetails {
         status: status ?? this.status,
       )..pendingCompletePurchase =
           pendingCompletePurchase ?? this.pendingCompletePurchase;
-
-  /// Returns a copy of the current PurchaseDetails with the given parameters.
-  bool equals(PurchaseDetails purchaseDetails) =>
-      purchaseDetails.purchaseID == purchaseID &&
-      purchaseDetails.productID == productID &&
-      purchaseDetails.verificationData == verificationData &&
-      purchaseDetails.transactionDate == transactionDate &&
-      purchaseDetails.status == status &&
-      purchaseDetails.pendingCompletePurchase == pendingCompletePurchase &&
-      purchaseDetails.error == error;
 }
 
 /// {@template purchase_client}
@@ -47,14 +37,7 @@ class PurchaseClient implements InAppPurchase {
   /// {@macro purchase_client}
   PurchaseClient();
 
-  /// List of products defined in stores.
-  ///
-  /// Has to be defined in the underlying payment platform, for example,
-  /// [App Store Connect](https://appstoreconnect.apple.com/) for iOS
-  /// and [Google Play Console](https://play.google.com/) for Android.
-  final List<ProductDetails> products = availableProducts;
-
-  /// The duration after which [isAvailable] completes with true.
+  /// The duration after which [isAvailable] completes with `true`.
   static const _isAvailableDelay = Duration(milliseconds: 100);
 
   @override
@@ -115,17 +98,14 @@ class PurchaseClient implements InAppPurchase {
   @override
   Future<ProductDetailsResponse> queryProductDetails(Set<String> identifiers) {
     final notFoundIdentifiers = identifiers
-        .where(
-          (identifier) => !products.any(
-            (product) => product.id == identifier,
-          ),
-        )
+        .where((identifier) => !availableProducts.containsKey(identifier))
         .toList();
 
     return Future.value(
       ProductDetailsResponse(
-        productDetails: products
-            .where((element) => identifiers.contains(element.id))
+        productDetails: identifiers
+            .map((identifier) => availableProducts[identifier])
+            .whereType<ProductDetails>()
             .toList(),
         notFoundIDs: notFoundIdentifiers,
       ),
