@@ -15,7 +15,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: false,
-        isPremium: false,
+        isLocked: false,
       );
 
       await mockNetworkImages(
@@ -31,7 +31,7 @@ void main() {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
         isContentOverlaid: true,
-        isPremium: true,
+        isLocked: true,
       );
 
       await mockNetworkImages(
@@ -43,11 +43,11 @@ void main() {
 
     testWidgets(
         'renders LockIcon '
-        'when premium is true and '
+        'when isLocked is true and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: true,
+        isLocked: true,
         isContentOverlaid: true,
       );
 
@@ -60,11 +60,11 @@ void main() {
 
     testWidgets(
         'renders LockIcon '
-        'when premium is true and '
+        'when isLocked is true and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: true,
+        isLocked: true,
         isContentOverlaid: false,
       );
 
@@ -77,11 +77,11 @@ void main() {
 
     testWidgets(
         'does not render LockIcon '
-        'when premium is false and '
+        'when isLocked is false and '
         'when isContentOverlaid is true', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: false,
+        isLocked: false,
         isContentOverlaid: true,
       );
 
@@ -94,11 +94,11 @@ void main() {
 
     testWidgets(
         'does not render LockIcon '
-        'when premium is false and '
+        'when isLocked is false and '
         'when isContentOverlaid is false', (tester) async {
       final postLargeImage = PostLargeImage(
         imageUrl: 'url',
-        isPremium: false,
+        isLocked: false,
         isContentOverlaid: false,
       );
 
