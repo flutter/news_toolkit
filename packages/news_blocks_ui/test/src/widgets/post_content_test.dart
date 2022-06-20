@@ -24,7 +24,7 @@ void main() {
       );
     });
 
-    testWidgets('renders category', (tester) async {
+    testWidgets('renders category when isPremium is false', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: 'categoryName',
@@ -43,7 +43,8 @@ void main() {
       );
     });
 
-    testWidgets('renders category and premium', (tester) async {
+    testWidgets('renders category and premium when isPremium is true',
+        (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: 'categoryName',
@@ -65,7 +66,7 @@ void main() {
 
     testWidgets(
         'renders premium without category '
-        'when categoryName is empty', (tester) async {
+        'when isPremium is true and categoryName is empty', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: '',
