@@ -1,3 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:async';
+
+import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -161,41 +166,74 @@ void main() {
 
     group('closes modal', () {
       testWidgets('when the close icon is pressed', (tester) async {
-        final navigator = MockNavigator();
-        when(navigator.pop).thenAnswer((_) async {});
+        const buttonText = 'button';
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
-            child: const LoginForm(),
+            child: Builder(
+              builder: (context) {
+                return AppButton.black(
+                  child: Text(buttonText),
+                  onPressed: () => showAppModal<void>(
+                    context: context,
+                    builder: (context) => const LoginModal(),
+                    routeSettings: const RouteSettings(name: LoginModal.name),
+                  ),
+                );
+              },
+            ),
           ),
-          navigator: navigator,
         );
+        await tester.tap(find.text(buttonText));
+        await tester.pumpAndSettle();
+
         await tester.tap(find.byKey(loginFormCloseModalKey));
         await tester.pumpAndSettle();
-        verify(navigator.pop).called(1);
+
+        expect(find.byType(LoginForm), findsNothing);
       });
 
       testWidgets('when user is authenticated', (tester) async {
-        final navigator = MockNavigator();
+        final appStateController = StreamController<AppState>();
+
         whenListen(
           appBloc,
-          Stream.fromIterable(
-            <AppState>[AppState.authenticated(user)],
-          ),
+          appStateController.stream,
           initialState: const AppState.unauthenticated(),
         );
 
-        when(navigator.pop).thenAnswer((_) async {});
+        const buttonText = 'button';
         await tester.pumpApp(
-          BlocProvider.value(
-            value: loginBloc,
-            child: const LoginForm(),
+          Builder(
+            builder: (context) {
+              return AppButton.black(
+                child: Text(buttonText),
+                onPressed: () => showAppModal<void>(
+                  context: context,
+                  builder: (context) => BlocProvider.value(
+                    value: appBloc,
+                    child: LoginModal(),
+                  ),
+                  routeSettings: const RouteSettings(name: LoginModal.name),
+                ),
+              );
+            },
           ),
-          navigator: navigator,
-          appBloc: appBloc,
         );
+        await tester.tap(find.text(buttonText));
         await tester.pumpAndSettle();
-        verify(() => navigator.popUntil(any())).called(1);
+
+        await tester.ensureVisible(find.byKey(loginButtonKey));
+        await tester.tap(find.byKey(loginButtonKey));
+        await tester.pumpAndSettle();
+        expect(find.byType(LoginWithEmailPage), findsOneWidget);
+
+        appStateController.add(AppState.authenticated(user));
+        await tester.pump();
+        await tester.pumpAndSettle();
+
+        expect(find.byType(LoginWithEmailPage), findsNothing);
+        expect(find.byType(LoginForm), findsNothing);
       });
     });
   });
