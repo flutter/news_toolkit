@@ -11,7 +11,7 @@ class PostLargeImage extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.isContentOverlaid,
-    required this.isPremium,
+    required this.isLocked,
   });
 
   /// The url of image displayed in this post.
@@ -20,8 +20,8 @@ class PostLargeImage extends StatelessWidget {
   /// Whether this image is displayed in overlay.
   final bool isContentOverlaid;
 
-  /// Whether this image is within premium post.
-  final bool isPremium;
+  /// Whether this image displays lock icon.
+  final bool isLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class PostLargeImage extends StatelessWidget {
           )
         else
           InlineImage(imageUrl: imageUrl),
-        if (isPremium) const LockIcon(),
+        if (isLocked) const LockIcon(),
       ],
     );
   }
