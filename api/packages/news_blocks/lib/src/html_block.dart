@@ -20,7 +20,7 @@ class HtmlBlock with EquatableMixin implements NewsBlock {
   factory HtmlBlock.fromJson(Map<String, dynamic> json) =>
       _$HtmlBlockFromJson(json);
 
-  /// The divider horizontal block type identifier.
+  /// The HTML block type identifier.
   static const identifier = '__html__';
 
   /// The html content.
