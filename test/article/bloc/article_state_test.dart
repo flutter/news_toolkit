@@ -120,6 +120,42 @@ void main() {
           ),
         );
       });
+
+      test(
+          'returns object with updated isPreview '
+          'when isPreview is passed', () {
+        const isPreview = true;
+
+        expect(
+          ArticleState(
+            status: ArticleStatus.populated,
+          ).copyWith(isPreview: isPreview),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              isPreview: isPreview,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated isPremium '
+          'when isPremium is passed', () {
+        const isPremium = true;
+
+        expect(
+          ArticleState(
+            status: ArticleStatus.populated,
+          ).copyWith(isPremium: isPremium),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              isPremium: isPremium,
+            ),
+          ),
+        );
+      });
     });
   });
 }

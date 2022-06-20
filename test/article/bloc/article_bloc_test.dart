@@ -29,6 +29,8 @@ void main() {
       ],
       totalCount: 4,
       url: Uri.parse('https://www.dglobe.com/'),
+      isPreview: false,
+      isPremium: true,
     );
 
     final articleStatePopulated = ArticleState(
@@ -81,6 +83,7 @@ void main() {
             id: articleId,
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
+            preview: any(named: 'preview'),
           ),
         ).thenAnswer((_) async => articleResponse);
       });
@@ -103,6 +106,8 @@ void main() {
             relatedArticles: [],
             uri: articleResponse.url,
             hasMoreContent: true,
+            isPreview: articleResponse.isPreview,
+            isPremium: articleResponse.isPremium,
           ),
         ],
       );
@@ -130,6 +135,8 @@ void main() {
             relatedArticles: relatedArticlesResponse.relatedArticles,
             uri: articleResponse.url,
             hasMoreContent: false,
+            isPreview: articleResponse.isPreview,
+            isPremium: articleResponse.isPremium,
           )
         ],
       );
@@ -211,11 +218,21 @@ void main() {
             hasMoreContent: true,
             uri: articleResponse.url,
             hasReachedArticleViewsLimit: false,
+            isPreview: articleResponse.isPreview,
+            isPremium: articleResponse.isPremium,
           ),
         ],
         verify: (bloc) {
           verify(articleRepository.resetArticleViews).called(1);
           verify(articleRepository.incrementArticleViews).called(1);
+          verify(
+            () => articleRepository.getArticle(
+              id: articleId,
+              offset: any(named: 'offset'),
+              limit: any(named: 'limit'),
+              preview: false,
+            ),
+          ).called(1);
         },
       );
 
@@ -281,11 +298,21 @@ void main() {
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
             ],
             verify: (bloc) {
               verify(articleRepository.resetArticleViews).called(1);
               verify(articleRepository.incrementArticleViews).called(1);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: false,
+                ),
+              ).called(1);
             },
           );
         });
@@ -318,11 +345,21 @@ void main() {
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
             ],
             verify: (bloc) {
               verifyNever(articleRepository.resetArticleViews);
               verify(articleRepository.incrementArticleViews).called(1);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: false,
+                ),
+              ).called(1);
             },
           );
         });
@@ -355,11 +392,21 @@ void main() {
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: true,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
             ],
             verify: (bloc) {
               verifyNever(articleRepository.resetArticleViews);
               verifyNever(articleRepository.incrementArticleViews);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: true,
+                ),
+              ).called(1);
             },
           );
         });
