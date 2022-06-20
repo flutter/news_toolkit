@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:news_blocks/src/html_block.dart';
+import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
 void main() {
