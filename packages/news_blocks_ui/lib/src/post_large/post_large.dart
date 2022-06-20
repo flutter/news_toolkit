@@ -13,6 +13,7 @@ class PostLarge extends StatelessWidget {
     super.key,
     required this.block,
     required this.premiumText,
+    required this.isLocked,
     this.onPressed,
   });
 
@@ -21,6 +22,9 @@ class PostLarge extends StatelessWidget {
 
   /// Text displayed when post is premium content.
   final String premiumText;
+
+  /// Whether this post is a locked post.
+  final bool isLocked;
 
   /// An optional callback which is invoked when the action is triggered.
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
@@ -37,7 +41,7 @@ class PostLarge extends StatelessWidget {
           PostLargeImage(
             isContentOverlaid: block.isContentOverlaid,
             imageUrl: block.imageUrl!,
-            isPremium: block.isPremium,
+            isLocked: isLocked,
           ),
           PostContent(
             author: block.author,
