@@ -35,12 +35,12 @@ class FeedViewPopulated extends StatefulWidget {
   State<FeedViewPopulated> createState() => _FeedViewPopulatedState();
 }
 
-// TODO (simpson-peter): Do I need to dispose scrollControllers?
 class _FeedViewPopulatedState extends State<FeedViewPopulated>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
-  late Map<Category, ScrollController> controllers;
+  final Map<Category, ScrollController> _controllers =
+      <Category, ScrollController>{};
 
   @override
   void initState() {
@@ -50,12 +50,17 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       vsync: this,
     )..addListener(_onTabChanged);
     for (final category in widget.categories) {
-      controllers[category] = ScrollController();
+      _controllers[category] = ScrollController();
     }
   }
 
   @override
   void dispose() {
+    _controllers.forEach(
+      (key, value) {
+        _controllers[key]?.dispose();
+      },
+    );
     _tabController
       ..removeListener(_onTabChanged)
       ..dispose();
@@ -65,8 +70,6 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   void _onTabChanged() => context
       .read<CategoriesBloc>()
       .add(CategorySelected(category: widget.categories[_tabController.index]));
-
-  final _scrossController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +97,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                   (category) => CategoryTab(
                     categoryName: category.name,
                     onDoubleTap: () {
-                      _scrossController.animateTo(
+                      _controllers[category]?.animateTo(
                         0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.ease,
@@ -112,7 +115,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                     (category) => CategoryFeed(
                       key: PageStorageKey(category),
                       category: category,
-                      scrollController: controllers[category],
+                      scrollController: _controllers[category],
                     ),
                   )
                   .toList(),
