@@ -137,7 +137,7 @@ void main() {
       test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
-        const query = '';
+        const query = 'preview=false';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -186,7 +186,7 @@ void main() {
       test('makes correct http request (with authorization token).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
-        const query = '';
+        const query = 'preview=false';
 
         tokenProvider = () async => token;
 
