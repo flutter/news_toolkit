@@ -130,6 +130,8 @@ void main() {
         content: const [],
         totalCount: 0,
         url: Uri.parse('https://dailyglobe.com'),
+        isPremium: false,
+        isPreview: false,
       );
 
       test('makes correct http request (no query params).', () async {
@@ -252,6 +254,8 @@ void main() {
           content: const [],
           totalCount: 0,
           url: Uri.parse('http://dailyglobe.com'),
+          isPremium: false,
+          isPreview: false,
         );
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(

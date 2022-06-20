@@ -52,6 +52,13 @@ class InMemoryNewsDataSource implements NewsDataSource {
   }
 
   @override
+  Future<bool?> isPremiumArticle({required String id}) async {
+    final result = _newsItems.where((item) => item.post.id == id);
+    if (result.isEmpty) return null;
+    return result.first.post.isPremium;
+  }
+
+  @override
   Future<List<NewsBlock>> getPopularArticles() async {
     return popularArticles.map((item) => item.post).toList();
   }

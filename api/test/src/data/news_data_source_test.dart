@@ -25,6 +25,11 @@ class MyNewsDataSource extends NewsDataSource {
   }
 
   @override
+  Future<bool?> isPremiumArticle({required String id}) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Feed> getFeed({
     Category category = Category.top,
     int limit = 20,
@@ -364,6 +369,35 @@ void main() {
               totalBlocks: item.content.length,
             ),
           ),
+        );
+      });
+    });
+
+    group('isPremiumArticle', () {
+      test('returns null when article id cannot be found', () {
+        expect(
+          newsDataSource.isPremiumArticle(id: '__invalid_article_id__'),
+          completion(isNull),
+        );
+      });
+
+      test(
+          'returns true when article exists '
+          'and isPremium is true', () {
+        final item = technologySmallItems.last;
+        expect(
+          newsDataSource.isPremiumArticle(id: item.post.id),
+          completion(isTrue),
+        );
+      });
+
+      test(
+          'returns false when article exists '
+          'and isPremium is false', () {
+        final item = healthItems.last;
+        expect(
+          newsDataSource.isPremiumArticle(id: item.post.id),
+          completion(isFalse),
         );
       });
     });

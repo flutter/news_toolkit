@@ -14,6 +14,8 @@ class ArticleResponse extends Equatable {
     required this.content,
     required this.totalCount,
     required this.url,
+    required this.isPremium,
+    required this.isPreview,
   });
 
   /// Converts a `Map<String, dynamic>` into a [ArticleResponse] instance.
@@ -30,9 +32,15 @@ class ArticleResponse extends Equatable {
   /// The url for the associated article.
   final Uri url;
 
+  /// Whether this article is a premium article.
+  final bool isPremium;
+
+  /// Whether the [content] of this article is a preview of the full article.
+  final bool isPreview;
+
   /// Converts the current instance to a `Map<String, dynamic>`.
   Map<String, dynamic> toJson() => _$ArticleResponseToJson(this);
 
   @override
-  List<Object> get props => [content, totalCount, url];
+  List<Object> get props => [content, totalCount, url, isPremium, isPreview];
 }

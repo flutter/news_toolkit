@@ -29,7 +29,7 @@ void main() {
       'returns a 404 when article is not found',
       (host) async {
         when(
-          () => newsDataSource.getArticle(id: articleId),
+          () => newsDataSource.isPremiumArticle(id: articleId),
         ).thenAnswer((_) async => null);
         final response = await get(Uri.parse('$host/$articleId'));
         expect(response.statusCode, equals(HttpStatus.notFound));
@@ -39,17 +39,46 @@ void main() {
     );
 
     testServer(
-      'returns a 200 on success',
+      'returns a 404 when article is premium but not found',
+      (host) async {
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => null);
+        final response = await get(Uri.parse('$host/$articleId'));
+        expect(response.statusCode, equals(HttpStatus.notFound));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'returns a 200 on success '
+      'with full article content '
+      'when the article is not premium',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
         final article = Article(blocks: const [], totalBlocks: 0, url: url);
         when(
-          () => newsDataSource.getArticle(id: articleId),
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
         ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => false);
         final expected = ArticleResponse(
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
+          isPremium: false,
+          isPreview: false,
         );
         final response = await get(Uri.parse('$host/$articleId'));
         expect(response.statusCode, equals(HttpStatus.ok));
@@ -60,10 +89,210 @@ void main() {
     );
 
     testServer(
-      'parses limit and offset correctly',
+      'returns a 200 on success '
+      'with preview article content '
+      'when the article is premium '
+      'and authorization header is missing',
+      (host) async {
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+          isPremium: true,
+          isPreview: true,
+        );
+        final response = await get(Uri.parse('$host/$articleId'));
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'returns a 200 on success '
+      'with preview article content '
+      'when the article is premium '
+      'and authorization header is malformed',
+      (host) async {
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+          isPremium: true,
+          isPreview: true,
+        );
+        final response = await get(
+          Uri.parse(
+            '$host/$articleId',
+          ),
+          headers: {'authorization': 'malformed'},
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'returns a 200 on success '
+      'with preview article content '
+      'when the article is premium '
+      'and user is not found',
+      (host) async {
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        when(
+          () => newsDataSource.getUser(userId: any(named: 'userId')),
+        ).thenAnswer((_) async => null);
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+          isPremium: true,
+          isPreview: true,
+        );
+        final response = await get(
+          Uri.parse(
+            '$host/$articleId',
+          ),
+          headers: {'authorization': 'bearer token'},
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'returns a 200 on success '
+      'with preview article content '
+      'when the article is premium '
+      'and user is found and has no subscription',
+      (host) async {
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        when(
+          () => newsDataSource.getUser(userId: any(named: 'userId')),
+        ).thenAnswer(
+          (_) async => User(
+            id: '__user_id__',
+            subscription: SubscriptionPlan.none,
+          ),
+        );
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+          isPremium: true,
+          isPreview: true,
+        );
+        final response = await get(
+          Uri.parse(
+            '$host/$articleId',
+          ),
+          headers: {'authorization': 'bearer token'},
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'returns a 200 on success '
+      'with full article content '
+      'when the article is premium '
+      'and user is found and has subscription',
+      (host) async {
+        final url = Uri.parse('https://dailyglobe.com');
+        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        when(
+          () => newsDataSource.getArticle(
+            id: articleId,
+            preview: any(named: 'preview'),
+          ),
+        ).thenAnswer((_) async => article);
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => true);
+        when(
+          () => newsDataSource.getUser(userId: any(named: 'userId')),
+        ).thenAnswer(
+          (_) async => User(
+            id: '__user_id__',
+            subscription: SubscriptionPlan.premium,
+          ),
+        );
+        final expected = ArticleResponse(
+          content: article.blocks,
+          totalCount: article.totalBlocks,
+          url: url,
+          isPremium: true,
+          isPreview: false,
+        );
+        final response = await get(
+          Uri.parse(
+            '$host/$articleId',
+          ),
+          headers: {'authorization': 'bearer token'},
+        );
+        expect(response.statusCode, equals(HttpStatus.ok));
+        expect(response.body, equals(json.encode(expected.toJson())));
+      },
+      pipeline: () => Pipeline().inject<NewsDataSource>(newsDataSource),
+      handler: () => controller.handler,
+    );
+
+    testServer(
+      'parses limit, offset and preview correctly',
       (host) async {
         const limit = 42;
         const offset = 7;
+        const preview = true;
         final url = Uri.parse('https://dailyglobe.com');
         final article = Article(blocks: const [], totalBlocks: 0, url: url);
 
@@ -72,13 +301,20 @@ void main() {
             id: any(named: 'id'),
             limit: any(named: 'limit'),
             offset: any(named: 'offset'),
+            preview: any(named: 'preview'),
           ),
         ).thenAnswer((_) async => article);
+
+        when(
+          () => newsDataSource.isPremiumArticle(id: articleId),
+        ).thenAnswer((_) async => false);
 
         final expected = ArticleResponse(
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
+          isPremium: false,
+          isPreview: preview,
         );
 
         final response = await get(
@@ -86,6 +322,7 @@ void main() {
             queryParameters: <String, String>{
               'limit': '$limit',
               'offset': '$offset',
+              'preview': '$preview',
             },
           ),
         );
@@ -96,6 +333,7 @@ void main() {
             id: articleId,
             limit: limit,
             offset: offset,
+            preview: preview,
           ),
         ).called(1);
       },
