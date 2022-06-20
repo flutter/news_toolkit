@@ -1,7 +1,6 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_repository/news_repository.dart';
@@ -19,8 +18,6 @@ class CategoryFeed extends StatelessWidget {
     final hasMoreNews =
         context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
             true;
-    final isUserSubscribed =
-        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
@@ -48,10 +45,7 @@ class CategoryFeed extends StatelessWidget {
           }
 
           final block = categoryFeed[index];
-          return CategoryFeedItem(
-            block: block,
-            isUserSubscribed: isUserSubscribed,
-          );
+          return CategoryFeedItem(block: block);
         },
       ),
     );

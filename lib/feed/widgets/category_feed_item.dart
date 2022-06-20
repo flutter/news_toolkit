@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -11,18 +12,17 @@ class CategoryFeedItem extends StatelessWidget {
   const CategoryFeedItem({
     super.key,
     required this.block,
-    required this.isUserSubscribed,
   });
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
 
-  /// Whether the user is subscribed to a subscription plan.
-  final bool isUserSubscribed;
-
   @override
   Widget build(BuildContext context) {
     final newsBlock = block;
+
+    final isUserSubscribed =
+        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
 
     if (newsBlock is DividerHorizontalBlock) {
       return DividerHorizontal(block: newsBlock);
