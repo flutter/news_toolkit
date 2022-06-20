@@ -67,7 +67,9 @@ void main() {
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
       const block = DividerHorizontalBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is DividerHorizontal && widget.block == block,
@@ -80,7 +82,9 @@ void main() {
         'renders Spacer '
         'for SpacerBlock', (tester) async {
       const block = SpacerBlock(spacing: Spacing.large);
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is Spacer && widget.block == block,
@@ -93,7 +97,9 @@ void main() {
         'renders SectionHeader '
         'for SectionHeaderBlock', (tester) async {
       const block = SectionHeaderBlock(title: 'title');
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(
         find.byWidgetPredicate(
           (widget) => widget is SectionHeader && widget.block == block,
@@ -142,7 +148,9 @@ void main() {
         title: 'title',
       );
       await mockNetworkImages(() async {
-        await tester.pumpApp(CategoryFeedItem(block: block));
+        await tester.pumpApp(
+          CategoryFeedItem(block: block),
+        );
       });
       expect(
         find.byWidgetPredicate(
@@ -164,7 +172,9 @@ void main() {
         title: 'title',
       );
       await mockNetworkImages(() async {
-        await tester.pumpApp(CategoryFeedItem(block: block));
+        await tester.pumpApp(
+          CategoryFeedItem(block: block),
+        );
       });
       expect(
         find.byWidgetPredicate(
@@ -211,7 +221,9 @@ void main() {
         'renders Newsletter '
         'for NewsletterBlock', (tester) async {
       final block = NewsletterBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(find.byType(Newsletter), findsOneWidget);
     });
 
@@ -219,7 +231,9 @@ void main() {
         'renders BannerAd '
         'for BannerAdBlock', (tester) async {
       final block = BannerAdBlock(size: BannerAdSize.normal);
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(find.byType(BannerAd), findsOneWidget);
     });
 
@@ -227,7 +241,9 @@ void main() {
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();
-      await tester.pumpApp(CategoryFeedItem(block: block));
+      await tester.pumpApp(
+        CategoryFeedItem(block: block),
+      );
       expect(
         find.byType(SizedBox),
         findsOneWidget,
