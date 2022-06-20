@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template post_content_category}
-/// A widget displaying the category of a post
+/// A widget displaying the category of a post.
 /// {@endtemplate}
 class PostContentCategory extends StatelessWidget {
   /// {@macro post_content_category}
