@@ -20,7 +20,7 @@ void main() {
       apiClient = MockGoogleNewsTemplateApiClient();
       when(
         () => apiClient.createSubscription(
-          subscription: any(named: 'subscription'),
+          subscriptionId: any(named: 'subscriptionId'),
         ),
       ).thenAnswer((_) async {});
     });
@@ -39,44 +39,28 @@ void main() {
       );
     });
 
-    group('requestSubscriptionPlan', () {
+    group('requestSubscription', () {
       test('calls ApiClient.createSubscription', () async {
         final repository = SubscriptionsRepository(apiClient: apiClient);
-        await repository.requestSubscriptionPlan(SubscriptionPlan.premium);
+        await repository.requestSubscription('subscriptionId');
         verify(
-          () => apiClient.createSubscription(
-            subscription: SubscriptionPlan.premium,
-          ),
+          () => apiClient.createSubscription(subscriptionId: 'subscriptionId'),
         ).called(1);
       });
 
-      test('adds plan to currentSubscriptionPlan stream', () {
-        final repository = SubscriptionsRepository(apiClient: apiClient);
-
-        expectLater(
-          repository.currentSubscriptionPlan,
-          emitsInOrder(<SubscriptionPlan>[
-            SubscriptionPlan.none,
-            SubscriptionPlan.premium,
-          ]),
-        );
-
-        repository.requestSubscriptionPlan(SubscriptionPlan.premium);
-      });
-
       test(
-          'throws a RequestSubscriptionPlanFailure '
+          'throws a RequestSubscriptionFailure '
           'when ApiClient.createSubscription fails', () async {
         when(
           () => apiClient.createSubscription(
-            subscription: any(named: 'subscription'),
+            subscriptionId: any(named: 'subscriptionId'),
           ),
         ).thenThrow(Exception());
 
         expect(
           () => SubscriptionsRepository(apiClient: apiClient)
-              .requestSubscriptionPlan(SubscriptionPlan.premium),
-          throwsA(isA<RequestSubscriptionPlanFailure>()),
+              .requestSubscription('subscriptionId'),
+          throwsA(isA<RequestSubscriptionFailure>()),
         );
       });
     });
@@ -84,9 +68,9 @@ void main() {
     group('SubscriptionsFailure', () {
       final error = Exception('errorMessage');
 
-      group('RequestSubscriptionPlanFailure', () {
+      group('RequestSubscriptionFailure', () {
         test('has correct props', () {
-          expect(RequestSubscriptionPlanFailure(error).props, [error]);
+          expect(RequestSubscriptionFailure(error).props, [error]);
         });
       });
     });
