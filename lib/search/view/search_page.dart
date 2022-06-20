@@ -49,6 +49,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
     return BlocConsumer<SearchBloc, SearchState>(
       listener: (context, state) {
         if (state.status == SearchStatus.failure) {

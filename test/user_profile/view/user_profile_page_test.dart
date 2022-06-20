@@ -330,11 +330,12 @@ void main() {
             child: UserProfileView(),
           ),
         );
-        await tester.tap(
-          find.byKey(
-            Key('userProfilePage_notificationPreferencesItem_trailing'),
-          ),
+        final preferencesItem = find.byKey(
+          Key('userProfilePage_notificationPreferencesItem_trailing'),
         );
+
+        await tester.ensureVisible(preferencesItem);
+        await tester.tap(preferencesItem);
         await tester.pumpAndSettle();
       });
 
