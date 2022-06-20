@@ -3,4 +3,5 @@ export 'article.dart';
 export 'feed.dart';
 export 'news_item.dart';
 export 'related_articles.dart';
-export 'subscription_plan.dart';
+export 'subscription.dart';
+export 'user.dart';

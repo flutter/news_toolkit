@@ -74,4 +74,11 @@ abstract class NewsDataSource {
     required String userId,
     required SubscriptionPlan subscription,
   });
+
+  /// Returns a list of all available news subscriptions.
+  Future<List<Subscription>> getSubscriptions();
+
+  /// Returns the user associated with the provided [userId].
+  /// Returns `null` if there is no user with the provided [userId].
+  Future<User?> getUser({required String userId});
 }
