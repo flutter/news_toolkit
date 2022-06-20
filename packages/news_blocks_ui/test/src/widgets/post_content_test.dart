@@ -43,8 +43,9 @@ void main() {
       );
     });
 
-    testWidgets('renders category and premium when isPremium is true',
-        (tester) async {
+    testWidgets(
+        'renders category and premium'
+        ' when isPremium is true', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: 'categoryName',
