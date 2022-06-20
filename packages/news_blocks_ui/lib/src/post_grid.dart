@@ -13,6 +13,7 @@ class PostGrid extends StatelessWidget {
     super.key,
     required this.gridGroupBlock,
     required this.premiumText,
+    this.isLocked = false,
     this.onPressed,
   });
 
@@ -21,6 +22,9 @@ class PostGrid extends StatelessWidget {
 
   /// Text displayed when post is premium content.
   final String premiumText;
+
+  /// Whether this post is a locked post.
+  final bool isLocked;
 
   /// An optional callback which is invoked when the action is triggered.
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
@@ -41,6 +45,7 @@ class PostGrid extends StatelessWidget {
             PostLarge(
               block: firstBlock.toPostLargeBlock(),
               premiumText: premiumText,
+              isLocked: isLocked,
               onPressed: onPressed,
             ),
           const SizedBox(height: AppSpacing.md),

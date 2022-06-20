@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -8,7 +9,10 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class CategoryFeedItem extends StatelessWidget {
-  const CategoryFeedItem({super.key, required this.block});
+  const CategoryFeedItem({
+    super.key,
+    required this.block,
+  });
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
@@ -16,6 +20,9 @@ class CategoryFeedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsBlock = block;
+
+    final isUserSubscribed =
+        context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
 
     if (newsBlock is DividerHorizontalBlock) {
       return DividerHorizontal(block: newsBlock);
@@ -30,6 +37,7 @@ class CategoryFeedItem extends StatelessWidget {
       return PostLarge(
         block: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
+        isLocked: newsBlock.isPremium && !isUserSubscribed,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostMediumBlock) {
