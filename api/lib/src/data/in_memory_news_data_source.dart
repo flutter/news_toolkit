@@ -12,17 +12,20 @@ part 'static_news_data.dart';
 /// {@endtemplate}
 class InMemoryNewsDataSource implements NewsDataSource {
   /// {@macro in_memory_news_data_store}
-  InMemoryNewsDataSource() : _subscriptions = <String, String>{};
+  InMemoryNewsDataSource() : _userSubscriptions = <String, String>{};
 
-  final Map<String, String> _subscriptions;
+  final Map<String, String> _userSubscriptions;
 
   @override
   Future<void> createSubscription({
     required String userId,
     required SubscriptionPlan subscription,
   }) async {
-    _subscriptions[userId] = subscription.name;
+    _userSubscriptions[userId] = subscription.name;
   }
+
+  @override
+  Future<List<Subscription>> getSubscriptions() async => subscriptions;
 
   @override
   Future<Article?> getArticle({
@@ -89,4 +92,18 @@ class InMemoryNewsDataSource implements NewsDataSource {
 
   @override
   Future<List<Category>> getCategories() async => _newsFeedData.keys.toList();
+
+  @override
+  Future<User> getUser({required String userId}) async {
+    final subscription = _userSubscriptions[userId];
+    if (subscription == null) {
+      return User(id: userId, subscription: SubscriptionPlan.none);
+    }
+    return User(
+      id: userId,
+      subscription: SubscriptionPlan.values.firstWhere(
+        (e) => e.name == subscription,
+      ),
+    );
+  }
 }
