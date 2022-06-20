@@ -7,12 +7,14 @@ import 'package:shelf/shelf.dart';
 mixin CreateSubscriptionMixin on Controller {
   /// Create a new subscription.
   Future<Response> createSubscription(Request request) async {
+    final subscriptionId = request.url.queryParameters['subscriptionId'];
     final userId = request.userId;
-    if (userId == null) return Response.badRequest();
+
+    if (userId == null || subscriptionId == null) return Response.badRequest();
 
     await request.get<NewsDataSource>().createSubscription(
           userId: userId,
-          subscription: SubscriptionPlan.premium,
+          subscriptionId: subscriptionId,
         );
 
     return JsonResponse.created();
