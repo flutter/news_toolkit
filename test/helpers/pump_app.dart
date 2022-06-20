@@ -50,7 +50,7 @@ class MockArticleRepository extends Mock implements ArticleRepository {
   Future<void> resetArticleViews() async {}
 }
 
-class MockInApPurchaseRepository extends Mock
+class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
 
 extension AppTester on WidgetTester {
@@ -61,7 +61,7 @@ extension AppTester on WidgetTester {
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
-    InAppPurchaseRepository? inApPurchaseRepository,
+    InAppPurchaseRepository? inAppPurchaseRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -83,7 +83,7 @@ extension AppTester on WidgetTester {
             value: articleRepository ?? MockArticleRepository(),
           ),
           RepositoryProvider.value(
-            value: inApPurchaseRepository ?? MockInApPurchaseRepository(),
+            value: inAppPurchaseRepository ?? MockInAppPurchaseRepository(),
           ),
         ],
         child: MultiBlocProvider(

@@ -24,7 +24,7 @@ class MockNotificationsRepository extends Mock
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
 
-class MockInApPurchaseRepository extends Mock
+class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
@@ -35,7 +35,7 @@ void main() {
     late NewsRepository newsRepository;
     late NotificationsRepository notificationsRepository;
     late ArticleRepository articleRepository;
-    late InAppPurchaseRepository inApPurchaseRepository;
+    late InAppPurchaseRepository inAppPurchaseRepository;
     late User user;
 
     setUp(() {
@@ -44,12 +44,12 @@ void main() {
       newsRepository = MockNewsRepository();
       notificationsRepository = MockNotificationsRepository();
       articleRepository = MockArticleRepository();
-      inApPurchaseRepository = MockInApPurchaseRepository();
+      inAppPurchaseRepository = MockInAppPurchaseRepository();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
           .thenAnswer((_) => const Stream.empty());
-      when(() => inApPurchaseRepository.currentSubscriptionPlan)
+      when(() => inAppPurchaseRepository.currentSubscriptionPlan)
           .thenAnswer((_) => const Stream.empty());
     });
 
@@ -61,7 +61,7 @@ void main() {
             newsRepository: newsRepository,
             notificationsRepository: notificationsRepository,
             articleRepository: articleRepository,
-            inApPurchaseRepository: inApPurchaseRepository,
+            inAppPurchaseRepository: inAppPurchaseRepository,
             user: user,
           ),
         );

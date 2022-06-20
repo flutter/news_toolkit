@@ -20,20 +20,20 @@ class App extends StatelessWidget {
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
     required ArticleRepository articleRepository,
-    required InAppPurchaseRepository inApPurchaseRepository,
+    required InAppPurchaseRepository inAppPurchaseRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,
         _articleRepository = articleRepository,
-        _inApPurchaseRepository = inApPurchaseRepository,
+        _inAppPurchaseRepository = inAppPurchaseRepository,
         _user = user;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final NotificationsRepository _notificationsRepository;
   final ArticleRepository _articleRepository;
-  final InAppPurchaseRepository _inApPurchaseRepository;
+  final InAppPurchaseRepository _inAppPurchaseRepository;
   final User _user;
 
   @override
@@ -44,7 +44,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _newsRepository),
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
-        RepositoryProvider.value(value: _inApPurchaseRepository),
+        RepositoryProvider.value(value: _inAppPurchaseRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -52,7 +52,7 @@ class App extends StatelessWidget {
             create: (_) => AppBloc(
               userRepository: _userRepository,
               notificationsRepository: _notificationsRepository,
-              inAppPurchaseRepository: _inApPurchaseRepository,
+              inAppPurchaseRepository: _inAppPurchaseRepository,
               user: _user,
             ),
           ),

@@ -63,7 +63,7 @@ void main() {
         apiClient: apiClient,
       );
 
-      final inApPurchaseRepository = InAppPurchaseRepository(
+      final inAppPurchaseRepository = InAppPurchaseRepository(
         apiClient: apiClient,
       );
 
@@ -72,7 +72,7 @@ void main() {
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
         articleRepository: articleRepository,
-        inApPurchaseRepository: inApPurchaseRepository,
+        inAppPurchaseRepository: inAppPurchaseRepository,
         user: await userRepository.user.first,
       );
     },

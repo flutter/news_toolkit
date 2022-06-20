@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_news_template_api/client.dart';
@@ -152,8 +152,9 @@ class InAppPurchaseRepository {
     }
 
     try {
-      _cachedProducts = await _apiClient.fetchProducts();
-      return _cachedProducts!;
+      final response = await _apiClient.getSubscriptions();
+      _cachedProducts = response.subscriptions.toProductDetails();
+      return _cachedProducts ?? [];
     } catch (error, stackTrace) {
       throw FetchInAppProductsFailure(error, stackTrace);
     }
@@ -246,60 +247,58 @@ class InAppPurchaseRepository {
     try {
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        final product = await _apiClient.fetchProduct(
-          productId: purchase.productID,
+        final purchasedProduct = (await fetchProducts())
+            .where((product) => product.id == purchase.productID)
+            .first;
+
+        _purchaseUpdateStreamController.add(
+          PurchasePurchased(product: purchasedProduct),
+        );
+        // TODO(jan-stepien): when createSubscription is implemented, uncomment this line
+        // await _apiClient.createSubscription(subscriptionId: purchasedProduct.id);
+
+        _purchaseUpdateStreamController.add(
+          PurchaseDelivered(product: purchasedProduct),
         );
 
-        _purchaseUpdateStreamController.add(PurchasePurchased(
-          product: product,
-        ));
+        final response = await _apiClient.getCurrentUser();
 
-        final deliverResult = await _apiClient.createSubscription(
-            subscription: SubscriptionPlan.fromProductDetails(product));
-
-        if (deliverResult.success) {
-          _purchaseUpdateStreamController.add(PurchaseDelivered(
-            product: product,
-          ));
-          _currentSubscriptionPlanSubject
-              .add(SubscriptionPlan.fromProductDetails(product));
-        } else {
-          _purchaseUpdateStreamController.add(PurchaseFailed(
-            failure: DeliverInAppPurchaseFailure(
-              deliverResult.message ?? '',
-              StackTrace.current,
-            ),
-          ));
-        }
+        _currentSubscriptionPlanSubject.add(response.user.subscription);
       }
     } catch (error, stackTrace) {
-      _purchaseUpdateStreamController.add(PurchaseFailed(
-        failure: DeliverInAppPurchaseFailure(
-          error,
-          stackTrace,
+      _purchaseUpdateStreamController.add(
+        PurchaseFailed(
+          failure: DeliverInAppPurchaseFailure(
+            error,
+            stackTrace,
+          ),
         ),
-      ));
+      );
     }
 
     try {
       if (purchase.pendingCompletePurchase) {
-        final product = await _apiClient.fetchProduct(
-          productId: purchase.productID,
-        );
+        final purchasedProduct = (await fetchProducts())
+            .where((product) => product.id == purchase.productID)
+            .first;
 
         await _inAppPurchase.completePurchase(purchase);
 
-        _purchaseUpdateStreamController.add(PurchaseCompleted(
-          product: product,
-        ));
+        _purchaseUpdateStreamController.add(
+          PurchaseCompleted(
+            product: purchasedProduct,
+          ),
+        );
       }
     } catch (error, stackTrace) {
-      _purchaseUpdateStreamController.add(PurchaseFailed(
-        failure: CompleteInAppPurchaseFailure(
-          error,
-          stackTrace,
+      _purchaseUpdateStreamController.add(
+        PurchaseFailed(
+          failure: CompleteInAppPurchaseFailure(
+            error,
+            stackTrace,
+          ),
         ),
-      ));
+      );
     }
   }
 }
@@ -370,4 +369,23 @@ class PurchaseFailed extends PurchaseUpdate {
 
   /// A failure which occurred when purchasing a product.
   final InAppPurchasesFailure failure;
+}
+
+/// {@template purchase_details_from_subscription}
+/// An extension that creates a ProductDetails from a Subscription.
+@visibleForTesting
+extension SubscriptionToProductDetails on List<Subscription> {
+  /// {@macro purchase_details_from_subscription}
+  List<ProductDetails> toProductDetails() {
+    return map(
+      (subscription) => ProductDetails(
+        id: subscription.id,
+        currencyCode: 'USD',
+        description: subscription.benefits.toString(),
+        price: subscription.cost.monthly.toString(),
+        title: subscription.name.toString(),
+        rawPrice: subscription.cost.monthly.toDouble(),
+      ),
+    ).toList();
+  }
 }
