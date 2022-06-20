@@ -9,7 +9,7 @@ class MyNewsDataSource extends NewsDataSource {
   @override
   Future<void> createSubscription({
     required String userId,
-    required SubscriptionPlan subscription,
+    required String subscriptionId,
   }) {
     throw UnimplementedError();
   }
@@ -151,7 +151,7 @@ void main() {
         expect(
           newsDataSource.createSubscription(
             userId: 'userId',
-            subscription: SubscriptionPlan.premium,
+            subscriptionId: 'subscriptionId',
           ),
           completes,
         );
@@ -180,16 +180,16 @@ void main() {
 
       test('completes with user when user exists', () async {
         const userId = 'userId';
-        const subscription = SubscriptionPlan.basic;
+        final subscription = subscriptions.first;
         await newsDataSource.createSubscription(
           userId: userId,
-          subscription: subscription,
+          subscriptionId: subscription.id,
         );
         expect(
           newsDataSource.getUser(userId: userId),
           completion(
             equals(
-              User(id: userId, subscription: subscription),
+              User(id: userId, subscription: subscription.name),
             ),
           ),
         );
