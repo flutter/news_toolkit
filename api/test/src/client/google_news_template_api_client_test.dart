@@ -1116,25 +1116,31 @@ void main() {
 
     group('createSubscription', () {
       test('makes correct http request.', () async {
+        const subscriptionId = 'subscriptionId';
+        const query = 'subscriptionId=$subscriptionId';
+
         when(
           () => httpClient.post(any(), headers: any(named: 'headers')),
         ).thenAnswer(
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await apiClient.createSubscription(
-          subscription: SubscriptionPlan.basic,
-        );
+        await apiClient.createSubscription(subscriptionId: subscriptionId);
 
         verify(
           () => httpClient.post(
-            any(that: isAUriHaving(path: '/api/v1/subscriptions')),
+            any(
+              that: isAUriHaving(path: '/api/v1/subscriptions', query: query),
+            ),
             headers: any(named: 'headers', that: areJsonHeaders()),
           ),
         ).called(1);
       });
 
       test('makes correct http request (with authorization token).', () async {
+        const subscriptionId = 'subscriptionId';
+        const query = 'subscriptionId=$subscriptionId';
+
         tokenProvider = () async => token;
 
         when(
@@ -1146,13 +1152,13 @@ void main() {
         await GoogleNewsTemplateApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
-        ).createSubscription(
-          subscription: SubscriptionPlan.basic,
-        );
+        ).createSubscription(subscriptionId: subscriptionId);
 
         verify(
           () => httpClient.post(
-            any(that: isAUriHaving(path: '/api/v1/subscriptions')),
+            any(
+              that: isAUriHaving(path: '/api/v1/subscriptions', query: query),
+            ),
             headers: any(
               named: 'headers',
               that: areJsonHeaders(authorizationToken: token),
@@ -1171,9 +1177,7 @@ void main() {
         );
 
         expect(
-          () => apiClient.createSubscription(
-            subscription: SubscriptionPlan.basic,
-          ),
+          () => apiClient.createSubscription(subscriptionId: 'subscriptionId'),
           throwsA(
             isA<GoogleNewsTemplateApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
@@ -1189,9 +1193,7 @@ void main() {
         );
 
         expect(
-          apiClient.createSubscription(
-            subscription: SubscriptionPlan.basic,
-          ),
+          apiClient.createSubscription(subscriptionId: 'subscriptionId'),
           completes,
         );
       });
