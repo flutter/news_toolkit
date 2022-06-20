@@ -16,12 +16,12 @@ abstract class SubscriptionsFailure with EquatableMixin implements Exception {
   List<Object> get props => [error];
 }
 
-/// {@template request_subscription_plan_failure}
-/// Thrown when requesting a subscription plan fails.
+/// {@template request_subscription_failure}
+/// Thrown when requesting a subscription fails.
 /// {@endtemplate}
-class RequestSubscriptionPlanFailure extends SubscriptionsFailure {
-  /// {@macro request_subscription_plan_failure}
-  const RequestSubscriptionPlanFailure(super.error);
+class RequestSubscriptionFailure extends SubscriptionsFailure {
+  /// {@macro request_subscription_failure}
+  const RequestSubscriptionFailure(super.error);
 }
 
 /// {@template subscriptions_repository}
@@ -43,14 +43,14 @@ class SubscriptionsRepository {
   Stream<SubscriptionPlan> get currentSubscriptionPlan =>
       _currentSubscriptionPlanSubject;
 
-  /// Requests to set the current subscription plan to [subscription].
-  Future<void> requestSubscriptionPlan(SubscriptionPlan subscription) async {
+  /// Requests to set the current subscription to the subscription
+  /// with the associated [subscriptionId].
+  Future<void> requestSubscription(String subscriptionId) async {
     try {
-      await _apiClient.createSubscription(subscription: subscription);
-      _currentSubscriptionPlanSubject.add(subscription);
+      await _apiClient.createSubscription(subscriptionId: subscriptionId);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        RequestSubscriptionPlanFailure(error),
+        RequestSubscriptionFailure(error),
         stackTrace,
       );
     }

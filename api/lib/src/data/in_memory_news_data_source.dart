@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:collection/collection.dart';
 import 'package:google_news_template_api/api.dart';
 import 'package:google_news_template_api/src/data/models/models.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -19,9 +20,15 @@ class InMemoryNewsDataSource implements NewsDataSource {
   @override
   Future<void> createSubscription({
     required String userId,
-    required SubscriptionPlan subscription,
+    required String subscriptionId,
   }) async {
-    _userSubscriptions[userId] = subscription.name;
+    final subscriptionPlan = subscriptions
+        .firstWhereOrNull((subscription) => subscription.id == subscriptionId)
+        ?.name;
+
+    if (subscriptionPlan != null) {
+      _userSubscriptions[userId] = subscriptionPlan.name;
+    }
   }
 
   @override

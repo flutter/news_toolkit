@@ -78,10 +78,10 @@ abstract class NewsDataSource {
   Future<List<Category>> getCategories();
 
   /// Subscribes the user with the associated [userId] to
-  /// the [subscription].
+  /// the subscription with the associated [subscriptionId].
   Future<void> createSubscription({
     required String userId,
-    required SubscriptionPlan subscription,
+    required String subscriptionId,
   });
 
   /// Returns a list of all available news subscriptions.
