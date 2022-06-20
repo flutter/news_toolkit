@@ -17,7 +17,6 @@ class PostContent extends StatelessWidget {
     this.onShare,
     this.isPremium = false,
     this.isContentOverlaid = false,
-    this.isSubscriberExclusive = false,
     this.isVideoContent = false,
     this.premiumText = '',
   });
@@ -45,11 +44,6 @@ class PostContent extends StatelessWidget {
   /// Defaults to false.
   final bool isPremium;
 
-  /// Whether this post is subscriber exclusive.
-  ///
-  /// Defaults to false.
-  final bool isSubscriberExclusive;
-
   /// Whether content is displayed overlaid.
   ///
   /// Defaults to false.
@@ -68,6 +62,8 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final category = categoryName;
+    final hasCategory = category != null && category.isNotEmpty;
     return Padding(
       padding: isContentOverlaid
           ? const EdgeInsets.symmetric(horizontal: AppSpacing.lg)
@@ -76,15 +72,23 @@ class PostContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const SizedBox(height: AppSpacing.lg),
-          if (categoryName?.isNotEmpty ?? false)
-            PostContentCategory(
-              categoryName: categoryName!,
-              isPremium: isPremium,
-              premiumText: premiumText,
-              isContentOverlaid: isContentOverlaid,
-              isSubscriberExclusive: isSubscriberExclusive,
-              isVideoContent: isVideoContent,
-            ),
+          Row(
+            children: [
+              if (hasCategory)
+                PostContentCategory(
+                  categoryName: categoryName!,
+                  isContentOverlaid: isContentOverlaid,
+                  isVideoContent: isVideoContent,
+                ),
+              if (isPremium) ...[
+                if (hasCategory) const SizedBox(width: AppSpacing.sm),
+                PostContentPremiumCategory(
+                  premiumText: premiumText,
+                  isVideoContent: isVideoContent,
+                ),
+              ]
+            ],
+          ),
           Text(
             title,
             style: textTheme.headline3?.copyWith(
