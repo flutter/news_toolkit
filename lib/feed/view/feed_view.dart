@@ -35,9 +35,12 @@ class FeedViewPopulated extends StatefulWidget {
   State<FeedViewPopulated> createState() => _FeedViewPopulatedState();
 }
 
+// TODO (simpson-peter): Do I need to dispose scrollControllers?
 class _FeedViewPopulatedState extends State<FeedViewPopulated>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+
+  late Map<Category, ScrollController> controllers;
 
   @override
   void initState() {
@@ -46,6 +49,9 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       length: widget.categories.length,
       vsync: this,
     )..addListener(_onTabChanged);
+    for (final category in widget.categories) {
+      controllers[category] = ScrollController();
+    }
   }
 
   @override
@@ -106,7 +112,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                     (category) => CategoryFeed(
                       key: PageStorageKey(category),
                       category: category,
-                      scrollController: _scrossController,
+                      scrollController: controllers[category],
                     ),
                   )
                   .toList(),
