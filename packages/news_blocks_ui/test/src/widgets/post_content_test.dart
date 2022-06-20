@@ -59,7 +59,9 @@ void main() {
       );
     });
 
-    testWidgets('renders premium without category', (tester) async {
+    testWidgets(
+      'renders premium without category '
+      'when categoryName is empty', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: '',
