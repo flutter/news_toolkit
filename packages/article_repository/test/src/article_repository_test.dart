@@ -158,6 +158,33 @@ void main() {
       });
     });
 
+    group('decrementArticleViews', () {
+      test(
+          'calls ArticleStorage.setArticleViews '
+          'with current article views decreased by 1', () async {
+        const currentArticleViews = 3;
+        when(storage.fetchArticleViews)
+            .thenAnswer((_) async => currentArticleViews);
+
+        await articleRepository.decrementArticleViews();
+
+        verify(storage.fetchArticleViews).called(1);
+        verify(() => storage.setArticleViews(currentArticleViews - 1))
+            .called(1);
+      });
+
+      test(
+          'throws a DecrementArticleViewsFailure '
+          'when decrementing article views fails', () async {
+        when(() => storage.setArticleViews(any())).thenThrow(Exception());
+
+        expect(
+          () => articleRepository.decrementArticleViews(),
+          throwsA(isA<DecrementArticleViewsFailure>()),
+        );
+      });
+    });
+
     group('resetArticleViews', () {
       test(
           'calls ArticleStorage.setArticleViews '
@@ -241,6 +268,12 @@ void main() {
       group('IncrementArticleViewsFailure', () {
         test('has correct props', () {
           expect(IncrementArticleViewsFailure(error).props, [error]);
+        });
+      });
+
+      group('DecrementArticleViewsFailure', () {
+        test('has correct props', () {
+          expect(DecrementArticleViewsFailure(error).props, [error]);
         });
       });
 

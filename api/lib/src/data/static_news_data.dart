@@ -1,5 +1,40 @@
 part of 'in_memory_news_data_source.dart';
 
+/// List of available subscriptions.
+const subscriptions = <Subscription>[
+  Subscription(
+    id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
+    name: SubscriptionPlan.premium,
+    cost: SubscriptionCost(
+      annual: 16200,
+      monthly: 1499,
+    ),
+    benefits: [
+      'Ut rhoncus dui vel imperdiet ullamcorper.',
+      'Proin pellentesque erat et metus fringilla tincidunt.',
+      'Nunc scelerisque nulla quis urna auctor.',
+    ],
+  ),
+  Subscription(
+    id: '375af719-c9e0-44c4-be05-4527df45a13d',
+    name: SubscriptionPlan.plus,
+    cost: SubscriptionCost(
+      annual: 10800,
+      monthly: 999,
+    ),
+    benefits: ['Nunc scelerisque nulla quis urna auctor.'],
+  ),
+  Subscription(
+    id: '34809bc1-28e5-4967-b029-2432638b0dc7',
+    name: SubscriptionPlan.basic,
+    cost: SubscriptionCost(
+      annual: 5400,
+      monthly: 499,
+    ),
+    benefits: ['Nunc scelerisque nulla quis urna auctor.'],
+  ),
+];
+
 /// List of popular search topics.
 const popularTopics = [
   'Ukraine',
@@ -217,6 +252,7 @@ final technologyLargeItems = <NewsItem>[
             'Meta adds new Calls tab to its Messenger app for iOS and Android',
         imageUrl:
             'https://cdn.vox-cdn.com/thumbor/TanD-HFR6zb_ZfUEMwGMRWkdl5E=/0x0:1920x1080/1820x1213/filters:focal(807x387:1113x693):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70937578/676eeda0_4ebe_4742_857e_9934a172200d.0.png',
+        isPremium: true,
       ),
     ],
     url: Uri.parse(
@@ -317,6 +353,7 @@ final technologySmallItems = <NewsItem>[
         publishedAt: DateTime(2022, 6, 2),
         title: 'Walmart has a big PS5 restock today — '
             'here’s how to have the best shot',
+        isPremium: true,
       ),
     ],
     url: Uri.parse(
