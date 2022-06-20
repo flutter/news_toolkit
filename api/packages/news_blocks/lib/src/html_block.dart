@@ -16,7 +16,7 @@ class HtmlBlock with EquatableMixin implements NewsBlock {
   });
 
   /// Converts a `Map<String, dynamic>` into
-  /// a [HtmlBlock] instance.
+  /// an [HtmlBlock] instance.
   factory HtmlBlock.fromJson(Map<String, dynamic> json) =>
       _$HtmlBlockFromJson(json);
 
