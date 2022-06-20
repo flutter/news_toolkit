@@ -37,6 +37,10 @@ void main() {
         find.byType(PostContentCategory),
         findsOneWidget,
       );
+      expect(
+        find.byType(PostContentPremiumCategory),
+        findsNothing,
+      );
     });
 
     testWidgets('renders category and premium', (tester) async {
@@ -60,8 +64,8 @@ void main() {
     });
 
     testWidgets(
-      'renders premium without category '
-      'when categoryName is empty', (tester) async {
+        'renders premium without category '
+        'when categoryName is empty', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: '',
