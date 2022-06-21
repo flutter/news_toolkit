@@ -55,6 +55,7 @@ class ArticleTrailingContent extends StatelessWidget {
                 const SizedBox(height: AppSpacing.lg),
               ],
               if (!isArticlePreview) ...[
+                const SizedBox(height: AppSpacing.xlg),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                   child: ArticleComments(),
