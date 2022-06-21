@@ -232,7 +232,7 @@ void main() {
 
       // TODO(simpson-peter): implement check on screen position
       testWidgets(
-        'Scrolls to top of category on double tap',
+        'Scrolls to top of CategoryFeed on double tap',
         (tester) async {
           await tester.pumpApp(
             MultiBlocProvider(
