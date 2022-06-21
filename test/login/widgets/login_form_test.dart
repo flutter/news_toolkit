@@ -165,8 +165,9 @@ void main() {
     });
 
     group('closes modal', () {
+      const buttonText = 'button';
+
       testWidgets('when the close icon is pressed', (tester) async {
-        const buttonText = 'button';
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
@@ -202,7 +203,6 @@ void main() {
           initialState: const AppState.unauthenticated(),
         );
 
-        const buttonText = 'button';
         await tester.pumpApp(
           Builder(
             builder: (context) {
