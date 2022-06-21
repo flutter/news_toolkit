@@ -7,7 +7,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:purchase_client/purchase_client.dart';
 import 'package:purchase_client/src/products.dart';
 
-extension PurchaseDetailsEquals on PurchaseDetails {
+extension _PurchaseDetailsEquals on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
   bool equals(PurchaseDetails purchaseDetails) =>
       purchaseDetails.purchaseID == purchaseID &&
@@ -127,7 +127,8 @@ void main() {
     group('queryProductDetails', () {
       test(
           'returns empty productDetails '
-          'with an empty notFoundIDs', () async {
+          'with an empty notFoundIDs '
+          'when no identifiers are provided', () async {
         final response = await purchaseClient.queryProductDetails(<String>{});
         expect(response.notFoundIDs, isEmpty);
         expect(response.productDetails, isEmpty);
@@ -174,12 +175,22 @@ void main() {
       expect(result, true);
     });
 
-    test('completePurchase', () async {
-      await purchaseClient.completePurchase(purchaseDetails);
-
-      purchaseClient.purchaseStream.listen((purchases) {
-        expect(purchases, equals([purchaseDetails]));
-      });
+    test(
+        'completePurchase adds purchaseDetails to purchaseStream '
+        'with pendingCompletePurchase set to false', () async {
+      await Future.wait([
+        expectLater(
+          purchaseClient.purchaseStream,
+          emitsThrough(
+            (List<PurchaseDetails> purchases) => purchases.first.equals(
+              purchaseDetails.copyWith(
+                pendingCompletePurchase: false,
+              ),
+            ),
+          ),
+        ),
+        purchaseClient.completePurchase(purchaseDetails),
+      ]);
     });
 
     test('restorePurchases completes', () async {
