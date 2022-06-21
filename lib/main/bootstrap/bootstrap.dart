@@ -17,6 +17,7 @@ typedef AppBuilder = Future<Widget> Function(
   FirebaseDynamicLinks firebaseDynamicLinks,
   FirebaseMessaging firebaseMessaging,
   SharedPreferences sharedPreferences,
+  AnalyticsRepository analyticsRepository,
 );
 
 Future<void> bootstrap(AppBuilder builder) async {
@@ -28,8 +29,9 @@ Future<void> bootstrap(AppBuilder builder) async {
 
 Future<void> _runApp(AppBuilder builder) async {
   await Firebase.initializeApp();
+  final analyticsRepository = AnalyticsRepository(FirebaseAnalytics());
   final blocObserver = AppBlocObserver(
-    analyticsRepository: AnalyticsRepository(FirebaseAnalytics()),
+    analyticsRepository: analyticsRepository,
   );
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
@@ -45,6 +47,7 @@ Future<void> _runApp(AppBuilder builder) async {
             FirebaseDynamicLinks.instance,
             FirebaseMessaging.instance,
             sharedPreferences,
+            analyticsRepository,
           ),
         );
       },

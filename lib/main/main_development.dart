@@ -16,7 +16,12 @@ import 'package:user_repository/user_repository.dart';
 
 void main() {
   bootstrap(
-    (firebaseDynamicLinks, firebaseMessaging, sharedPreferences) async {
+    (
+      firebaseDynamicLinks,
+      firebaseMessaging,
+      sharedPreferences,
+      analyticsRepository,
+    ) async {
       final tokenStorage = InMemoryTokenStorage();
 
       final apiClient = GoogleNewsTemplateApiClient(
@@ -73,6 +78,7 @@ void main() {
         notificationsRepository: notificationsRepository,
         articleRepository: articleRepository,
         subscriptionsRepository: subscriptionsRepository,
+        analyticsRepository: analyticsRepository,
         user: await userRepository.user.first,
       );
     },

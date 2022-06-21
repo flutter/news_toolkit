@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -15,10 +16,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
     required SubscriptionsRepository subscriptionsRepository,
+    required AnalyticsRepository analyticsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _notificationsRepository = notificationsRepository,
         _subscriptionsRepository = subscriptionsRepository,
+        _analyticsRepository = analyticsRepository,
         super(
           user == User.anonymous
               ? const AppState.unauthenticated()
@@ -38,6 +41,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
   final SubscriptionsRepository _subscriptionsRepository;
+  final AnalyticsRepository _analyticsRepository;
 
   late StreamSubscription<User> _userSubscription;
   late StreamSubscription<SubscriptionPlan>
@@ -49,17 +53,23 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       add(AppUserSubscriptionPlanChanged(plan));
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
+    final user = event.user;
+
+    unawaited(
+      _analyticsRepository.setUserId(user != User.anonymous ? user.id : null),
+    );
+
     switch (state.status) {
       case AppStatus.onboardingRequired:
       case AppStatus.authenticated:
       case AppStatus.unauthenticated:
-        return event.user != User.anonymous && event.user.isNewUser
-            ? emit(AppState.onboardingRequired(event.user))
-            : event.user == User.anonymous
+        return user != User.anonymous && user.isNewUser
+            ? emit(AppState.onboardingRequired(user))
+            : user == User.anonymous
                 ? emit(const AppState.unauthenticated())
                 : emit(
                     AppState.authenticated(
-                      event.user,
+                      user,
                       userSubscriptionPlan: state.userSubscriptionPlan,
                     ),
                   );
