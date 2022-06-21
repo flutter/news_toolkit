@@ -46,6 +46,8 @@ void main() {
           content: content,
           totalCount: content.length,
           url: Uri.parse('https://www.dglobe.com/'),
+          isPremium: false,
+          isPreview: false,
         );
 
         when(
@@ -53,6 +55,7 @@ void main() {
             id: any(named: 'id'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
+            preview: any(named: 'preview'),
           ),
         ).thenAnswer((_) async => articleResponse);
 

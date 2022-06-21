@@ -56,6 +56,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       final response = await _articleRepository.getArticle(
         id: _articleId,
         offset: state.content.length,
+        preview: hasReachedArticleViewsLimit,
       );
 
       // Append fetched article content blocks to the list of content blocks.
@@ -78,6 +79,8 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
           hasMoreContent: hasMoreContent,
           uri: response.url,
           hasReachedArticleViewsLimit: hasReachedArticleViewsLimit,
+          isPreview: response.isPreview,
+          isPremium: response.isPremium,
         ),
       );
     } catch (error, stackTrace) {
