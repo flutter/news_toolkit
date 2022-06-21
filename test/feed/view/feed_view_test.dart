@@ -32,18 +32,18 @@ void main() {
     final feed = <Category, List<NewsBlock>>{
       Category.top: [
         SectionHeaderBlock(title: 'Top'),
-        // SpacerBlock(spacing: Spacing.medium),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
-        // SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.medium),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
         DividerHorizontalBlock(),
       ],
       Category.technology: [
@@ -259,12 +259,7 @@ void main() {
 
           expect(
             find.byType(DividerHorizontal),
-            findsOneWidget,
-          );
-
-          expect(
-            find.byType(FeedViewPopulated),
-            findsOneWidget,
+            findsNothing,
           );
 
           await tester.dragUntilVisible(
@@ -276,7 +271,7 @@ void main() {
 
           expect(
             find.byType(DividerHorizontal),
-            findsNothing,
+            findsOneWidget,
           );
 
           final tab = find.widgetWithText(
@@ -292,7 +287,7 @@ void main() {
 
           expect(
             find.byType(DividerHorizontal),
-            findsOneWidget,
+            findsNothing,
           );
         },
       );
