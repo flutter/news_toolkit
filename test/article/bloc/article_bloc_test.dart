@@ -29,6 +29,8 @@ void main() {
       ],
       totalCount: 4,
       url: Uri.parse('https://www.dglobe.com/'),
+      isPremium: false,
+      isPreview: true,
     );
 
     final articleStatePopulated = ArticleState(
