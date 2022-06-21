@@ -26,6 +26,11 @@ abstract class NewsDataSource {
     bool preview = false,
   });
 
+  /// Returns whether the article with the associated [id] is a premium article.
+  ///
+  /// Returns `null` if there is no article with the provided [id].
+  Future<bool?> isPremiumArticle({required String id});
+
   /// Returns a list of current popular topics.
   Future<List<String>> getPopularTopics();
 

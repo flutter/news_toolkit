@@ -13,6 +13,8 @@ void main() {
         content: [blockA, blockB],
         totalCount: 2,
         url: Uri.parse('https://dailyglobe.com'),
+        isPremium: false,
+        isPreview: false,
       );
 
       expect(ArticleResponse.fromJson(response.toJson()), equals(response));
