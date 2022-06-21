@@ -56,6 +56,8 @@ abstract class NewsBlock {
         return VideoIntroductionBlock.fromJson(json);
       case BannerAdBlock.identifier:
         return BannerAdBlock.fromJson(json);
+      case HtmlBlock.identifier:
+        return HtmlBlock.fromJson(json);
     }
     return const UnknownBlock();
   }
