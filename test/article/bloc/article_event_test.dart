@@ -23,6 +23,15 @@ void main() {
       });
     });
 
+    group('ArticleCommented', () {
+      test('supports value comparisons', () {
+        final event1 = ArticleCommented(articleTitle: 'title');
+        final event2 = ArticleCommented(articleTitle: 'title');
+
+        expect(event1, equals(event2));
+      });
+    });
+
     group('ShareRequested', () {
       test('supports value comparisons', () {
         final event1 = ShareRequested(uri: Uri(path: 'text'));

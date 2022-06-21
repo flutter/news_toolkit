@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
@@ -22,6 +23,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
     on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
+    on<ArticleCommented>(_onArticleCommented);
     on<ShareRequested>(_onShareRequested);
   }
 
@@ -74,6 +76,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       emit(
         state.copyWith(
           status: ArticleStatus.populated,
+          title: response.title,
           content: updatedContent,
           relatedArticles: relatedArticlesResponse?.relatedArticles ?? [],
           hasMoreContent: hasMoreContent,
@@ -107,6 +110,14 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       addError(error, stackTrace);
     }
   }
+
+  /// This method is not implemented as the scope of this template
+  /// is limited to presenting a static comment section.
+  FutureOr<void> _onArticleCommented(
+    ArticleCommented event,
+    Emitter<ArticleState> emit,
+  ) =>
+      Future.value();
 
   FutureOr<void> _onShareRequested(
     ShareRequested event,
