@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -228,6 +229,40 @@ void main() {
         expect(findCategoryFeed(defaultCategory), findsNothing);
         expect(findCategoryFeed(selectedCategory), findsOneWidget);
       });
+
+      // TODO(simpson-peter): implement check on screen position
+      testWidgets(
+        'Scrolls to top of category when on double tap',
+        (tester) async {
+          await tester.pumpApp(
+            MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: categoriesBloc),
+                BlocProvider.value(value: feedBloc),
+              ],
+              child: FeedViewPopulated(categories: categories),
+            ),
+          );
+
+          await tester.drag(
+            find.byType(CategoryFeedItem).first,
+            const Offset(0, -100),
+          );
+
+          await tester.pumpAndSettle();
+
+          final finder = find.widgetWithText(
+            CategoryTab,
+            categories.first.name.toUpperCase(),
+          );
+
+          await tester.tap(finder);
+          await tester.pump(kDoubleTapMinTime);
+          await tester.tap(finder);
+
+          await tester.pumpAndSettle();
+        },
+      );
     });
   });
 }
