@@ -35,6 +35,10 @@ void main() {
           parameters: any(named: 'parameters'),
         ),
       ).thenAnswer((_) async {});
+
+      when(
+        () => firebaseAnalytics.setUserId(any()),
+      ).thenAnswer((_) async {});
     });
 
     test('creates FirebaseAnalytics instance internally when not injected', () {
@@ -83,12 +87,43 @@ void main() {
       });
     });
 
+    group('setUserId', () {
+      test('sets user identifier successfully', () {
+        const userId = 'userId';
+
+        analyticsRepository.setUserId(userId);
+
+        verify(
+          () => firebaseAnalytics.setUserId(userId),
+        ).called(1);
+      });
+
+      test(
+          'throws SetUserIdFailure '
+          'when setUserId throws exception', () async {
+        when(
+          () => firebaseAnalytics.setUserId(any()),
+        ).thenThrow(Exception());
+
+        expect(
+          () => analyticsRepository.setUserId('userId'),
+          throwsA(isA<SetUserIdFailure>()),
+        );
+      });
+    });
+
     group('AnalyticsFailure', () {
       final error = Exception('errorMessage');
 
       group('TrackEventFailure', () {
         test('has correct props', () {
           expect(TrackEventFailure(error).props, [error]);
+        });
+      });
+
+      group('SetUserIdFailure', () {
+        test('has correct props', () {
+          expect(SetUserIdFailure(error).props, [error]);
         });
       });
     });
