@@ -299,5 +299,26 @@ void main() {
         verify(navigator.pop).called(1);
       });
     });
+
+    testWidgets(
+        'adds ArticleRequested to ArticleBloc '
+        'when hasReachedArticleViewsLimit changes to false', (tester) async {
+      whenListen(
+        articleBloc,
+        Stream.fromIterable(
+          [
+            ArticleState.initial().copyWith(hasReachedArticleViewsLimit: true),
+            ArticleState.initial().copyWith(hasReachedArticleViewsLimit: false),
+          ],
+        ),
+      );
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleView(isVideoArticle: false),
+        ),
+      );
+      verify(() => articleBloc.add(ArticleRequested()));
+    });
   });
 }

@@ -67,37 +67,39 @@ class ArticleView extends StatelessWidget {
     final isSubscriber =
         context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarIconBrightness:
-              isVideoArticle ? Brightness.light : Brightness.dark,
-          statusBarBrightness:
-              isVideoArticle ? Brightness.dark : Brightness.light,
-        ),
-        leading: isVideoArticle
-            ? const AppBackButton.light()
-            : const AppBackButton(),
-        actions: [
-          if (uri != null && uri.toString().isNotEmpty)
-            Padding(
-              key: const Key('articlePage_shareButton'),
-              padding: const EdgeInsets.only(right: AppSpacing.lg),
-              child: ShareButton(
-                shareText: context.l10n.shareText,
-                color: foregroundColor,
-                onPressed: () =>
-                    context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
+    return HasReachedArticleLimitListener(
+      child: Scaffold(
+        backgroundColor: backgroundColor,
+        appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness:
+                isVideoArticle ? Brightness.light : Brightness.dark,
+            statusBarBrightness:
+                isVideoArticle ? Brightness.dark : Brightness.light,
+          ),
+          leading: isVideoArticle
+              ? const AppBackButton.light()
+              : const AppBackButton(),
+          actions: [
+            if (uri != null && uri.toString().isNotEmpty)
+              Padding(
+                key: const Key('articlePage_shareButton'),
+                padding: const EdgeInsets.only(right: AppSpacing.lg),
+                child: ShareButton(
+                  shareText: context.l10n.shareText,
+                  color: foregroundColor,
+                  onPressed: () =>
+                      context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
+                ),
               ),
-            ),
-          if (!isSubscriber) const ArticleSubscribeButton()
-        ],
-      ),
-      body: InterstitialAd(
-        child: ArticleThemeOverride(
-          isVideoArticle: isVideoArticle,
-          child: const ArticleContent(),
+            if (!isSubscriber) const ArticleSubscribeButton()
+          ],
+        ),
+        body: InterstitialAd(
+          child: ArticleThemeOverride(
+            isVideoArticle: isVideoArticle,
+            child: const ArticleContent(),
+          ),
         ),
       ),
     );
@@ -119,6 +121,28 @@ class ArticleSubscribeButton extends StatelessWidget {
           child: Text(context.l10n.subscribeButtonText),
         ),
       ),
+    );
+  }
+}
+
+@visibleForTesting
+class HasReachedArticleLimitListener extends StatelessWidget {
+  const HasReachedArticleLimitListener({super.key, this.child});
+
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ArticleBloc, ArticleState>(
+      listener: (context, state) {
+        if (!state.hasReachedArticleViewsLimit) {
+          context.read<ArticleBloc>().add(const ArticleRequested());
+        }
+      },
+      listenWhen: (previous, current) =>
+          previous.hasReachedArticleViewsLimit !=
+          current.hasReachedArticleViewsLimit,
+      child: child,
     );
   }
 }

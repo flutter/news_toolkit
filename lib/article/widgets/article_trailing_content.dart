@@ -19,23 +19,27 @@ class ArticleTrailingContent extends StatelessWidget {
         .select((ArticleBloc bloc) => bloc.state.hasReachedArticleViewsLimit);
     final isUserSubscribed =
         context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
+    final isArticlePreview =
+        context.select((ArticleBloc bloc) => bloc.state.isPreview);
+    final isArticlePremium =
+        context.select((ArticleBloc bloc) => bloc.state.isPremium);
 
     final showSubscribeWithArticleLimitModal =
         hasReachedArticleViewsLimit && !isUserSubscribed;
 
-    final isArticleContentObscured = showSubscribeWithArticleLimitModal;
+    final showSubscribeModal = isArticlePremium && !isUserSubscribed;
 
     return Stack(
       clipBehavior: Clip.none,
       children: [
         SafeArea(
-          bottom: !showSubscribeWithArticleLimitModal,
+          bottom: !isArticlePreview,
           child: Column(
             key: const Key('articleTrailingContent_column'),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (relatedArticles.isNotEmpty &&
-                  !showSubscribeWithArticleLimitModal) ...[
+              if (relatedArticles.isNotEmpty && !isArticlePreview) ...[
+                const SizedBox(height: AppSpacing.xlg),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -50,21 +54,24 @@ class ArticleTrailingContent extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpacing.lg),
               ],
-              if (!showSubscribeWithArticleLimitModal) ...[
+              if (!isArticlePreview) ...[
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                   child: ArticleComments(),
                 ),
                 const SizedBox(height: AppSpacing.lg),
               ],
-              if (showSubscribeWithArticleLimitModal) ...[
-                const SizedBox(height: AppSpacing.lg),
-                const SubscribeWithArticleLimitModal(),
+              if (isArticlePreview) ...[
+                const SizedBox(height: AppSpacing.xlg),
+                if (showSubscribeModal)
+                  const SubscribeModal()
+                else if (showSubscribeWithArticleLimitModal)
+                  const SubscribeWithArticleLimitModal(),
               ],
             ],
           ),
         ),
-        if (isArticleContentObscured) const ArticleTrailingShadow(),
+        if (isArticlePreview) const ArticleTrailingShadow(),
       ],
     );
   }

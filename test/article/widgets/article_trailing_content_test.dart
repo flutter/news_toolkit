@@ -55,141 +55,49 @@ void main() {
       appBloc = MockAppBloc();
     });
 
-    group('renders relatedArticles', () {
-      testWidgets(
-          'when hasReachedArticleViewsLimit is false '
-          'and user is not a subscriber', (tester) async {
-        when(() => articleBloc.state).thenReturn(
-          ArticleState(
-            content: const [
-              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
-              TextParagraphBlock(text: 'text'),
-            ],
-            status: ArticleStatus.populated,
-            hasMoreContent: false,
-            relatedArticles: relatedArticles,
-            hasReachedArticleViewsLimit: false,
+    testWidgets(
+        'renders relatedArticles '
+        'when article is not preview', (tester) async {
+      when(() => articleBloc.state).thenReturn(
+        ArticleState(
+          content: const [
+            TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+            TextParagraphBlock(text: 'text'),
+          ],
+          status: ArticleStatus.populated,
+          hasMoreContent: false,
+          relatedArticles: relatedArticles,
+          isPreview: false,
+        ),
+      );
+
+      when(() => appBloc.state).thenReturn(
+        AppState.authenticated(
+          MockUser(),
+          userSubscriptionPlan: SubscriptionPlan.premium,
+        ),
+      );
+
+      await tester.pumpApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: articleBloc),
+            BlocProvider.value(value: appBloc),
+          ],
+          child: SingleChildScrollView(
+            child: ArticleTrailingContent(),
           ),
-        );
+        ),
+      );
 
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.none,
+      for (final article in relatedArticles) {
+        expect(
+          find.byWidgetPredicate(
+            (widget) => widget is CategoryFeedItem && widget.block == article,
           ),
+          findsOneWidget,
         );
-
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: articleBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
-            ),
-          ),
-        );
-
-        for (final article in relatedArticles) {
-          expect(
-            find.byWidgetPredicate(
-              (widget) => widget is CategoryFeedItem && widget.block == article,
-            ),
-            findsOneWidget,
-          );
-        }
-      });
-
-      testWidgets(
-          'when hasReachedArticleViewsLimit is false '
-          'and user is a subscriber', (tester) async {
-        when(() => articleBloc.state).thenReturn(
-          ArticleState(
-            content: const [
-              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
-              TextParagraphBlock(text: 'text'),
-            ],
-            status: ArticleStatus.populated,
-            hasMoreContent: false,
-            relatedArticles: relatedArticles,
-            hasReachedArticleViewsLimit: false,
-          ),
-        );
-
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ),
-        );
-
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: articleBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
-            ),
-          ),
-        );
-
-        for (final article in relatedArticles) {
-          expect(
-            find.byWidgetPredicate(
-              (widget) => widget is CategoryFeedItem && widget.block == article,
-            ),
-            findsOneWidget,
-          );
-        }
-      });
-
-      testWidgets(
-          'when hasReachedArticleViewsLimit is true '
-          'and user is a subscriber', (tester) async {
-        when(() => articleBloc.state).thenReturn(
-          ArticleState(
-            content: const [
-              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
-              TextParagraphBlock(text: 'text'),
-            ],
-            status: ArticleStatus.populated,
-            hasMoreContent: false,
-            relatedArticles: relatedArticles,
-            hasReachedArticleViewsLimit: true,
-          ),
-        );
-
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ),
-        );
-
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: articleBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
-            ),
-          ),
-        );
-
-        for (final article in relatedArticles) {
-          expect(
-            find.byWidgetPredicate(
-              (widget) => widget is CategoryFeedItem && widget.block == article,
-            ),
-            findsOneWidget,
-          );
-        }
-      });
+      }
     });
 
     testWidgets(
@@ -221,9 +129,7 @@ void main() {
       expect(find.byType(ArticleComments), findsOneWidget);
     });
 
-    group(
-        'when hasReachedArticleViewsLimit is true '
-        'and user is not a subscriber', () {
+    group('when article is preview', () {
       setUp(() {
         when(() => articleBloc.state).thenReturn(
           ArticleState(
@@ -234,7 +140,7 @@ void main() {
             status: ArticleStatus.populated,
             hasMoreContent: false,
             relatedArticles: relatedArticles,
-            hasReachedArticleViewsLimit: true,
+            isPreview: true,
           ),
         );
 
@@ -262,6 +168,22 @@ void main() {
         expect(find.byType(CategoryFeedItem), findsNothing);
       });
 
+      testWidgets('does not render ArticleComments', (tester) async {
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: articleBloc),
+              BlocProvider.value(value: appBloc),
+            ],
+            child: SingleChildScrollView(
+              child: ArticleTrailingContent(),
+            ),
+          ),
+        );
+
+        expect(find.byType(ArticleComments), findsNothing);
+      });
+
       testWidgets('renders ArticleTrailingShadow', (tester) async {
         await tester.pumpApp(
           MultiBlocProvider(
@@ -278,7 +200,99 @@ void main() {
         expect(find.byType(ArticleTrailingShadow), findsOneWidget);
       });
 
-      testWidgets('renders SubscribeWithArticleLimitModal', (tester) async {
+      testWidgets(
+          'renders SubscribeModal '
+          'when article is premium and user is not a subscriber',
+          (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(
+            content: const [
+              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+              TextParagraphBlock(text: 'text'),
+            ],
+            status: ArticleStatus.populated,
+            hasMoreContent: false,
+            relatedArticles: relatedArticles,
+            isPreview: true,
+            isPremium: true,
+          ),
+        );
+
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: articleBloc),
+              BlocProvider.value(value: appBloc),
+            ],
+            child: SingleChildScrollView(
+              child: ArticleTrailingContent(),
+            ),
+          ),
+        );
+
+        expect(find.byType(SubscribeModal), findsOneWidget);
+        expect(find.byType(SubscribeWithArticleLimitModal), findsNothing);
+      });
+
+      testWidgets(
+          'does not render SubscribeModal '
+          'when article is premium and user is a subscriber', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(
+            content: const [
+              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+              TextParagraphBlock(text: 'text'),
+            ],
+            status: ArticleStatus.populated,
+            hasMoreContent: false,
+            relatedArticles: relatedArticles,
+            isPreview: true,
+            isPremium: true,
+          ),
+        );
+
+        when(() => appBloc.state).thenReturn(
+          AppState.authenticated(
+            MockUser(),
+            userSubscriptionPlan: SubscriptionPlan.premium,
+          ),
+        );
+
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: articleBloc),
+              BlocProvider.value(value: appBloc),
+            ],
+            child: SingleChildScrollView(
+              child: ArticleTrailingContent(),
+            ),
+          ),
+        );
+
+        expect(find.byType(SubscribeModal), findsNothing);
+        expect(find.byType(SubscribeWithArticleLimitModal), findsNothing);
+      });
+
+      testWidgets(
+          'renders SubscribeWithArticleLimitModal '
+          'when article is not premium '
+          'and user has reached article views limit '
+          'and user is not a subscriber', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(
+            content: const [
+              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+              TextParagraphBlock(text: 'text'),
+            ],
+            status: ArticleStatus.populated,
+            hasMoreContent: false,
+            relatedArticles: relatedArticles,
+            isPreview: true,
+            hasReachedArticleViewsLimit: true,
+          ),
+        );
+
         await tester.pumpApp(
           MultiBlocProvider(
             providers: [
@@ -292,6 +306,49 @@ void main() {
         );
 
         expect(find.byType(SubscribeWithArticleLimitModal), findsOneWidget);
+        expect(find.byType(SubscribeModal), findsNothing);
+      });
+
+      testWidgets(
+          'does not render SubscribeWithArticleLimitModal '
+          'when article is not premium '
+          'and user has reached article views limit '
+          'and user is a subscriber', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(
+            content: const [
+              TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
+              TextParagraphBlock(text: 'text'),
+            ],
+            status: ArticleStatus.populated,
+            hasMoreContent: false,
+            relatedArticles: relatedArticles,
+            isPreview: true,
+            hasReachedArticleViewsLimit: true,
+          ),
+        );
+
+        when(() => appBloc.state).thenReturn(
+          AppState.authenticated(
+            MockUser(),
+            userSubscriptionPlan: SubscriptionPlan.premium,
+          ),
+        );
+
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: articleBloc),
+              BlocProvider.value(value: appBloc),
+            ],
+            child: SingleChildScrollView(
+              child: ArticleTrailingContent(),
+            ),
+          ),
+        );
+
+        expect(find.byType(SubscribeWithArticleLimitModal), findsNothing);
+        expect(find.byType(SubscribeModal), findsNothing);
       });
     });
   });
