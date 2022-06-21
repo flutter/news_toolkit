@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:notifications_repository/notifications_repository.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 

@@ -45,7 +45,7 @@ void main() {
 
       when(
         () => apiClient.createSubscription(
-          subscription: any(named: 'subscription'),
+          subscriptionId: any(named: 'subscriptionId'),
         ),
       ).thenAnswer((_) async {});
 
@@ -94,8 +94,11 @@ void main() {
 
         verify(
           () => inAppPurchase.buyNonConsumable(
-              purchaseParam: PurchaseParam(
-                  productDetails: product, applicationUserName: user.name)),
+            purchaseParam: PurchaseParam(
+              productDetails: product,
+              applicationUserName: user.name,
+            ),
+          ),
         ).called(1);
       });
     });
@@ -149,4 +152,3 @@ void main() {
     //     });
     //   });
     // });
-  

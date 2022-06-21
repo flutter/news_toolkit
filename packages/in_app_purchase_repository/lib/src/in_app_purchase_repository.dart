@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+
 import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:rxdart/rxdart.dart';
@@ -236,12 +237,14 @@ class InAppPurchaseRepository {
     }
 
     if (purchase.status == PurchaseStatus.error) {
-      _purchaseUpdateStreamController.add(PurchaseFailed(
-        failure: InternalInAppPurchaseFailure(
-          purchase.error.toString(),
-          StackTrace.current,
+      _purchaseUpdateStreamController.add(
+        PurchaseFailed(
+          failure: InternalInAppPurchaseFailure(
+            purchase.error.toString(),
+            StackTrace.current,
+          ),
         ),
-      ));
+      );
     }
 
     try {
@@ -254,8 +257,10 @@ class InAppPurchaseRepository {
         _purchaseUpdateStreamController.add(
           PurchasePurchased(product: purchasedProduct),
         );
-        // TODO(jan-stepien): when createSubscription is implemented, uncomment this line
-        // await _apiClient.createSubscription(subscriptionId: purchasedProduct.id);
+
+        await _apiClient.createSubscription(
+          subscriptionId: purchasedProduct.id,
+        );
 
         _purchaseUpdateStreamController.add(
           PurchaseDelivered(product: purchasedProduct),
