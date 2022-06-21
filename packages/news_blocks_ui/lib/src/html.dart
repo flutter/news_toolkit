@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart' as flutter_html;
 
@@ -15,6 +16,9 @@ class Html extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return flutter_html.Html(data: block.content);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: flutter_html.Html(data: block.content),
+    );
   }
 }
