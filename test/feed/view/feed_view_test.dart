@@ -246,7 +246,7 @@ void main() {
 
           await tester.drag(
             find.byType(CategoryFeedItem).first,
-            const Offset(0, -100),
+            const Offset(0, 100),
           );
 
           await tester.pumpAndSettle();
