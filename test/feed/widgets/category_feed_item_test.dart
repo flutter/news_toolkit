@@ -45,6 +45,8 @@ void main() {
           content: [],
           totalCount: 0,
           url: Uri.parse('https://www.dglobe.com/'),
+          isPremium: false,
+          isPreview: false,
         ),
       );
       when(
