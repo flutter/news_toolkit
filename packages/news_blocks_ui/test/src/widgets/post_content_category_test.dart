@@ -10,10 +10,7 @@ void main() {
     testWidgets('renders category name in uppercase', (tester) async {
       final testPostContentCategory = PostContentCategory(
         categoryName: 'Test',
-        premiumText: 'Premium',
         isContentOverlaid: false,
-        isPremium: false,
-        isSubscriberExclusive: false,
         isVideoContent: false,
       );
 

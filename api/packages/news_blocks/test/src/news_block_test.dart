@@ -178,6 +178,11 @@ void main() {
         );
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns HtmlBlock', () {
+        final block = HtmlBlock(content: '<p>hello</p>');
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
