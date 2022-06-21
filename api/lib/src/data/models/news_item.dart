@@ -9,13 +9,17 @@ class NewsItem {
   /// {@macro post}
   const NewsItem({
     required this.content,
+    required this.contentPreview,
     required this.post,
     required this.url,
     this.relatedArticles = const [],
   });
 
-  /// The associated contents.
+  /// The associated content.
   final List<NewsBlock> content;
+
+  /// The associated preview of the content.
+  final List<NewsBlock> contentPreview;
 
   /// The associated [PostBlock] for the feed.
   final PostBlock post;

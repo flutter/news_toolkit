@@ -135,7 +135,7 @@ void main() {
       test('makes correct http request (no query params).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
-        const query = '';
+        const query = 'preview=false';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -158,7 +158,7 @@ void main() {
         const offset = 7;
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
-        const query = 'limit=$limit&offset=$offset';
+        const query = 'limit=$limit&offset=$offset&preview=true';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -166,7 +166,12 @@ void main() {
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        await apiClient.getArticle(id: articleId, limit: limit, offset: offset);
+        await apiClient.getArticle(
+          id: articleId,
+          limit: limit,
+          offset: offset,
+          preview: true,
+        );
 
         verify(
           () => httpClient.get(
@@ -179,7 +184,7 @@ void main() {
       test('makes correct http request (with authorization token).', () async {
         const articleId = '__article_id__';
         const path = '/api/v1/articles/$articleId';
-        const query = '';
+        const query = 'preview=false';
 
         tokenProvider = () async => token;
 

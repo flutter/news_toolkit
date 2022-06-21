@@ -39,15 +39,23 @@ class InMemoryNewsDataSource implements NewsDataSource {
     required String id,
     int limit = 20,
     int offset = 0,
+    bool preview = false,
   }) async {
     final result = _newsItems.where((item) => item.post.id == id);
     if (result.isEmpty) return null;
-    final article = result.first.content.toArticle(url: result.first.url);
+    final articleNewsItem = result.first;
+    final article =
+        (preview ? articleNewsItem.contentPreview : articleNewsItem.content)
+            .toArticle(url: articleNewsItem.url);
     final totalBlocks = article.totalBlocks;
     final normalizedOffset = math.min(offset, totalBlocks);
     final blocks =
         article.blocks.sublist(normalizedOffset).take(limit).toList();
-    return Article(blocks: blocks, totalBlocks: totalBlocks, url: article.url);
+    return Article(
+      blocks: blocks,
+      totalBlocks: totalBlocks,
+      url: article.url,
+    );
   }
 
   @override

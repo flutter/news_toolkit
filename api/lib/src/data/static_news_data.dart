@@ -81,6 +81,7 @@ final popularArticles = <NewsItem>[
             'https://cdn.cnn.com/cnnnext/dam/assets/220518135103-03-boeing-starliner-pre-launch-0518-super-tease.jpg',
       ),
     ],
+    contentPreview: [],
     url: Uri.parse(
       'https://nbc-2.com/news/2022/05/19/boeing-makes-third-attempt-to-launch-its-starliner-capsule-to-the-iss',
     ),
@@ -111,6 +112,7 @@ final relevantArticles = <NewsItem>[
             'https://cdn.cnn.com/cnnnext/dam/assets/220519121645-01-monkeypox-explainer-super-tease.jpg',
       ),
     ],
+    contentPreview: [],
     url: Uri.parse(
       'https://www.cnn.com/2022/05/24/health/what-is-monkeypox-virus-explainer-update-wellness',
     ),
@@ -207,7 +209,26 @@ final technologyLargeItems = <NewsItem>[
       ),
       const SpacerBlock(spacing: Spacing.large),
       const NewsletterBlock(),
-      const SpacerBlock(spacing: Spacing.medium),
+    ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Sean Hollister',
+        publishedAt: DateTime(2022, 4, 19),
+        title: 'Nvidia and AMD GPUs are returning to shelves '
+            'and prices are finally falling',
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22049166/shollister_201117_4303_0003.0.jpg',
+      ),
+      const TextLeadParagraphBlock(
+        text:
+            'Scientists at the University of Copenhagen research institute have'
+            ' developed an Artificial Intelligence (AI) algorithm that can help'
+            ' communicate with animals in the future. Currently, AI algorithms '
+            'are being used on pigs to decode their emotions and researchers '
+            'claim that they have achieved 60% of success in translating '
+            'positive & negative emotions hidden in pig grunts.',
+      ),
     ],
     relatedArticles: [
       PostSmallBlock(
@@ -255,6 +276,17 @@ final technologyLargeItems = <NewsItem>[
         isPremium: true,
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Jasmine Hicks',
+        publishedAt: DateTime(2022, 6, 2),
+        title:
+            'Meta adds new Calls tab to its Messenger app for iOS and Android',
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/TanD-HFR6zb_ZfUEMwGMRWkdl5E=/0x0:1920x1080/1820x1213/filters:focal(807x387:1113x693):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70937578/676eeda0_4ebe_4742_857e_9934a172200d.0.png',
+      ),
+    ],
     url: Uri.parse(
       'https://www.theverge.com/2022/6/2/23151755/meta-messenger-call-tab-ios-android-rollout',
     ),
@@ -281,6 +313,17 @@ final technologyMediumItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Victoria Song',
+        publishedAt: DateTime(2022, 6, 2),
+        title:
+            "It's okay if the Pixel Watch only manages a day of battery life",
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/vztwGP7fw5SuqtFUfNC3WpXOS4U=/0x38:1920x1043/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23449170/Google_Pixel_Watch_1.png',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.technology,
         author: 'Victoria Song',
@@ -326,6 +369,17 @@ final technologySmallItems = <NewsItem>[
             'Plus tiers on day one',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Tom Phillips',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://assets.reedpopcdn.com/stray_XlfRQmc.jpg/BROK/thumbnail/1600x900/format/jpg/quality/80/stray_XlfRQmc.jpg',
+        title: 'Stray launches next month, included in pricier PlayStation '
+            'Plus tiers on day one',
+      ),
+    ],
     url: Uri.parse(
       'https://www.eurogamer.net/stray-launches-next-month-included-in-pricier-playstation-plus-tiers-on-day-one',
     ),
@@ -354,6 +408,15 @@ final technologySmallItems = <NewsItem>[
         title: 'Walmart has a big PS5 restock today — '
             'here’s how to have the best shot',
         isPremium: true,
+      ),
+    ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.technology,
+        author: 'Victoria Song',
+        publishedAt: DateTime(2022, 6, 2),
+        title: 'Walmart has a big PS5 restock today — '
+            'here’s how to have the best shot',
       ),
     ],
     url: Uri.parse(
@@ -399,6 +462,17 @@ final sportsLargeItems = <NewsItem>[
             'perfect game into eighth',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.sports,
+        author: 'Peter Brody',
+        publishedAt: DateTime(2022, 6, 3),
+        imageUrl:
+            'https://cdn.vox-cdn.com/thumbor/a3ES9_uJ0NKxcWTH3xrtM0FulHE=/0x0:3482x1823/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23605079/usa_today_18419260.jpg',
+        title: 'Yankees win, 2-1, as Jameson Taillon carries '
+            'perfect game into eighth',
+      ),
+    ],
     url: Uri.parse(
       'https://www.pinstripealley.com/2022/6/2/23150750/yankees-game-score-recap-angels-sweep-jameson-taillon-perfect-game-bid-anthony-rizzo-doubleheader',
     ),
@@ -427,6 +501,17 @@ final sportsMediumItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.sports,
+        author: 'Tom Dierberger',
+        publishedAt: DateTime(2022, 5, 22),
+        imageUrl:
+            'https://www.nbcsports.com/sites/rsnunited/files/styles/metatags_opengraph/public/article/hero/pat-bev-ja-morant-USA.jpg',
+        title: 'Patrick Beverley throws shade at Warriors '
+            'for Ja Morant struggles - NBC Sports',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.sports,
         author: 'Tom Dierberger',
@@ -489,6 +574,17 @@ final sportsSmallItems = <NewsItem>[
             'potential All-NBA changes ahead of Finals',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.sports,
+        author: 'Jasmyn Wimbish',
+        publishedAt: DateTime(2022, 6, 3),
+        imageUrl:
+            'https://sportshub.cbsistatic.com/i/r/2022/06/03/ff016f39-ad02-4dd9-8237-f1c7d3b1b5a6/thumbnail/1200x675/ed10f396f5f3cdf4b6b912e44fdf2597/untitled-design-2022-06-02t212223-267.png',
+        title: 'NBA commissioner Adam Silver talks about league expansion, '
+            'potential All-NBA changes ahead of Finals',
+      ),
+    ],
     url: Uri.parse(
       'https://www.cbssports.com/nba/news/nba-commissioner-adam-silver-talks-about-league-expansion-potential-all-nba-changes-ahead-of-finals/',
     ),
@@ -508,6 +604,15 @@ final sportsSmallItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.sports,
+        author: 'Adam Rowe',
+        publishedAt: DateTime(2022, 6, 3),
+        title: 'Five-Star International Recruit Tyrese Proctor will reclassify '
+            'up to 2022 and enroll at Duke this summer',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.sports,
         author: 'Adam Rowe',
@@ -558,6 +663,17 @@ final healthLargeItems = <NewsItem>[
             'Broad Spectrum of Autism Depends on Spectrum of Genetic Factors',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Neuroscience News',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://neurosciencenews.com/files/2022/06/asd-genetics-neurosicnes-public.jpg',
+        title:
+            'Broad Spectrum of Autism Depends on Spectrum of Genetic Factors',
+      ),
+    ],
     url: Uri.parse(
       'https://neurosciencenews.com/asd-genetics-symptoms-20731/',
     ),
@@ -595,6 +711,17 @@ final healthMediumItems = <NewsItem>[
             'Macular Degeneration',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Neuroscience News',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://neurosciencenews.com/files/2022/06/amd-eye-supplements-neurosinces-public.jpg',
+        title: 'Study Confirms Benefit of Supplements for Slowing Age-Related '
+            'Macular Degeneration',
+      ),
+    ],
     url: Uri.parse(
       'https://neurosciencenews.com/asd-genetics-symptoms-20731/',
     ),
@@ -621,6 +748,16 @@ final healthSmallItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Northwestern University',
+        publishedAt: DateTime(2022, 5, 4),
+        imageUrl: 'https://scitechdaily.com/images/Ear-Hearing-Concept.jpg',
+        title: 'Restoring Hearing: New Tool To Create Ear Hair Cells '
+            'Lost Due to Aging or Noise',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.health,
         author: 'Northwestern University',
@@ -675,6 +812,15 @@ final healthSmallItems = <NewsItem>[
             'but keto may have more side effects, according to research',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.health,
+        author: 'Gabby Landsverk',
+        publishedAt: DateTime(2022, 6, 2),
+        title: 'Keto and Mediterranean diets both help manage blood sugar, '
+            'but keto may have more side effects, according to research',
+      ),
+    ],
     url: Uri.parse(
       'https://www.msn.com/en-us/health/nutrition/keto-and-mediterranean-diets-both-help-manage-blood-sugar-but-keto-may-have-more-side-effects-according-to-research/ar-AAY0S3q?li=BBnba9O',
     ),
@@ -708,6 +854,16 @@ final scienceLargeItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.science,
+        author: 'Megan Marples and Ashley Strickland',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://neurosciencenews.com/files/2022/06/asd-genetics-neurosicnes-public.jpg',
+        title: 'A rare, 5-planet alignment will take over the sky this month',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.science,
         author: 'Megan Marples and Ashley Strickland',
@@ -751,6 +907,16 @@ final scienceMediumItems = <NewsItem>[
         title: 'NASA to buy five additional Crew Dragon flights',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.science,
+        author: 'Jeff Foust',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://spacenews.com/wp-content/uploads/2021/11/crew2-depature.jpg',
+        title: 'NASA to buy five additional Crew Dragon flights',
+      ),
+    ],
     url: Uri.parse(
       'https://spacenews.com/?p=128336&#038;preview=true&#038;preview_id=128336',
     ),
@@ -785,6 +951,16 @@ final scienceSmallItems = <NewsItem>[
         title: 'Super-Earth exoplanet orbiting nearby star discovered',
       ),
     ],
+    contentPreview: [
+      ArticleIntroductionBlock(
+        category: PostCategory.science,
+        author: 'Tomasz Nowakowski',
+        publishedAt: DateTime(2022, 6, 2),
+        imageUrl:
+            'https://scx2.b-cdn.net/gfx/news/2022/super-earth-exoplanet.jpg',
+        title: 'Super-Earth exoplanet orbiting nearby star discovered',
+      ),
+    ],
     url: Uri.parse(
       'https://phys.org/news/2022-06-super-earth-exoplanet-orbiting-nearby-star.html',
     ),
@@ -803,6 +979,14 @@ final scienceSmallItems = <NewsItem>[
       ),
     ),
     content: [
+      ArticleIntroductionBlock(
+        category: PostCategory.science,
+        author: 'Phil Plait',
+        publishedAt: DateTime(2022, 6, 2),
+        title: 'Are supermassive black holes killing their host galaxies?',
+      ),
+    ],
+    contentPreview: [
       ArticleIntroductionBlock(
         category: PostCategory.science,
         author: 'Phil Plait',
@@ -834,6 +1018,15 @@ final scienceVideoItems = <NewsItem>[
       ),
     ),
     content: const [
+      VideoIntroductionBlock(
+        category: PostCategory.science,
+        title: 'SpaceX successfully returns four astronauts from the '
+            'International Space Station',
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+    ],
+    contentPreview: const [
       VideoIntroductionBlock(
         category: PostCategory.science,
         title: 'SpaceX successfully returns four astronauts from the '
@@ -888,6 +1081,15 @@ final scienceVideoItems = <NewsItem>[
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
+    contentPreview: const [
+      VideoIntroductionBlock(
+        category: PostCategory.science,
+        title: 'A surging glow in a distant galaxy could change '
+            'the way we look at black holes',
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+    ],
     url: Uri.parse(
       'https://phys.org/news/2022-05-surging-distant-galaxy-black-holes.html',
     ),
@@ -916,6 +1118,16 @@ final scienceVideoItems = <NewsItem>[
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
+    contentPreview: const [
+      VideoIntroductionBlock(
+        category: PostCategory.science,
+        title:
+            'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
+            'Revolutionize Quantum Computing',
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+    ],
     url: Uri.parse(
       'https://scitechdaily.com/the-quest-for-an-ideal-quantum-bit-new-qubit-breakthrough-could-revolutionize-quantum-computing',
     ),
@@ -934,6 +1146,15 @@ final scienceVideoItems = <NewsItem>[
       ),
     ),
     content: const [
+      VideoIntroductionBlock(
+        category: PostCategory.science,
+        title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '
+            'Sonifications With a Remix',
+        videoUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
+    ],
+    contentPreview: const [
       VideoIntroductionBlock(
         category: PostCategory.science,
         title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '

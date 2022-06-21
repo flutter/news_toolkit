@@ -19,6 +19,7 @@ class MyNewsDataSource extends NewsDataSource {
     required String id,
     int limit = 20,
     int offset = 0,
+    bool preview = false,
   }) {
     throw UnimplementedError();
   }
@@ -310,7 +311,9 @@ void main() {
         );
       });
 
-      test('returns content when article exists', () {
+      test(
+          'returns content when article exists '
+          'and preview is false', () {
         final item = healthItems.first;
         expect(
           newsDataSource.getArticle(id: item.post.id),
@@ -318,6 +321,21 @@ void main() {
             articleHaving(
               blocks: item.content,
               totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns content preview when article exists '
+          'and preview is true', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, preview: true),
+          completion(
+            articleHaving(
+              blocks: item.contentPreview,
+              totalBlocks: item.contentPreview.length,
             ),
           ),
         );
