@@ -24,7 +24,7 @@ class ArticleCommented extends ArticleEvent with AnalyticsEventMixin {
   AnalyticsEvent get event => ArticleCommentEvent(articleTitle: articleTitle);
 
   @override
-  List<Object> get props => [articleTitle];
+  List<Object> get props => [articleTitle, event];
 }
 
 class ShareRequested extends ArticleEvent {
