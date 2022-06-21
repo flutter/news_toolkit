@@ -17,6 +17,10 @@ void main() {
         find.text('Hello'),
         findsOneWidget,
       );
+      expect(
+        find.textContaining('<p>'),
+        findsNothing,
+      );
     });
   });
 }
