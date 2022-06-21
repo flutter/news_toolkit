@@ -19,6 +19,8 @@ class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
+class MockTextParagraphBlock extends Mock implements TextParagraphBlock {}
+
 void main() {
   group('FeedView', () {
     late CategoriesBloc categoriesBloc;
@@ -26,11 +28,25 @@ void main() {
 
     const categories = [Category.top, Category.technology];
 
+    final testText = 'Lorem';
+
     final feed = <Category, List<NewsBlock>>{
       Category.top: [
         SectionHeaderBlock(title: 'Top'),
         DividerHorizontalBlock(),
         SpacerBlock(spacing: Spacing.medium),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        TextParagraphBlock(text: testText),
       ],
       Category.technology: [
         SectionHeaderBlock(title: 'Technology'),
@@ -230,7 +246,6 @@ void main() {
         expect(findCategoryFeed(selectedCategory), findsOneWidget);
       });
 
-      // TODO(simpson-peter): implement check on screen position
       testWidgets(
         'Scrolls to the top of CategoryFeed on double tap',
         (tester) async {
@@ -244,23 +259,40 @@ void main() {
             ),
           );
 
-          await tester.drag(
-            find.byType(CategoryFeedItem).first,
-            const Offset(0, 100),
+          expect(
+            find.byType(SectionHeaderBlock),
+            findsOneWidget,
+          );
+
+          await tester.dragUntilVisible(
+            find.text(testText),
+            find.byType(FeedViewPopulated),
+            Offset(0, -100),
+            duration: Duration.zero,
           );
 
           await tester.pumpAndSettle();
 
-          final finder = find.widgetWithText(
+          expect(
+            find.byType(SectionHeaderBlock),
+            findsNothing,
+          );
+
+          final tab = find.widgetWithText(
             CategoryTab,
             categories.first.name.toUpperCase(),
           );
 
-          await tester.tap(finder);
+          await tester.tap(tab);
           await tester.pump(kDoubleTapMinTime);
-          await tester.tap(finder);
+          await tester.tap(tab);
 
-          await tester.pumpAndSettle();
+          await tester.pump(Duration(milliseconds: 300));
+
+          expect(
+            find.byType(SectionHeaderBlock),
+            findsOneWidget,
+          );
         },
       );
     });
