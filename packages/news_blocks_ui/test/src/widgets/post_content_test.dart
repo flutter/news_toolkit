@@ -24,7 +24,7 @@ void main() {
       );
     });
 
-    testWidgets('renders category', (tester) async {
+    testWidgets('renders category when isPremium is false', (tester) async {
       final testPostContent = PostContent(
         title: 'title',
         categoryName: 'categoryName',
@@ -35,6 +35,54 @@ void main() {
 
       expect(
         find.byType(PostContentCategory),
+        findsOneWidget,
+      );
+      expect(
+        find.byType(PostContentPremiumCategory),
+        findsNothing,
+      );
+    });
+
+    testWidgets(
+        'renders category and premium '
+        'when isPremium is true', (tester) async {
+      final testPostContent = PostContent(
+        title: 'title',
+        categoryName: 'categoryName',
+        premiumText: 'premiumText',
+        isPremium: true,
+      );
+
+      await tester.pumpContentThemedApp(testPostContent);
+
+      expect(
+        find.byType(PostContentCategory),
+        findsOneWidget,
+      );
+      expect(
+        find.byType(PostContentPremiumCategory),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'renders premium without category '
+        'when isPremium is true and categoryName is empty', (tester) async {
+      final testPostContent = PostContent(
+        title: 'title',
+        categoryName: '',
+        premiumText: 'premiumText',
+        isPremium: true,
+      );
+
+      await tester.pumpContentThemedApp(testPostContent);
+
+      expect(
+        find.byType(PostContentCategory),
+        findsNothing,
+      );
+      expect(
+        find.byType(PostContentPremiumCategory),
         findsOneWidget,
       );
     });
