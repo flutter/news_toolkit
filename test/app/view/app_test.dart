@@ -1,3 +1,4 @@
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,6 +28,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {}
 class MockSubscriptionsRepository extends Mock
     implements SubscriptionsRepository {}
 
+class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 void main() {
@@ -36,6 +39,7 @@ void main() {
     late NotificationsRepository notificationsRepository;
     late ArticleRepository articleRepository;
     late SubscriptionsRepository subscriptionsRepository;
+    late AnalyticsRepository analyticsRepository;
     late User user;
 
     setUp(() {
@@ -45,6 +49,7 @@ void main() {
       notificationsRepository = MockNotificationsRepository();
       articleRepository = MockArticleRepository();
       subscriptionsRepository = MockSubscriptionsRepository();
+      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
@@ -62,6 +67,7 @@ void main() {
             notificationsRepository: notificationsRepository,
             articleRepository: articleRepository,
             subscriptionsRepository: subscriptionsRepository,
+            analyticsRepository: analyticsRepository,
             user: user,
           ),
         );
