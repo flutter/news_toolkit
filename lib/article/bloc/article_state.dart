@@ -17,6 +17,8 @@ class ArticleState extends Equatable {
     this.hasMoreContent = true,
     this.uri,
     this.hasReachedArticleViewsLimit = false,
+    this.isPreview = false,
+    this.isPremium = false,
   });
 
   const ArticleState.initial()
@@ -30,6 +32,8 @@ class ArticleState extends Equatable {
   final bool hasMoreContent;
   final Uri? uri;
   final bool hasReachedArticleViewsLimit;
+  final bool isPreview;
+  final bool isPremium;
 
   @override
   List<Object?> get props => [
@@ -39,6 +43,8 @@ class ArticleState extends Equatable {
         hasMoreContent,
         uri,
         hasReachedArticleViewsLimit,
+        isPreview,
+        isPremium,
       ];
 
   ArticleState copyWith({
@@ -48,6 +54,8 @@ class ArticleState extends Equatable {
     bool? hasMoreContent,
     Uri? uri,
     bool? hasReachedArticleViewsLimit,
+    bool? isPreview,
+    bool? isPremium,
   }) {
     return ArticleState(
       status: status ?? this.status,
@@ -57,6 +65,8 @@ class ArticleState extends Equatable {
       uri: uri ?? this.uri,
       hasReachedArticleViewsLimit:
           hasReachedArticleViewsLimit ?? this.hasReachedArticleViewsLimit,
+      isPreview: isPreview ?? this.isPreview,
+      isPremium: isPremium ?? this.isPremium,
     );
   }
 }

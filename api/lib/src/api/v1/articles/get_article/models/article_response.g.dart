@@ -18,10 +18,16 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
               (v) => const NewsBlocksConverter().fromJson(v as List)),
           totalCount: $checkedConvert('total_count', (v) => v as int),
           url: $checkedConvert('url', (v) => Uri.parse(v as String)),
+          isPremium: $checkedConvert('is_premium', (v) => v as bool),
+          isPreview: $checkedConvert('is_preview', (v) => v as bool),
         );
         return val;
       },
-      fieldKeyMap: const {'totalCount': 'total_count'},
+      fieldKeyMap: const {
+        'totalCount': 'total_count',
+        'isPremium': 'is_premium',
+        'isPreview': 'is_preview'
+      },
     );
 
 Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) {
@@ -36,5 +42,7 @@ Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) {
   writeNotNull('content', const NewsBlocksConverter().toJson(instance.content));
   val['total_count'] = instance.totalCount;
   val['url'] = instance.url.toString();
+  val['is_premium'] = instance.isPremium;
+  val['is_preview'] = instance.isPreview;
   return val;
 }

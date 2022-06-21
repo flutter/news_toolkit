@@ -19,7 +19,13 @@ class MyNewsDataSource extends NewsDataSource {
     required String id,
     int limit = 20,
     int offset = 0,
+    bool preview = false,
   }) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool?> isPremiumArticle({required String id}) {
     throw UnimplementedError();
   }
 
@@ -310,7 +316,9 @@ void main() {
         );
       });
 
-      test('returns content when article exists', () {
+      test(
+          'returns content when article exists '
+          'and preview is false', () {
         final item = healthItems.first;
         expect(
           newsDataSource.getArticle(id: item.post.id),
@@ -318,6 +326,21 @@ void main() {
             articleHaving(
               blocks: item.content,
               totalBlocks: item.content.length,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns content preview when article exists '
+          'and preview is true', () {
+        final item = healthItems.first;
+        expect(
+          newsDataSource.getArticle(id: item.post.id, preview: true),
+          completion(
+            articleHaving(
+              blocks: item.contentPreview,
+              totalBlocks: item.contentPreview.length,
             ),
           ),
         );
@@ -346,6 +369,35 @@ void main() {
               totalBlocks: item.content.length,
             ),
           ),
+        );
+      });
+    });
+
+    group('isPremiumArticle', () {
+      test('returns null when article id cannot be found', () {
+        expect(
+          newsDataSource.isPremiumArticle(id: '__invalid_article_id__'),
+          completion(isNull),
+        );
+      });
+
+      test(
+          'returns true when article exists '
+          'and isPremium is true', () {
+        final item = technologySmallItems.last;
+        expect(
+          newsDataSource.isPremiumArticle(id: item.post.id),
+          completion(isTrue),
+        );
+      });
+
+      test(
+          'returns false when article exists '
+          'and isPremium is false', () {
+        final item = healthItems.last;
+        expect(
+          newsDataSource.isPremiumArticle(id: item.post.id),
+          completion(isFalse),
         );
       });
     });

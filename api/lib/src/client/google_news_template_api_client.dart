@@ -82,19 +82,22 @@ class GoogleNewsTemplateApiClient {
   /// Requests article content metadata.
   ///
   /// Supported parameters:
-  /// * [id] - article id for which content is requested.
+  /// * [id] - Article id for which content is requested.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
+  /// * [preview] - Whether to return a preview of the article.
   Future<ArticleResponse> getArticle({
     required String id,
     int? limit,
     int? offset,
+    bool preview = false,
   }) async {
     final uri = Uri.parse('$_baseUrl/api/v1/articles/$id').replace(
       queryParameters: <String, String>{
         if (limit != null) 'limit': '$limit',
         if (offset != null) 'offset': '$offset',
+        'preview': '$preview',
       },
     );
     final response = await _httpClient.get(
@@ -117,7 +120,7 @@ class GoogleNewsTemplateApiClient {
   /// Requests related articles.
   ///
   /// Supported parameters:
-  /// * [id] - article id for which related content is requested.
+  /// * [id] - Article id for which related content is requested.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
@@ -152,7 +155,7 @@ class GoogleNewsTemplateApiClient {
   /// Requests news feed metadata.
   ///
   /// Supported parameters:
-  /// * [category] - the desired news [Category].
+  /// * [category] - The desired news [Category].
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
