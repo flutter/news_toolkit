@@ -10,6 +10,7 @@ void main() {
       final blockA = SectionHeaderBlock(title: 'sectionA');
       final blockB = SectionHeaderBlock(title: 'sectionB');
       final article = Article(
+        title: 'title',
         blocks: [blockA, blockB],
         totalBlocks: 2,
         url: Uri.parse('http://flutter.dev'),

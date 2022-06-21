@@ -10,6 +10,7 @@ void main() {
       final blockA = SectionHeaderBlock(title: 'sectionA');
       final blockB = SectionHeaderBlock(title: 'sectionB');
       final response = ArticleResponse(
+        title: 'title',
         content: [blockA, blockB],
         totalCount: 2,
         url: Uri.parse('https://dailyglobe.com'),

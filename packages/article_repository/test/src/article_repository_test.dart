@@ -43,6 +43,7 @@ void main() {
         ];
 
         final articleResponse = ArticleResponse(
+          title: 'title',
           content: content,
           totalCount: content.length,
           url: Uri.parse('https://www.dglobe.com/'),

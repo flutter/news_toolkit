@@ -23,6 +23,7 @@ void main() {
     late ShareLauncher shareLauncher;
 
     final articleResponse = ArticleResponse(
+      title: 'title',
       content: [
         TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
         TextParagraphBlock(text: 'text'),

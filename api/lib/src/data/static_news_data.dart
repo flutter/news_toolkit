@@ -1327,8 +1327,9 @@ final _newsFeedData = <Category, Feed>{
 
 extension on List<NewsBlock> {
   Feed toFeed() => Feed(blocks: this, totalBlocks: length);
-  Article toArticle({required Uri url}) {
+  Article toArticle({required String title, required Uri url}) {
     return Article(
+      title: title,
       blocks: this,
       totalBlocks: length,
       url: url,

@@ -63,7 +63,8 @@ void main() {
       'when the article is not premium',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -74,6 +75,7 @@ void main() {
           () => newsDataSource.isPremiumArticle(id: articleId),
         ).thenAnswer((_) async => false);
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -95,7 +97,8 @@ void main() {
       'and authorization header is missing',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -106,6 +109,7 @@ void main() {
           () => newsDataSource.isPremiumArticle(id: articleId),
         ).thenAnswer((_) async => true);
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -127,7 +131,8 @@ void main() {
       'and authorization header is malformed',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -138,6 +143,7 @@ void main() {
           () => newsDataSource.isPremiumArticle(id: articleId),
         ).thenAnswer((_) async => true);
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -164,7 +170,8 @@ void main() {
       'and user is not found',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -178,6 +185,7 @@ void main() {
           () => newsDataSource.getUser(userId: any(named: 'userId')),
         ).thenAnswer((_) async => null);
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -204,7 +212,8 @@ void main() {
       'and user is found and has no subscription',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -223,6 +232,7 @@ void main() {
           ),
         );
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -249,7 +259,8 @@ void main() {
       'and user is found and has subscription',
       (host) async {
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
         when(
           () => newsDataSource.getArticle(
             id: articleId,
@@ -268,6 +279,7 @@ void main() {
           ),
         );
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
@@ -294,7 +306,8 @@ void main() {
         const offset = 7;
         const preview = true;
         final url = Uri.parse('https://dailyglobe.com');
-        final article = Article(blocks: const [], totalBlocks: 0, url: url);
+        final article =
+            Article(title: 'title', blocks: const [], totalBlocks: 0, url: url);
 
         when(
           () => newsDataSource.getArticle(
@@ -310,6 +323,7 @@ void main() {
         ).thenAnswer((_) async => false);
 
         final expected = ArticleResponse(
+          title: article.title,
           content: article.blocks,
           totalCount: article.totalBlocks,
           url: url,
