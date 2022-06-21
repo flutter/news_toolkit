@@ -42,6 +42,8 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   final Map<Category, ScrollController> _controllers =
       <Category, ScrollController>{};
 
+  static const _categoryScrollToTopDuration = Duration(milliseconds: 300);
+
   @override
   void initState() {
     super.initState();
@@ -99,7 +101,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                     onDoubleTap: () {
                       _controllers[category]?.animateTo(
                         0,
-                        duration: const Duration(milliseconds: 300),
+                        duration: _categoryScrollToTopDuration,
                         curve: Curves.ease,
                       );
                     },
