@@ -4,13 +4,14 @@ import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -19,8 +20,6 @@ class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
-class MockTextParagraphBlock extends Mock implements TextParagraphBlock {}
-
 void main() {
   group('FeedView', () {
     late CategoriesBloc categoriesBloc;
@@ -28,25 +27,24 @@ void main() {
 
     const categories = [Category.top, Category.technology];
 
-    final testText = 'Lorem';
+    const testText = 'Lorem';
 
     final feed = <Category, List<NewsBlock>>{
       Category.top: [
         SectionHeaderBlock(title: 'Top'),
+        // SpacerBlock(spacing: Spacing.medium),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
+        // SpacerBlock(spacing: Spacing.extraLarge),
         DividerHorizontalBlock(),
-        SpacerBlock(spacing: Spacing.medium),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        SpacerBlock(spacing: Spacing.extraLarge),
-        TextParagraphBlock(text: testText),
       ],
       Category.technology: [
         SectionHeaderBlock(title: 'Technology'),
@@ -260,21 +258,24 @@ void main() {
           );
 
           expect(
-            find.byType(SectionHeaderBlock),
+            find.byType(DividerHorizontal),
+            findsOneWidget,
+          );
+
+          expect(
+            find.byType(FeedViewPopulated),
             findsOneWidget,
           );
 
           await tester.dragUntilVisible(
-            find.text(testText),
+            find.byType(DividerHorizontal),
             find.byType(FeedViewPopulated),
-            Offset(0, -100),
+            Offset(0, 100),
             duration: Duration.zero,
           );
 
-          await tester.pumpAndSettle();
-
           expect(
-            find.byType(SectionHeaderBlock),
+            find.byType(DividerHorizontal),
             findsNothing,
           );
 
@@ -290,7 +291,7 @@ void main() {
           await tester.pump(Duration(milliseconds: 300));
 
           expect(
-            find.byType(SectionHeaderBlock),
+            find.byType(DividerHorizontal),
             findsOneWidget,
           );
         },
