@@ -41,7 +41,7 @@ class ArticleIntroduction extends StatelessWidget {
             author: block.author,
             publishedAt: block.publishedAt,
             premiumText: premiumText,
-            isSubscriberExclusive: block.isPremium,
+            isPremium: block.isPremium,
           ),
         ),
         const Divider(),
