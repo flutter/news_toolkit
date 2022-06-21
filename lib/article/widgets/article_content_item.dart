@@ -59,6 +59,8 @@ class ArticleContentItem extends StatelessWidget {
       return BannerAd(block: newsBlock);
     } else if (newsBlock is NewsletterBlock) {
       return const Newsletter();
+    } else if (newsBlock is HtmlBlock) {
+      return Html(block: newsBlock);
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
