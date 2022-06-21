@@ -62,6 +62,7 @@ dependencies:
   very_good_analysis: ^3.0.0
 
 dependency_overrides:
+  flutter_svg: ^1.0.0
   platform:
     git:
       url: https://github.com/felangel/platform.dart
