@@ -5,12 +5,13 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/main/bootstrap/bootstrap.dart';
 import 'package:google_news_template/src/version.dart';
 import 'package:google_news_template_api/client.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:persistent_storage/persistent_storage.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:purchase_client/purchase_client.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -44,10 +45,12 @@ void main() {
         firebaseDynamicLinks: firebaseDynamicLinks,
       );
 
+      final authenticationClient = FirebaseAuthenticationClient(
+        tokenStorage: tokenStorage,
+      );
+
       final userRepository = UserRepository(
-        authenticationClient: FirebaseAuthenticationClient(
-          tokenStorage: tokenStorage,
-        ),
+        authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
       );
@@ -68,8 +71,10 @@ void main() {
         apiClient: apiClient,
       );
 
-      final subscriptionsRepository = SubscriptionsRepository(
+      final inAppPurchaseRepository = InAppPurchaseRepository(
+        authenticationClient: authenticationClient,
         apiClient: apiClient,
+        inAppPurchase: PurchaseClient(),
       );
 
       return App(
@@ -77,8 +82,8 @@ void main() {
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
         articleRepository: articleRepository,
-        subscriptionsRepository: subscriptionsRepository,
         analyticsRepository: analyticsRepository,
+        inAppPurchaseRepository: inAppPurchaseRepository,
         user: await userRepository.user.first,
       );
     },

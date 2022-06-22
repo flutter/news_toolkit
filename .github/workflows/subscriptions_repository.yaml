@@ -1,4 +1,4 @@
-name: subscriptions_repository
+name: in_app_purchase_repository
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,8 +7,8 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/subscriptions_repository/**"
-      - ".github/workflows/subscriptions_repository.yaml"
+      - "packages/in_app_purchase_repository/**"
+      - ".github/workflows/in_app_purchase_repository.yaml"
     branches:
       - main
 
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: packages/subscriptions_repository
+      working_directory: packages/in_app_purchase_repository

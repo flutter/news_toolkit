@@ -35,6 +35,8 @@ dependencies:
   google_news_template_api:
     path: api
   hydrated_bloc: ^9.0.0-dev.1
+  in_app_purchase_repository:
+    path: packages/in_app_purchase_repository
   intl: ^0.17.0
   mockingjay: ^0.3.0
   news_blocks:
@@ -49,11 +51,11 @@ dependencies:
   persistent_storage:
     path: packages/storage/persistent_storage
   platform: ^3.0.2
+  purchase_client:
+    path: packages/purchase_client
   share_launcher:
     path: packages/share_launcher
   stream_transform: ^2.0.0
-  subscriptions_repository:
-    path: packages/subscriptions_repository
   token_storage:
     path: packages/authentication_client/token_storage
   url_launcher: ^6.0.9
