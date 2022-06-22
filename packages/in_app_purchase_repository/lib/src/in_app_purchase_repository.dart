@@ -50,6 +50,14 @@ class InternalInAppPurchaseFailure extends InAppPurchasesFailure {
   const InternalInAppPurchaseFailure(super.error, super.stackTrace);
 }
 
+/// {@template fetch_subscriptions_failure}
+/// An exception thrown when fetching subscriptions fails.
+/// {@endtemplate}
+class FetchSubscriptionsFailure extends InAppPurchasesFailure {
+  /// {@macro fetch_subscriptions_failure}
+  const FetchSubscriptionsFailure(super.error, super.stackTrace);
+}
+
 /// {@template fetch_in_app_purchases_failure}
 /// An exception thrown when fetching in app products fails.
 /// {@endtemplate}
@@ -106,6 +114,8 @@ class InAppPurchaseRepository {
     _inAppPurchase.purchaseStream
         .expand((value) => value)
         .listen(_onPurchaseUpdated);
+
+    unawaited(_updateCurrentSubscriptionPlan());
   }
 
   final InAppPurchase _inAppPurchase;
@@ -133,6 +143,16 @@ class InAppPurchaseRepository {
       _purchaseUpdateStreamController.stream;
 
   List<ProductDetails>? _cachedProducts;
+
+  /// Fetches the list of subscriptions.
+  Future<List<Subscription>> fetchSubscriptions() async {
+    try {
+      final response = await _apiClient.getSubscriptions();
+      return response.subscriptions;
+    } catch (error, stackTrace) {
+      throw FetchSubscriptionsFailure(error, stackTrace);
+    }
+  }
 
   /// Fetches and caches in-app products from the server.
   Future<List<ProductDetails>> fetchProducts() async {
@@ -290,6 +310,11 @@ class InAppPurchaseRepository {
         ),
       );
     }
+  }
+
+  Future<void> _updateCurrentSubscriptionPlan() async {
+    final response = await _apiClient.getCurrentUser();
+    _currentSubscriptionPlanSubject.add(response.user.subscription);
   }
 }
 

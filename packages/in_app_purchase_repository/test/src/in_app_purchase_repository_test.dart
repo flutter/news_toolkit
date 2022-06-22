@@ -57,6 +57,13 @@ void main() {
       benefits: const ['benefit', 'nextBenefit'],
     );
 
+    final apiUserResponse = CurrentUserResponse(
+      user: api.User(
+        id: user.id,
+        subscription: subscription.name,
+      ),
+    );
+
     final productDetailsFromSubscription = ProductDetails(
       id: product.id,
       title: subscription.name.toString(),
@@ -87,6 +94,10 @@ void main() {
           subscriptionId: any(named: 'subscriptionId'),
         ),
       ).thenAnswer((_) async {});
+
+      when(
+        () => apiClient.getCurrentUser(),
+      ).thenAnswer((_) async => apiUserResponse);
 
       when(() => authenticationClient.user).thenAnswer(
         (invocation) => Stream.fromIterable([user]),
@@ -448,15 +459,6 @@ void main() {
             'adds PurchaseDelivered event '
             'adds purchased subscription to currentSubscriptionPlanStream',
             () async {
-          when(() => apiClient.getCurrentUser()).thenAnswer(
-            (invocation) async => CurrentUserResponse(
-              user: api.User(
-                id: user.id,
-                subscription: subscription.name,
-              ),
-            ),
-          );
-
           final repository = InAppPurchaseRepository(
             authenticationClient: authenticationClient,
             apiClient: apiClient,
@@ -640,6 +642,46 @@ void main() {
             expect(e, isA<PurchaseFailed>());
           }
         });
+      });
+    });
+
+    group('fetchSubscriptions', () {
+      test('returns subscription list from apiClient.getSubscriptions',
+          () async {
+        when(() => apiClient.getSubscriptions()).thenAnswer(
+          (invocation) async => SubscriptionsResponse(
+            subscriptions: [subscription],
+          ),
+        );
+        final repository = InAppPurchaseRepository(
+          authenticationClient: authenticationClient,
+          apiClient: apiClient,
+          inAppPurchase: inAppPurchase,
+        );
+
+        final result = await repository.fetchSubscriptions();
+
+        expect(result, equals([subscription]));
+        verify(
+          () => apiClient.getSubscriptions(),
+        ).called(1);
+      });
+
+      test(
+          'throws FetchSubscriptionsFailure '
+          'when apiClient.getSubscriptions throws', () async {
+        when(() => apiClient.getSubscriptions()).thenThrow(Exception());
+
+        final repository = InAppPurchaseRepository(
+          authenticationClient: authenticationClient,
+          apiClient: apiClient,
+          inAppPurchase: inAppPurchase,
+        );
+
+        expect(
+          repository.fetchSubscriptions,
+          throwsA(isA<FetchSubscriptionsFailure>()),
+        );
       });
     });
   });
