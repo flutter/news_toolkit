@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:google_news_template_api/client.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class MockGoogleNewsTemplateApiClient extends Mock
