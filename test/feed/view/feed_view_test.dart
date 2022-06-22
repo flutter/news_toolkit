@@ -265,7 +265,7 @@ void main() {
           await tester.dragUntilVisible(
             find.byType(DividerHorizontal),
             find.byType(FeedViewPopulated),
-            Offset(0, 100),
+            Offset(0, -100),
             duration: Duration.zero,
           );
 
@@ -283,6 +283,7 @@ void main() {
           await tester.pump(kDoubleTapMinTime);
           await tester.tap(tab);
 
+          await tester.pump(Duration(milliseconds: 300));
           await tester.pump(Duration(milliseconds: 300));
 
           expect(
