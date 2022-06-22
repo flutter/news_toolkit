@@ -4,6 +4,7 @@ export 'src/article_introduction.dart';
 export 'src/banner_ad.dart' show BannerAd;
 export 'src/block_action_callback.dart';
 export 'src/divider_horizontal.dart';
+export 'src/html.dart' show Html;
 export 'src/image.dart';
 export 'src/newsletter/index.dart' hide NewsletterContainer;
 export 'src/post_grid.dart';
