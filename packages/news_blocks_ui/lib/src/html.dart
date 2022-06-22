@@ -1,5 +1,5 @@
 import 'package:app_ui/app_ui.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' as flutter_html;
 
 import 'package:news_blocks/news_blocks.dart';
@@ -18,7 +18,14 @@ class Html extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-      child: flutter_html.Html(data: block.content),
+      child: flutter_html.Html(
+        data: block.content,
+        style: {
+          'p': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.bodyText1!,
+          ),
+        },
+      ),
     );
   }
 }
