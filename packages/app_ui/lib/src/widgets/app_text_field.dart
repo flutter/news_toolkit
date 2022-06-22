@@ -22,6 +22,7 @@ class AppTextField extends StatelessWidget {
     this.suffix,
     this.keyboardType,
     this.onChanged,
+    this.onSubmitted,
     this.onTap,
   });
 
@@ -68,6 +69,9 @@ class AppTextField extends StatelessWidget {
   /// Called when the user inserts or deletes texts in the text field.
   final ValueChanged<String>? onChanged;
 
+  /// {@macro flutter.widgets.editableText.onSubmitted}
+  final ValueChanged<String>? onSubmitted;
+
   /// Called when the text field has been tapped.
   final VoidCallback? onTap;
 
@@ -92,6 +96,7 @@ class AppTextField extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
+            onFieldSubmitted: onSubmitted,
             decoration: InputDecoration(
               hintText: hintText,
               errorText: errorText,
