@@ -34,7 +34,7 @@ class NewsletterEvent extends NTGEvent {
   /// An analytics event for tracking newsletter sign up.
   NewsletterEvent.signUp()
       : super(
-          name: 'newsletter-signup',
+          name: 'newsletter_signup',
           category: 'NTG newsletter',
           action: 'newsletter signup',
           label: 'success',
@@ -44,7 +44,7 @@ class NewsletterEvent extends NTGEvent {
   /// An analytics event for tracking newsletter impression.
   NewsletterEvent.impression({String? articleTitle})
       : super(
-          name: 'newsletter-impression',
+          name: 'newsletter_impression',
           category: 'NTG newsletter',
           action: 'newsletter modal impression 3',
           label: articleTitle ?? '',
@@ -91,7 +91,7 @@ class ArticleMilestoneEvent extends NTGEvent {
     required int milestonePercentage,
     required String articleTitle,
   }) : super(
-          name: 'article-milestone',
+          name: 'article_milestone',
           category: 'NTG article milestone',
           action: '$milestonePercentage%',
           label: articleTitle,
@@ -123,7 +123,7 @@ class SocialShareEvent extends NTGEvent {
   /// {@macro social_share_event}
   SocialShareEvent()
       : super(
-          name: 'social-share',
+          name: 'social_share',
           category: 'NTG social',
           action: 'social share',
           label: 'OS share menu',
@@ -138,7 +138,7 @@ class PushNotificationSubscriptionEvent extends NTGEvent {
   /// {@macro push_notification_subscription_event}
   PushNotificationSubscriptionEvent()
       : super(
-          name: 'push-notification-click',
+          name: 'push_notification_click',
           category: 'NTG push notification',
           action: 'click',
           nonInteraction: false,
@@ -154,7 +154,7 @@ class PaywallPromptEvent extends NTGEvent {
     required PaywallPromptImpression impression,
     required String articleTitle,
   }) : super(
-          name: 'paywall-impression',
+          name: 'paywall_impression',
           category: 'NTG paywall',
           action: 'paywall modal impression $impression',
           label: articleTitle,
@@ -164,7 +164,7 @@ class PaywallPromptEvent extends NTGEvent {
   /// An analytics event for tracking paywall prompt click.
   PaywallPromptEvent.click({required String articleTitle})
       : super(
-          name: 'paywall-click',
+          name: 'paywall_click',
           category: 'NTG paywall',
           action: 'click',
           label: articleTitle,
@@ -197,7 +197,7 @@ class UserSubscriptionConversionEvent extends NTGEvent {
   /// {@macro user_subscription_conversion_event}
   UserSubscriptionConversionEvent()
       : super(
-          name: 'subscription-submit',
+          name: 'subscription_submit',
           category: 'NTG subscription',
           action: 'submit',
           label: 'success',

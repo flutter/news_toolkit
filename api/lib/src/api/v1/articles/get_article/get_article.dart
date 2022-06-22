@@ -31,6 +31,7 @@ mixin GetArticleMixin on Controller {
     if (article == null) return JsonResponse.notFound();
 
     final response = ArticleResponse(
+      title: article.title,
       content: article.blocks,
       totalCount: article.totalBlocks,
       url: article.url,

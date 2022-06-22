@@ -12,6 +12,7 @@ enum ArticleStatus {
 class ArticleState extends Equatable {
   const ArticleState({
     required this.status,
+    this.title,
     this.content = const [],
     this.relatedArticles = const [],
     this.hasMoreContent = true,
@@ -27,6 +28,7 @@ class ArticleState extends Equatable {
         );
 
   final ArticleStatus status;
+  final String? title;
   final List<NewsBlock> content;
   final List<NewsBlock> relatedArticles;
   final bool hasMoreContent;
@@ -38,6 +40,7 @@ class ArticleState extends Equatable {
   @override
   List<Object?> get props => [
         status,
+        title,
         content,
         relatedArticles,
         hasMoreContent,
@@ -49,6 +52,7 @@ class ArticleState extends Equatable {
 
   ArticleState copyWith({
     ArticleStatus? status,
+    String? title,
     List<NewsBlock>? content,
     List<NewsBlock>? relatedArticles,
     bool? hasMoreContent,
@@ -59,6 +63,7 @@ class ArticleState extends Equatable {
   }) {
     return ArticleState(
       status: status ?? this.status,
+      title: title ?? this.title,
       content: content ?? this.content,
       relatedArticles: relatedArticles ?? this.relatedArticles,
       hasMoreContent: hasMoreContent ?? this.hasMoreContent,

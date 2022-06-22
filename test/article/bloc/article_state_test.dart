@@ -31,6 +31,22 @@ void main() {
       });
 
       test(
+          'returns object with updated title '
+          'when title is passed', () {
+        expect(
+          ArticleState(
+            status: ArticleStatus.populated,
+          ).copyWith(title: 'title'),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              title: 'title',
+            ),
+          ),
+        );
+      });
+
+      test(
           'returns object with updated status '
           'when status is passed', () {
         expect(

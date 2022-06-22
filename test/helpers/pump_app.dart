@@ -7,12 +7,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart'
     show MockNavigatorProvider, MockNavigator;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
@@ -50,8 +50,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {
   Future<void> resetArticleViews() async {}
 }
 
-class MockSubscriptionsRepository extends Mock
-    implements SubscriptionsRepository {}
+class MockInAppPurchaseRepository extends Mock
+    implements InAppPurchaseRepository {}
 
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
@@ -61,7 +61,7 @@ extension AppTester on WidgetTester {
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
-    SubscriptionsRepository? subscriptionsRepository,
+    InAppPurchaseRepository? inAppPurchaseRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -83,7 +83,7 @@ extension AppTester on WidgetTester {
             value: articleRepository ?? MockArticleRepository(),
           ),
           RepositoryProvider.value(
-            value: subscriptionsRepository ?? MockSubscriptionsRepository(),
+            value: inAppPurchaseRepository ?? MockInAppPurchaseRepository(),
           ),
         ],
         child: MultiBlocProvider(

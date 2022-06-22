@@ -1,11 +1,11 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide Spacer;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 
 class ArticleComments extends StatelessWidget {
-  const ArticleComments({
-    super.key,
-  });
+  const ArticleComments({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,12 @@ class ArticleComments extends StatelessWidget {
           ),
           child: AppTextField(
             hintText: context.l10n.commentEntryHint,
+            onSubmitted: (_) {
+              final articleBloc = context.read<ArticleBloc>();
+              articleBloc.add(
+                ArticleCommented(articleTitle: articleBloc.state.title!),
+              );
+            },
           ),
         ),
       ],

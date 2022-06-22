@@ -127,6 +127,7 @@ void main() {
 
     group('getArticle', () {
       final articleResponse = ArticleResponse(
+        title: 'title',
         content: const [],
         totalCount: 0,
         url: Uri.parse('https://dailyglobe.com'),
@@ -251,6 +252,7 @@ void main() {
       test('returns a ArticleResponse on a 200 response.', () {
         const articleId = '__article_id__';
         final expectedResponse = ArticleResponse(
+          title: 'title',
           content: const [],
           totalCount: 0,
           url: Uri.parse('http://dailyglobe.com'),

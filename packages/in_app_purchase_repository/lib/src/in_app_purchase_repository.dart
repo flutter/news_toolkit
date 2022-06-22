@@ -24,12 +24,12 @@ class RequestSubscriptionFailure extends SubscriptionsFailure {
   const RequestSubscriptionFailure(super.error);
 }
 
-/// {@template subscriptions_repository}
+/// {@template in_app_purchase_repository}
 /// A repository that manages user subscriptions.
 /// {@endtemplate}
-class SubscriptionsRepository {
-  /// {@macro subscriptions_repository}
-  SubscriptionsRepository({
+class InAppPurchaseRepository {
+  /// {@macro in_app_purchase_repository}
+  InAppPurchaseRepository({
     required GoogleNewsTemplateApiClient apiClient,
   })  : _apiClient = apiClient,
         _currentSubscriptionPlanSubject =
