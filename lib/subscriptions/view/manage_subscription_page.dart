@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 
 class ManageSubscriptionPage extends StatelessWidget {
   const ManageSubscriptionPage({super.key});

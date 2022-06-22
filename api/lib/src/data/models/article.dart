@@ -11,6 +11,7 @@ part 'article.g.dart';
 class Article extends Equatable {
   /// {@macro article}
   const Article({
+    required this.title,
     required this.blocks,
     required this.totalBlocks,
     required this.url,
@@ -19,6 +20,9 @@ class Article extends Equatable {
   /// Converts a `Map<String, dynamic>` into a [Article] instance.
   factory Article.fromJson(Map<String, dynamic> json) =>
       _$ArticleFromJson(json);
+
+  /// The article title.
+  final String title;
 
   /// The list of news blocks for the associated article (paginated).
   @NewsBlocksConverter()
@@ -34,5 +38,5 @@ class Article extends Equatable {
   Map<String, dynamic> toJson() => _$ArticleToJson(this);
 
   @override
-  List<Object> get props => [blocks, totalBlocks, url];
+  List<Object> get props => [title, blocks, totalBlocks, url];
 }

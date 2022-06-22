@@ -23,6 +23,7 @@ void main() {
     late ShareLauncher shareLauncher;
 
     final articleResponse = ArticleResponse(
+      title: 'title',
       content: [
         TextCaptionBlock(text: 'text', color: TextCaptionColor.normal),
         TextParagraphBlock(text: 'text'),
@@ -35,11 +36,15 @@ void main() {
 
     final articleStatePopulated = ArticleState(
       status: ArticleStatus.populated,
+      title: articleResponse.title,
       content: [
         TextHeadlineBlock(text: 'text'),
         SpacerBlock(spacing: Spacing.large),
       ],
+      uri: Uri.parse('https://www.dglobe.com/'),
       hasMoreContent: true,
+      isPreview: false,
+      isPremium: true,
     );
 
     final relatedArticlesResponse = RelatedArticlesResponse(
@@ -102,6 +107,7 @@ void main() {
           ArticleState(status: ArticleStatus.loading),
           ArticleState(
             status: ArticleStatus.populated,
+            title: articleResponse.title,
             content: articleResponse.content,
             relatedArticles: [],
             uri: articleResponse.url,
@@ -133,10 +139,7 @@ void main() {
               ...articleResponse.content,
             ],
             relatedArticles: relatedArticlesResponse.relatedArticles,
-            uri: articleResponse.url,
             hasMoreContent: false,
-            isPreview: articleResponse.isPreview,
-            isPremium: articleResponse.isPremium,
           )
         ],
       );
@@ -214,6 +217,7 @@ void main() {
           ArticleState(status: ArticleStatus.loading),
           ArticleState(
             status: ArticleStatus.populated,
+            title: articleResponse.title,
             content: articleResponse.content,
             hasMoreContent: true,
             uri: articleResponse.url,
@@ -294,6 +298,7 @@ void main() {
               ArticleState(status: ArticleStatus.loading),
               ArticleState(
                 status: ArticleStatus.populated,
+                title: articleResponse.title,
                 content: articleResponse.content,
                 uri: articleResponse.url,
                 hasMoreContent: true,
@@ -341,6 +346,7 @@ void main() {
               ArticleState(status: ArticleStatus.loading),
               ArticleState(
                 status: ArticleStatus.populated,
+                title: articleResponse.title,
                 content: articleResponse.content,
                 uri: articleResponse.url,
                 hasMoreContent: true,
@@ -388,6 +394,7 @@ void main() {
               ArticleState(status: ArticleStatus.loading),
               ArticleState(
                 status: ArticleStatus.populated,
+                title: articleResponse.title,
                 content: articleResponse.content,
                 uri: articleResponse.url,
                 hasMoreContent: true,
@@ -500,6 +507,19 @@ void main() {
           ArticleState.initial()
               .copyWith(status: ArticleStatus.rewardedAdWatchedFailure),
         ],
+      );
+    });
+
+    group('ArticleCommented', () {
+      blocTest<ArticleBloc, ArticleState>(
+        'does not emit a new state',
+        build: () => ArticleBloc(
+          articleId: articleId,
+          articleRepository: articleRepository,
+          shareLauncher: shareLauncher,
+        ),
+        act: (bloc) => bloc.add(ArticleCommented(articleTitle: 'title')),
+        expect: () => <ArticleState>[],
       );
     });
   });

@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'dart:async';
 
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
@@ -14,8 +15,10 @@ class MockUserRepository extends Mock implements UserRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
-class MockSubscriptionsRepository extends Mock
-    implements SubscriptionsRepository {}
+class MockInAppPurchaseRepository extends Mock
+    implements InAppPurchaseRepository {}
+
+class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
 
 class MockUser extends Mock implements User {}
 
@@ -24,15 +27,17 @@ void main() {
     final user = MockUser();
     late UserRepository userRepository;
     late NotificationsRepository notificationsRepository;
-    late SubscriptionsRepository subscriptionsRepository;
+    late InAppPurchaseRepository inAppPurchaseRepository;
+    late AnalyticsRepository analyticsRepository;
 
     setUp(() {
       userRepository = MockUserRepository();
       notificationsRepository = MockNotificationsRepository();
-      subscriptionsRepository = MockSubscriptionsRepository();
+      inAppPurchaseRepository = MockInAppPurchaseRepository();
+      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => Stream.empty());
-      when(() => subscriptionsRepository.currentSubscriptionPlan)
+      when(() => inAppPurchaseRepository.currentSubscriptionPlan)
           .thenAnswer((_) => Stream.empty());
     });
 
@@ -41,7 +46,8 @@ void main() {
         AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ).state,
         AppState.unauthenticated(),
@@ -56,8 +62,58 @@ void main() {
         returningUser = MockUser();
         newUser = MockUser();
         when(() => returningUser.isNewUser).thenReturn(false);
+        when(() => returningUser.id).thenReturn('id');
         when(() => newUser.isNewUser).thenReturn(true);
+        when(() => newUser.id).thenReturn('id');
+        when(() => analyticsRepository.setUserId(any()))
+            .thenAnswer((_) async {});
       });
+
+      blocTest<AppBloc, AppState>(
+        'calls setUserId on AnalyticsRepository '
+        'with null when user is anonymous',
+        setUp: () {
+          when(() => userRepository.user).thenAnswer(
+            (_) => Stream.value(User.anonymous),
+          );
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          user: user,
+        ),
+        seed: AppState.unauthenticated,
+        verify: (_) {
+          verify(
+            () => analyticsRepository.setUserId(null),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls setUserId on AnalyticsRepository '
+        'with user id when user is not anonymous',
+        setUp: () {
+          when(() => userRepository.user).thenAnswer(
+            (_) => Stream.value(returningUser),
+          );
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          user: user,
+        ),
+        seed: AppState.unauthenticated,
+        verify: (_) {
+          verify(
+            () => analyticsRepository.setUserId(returningUser.id),
+          ).called(1);
+        },
+      );
 
       blocTest<AppBloc, AppState>(
         'emits nothing when '
@@ -70,7 +126,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -88,7 +145,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -105,7 +163,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.onboardingRequired(newUser)],
@@ -121,7 +180,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.authenticated(returningUser)],
@@ -142,7 +202,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [
@@ -159,7 +220,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -173,7 +235,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ),
         seed: () => AppState.onboardingRequired(User.anonymous),
@@ -191,7 +254,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
@@ -208,7 +272,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -219,12 +284,13 @@ void main() {
     group('AppUserSubscriptionPlanChanged', () {
       blocTest<AppBloc, AppState>(
         'emits updated userSubscriptionPlan',
-        setUp: () => when(() => subscriptionsRepository.currentSubscriptionPlan)
+        setUp: () => when(() => inAppPurchaseRepository.currentSubscriptionPlan)
             .thenAnswer((_) => Stream.value(SubscriptionPlan.premium)),
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.authenticated(user),
@@ -247,12 +313,14 @@ void main() {
 
         when(() => userRepository.logOut()).thenAnswer((_) async {});
       });
+
       blocTest<AppBloc, AppState>(
         'calls toggleNotifications off on NotificationsRepository',
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -268,7 +336,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -289,7 +358,7 @@ void main() {
 
         when(() => userRepository.user)
             .thenAnswer((_) => userController.stream);
-        when(() => subscriptionsRepository.currentSubscriptionPlan)
+        when(() => inAppPurchaseRepository.currentSubscriptionPlan)
             .thenAnswer((_) => currentSubscriptionPlanController.stream);
       });
 
@@ -298,18 +367,20 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () => expect(userController.hasListener, isFalse),
       );
 
       blocTest<AppBloc, AppState>(
-        'cancels SubscriptionsRepository.currentSubscriptionPlan subscription',
+        'cancels InAppPurchaseRepository.currentSubscriptionPlan subscription',
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          subscriptionsRepository: subscriptionsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () =>
