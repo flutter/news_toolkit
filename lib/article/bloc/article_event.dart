@@ -15,6 +15,18 @@ class ArticleRewardedAdWatched extends ArticleEvent {
   const ArticleRewardedAdWatched();
 }
 
+class ArticleCommented extends ArticleEvent with AnalyticsEventMixin {
+  const ArticleCommented({required this.articleTitle});
+
+  final String articleTitle;
+
+  @override
+  AnalyticsEvent get event => ArticleCommentEvent(articleTitle: articleTitle);
+
+  @override
+  List<Object> get props => [articleTitle, event];
+}
+
 class ShareRequested extends ArticleEvent {
   const ShareRequested({required this.uri});
 

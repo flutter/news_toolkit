@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 
@@ -20,6 +21,26 @@ void main() {
         final event2 = ArticleRewardedAdWatched();
 
         expect(event1, equals(event2));
+      });
+    });
+
+    group('ArticleCommented', () {
+      test('supports value comparisons', () {
+        final event1 = ArticleCommented(articleTitle: 'title');
+        final event2 = ArticleCommented(articleTitle: 'title');
+
+        expect(event1, equals(event2));
+      });
+
+      test('has ArticleCommentEvent', () {
+        expect(
+          ArticleCommented(articleTitle: 'title'),
+          isA<AnalyticsEventMixin>().having(
+            (event) => event.event,
+            'event',
+            isA<ArticleCommentEvent>(),
+          ),
+        );
       });
     });
 
