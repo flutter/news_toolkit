@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter_html/flutter_html.dart' as flutter_html;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -14,12 +15,11 @@ void main() {
       await tester.pumpApp(Html(block: block));
 
       expect(
-        find.text('Hello'),
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is flutter_html.Html && widget.data == block.content,
+        ),
         findsOneWidget,
-      );
-      expect(
-        find.textContaining('<p>'),
-        findsNothing,
       );
     });
   });
