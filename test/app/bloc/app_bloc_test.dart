@@ -33,8 +33,8 @@ void main() {
     setUp(() {
       userRepository = MockUserRepository();
       notificationsRepository = MockNotificationsRepository();
-      analyticsRepository = MockAnalyticsRepository();
       inAppPurchaseRepository = MockInAppPurchaseRepository();
+      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => Stream.empty());
       when(() => inAppPurchaseRepository.currentSubscriptionPlan)
