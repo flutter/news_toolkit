@@ -51,6 +51,17 @@ void main() {
 
         expect(event1, equals(event2));
       });
+
+      test('has SocialShareEvent', () {
+        expect(
+          ShareRequested(uri: Uri(path: 'text')),
+          isA<AnalyticsEventMixin>().having(
+            (event) => event.event,
+            'event',
+            isA<SocialShareEvent>(),
+          ),
+        );
+      });
     });
   });
 }
