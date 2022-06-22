@@ -14,6 +14,7 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = ArticleResponse(
+          title: $checkedConvert('title', (v) => v as String),
           content: $checkedConvert('content',
               (v) => const NewsBlocksConverter().fromJson(v as List)),
           totalCount: $checkedConvert('total_count', (v) => v as int),
@@ -31,7 +32,9 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'title': instance.title,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {

@@ -42,6 +42,7 @@ void main() {
         ),
       ).thenAnswer(
         (_) async => ArticleResponse(
+          title: 'title',
           content: [],
           totalCount: 0,
           url: Uri.parse('https://www.dglobe.com/'),
