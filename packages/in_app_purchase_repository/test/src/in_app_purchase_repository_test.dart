@@ -2,6 +2,7 @@
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:google_news_template_api/client.dart' hide User;
+import 'package:google_news_template_api/client.dart' as api;
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,7 +17,20 @@ class MockInAppPurchase extends Mock implements InAppPurchase {}
 
 class FakePurchaseDetails extends Fake implements PurchaseDetails {}
 
+class InAppPurchaseException extends InAppPurchasesFailure {
+  InAppPurchaseException(super.error, super.stackTrace);
+}
+
 void main() {
+  test('InAppPurchasesFailure supports value comparison', () {
+    expect(
+      InAppPurchaseException('error', StackTrace.empty),
+      equals(
+        InAppPurchaseException('error', StackTrace.empty),
+      ),
+    );
+  });
+
   group('InAppPurchaseRepository', () {
     late AuthenticationClient authenticationClient;
     late GoogleNewsTemplateApiClient apiClient;
@@ -434,6 +448,15 @@ void main() {
             'adds PurchaseDelivered event '
             'adds purchased subscription to currentSubscriptionPlanStream',
             () async {
+          when(() => apiClient.getCurrentUser()).thenAnswer(
+            (invocation) async => CurrentUserResponse(
+              user: api.User(
+                id: user.id,
+                subscription: subscription.name,
+              ),
+            ),
+          );
+
           final repository = InAppPurchaseRepository(
             authenticationClient: authenticationClient,
             apiClient: apiClient,
@@ -459,6 +482,13 @@ void main() {
           await expectLater(
             repository.currentSubscriptionPlan,
             emits(isA<SubscriptionPlan>()),
+          );
+
+          await expectLater(
+            repository.currentSubscriptionPlan,
+            emits(
+              isA<SubscriptionPlan>(),
+            ),
           );
         });
 
