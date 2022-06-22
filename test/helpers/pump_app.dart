@@ -1,3 +1,4 @@
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {
 class MockSubscriptionsRepository extends Mock
     implements SubscriptionsRepository {}
 
+class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
+
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
@@ -62,6 +65,7 @@ extension AppTester on WidgetTester {
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
     SubscriptionsRepository? subscriptionsRepository,
+    AnalyticsRepository? analyticsRepository,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -84,6 +88,9 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: subscriptionsRepository ?? MockSubscriptionsRepository(),
+          ),
+          RepositoryProvider.value(
+            value: analyticsRepository ?? MockAnalyticsRepository(),
           ),
         ],
         child: MultiBlocProvider(
