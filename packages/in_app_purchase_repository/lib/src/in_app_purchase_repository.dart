@@ -7,7 +7,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// {@template in_app_purchases_failure}
-/// Base failure class for the in-app purchases repository failures.
+/// A base failure class for the in-app purchases repository failures.
 /// {@endtemplate}
 abstract class InAppPurchasesFailure with EquatableMixin implements Exception {
   /// {@macro in_app_purchases_failure}
@@ -80,31 +80,20 @@ class InAppPurchaseBuyNonConsumableFailure extends InAppPurchasesFailure {
 ///
 /// Here is a quick explanation of how the purchase flow looks like:
 /// 1.  The app displays a list of available products that are fetched using the
-///     [fetchProducts] method. The products are stored in the Firebase Realtime
-///     Database in the [rewards_iap_reboot](https://console.firebase.google.com/u/0/project/hamilton-app-cms-dev/database/hamilton-app-cms-dev-e3d74/data/~2Frewards_iap_reboot)
-///     collection.
+///     [fetchProducts] method.
 ///
 /// 2.  Once the user selects one of the products, the [purchase] method is
 ///     called. This method does not update us about the entire purchase
 ///     process. However, the purchase updates are available through the
 ///     [purchaseStream](https://pub.dev/documentation/in_app_purchase/latest/in_app_purchase/InAppPurchase/purchaseStream.html).
 ///
-/// 3.  A native dialog appears which allows the user to finish the transaction.
 ///
-/// 4.  Once a user successfully finishes the transaction, a [PurchaseDetails](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseDetails-class.html)
+/// 3.  Once a user successfully finishes the transaction, a [PurchaseDetails](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseDetails-class.html)
 ///     object is pushed to the `purchaseStream`. It will have a [pendingCompletePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseDetails/pendingCompletePurchase.html)
 ///     flag set to true, which means that we need to deliver the content of the
-///     product to the user (upgrade the star count) and mark the purchase as
-///     completed using [completePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/InAppPurchasePlatform/completePurchase.html)
+///     product to the user and mark the purchase as completed using [completePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/InAppPurchasePlatform/completePurchase.html)
 ///     method.
 
-/// Note: When the [InAppPurchaseRepository] is created, a subscription to user
-///       stream from `AuthenticationClient` is created.
-///       Whenever the user changes, we call the [restorePurchases](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/InAppPurchasePlatform/restorePurchases.html)
-///       method in order to restore all previous purchases that haven't been
-///       completed yet. Those restored purchases are delivered through the [purchaseStream](https://pub.dev/documentation/in_app_purchase/latest/in_app_purchase/InAppPurchase/purchaseStream.html)
-///       with a status of [PurchaseStatus.restored](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseStatus.html).
-/// {@endtemplate}
 class InAppPurchaseRepository {
   /// {@macro in_app_purchases_repository}
   InAppPurchaseRepository({
@@ -162,12 +151,9 @@ class InAppPurchaseRepository {
 
   /// Allows the user to purchase given [product].
   ///
-  /// When called, the native in-app purchase dialog will appear,
-  /// which will allow the user to complete the payment.
-  ///
   /// When the payment is successfully completed, the app informs
   /// the server about the purchased product. The server then verifies
-  /// if the purchase was correct and updates user's amount of stars.
+  /// if the purchase was correct and updates user's subscription.
   Future<void> purchase({
     required ProductDetails product,
   }) async {

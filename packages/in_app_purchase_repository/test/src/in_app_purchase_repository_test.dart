@@ -602,6 +602,7 @@ void main() {
             ]),
           );
         });
+
         test(
             'emits PurchaseCompleted '
             'when inAppPurchase.completePurchase succeeds', () async {

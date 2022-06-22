@@ -27,8 +27,8 @@ void main() {
     final user = MockUser();
     late UserRepository userRepository;
     late NotificationsRepository notificationsRepository;
-    late AnalyticsRepository analyticsRepository;
     late InAppPurchaseRepository inAppPurchaseRepository;
+    late AnalyticsRepository analyticsRepository;
 
     setUp(() {
       userRepository = MockUserRepository();
@@ -46,8 +46,8 @@ void main() {
         AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ).state,
         AppState.unauthenticated(),
@@ -126,8 +126,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -145,8 +145,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -163,8 +163,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.onboardingRequired(newUser)],
@@ -180,8 +180,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.authenticated(returningUser)],
@@ -202,8 +202,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [
@@ -220,8 +220,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -235,8 +235,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ),
         seed: () => AppState.onboardingRequired(User.anonymous),
@@ -254,8 +254,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
@@ -272,8 +272,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -289,8 +289,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.authenticated(user),
@@ -319,8 +319,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -336,8 +336,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -367,8 +367,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () => expect(userController.hasListener, isFalse),
@@ -379,8 +379,8 @@ void main() {
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () =>

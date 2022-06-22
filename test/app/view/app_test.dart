@@ -38,8 +38,8 @@ void main() {
     late NewsRepository newsRepository;
     late NotificationsRepository notificationsRepository;
     late ArticleRepository articleRepository;
-    late AnalyticsRepository analyticsRepository;
     late InAppPurchaseRepository inAppPurchaseRepository;
+    late AnalyticsRepository analyticsRepository;
     late User user;
 
     setUp(() {
@@ -48,8 +48,8 @@ void main() {
       newsRepository = MockNewsRepository();
       notificationsRepository = MockNotificationsRepository();
       articleRepository = MockArticleRepository();
-      analyticsRepository = MockAnalyticsRepository();
       inAppPurchaseRepository = MockInAppPurchaseRepository();
+      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
@@ -66,8 +66,8 @@ void main() {
             newsRepository: newsRepository,
             notificationsRepository: notificationsRepository,
             articleRepository: articleRepository,
-            analyticsRepository: analyticsRepository,
             inAppPurchaseRepository: inAppPurchaseRepository,
+            analyticsRepository: analyticsRepository,
             user: user,
           ),
         );

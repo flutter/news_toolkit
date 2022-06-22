@@ -21,23 +21,23 @@ class App extends StatelessWidget {
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
     required ArticleRepository articleRepository,
-    required AnalyticsRepository analyticsRepository,
     required InAppPurchaseRepository inAppPurchaseRepository,
+    required AnalyticsRepository analyticsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,
         _articleRepository = articleRepository,
-        _analyticsRepository = analyticsRepository,
         _inAppPurchaseRepository = inAppPurchaseRepository,
+        _analyticsRepository = analyticsRepository,
         _user = user;
 
   final UserRepository _userRepository;
   final NewsRepository _newsRepository;
   final NotificationsRepository _notificationsRepository;
   final ArticleRepository _articleRepository;
-  final AnalyticsRepository _analyticsRepository;
   final InAppPurchaseRepository _inAppPurchaseRepository;
+  final AnalyticsRepository _analyticsRepository;
   final User _user;
 
   @override
@@ -57,8 +57,8 @@ class App extends StatelessWidget {
             create: (_) => AppBloc(
               userRepository: _userRepository,
               notificationsRepository: _notificationsRepository,
-              analyticsRepository: _analyticsRepository,
               inAppPurchaseRepository: _inAppPurchaseRepository,
+              analyticsRepository: _analyticsRepository,
               user: _user,
             ),
           ),

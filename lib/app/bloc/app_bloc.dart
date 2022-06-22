@@ -40,8 +40,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
-  final AnalyticsRepository _analyticsRepository;
   final InAppPurchaseRepository _inAppPurchaseRepository;
+  final AnalyticsRepository _analyticsRepository;
 
   late StreamSubscription<User> _userSubscription;
   late StreamSubscription<SubscriptionPlan>
