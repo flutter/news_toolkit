@@ -24,6 +24,24 @@ class Html extends StatelessWidget {
           'p': flutter_html.Style.fromTextStyle(
             Theme.of(context).textTheme.bodyText1!,
           ),
+          'h1': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline1!,
+          ),
+          'h2': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline2!,
+          ),
+          'h3': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline3!,
+          ),
+          'h4': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline4!,
+          ),
+          'h5': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline5!,
+          ),
+          'h6': flutter_html.Style.fromTextStyle(
+            Theme.of(context).textTheme.headline6!,
+          ),
         },
       ),
     );
