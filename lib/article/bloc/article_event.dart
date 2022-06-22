@@ -27,11 +27,14 @@ class ArticleCommented extends ArticleEvent with AnalyticsEventMixin {
   List<Object> get props => [articleTitle, event];
 }
 
-class ShareRequested extends ArticleEvent {
+class ShareRequested extends ArticleEvent with AnalyticsEventMixin {
   const ShareRequested({required this.uri});
 
   final Uri uri;
 
   @override
-  List<Object> get props => [uri];
+  AnalyticsEvent get event => SocialShareEvent();
+
+  @override
+  List<Object> get props => [uri, event];
 }
