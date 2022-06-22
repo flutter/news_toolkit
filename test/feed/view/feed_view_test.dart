@@ -27,8 +27,6 @@ void main() {
 
     const categories = [Category.top, Category.technology];
 
-    const testText = 'Lorem';
-
     final feed = <Category, List<NewsBlock>>{
       Category.top: [
         SectionHeaderBlock(title: 'Top'),
