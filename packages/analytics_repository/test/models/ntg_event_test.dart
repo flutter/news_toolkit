@@ -14,7 +14,7 @@ void main() {
       group('signUp', () {
         test('has correct values', () {
           final event = NewsletterEvent.signUp();
-          expect(event.name, equals('newsletter-signup'));
+          expect(event.name, equals('newsletter_signup'));
           expect(event.properties!['eventCategory'], equals('NTG newsletter'));
           expect(event.properties!['eventAction'], equals('newsletter signup'));
           expect(event.properties!['eventLabel'], equals('success'));
@@ -27,7 +27,7 @@ void main() {
             'has correct values '
             'when articleTitle is empty', () {
           final event = NewsletterEvent.impression();
-          expect(event.name, equals('newsletter-impression'));
+          expect(event.name, equals('newsletter_impression'));
           expect(event.properties!['eventCategory'], equals('NTG newsletter'));
           expect(
             event.properties!['eventAction'],
@@ -42,7 +42,7 @@ void main() {
             'when articleTitle is not empty', () {
           const articleTitle = 'articleTitle';
           final event = NewsletterEvent.impression(articleTitle: articleTitle);
-          expect(event.name, equals('newsletter-impression'));
+          expect(event.name, equals('newsletter_impression'));
           expect(event.properties!['eventCategory'], equals('NTG newsletter'));
           expect(
             event.properties!['eventAction'],
@@ -84,7 +84,7 @@ void main() {
           milestonePercentage: milestonePercentage,
           articleTitle: articleTitle,
         );
-        expect(event.name, equals('article-milestone'));
+        expect(event.name, equals('article_milestone'));
         expect(
           event.properties!['eventCategory'],
           equals('NTG article milestone'),
@@ -115,7 +115,7 @@ void main() {
     group('SocialShareEvent', () {
       test('has correct values', () {
         final event = SocialShareEvent();
-        expect(event.name, equals('social-share'));
+        expect(event.name, equals('social_share'));
         expect(event.properties!['eventCategory'], equals('NTG social'));
         expect(event.properties!['eventAction'], equals('social share'));
         expect(event.properties!['eventLabel'], equals('OS share menu'));
@@ -126,7 +126,7 @@ void main() {
     group('PushNotificationSubscriptionEvent', () {
       test('has correct values', () {
         final event = PushNotificationSubscriptionEvent();
-        expect(event.name, equals('push-notification-click'));
+        expect(event.name, equals('push_notification_click'));
         expect(
           event.properties!['eventCategory'],
           equals('NTG push notification'),
@@ -145,7 +145,7 @@ void main() {
             impression: impression,
             articleTitle: articleTitle,
           );
-          expect(event.name, equals('paywall-impression'));
+          expect(event.name, equals('paywall_impression'));
           expect(event.properties!['eventCategory'], equals('NTG paywall'));
           expect(
             event.properties!['eventAction'],
@@ -162,7 +162,7 @@ void main() {
           final event = PaywallPromptEvent.click(
             articleTitle: articleTitle,
           );
-          expect(event.name, equals('paywall-click'));
+          expect(event.name, equals('paywall_click'));
           expect(event.properties!['eventCategory'], equals('NTG paywall'));
           expect(event.properties!['eventAction'], equals('click'));
           expect(event.properties!['eventLabel'], equals(articleTitle));
@@ -184,7 +184,7 @@ void main() {
     group('UserSubscriptionConversionEvent', () {
       test('has correct values', () {
         final event = UserSubscriptionConversionEvent();
-        expect(event.name, equals('subscription-submit'));
+        expect(event.name, equals('subscription_submit'));
         expect(event.properties!['eventCategory'], equals('NTG subscription'));
         expect(event.properties!['eventAction'], equals('submit'));
         expect(event.properties!['eventLabel'], equals('success'));
