@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -12,7 +13,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc({
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
+    required AnalyticsRepository analyticsRepository,
   })  : _notificationsRepository = notificationsRepository,
+        _analyticsRepository = analyticsRepository,
         super(const UserProfileState.initial()) {
     on<UserProfileUpdated>(_onUserProfileUpdated);
     on<FetchNotificationsEnabled>(_onFetchNotificationsEnabled);
@@ -24,6 +27,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   }
 
   final NotificationsRepository _notificationsRepository;
+  final AnalyticsRepository _analyticsRepository;
   late StreamSubscription<User> _userSubscription;
 
   void _onUserProfileUpdated(
@@ -92,6 +96,10 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           status: UserProfileStatus.togglingNotificationsSucceeded,
         ),
       );
+
+      if (updatedNotificationsEnabled) {
+        await _analyticsRepository.track(PushNotificationSubscriptionEvent());
+      }
     } catch (error, stackTrace) {
       emit(
         state.copyWith(

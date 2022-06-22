@@ -1,3 +1,4 @@
+import 'package:analytics_repository/analytics_repository.dart';
 import 'package:app_ui/app_ui.dart'
     show
         AppBackButton,
@@ -32,6 +33,7 @@ class UserProfilePage extends StatelessWidget {
       create: (_) => UserProfileBloc(
         userRepository: context.read<UserRepository>(),
         notificationsRepository: context.read<NotificationsRepository>(),
+        analyticsRepository: context.read<AnalyticsRepository>(),
       ),
       child: const UserProfileView(),
     );

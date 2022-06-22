@@ -49,7 +49,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
         RepositoryProvider.value(value: _subscriptionsRepository),
-        RepositoryProvider.value(value: _subscriptionsRepository),
+        RepositoryProvider.value(value: _analyticsRepository),
       ],
       child: MultiBlocProvider(
         providers: [
