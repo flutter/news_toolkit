@@ -49,7 +49,6 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
         RepositoryProvider.value(value: _inAppPurchaseRepository),
-        RepositoryProvider.value(value: _inAppPurchaseRepository),
       ],
       child: MultiBlocProvider(
         providers: [
