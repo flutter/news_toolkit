@@ -1302,6 +1302,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  in_app_purchase_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/in_app_purchase_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   synchronized:
     dependency: transitive
     description:
