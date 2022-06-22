@@ -4,7 +4,7 @@ import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
@@ -15,12 +15,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
-    required SubscriptionsRepository subscriptionsRepository,
+    required InAppPurchaseRepository inAppPurchaseRepository,
     required AnalyticsRepository analyticsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _notificationsRepository = notificationsRepository,
-        _subscriptionsRepository = subscriptionsRepository,
+        _inAppPurchaseRepository = inAppPurchaseRepository,
         _analyticsRepository = analyticsRepository,
         super(
           user == User.anonymous
@@ -33,14 +33,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppLogoutRequested>(_onLogoutRequested);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
-    _currentSubscriptionPlanSubscription = _subscriptionsRepository
+    _currentSubscriptionPlanSubscription = _inAppPurchaseRepository
         .currentSubscriptionPlan
         .listen(_currentSubscriptionPlanChanged);
   }
 
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
-  final SubscriptionsRepository _subscriptionsRepository;
+  final InAppPurchaseRepository _inAppPurchaseRepository;
   final AnalyticsRepository _analyticsRepository;
 
   late StreamSubscription<User> _userSubscription;

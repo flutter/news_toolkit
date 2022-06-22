@@ -10,7 +10,7 @@ import 'package:notifications_repository/notifications_repository.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:persistent_storage/persistent_storage.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -68,7 +68,7 @@ void main() {
         apiClient: apiClient,
       );
 
-      final subscriptionsRepository = SubscriptionsRepository(
+      final inAppPurchaseRepository = InAppPurchaseRepository(
         apiClient: apiClient,
       );
 
@@ -77,7 +77,7 @@ void main() {
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
         articleRepository: articleRepository,
-        subscriptionsRepository: subscriptionsRepository,
+        inAppPurchaseRepository: inAppPurchaseRepository,
         analyticsRepository: analyticsRepository,
         user: await userRepository.user.first,
       );

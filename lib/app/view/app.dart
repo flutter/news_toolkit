@@ -11,7 +11,7 @@ import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
@@ -21,14 +21,14 @@ class App extends StatelessWidget {
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
     required ArticleRepository articleRepository,
-    required SubscriptionsRepository subscriptionsRepository,
+    required InAppPurchaseRepository inAppPurchaseRepository,
     required AnalyticsRepository analyticsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,
         _articleRepository = articleRepository,
-        _subscriptionsRepository = subscriptionsRepository,
+        _inAppPurchaseRepository = inAppPurchaseRepository,
         _analyticsRepository = analyticsRepository,
         _user = user;
 
@@ -36,7 +36,7 @@ class App extends StatelessWidget {
   final NewsRepository _newsRepository;
   final NotificationsRepository _notificationsRepository;
   final ArticleRepository _articleRepository;
-  final SubscriptionsRepository _subscriptionsRepository;
+  final InAppPurchaseRepository _inAppPurchaseRepository;
   final AnalyticsRepository _analyticsRepository;
   final User _user;
 
@@ -48,8 +48,8 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _newsRepository),
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
-        RepositoryProvider.value(value: _subscriptionsRepository),
-        RepositoryProvider.value(value: _subscriptionsRepository),
+        RepositoryProvider.value(value: _inAppPurchaseRepository),
+        RepositoryProvider.value(value: _inAppPurchaseRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -57,7 +57,7 @@ class App extends StatelessWidget {
             create: (_) => AppBloc(
               userRepository: _userRepository,
               notificationsRepository: _notificationsRepository,
-              subscriptionsRepository: _subscriptionsRepository,
+              inAppPurchaseRepository: _inAppPurchaseRepository,
               analyticsRepository: _analyticsRepository,
               user: _user,
             ),

@@ -11,7 +11,7 @@ import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/helpers.dart';
