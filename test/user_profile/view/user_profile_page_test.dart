@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:analytics_repository/analytics_repository.dart' as analytics;
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +164,7 @@ void main() {
 
         verify(
           () => analyticsBloc.add(
-            TrackAnalyticsEvent(analytics.PushNotificationSubscriptionEvent()),
+            TrackAnalyticsEvent(PushNotificationSubscriptionEvent()),
           ),
         ).called(1);
       });
