@@ -5,6 +5,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
@@ -18,6 +19,9 @@ import '../../helpers/helpers.dart';
 
 class MockUserProfileBloc extends MockBloc<UserProfileEvent, UserProfileState>
     implements UserProfileBloc {}
+
+class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
+    implements AnalyticsBloc {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -36,6 +40,7 @@ void main() {
 
     group('UserProfileView', () {
       late UserProfileBloc userProfileBloc;
+      late AnalyticsBloc analyticsBloc;
       late AppBloc appBloc;
 
       final user = User(id: '1', email: 'email');
@@ -43,6 +48,7 @@ void main() {
 
       setUp(() {
         userProfileBloc = MockUserProfileBloc();
+        analyticsBloc = MockAnalyticsBloc();
         appBloc = MockAppBloc();
 
         final initialState = UserProfileState.initial().copyWith(
@@ -128,6 +134,39 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(UserProfileView), findsNothing);
+      });
+
+      testWidgets(
+          'adds TrackAnalyticsEvent to AnalyticsBloc '
+          'with PushNotificationSubscriptionEvent '
+          'when status is togglingNotificationsSucceeded '
+          'and notificationsEnabled is true', (tester) async {
+        whenListen(
+          userProfileBloc,
+          Stream.fromIterable([
+            UserProfileState.initial(),
+            UserProfileState(
+              notificationsEnabled: true,
+              status: UserProfileStatus.togglingNotificationsSucceeded,
+            ),
+          ]),
+        );
+
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: userProfileBloc),
+              BlocProvider.value(value: analyticsBloc),
+            ],
+            child: UserProfileView(),
+          ),
+        );
+
+        verify(
+          () => analyticsBloc.add(
+            TrackAnalyticsEvent(PushNotificationSubscriptionEvent()),
+          ),
+        ).called(1);
       });
 
       testWidgets('renders UserProfileTitle', (tester) async {
