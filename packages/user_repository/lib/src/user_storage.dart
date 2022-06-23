@@ -17,16 +17,14 @@ class UserStorage {
 
   final Storage _storage;
 
-  /// Sets the number of times app opened.
-  ///
-  /// Adds one to the exisiting value.
+  /// Sets the number of times the app is opened.
   Future<void> setNumberOfTimesAppOpened({required int value}) =>
       _storage.write(
         key: UserStorageKeys.numberOfTimesAppOpened,
         value: value.toString(),
       );
 
-  /// Fetches the number of times app opened value from Storage.
+  /// Fetches the number of times the app opened value from Storage.
   Future<String> fetchNumberOfTimesAppOpened() async =>
       await _storage.read(key: UserStorageKeys.numberOfTimesAppOpened) ?? '0';
 }
