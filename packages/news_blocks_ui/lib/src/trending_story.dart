@@ -28,7 +28,10 @@ class TrendingStory extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: AppSpacing.lg),
+          padding: const EdgeInsets.only(
+            left: AppSpacing.lg,
+            top: AppSpacing.md,
+          ),
           child: Text(
             title,
             style: theme.overline?.apply(color: AppColors.secondary),
