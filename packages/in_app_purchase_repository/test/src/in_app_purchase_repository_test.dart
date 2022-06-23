@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:google_news_template_api/client.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:test/test.dart';
 
 class MockGoogleNewsTemplateApiClient extends Mock
     implements GoogleNewsTemplateApiClient {}
 
 void main() {
-  group('SubscriptionsRepository', () {
+  group('InAppPurchaseRepository', () {
     late GoogleNewsTemplateApiClient apiClient;
 
     setUpAll(() {
@@ -27,21 +27,21 @@ void main() {
 
     test('can be instantiated', () {
       expect(
-        SubscriptionsRepository(apiClient: apiClient),
+        InAppPurchaseRepository(apiClient: apiClient),
         isNotNull,
       );
     });
 
     test('currentSubscriptionPlan emits none when initialized', () {
       expectLater(
-        SubscriptionsRepository(apiClient: apiClient).currentSubscriptionPlan,
+        InAppPurchaseRepository(apiClient: apiClient).currentSubscriptionPlan,
         emits(SubscriptionPlan.none),
       );
     });
 
     group('requestSubscription', () {
       test('calls ApiClient.createSubscription', () async {
-        final repository = SubscriptionsRepository(apiClient: apiClient);
+        final repository = InAppPurchaseRepository(apiClient: apiClient);
         await repository.requestSubscription('subscriptionId');
         verify(
           () => apiClient.createSubscription(subscriptionId: 'subscriptionId'),
@@ -58,7 +58,7 @@ void main() {
         ).thenThrow(Exception());
 
         expect(
-          () => SubscriptionsRepository(apiClient: apiClient)
+          () => InAppPurchaseRepository(apiClient: apiClient)
               .requestSubscription('subscriptionId'),
           throwsA(isA<RequestSubscriptionFailure>()),
         );

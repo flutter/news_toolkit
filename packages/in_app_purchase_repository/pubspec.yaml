@@ -1,5 +1,5 @@
-name: subscriptions_repository
-description: A repository that manages user subscriptions.
+name: in_app_purchase_repository
+description: A repository that manages user purchase.
 version: 1.0.0+1
 publish_to: none
 
