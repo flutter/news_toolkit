@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:analytics_repository/analytics_repository.dart';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,17 +15,12 @@ class MockUserRepository extends Mock implements UserRepository {}
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
-class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
-
 class MockAuthenticationClient extends Mock implements AuthenticationClient {}
-
-class FakeAnalyticsEvent extends Fake implements AnalyticsEvent {}
 
 void main() {
   group('UserProfileBloc', () {
     late UserRepository userRepository;
     late NotificationsRepository notificationsRepository;
-    late AnalyticsRepository analyticsRepository;
 
     const user1 = User(id: '1');
     const user2 = User(id: '2');
@@ -37,13 +31,8 @@ void main() {
       userRepository = MockUserRepository();
       userController = StreamController<User>();
       notificationsRepository = MockNotificationsRepository();
-      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => userController.stream);
-    });
-
-    setUpAll(() {
-      registerFallbackValue(FakeAnalyticsEvent());
     });
 
     test('initial state is UserProfileState.initial', () {
@@ -51,7 +40,6 @@ void main() {
         UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ).state,
         equals(UserProfileState.initial()),
       );
@@ -64,7 +52,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (_) => userController
           ..add(user1)
@@ -87,7 +74,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (_) => userController.addError(Exception()),
         expect: () => <UserProfileState>[],
@@ -100,7 +86,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (_) {
           userController
@@ -126,7 +111,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (bloc) => bloc.add(FetchNotificationsEnabled()),
         expect: () => <UserProfileState>[
@@ -149,7 +133,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (bloc) => bloc.add(FetchNotificationsEnabled()),
         expect: () => <UserProfileState>[
@@ -170,8 +153,6 @@ void main() {
             enable: any(named: 'enable'),
           ),
         ).thenAnswer((_) async {});
-
-        when(() => analyticsRepository.track(any())).thenAnswer((_) async {});
       });
 
       blocTest<UserProfileBloc, UserProfileState>(
@@ -185,7 +166,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (bloc) => bloc.add(ToggleNotifications()),
         expect: () => <UserProfileState>[
@@ -214,7 +194,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (bloc) => bloc.add(ToggleNotifications()),
         expect: () => <UserProfileState>[
@@ -244,7 +223,6 @@ void main() {
         build: () => UserProfileBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
         ),
         act: (bloc) => bloc.add(ToggleNotifications()),
         expect: () => <UserProfileState>[
@@ -258,25 +236,6 @@ void main() {
           ),
         ],
       );
-
-      blocTest<UserProfileBloc, UserProfileState>(
-        'calls track on AnalyticsRepository '
-        'with PushNotificationSubscriptionEvent '
-        'when notifications are disabled '
-        'and toggleNotifications succeeds',
-        seed: () => UserProfileState.initial().copyWith(
-          notificationsEnabled: false,
-        ),
-        build: () => UserProfileBloc(
-          userRepository: userRepository,
-          notificationsRepository: notificationsRepository,
-          analyticsRepository: analyticsRepository,
-        ),
-        act: (bloc) => bloc.add(ToggleNotifications()),
-        verify: (bloc) => verify(
-          () => analyticsRepository.track(PushNotificationSubscriptionEvent()),
-        ).called(1),
-      );
     });
 
     blocTest<UserProfileBloc, UserProfileState>(
@@ -284,7 +243,6 @@ void main() {
       build: () => UserProfileBloc(
         userRepository: userRepository,
         notificationsRepository: notificationsRepository,
-        analyticsRepository: analyticsRepository,
       ),
       tearDown: () {
         expect(userController.hasListener, isFalse);

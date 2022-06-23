@@ -1,4 +1,3 @@
-import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +52,6 @@ class MockArticleRepository extends Mock implements ArticleRepository {
 
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
-
-class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
 
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
