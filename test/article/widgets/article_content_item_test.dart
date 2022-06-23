@@ -202,6 +202,14 @@ void main() {
     });
 
     testWidgets(
+        'renders Html '
+        'for HtmlBlock', (tester) async {
+      final block = HtmlBlock(content: '<p>Lorem</p>');
+      await tester.pumpApp(ArticleContentItem(block: block));
+      expect(find.byType(Html), findsOneWidget);
+    });
+
+    testWidgets(
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();
