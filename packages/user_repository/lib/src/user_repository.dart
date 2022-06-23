@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:package_info_client/package_info_client.dart';
+import 'package:storage/storage.dart';
+
+part 'user_storage.dart';
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
@@ -13,13 +16,16 @@ class UserRepository {
     required AuthenticationClient authenticationClient,
     required PackageInfoClient packageInfoClient,
     required DeepLinkClient deepLinkClient,
+    required UserStorage storage,
   })  : _authenticationClient = authenticationClient,
         _packageInfoClient = packageInfoClient,
-        _deepLinkClient = deepLinkClient;
+        _deepLinkClient = deepLinkClient,
+        _storage = storage;
 
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
   final DeepLinkClient _deepLinkClient;
+  final UserStorage _storage;
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.

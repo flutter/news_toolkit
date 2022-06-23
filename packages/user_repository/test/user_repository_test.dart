@@ -13,6 +13,8 @@ class MockPackageInfoClient extends Mock implements PackageInfoClient {}
 
 class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
+class MockUserStorage extends Mock implements UserStorage {}
+
 class MockUser extends Mock implements User {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
@@ -48,6 +50,7 @@ void main() {
     late AuthenticationClient authenticationClient;
     late PackageInfoClient packageInfoClient;
     late DeepLinkClient deepLinkClient;
+    late UserStorage storage;
     late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
 
@@ -55,6 +58,7 @@ void main() {
       authenticationClient = MockAuthenticationClient();
       packageInfoClient = MockPackageInfoClient();
       deepLinkClient = MockDeepLinkClient();
+      storage = MockUserStorage();
       deepLinkClientController = StreamController<Uri>.broadcast();
 
       when(() => deepLinkClient.deepLinkStream)
@@ -64,6 +68,7 @@ void main() {
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
+        storage: storage,
       );
     });
 
