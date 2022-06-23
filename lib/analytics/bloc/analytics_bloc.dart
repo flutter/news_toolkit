@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:analytics_repository/analytics_repository.dart' as analytics;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'analytics_event.dart';
