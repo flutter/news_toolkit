@@ -9,6 +9,7 @@ import 'package:app_ui/app_ui.dart'
         ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -33,7 +34,6 @@ class UserProfilePage extends StatelessWidget {
       create: (_) => UserProfileBloc(
         userRepository: context.read<UserRepository>(),
         notificationsRepository: context.read<NotificationsRepository>(),
-        analyticsRepository: context.read<AnalyticsRepository>(),
       ),
       child: const UserProfileView(),
     );
@@ -84,99 +84,110 @@ class _UserProfileViewState extends State<UserProfileView>
 
     final l10n = context.l10n;
 
-    return BlocListener<AppBloc, AppState>(
+    return BlocListener<UserProfileBloc, UserProfileState>(
       listener: (context, state) {
-        if (state.status == AppStatus.unauthenticated) {
-          Navigator.of(context).pop();
+        if (state.status == UserProfileStatus.togglingNotificationsSucceeded &&
+            state.notificationsEnabled) {
+          context
+              .read<AnalyticsBloc>()
+              .add(TrackAnalyticsEvent(PushNotificationSubscriptionEvent()));
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: const AppBackButton(),
-        ),
-        body: ScrollableColumn(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const UserProfileTitle(),
-            if (user != null) ...[
-              UserProfileItem(
-                key: const Key('userProfilePage_userItem'),
-                leading: Assets.icons.profileIcon.svg(),
-                title: user.email ?? '',
-              ),
-              const UserProfileLogoutButton(),
-            ],
-            const SizedBox(height: AppSpacing.lg),
-            const _UserProfileDivider(),
-            UserProfileSubtitle(
-              subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
-            ),
-            if (isUserSubscribed)
-              UserProfileItem(
-                key: const Key('userProfilePage_subscriptionItem'),
-                title: l10n.manageSubscriptionTile,
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.of(context).push(
-                  ManageSubscriptionPage.route(),
+      child: BlocListener<AppBloc, AppState>(
+        listener: (context, state) {
+          if (state.status == AppStatus.unauthenticated) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: const AppBackButton(),
+          ),
+          body: ScrollableColumn(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const UserProfileTitle(),
+              if (user != null) ...[
+                UserProfileItem(
+                  key: const Key('userProfilePage_userItem'),
+                  leading: Assets.icons.profileIcon.svg(),
+                  title: user.email ?? '',
                 ),
-              )
-            else
-              // TODO(jan-stepien): onTap opens in_app_purchase
-              // subscriptions settings page instead.
-              UserProfileSubscribeBox(
-                onSubscribePressed: () => context.read<AppBloc>().add(
-                      const AppUserSubscriptionPlanChanged(
-                        SubscriptionPlan.premium,
+                const UserProfileLogoutButton(),
+              ],
+              const SizedBox(height: AppSpacing.lg),
+              const _UserProfileDivider(),
+              UserProfileSubtitle(
+                subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
+              ),
+              if (isUserSubscribed)
+                UserProfileItem(
+                  key: const Key('userProfilePage_subscriptionItem'),
+                  title: l10n.manageSubscriptionTile,
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(context).push(
+                    ManageSubscriptionPage.route(),
+                  ),
+                )
+              else
+                // TODO(jan-stepien): onTap opens in_app_purchase
+                // subscriptions settings page instead.
+                UserProfileSubscribeBox(
+                  onSubscribePressed: () => context.read<AppBloc>().add(
+                        const AppUserSubscriptionPlanChanged(
+                          SubscriptionPlan.premium,
+                        ),
                       ),
-                    ),
+                ),
+              const _UserProfileDivider(),
+              UserProfileSubtitle(
+                subtitle: l10n.userProfileSettingsSubtitle,
               ),
-            const _UserProfileDivider(),
-            UserProfileSubtitle(
-              subtitle: l10n.userProfileSettingsSubtitle,
-            ),
-            UserProfileItem(
-              key: const Key('userProfilePage_notificationsItem'),
-              leading: Assets.icons.notificationsIcon.svg(),
-              title: l10n.userProfileSettingsNotificationsTitle,
-              trailing: AppSwitch(
-                onText: l10n.checkboxOnTitle,
-                offText: l10n.userProfileCheckboxOffTitle,
-                value: notificationsEnabled,
-                onChanged: (_) => context
-                    .read<UserProfileBloc>()
-                    .add(const ToggleNotifications()),
+              UserProfileItem(
+                key: const Key('userProfilePage_notificationsItem'),
+                leading: Assets.icons.notificationsIcon.svg(),
+                title: l10n.userProfileSettingsNotificationsTitle,
+                trailing: AppSwitch(
+                  onText: l10n.checkboxOnTitle,
+                  offText: l10n.userProfileCheckboxOffTitle,
+                  value: notificationsEnabled,
+                  onChanged: (_) => context
+                      .read<UserProfileBloc>()
+                      .add(const ToggleNotifications()),
+                ),
               ),
-            ),
-            UserProfileItem(
-              key: const Key('userProfilePage_notificationPreferencesItem'),
-              title: l10n.notificationPreferencesTitle,
-              trailing: const Icon(
-                Icons.chevron_right,
-                key:
-                    Key('userProfilePage_notificationPreferencesItem_trailing'),
+              UserProfileItem(
+                key: const Key('userProfilePage_notificationPreferencesItem'),
+                title: l10n.notificationPreferencesTitle,
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  key: Key(
+                    'userProfilePage_notificationPreferencesItem_trailing',
+                  ),
+                ),
+                onTap: () => Navigator.of(context).push(
+                  NotificationPreferencesPage.route(),
+                ),
               ),
-              onTap: () => Navigator.of(context).push(
-                NotificationPreferencesPage.route(),
+              const _UserProfileDivider(),
+              UserProfileSubtitle(
+                subtitle: l10n.userProfileLegalSubtitle,
               ),
-            ),
-            const _UserProfileDivider(),
-            UserProfileSubtitle(
-              subtitle: l10n.userProfileLegalSubtitle,
-            ),
-            UserProfileItem(
-              key: const Key('userProfilePage_termsOfServiceItem'),
-              leading: Assets.icons.termsOfUseIcon.svg(),
-              title: l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
-              onTap: () =>
-                  Navigator.of(context).push<void>(TermsOfServicePage.route()),
-            ),
-            UserProfileItem(
-              key: const Key('userProfilePage_aboutItem'),
-              leading: Assets.icons.aboutIcon.svg(),
-              title: l10n.userProfileLegalAboutTitle,
-            ),
-          ],
+              UserProfileItem(
+                key: const Key('userProfilePage_termsOfServiceItem'),
+                leading: Assets.icons.termsOfUseIcon.svg(),
+                title: l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
+                onTap: () => Navigator.of(context)
+                    .push<void>(TermsOfServicePage.route()),
+              ),
+              UserProfileItem(
+                key: const Key('userProfilePage_aboutItem'),
+                leading: Assets.icons.aboutIcon.svg(),
+                title: l10n.userProfileLegalAboutTitle,
+              ),
+            ],
+          ),
         ),
       ),
     );
