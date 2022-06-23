@@ -259,6 +259,10 @@ void main() {
             find.byType(DividerHorizontal),
             findsNothing,
           );
+          expect(
+            find.text('Top'),
+            findsOneWidget,
+          );
 
           await tester.dragUntilVisible(
             find.byType(DividerHorizontal),
@@ -287,6 +291,10 @@ void main() {
           expect(
             find.byType(DividerHorizontal),
             findsNothing,
+          );
+          expect(
+            find.text('Top'),
+            findsOneWidget,
           );
         },
       );
