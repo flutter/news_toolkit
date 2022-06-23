@@ -243,7 +243,7 @@ void main() {
       });
 
       testWidgets(
-        'Scrolls to the top of CategoryFeed on double tap',
+        'scrolls to the top of CategoryFeed on double tap on CategoryTab',
         (tester) async {
           await tester.pumpApp(
             MultiBlocProvider(
