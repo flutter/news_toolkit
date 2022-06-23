@@ -59,9 +59,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   @override
   void dispose() {
     _controllers.forEach(
-      (key, controller) {
-        controller.dispose();
-      },
+      (_, controller) => controller.dispose(),
     );
     _tabController
       ..removeListener(_onTabChanged)
