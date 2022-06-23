@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
-import 'package:subscriptions_repository/subscriptions_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
 
@@ -15,13 +14,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
-    required SubscriptionsRepository subscriptionsRepository,
-    required AnalyticsRepository analyticsRepository,
+    required InAppPurchaseRepository inAppPurchaseRepository,
     required User user,
   })  : _userRepository = userRepository,
         _notificationsRepository = notificationsRepository,
-        _subscriptionsRepository = subscriptionsRepository,
-        _analyticsRepository = analyticsRepository,
+        _inAppPurchaseRepository = inAppPurchaseRepository,
         super(
           user == User.anonymous
               ? const AppState.unauthenticated()
@@ -33,15 +30,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppLogoutRequested>(_onLogoutRequested);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
-    _currentSubscriptionPlanSubscription = _subscriptionsRepository
+    _currentSubscriptionPlanSubscription = _inAppPurchaseRepository
         .currentSubscriptionPlan
         .listen(_currentSubscriptionPlanChanged);
   }
 
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
-  final SubscriptionsRepository _subscriptionsRepository;
-  final AnalyticsRepository _analyticsRepository;
+  final InAppPurchaseRepository _inAppPurchaseRepository;
 
   late StreamSubscription<User> _userSubscription;
   late StreamSubscription<SubscriptionPlan>
@@ -54,10 +50,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
     final user = event.user;
-
-    unawaited(
-      _analyticsRepository.setUserId(user != User.anonymous ? user.id : null),
-    );
 
     switch (state.status) {
       case AppStatus.onboardingRequired:
