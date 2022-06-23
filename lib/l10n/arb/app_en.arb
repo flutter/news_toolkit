@@ -514,5 +514,11 @@
     "description": "Text shown inside comment entry text field.",
     "type": "text",
     "placeholders": {}
+  },
+  "trendingStoryTitle": "TRENDING STORY",
+  "@trendingStoryTitle": {
+    "description": "Title shown in the header of trending story article.",
+    "type": "text",
+    "placeholders": {}
   }
 }
