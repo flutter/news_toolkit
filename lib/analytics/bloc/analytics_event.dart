@@ -4,6 +4,7 @@ abstract class AnalyticsEvent extends Equatable {
   const AnalyticsEvent();
 }
 
+@visibleForTesting
 class UserChanged extends AnalyticsEvent {
   const UserChanged(this.user);
 
