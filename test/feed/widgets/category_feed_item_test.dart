@@ -14,6 +14,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -221,6 +222,7 @@ void main() {
     testWidgets(
         'renders Newsletter '
         'for NewsletterBlock', (tester) async {
+      VisibilityDetectorController.instance.updateInterval = Duration.zero;
       final block = NewsletterBlock();
       await tester.pumpApp(
         CategoryFeedItem(block: block),
