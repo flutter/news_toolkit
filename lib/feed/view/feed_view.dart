@@ -39,6 +39,11 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
+  final Map<Category, ScrollController> _controllers =
+      <Category, ScrollController>{};
+
+  static const _categoryScrollToTopDuration = Duration(milliseconds: 300);
+
   @override
   void initState() {
     super.initState();
@@ -46,10 +51,16 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
       length: widget.categories.length,
       vsync: this,
     )..addListener(_onTabChanged);
+    for (final category in widget.categories) {
+      _controllers[category] = ScrollController();
+    }
   }
 
   @override
   void dispose() {
+    _controllers.forEach(
+      (_, controller) => controller.dispose(),
+    );
     _tabController
       ..removeListener(_onTabChanged)
       ..dispose();
@@ -82,7 +93,18 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
           CategoriesTabBar(
             controller: _tabController,
             tabs: widget.categories
-                .map((category) => CategoryTab(categoryName: category.name))
+                .map(
+                  (category) => CategoryTab(
+                    categoryName: category.name,
+                    onDoubleTap: () {
+                      _controllers[category]?.animateTo(
+                        0,
+                        duration: _categoryScrollToTopDuration,
+                        curve: Curves.ease,
+                      );
+                    },
+                  ),
+                )
                 .toList(),
           ),
           Expanded(
@@ -93,6 +115,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
                     (category) => CategoryFeed(
                       key: PageStorageKey(category),
                       category: category,
+                      scrollController: _controllers[category],
                     ),
                   )
                   .toList(),

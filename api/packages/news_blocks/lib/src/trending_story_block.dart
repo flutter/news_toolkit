@@ -33,5 +33,5 @@ class TrendingStoryBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$TrendingStoryBlockToJson(this);
 
   @override
-  List<Object?> get props => [content, type];
+  List<Object> get props => [content, type];
 }
