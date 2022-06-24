@@ -183,6 +183,19 @@ void main() {
         final block = HtmlBlock(content: '<p>hello</p>');
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns TrendingStoryBlock', () {
+        final content = PostSmallBlock(
+          id: 'id',
+          category: PostCategory.health,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 11),
+          imageUrl: 'imageUrl',
+          title: 'title',
+        );
+        final block = TrendingStoryBlock(content: content);
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }
