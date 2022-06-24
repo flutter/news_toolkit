@@ -446,7 +446,7 @@ void main() {
     group('setNumberOfTimesAppOpened', () {
       test(
           'set the value of number of times app opened '
-          'when value is less to five ', () async {
+          'when the value is less than five ', () async {
         when(() => storage.fetchNumberOfTimesAppOpened())
             .thenAnswer((_) async => '3');
 
@@ -466,7 +466,7 @@ void main() {
       });
       test(
           'set the value of number of times app opened '
-          'when value is equal to five ', () async {
+          'when the value is equal to five ', () async {
         when(() => storage.fetchNumberOfTimesAppOpened())
             .thenAnswer((_) async => '5');
 
@@ -487,7 +487,7 @@ void main() {
 
       test(
           'do nothing '
-          'when value is higher to five ', () async {
+          'when the value is higher than five ', () async {
         when(() => storage.fetchNumberOfTimesAppOpened())
             .thenAnswer((_) async => '6');
 
