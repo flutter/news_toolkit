@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:rxdart/rxdart.dart';
@@ -381,23 +380,4 @@ class PurchaseFailed extends PurchaseUpdate {
 
   /// A failure which occurred when purchasing a subscription.
   final InAppPurchaseFailure failure;
-}
-
-/// {@template purchase_details_from_subscription}
-/// An extension that creates a ProductDetails from a Subscription.
-@visibleForTesting
-extension SubscriptionsToProductDetails on List<Subscription> {
-  /// {@macro purchase_details_from_subscription}
-  List<ProductDetails> toProductDetails() {
-    return map(
-      (subscription) => ProductDetails(
-        id: subscription.id,
-        currencyCode: 'USD',
-        description: subscription.benefits.toString(),
-        price: subscription.cost.monthly.toString(),
-        title: subscription.name.toString(),
-        rawPrice: subscription.cost.monthly.toDouble(),
-      ),
-    ).toList();
-  }
 }
