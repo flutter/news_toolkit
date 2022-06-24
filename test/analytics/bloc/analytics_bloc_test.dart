@@ -30,7 +30,7 @@ void main() {
       when(() => userRepository.user).thenAnswer((_) => Stream.empty());
     });
 
-    group('on UserChanged', () {
+    group('on UserRepository.user changed', () {
       late User user;
 
       setUp(() {
