@@ -231,7 +231,7 @@ class InAppPurchaseRepository {
     /// On iOS, the canceled status is never reported.
     /// When the native payment dialog is closed, the error status is reported.
     if (purchase.status == PurchaseStatus.canceled) {
-      _purchaseUpdateStreamController.add(PurchaseCanceled());
+      _purchaseUpdateStreamController.add(const PurchaseCanceled());
     }
 
     if (purchase.status == PurchaseStatus.error) {
@@ -317,7 +317,7 @@ class InAppPurchaseRepository {
 /// {@template purchase_update}
 /// A base class that represents a purchase update.
 /// {@endtemplate}
-abstract class PurchaseUpdate {
+abstract class PurchaseUpdate extends Equatable {
   /// {@macro purchase_update}
   const PurchaseUpdate();
 }
@@ -327,12 +327,15 @@ abstract class PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseDelivered extends PurchaseUpdate {
   /// {@macro purchase_delivered}
-  PurchaseDelivered({
+  const PurchaseDelivered({
     required this.subscription,
   }) : super();
 
   /// A subscription associated with a purchase that was delivered.
   final Subscription subscription;
+
+  @override
+  List<Object?> get props => [subscription];
 }
 
 /// {@template purchase_completed}
@@ -340,12 +343,15 @@ class PurchaseDelivered extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseCompleted extends PurchaseUpdate {
   /// {@macro purchase_completed}
-  PurchaseCompleted({
+  const PurchaseCompleted({
     required this.subscription,
   }) : super();
 
   /// A subscription that was successfully purchased.
   final Subscription subscription;
+
+  @override
+  List<Object?> get props => [subscription];
 }
 
 /// {@template purchase_purchased}
@@ -353,12 +359,15 @@ class PurchaseCompleted extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchasePurchased extends PurchaseUpdate {
   /// {@macro purchase_purchased}
-  PurchasePurchased({
+  const PurchasePurchased({
     required this.subscription,
   }) : super();
 
   /// A subscription that was successfully purchased.
   final Subscription subscription;
+
+  @override
+  List<Object?> get props => [subscription];
 }
 
 /// {@template purchase_canceled}
@@ -366,7 +375,10 @@ class PurchasePurchased extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseCanceled extends PurchaseUpdate {
   /// {@macro purchase_canceled}
-  PurchaseCanceled() : super();
+  const PurchaseCanceled() : super();
+
+  @override
+  List<Object?> get props => [];
 }
 
 /// {@template purchase_failed}
@@ -374,10 +386,13 @@ class PurchaseCanceled extends PurchaseUpdate {
 /// {@endtemplate}
 class PurchaseFailed extends PurchaseUpdate {
   /// {@macro purchase_failed}
-  PurchaseFailed({
+  const PurchaseFailed({
     required this.failure,
   }) : super();
 
   /// A failure which occurred when purchasing a subscription.
   final InAppPurchaseFailure failure;
+
+  @override
+  List<Object?> get props => [];
 }

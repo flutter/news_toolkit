@@ -766,19 +766,118 @@ void main() {
       });
     });
   });
-}
 
-// /// Extension on [ProductDetails] enabling object comparison.
-// extension _ProductDetailsEquals on ProductDetails {
-//   /// Returns a copy of the current ProductDetails with the given parameters.
-//   bool equals(ProductDetails productDetails) =>
-//       productDetails.id == id &&
-//       productDetails.title == title &&
-//       productDetails.description == description &&
-//       productDetails.price == price &&
-//       productDetails.rawPrice == rawPrice &&
-//       productDetails.currencyCode == currencyCode;
-// }
+  group('PurchaseUpdate', () {
+    group('PurchaseDelivered', () {
+      test('supports value comparisons', () {
+        final event1 = PurchaseDelivered(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+        final event2 = PurchaseDelivered(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('PurchaseCompleted', () {
+      test('supports value comparisons', () {
+        final event1 = PurchaseCompleted(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+        final event2 = PurchaseCompleted(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('PurchasePurchased', () {
+      test('supports value comparisons', () {
+        final event1 = PurchasePurchased(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+        final event2 = PurchasePurchased(
+          subscription: Subscription(
+            benefits: const [],
+            cost: SubscriptionCost(
+              annual: 0,
+              monthly: 0,
+            ),
+            id: '1',
+            name: SubscriptionPlan.none,
+          ),
+        );
+
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('PurchaseFailed', () {
+      test('supports value comparisons', () {
+        final event1 = PurchaseFailed(
+          failure: DeliverInAppPurchaseFailure('error'),
+        );
+        final event2 = PurchaseFailed(
+          failure: DeliverInAppPurchaseFailure('error'),
+        );
+
+        expect(event1, equals(event2));
+      });
+    });
+
+    group('PurchaseCanceled', () {
+      test('supports value comparisons', () {
+        final event1 = PurchaseCanceled();
+        final event2 = PurchaseCanceled();
+
+        expect(event1, equals(event2));
+      });
+    });
+  });
+}
 
 /// Extension on [PurchaseDetails] enabling copyWith.
 extension _PurchaseDetailsCopyWith on PurchaseDetails {
