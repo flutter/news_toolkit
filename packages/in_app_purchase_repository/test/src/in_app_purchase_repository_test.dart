@@ -623,18 +623,6 @@ void main() {
   });
 }
 
-// /// Extension on [ProductDetails] enabling object comparison.
-// extension _ProductDetailsEquals on ProductDetails {
-//   /// Returns a copy of the current ProductDetails with the given parameters.
-//   bool equals(ProductDetails productDetails) =>
-//       productDetails.id == id &&
-//       productDetails.title == title &&
-//       productDetails.description == description &&
-//       productDetails.price == price &&
-//       productDetails.rawPrice == rawPrice &&
-//       productDetails.currencyCode == currencyCode;
-// }
-
 /// Extension on [PurchaseDetails] enabling copyWith.
 extension _PurchaseDetailsCopyWith on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
