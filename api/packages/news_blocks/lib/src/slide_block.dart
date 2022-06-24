@@ -27,5 +27,5 @@ class SlideBlock implements NewsBlock {
   static const identifier = '__slide_block__';
 
   @override
-  Map<String, dynamic> toJson() => _$SlideBlockBlockToJson(this);
+  Map<String, dynamic> toJson() => _$SlideBlockToJson(this);
 }
