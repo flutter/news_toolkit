@@ -17,15 +17,15 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
     this.type = SlideshowIntroductionBlock.identifier,
   });
 
+  /// Converts a `Map<String, dynamic>` into a [SlideshowBlock] instance.
+  factory SlideshowIntroductionBlock.fromJson(Map<String, dynamic> json) =>
+      _$SlideshowIntroductionBlockFromJson(json);
+
   /// The title of this slideshow.
   final String title;
 
   /// The slideshow cover image URL.
   final String? coverImageUrl;
-
-  /// Converts a `Map<String, dynamic>` into a [SlideshowBlock] instance.
-  factory SlideshowIntroductionBlock.fromJson(Map<String, dynamic> json) =>
-      _$SlideshowIntroductionBlockFromJson(json);
 
   /// The slideshow introduction block type identifier.
   static const identifier = '__slideshow_introducion_block__';
