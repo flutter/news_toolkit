@@ -2,8 +2,8 @@ part of 'user_repository.dart';
 
 /// Storage keys for the [UserStorage].
 abstract class UserStorageKeys {
-  /// Number of times that an anonymous user opens the application.
-  static const numberOfTimesAppOpened = '__number_of_times_app_opened_key__';
+  /// Number of times that an anonymous user opened the application.
+  static const appOpenedCount = '__app_opened_count_key__';
 }
 
 /// {@template user_storage}
@@ -18,13 +18,14 @@ class UserStorage {
   final Storage _storage;
 
   /// Sets the number of times the app is opened.
-  Future<void> setNumberOfTimesAppOpened({required int value}) =>
-      _storage.write(
-        key: UserStorageKeys.numberOfTimesAppOpened,
-        value: value.toString(),
+  Future<void> setAppOpenedCount({required int count}) => _storage.write(
+        key: UserStorageKeys.appOpenedCount,
+        value: count.toString(),
       );
 
   /// Fetches the number of times the app opened value from Storage.
-  Future<String> fetchNumberOfTimesAppOpened() async =>
-      await _storage.read(key: UserStorageKeys.numberOfTimesAppOpened) ?? '0';
+  Future<int> fetchAppOpenedCount() async {
+    final count = await _storage.read(key: UserStorageKeys.appOpenedCount);
+    return int.parse(count ?? '0');
+  }
 }

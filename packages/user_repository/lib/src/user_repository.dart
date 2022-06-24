@@ -30,12 +30,12 @@ class FetchNumberOfTimesAppOpenedFailure extends UserFailure {
   const FetchNumberOfTimesAppOpenedFailure(super.error);
 }
 
-/// {@template set_number_of_times_app_opened_failure}
-/// Thrown when setting the number of times open app fails.
+/// {@template increment_number_of_times_app_opened_failure}
+/// Thrown when incrementing the number of times open app fails.
 /// {@endtemplate}
-class SetNumberOfTimesAppOpenedFailure extends UserFailure {
-  /// {@macro set_number_of_times_app_opened_failure}
-  const SetNumberOfTimesAppOpenedFailure(super.error);
+class IncrementNumberOfTimesAppOpenedFailure extends UserFailure {
+  /// {@macro increment_number_of_times_app_opened_failure}
+  const IncrementNumberOfTimesAppOpenedFailure(super.error);
 }
 
 /// {@template user_repository}
@@ -189,9 +189,9 @@ class UserRepository {
   /// Returns the number of times app is opened.
   ///
   /// This method will only be used when the user is anonymous.
-  Future<String> fetchNumberOfTimesAppOpened() async {
+  Future<int> fetchNumberOfTimesAppOpened() async {
     try {
-      return await _storage.fetchNumberOfTimesAppOpened();
+      return await _storage.fetchAppOpenedCount();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         FetchNumberOfTimesAppOpenedFailure(error),
@@ -204,16 +204,15 @@ class UserRepository {
   /// when this value is less or equal to five.
   ///
   /// This method will only be used when the user is anonymous.
-  Future<void> setNumberOfTimesAppOpened() async {
+  Future<void> incrementNumberOfTimesAppOpened() async {
     try {
       final value = await fetchNumberOfTimesAppOpened();
-      if (int.parse(value) <= 5) {
-        final result = int.parse(value) + 1;
-        await _storage.setNumberOfTimesAppOpened(value: result);
-      }
+      final result = value + 1;
+
+      await _storage.setAppOpenedCount(count: result);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        SetNumberOfTimesAppOpenedFailure(error),
+        IncrementNumberOfTimesAppOpenedFailure(error),
         stackTrace,
       );
     }
