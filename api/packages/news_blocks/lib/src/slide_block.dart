@@ -5,19 +5,29 @@ part 'slide_block.g.dart';
 
 /// {@template slide_block}
 /// A block which represents a slide in a slideshow.
-/// 
+///
 /// {@endtemplate}
 @JsonSerializable()
 class SlideBlock implements NewsBlock {
   /// {@macro slide_block}
   const SlideBlock({
+    this.caption,
+    this.description,
+    this.photoCredit,
+    this.imageUrl,
   });
 
+  /// The caption of the slide image.
   final String? caption;
-  
+
+  /// The description of the slide.
   final String? description;
 
+  /// The photo credit for the slide image.
   final String? photoCredit;
+
+  /// The URL of the slide image.
+  final String? imageUrl;
 
   /// Converts a `Map<String, dynamic>` into a [SlideBlock] instance.
   factory SlideBlock.fromJson(Map<String, dynamic> json) =>
