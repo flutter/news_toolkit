@@ -2,10 +2,41 @@ import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
+import 'package:equatable/equatable.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:storage/storage.dart';
 
 part 'user_storage.dart';
+
+/// {@template user_failure}
+/// A base failure for the user repository failures.
+/// {@endtemplate}
+abstract class UserFailure with EquatableMixin implements Exception {
+  /// {@macro user_failure}
+  const UserFailure(this.error);
+
+  /// The error which was caught.
+  final Object error;
+
+  @override
+  List<Object> get props => [error];
+}
+
+/// {@template fetch_number_of_times_app_opened_failure}
+/// Thrown when fetching the number of times open app fails.
+/// {@endtemplate}
+class FetchNumberOfTimesAppOpenedFailure extends UserFailure {
+  /// {@macro fetch_number_of_times_app_opened_failure}
+  const FetchNumberOfTimesAppOpenedFailure(super.error);
+}
+
+/// {@template set_number_of_times_app_opened_failure}
+/// Thrown when setting the number of times open app fails.
+/// {@endtemplate}
+class SetNumberOfTimesAppOpenedFailure extends UserFailure {
+  /// {@macro set_number_of_times_app_opened_failure}
+  const SetNumberOfTimesAppOpenedFailure(super.error);
+}
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
@@ -152,6 +183,39 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(LogOutFailure(error), stackTrace);
+    }
+  }
+
+  /// Returns the number of times app is opened.
+  ///
+  /// This method will only be used when the user is anonymous.
+  Future<String> fetchNumberOfTimesAppOpened() async {
+    try {
+      return await _storage.fetchNumberOfTimesAppOpened();
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        FetchNumberOfTimesAppOpenedFailure(error),
+        stackTrace,
+      );
+    }
+  }
+
+  /// Set the value of number of times the app is opened
+  /// when this value is less or equal to five.
+  ///
+  /// This method will only be used when the user is anonymous.
+  Future<void> setNumberOfTimesAppOpened() async {
+    try {
+      final value = await fetchNumberOfTimesAppOpened();
+      if (int.parse(value) <= 5) {
+        final result = int.parse(value) + 1;
+        await _storage.setNumberOfTimesAppOpened(value: result);
+      }
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        SetNumberOfTimesAppOpenedFailure(error),
+        stackTrace,
+      );
     }
   }
 }

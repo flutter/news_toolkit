@@ -395,5 +395,130 @@ void main() {
         expect(() => userRepository.logOut(), throwsA(isA<LogOutFailure>()));
       });
     });
+
+    group('UserFailure', () {
+      final error = Exception('errorMessage');
+
+      group('FetchNumberOfTimesAppOpenedFailure', () {
+        test('has correct props', () {
+          expect(FetchNumberOfTimesAppOpenedFailure(error).props, [error]);
+        });
+      });
+
+      group('SetNumberOfTimesAppOpenedFailure', () {
+        test('has correct props', () {
+          expect(SetNumberOfTimesAppOpenedFailure(error).props, [error]);
+        });
+      });
+    });
+
+    group('fetchNumberOfTimesAppOpened', () {
+      test('returns the value of number of times app opened ', () async {
+        when(() => storage.fetchNumberOfTimesAppOpened())
+            .thenAnswer((_) async => '1');
+        final result = await UserRepository(
+          authenticationClient: authenticationClient,
+          packageInfoClient: packageInfoClient,
+          deepLinkClient: deepLinkClient,
+          storage: storage,
+        ).fetchNumberOfTimesAppOpened();
+        expect(result, '1');
+      });
+
+      test(
+          'throws a FetchNumberOfTimesAppOpenedFailure '
+          'when fetching number of times app opened fails', () async {
+        when(() => storage.fetchNumberOfTimesAppOpened())
+            .thenThrow(Exception());
+
+        expect(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).fetchNumberOfTimesAppOpened(),
+          throwsA(isA<FetchNumberOfTimesAppOpenedFailure>()),
+        );
+      });
+    });
+
+    group('setNumberOfTimesAppOpened', () {
+      test(
+          'set the value of number of times app opened '
+          'when value is less to five ', () async {
+        when(() => storage.fetchNumberOfTimesAppOpened())
+            .thenAnswer((_) async => '3');
+
+        when(
+          () => storage.setNumberOfTimesAppOpened(value: 4),
+        ).thenAnswer((_) async {});
+
+        await expectLater(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).setNumberOfTimesAppOpened(),
+          completes,
+        );
+      });
+      test(
+          'set the value of number of times app opened '
+          'when value is equal to five ', () async {
+        when(() => storage.fetchNumberOfTimesAppOpened())
+            .thenAnswer((_) async => '5');
+
+        when(
+          () => storage.setNumberOfTimesAppOpened(value: 6),
+        ).thenAnswer((_) async {});
+
+        await expectLater(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).setNumberOfTimesAppOpened(),
+          completes,
+        );
+      });
+
+      test(
+          'do nothing '
+          'when value is higher to five ', () async {
+        when(() => storage.fetchNumberOfTimesAppOpened())
+            .thenAnswer((_) async => '6');
+
+        await expectLater(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).setNumberOfTimesAppOpened(),
+          completes,
+        );
+      });
+
+      test(
+          'throws a SetNumberOfTimesAppOpenedFailure '
+          'when set number of times app opened fails', () async {
+        when(
+          () => storage.setNumberOfTimesAppOpened(value: any(named: 'value')),
+        ).thenThrow(Exception());
+
+        expect(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).setNumberOfTimesAppOpened(),
+          throwsA(isA<SetNumberOfTimesAppOpenedFailure>()),
+        );
+      });
+    });
   });
 }
