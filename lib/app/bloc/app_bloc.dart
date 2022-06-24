@@ -106,6 +106,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     final count = await _userRepository.fetchNumberOfTimesAppOpened();
     if (state.user.isAnonymous && count == 5) {
       emit(state.copyWith(showLoginOverlay: true));
+      await _userRepository.incrementNumberOfTimesAppOpened();
     } else if (state.user.isAnonymous && count < 6) {
       await _userRepository.incrementNumberOfTimesAppOpened();
     }
