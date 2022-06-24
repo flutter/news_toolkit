@@ -57,6 +57,14 @@ class ColorsPage extends StatelessWidget {
         color: AppColors.highEmphasisPrimary,
       ),
       _ColorItem(
+        name: 'Medium Emphasis Primary',
+        color: AppColors.mediumHighEmphasisPrimary,
+      ),
+      _ColorItem(
+        name: 'High Emphasis Primary',
+        color: AppColors.mediumHighEmphasisBodyText,
+      ),
+      _ColorItem(
         name: 'High Emphasis Surface',
         color: AppColors.highEmphasisSurface,
       ),
