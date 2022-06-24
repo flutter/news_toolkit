@@ -10,3 +10,4 @@ export 'post_content_premium_category.dart';
 export 'post_footer.dart';
 export 'progress_indicator.dart';
 export 'share_button.dart';
+export 'slideshow_category.dart';
