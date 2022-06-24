@@ -1,7 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'dart:math';
-
 import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 
@@ -14,7 +11,9 @@ void main() {
       );
 
       expect(
-          SlideshowIntroductionBlock.fromJson(block.toJson()), equals(block));
+        SlideshowIntroductionBlock.fromJson(block.toJson()),
+        equals(block),
+      );
     });
   });
 }
