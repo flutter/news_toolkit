@@ -12,15 +12,11 @@ class SlideshowBlock implements NewsBlock {
   /// {@macro slideshow_block}
   const SlideshowBlock({
     required this.title,
-    this.coverImageUrl,
     required this.slides,
   });
 
-  /// The title of this post.
+  /// The title of this slideshow.
   final String title;
-
-  /// The slideshow cover image URL.
-  final String? coverImageUrl;
 
   /// List of slides to be displayed.
   List<SlideBlock> slides;
@@ -29,7 +25,7 @@ class SlideshowBlock implements NewsBlock {
   factory SlideshowBlock.fromJson(Map<String, dynamic> json) =>
       _$SlideshowBlockFromJson(json);
 
-  /// The large post block type identifier.
+  /// The slideshow block type identifier.
   static const identifier = '__slideshow_block__';
 
   @override
