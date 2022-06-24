@@ -62,6 +62,7 @@ dependencies:
   user_repository:
     path: packages/user_repository
   very_good_analysis: ^3.0.0
+  visibility_detector: ^0.3.3
 
 dependency_overrides:
   flutter_svg: ^1.0.0
