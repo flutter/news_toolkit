@@ -6,85 +6,89 @@ import 'package:google_news_template_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// {@template in_app_purchases_failure}
-/// A base failure class for the in-app purchases repository failures.
+/// {@template in_app_purchase_failure}
+/// A base failure class for the in-app purchase repository failures.
 /// {@endtemplate}
-abstract class InAppPurchasesFailure with EquatableMixin implements Exception {
-  /// {@macro in_app_purchases_failure}
-  const InAppPurchasesFailure(this.error, this.stackTrace);
+abstract class InAppPurchaseFailure with EquatableMixin implements Exception {
+  /// {@macro in_app_purchase_failure}
+  const InAppPurchaseFailure(this.error);
 
   /// The error which was caught.
   final Object error;
 
-  /// The stack trace associated with the [error].
-  final StackTrace stackTrace;
-
   @override
-  List<Object?> get props => [error, stackTrace];
+  List<Object?> get props => [error];
 }
 
 /// {@template deliver_in_app_purchase_failure}
 /// An exception thrown when delivering a purchase from the purchaseStream
 /// fails.
 /// {@endtemplate}
-class DeliverInAppPurchaseFailure extends InAppPurchasesFailure {
+class DeliverInAppPurchaseFailure extends InAppPurchaseFailure {
   /// {@macro deliver_in_app_purchase_failure}
-  const DeliverInAppPurchaseFailure(super.error, super.stackTrace);
+  const DeliverInAppPurchaseFailure(super.error);
 }
 
 /// {@template complete_in_app_purchase_failure}
 /// An exception thrown when completing a purchase from the purchaseStream
 /// fails.
 /// {@endtemplate}
-class CompleteInAppPurchaseFailure extends InAppPurchasesFailure {
+class CompleteInAppPurchaseFailure extends InAppPurchaseFailure {
   /// {@macro complete_in_app_purchase_failure}
-  const CompleteInAppPurchaseFailure(super.error, super.stackTrace);
+  const CompleteInAppPurchaseFailure(super.error);
 }
 
 /// {@template internal_in_app_purchase_failure}
 /// An exception thrown when emitted purchase from the purchaseStream
 /// has status [PurchaseStatus.error].
 /// {@endtemplate}
-class InternalInAppPurchaseFailure extends InAppPurchasesFailure {
+class InternalInAppPurchaseFailure extends InAppPurchaseFailure {
   /// {@macro internal_in_app_purchase_failure}
-  const InternalInAppPurchaseFailure(super.error, super.stackTrace);
+  const InternalInAppPurchaseFailure(super.error);
 }
 
 /// {@template fetch_subscriptions_failure}
 /// An exception thrown when fetching subscriptions fails.
 /// {@endtemplate}
-class FetchSubscriptionsFailure extends InAppPurchasesFailure {
+class FetchSubscriptionsFailure extends InAppPurchaseFailure {
   /// {@macro fetch_subscriptions_failure}
-  const FetchSubscriptionsFailure(super.error, super.stackTrace);
+  const FetchSubscriptionsFailure(super.error);
 }
 
-/// {@template fetch_in_app_purchases_failure}
+/// {@template fetch_in_app_products_failure}
 /// An exception thrown when fetching in app products fails.
 /// {@endtemplate}
-class FetchInAppProductsFailure extends InAppPurchasesFailure {
-  /// {@macro fetch_in_app_purchases_failure}
-  const FetchInAppProductsFailure(super.error, super.stackTrace);
+class FetchInAppProductsFailure extends InAppPurchaseFailure {
+  /// {@macro fetch_in_app_products_failure}
+  const FetchInAppProductsFailure(super.error);
 }
 
 /// {@template query_in_app_product_details_failure}
 /// An exception thrown when querying in app product details fails.
 /// {@endtemplate}
-class QueryInAppProductDetailsFailure extends InAppPurchasesFailure {
+class QueryInAppProductDetailsFailure extends InAppPurchaseFailure {
   /// {@macro query_in_app_product_details_failure}
-  const QueryInAppProductDetailsFailure(super.error, super.stackTrace);
+  const QueryInAppProductDetailsFailure(super.error);
 }
 
 /// {@template in_app_purchase_buy_consumable_failure}
 /// An exception thrown when buyNonConsumable returns false.
 /// {@endtemplate}
-class InAppPurchaseBuyNonConsumableFailure extends InAppPurchasesFailure {
+class InAppPurchaseBuyNonConsumableFailure extends InAppPurchaseFailure {
   /// {@macro in_app_purchase_buy_consumable_failure}
-  const InAppPurchaseBuyNonConsumableFailure(super.error, super.stackTrace);
+  const InAppPurchaseBuyNonConsumableFailure(super.error);
 }
 
-/// {@template in_app_purchases_repository}
-/// The `InAppPurchasesRepository` uses [in_app_purchase](https://pub.dev/packages/in_app_purchase)
-/// package to conduct native in-app purchases.
+/// {@template fetch_current_subscription_failure}
+/// An exception thrown when fetchCurrentSubscription fails.
+class FetchCurrentSubscriptionFailure extends InAppPurchaseFailure {
+  /// {@macro fetch_current_subscription_failure}
+  const FetchCurrentSubscriptionFailure(super.error);
+}
+
+/// {@template in_app_purchase_repository}
+/// The `InAppPurchaseRepository` uses [in_app_purchase](https://pub.dev/packages/in_app_purchase)
+/// package to conduct native in-app purchase.
 ///
 /// Here is a quick explanation of how the purchase flow looks like:
 /// 1.  The app displays a list of available products that are fetched using the
@@ -103,7 +107,7 @@ class InAppPurchaseBuyNonConsumableFailure extends InAppPurchasesFailure {
 ///     method.
 
 class InAppPurchaseRepository {
-  /// {@macro in_app_purchases_repository}
+  /// {@macro in_app_purchase_repository}
   InAppPurchaseRepository({
     required AuthenticationClient authenticationClient,
     required GoogleNewsTemplateApiClient apiClient,
@@ -150,22 +154,28 @@ class InAppPurchaseRepository {
       final response = await _apiClient.getSubscriptions();
       return response.subscriptions;
     } catch (error, stackTrace) {
-      throw FetchSubscriptionsFailure(error, stackTrace);
+      Error.throwWithStackTrace(
+        FetchSubscriptionsFailure(error),
+        stackTrace,
+      );
     }
   }
 
   /// Fetches and caches in-app products from the server.
-  Future<List<ProductDetails>> fetchProducts() async {
+  Future<List<ProductDetails>> _fetchProducts() async {
     if (_cachedProducts != null) {
       return _cachedProducts!;
     }
 
     try {
-      final response = await _apiClient.getSubscriptions();
-      _cachedProducts = response.subscriptions.toProductDetails();
+      final subscriptions = await fetchSubscriptions();
+      _cachedProducts = subscriptions.toProductDetails();
       return _cachedProducts ?? [];
     } catch (error, stackTrace) {
-      throw FetchInAppProductsFailure(error, stackTrace);
+      Error.throwWithStackTrace(
+        FetchInAppProductsFailure(error),
+        stackTrace,
+      );
     }
   }
 
@@ -181,23 +191,29 @@ class InAppPurchaseRepository {
         await _inAppPurchase.queryProductDetails({product.id});
 
     if (productDetailsResponse.error != null) {
-      throw QueryInAppProductDetailsFailure(
-        productDetailsResponse.error.toString(),
+      Error.throwWithStackTrace(
+        QueryInAppProductDetailsFailure(
+          productDetailsResponse.error.toString(),
+        ),
         StackTrace.current,
       );
     }
 
     if (productDetailsResponse.productDetails.isEmpty) {
-      throw QueryInAppProductDetailsFailure(
-        'No products found with id ${product.id}.',
+      Error.throwWithStackTrace(
+        QueryInAppProductDetailsFailure(
+          'No products found with id ${product.id}.',
+        ),
         StackTrace.current,
       );
     }
 
     if (productDetailsResponse.productDetails.length > 1) {
-      throw QueryInAppProductDetailsFailure(
-        'Found ${productDetailsResponse.productDetails.length} products '
-        'with id ${product.id}. Only one should be found.',
+      Error.throwWithStackTrace(
+        QueryInAppProductDetailsFailure(
+          'Found ${productDetailsResponse.productDetails.length} products '
+          'with id ${product.id}. Only one should be found.',
+        ),
         StackTrace.current,
       );
     }
@@ -215,8 +231,10 @@ class InAppPurchaseRepository {
         await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
 
     if (!isPurchaseRequestSuccessful) {
-      throw InAppPurchaseBuyNonConsumableFailure(
-        'Failed to buy ${productDetails.id} for user ${user.id}',
+      Error.throwWithStackTrace(
+        InAppPurchaseBuyNonConsumableFailure(
+          'Failed to buy ${productDetails.id} for user ${user.id}',
+        ),
         StackTrace.current,
       );
     }
@@ -227,14 +245,14 @@ class InAppPurchaseRepository {
   ///
   /// Restored purchases are delivered through the purchaseStream
   /// with a status of [PurchaseStatus.restored].
-  Future restorePurchases() async {
+  Future<void> restorePurchases() async {
     final user = await _authenticationClient.user.first;
     if (!user.isAnonymous) {
       await _inAppPurchase.restorePurchases(applicationUserName: user.id);
     }
   }
 
-  Future _onPurchaseUpdated(PurchaseDetails purchase) async {
+  Future<void> _onPurchaseUpdated(PurchaseDetails purchase) async {
     /// On iOS, the canceled status is never reported.
     /// When the native payment dialog is closed, the error status is reported.
     if (purchase.status == PurchaseStatus.canceled) {
@@ -246,7 +264,6 @@ class InAppPurchaseRepository {
         PurchaseFailed(
           failure: InternalInAppPurchaseFailure(
             purchase.error.toString(),
-            StackTrace.current,
           ),
         ),
       );
@@ -255,9 +272,8 @@ class InAppPurchaseRepository {
     try {
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        final purchasedProduct = (await fetchProducts())
-            .where((product) => product.id == purchase.productID)
-            .first;
+        final purchasedProduct = (await _fetchProducts())
+            .firstWhere((product) => product.id == purchase.productID);
 
         _purchaseUpdateStreamController.add(
           PurchasePurchased(product: purchasedProduct),
@@ -271,26 +287,23 @@ class InAppPurchaseRepository {
           PurchaseDelivered(product: purchasedProduct),
         );
 
-        final response = await _apiClient.getCurrentUser();
-
-        _currentSubscriptionPlanSubject.add(response.user.subscription);
+        await _updateCurrentSubscriptionPlan();
       }
     } catch (error, stackTrace) {
-      _purchaseUpdateStreamController.add(
+      _purchaseUpdateStreamController.addError(
         PurchaseFailed(
           failure: DeliverInAppPurchaseFailure(
             error,
-            stackTrace,
           ),
         ),
+        stackTrace,
       );
     }
 
     try {
       if (purchase.pendingCompletePurchase) {
-        final purchasedProduct = (await fetchProducts())
-            .where((product) => product.id == purchase.productID)
-            .first;
+        final purchasedProduct = (await _fetchProducts())
+            .firstWhere((product) => product.id == purchase.productID);
 
         await _inAppPurchase.completePurchase(purchase);
 
@@ -301,20 +314,27 @@ class InAppPurchaseRepository {
         );
       }
     } catch (error, stackTrace) {
-      _purchaseUpdateStreamController.add(
+      _purchaseUpdateStreamController.addError(
         PurchaseFailed(
           failure: CompleteInAppPurchaseFailure(
             error,
-            stackTrace,
           ),
         ),
+        stackTrace,
       );
     }
   }
 
   Future<void> _updateCurrentSubscriptionPlan() async {
-    final response = await _apiClient.getCurrentUser();
-    _currentSubscriptionPlanSubject.add(response.user.subscription);
+    try {
+      final response = await _apiClient.getCurrentUser();
+      _currentSubscriptionPlanSubject.add(response.user.subscription);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        FetchCurrentSubscriptionFailure(error),
+        stackTrace,
+      );
+    }
   }
 }
 
@@ -383,13 +403,13 @@ class PurchaseFailed extends PurchaseUpdate {
   }) : super();
 
   /// A failure which occurred when purchasing a product.
-  final InAppPurchasesFailure failure;
+  final InAppPurchaseFailure failure;
 }
 
 /// {@template purchase_details_from_subscription}
 /// An extension that creates a ProductDetails from a Subscription.
 @visibleForTesting
-extension SubscriptionToProductDetails on List<Subscription> {
+extension SubscriptionsToProductDetails on List<Subscription> {
   /// {@macro purchase_details_from_subscription}
   List<ProductDetails> toProductDetails() {
     return map(
