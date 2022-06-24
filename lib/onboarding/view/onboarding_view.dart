@@ -21,60 +21,71 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return ScrollableColumn(
-      key: const Key('onboarding_scrollableColumn'),
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const _OnboardingTitle(),
-        const _OnboardingSubtitle(),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .59,
-          child: PageView(
-            key: const Key('onboarding_pageView'),
-            controller: _controller,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              OnboardingViewItem(
-                key: const Key('onboarding_pageOne'),
-                pageNumberTitle: l10n.onboardingItemFirstNumberTitle,
-                title: l10n.onboardingItemFirstTitle,
-                subtitle: l10n.onboardingItemFirstSubtitleTitle,
-                primaryButton: AppButton.darkAqua(
-                  key: const Key('onboardingItem_primaryButton_pageOne'),
-                  onPressed: () {},
-                  child: Text(l10n.onboardingItemFirstButtonTitle),
-                ),
-                secondaryButton: AppButton.smallTransparent(
-                  key: const Key('onboardingItem_secondaryButton_pageOne'),
-                  onPressed: () => _controller.animateToPage(
-                    1,
-                    duration: _onboardingItemSwitchDuration,
-                    curve: Curves.easeInOut,
+    return BlocListener<OnboardingBloc, OnboardingState>(
+      listener: (context, state) {
+        if (state is OnboardingEnablingNotificationsSucceeded) {
+          context.read<AppBloc>().add(AppOnboardingCompleted());
+        }
+      },
+      child: ScrollableColumn(
+        key: const Key('onboarding_scrollableColumn'),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const _OnboardingTitle(),
+          const _OnboardingSubtitle(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .59,
+            child: PageView(
+              key: const Key('onboarding_pageView'),
+              controller: _controller,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                OnboardingViewItem(
+                  key: const Key('onboarding_pageOne'),
+                  pageNumberTitle: l10n.onboardingItemFirstNumberTitle,
+                  title: l10n.onboardingItemFirstTitle,
+                  subtitle: l10n.onboardingItemFirstSubtitleTitle,
+                  primaryButton: AppButton.darkAqua(
+                    key: const Key('onboardingItem_primaryButton_pageOne'),
+                    onPressed: () {},
+                    child: Text(l10n.onboardingItemFirstButtonTitle),
                   ),
-                  child: Text(context.l10n.onboardingItemSecondaryButtonTitle),
+                  secondaryButton: AppButton.smallTransparent(
+                    key: const Key('onboardingItem_secondaryButton_pageOne'),
+                    onPressed: () => _controller.animateToPage(
+                      1,
+                      duration: _onboardingItemSwitchDuration,
+                      curve: Curves.easeInOut,
+                    ),
+                    child:
+                        Text(context.l10n.onboardingItemSecondaryButtonTitle),
+                  ),
                 ),
-              ),
-              OnboardingViewItem(
-                key: const Key('onboarding_pageTwo'),
-                pageNumberTitle: l10n.onboardingItemSecondNumberTitle,
-                title: l10n.onboardingItemSecondTitle,
-                subtitle: l10n.onboardingItemSecondSubtitleTitle,
-                primaryButton: AppButton.darkAqua(
-                  key: const Key('onboardingItem_primaryButton_pageTwo'),
-                  onPressed: () {},
-                  child: Text(l10n.onboardingItemSecondButtonTitle),
+                OnboardingViewItem(
+                  key: const Key('onboarding_pageTwo'),
+                  pageNumberTitle: l10n.onboardingItemSecondNumberTitle,
+                  title: l10n.onboardingItemSecondTitle,
+                  subtitle: l10n.onboardingItemSecondSubtitleTitle,
+                  primaryButton: AppButton.darkAqua(
+                    key: const Key('onboardingItem_primaryButton_pageTwo'),
+                    onPressed: () => context
+                        .read<OnboardingBloc>()
+                        .add(const EnableNotificationsRequested()),
+                    child: Text(l10n.onboardingItemSecondButtonTitle),
+                  ),
+                  secondaryButton: AppButton.smallTransparent(
+                    key: const Key('onboardingItem_secondaryButton_pageTwo'),
+                    onPressed: () =>
+                        context.read<AppBloc>().add(AppOnboardingCompleted()),
+                    child:
+                        Text(context.l10n.onboardingItemSecondaryButtonTitle),
+                  ),
                 ),
-                secondaryButton: AppButton.smallTransparent(
-                  key: const Key('onboardingItem_secondaryButton_pageTwo'),
-                  onPressed: () =>
-                      context.read<AppBloc>().add(AppOnboardingCompleted()),
-                  child: Text(context.l10n.onboardingItemSecondaryButtonTitle),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
