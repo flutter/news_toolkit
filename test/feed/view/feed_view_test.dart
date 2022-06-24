@@ -3,13 +3,15 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -28,8 +30,19 @@ void main() {
     final feed = <Category, List<NewsBlock>>{
       Category.top: [
         SectionHeaderBlock(title: 'Top'),
-        DividerHorizontalBlock(),
         SpacerBlock(spacing: Spacing.medium),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        SpacerBlock(spacing: Spacing.extraLarge),
+        DividerHorizontalBlock(),
       ],
       Category.technology: [
         SectionHeaderBlock(title: 'Technology'),
@@ -228,6 +241,63 @@ void main() {
         expect(findCategoryFeed(defaultCategory), findsNothing);
         expect(findCategoryFeed(selectedCategory), findsOneWidget);
       });
+
+      testWidgets(
+        'scrolls to the top of CategoryFeed on double tap on CategoryTab',
+        (tester) async {
+          await tester.pumpApp(
+            MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: categoriesBloc),
+                BlocProvider.value(value: feedBloc),
+              ],
+              child: FeedViewPopulated(categories: categories),
+            ),
+          );
+
+          expect(
+            find.byType(DividerHorizontal),
+            findsNothing,
+          );
+          expect(
+            find.text('Top'),
+            findsOneWidget,
+          );
+
+          await tester.dragUntilVisible(
+            find.byType(DividerHorizontal),
+            find.byType(FeedViewPopulated),
+            Offset(0, -100),
+            duration: Duration.zero,
+          );
+
+          expect(
+            find.byType(DividerHorizontal),
+            findsOneWidget,
+          );
+
+          final tab = find.widgetWithText(
+            CategoryTab,
+            categories.first.name.toUpperCase(),
+          );
+
+          await tester.tap(tab);
+          await tester.pump(kDoubleTapMinTime);
+          await tester.tap(tab);
+
+          await tester.pump(Duration(milliseconds: 300));
+          await tester.pump(Duration(milliseconds: 300));
+
+          expect(
+            find.byType(DividerHorizontal),
+            findsNothing,
+          );
+          expect(
+            find.text('Top'),
+            findsOneWidget,
+          );
+        },
+      );
     });
   });
 }
