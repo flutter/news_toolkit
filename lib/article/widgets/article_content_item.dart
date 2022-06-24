@@ -61,6 +61,11 @@ class ArticleContentItem extends StatelessWidget {
       return const Newsletter();
     } else if (newsBlock is HtmlBlock) {
       return Html(block: newsBlock);
+    } else if (newsBlock is TrendingStoryBlock) {
+      return TrendingStory(
+        block: newsBlock,
+        title: context.l10n.trendingStoryTitle,
+      );
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
