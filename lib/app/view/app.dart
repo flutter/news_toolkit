@@ -59,7 +59,7 @@ class App extends StatelessWidget {
               inAppPurchaseRepository: _inAppPurchaseRepository,
               analyticsRepository: _analyticsRepository,
               user: _user,
-            ),
+            )..add(AppOpened()),
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
           BlocProvider(

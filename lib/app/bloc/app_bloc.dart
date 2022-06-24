@@ -31,6 +31,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppUserSubscriptionPlanChanged>(_onUserSubscriptionPlanChanged);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AppLogoutRequested>(_onLogoutRequested);
+    on<AppOpened>(_onAppOpened);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
     _currentSubscriptionPlanSubscription = _inAppPurchaseRepository
@@ -99,6 +100,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     unawaited(_notificationsRepository.toggleNotifications(enable: false));
 
     unawaited(_userRepository.logOut());
+  }
+
+  Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
+    final count = await _userRepository.fetchNumberOfTimesAppOpened();
+    if (state.user.isAnonymous && count == 5) {
+      emit(state.copyWith(showLoginOverlay: true));
+    } else if (state.user.isAnonymous && count < 6) {
+      await _userRepository.incrementNumberOfTimesAppOpened();
+    }
   }
 
   @override
