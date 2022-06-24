@@ -64,15 +64,6 @@ void main() {
       ),
     );
 
-    // final productDetailsFromSubscription = ProductDetails(
-    //   id: product.id,
-    //   title: subscription.name.toString(),
-    //   description: subscription.benefits.toString(),
-    //   price: subscription.cost.monthly.toString(),
-    //   rawPrice: subscription.cost.monthly.toDouble(),
-    //   currencyCode: 'USD',
-    // );
-
     setUpAll(() {
       registerFallbackValue(SubscriptionPlan.none);
       registerFallbackValue(
@@ -141,63 +132,6 @@ void main() {
         emits(SubscriptionPlan.none),
       );
     });
-
-    // group('fetchProducts', () {
-    //   late InAppPurchaseRepository repository;
-    //   setUp(() {
-    //     repository = InAppPurchaseRepository(
-    //       authenticationClient: authenticationClient,
-    //       apiClient: apiClient,
-    //       inAppPurchase: inAppPurchase,
-    //     );
-
-    //     when(() => apiClient.getSubscriptions()).thenAnswer(
-    //       (invocation) async => SubscriptionsResponse(
-    //         subscriptions: [subscription],
-    //       ),
-    //     );
-    //   });
-
-    //   group('calls getSubscriptions ', () {
-    //     test(
-    //         'which returns cachedProducts list '
-    //         'and calls getSubscriptions only once '
-    //         'when cachedProducts is not empty', () async {
-    //       final result = await repository.fetchProducts();
-    //       final nextResult = await repository.fetchProducts();
-
-    //       verify(() => apiClient.getSubscriptions()).called(1);
-
-    //       expect(
-    //         result.first.equals(nextResult.first),
-    //         isTrue,
-    //       );
-    //     });
-
-    //     test(
-    //         'and returns cachedProducts list '
-    //         'when cachedProducts is empty', () async {
-    //       final result = await repository.fetchProducts();
-
-    //       expect(
-    //         result.first.equals(productDetailsFromSubscription),
-    //         isTrue,
-    //       );
-    //     });
-
-    //     test(
-    //         'and throws FetchInAppProductsFailure '
-    //         'when getSubscriptions fails', () async {
-    //       when(() => apiClient.getSubscriptions())
-    //           .thenThrow(() => FetchInAppProductsFailure);
-
-    //       expect(
-    //         repository.fetchProducts(),
-    //         throwsA(isA<FetchInAppProductsFailure>()),
-    //       );
-    //     });
-    //   });
-    // });
 
     group('purchase', () {
       late InAppPurchaseRepository repository;
