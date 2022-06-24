@@ -14,23 +14,16 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
     required UserRepository userRepository,
   })  : _analyticsRepository = analyticsRepository,
         super(AnalyticsInitial()) {
-    on<UserChanged>(_onUserChanged);
     on<TrackAnalyticsEvent>(_onTrackAnalyticsEvent);
 
-    _userSubscription = userRepository.user.listen(_userChanged);
+    _userSubscription = userRepository.user.listen(_onUserChanged);
   }
 
   final analytics.AnalyticsRepository _analyticsRepository;
   late StreamSubscription<User> _userSubscription;
 
-  void _userChanged(User user) => add(UserChanged(user));
-
-  Future<void> _onUserChanged(
-    UserChanged event,
-    Emitter<AnalyticsState> emit,
-  ) async {
+  Future<void> _onUserChanged(User user) async {
     try {
-      final user = event.user;
       await _analyticsRepository
           .setUserId(user != User.anonymous ? user.id : null);
     } catch (error, stackTrace) {

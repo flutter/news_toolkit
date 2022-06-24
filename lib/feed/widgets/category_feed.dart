@@ -6,9 +6,15 @@ import 'package:google_news_template/l10n/l10n.dart';
 import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
-  const CategoryFeed({super.key, required this.category});
+  const CategoryFeed({
+    super.key,
+    required this.category,
+    this.scrollController,
+  });
 
   final Category category;
+
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,7 @@ class CategoryFeed extends StatelessWidget {
       },
       child: ListView.builder(
         itemCount: categoryFeed.length + 1,
+        controller: scrollController,
         itemBuilder: (context, index) {
           if (index == categoryFeed.length) {
             return hasMoreNews
