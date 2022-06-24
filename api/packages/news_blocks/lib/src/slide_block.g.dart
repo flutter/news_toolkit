@@ -17,6 +17,8 @@ SlideBlock _$SlideBlockFromJson(Map<String, dynamic> json) => $checkedCreate(
           description: $checkedConvert('description', (v) => v as String?),
           photoCredit: $checkedConvert('photo_credit', (v) => v as String?),
           imageUrl: $checkedConvert('image_url', (v) => v as String?),
+          type: $checkedConvert(
+              'type', (v) => v as String? ?? SlideBlock.identifier),
         );
         return val;
       },
@@ -39,5 +41,6 @@ Map<String, dynamic> _$SlideBlockToJson(SlideBlock instance) {
   writeNotNull('description', instance.description);
   writeNotNull('photo_credit', instance.photoCredit);
   writeNotNull('image_url', instance.imageUrl);
+  val['type'] = instance.type;
   return val;
 }

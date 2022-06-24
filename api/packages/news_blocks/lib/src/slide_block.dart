@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -8,14 +9,19 @@ part 'slide_block.g.dart';
 ///
 /// {@endtemplate}
 @JsonSerializable()
-class SlideBlock implements NewsBlock {
+class SlideBlock with EquatableMixin implements NewsBlock {
   /// {@macro slide_block}
   const SlideBlock({
     this.caption,
     this.description,
     this.photoCredit,
     this.imageUrl,
+    this.type = SlideBlock.identifier,
   });
+
+  /// Converts a `Map<String, dynamic>` into a [SlideBlock] instance.
+  factory SlideBlock.fromJson(Map<String, dynamic> json) =>
+      _$SlideBlockFromJson(json);
 
   /// The caption of the slide image.
   final String? caption;
@@ -29,13 +35,16 @@ class SlideBlock implements NewsBlock {
   /// The URL of the slide image.
   final String? imageUrl;
 
-  /// Converts a `Map<String, dynamic>` into a [SlideBlock] instance.
-  factory SlideBlock.fromJson(Map<String, dynamic> json) =>
-      _$SlideBlockFromJson(json);
-
   /// The slide block type identifier.
   static const identifier = '__slide_block__';
 
   @override
   Map<String, dynamic> toJson() => _$SlideBlockToJson(this);
+
+  @override
+  final String type;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }

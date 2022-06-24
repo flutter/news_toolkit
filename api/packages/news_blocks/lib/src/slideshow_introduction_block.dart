@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -8,11 +9,12 @@ part 'slideshow_introduction_block.g.dart';
 ///
 /// {@endtemplate}
 @JsonSerializable()
-class SlideshowIntroductionBlock implements NewsBlock {
+class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro slideshow_introduction_block}
   const SlideshowIntroductionBlock({
     required this.title,
     this.coverImageUrl,
+    this.type = SlideshowIntroductionBlock.identifier,
   });
 
   /// The title of this slideshow.
@@ -29,5 +31,12 @@ class SlideshowIntroductionBlock implements NewsBlock {
   static const identifier = '__slideshow_introducion_block__';
 
   @override
-  Map<String, dynamic> toJson() => _$SlideshowIntroductionBlock(this);
+  Map<String, dynamic> toJson() => _$SlideshowIntroductionBlockToJson(this);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+
+  @override
+  final String type;
 }

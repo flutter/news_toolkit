@@ -20,6 +20,8 @@ SlideshowBlock _$SlideshowBlockFromJson(Map<String, dynamic> json) =>
               (v) => (v as List<dynamic>)
                   .map((e) => SlideBlock.fromJson(e as Map<String, dynamic>))
                   .toList()),
+          type: $checkedConvert(
+              'type', (v) => v as String? ?? SlideshowBlock.identifier),
         );
         return val;
       },
@@ -29,4 +31,5 @@ Map<String, dynamic> _$SlideshowBlockToJson(SlideshowBlock instance) =>
     <String, dynamic>{
       'title': instance.title,
       'slides': instance.slides.map((e) => e.toJson()).toList(),
+      'type': instance.type,
     };
