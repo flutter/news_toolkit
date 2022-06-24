@@ -45,6 +45,11 @@ class SlideBlock with EquatableMixin implements NewsBlock {
   final String type;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        type,
+        caption,
+        description,
+        photoCredit,
+        imageUrl,
+      ];
 }

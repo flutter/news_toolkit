@@ -34,8 +34,7 @@ class SlideshowBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$SlideshowBlockToJson(this);
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [type, title, slides];
 
   @override
   final String type;
