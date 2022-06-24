@@ -209,6 +209,25 @@ final technologyLargeItems = <NewsItem>[
       ),
       const SpacerBlock(spacing: Spacing.large),
       const NewsletterBlock(),
+      const DividerHorizontalBlock(),
+      TrendingStoryBlock(
+        content: PostSmallBlock(
+          id: '5c47497a-608b-4e9b-a7f0-642a02594900',
+          category: PostCategory.technology,
+          author: 'Fall Guys',
+          publishedAt: DateTime(2022, 3, 9),
+          imageUrl:
+              'https://cdn2.unrealengine.com/preregevent-3840x2160-03-pp-3840x2160-74911d8b9813.jpg',
+          title: 'Fall Guys: Ultimate Knockout'
+              ' free for ALL',
+          description: 'Welcome to Fall Guys: Free for All! You are invited to '
+              'dive and dodge your way to victory in the pantheon of clumsy. '
+              'Rookie or pro? Solo or partied up? '
+              'Fall Guys delivers ever-evolving, '
+              'high-concentrated hilarity and fun!',
+        ),
+      ),
+      const DividerHorizontalBlock(),
     ],
     contentPreview: [
       ArticleIntroductionBlock(
