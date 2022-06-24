@@ -25,8 +25,8 @@ void main() {
       );
     });
 
-    group('html style', () {
-      testWidgets('styles <p> tags correctly', (tester) async {
+    group('styles', () {
+      testWidgets('<p> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<p>Test</p>');
 
         final theme = AppTheme().themeData;
@@ -49,7 +49,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h1> tags correctly', (tester) async {
+
+      testWidgets('<h1> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h1>Test</h1>');
 
         final theme = AppTheme().themeData;
@@ -72,7 +73,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h2> tags correctly', (tester) async {
+
+      testWidgets('<h2> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h2>Test</h2>');
 
         final theme = AppTheme().themeData;
@@ -95,7 +97,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h3> tags correctly', (tester) async {
+
+      testWidgets('<h3> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h3>Test</h3>');
 
         final theme = AppTheme().themeData;
@@ -118,7 +121,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h4> tags correctly', (tester) async {
+
+      testWidgets('<h4> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h4>Test</h4>');
 
         final theme = AppTheme().themeData;
@@ -141,7 +145,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h5> tags correctly', (tester) async {
+
+      testWidgets('<h5> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h5>Test</h5>');
 
         final theme = AppTheme().themeData;
@@ -164,7 +169,8 @@ void main() {
           findsOneWidget,
         );
       });
-      testWidgets('styles <h6> tags correctly', (tester) async {
+
+      testWidgets('<h6> tags correctly', (tester) async {
         const block = HtmlBlock(content: '<h6>Test</h6>');
 
         final theme = AppTheme().themeData;
