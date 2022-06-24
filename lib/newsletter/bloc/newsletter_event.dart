@@ -4,9 +4,11 @@ abstract class NewsletterEvent extends Equatable {
   const NewsletterEvent();
 }
 
-class NewsletterSubscribed extends NewsletterEvent with AnalyticsEventMixin {
+class NewsletterSubscribed extends NewsletterEvent {
+  const NewsletterSubscribed();
+
   @override
-  AnalyticsEvent get event => const AnalyticsEvent('NewsletterSubscribed');
+  List<Object> get props => [];
 }
 
 class EmailChanged extends NewsletterEvent {
