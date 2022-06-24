@@ -55,14 +55,6 @@ class FetchSubscriptionsFailure extends InAppPurchaseFailure {
   const FetchSubscriptionsFailure(super.error);
 }
 
-/// {@template fetch_in_app_products_failure}
-/// An exception thrown when fetching in app products fails.
-/// {@endtemplate}
-class FetchInAppProductsFailure extends InAppPurchaseFailure {
-  /// {@macro fetch_in_app_products_failure}
-  const FetchInAppProductsFailure(super.error);
-}
-
 /// {@template query_in_app_product_details_failure}
 /// An exception thrown when querying in app product details fails.
 /// {@endtemplate}
@@ -118,8 +110,6 @@ class InAppPurchaseRepository {
     _inAppPurchase.purchaseStream
         .expand((value) => value)
         .listen(_onPurchaseUpdated);
-
-    unawaited(_updateCurrentSubscriptionPlan());
   }
 
   final InAppPurchase _inAppPurchase;
@@ -146,13 +136,17 @@ class InAppPurchaseRepository {
   Stream<PurchaseUpdate> get purchaseUpdateStream =>
       _purchaseUpdateStreamController.stream;
 
-  List<ProductDetails>? _cachedProducts;
+  List<Subscription>? _cachedSubscriptions;
 
-  /// Fetches the list of subscriptions.
+  /// Fetches and caches list of subscriptions from the server.
   Future<List<Subscription>> fetchSubscriptions() async {
     try {
+      if (_cachedSubscriptions != null) {
+        return _cachedSubscriptions!;
+      }
       final response = await _apiClient.getSubscriptions();
-      return response.subscriptions;
+      _cachedSubscriptions = response.subscriptions;
+      return _cachedSubscriptions ?? [];
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         FetchSubscriptionsFailure(error),
@@ -161,34 +155,16 @@ class InAppPurchaseRepository {
     }
   }
 
-  /// Fetches and caches in-app products from the server.
-  Future<List<ProductDetails>> _fetchProducts() async {
-    if (_cachedProducts != null) {
-      return _cachedProducts!;
-    }
-
-    try {
-      final subscriptions = await fetchSubscriptions();
-      _cachedProducts = subscriptions.toProductDetails();
-      return _cachedProducts ?? [];
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        FetchInAppProductsFailure(error),
-        stackTrace,
-      );
-    }
-  }
-
-  /// Allows the user to purchase given [product].
+  /// Allows the user to purchase given [subscription].
   ///
   /// When the payment is successfully completed, the app informs
   /// the server about the purchased product. The server then verifies
   /// if the purchase was correct and updates user's subscription.
   Future<void> purchase({
-    required ProductDetails product,
+    required Subscription subscription,
   }) async {
     final productDetailsResponse =
-        await _inAppPurchase.queryProductDetails({product.id});
+        await _inAppPurchase.queryProductDetails({subscription.id});
 
     if (productDetailsResponse.error != null) {
       Error.throwWithStackTrace(
@@ -202,7 +178,7 @@ class InAppPurchaseRepository {
     if (productDetailsResponse.productDetails.isEmpty) {
       Error.throwWithStackTrace(
         QueryInAppProductDetailsFailure(
-          'No products found with id ${product.id}.',
+          'No subscription found with id ${subscription.id}.',
         ),
         StackTrace.current,
       );
@@ -212,7 +188,7 @@ class InAppPurchaseRepository {
       Error.throwWithStackTrace(
         QueryInAppProductDetailsFailure(
           'Found ${productDetailsResponse.productDetails.length} products '
-          'with id ${product.id}. Only one should be found.',
+          'with id ${subscription.id}. Only one should be found.',
         ),
         StackTrace.current,
       );
@@ -272,11 +248,11 @@ class InAppPurchaseRepository {
     try {
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        final purchasedProduct = (await _fetchProducts())
+        final purchasedProduct = (await fetchSubscriptions())
             .firstWhere((product) => product.id == purchase.productID);
 
         _purchaseUpdateStreamController.add(
-          PurchasePurchased(product: purchasedProduct),
+          PurchasePurchased(subscription: purchasedProduct),
         );
 
         await _apiClient.createSubscription(
@@ -284,7 +260,7 @@ class InAppPurchaseRepository {
         );
 
         _purchaseUpdateStreamController.add(
-          PurchaseDelivered(product: purchasedProduct),
+          PurchaseDelivered(subscription: purchasedProduct),
         );
 
         await _updateCurrentSubscriptionPlan();
@@ -302,14 +278,15 @@ class InAppPurchaseRepository {
 
     try {
       if (purchase.pendingCompletePurchase) {
-        final purchasedProduct = (await _fetchProducts())
-            .firstWhere((product) => product.id == purchase.productID);
+        final purchasedSubscription = (await fetchSubscriptions()).firstWhere(
+          (subscription) => subscription.id == purchase.productID,
+        );
 
         await _inAppPurchase.completePurchase(purchase);
 
         _purchaseUpdateStreamController.add(
           PurchaseCompleted(
-            product: purchasedProduct,
+            subscription: purchasedSubscription,
           ),
         );
       }
@@ -352,11 +329,11 @@ abstract class PurchaseUpdate {
 class PurchaseDelivered extends PurchaseUpdate {
   /// {@macro purchase_delivered}
   PurchaseDelivered({
-    required this.product,
+    required this.subscription,
   }) : super();
 
-  /// A product associated with a purchase that was delivered.
-  final ProductDetails product;
+  /// A subscription associated with a purchase that was delivered.
+  final Subscription subscription;
 }
 
 /// {@template purchase_completed}
@@ -365,11 +342,11 @@ class PurchaseDelivered extends PurchaseUpdate {
 class PurchaseCompleted extends PurchaseUpdate {
   /// {@macro purchase_completed}
   PurchaseCompleted({
-    required this.product,
+    required this.subscription,
   }) : super();
 
-  /// A product that was successfully purchased.
-  final ProductDetails product;
+  /// A subscription that was successfully purchased.
+  final Subscription subscription;
 }
 
 /// {@template purchase_purchased}
@@ -378,11 +355,11 @@ class PurchaseCompleted extends PurchaseUpdate {
 class PurchasePurchased extends PurchaseUpdate {
   /// {@macro purchase_purchased}
   PurchasePurchased({
-    required this.product,
+    required this.subscription,
   }) : super();
 
-  /// A product that was successfully purchased.
-  final ProductDetails product;
+  /// A subscription that was successfully purchased.
+  final Subscription subscription;
 }
 
 /// {@template purchase_canceled}
@@ -402,7 +379,7 @@ class PurchaseFailed extends PurchaseUpdate {
     required this.failure,
   }) : super();
 
-  /// A failure which occurred when purchasing a product.
+  /// A failure which occurred when purchasing a subscription.
   final InAppPurchaseFailure failure;
 }
 

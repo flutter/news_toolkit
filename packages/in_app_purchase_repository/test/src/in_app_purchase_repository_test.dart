@@ -133,6 +133,63 @@ void main() {
       );
     });
 
+    group('fetchSubscriptions', () {
+      late InAppPurchaseRepository repository;
+      setUp(() {
+        repository = InAppPurchaseRepository(
+          authenticationClient: authenticationClient,
+          apiClient: apiClient,
+          inAppPurchase: inAppPurchase,
+        );
+
+        when(() => apiClient.getSubscriptions()).thenAnswer(
+          (invocation) async => SubscriptionsResponse(
+            subscriptions: [subscription],
+          ),
+        );
+      });
+
+      group('calls getSubscriptions ', () {
+        test(
+            'which returns cachedProducts list '
+            'and calls getSubscriptions only once '
+            'when cachedProducts is not empty', () async {
+          final result = await repository.fetchSubscriptions();
+          final nextResult = await repository.fetchSubscriptions();
+
+          verify(() => apiClient.getSubscriptions()).called(1);
+
+          expect(
+            result,
+            equals(nextResult),
+          );
+        });
+
+        test(
+            'and returns cachedProducts list '
+            'when cachedProducts is empty', () async {
+          final result = await repository.fetchSubscriptions();
+
+          expect(
+            result,
+            equals([subscription]),
+          );
+        });
+
+        test(
+            'and throws FetchInAppProductsFailure '
+            'when getSubscriptions fails', () async {
+          when(() => apiClient.getSubscriptions())
+              .thenThrow(() => FetchSubscriptionsFailure);
+
+          expect(
+            repository.fetchSubscriptions(),
+            throwsA(isA<FetchSubscriptionsFailure>()),
+          );
+        });
+      });
+    });
+
     group('purchase', () {
       late InAppPurchaseRepository repository;
 
@@ -164,7 +221,7 @@ void main() {
         });
 
         test('and finishes successfully', () async {
-          await repository.purchase(product: product);
+          await repository.purchase(subscription: subscription);
 
           verify(
             () => inAppPurchase.buyNonConsumable(
@@ -183,7 +240,7 @@ void main() {
           ).thenAnswer((_) async => false);
 
           expect(
-            repository.purchase(product: product),
+            repository.purchase(subscription: subscription),
             throwsA(isA<InAppPurchaseBuyNonConsumableFailure>()),
           );
         });
@@ -208,7 +265,7 @@ void main() {
           );
 
           expect(
-            repository.purchase(product: product),
+            repository.purchase(subscription: subscription),
             throwsA(isA<QueryInAppProductDetailsFailure>()),
           );
         });
@@ -226,7 +283,7 @@ void main() {
           );
 
           expect(
-            repository.purchase(product: product),
+            repository.purchase(subscription: subscription),
             throwsA(isA<QueryInAppProductDetailsFailure>()),
           );
         });
@@ -244,7 +301,7 @@ void main() {
           );
 
           expect(
-            repository.purchase(product: product),
+            repository.purchase(subscription: subscription),
             throwsA(isA<QueryInAppProductDetailsFailure>()),
           );
         });
@@ -429,6 +486,30 @@ void main() {
         });
 
         test(
+            'and throws with PurchaseFailed '
+            'when apiClient.getCurrentUser throws', () async {
+          when(() => apiClient.getCurrentUser())
+              .thenAnswer((_) => throw Exception());
+
+          final repository = InAppPurchaseRepository(
+            authenticationClient: authenticationClient,
+            apiClient: apiClient,
+            inAppPurchase: inAppPurchase,
+          );
+
+          await expectLater(
+            repository.purchaseUpdateStream,
+            emitsInOrder(
+              <Matcher>[
+                isA<PurchasePurchased>(),
+                isA<PurchaseDelivered>(),
+                emitsError(isA<PurchaseFailed>())
+              ],
+            ),
+          );
+        });
+
+        test(
             'adds PurchasePurchased event '
             'and throws PurchaseFailed '
             'when apiClient.createSubscription throws', () async {
@@ -449,6 +530,32 @@ void main() {
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
+                emitsError(isA<PurchaseFailed>())
+              ],
+            ),
+          );
+        });
+
+        test(
+            'adds PurchasePurchased event '
+            'and throws PurchaseFailed '
+            'when apiClient.createSubscription throws', () async {
+          when(
+            () => apiClient.getCurrentUser(),
+          ).thenThrow(Exception());
+
+          final repository = InAppPurchaseRepository(
+            authenticationClient: authenticationClient,
+            apiClient: apiClient,
+            inAppPurchase: inAppPurchase,
+          );
+
+          expect(
+            repository.purchaseUpdateStream,
+            emitsInOrder(
+              <Matcher>[
+                isA<PurchasePurchased>(),
+                isA<PurchaseDelivered>(),
                 emitsError(isA<PurchaseFailed>())
               ],
             ),
@@ -578,6 +685,44 @@ void main() {
             ),
           );
         });
+
+        test(
+            'calls getSubscriptions only once '
+            'when cachedProducts is not empty', () async {
+          when(
+            () => inAppPurchase.completePurchase(any()),
+          ).thenAnswer((invocation) async {});
+          when(() => inAppPurchase.purchaseStream).thenAnswer(
+            (invocation) => Stream.fromIterable([
+              [
+                purchaseDetails.copyWith(
+                  status: PurchaseStatus.pending,
+                  pendingCompletePurchase: true,
+                ),
+                purchaseDetails.copyWith(
+                  status: PurchaseStatus.pending,
+                  pendingCompletePurchase: true,
+                )
+              ],
+            ]),
+          );
+
+          final repository = InAppPurchaseRepository(
+            authenticationClient: authenticationClient,
+            apiClient: apiClient,
+            inAppPurchase: inAppPurchase,
+          );
+
+          await expectLater(
+            repository.purchaseUpdateStream,
+            emitsInOrder(
+              <Matcher>[
+                isA<PurchaseCompleted>(),
+                isA<PurchaseCompleted>(),
+              ],
+            ),
+          );
+        });
       });
     });
 
@@ -622,6 +767,18 @@ void main() {
     });
   });
 }
+
+// /// Extension on [ProductDetails] enabling object comparison.
+// extension _ProductDetailsEquals on ProductDetails {
+//   /// Returns a copy of the current ProductDetails with the given parameters.
+//   bool equals(ProductDetails productDetails) =>
+//       productDetails.id == id &&
+//       productDetails.title == title &&
+//       productDetails.description == description &&
+//       productDetails.price == price &&
+//       productDetails.rawPrice == rawPrice &&
+//       productDetails.currencyCode == currencyCode;
+// }
 
 /// Extension on [PurchaseDetails] enabling copyWith.
 extension _PurchaseDetailsCopyWith on PurchaseDetails {
