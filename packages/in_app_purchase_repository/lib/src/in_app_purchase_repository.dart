@@ -120,7 +120,7 @@ class InAppPurchaseRepository {
 
   /// A stream of the current subscription plan of a user.
   Stream<SubscriptionPlan> get currentSubscriptionPlan =>
-      _currentSubscriptionPlanSubject.stream;
+      _currentSubscriptionPlanSubject.stream.asBroadcastStream();
 
   final _purchaseUpdateStreamController =
       StreamController<PurchaseUpdate>.broadcast();
@@ -133,7 +133,7 @@ class InAppPurchaseRepository {
   /// * [PurchaseCompleted]
   /// * [PurchaseFailed]
   Stream<PurchaseUpdate> get purchaseUpdateStream =>
-      _purchaseUpdateStreamController.stream;
+      _purchaseUpdateStreamController.stream.asBroadcastStream();
 
   List<Subscription>? _cachedSubscriptions;
 
