@@ -10,13 +10,6 @@ class MockAnalyticsEvent extends Mock implements analytics.AnalyticsEvent {}
 
 void main() {
   group('AnalyticsEvent', () {
-    group('UserChanged', () {
-      test('supports value comparisons', () {
-        final user = MockUser();
-        expect(UserChanged(user), UserChanged(user));
-      });
-    });
-
     group('TrackAnalyticsEvent', () {
       test('supports value comparisons', () {
         final event = MockAnalyticsEvent();
