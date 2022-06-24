@@ -23,9 +23,9 @@ class SlideBlock implements NewsBlock {
   factory SlideBlock.fromJson(Map<String, dynamic> json) =>
       _$SlideBlockFromJson(json);
 
-  /// The large post block type identifier.
+  /// The slide block type identifier.
   static const identifier = '__slide_block__';
 
   @override
-  Map<String, dynamic> toJson() => _$PostLargeBlockToJson(this);
+  Map<String, dynamic> toJson() => _$SlideBlockBlockToJson(this);
 }
