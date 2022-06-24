@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/analytics/analytics.dart' as analytics;
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:mocktail/mocktail.dart';
@@ -20,10 +19,6 @@ class MockUser extends Mock implements User {}
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
-
-class MockAnalyticsBloc
-    extends MockBloc<analytics.AnalyticsEvent, analytics.AnalyticsState>
-    implements analytics.AnalyticsBloc {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -38,18 +33,13 @@ void main() {
   group('LoginForm', () {
     late LoginBloc loginBloc;
     late AppBloc appBloc;
-    late analytics.AnalyticsBloc analyticsBloc;
     late User user;
-
-    const buttonText = 'button';
 
     setUp(() {
       loginBloc = MockLoginBloc();
       appBloc = MockAppBloc();
-      analyticsBloc = MockAnalyticsBloc();
       user = MockUser();
 
-      when(() => user.isNewUser).thenReturn(false);
       when(() => loginBloc.state).thenReturn(const LoginState());
     });
 
@@ -124,100 +114,6 @@ void main() {
           ]),
         );
       });
-
-      testWidgets(
-          'TrackAnalyticsEvent to AnalyticsBloc '
-          'with RegistrationEvent '
-          'when user is authenticated and new', (tester) async {
-        when(() => user.isNewUser).thenReturn(true);
-
-        whenListen(
-          appBloc,
-          Stream.fromIterable(
-            [
-              AppState.unauthenticated(),
-              AppState.authenticated(user),
-            ],
-          ),
-          initialState: const AppState.unauthenticated(),
-        );
-
-        await tester.pumpApp(
-          Builder(
-            builder: (context) {
-              return AppButton.black(
-                child: Text(buttonText),
-                onPressed: () => showAppModal<void>(
-                  context: context,
-                  builder: (context) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(value: appBloc),
-                      BlocProvider.value(value: analyticsBloc),
-                    ],
-                    child: LoginModal(),
-                  ),
-                  routeSettings: const RouteSettings(name: LoginModal.name),
-                ),
-              );
-            },
-          ),
-        );
-        await tester.tap(find.text(buttonText));
-        await tester.pumpAndSettle();
-
-        verify(
-          () => analyticsBloc.add(
-            analytics.TrackAnalyticsEvent(analytics.RegistrationEvent()),
-          ),
-        ).called(1);
-      });
-
-      testWidgets(
-          'TrackAnalyticsEvent to AnalyticsBloc '
-          'with LoginEvent '
-          'when user is authenticated and not new', (tester) async {
-        when(() => user.isNewUser).thenReturn(false);
-
-        whenListen(
-          appBloc,
-          Stream.fromIterable(
-            [
-              AppState.unauthenticated(),
-              AppState.authenticated(user),
-            ],
-          ),
-          initialState: const AppState.unauthenticated(),
-        );
-
-        await tester.pumpApp(
-          Builder(
-            builder: (context) {
-              return AppButton.black(
-                child: Text(buttonText),
-                onPressed: () => showAppModal<void>(
-                  context: context,
-                  builder: (context) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(value: appBloc),
-                      BlocProvider.value(value: analyticsBloc),
-                    ],
-                    child: LoginModal(),
-                  ),
-                  routeSettings: const RouteSettings(name: LoginModal.name),
-                ),
-              );
-            },
-          ),
-        );
-        await tester.tap(find.text(buttonText));
-        await tester.pumpAndSettle();
-
-        verify(
-          () => analyticsBloc.add(
-            analytics.TrackAnalyticsEvent(analytics.LoginEvent()),
-          ),
-        ).called(1);
-      });
     });
 
     group('renders', () {
@@ -268,6 +164,8 @@ void main() {
     });
 
     group('closes modal', () {
+      const buttonText = 'button';
+
       testWidgets('when the close icon is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
@@ -311,11 +209,8 @@ void main() {
                 child: Text(buttonText),
                 onPressed: () => showAppModal<void>(
                   context: context,
-                  builder: (context) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(value: appBloc),
-                      BlocProvider.value(value: analyticsBloc),
-                    ],
+                  builder: (context) => BlocProvider.value(
+                    value: appBloc,
                     child: LoginModal(),
                   ),
                   routeSettings: const RouteSettings(name: LoginModal.name),

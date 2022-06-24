@@ -2,11 +2,10 @@ import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/login/login.dart' hide LoginEvent;
+import 'package:google_news_template/login/login.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -21,12 +20,6 @@ class LoginForm extends StatelessWidget {
           Navigator.of(context)
               .popUntil((route) => route.settings.name == LoginModal.name);
           Navigator.of(context).pop();
-
-          context.read<AnalyticsBloc>().add(
-                TrackAnalyticsEvent(
-                  state.user.isNewUser ? RegistrationEvent() : LoginEvent(),
-                ),
-              );
         }
       },
       child: BlocListener<LoginBloc, LoginState>(
