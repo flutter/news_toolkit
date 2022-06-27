@@ -399,15 +399,15 @@ void main() {
     group('UserFailure', () {
       final error = Exception('errorMessage');
 
-      group('FetchNumberOfTimesAppOpenedFailure', () {
+      group('FetchAppOpenedCountFailure', () {
         test('has correct props', () {
-          expect(FetchNumberOfTimesAppOpenedFailure(error).props, [error]);
+          expect(FetchAppOpenedCountFailure(error).props, [error]);
         });
       });
 
-      group('SetNumberOfTimesAppOpenedFailure', () {
+      group('IncrementAppOpenedCountFailure', () {
         test('has correct props', () {
-          expect(IncrementNumberOfTimesAppOpenedFailure(error).props, [error]);
+          expect(IncrementAppOpenedCountFailure(error).props, [error]);
         });
       });
     });
@@ -420,12 +420,12 @@ void main() {
           packageInfoClient: packageInfoClient,
           deepLinkClient: deepLinkClient,
           storage: storage,
-        ).fetchNumberOfTimesAppOpened();
+        ).fetchAppOpenedCount();
         expect(result, 1);
       });
 
       test(
-          'throws a FetchNumberOfTimesAppOpenedFailure '
+          'throws a FetchAppOpenedCountFailure '
           'when fetching number of times app opened fails', () async {
         when(() => storage.fetchAppOpenedCount()).thenThrow(Exception());
 
@@ -435,14 +435,14 @@ void main() {
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,
             storage: storage,
-          ).fetchNumberOfTimesAppOpened(),
-          throwsA(isA<FetchNumberOfTimesAppOpenedFailure>()),
+          ).fetchAppOpenedCount(),
+          throwsA(isA<FetchAppOpenedCountFailure>()),
         );
       });
     });
 
     group('setAppOpenedCount', () {
-      test('set the value of number of times app opened', () async {
+      test('increment the count value when app is opened', () async {
         when(() => storage.fetchAppOpenedCount()).thenAnswer((_) async => 3);
 
         when(
@@ -455,13 +455,13 @@ void main() {
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,
             storage: storage,
-          ).incrementNumberOfTimesAppOpened(),
+          ).incrementAppOpenedCount(),
           completes,
         );
       });
 
       test(
-          'throws a IncrementNumberOfTimesAppOpenedFailure '
+          'throws a IncrementAppOpenedCountFailure '
           'when set number of times app opened fails', () async {
         when(
           () => storage.setAppOpenedCount(count: any(named: 'count')),
@@ -473,8 +473,8 @@ void main() {
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,
             storage: storage,
-          ).incrementNumberOfTimesAppOpened(),
-          throwsA(isA<IncrementNumberOfTimesAppOpenedFailure>()),
+          ).incrementAppOpenedCount(),
+          throwsA(isA<IncrementAppOpenedCountFailure>()),
         );
       });
     });

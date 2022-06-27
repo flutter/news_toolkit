@@ -54,7 +54,7 @@ void main() {
         expect(result, value);
       });
 
-      test('returns 1 when no value exists in Storage', () async {
+      test('returns 0 when no value exists in Storage', () async {
         when(
           () => storage.read(key: UserStorageKeys.appOpenedCount),
         ).thenAnswer((_) async => null);
@@ -68,7 +68,7 @@ void main() {
           ),
         ).called(1);
 
-        expect(result, 1);
+        expect(result, 0);
       });
     });
   });
