@@ -26,12 +26,12 @@ void main() {
       ],
     );
 
-    setUpAll(() {
+    setUp(() {
       inAppPurchaseRepository = MockInAppPurchaseRepository();
 
       when(
         () => inAppPurchaseRepository.currentSubscriptionPlan,
-      ).thenAnswer((_) => Stream.value(SubscriptionPlan.none));
+      ).thenAnswer((_) => Stream.empty());
       when(
         () => inAppPurchaseRepository.purchaseUpdateStream,
       ).thenAnswer((_) => Stream.empty());
@@ -56,6 +56,19 @@ void main() {
           ),
         ],
       );
+
+      blocTest<SubscriptionsBloc, SubscriptionsState>(
+        'adds error to state if fetchSubscriptions throws',
+        setUp: () => when(
+          inAppPurchaseRepository.fetchSubscriptions,
+        ).thenThrow(Exception()),
+        build: () => SubscriptionsBloc(
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        ),
+        act: (bloc) => bloc.add(SubscriptionsRequested()),
+        expect: () => <SubscriptionsState>[],
+        errors: () => [isA<Exception>()],
+      );
     });
 
     group(
@@ -73,6 +86,23 @@ void main() {
             currentSubscription: SubscriptionPlan.premium,
           ),
         ],
+      );
+
+      blocTest<SubscriptionsBloc, SubscriptionsState>(
+        'adds error to state if fetchSubscriptions throws',
+        setUp: () => when(
+          () => inAppPurchaseRepository.purchase(subscription: subscription),
+        ).thenThrow(Exception()),
+        build: () => SubscriptionsBloc(
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        ),
+        act: (bloc) =>
+            bloc.add(SubscriptionPurchaseRequested(subscription: subscription)),
+        expect: () => <SubscriptionsState>[
+          SubscriptionsState.initial()
+              .copyWith(purchaseStatus: PurchaseStatus.pending)
+        ],
+        errors: () => [isA<Exception>()],
       );
     });
 
