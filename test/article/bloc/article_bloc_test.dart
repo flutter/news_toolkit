@@ -76,7 +76,7 @@ void main() {
       );
     });
 
-    group('ArticleRequested', () {
+    group('on ArticleRequested', () {
       setUp(() {
         when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
         when(articleRepository.resetArticleViews).thenAnswer((_) async {});
@@ -109,6 +109,7 @@ void main() {
             status: ArticleStatus.populated,
             title: articleResponse.title,
             content: articleResponse.content,
+            contentTotalCount: articleResponse.totalCount,
             relatedArticles: [],
             uri: articleResponse.url,
             hasMoreContent: true,
@@ -138,6 +139,7 @@ void main() {
               ...articleStatePopulated.content,
               ...articleResponse.content,
             ],
+            contentTotalCount: articleResponse.totalCount,
             relatedArticles: relatedArticlesResponse.relatedArticles,
             hasMoreContent: false,
           )
@@ -219,6 +221,7 @@ void main() {
             status: ArticleStatus.populated,
             title: articleResponse.title,
             content: articleResponse.content,
+            contentTotalCount: articleResponse.totalCount,
             hasMoreContent: true,
             uri: articleResponse.url,
             hasReachedArticleViewsLimit: false,
@@ -300,6 +303,7 @@ void main() {
                 status: ArticleStatus.populated,
                 title: articleResponse.title,
                 content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
@@ -348,6 +352,7 @@ void main() {
                 status: ArticleStatus.populated,
                 title: articleResponse.title,
                 content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: false,
@@ -396,6 +401,7 @@ void main() {
                 status: ArticleStatus.populated,
                 title: articleResponse.title,
                 content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
                 uri: articleResponse.url,
                 hasMoreContent: true,
                 hasReachedArticleViewsLimit: true,
@@ -420,7 +426,44 @@ void main() {
       });
     });
 
-    group('ArticleRewardedAdWatched', () {
+    group('on ArticleContentSeen', () {
+      blocTest<ArticleBloc, ArticleState>(
+        'emits updated contentSeenCount '
+        'when new count (contentIndex + 1) is higher than current',
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 15)),
+        seed: () => articleStatePopulated.copyWith(
+          contentSeenCount: 10,
+        ),
+        expect: () => <ArticleState>[
+          articleStatePopulated.copyWith(
+            contentSeenCount: 16,
+          ),
+        ],
+      );
+
+      blocTest<ArticleBloc, ArticleState>(
+        'does not emit updated contentSeenCount '
+        'when new count (contentIndex + 1) is less than '
+        'or equal to current',
+        build: () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+        act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 9)),
+        seed: () => articleStatePopulated.copyWith(
+          contentSeenCount: 10,
+        ),
+        expect: () => <ArticleState>[],
+      );
+    });
+
+    group('on ArticleRewardedAdWatched', () {
       setUp(() {
         when(articleRepository.decrementArticleViews).thenAnswer((_) async {});
       });
@@ -510,7 +553,7 @@ void main() {
       );
     });
 
-    group('ArticleCommented', () {
+    group('on ArticleCommented', () {
       blocTest<ArticleBloc, ArticleState>(
         'does not emit a new state',
         build: () => ArticleBloc(
