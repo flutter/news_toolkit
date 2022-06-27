@@ -6,7 +6,6 @@ part 'slideshow_block.g.dart';
 
 /// {@template slideshow_block}
 /// A block which represents a slideshow.
-///
 /// {@endtemplate}
 @JsonSerializable()
 class SlideshowBlock with EquatableMixin implements NewsBlock {
