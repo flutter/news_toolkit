@@ -31,32 +31,39 @@ class SlideshowIntroduction extends StatelessWidget {
   Widget build(BuildContext context) {
     const isContentOverlaid = true;
     final textTheme = Theme.of(context).textTheme;
-    return GestureDetector(
-      // TODO call block extension method
-      onTap: () => onPressed?.call(block.action!),
-      child: Stack(
-        key: const Key('slideshow_introduction_stack'),
-        alignment: Alignment.bottomLeft,
-        children: [
-          PostLargeImage(
-            imageUrl: block.coverImageUrl,
-            isContentOverlaid: isContentOverlaid,
-            isLocked: false,
-          ),
-          Column(
-            children: [
-              SlideshowCategory(slideshowText: slideshowText),
-              Text(
-                block.title,
-                style: textTheme.headline3?.copyWith(
-                  color: AppColors.highEmphasisPrimary,
-                ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: GestureDetector(
+        // TODO call block extension method
+        onTap: () => onPressed?.call(block.action!),
+        child: Stack(
+          key: const Key('slideshow_introduction_stack'),
+          alignment: Alignment.bottomLeft,
+          children: [
+            PostLargeImage(
+              imageUrl: block.coverImageUrl,
+              isContentOverlaid: isContentOverlaid,
+              isLocked: false,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SlideshowCategory(slideshowText: slideshowText),
+                  Text(
+                    block.title,
+                    style: textTheme.headline3?.copyWith(
+                      color: AppColors.highEmphasisPrimary,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
