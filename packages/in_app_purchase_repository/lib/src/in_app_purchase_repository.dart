@@ -367,7 +367,7 @@ class PurchasePurchased extends PurchaseUpdate {
   final Subscription subscription;
 
   @override
-  List<Object?> get props => [subscription];
+  List<Object> get props => [subscription];
 }
 
 /// {@template purchase_canceled}
