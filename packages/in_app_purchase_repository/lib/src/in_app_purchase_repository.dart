@@ -16,7 +16,7 @@ abstract class InAppPurchaseFailure with EquatableMixin implements Exception {
   final Object error;
 
   @override
-  List<Object?> get props => [error];
+  List<Object> get props => [error];
 }
 
 /// {@template deliver_in_app_purchase_failure}
@@ -62,16 +62,16 @@ class QueryInAppProductDetailsFailure extends InAppPurchaseFailure {
   const QueryInAppProductDetailsFailure(super.error);
 }
 
-/// {@template in_app_purchase_buy_consumable_failure}
+/// {@template in_app_purchase_buy_non_consumable_failure}
 /// An exception thrown when buyNonConsumable returns false.
 /// {@endtemplate}
 class InAppPurchaseBuyNonConsumableFailure extends InAppPurchaseFailure {
-  /// {@macro in_app_purchase_buy_consumable_failure}
+  /// {@macro in_app_purchase_buy_non_consumable_failure}
   const InAppPurchaseBuyNonConsumableFailure(super.error);
 }
 
 /// {@template fetch_current_subscription_failure}
-/// An exception thrown when fetchCurrentSubscription fails.
+/// An exception thrown when fetching current subscription fails.
 class FetchCurrentSubscriptionFailure extends InAppPurchaseFailure {
   /// {@macro fetch_current_subscription_failure}
   const FetchCurrentSubscriptionFailure(super.error);
