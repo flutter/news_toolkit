@@ -21,7 +21,7 @@ class SlideshowIntroduction extends StatelessWidget {
 
   /// An optional callback which is invoked when the action is triggered.
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
-  final BlockActionCallback? onPressed;
+  final Function? onPressed;
 
   /// Text displayed in the slideshow category widget
   final String slideshowText;
@@ -33,7 +33,7 @@ class SlideshowIntroduction extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
-        onTap: () => onPressed?.call(block.action!),
+        onTap: () => onPressed,
         child: Stack(
           key: const Key('slideshow_introduction_stack'),
           alignment: Alignment.bottomLeft,
