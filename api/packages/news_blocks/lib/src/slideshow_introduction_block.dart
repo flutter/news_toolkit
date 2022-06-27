@@ -6,14 +6,13 @@ part 'slideshow_introduction_block.g.dart';
 
 /// {@template slideshow_introduction_block}
 /// A block which represents a slideshow introduction.
-///
 /// {@endtemplate}
 @JsonSerializable()
 class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro slideshow_introduction_block}
   const SlideshowIntroductionBlock({
     required this.title,
-    this.coverImageUrl,
+    required this.coverImageUrl,
     this.type = SlideshowIntroductionBlock.identifier,
     this.action,
   });
@@ -26,14 +25,14 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   final String title;
 
   /// The slideshow cover image URL.
-  final String? coverImageUrl;
+  final String coverImageUrl;
 
   /// An optional action which occurs upon interaction.
   @BlockActionConverter()
   final BlockAction? action;
 
   /// The slideshow introduction block type identifier.
-  static const identifier = '__slideshow_introduction_block__';
+  static const identifier = '__slideshow_introduction__';
 
   @override
   Map<String, dynamic> toJson() => _$SlideshowIntroductionBlockToJson(this);

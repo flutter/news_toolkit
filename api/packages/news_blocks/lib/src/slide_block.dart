@@ -6,16 +6,15 @@ part 'slide_block.g.dart';
 
 /// {@template slide_block}
 /// A block which represents a slide in a slideshow.
-///
 /// {@endtemplate}
 @JsonSerializable()
 class SlideBlock with EquatableMixin implements NewsBlock {
   /// {@macro slide_block}
   const SlideBlock({
-    this.caption,
-    this.description,
-    this.photoCredit,
-    this.imageUrl,
+    required this.caption,
+    required this.description,
+    required this.photoCredit,
+    required this.imageUrl,
     this.type = SlideBlock.identifier,
   });
 
@@ -24,16 +23,16 @@ class SlideBlock with EquatableMixin implements NewsBlock {
       _$SlideBlockFromJson(json);
 
   /// The caption of the slide image.
-  final String? caption;
+  final String caption;
 
   /// The description of the slide.
-  final String? description;
+  final String description;
 
   /// The photo credit for the slide image.
-  final String? photoCredit;
+  final String photoCredit;
 
   /// The URL of the slide image.
-  final String? imageUrl;
+  final String imageUrl;
 
   /// The slide block type identifier.
   static const identifier = '__slide_block__';

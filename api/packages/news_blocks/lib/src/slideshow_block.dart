@@ -6,7 +6,6 @@ part 'slideshow_block.g.dart';
 
 /// {@template slideshow_block}
 /// A block which represents a slideshow.
-///
 /// {@endtemplate}
 @JsonSerializable()
 class SlideshowBlock with EquatableMixin implements NewsBlock {
@@ -28,7 +27,7 @@ class SlideshowBlock with EquatableMixin implements NewsBlock {
   final List<SlideBlock> slides;
 
   /// The slideshow block type identifier.
-  static const identifier = '__slideshow_block__';
+  static const identifier = '__slideshow__';
 
   @override
   Map<String, dynamic> toJson() => _$SlideshowBlockToJson(this);

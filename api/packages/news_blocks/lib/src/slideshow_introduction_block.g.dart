@@ -16,8 +16,7 @@ SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
       ($checkedConvert) {
         final val = SlideshowIntroductionBlock(
           title: $checkedConvert('title', (v) => v as String),
-          coverImageUrl:
-              $checkedConvert('cover_image_url', (v) => v as String?),
+          coverImageUrl: $checkedConvert('cover_image_url', (v) => v as String),
           type: $checkedConvert('type',
               (v) => v as String? ?? SlideshowIntroductionBlock.identifier),
           action: $checkedConvert('action',
@@ -29,19 +28,9 @@ SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
     );
 
 Map<String, dynamic> _$SlideshowIntroductionBlockToJson(
-    SlideshowIntroductionBlock instance) {
-  final val = <String, dynamic>{
-    'title': instance.title,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('cover_image_url', instance.coverImageUrl);
-  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
-  val['type'] = instance.type;
-  return val;
-}
+        SlideshowIntroductionBlock instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'cover_image_url': instance.coverImageUrl,
+      'type': instance.type,
+    };
