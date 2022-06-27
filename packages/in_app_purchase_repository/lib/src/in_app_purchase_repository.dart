@@ -16,7 +16,7 @@ abstract class InAppPurchaseFailure with EquatableMixin implements Exception {
   final Object error;
 
   @override
-  List<Object?> get props => [error];
+  List<Object> get props => [error];
 }
 
 /// {@template deliver_in_app_purchase_failure}
