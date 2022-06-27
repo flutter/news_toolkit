@@ -50,7 +50,7 @@ class SlideshowIntroduction extends StatelessWidget {
                 children: [
                   SlideshowCategory(slideshowText: slideshowText),
                   const SizedBox(
-                    height: AppSpacing.sm,
+                    height: AppSpacing.xs,
                   ),
                   Text(
                     block.title,
