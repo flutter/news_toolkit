@@ -378,7 +378,7 @@ class PurchaseCanceled extends PurchaseUpdate {
   const PurchaseCanceled() : super();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 /// {@template purchase_failed}
