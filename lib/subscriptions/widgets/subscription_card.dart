@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart' hide Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/subscriptions/dialog/dialog.dart';
@@ -32,6 +33,9 @@ class SubscriptionCard extends StatelessWidget {
       symbol: r'$',
     ).format(
       subscription.cost.annual / 100,
+    );
+    final isLoggedIn = context.select<AppBloc, bool>(
+      (AppBloc bloc) => bloc.state.status == AppStatus.authenticated,
     );
 
     return Card(
@@ -109,12 +113,21 @@ class SubscriptionCard extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               AppButton.smallRedWine(
                 key: const Key('subscriptionCard_subscribeButton'),
-                onPressed: () => context.read<SubscriptionsBloc>().add(
-                      SubscriptionPurchaseRequested(subscription: subscription),
-                    ),
+                onPressed: isLoggedIn
+                    ? () => context.read<SubscriptionsBloc>().add(
+                          SubscriptionPurchaseRequested(
+                            subscription: subscription,
+                          ),
+                        )
+                    : null,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text(l10n.subscriptionPurchaseButton)],
+                  children: [
+                    if (isLoggedIn)
+                      Text(l10n.subscriptionPurchaseButton)
+                    else
+                      Text(l10n.subscriptionUnauthenticatedPurchaseButton)
+                  ],
                 ),
               ),
             ] else

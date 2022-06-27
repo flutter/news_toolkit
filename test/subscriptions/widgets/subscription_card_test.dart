@@ -1,10 +1,22 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../helpers/pump_app.dart';
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockSubscriptionsBloc
+    extends MockBloc<SubscriptionsEvent, SubscriptionsState>
+    implements SubscriptionsBloc {}
+
+class MockUser extends Mock implements User {}
 
 void main() {
   group('SubscriptionCard', () {
@@ -45,39 +57,53 @@ void main() {
         );
       });
 
-      testWidgets('opens PurchaseSubscriptionDialog on subscribeButton tap',
-          (tester) async {
+      testWidgets(
+          'adds SubscriptionPurchaseRequested '
+          'on subscribeButton tap '
+          'when user is logged in', (tester) async {
         final inAppPurchaseRepository = MockInAppPurchaseRepository();
+        final appBloc = MockAppBloc();
+        final SubscriptionsBloc subscriptionsBloc = MockSubscriptionsBloc();
 
-        when(
-          () => inAppPurchaseRepository.currentSubscriptionPlan,
-        ).thenAnswer(
-          (_) => Stream.fromIterable([
-            SubscriptionPlan.none,
-          ]),
-        );
-
-        when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
-          (_) => const Stream.empty(),
-        );
-
-        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
-          (invocation) async => [],
-        );
-        await tester.pumpApp(
-          const SubscriptionCard(
-            isExpanded: true,
-            subscription: subscription,
+        when(() => appBloc.state).thenAnswer(
+          (_) => AppState.authenticated(
+            MockUser(),
+            userSubscriptionPlan: SubscriptionPlan.premium,
           ),
+        );
+
+        when(() => subscriptionsBloc.state).thenAnswer(
+          (_) => SubscriptionsState.initial(),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: subscriptionsBloc,
+            child: Builder(
+              builder: (context) {
+                return const SubscriptionCard(
+                  isExpanded: true,
+                  subscription: subscription,
+                );
+              },
+            ),
+          ),
+          appBloc: appBloc,
           inAppPurchaseRepository: inAppPurchaseRepository,
         );
 
         await tester
             .tap(find.byKey(const Key('subscriptionCard_subscribeButton')));
 
-        await tester.pump();
+        await tester.pumpAndSettle();
 
-        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
+        verify(
+          () => subscriptionsBloc.add(
+            SubscriptionPurchaseRequested(
+              subscription: subscription,
+            ),
+          ),
+        ).called(1);
       });
     });
 

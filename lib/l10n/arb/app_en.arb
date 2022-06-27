@@ -551,6 +551,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "subscriptionUnauthenticatedPurchaseButton": "Log in to subscribe",
+  "@subscriptionUnauthenticatedPurchaseButton": {
+    "description": "Text shown in button on subscription purchase overlay when user is unauthenticated.",
+    "type": "text",
+    "placeholders": {}
+  },
   "subscriptionViewDetailsButton": "View Details",
   "@subscriptionViewDetailsButton": {
     "description": "Text shown in unimplemented button on subscription purchase overlay.",
