@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:clock/clock.dart';
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 import 'package:purchase_client/src/products.dart';
 
 /// Extension on [PurchaseDetails] enabling copyWith.
-@visibleForTesting
 extension PurchaseDetailsCopyWith on PurchaseDetails {
   /// Returns a copy of the current PurchaseDetails with the given parameters.
   PurchaseDetails copyWith({
