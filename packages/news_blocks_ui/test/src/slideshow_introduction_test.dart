@@ -11,7 +11,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import '../helpers/helpers.dart';
 
 class MockNavigateToArticleAction extends Mock
-    implements NavigateToFeedCategoryAction {}
+    implements NavigateToArticleAction {}
 
 void main() {
   const imageUrl =
@@ -98,33 +98,33 @@ void main() {
     testWidgets(
       'onPressed is called with action when tapped',
       (tester) async {
-        // final action = MockNavigateToArticleAction();
+        final action = MockNavigateToArticleAction();
 
-        // final block = SlideshowIntroductionBlock(
-        //   title: 'title',
-        //   coverImageUrl: imageUrl,
-        //   action: action,
-        // );
+        final block = SlideshowIntroductionBlock(
+          title: 'title',
+          coverImageUrl: imageUrl,
+          action: action,
+        );
 
-        // await mockNetworkImages(
-        //   () async => tester.pumpContentThemedApp(
-        //     SingleChildScrollView(
-        //       child: Column(
-        //         children: [
-        //           SlideshowIntroduction(
-        //             block: block,
-        //             slideshowText: 'slideshowText',
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // );
+        await mockNetworkImages(
+          () async => tester.pumpContentThemedApp(
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SlideshowIntroduction(
+                    block: block,
+                    slideshowText: 'slideshowText',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
 
-        // await tester.ensureVisible(find.byType(SlideshowIntroduction));
-        // await tester.tap(find.byType(SlideshowIntroduction));
+        await tester.ensureVisible(find.byType(SlideshowIntroduction));
+        await tester.tap(find.byType(SlideshowIntroduction));
 
-        // verify(() => action).called(1);
+        verify(() => action).called(1);
       },
     );
   });
