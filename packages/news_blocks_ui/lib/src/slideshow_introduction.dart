@@ -49,12 +49,15 @@ class SlideshowIntroduction extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SlideshowCategory(slideshowText: slideshowText),
+                  const SizedBox(
+                    height: AppSpacing.sm,
+                  ),
                   Text(
                     block.title,
-                    style: textTheme.headline3?.copyWith(
+                    style: textTheme.headline2?.copyWith(
                       color: AppColors.highEmphasisPrimary,
                     ),
-                    maxLines: 3,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
