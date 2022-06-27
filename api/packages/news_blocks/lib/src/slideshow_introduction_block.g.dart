@@ -20,6 +20,8 @@ SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
               $checkedConvert('cover_image_url', (v) => v as String?),
           type: $checkedConvert('type',
               (v) => v as String? ?? SlideshowIntroductionBlock.identifier),
+          action: $checkedConvert('action',
+              (v) => const BlockActionConverter().fromJson(v as Map?)),
         );
         return val;
       },
@@ -39,6 +41,7 @@ Map<String, dynamic> _$SlideshowIntroductionBlockToJson(
   }
 
   writeNotNull('cover_image_url', instance.coverImageUrl);
+  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
   val['type'] = instance.type;
   return val;
 }
