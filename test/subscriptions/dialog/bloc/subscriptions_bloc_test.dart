@@ -58,7 +58,9 @@ void main() {
       );
     });
 
-    group('adds CurrentSubscriptionChanged', () {
+    group(
+        'on CurrentSubscriptionChanged '
+        'updates currentSubscription', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
         'when InAppPurchaseRepository.currentSubscriptionPlan changed',
         setUp: () => when(() => inAppPurchaseRepository.currentSubscriptionPlan)
