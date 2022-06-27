@@ -84,12 +84,12 @@ void main() {
       });
     });
 
-    group('InAppPurchaseUpdated', () {
+    group('SubscriptionPurchaseUpdated', () {
       test('supports value comparisons', () {
-        final event1 = InAppPurchaseUpdated(
+        final event1 = SubscriptionPurchaseUpdated(
           purchase: const PurchaseCanceled(),
         );
-        final event2 = InAppPurchaseUpdated(
+        final event2 = SubscriptionPurchaseUpdated(
           purchase: const PurchaseCanceled(),
         );
 

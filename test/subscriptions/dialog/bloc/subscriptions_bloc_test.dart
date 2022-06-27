@@ -39,19 +39,17 @@ void main() {
 
     group('on SubscriptionsRequested ', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
-        'calls inAppPurchaseRepository.fetchSubscriptions '
+        'calls InAppPurchaseRepository.fetchSubscriptions '
         'and emits state with fetched subscriptions',
         setUp: () => when(
-          () => inAppPurchaseRepository.fetchSubscriptions(),
+          inAppPurchaseRepository.fetchSubscriptions,
         ).thenAnswer(
           (_) async => [subscription],
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
         ),
-        act: (bloc) {
-          bloc.add(SubscriptionsRequested());
-        },
+        act: (bloc) => bloc.add(SubscriptionsRequested()),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
             subscriptions: [subscription],
@@ -60,18 +58,17 @@ void main() {
       );
     });
 
-    group('on CurrentSubscriptionChanged ', () {
+    group('adds CurrentSubscriptionChanged', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
-        'and emits state with currentSubscription changed',
+        'when InAppPurchaseRepository.currentSubscriptionPlan changed',
+        setUp: () => when(() => inAppPurchaseRepository.currentSubscriptionPlan)
+            .thenAnswer((_) => Stream.fromIterable([SubscriptionPlan.premium])),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
         ),
-        act: (bloc) {
-          bloc.add(CurrentSubscriptionChanged(subscription: subscription.name));
-        },
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
-            currentSubscription: subscription.name,
+            currentSubscription: SubscriptionPlan.premium,
           ),
         ],
       );
@@ -79,7 +76,7 @@ void main() {
 
     group('on SubscriptionPurchaseRequested ', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
-        'calls inAppPurchaseRepository.purchase '
+        'calls InAppPurchaseRepository.purchase '
         'and emits pending state',
         setUp: () => when(
           () => inAppPurchaseRepository.purchase(
@@ -91,9 +88,8 @@ void main() {
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
         ),
-        act: (bloc) {
-          bloc.add(SubscriptionPurchaseRequested(subscription: subscription));
-        },
+        act: (bloc) =>
+            bloc.add(SubscriptionPurchaseRequested(subscription: subscription)),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
             purchaseStatus: PurchaseStatus.pending,
@@ -102,7 +98,7 @@ void main() {
       );
     });
 
-    group('when _inAppPurchaseRepository.purchaseUpdateStream', () {
+    group('when InAppPurchaseRepository.purchaseUpdateStream', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
         'adds PurchasePurchased '
         'changes purchaseStatus to pending',
