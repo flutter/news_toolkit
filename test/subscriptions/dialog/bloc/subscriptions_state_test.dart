@@ -22,7 +22,7 @@ void main() {
       );
     });
 
-    test('supports value comparison', () {
+    test('supports value comparisons', () {
       expect(
         SubscriptionsState.initial(),
         equals(
@@ -31,7 +31,7 @@ void main() {
       );
     });
 
-    group('copyWith ', () {
+    group('copyWith', () {
       test(
           'returns same object '
           'when no parameters changed', () {
@@ -74,8 +74,8 @@ void main() {
       });
 
       test(
-          'returns object with updated selectedCategories '
-          'when selectedCategories changed', () {
+          'returns object with updated subscriptions '
+          'when subscriptions changed', () {
         expect(
           SubscriptionsState.initial().copyWith(
             subscriptions: [

@@ -17,7 +17,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     on<SubscriptionsRequested>(_onSubscriptionsRequested);
     on<CurrentSubscriptionChanged>(_onCurrentSubscriptionChanged);
     on<SubscriptionPurchaseRequested>(_onSubscriptionPurchaseRequested);
-    on<InAppPurchaseUpdated>(_onInAppPurchaseUpdated);
+    on<SubscriptionPurchaseUpdated>(_onSubscriptionPurchaseUpdated);
 
     _currentSubscriptionPlanSubscription =
         _inAppPurchaseRepository.currentSubscriptionPlan.listen(
@@ -28,9 +28,10 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
       ),
     );
 
-    _inAppPurchaseUpdateSubscription = _inAppPurchaseRepository
-        .purchaseUpdateStream
-        .listen((purchase) => add(InAppPurchaseUpdated(purchase: purchase)));
+    _inAppPurchaseUpdateSubscription =
+        _inAppPurchaseRepository.purchaseUpdateStream.listen(
+      (purchase) => add(SubscriptionPurchaseUpdated(purchase: purchase)),
+    );
   }
 
   final InAppPurchaseRepository _inAppPurchaseRepository;
@@ -44,8 +45,12 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     SubscriptionsRequested event,
     Emitter<SubscriptionsState> emit,
   ) async {
-    final subscriptions = await _inAppPurchaseRepository.fetchSubscriptions();
-    emit(state.copyWith(subscriptions: subscriptions));
+    try {
+      final subscriptions = await _inAppPurchaseRepository.fetchSubscriptions();
+      emit(state.copyWith(subscriptions: subscriptions));
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+    }
   }
 
   FutureOr<void> _onCurrentSubscriptionChanged(
@@ -59,12 +64,16 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     SubscriptionPurchaseRequested event,
     Emitter<SubscriptionsState> emit,
   ) async {
-    emit(state.copyWith(purchaseStatus: PurchaseStatus.pending));
-    await _inAppPurchaseRepository.purchase(subscription: event.subscription);
+    try {
+      emit(state.copyWith(purchaseStatus: PurchaseStatus.pending));
+      await _inAppPurchaseRepository.purchase(subscription: event.subscription);
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+    }
   }
 
-  FutureOr<void> _onInAppPurchaseUpdated(
-    InAppPurchaseUpdated event,
+  FutureOr<void> _onSubscriptionPurchaseUpdated(
+    SubscriptionPurchaseUpdated event,
     Emitter<SubscriptionsState> emit,
   ) {
     final purchase = event.purchase;
