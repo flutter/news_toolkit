@@ -8,7 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/login/login.dart' hide LoginEvent;
 import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:news_repository/news_repository.dart';
@@ -99,9 +99,11 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: FlowBuilder<AppStatus>(
-        state: context.select((AppBloc bloc) => bloc.state.status),
-        onGeneratePages: onGenerateAppViewPages,
+      home: AuthenticatedUserListener(
+        child: FlowBuilder<AppStatus>(
+          state: context.select((AppBloc bloc) => bloc.state.status),
+          onGeneratePages: onGenerateAppViewPages,
+        ),
       ),
     );
   }

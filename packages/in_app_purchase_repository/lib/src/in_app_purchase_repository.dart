@@ -62,16 +62,16 @@ class QueryInAppProductDetailsFailure extends InAppPurchaseFailure {
   const QueryInAppProductDetailsFailure(super.error);
 }
 
-/// {@template in_app_purchase_buy_consumable_failure}
+/// {@template in_app_purchase_buy_non_consumable_failure}
 /// An exception thrown when buyNonConsumable returns false.
 /// {@endtemplate}
 class InAppPurchaseBuyNonConsumableFailure extends InAppPurchaseFailure {
-  /// {@macro in_app_purchase_buy_consumable_failure}
+  /// {@macro in_app_purchase_buy_non_consumable_failure}
   const InAppPurchaseBuyNonConsumableFailure(super.error);
 }
 
 /// {@template fetch_current_subscription_failure}
-/// An exception thrown when fetchCurrentSubscription fails.
+/// An exception thrown when fetching current subscription fails.
 class FetchCurrentSubscriptionFailure extends InAppPurchaseFailure {
   /// {@macro fetch_current_subscription_failure}
   const FetchCurrentSubscriptionFailure(super.error);
@@ -82,21 +82,19 @@ class FetchCurrentSubscriptionFailure extends InAppPurchaseFailure {
 /// package to conduct native in-app purchase.
 ///
 /// Here is a quick explanation of how the purchase flow looks like:
-/// 1.  The app displays a list of available products that are fetched using the
-///     [fetchProducts] method.
+/// 1.  The app displays a list of available (subscriptions) that are fetched
+///     using the [fetchSubscriptions] method.
 ///
 /// 2.  Once the user selects one of the products, the [purchase] method is
 ///     called. This method does not update us about the entire purchase
 ///     process. However, the purchase updates are available through the
 ///     [purchaseStream](https://pub.dev/documentation/in_app_purchase/latest/in_app_purchase/InAppPurchase/purchaseStream.html).
 ///
-///
 /// 3.  Once a user successfully finishes the transaction, a [PurchaseDetails](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseDetails-class.html)
 ///     object is pushed to the `purchaseStream`. It will have a [pendingCompletePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/PurchaseDetails/pendingCompletePurchase.html)
 ///     flag set to true, which means that we need to deliver the content of the
 ///     product to the user and mark the purchase as completed using [completePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/InAppPurchasePlatform/completePurchase.html)
 ///     method.
-
 class InAppPurchaseRepository {
   /// {@macro in_app_purchase_repository}
   InAppPurchaseRepository({
@@ -132,7 +130,7 @@ class InAppPurchaseRepository {
   /// * [PurchaseDelivered]
   /// * [PurchaseCompleted]
   /// * [PurchaseFailed]
-  Stream<PurchaseUpdate> get purchaseUpdateStream =>
+  Stream<PurchaseUpdate> get purchaseUpdate =>
       _purchaseUpdateStreamController.stream.asBroadcastStream();
 
   List<Subscription>? _cachedSubscriptions;
@@ -157,7 +155,7 @@ class InAppPurchaseRepository {
   /// Allows the user to purchase given [subscription].
   ///
   /// When the payment is successfully completed, the app informs
-  /// the server about the purchased product. The server then verifies
+  /// the server about the purchased subscription. The server then verifies
   /// if the purchase was correct and updates user's subscription.
   Future<void> purchase({
     required Subscription subscription,
@@ -312,6 +310,89 @@ class InAppPurchaseRepository {
       );
     }
   }
+}
+
+/// {@template purchase_update}
+/// A base class that represents a purchase update.
+/// {@endtemplate}
+abstract class PurchaseUpdate extends Equatable {
+  /// {@macro purchase_update}
+  const PurchaseUpdate();
+}
+
+/// {@template purchase_delivered}
+/// An update representing a delivered purchase.
+/// {@endtemplate}
+class PurchaseDelivered extends PurchaseUpdate {
+  /// {@macro purchase_delivered}
+  const PurchaseDelivered({
+    required this.subscription,
+  }) : super();
+
+  /// A subscription associated with a purchase that was delivered.
+  final Subscription subscription;
+
+  @override
+  List<Object> get props => [subscription];
+}
+
+/// {@template purchase_completed}
+/// An update representing a completed purchase.
+/// {@endtemplate}
+class PurchaseCompleted extends PurchaseUpdate {
+  /// {@macro purchase_completed}
+  const PurchaseCompleted({
+    required this.subscription,
+  }) : super();
+
+  /// A subscription that was successfully purchased.
+  final Subscription subscription;
+
+  @override
+  List<Object> get props => [subscription];
+}
+
+/// {@template purchase_purchased}
+/// An update representing a purchased purchase that has not been delivered yet.
+/// {@endtemplate}
+class PurchasePurchased extends PurchaseUpdate {
+  /// {@macro purchase_purchased}
+  const PurchasePurchased({
+    required this.subscription,
+  }) : super();
+
+  /// A subscription that was successfully purchased.
+  final Subscription subscription;
+
+  @override
+  List<Object> get props => [subscription];
+}
+
+/// {@template purchase_canceled}
+/// An update representing canceled purchase.
+/// {@endtemplate}
+class PurchaseCanceled extends PurchaseUpdate {
+  /// {@macro purchase_canceled}
+  const PurchaseCanceled() : super();
+
+  @override
+  List<Object> get props => [];
+}
+
+/// {@template purchase_failed}
+/// An update representing failed purchase.
+/// {@endtemplate}
+class PurchaseFailed extends PurchaseUpdate {
+  /// {@macro purchase_failed}
+  const PurchaseFailed({
+    required this.failure,
+  }) : super();
+
+  /// A failure which occurred when purchasing a subscription.
+  final InAppPurchaseFailure failure;
+
+  @override
+  List<Object> get props => [];
 }
 
 /// {@template purchase_update}
