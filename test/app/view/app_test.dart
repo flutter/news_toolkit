@@ -56,9 +56,9 @@ void main() {
           .thenAnswer((_) => const Stream.empty());
       when(() => inAppPurchaseRepository.currentSubscriptionPlan)
           .thenAnswer((_) => const Stream.empty());
-      when(() => userRepository.fetchNumberOfTimesAppOpened())
+      when(() => userRepository.fetchAppOpenedCount())
           .thenAnswer((_) async => 2);
-      when(() => userRepository.incrementNumberOfTimesAppOpened())
+      when(() => userRepository.incrementAppOpenedCount())
           .thenAnswer((_) async {});
     });
 

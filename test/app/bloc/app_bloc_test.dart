@@ -390,12 +390,12 @@ void main() {
 
     group('AppOpened', () {
       blocTest<AppBloc, AppState>(
-        'calls incrementNumberOfTimesAppOpened when fetchNumberOfTimesAppOpened'
+        'calls incrementAppOpenedCount when fetchAppOpenedCount'
         ' returns a count value of 5 and user isAnonymous',
         setUp: () {
-          when(() => userRepository.fetchNumberOfTimesAppOpened())
+          when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 5);
-          when(() => userRepository.incrementNumberOfTimesAppOpened())
+          when(() => userRepository.incrementAppOpenedCount())
               .thenAnswer((_) async {});
         },
         build: () => AppBloc(
@@ -415,18 +415,18 @@ void main() {
         ],
         verify: (_) {
           verify(
-            () => userRepository.incrementNumberOfTimesAppOpened(),
+            () => userRepository.incrementAppOpenedCount(),
           ).called(1);
         },
       );
 
       blocTest<AppBloc, AppState>(
-        'calls incrementNumberOfTimesAppOpened when fetchNumberOfTimesAppOpened'
+        'calls incrementAppOpenedCount when fetchAppOpenedCount'
         ' returns a count value of 3 and user isAnonymous',
         setUp: () {
-          when(() => userRepository.fetchNumberOfTimesAppOpened())
+          when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 3);
-          when(() => userRepository.incrementNumberOfTimesAppOpened())
+          when(() => userRepository.incrementAppOpenedCount())
               .thenAnswer((_) async {});
         },
         build: () => AppBloc(
@@ -440,17 +440,17 @@ void main() {
         seed: AppState.unauthenticated,
         verify: (_) {
           verify(
-            () => userRepository.incrementNumberOfTimesAppOpened(),
+            () => userRepository.incrementAppOpenedCount(),
           ).called(1);
         },
       );
 
       blocTest<AppBloc, AppState>(
-        'not call to incrementNumberOfTimesAppOpened '
-        'when fetchNumberOfTimesAppOpened'
+        'not call to incrementAppOpenedCount '
+        'when fetchAppOpenedCount'
         ' returns a count value of 6 and user isAnonymous',
         setUp: () {
-          when(() => userRepository.fetchNumberOfTimesAppOpened())
+          when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 6);
         },
         build: () => AppBloc(
@@ -464,7 +464,7 @@ void main() {
         seed: AppState.unauthenticated,
         verify: (_) {
           verifyNever(
-            () => userRepository.incrementNumberOfTimesAppOpened(),
+            () => userRepository.incrementAppOpenedCount(),
           );
         },
       );
