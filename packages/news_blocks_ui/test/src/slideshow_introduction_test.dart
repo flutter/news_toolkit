@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
+// ignore_for_file: unnecessary_const, prefer_const_constructors, prefer_function_declarations_over_variables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,9 +9,6 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 import '../helpers/helpers.dart';
-
-class MockNavigateToArticleAction extends Mock
-    implements NavigateToArticleAction {}
 
 void main() {
   const imageUrl =
@@ -98,7 +95,8 @@ void main() {
     testWidgets(
       'onPressed is called with action when tapped',
       (tester) async {
-        final action = MockNavigateToArticleAction();
+        final action = NavigateToArticleAction(articleId: 'articleId');
+        final actions = <BlockAction>[];
 
         final block = SlideshowIntroductionBlock(
           title: 'title',
@@ -114,6 +112,7 @@ void main() {
                   SlideshowIntroduction(
                     block: block,
                     slideshowText: 'slideshowText',
+                    onPressed: actions.add,
                   ),
                 ],
               ),
@@ -123,8 +122,9 @@ void main() {
 
         await tester.ensureVisible(find.byType(SlideshowIntroduction));
         await tester.tap(find.byType(SlideshowIntroduction));
+        await tester.pump();
 
-        verify(() => action).called(1);
+        expect(actions, equals([action]));
       },
     );
   });
