@@ -26,6 +26,6 @@ class UserStorage {
   /// Fetches the number of times the app was opened value from Storage.
   Future<int> fetchAppOpenedCount() async {
     final count = await _storage.read(key: UserStorageKeys.appOpenedCount);
-    return int.parse(count ?? '0');
+    return int.parse(count ?? '1');
   }
 }
