@@ -9,7 +9,6 @@ import 'package:news_blocks_ui/src/widgets/slideshow_category.dart';
 /// {@endtemplate}
 class SlideshowIntroduction extends StatelessWidget {
   /// {@macro slideshow_introduction}
-  // TODO(simpson-peter): Add this to barrel
   const SlideshowIntroduction({
     super.key,
     required this.block,
@@ -34,7 +33,7 @@ class SlideshowIntroduction extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
-        // TODO call block extension method
+        // TODO(simpson-peter): call block extension method
         onTap: () => onPressed?.call(block.action!),
         child: Stack(
           key: const Key('slideshow_introduction_stack'),
