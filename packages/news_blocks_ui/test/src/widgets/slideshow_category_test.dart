@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_const, prefer_const_constructors
 
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
