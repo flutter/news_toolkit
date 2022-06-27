@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
@@ -9,20 +10,59 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import '../helpers/helpers.dart';
 
 void main() {
-  group('SlideshowIntroduction', () {
+  const imageUrl =
+      'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg='
+      '/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset'
+      '/file/22049166/shollister_201117_4303_0003.0.jpg';
+  group('SlideshowIntroduction ', () {
     testWidgets('renders title', (tester) async {
       final block = SlideshowIntroductionBlock(
         title: 'title',
-        coverImageUrl: 'coverImageUrl',
+        coverImageUrl: imageUrl,
       );
 
-      await tester.pumpContentThemedApp(
-        SlideshowIntroduction(block: block, slideshowText: 'slideshowText'),
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SlideshowIntroduction(
+                  block: block,
+                  slideshowText: 'slideshowText',
+                ),
+              ],
+            ),
+          ),
+        ),
       );
 
       expect(find.text(block.title), findsOneWidget);
     });
-    testWidgets('renders slideshow category', (tester) async {});
+    testWidgets('renders slideshow category', (tester) async {
+      final block = SlideshowIntroductionBlock(
+        title: 'title',
+        coverImageUrl: imageUrl,
+      );
+
+      await mockNetworkImages(
+        () async => tester.pumpContentThemedApp(
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SlideshowIntroduction(
+                  block: block,
+                  slideshowText: 'slideshowText',
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(SlideshowCategory), findsOneWidget);
+    });
+
+    testWidgets('renders cover image', (tester) async {});
 
     testWidgets(
       'onPressed is called with action when tapped',
