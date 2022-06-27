@@ -33,7 +33,6 @@ class SlideshowIntroduction extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
-        // TODO(simpson-peter): call block extension method
         onTap: () => onPressed?.call(block.action!),
         child: Stack(
           key: const Key('slideshow_introduction_stack'),
