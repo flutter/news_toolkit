@@ -394,5 +394,5 @@ class PurchaseFailed extends PurchaseUpdate {
   final InAppPurchaseFailure failure;
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
