@@ -33,7 +33,7 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$SlideshowIntroductionBlockToJson(this);
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         title,
         coverImageUrl,
         type,
