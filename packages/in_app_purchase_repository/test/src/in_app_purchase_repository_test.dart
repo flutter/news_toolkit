@@ -135,6 +135,7 @@ void main() {
 
     group('fetchSubscriptions', () {
       late InAppPurchaseRepository repository;
+
       setUp(() {
         repository = InAppPurchaseRepository(
           authenticationClient: authenticationClient,
