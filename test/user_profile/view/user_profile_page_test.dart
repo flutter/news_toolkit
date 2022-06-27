@@ -39,6 +39,7 @@ void main() {
     });
 
     group('UserProfileView', () {
+      late InAppPurchaseRepository inAppPurchaseRepository;
       late UserProfileBloc userProfileBloc;
       late AnalyticsBloc analyticsBloc;
       late AppBloc appBloc;
@@ -47,6 +48,7 @@ void main() {
       const notificationsEnabled = true;
 
       setUp(() {
+        inAppPurchaseRepository = MockInAppPurchaseRepository();
         userProfileBloc = MockUserProfileBloc();
         analyticsBloc = MockAnalyticsBloc();
         appBloc = MockAppBloc();
@@ -253,8 +255,7 @@ void main() {
           expect(find.byType(UserProfileSubscribeBox), findsOneWidget);
         });
 
-        testWidgets(
-            'adds AppUserSubscriptionPlanChanged to AppBloc when tapped',
+        testWidgets('opens PurchaseSubscriptionDialog when tapped',
             (tester) async {
           whenListen(
             appBloc,
@@ -266,27 +267,40 @@ void main() {
             ]),
           );
 
+          when(
+            () => inAppPurchaseRepository.currentSubscriptionPlan,
+          ).thenAnswer(
+            (_) => Stream.fromIterable([
+              SubscriptionPlan.none,
+            ]),
+          );
+
+          when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
+            (_) => const Stream.empty(),
+          );
+
+          when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
+            (invocation) async => [],
+          );
+
           await tester.pumpApp(
+            inAppPurchaseRepository: inAppPurchaseRepository,
             appBloc: appBloc,
             BlocProvider.value(
               value: userProfileBloc,
               child: UserProfileView(),
             ),
           );
-
           final subscriptionButton =
               find.byKey(Key('userProfileSubscribeBox_appButton'));
-          await tester.ensureVisible(subscriptionButton);
+          await tester.scrollUntilVisible(subscriptionButton, -50);
           await tester.tap(subscriptionButton);
-          await tester.pumpAndSettle();
+          await tester.pump();
 
-          verify(
-            () => appBloc.add(
-              AppUserSubscriptionPlanChanged(
-                SubscriptionPlan.premium,
-              ),
-            ),
-          ).called(1);
+          expect(
+            find.byType(PurchaseSubscriptionDialog),
+            findsOneWidget,
+          );
         });
       });
 

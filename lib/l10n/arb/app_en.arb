@@ -520,5 +520,65 @@
     "description": "Title shown in the header of trending story article.",
     "type": "text",
     "placeholders": {}
+  },
+  "subscriptionPurchaseTitle": "Subscribe today!",
+  "@subscriptionPurchaseTitle": {
+    "description": "Text shown in the title of the subscription purchase overlay.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionPurchaseSubtitle": "Become a subscriber to access premium content and exclusive online events.",
+  "@subscriptionPurchaseSubtitle": {
+    "description": "Text shown bellow the title of the subscription purchase overlay.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionPurchaseBenefits": "Benefits",
+  "@subscriptionPurchaseBenefits": {
+    "description": "Text shown as a header for benefits.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionPurchaseCancelAnytime": "Cancel Anytime",
+  "@subscriptionPurchaseCancelAnytime": {
+    "description": "Text shown bellow the subscription benefits.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionPurchaseButton": "Start Free Trial",
+  "@subscriptionPurchaseButton": {
+    "description": "Text shown in button on subscription purchase overlay.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionViewDetailsButton": "View Details",
+  "@subscriptionViewDetailsButton": {
+    "description": "Text shown in unimplemented button on subscription purchase overlay.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionViewDetailsButtonSnackBar": "Configure additional subscription packages.",
+  "@subscriptionViewDetailsButtonSnackBar": {
+    "description": "Text shown when clicked on view details button.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "subscriptionPurchaseCompleted": "Purchase completed!",
+  "@subscriptionPurchaseCompleted": {
+    "description": "Text shown subscription purchase was completed.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "monthAbbreviation": "mo",
+  "@monthAbbreviation": {
+    "description": "Text displayed where month abbreviation is used.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yearAbbreviation": "yr",
+  "@yearAbbreviation": {
+    "description": "Text displayed where year abbreviation is used.",
+    "type": "text",
+    "placeholders": {}
   }
 }

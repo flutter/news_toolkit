@@ -16,7 +16,6 @@ import 'package:google_news_template/notification_preferences/notification_prefe
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
-import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -130,14 +129,9 @@ class _UserProfileViewState extends State<UserProfileView>
                   ),
                 )
               else
-                // TODO(jan-stepien): onTap opens in_app_purchase
-                // subscriptions settings page instead.
                 UserProfileSubscribeBox(
-                  onSubscribePressed: () => context.read<AppBloc>().add(
-                        const AppUserSubscriptionPlanChanged(
-                          SubscriptionPlan.premium,
-                        ),
-                      ),
+                  onSubscribePressed: () =>
+                      showPurchaseSubscriptionDialog(context: context),
                 ),
               const _UserProfileDivider(),
               UserProfileSubtitle(

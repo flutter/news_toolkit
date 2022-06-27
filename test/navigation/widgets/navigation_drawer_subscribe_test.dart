@@ -3,6 +3,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/navigation/navigation.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -29,9 +32,37 @@ void main() {
         expect(find.byType(AppButton), findsOneWidget);
       });
 
-      testWidgets('does nothing when tapped', (tester) async {
-        await tester.pumpApp(NavigationDrawerSubscribeButton());
+      testWidgets('opens PurchaseSubscriptionDialog when tapped',
+          (tester) async {
+        final inAppPurchaseRepository = MockInAppPurchaseRepository();
+
+        when(
+          () => inAppPurchaseRepository.currentSubscriptionPlan,
+        ).thenAnswer(
+          (_) => Stream.fromIterable([
+            SubscriptionPlan.none,
+          ]),
+        );
+
+        when(
+          () => inAppPurchaseRepository.purchaseUpdateStream,
+        ).thenAnswer(
+          (_) => Stream.empty(),
+        );
+
+        when(
+          inAppPurchaseRepository.fetchSubscriptions,
+        ).thenAnswer(
+          (_) async => [],
+        );
+
+        await tester.pumpApp(
+          NavigationDrawerSubscribeButton(),
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        );
         await tester.tap(find.byType(NavigationDrawerSubscribeButton));
+        await tester.pump();
+        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
       });
     });
   });
