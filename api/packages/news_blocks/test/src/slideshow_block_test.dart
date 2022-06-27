@@ -5,7 +5,12 @@ import 'package:test/test.dart';
 void main() {
   group('SlideshowBlock', () {
     test('can be (de)serialized', () {
-      final slide = SlideBlock(imageUrl: 'imageUrl', caption: 'caption');
+      final slide = SlideBlock(
+        imageUrl: 'imageUrl',
+        caption: 'caption',
+        photoCredit: 'photoCredit',
+        description: 'description',
+      );
       final block = SlideshowBlock(title: 'title', slides: [slide, slide]);
 
       expect(
