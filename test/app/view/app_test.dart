@@ -56,6 +56,10 @@ void main() {
           .thenAnswer((_) => const Stream.empty());
       when(() => inAppPurchaseRepository.currentSubscriptionPlan)
           .thenAnswer((_) => const Stream.empty());
+      when(() => userRepository.fetchNumberOfTimesAppOpened())
+          .thenAnswer((_) async => 2);
+      when(() => userRepository.incrementNumberOfTimesAppOpened())
+          .thenAnswer((_) async {});
     });
 
     testWidgets('renders AppView', (tester) async {

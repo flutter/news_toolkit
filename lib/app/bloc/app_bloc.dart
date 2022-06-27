@@ -103,12 +103,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
-    final count = await _userRepository.fetchNumberOfTimesAppOpened();
-    if (state.user.isAnonymous && count == 5) {
-      emit(state.copyWith(showLoginOverlay: true));
-      await _userRepository.incrementNumberOfTimesAppOpened();
-    } else if (state.user.isAnonymous && count < 6) {
-      await _userRepository.incrementNumberOfTimesAppOpened();
+    if (state.user.isAnonymous) {
+      final count = await _userRepository.fetchNumberOfTimesAppOpened();
+      if (count == 5) {
+        await _userRepository.incrementNumberOfTimesAppOpened();
+        emit(state.copyWith(showLoginOverlay: true));
+      } else if (count < 6) {
+        await _userRepository.incrementNumberOfTimesAppOpened();
+      }
     }
   }
 

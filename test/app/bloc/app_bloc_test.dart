@@ -387,5 +387,87 @@ void main() {
             expect(currentSubscriptionPlanController.hasListener, isFalse),
       );
     });
+
+    group('AppOpened', () {
+      blocTest<AppBloc, AppState>(
+        'calls incrementNumberOfTimesAppOpened when fetchNumberOfTimesAppOpened'
+        ' returns a count value of 5 and user isAnonymous',
+        setUp: () {
+          when(() => userRepository.fetchNumberOfTimesAppOpened())
+              .thenAnswer((_) async => 5);
+          when(() => userRepository.incrementNumberOfTimesAppOpened())
+              .thenAnswer((_) async {});
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[
+          AppState(
+            showLoginOverlay: true,
+            status: AppStatus.unauthenticated,
+          )
+        ],
+        verify: (_) {
+          verify(
+            () => userRepository.incrementNumberOfTimesAppOpened(),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls incrementNumberOfTimesAppOpened when fetchNumberOfTimesAppOpened'
+        ' returns a count value of 3 and user isAnonymous',
+        setUp: () {
+          when(() => userRepository.fetchNumberOfTimesAppOpened())
+              .thenAnswer((_) async => 3);
+          when(() => userRepository.incrementNumberOfTimesAppOpened())
+              .thenAnswer((_) async {});
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        verify: (_) {
+          verify(
+            () => userRepository.incrementNumberOfTimesAppOpened(),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'not call to incrementNumberOfTimesAppOpened '
+        'when fetchNumberOfTimesAppOpened'
+        ' returns a count value of 6 and user isAnonymous',
+        setUp: () {
+          when(() => userRepository.fetchNumberOfTimesAppOpened())
+              .thenAnswer((_) async => 6);
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        verify: (_) {
+          verifyNever(
+            () => userRepository.incrementNumberOfTimesAppOpened(),
+          );
+        },
+      );
+    });
   });
 }
