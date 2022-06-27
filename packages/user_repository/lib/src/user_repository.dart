@@ -23,7 +23,7 @@ abstract class UserFailure with EquatableMixin implements Exception {
 }
 
 /// {@template fetch_app_opened_count_failure}
-/// Thrown when fetching the number of times open app fails.
+/// Thrown when fetching app opened count fails.
 /// {@endtemplate}
 class FetchAppOpenedCountFailure extends UserFailure {
   /// {@macro fetch_app_opened_count_failure}
@@ -31,7 +31,7 @@ class FetchAppOpenedCountFailure extends UserFailure {
 }
 
 /// {@template increment_app_opened_count_failure}
-/// Thrown when incrementing the number of times open app fails.
+/// Thrown when incrementing app opened count fails.
 /// {@endtemplate}
 class IncrementAppOpenedCountFailure extends UserFailure {
   /// {@macro increment_app_opened_count_failure}
@@ -186,7 +186,7 @@ class UserRepository {
     }
   }
 
-  /// Returns the number of times app was opened.
+  /// Returns the number of times the app was opened.
   ///
   /// This method will only be used when the user is anonymous.
   Future<int> fetchAppOpenedCount() async {
@@ -200,9 +200,7 @@ class UserRepository {
     }
   }
 
-  /// Increment the count when an user opens the application.
-  ///
-  /// This method will only be used when the user is anonymous.
+  /// Increments the number of times the app was opened by 1.
   Future<void> incrementAppOpenedCount() async {
     try {
       final value = await fetchAppOpenedCount();

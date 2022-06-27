@@ -413,8 +413,9 @@ void main() {
     });
 
     group('fetchAppOpenedCount', () {
-      test('returns the value of number of times app opened ', () async {
-        when(() => storage.fetchAppOpenedCount()).thenAnswer((_) async => 1);
+      test('returns the app opened count from UserStorage ', () async {
+        when(storage.fetchAppOpenedCount).thenAnswer((_) async => 1);
+
         final result = await UserRepository(
           authenticationClient: authenticationClient,
           packageInfoClient: packageInfoClient,
@@ -426,7 +427,7 @@ void main() {
 
       test(
           'throws a FetchAppOpenedCountFailure '
-          'when fetching number of times app opened fails', () async {
+          'when fetching app opened count fails', () async {
         when(() => storage.fetchAppOpenedCount()).thenThrow(Exception());
 
         expect(
@@ -442,7 +443,7 @@ void main() {
     });
 
     group('setAppOpenedCount', () {
-      test('increment the count value when app is opened', () async {
+      test('increments app opened count by 1 in UserStorage', () async {
         when(() => storage.fetchAppOpenedCount()).thenAnswer((_) async => 3);
 
         when(
@@ -462,7 +463,7 @@ void main() {
 
       test(
           'throws a IncrementAppOpenedCountFailure '
-          'when set number of times app opened fails', () async {
+          'when setting app opened count fails', () async {
         when(
           () => storage.setAppOpenedCount(count: any(named: 'count')),
         ).thenThrow(Exception());
