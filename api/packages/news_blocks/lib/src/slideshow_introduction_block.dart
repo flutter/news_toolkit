@@ -47,10 +47,3 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   @override
   final String type;
 }
-
-/// The extension on [SlideshowIntroductionBlock] that provides information about actions.
-extension SlideshowIntroductionBlockActions on SlideshowIntroductionBlock {
-  /// Whether the action of this post is navigation.
-  bool get hasNavigationAction =>
-      action?.actionType == BlockActionType.navigation;
-}
