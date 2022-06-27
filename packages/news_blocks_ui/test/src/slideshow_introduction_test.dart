@@ -10,7 +10,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 import '../helpers/helpers.dart';
 
-class MockNavigatetoArticleAction extends Mock
+class MockNavigateToArticleAction extends Mock
     implements NavigateToFeedCategoryAction {}
 
 void main() {
@@ -98,7 +98,7 @@ void main() {
     testWidgets(
       'onPressed is called with action when tapped',
       (tester) async {
-        // final action = MockNavigatetoArticleAction();
+        // final action = MockNavigateToArticleAction();
 
         // final block = SlideshowIntroductionBlock(
         //   title: 'title',
