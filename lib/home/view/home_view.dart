@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
         context.select((HomeCubit cubit) => cubit.state.tabIndex);
     return BlocListener<AppBloc, AppState>(
       listenWhen: (previous, current) =>
-          current.showLoginOverlay != previous.showLoginOverlay,
+          previous.showLoginOverlay != current.showLoginOverlay,
       listener: (context, state) {
         if (state.showLoginOverlay) {
           showAppModal<void>(
