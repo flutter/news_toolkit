@@ -27,7 +27,7 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   final String? coverImageUrl;
 
   /// The slideshow introduction block type identifier.
-  static const identifier = '__slideshow_introduction_block__';
+  static const identifier = '__slideshow_introduction__';
 
   @override
   Map<String, dynamic> toJson() => _$SlideshowIntroductionBlockToJson(this);
