@@ -103,12 +103,18 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
+    /// The number of app opens after which the login overlay is shown for an
+    ///  unauthenticated user.
+    const _appOpenedCountForLoginOverlay = 5;
+
     if (state.user.isAnonymous) {
-      final count = await _userRepository.fetchAppOpenedCount();
-      if (count == 5) {
-        await _userRepository.incrementAppOpenedCount();
+      final appOpenedCount = await _userRepository.fetchAppOpenedCount();
+
+      if (appOpenedCount == _appOpenedCountForLoginOverlay - 1) {
         emit(state.copyWith(showLoginOverlay: true));
-      } else if (count < 6) {
+      }
+
+      if (appOpenedCount < _appOpenedCountForLoginOverlay + 1) {
         await _userRepository.incrementAppOpenedCount();
       }
     }

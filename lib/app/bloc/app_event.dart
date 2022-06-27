@@ -29,4 +29,6 @@ class AppUserSubscriptionPlanChanged extends AppEvent {
 
 class AppOnboardingCompleted extends AppEvent {}
 
-class AppOpened extends AppEvent {}
+class AppOpened extends AppEvent {
+  const AppOpened();
+}
