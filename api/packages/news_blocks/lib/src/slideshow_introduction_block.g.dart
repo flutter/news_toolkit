@@ -28,9 +28,19 @@ SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
     );
 
 Map<String, dynamic> _$SlideshowIntroductionBlockToJson(
-        SlideshowIntroductionBlock instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'cover_image_url': instance.coverImageUrl,
-      'type': instance.type,
-    };
+    SlideshowIntroductionBlock instance) {
+  final val = <String, dynamic>{
+    'title': instance.title,
+    'cover_image_url': instance.coverImageUrl,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('action', const BlockActionConverter().toJson(instance.action));
+  val['type'] = instance.type;
+  return val;
+}
