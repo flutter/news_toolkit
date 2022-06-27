@@ -44,7 +44,7 @@ class SlideBlock with EquatableMixin implements NewsBlock {
   final String type;
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         type,
         caption,
         description,
