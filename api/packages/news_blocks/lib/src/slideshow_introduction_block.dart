@@ -12,7 +12,7 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro slideshow_introduction_block}
   const SlideshowIntroductionBlock({
     required this.title,
-    this.coverImageUrl,
+    required this.coverImageUrl,
     this.type = SlideshowIntroductionBlock.identifier,
   });
 
@@ -24,7 +24,7 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
   final String title;
 
   /// The slideshow cover image URL.
-  final String? coverImageUrl;
+  final String coverImageUrl;
 
   /// The slideshow introduction block type identifier.
   static const identifier = '__slideshow_introduction__';
