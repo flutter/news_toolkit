@@ -22,20 +22,20 @@ abstract class UserFailure with EquatableMixin implements Exception {
   List<Object> get props => [error];
 }
 
-/// {@template fetch_number_of_times_app_opened_failure}
+/// {@template fetch_app_opened_count_failure}
 /// Thrown when fetching the number of times open app fails.
 /// {@endtemplate}
-class FetchNumberOfTimesAppOpenedFailure extends UserFailure {
-  /// {@macro fetch_number_of_times_app_opened_failure}
-  const FetchNumberOfTimesAppOpenedFailure(super.error);
+class FetchAppOpenedCountFailure extends UserFailure {
+  /// {@macro fetch_app_opened_count_failure}
+  const FetchAppOpenedCountFailure(super.error);
 }
 
-/// {@template increment_number_of_times_app_opened_failure}
+/// {@template increment_app_opened_count_failure}
 /// Thrown when incrementing the number of times open app fails.
 /// {@endtemplate}
-class IncrementNumberOfTimesAppOpenedFailure extends UserFailure {
-  /// {@macro increment_number_of_times_app_opened_failure}
-  const IncrementNumberOfTimesAppOpenedFailure(super.error);
+class IncrementAppOpenedCountFailure extends UserFailure {
+  /// {@macro increment_app_opened_count_failure}
+  const IncrementAppOpenedCountFailure(super.error);
 }
 
 /// {@template user_repository}
@@ -186,33 +186,32 @@ class UserRepository {
     }
   }
 
-  /// Returns the number of times app is opened.
+  /// Returns the number of times app was opened.
   ///
   /// This method will only be used when the user is anonymous.
-  Future<int> fetchNumberOfTimesAppOpened() async {
+  Future<int> fetchAppOpenedCount() async {
     try {
       return await _storage.fetchAppOpenedCount();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        FetchNumberOfTimesAppOpenedFailure(error),
+        FetchAppOpenedCountFailure(error),
         stackTrace,
       );
     }
   }
 
-  /// Set the value of number of times the app is opened
-  /// when this value is less or equal to five.
+  /// Increment the count when an user opens the application.
   ///
   /// This method will only be used when the user is anonymous.
-  Future<void> incrementNumberOfTimesAppOpened() async {
+  Future<void> incrementAppOpenedCount() async {
     try {
-      final value = await fetchNumberOfTimesAppOpened();
+      final value = await fetchAppOpenedCount();
       final result = value + 1;
 
       await _storage.setAppOpenedCount(count: result);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        IncrementNumberOfTimesAppOpenedFailure(error),
+        IncrementAppOpenedCountFailure(error),
         stackTrace,
       );
     }
