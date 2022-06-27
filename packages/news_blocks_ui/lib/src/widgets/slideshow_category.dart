@@ -40,7 +40,7 @@ class SlideshowCategory extends StatelessWidget {
                 AppSpacing.xxs,
               ),
               child: Text(
-                slideshowText,
+                slideshowText.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
                     .overline
