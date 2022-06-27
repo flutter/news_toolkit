@@ -180,7 +180,7 @@ void main() {
         test(
             'and throws FetchSubscriptionsFailure '
             'when getSubscriptions fails', () async {
-          when(apiClient.getSubscriptions).thenThrow(FetchSubscriptionsFailure);
+          when(apiClient.getSubscriptions).thenThrow(Exception());
 
           expect(
             repository.fetchSubscriptions(),
