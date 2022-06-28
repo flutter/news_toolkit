@@ -203,7 +203,6 @@ class UserRepository {
     try {
       final value = await fetchAppOpenedCount();
       final result = value + 1;
-
       await _storage.setAppOpenedCount(count: result);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
