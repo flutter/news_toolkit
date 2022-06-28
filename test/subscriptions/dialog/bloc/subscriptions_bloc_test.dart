@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:user_repository/user_repository.dart';
 
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
@@ -227,6 +230,42 @@ void main() {
             purchaseStatus: PurchaseStatus.failed,
           ),
         ],
+      );
+    });
+
+    group('close', () {
+      late StreamController<SubscriptionPlan> currentSubscriptionPlanController;
+      late StreamController<PurchaseUpdate>
+          subscriptionPurchaseUpdateController;
+
+      setUp(() {
+        currentSubscriptionPlanController =
+            StreamController<SubscriptionPlan>();
+        subscriptionPurchaseUpdateController =
+            StreamController<PurchaseUpdate>();
+
+        when(() => inAppPurchaseRepository.currentSubscriptionPlan)
+            .thenAnswer((_) => currentSubscriptionPlanController.stream);
+        when(() => inAppPurchaseRepository.purchaseUpdate)
+            .thenAnswer((_) => subscriptionPurchaseUpdateController.stream);
+      });
+
+      blocTest<SubscriptionsBloc, SubscriptionsState>(
+        'cancels InAppPurchaseRepository.currentSubscriptionPlan subscription',
+        build: () => SubscriptionsBloc(
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        ),
+        tearDown: () =>
+            expect(currentSubscriptionPlanController.hasListener, isFalse),
+      );
+
+      blocTest<SubscriptionsBloc, SubscriptionsState>(
+        'cancels InAppPurchaseRepository.purchaseUpdate subscription',
+        build: () => SubscriptionsBloc(
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        ),
+        tearDown: () =>
+            expect(subscriptionPurchaseUpdateController.hasListener, isFalse),
       );
     });
   });

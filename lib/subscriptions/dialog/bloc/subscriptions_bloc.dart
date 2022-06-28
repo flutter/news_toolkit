@@ -29,7 +29,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
       onError: addError,
     );
 
-    _inAppPurchaseUpdateSubscription =
+    _subscriptionPurchaseUpdateSubscription =
         _inAppPurchaseRepository.purchaseUpdate.listen(
       (purchase) => add(SubscriptionPurchaseUpdated(purchase: purchase)),
       onError: addError,
@@ -41,7 +41,8 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   late StreamSubscription<SubscriptionPlan>
       _currentSubscriptionPlanSubscription;
 
-  late StreamSubscription<PurchaseUpdate> _inAppPurchaseUpdateSubscription;
+  late StreamSubscription<PurchaseUpdate>
+      _subscriptionPurchaseUpdateSubscription;
 
   FutureOr<void> _onSubscriptionsRequested(
     SubscriptionsRequested event,
@@ -104,7 +105,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   @override
   Future<void> close() {
     _currentSubscriptionPlanSubscription.cancel();
-    _inAppPurchaseUpdateSubscription.cancel();
+    _subscriptionPurchaseUpdateSubscription.cancel();
     return super.close();
   }
 }
