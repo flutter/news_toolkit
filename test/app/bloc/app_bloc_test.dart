@@ -322,8 +322,10 @@ void main() {
 
     group('AppOpened', () {
       blocTest<AppBloc, AppState>(
-        'calls UserRepository.incrementAppOpenedCount when fetchAppOpenedCount'
-        ' returns a count value of 4 and user is anonymous',
+        'calls UserRepository.incrementAppOpenedCount '
+        'and emits showLoginOverlay as true '
+        'when fetchAppOpenedCount returns a count value of 4 '
+        'and user is anonymous',
         setUp: () {
           when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 4);
@@ -352,8 +354,9 @@ void main() {
       );
 
       blocTest<AppBloc, AppState>(
-        'calls UserRepository.incrementAppOpenedCount when fetchAppOpenedCount'
-        ' returns a count value of 3 and user isAnonymous',
+        'calls UserRepository.incrementAppOpenedCount '
+        'when fetchAppOpenedCount returns a count value of 3 '
+        'and user is anonymous',
         setUp: () {
           when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 3);
@@ -376,9 +379,9 @@ void main() {
       );
 
       blocTest<AppBloc, AppState>(
-        'not call to UserRepository.incrementAppOpenedCount '
-        'when fetchAppOpenedCount'
-        ' returns a count value of 6 and user isAnonymous',
+        'does not call UserRepository.incrementAppOpenedCount '
+        'when fetchAppOpenedCount returns a count value of 6 '
+        'and user is anonymous',
         setUp: () {
           when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 6);

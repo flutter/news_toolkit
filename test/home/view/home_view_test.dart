@@ -154,10 +154,9 @@ void main() {
       );
       expect(find.byType(FeedView), findsOneWidget);
     });
-  });
 
-  group('shows LoginOverlay', () {
-    setUp(() {
+    testWidgets('shows LoginOverlay when showLoginOverlay is true',
+        (tester) async {
       whenListen(
         appBloc,
         Stream.fromIterable([
@@ -165,8 +164,7 @@ void main() {
           AppState(status: AppStatus.unauthenticated, showLoginOverlay: true),
         ]),
       );
-    });
-    testWidgets('when show login overlay is true', (tester) async {
+
       await pumpHomeView(
         tester: tester,
         cubit: cubit,
@@ -175,9 +173,11 @@ void main() {
         newsRepository: newsRepository,
         appBloc: appBloc,
       );
+
       expect(find.byType(LoginModal), findsOneWidget);
     });
   });
+
   group('BottomNavigationBar', () {
     testWidgets(
       'has selected index to 0 by default.',
