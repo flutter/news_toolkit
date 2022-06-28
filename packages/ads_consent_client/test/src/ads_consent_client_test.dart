@@ -94,7 +94,7 @@ void main() {
             const updatedConsentStatus = ConsentStatus.unknown;
 
             when(() => adsConsentForm.show(any())).thenAnswer((invocation) {
-              // Update consent status to obtained
+              // Update consent status to unknown
               // when the consent form is dismissed.
               when(adsConsentInformation.getConsentStatus)
                   .thenAnswer((_) async => updatedConsentStatus);
