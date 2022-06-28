@@ -4,6 +4,7 @@ import 'package:app_ui/app_ui.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart'
     hide PurchaseCompleted;
@@ -146,10 +147,12 @@ void main() {
     });
 
     testWidgets(
-        'shows PurchaseCompletedDialog '
-        'when SubscriptionsBloc emits purchaseStatus.completed ',
+        'shows PurchaseCompleted dialog '
+        'when SubscriptionsBloc emits purchaseStatus.completed '
+        'and adds UserSubscriptionConversionEvent to AnalyticsBloc',
         (tester) async {
       final navigator = MockNavigator();
+      final analyticsBloc = MockAnalyticsBloc();
 
       when(navigator.maybePop<void>).thenAnswer((_) async => true);
       when(
@@ -164,10 +167,19 @@ void main() {
         const PurchaseSubscriptionDialog(),
         navigator: navigator,
         inAppPurchaseRepository: inAppPurchaseRepository,
+        analyticsBloc: analyticsBloc,
       );
 
       await tester.pump();
       expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
+
+      verify(
+        () => analyticsBloc.add(
+          TrackAnalyticsEvent(
+            UserSubscriptionConversionEvent(),
+          ),
+        ),
+      ).called(1);
     });
   });
 
