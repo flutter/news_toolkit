@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -48,17 +51,17 @@ void main() {
         }
 
         expect(
-          find.byKey(const Key('subscriptionCard_subscribeButton')),
+          find.byKey(const Key('subscriptionCard_subscribe_appButton')),
           findsOneWidget,
         );
         expect(
-          find.byKey(const Key('subscriptionCard_outlinedButton')),
+          find.byKey(const Key('subscriptionCard_viewDetails_appButton')),
           findsNothing,
         );
       });
 
       testWidgets(
-          'adds SubscriptionPurchaseRequested '
+          'adds SubscriptionPurchaseRequested to SubscriptionsBloc '
           'on subscribeButton tap '
           'when user is logged in', (tester) async {
         final inAppPurchaseRepository = MockInAppPurchaseRepository();
@@ -93,7 +96,7 @@ void main() {
         );
 
         await tester
-            .tap(find.byKey(const Key('subscriptionCard_subscribeButton')));
+            .tap(find.byKey(const Key('subscriptionCard_subscribe_appButton')));
 
         await tester.pumpAndSettle();
 
@@ -104,6 +107,46 @@ void main() {
             ),
           ),
         ).called(1);
+      });
+
+      testWidgets(
+          'shows LoginModal '
+          'on subscribeButton tap '
+          'when user is not logged in', (tester) async {
+        final inAppPurchaseRepository = MockInAppPurchaseRepository();
+        final appBloc = MockAppBloc();
+        final SubscriptionsBloc subscriptionsBloc = MockSubscriptionsBloc();
+
+        when(() => appBloc.state).thenAnswer(
+          (_) => AppState.unauthenticated(),
+        );
+
+        when(() => subscriptionsBloc.state).thenAnswer(
+          (_) => SubscriptionsState.initial(),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: subscriptionsBloc,
+            child: Builder(
+              builder: (context) {
+                return const SubscriptionCard(
+                  isExpanded: true,
+                  subscription: subscription,
+                );
+              },
+            ),
+          ),
+          appBloc: appBloc,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        );
+
+        await tester
+            .tap(find.byKey(const Key('subscriptionCard_subscribe_appButton')));
+
+        await tester.pumpAndSettle();
+
+        expect(find.byType(LoginModal), findsOneWidget);
       });
     });
 
@@ -120,16 +163,16 @@ void main() {
         }
 
         expect(
-          find.byKey(const Key('subscriptionCard_subscribeButton')),
+          find.byKey(const Key('subscriptionCard_subscribe_appButton')),
           findsNothing,
         );
         expect(
-          find.byKey(const Key('subscriptionCard_outlinedButton')),
+          find.byKey(const Key('subscriptionCard_viewDetails_appButton')),
           findsOneWidget,
         );
       });
 
-      testWidgets('shows SnackBar on outlinedButton tap', (tester) async {
+      testWidgets('shows SnackBar on viewDetails tap', (tester) async {
         await tester.pumpApp(
           const SubscriptionCard(
             subscription: subscription,
@@ -143,8 +186,9 @@ void main() {
         );
 
         expect(snackBarFinder, findsNothing);
-        await tester
-            .tap(find.byKey(const Key('subscriptionCard_outlinedButton')));
+        await tester.tap(
+          find.byKey(const Key('subscriptionCard_viewDetails_appButton')),
+        );
         await tester.pump();
         expect(snackBarFinder, findsOneWidget);
       });
