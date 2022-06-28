@@ -69,6 +69,7 @@ class _SlideshowCategoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
+      key: const Key('slideshow_categoryTitle'),
       padding: const EdgeInsets.only(left: AppSpacing.lg),
       child: SlideshowCategory(
         isIntroduction: false,
@@ -88,6 +89,7 @@ class _SlideshowHeaderTitle extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
 
     return Padding(
+      key: const Key('slideshow_headerTitle'),
       padding: const EdgeInsets.only(
         left: AppSpacing.lg,
         bottom: AppSpacing.lg,
@@ -108,7 +110,6 @@ class _SlideshowPageView extends StatelessWidget {
     required this.controller,
   });
 
-  /// List of slides to be displayed.
   final List<SlideBlock> slides;
 
   final PageController controller;
@@ -117,9 +118,11 @@ class _SlideshowPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: PageView.builder(
+        key: const Key('slideshow_pageview'),
+        physics: const NeverScrollableScrollPhysics(),
         controller: controller,
         itemCount: slides.length,
-        itemBuilder: (contex, index) => _SlidehowItem(
+        itemBuilder: (contex, index) => SlideshowItem(
           slide: slides[index],
         ),
       ),
@@ -127,11 +130,18 @@ class _SlideshowPageView extends StatelessWidget {
   }
 }
 
-class _SlidehowItem extends StatelessWidget {
-  const _SlidehowItem({
+/// {@template slideshow_item}
+/// A reusable slideshow_item.
+/// {@endtemplate}
+@visibleForTesting
+class SlideshowItem extends StatelessWidget {
+  /// {@macro slideshow_item}
+  const SlideshowItem({
+    super.key,
     required this.slide,
   });
 
+  /// The slide to be displayed.
   final SlideBlock slide;
 
   @override
@@ -141,9 +151,11 @@ class _SlidehowItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox.square(
+          key: const Key('slideshow_slideshowItemImage'),
           child: Image.network(slide.imageUrl),
         ),
         Padding(
+          key: const Key('slideshow_slideshowItemCaption'),
           padding: const EdgeInsets.only(
             left: AppSpacing.lg,
             top: AppSpacing.lg,
@@ -156,6 +168,7 @@ class _SlidehowItem extends StatelessWidget {
           ),
         ),
         Padding(
+          key: const Key('slideshow_slideshowItemDescription'),
           padding: const EdgeInsets.only(
             left: AppSpacing.lg,
             top: AppSpacing.lg,
@@ -168,6 +181,7 @@ class _SlidehowItem extends StatelessWidget {
           ),
         ),
         Padding(
+          key: const Key('slideshow_slideshowItemPhotoCredit'),
           padding: const EdgeInsets.only(
             left: AppSpacing.lg,
             top: AppSpacing.xxxs,
@@ -215,6 +229,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
+          key: const Key('slideshow_slideshowButtonsLeft'),
           onPressed: () {
             if (_currentPage >= 1) {
               widget.controller.previousPage(
@@ -231,6 +246,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
           style: theme.textTheme.headline6?.apply(color: AppColors.white),
         ),
         IconButton(
+          key: const Key('slideshow_slideshowButtonsRight'),
           onPressed: () {
             if (_currentPage < widget.totalPages - 1) {
               widget.controller.nextPage(
