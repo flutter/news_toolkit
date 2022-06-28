@@ -22,6 +22,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
         _shareLauncher = shareLauncher,
         super(const ArticleState.initial()) {
     on<ArticleRequested>(_onArticleRequested, transformer: sequential());
+    on<ArticleContentSeen>(_onArticleContentSeen);
     on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
     on<ArticleCommented>(_onArticleCommented);
     on<ShareRequested>(_onShareRequested);
@@ -78,6 +79,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
           status: ArticleStatus.populated,
           title: response.title,
           content: updatedContent,
+          contentTotalCount: response.totalCount,
           relatedArticles: relatedArticlesResponse?.relatedArticles ?? [],
           hasMoreContent: hasMoreContent,
           uri: response.url,
@@ -89,6 +91,16 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     } catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.failure));
       addError(error, stackTrace);
+    }
+  }
+
+  Future<void> _onArticleContentSeen(
+    ArticleContentSeen event,
+    Emitter<ArticleState> emit,
+  ) async {
+    final contentSeenCount = event.contentIndex + 1;
+    if (contentSeenCount > state.contentSeenCount) {
+      emit(state.copyWith(contentSeenCount: contentSeenCount));
     }
   }
 
