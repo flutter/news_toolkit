@@ -39,7 +39,7 @@ void main() {
       ]),
     );
 
-    when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
+    when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
       (_) => const Stream.empty(),
     );
 
@@ -145,7 +145,7 @@ void main() {
 
       when(navigator.maybePop<void>).thenAnswer((_) async => true);
       when(
-        () => inAppPurchaseRepository.purchaseUpdateStream,
+        () => inAppPurchaseRepository.purchaseUpdate,
       ).thenAnswer(
         (_) => Stream.fromIterable(
           [const PurchaseDelivered(subscription: subscription)],

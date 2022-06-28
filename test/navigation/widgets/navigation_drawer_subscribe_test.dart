@@ -45,7 +45,7 @@ void main() {
         );
 
         when(
-          () => inAppPurchaseRepository.purchaseUpdateStream,
+          () => inAppPurchaseRepository.purchaseUpdate,
         ).thenAnswer(
           (_) => Stream.empty(),
         );

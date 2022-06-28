@@ -212,6 +212,19 @@ void main() {
     });
 
     testWidgets(
+      'renders SlideshowIntroduction '
+      'for SlideshowIntroductionBlock',
+      (tester) async {
+        final block = SlideshowIntroductionBlock(
+          title: 'Slideshow Introduction Block',
+          coverImageUrl: 'coverImageUrl',
+        );
+        await tester.pumpApp(ArticleContentItem(block: block));
+        expect(find.byType(SlideshowIntroduction), findsOneWidget);
+      },
+    );
+
+    testWidgets(
         'renders SizedBox '
         'for unsupported block', (tester) async {
       final block = UnknownBlock();

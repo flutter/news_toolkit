@@ -22,7 +22,7 @@ class InAppPurchaseException extends InAppPurchaseFailure {
 }
 
 void main() {
-  test('InAppPurchasesFailure supports value comparison', () {
+  test('InAppPurchaseFailure supports value comparisons', () {
     expect(
       InAppPurchaseException('error'),
       equals(
@@ -87,11 +87,11 @@ void main() {
       ).thenAnswer((_) async {});
 
       when(
-        () => apiClient.getCurrentUser(),
+        apiClient.getCurrentUser,
       ).thenAnswer((_) async => apiUserResponse);
 
       when(() => authenticationClient.user).thenAnswer(
-        (invocation) => Stream.fromIterable([user]),
+        (_) => Stream.fromIterable([user]),
       );
 
       when(() => inAppPurchase.purchaseStream).thenAnswer(
@@ -142,14 +142,14 @@ void main() {
           inAppPurchase: inAppPurchase,
         );
 
-        when(() => apiClient.getSubscriptions()).thenAnswer(
-          (invocation) async => SubscriptionsResponse(
+        when(apiClient.getSubscriptions).thenAnswer(
+          (_) async => SubscriptionsResponse(
             subscriptions: [subscription],
           ),
         );
       });
 
-      group('calls getSubscriptions ', () {
+      group('calls apiClient.getSubscriptions ', () {
         test(
             'which returns cachedProducts list '
             'and calls getSubscriptions only once '
@@ -157,7 +157,7 @@ void main() {
           final result = await repository.fetchSubscriptions();
           final nextResult = await repository.fetchSubscriptions();
 
-          verify(() => apiClient.getSubscriptions()).called(1);
+          verify(apiClient.getSubscriptions).called(1);
 
           expect(
             result,
@@ -166,7 +166,7 @@ void main() {
         });
 
         test(
-            'and returns cachedProducts list '
+            'and returns server products list '
             'when cachedProducts is empty', () async {
           final result = await repository.fetchSubscriptions();
 
@@ -177,10 +177,9 @@ void main() {
         });
 
         test(
-            'and throws FetchInAppProductsFailure '
+            'and throws FetchSubscriptionsFailure '
             'when getSubscriptions fails', () async {
-          when(() => apiClient.getSubscriptions())
-              .thenThrow(() => FetchSubscriptionsFailure);
+          when(apiClient.getSubscriptions).thenThrow(Exception());
 
           expect(
             repository.fetchSubscriptions(),
@@ -206,14 +205,14 @@ void main() {
         ).thenAnswer((_) async => true);
       });
 
-      group('calls inAppPurchase.buyNonConsumable ', () {
+      group('calls InAppPurchase.buyNonConsumable ', () {
         setUp(() {
           when(
             () => inAppPurchase.queryProductDetails(
               any(that: isA<Set<String>>()),
             ),
           ).thenAnswer(
-            (invocation) async => ProductDetailsResponse(
+            (_) async => ProductDetailsResponse(
               productDetails: [product],
               notFoundIDs: [],
             ),
@@ -253,7 +252,7 @@ void main() {
               any(that: isA<Set<String>>()),
             ),
           ).thenAnswer(
-            (invocation) async => ProductDetailsResponse(
+            (_) async => ProductDetailsResponse(
               productDetails: [],
               error: IAPError(
                 source: 'source',
@@ -276,7 +275,7 @@ void main() {
               any(that: isA<Set<String>>()),
             ),
           ).thenAnswer(
-            (invocation) async => ProductDetailsResponse(
+            (_) async => ProductDetailsResponse(
               productDetails: [],
               notFoundIDs: [],
             ),
@@ -294,7 +293,7 @@ void main() {
               any(that: isA<Set<String>>()),
             ),
           ).thenAnswer(
-            (invocation) async => ProductDetailsResponse(
+            (_) async => ProductDetailsResponse(
               productDetails: [product, product],
               notFoundIDs: [],
             ),
@@ -325,16 +324,16 @@ void main() {
       });
 
       test(
-          'calls inAppPurchase.restorePurchases '
+          'calls InAppPurchase.restorePurchases '
           'when user is not anonymous', () async {
         when(
           () => inAppPurchase.restorePurchases(
             applicationUserName: any(named: 'applicationUserName'),
           ),
-        ).thenAnswer((invocation) async {});
+        ).thenAnswer((_) async {});
 
         when(() => authenticationClient.user).thenAnswer(
-          (invocation) => Stream.fromIterable([user]),
+          (_) => Stream.fromIterable([user]),
         );
 
         await repository.restorePurchases();
@@ -349,16 +348,16 @@ void main() {
       });
 
       test(
-          'not calls inAppPurchase.restorePurchases '
+          'does not call InAppPurchase.restorePurchases '
           'when user is anonymous', () async {
         when(
           () => inAppPurchase.restorePurchases(
             applicationUserName: any(named: 'applicationUserName'),
           ),
-        ).thenAnswer((invocation) async {});
+        ).thenAnswer((_) async {});
 
         when(() => authenticationClient.user).thenAnswer(
-          (invocation) => Stream.fromIterable([User.anonymous]),
+          (_) => Stream.fromIterable([User.anonymous]),
         );
 
         await repository.restorePurchases();
@@ -386,8 +385,8 @@ void main() {
       );
 
       setUp(() {
-        when(() => apiClient.getSubscriptions()).thenAnswer(
-          (invocation) async => SubscriptionsResponse(
+        when(apiClient.getSubscriptions).thenAnswer(
+          (_) async => SubscriptionsResponse(
             subscriptions: [subscription],
           ),
         );
@@ -397,7 +396,7 @@ void main() {
           'adds PurchaseCanceled event '
           'when PurchaseDetails status is canceled', () {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
-          (invocation) => Stream.fromIterable([
+          (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.canceled)],
           ]),
         );
@@ -409,7 +408,7 @@ void main() {
         );
 
         expectLater(
-          repository.purchaseUpdateStream,
+          repository.purchaseUpdate,
           emits(isA<PurchaseCanceled>()),
         );
       });
@@ -418,7 +417,7 @@ void main() {
           'adds PurchaseFailed event '
           'when PurchaseDetails status is error', () {
         when(() => inAppPurchase.purchaseStream).thenAnswer(
-          (invocation) => Stream.fromIterable([
+          (_) => Stream.fromIterable([
             [purchaseDetails.copyWith(status: PurchaseStatus.error)],
           ]),
         );
@@ -430,7 +429,7 @@ void main() {
         );
 
         expectLater(
-          repository.purchaseUpdateStream,
+          repository.purchaseUpdate,
           emits(isA<PurchaseFailed>()),
         );
       });
@@ -438,7 +437,7 @@ void main() {
       group('when PurchaseDetails status is purchased', () {
         setUp(() {
           when(() => inAppPurchase.purchaseStream).thenAnswer(
-            (invocation) => Stream.fromIterable([
+            (_) => Stream.fromIterable([
               [purchaseDetails.copyWith(status: PurchaseStatus.purchased)],
             ]),
           );
@@ -457,7 +456,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
@@ -474,22 +473,19 @@ void main() {
 
           await expectLater(
             repository.currentSubscriptionPlan,
-            emits(isA<SubscriptionPlan>()),
+            emits(subscription.name),
           );
 
           await expectLater(
             repository.currentSubscriptionPlan,
-            emits(
-              isA<SubscriptionPlan>(),
-            ),
+            emits(subscription.name),
           );
         });
 
         test(
             'and throws with PurchaseFailed '
             'when apiClient.getCurrentUser throws', () async {
-          when(() => apiClient.getCurrentUser())
-              .thenAnswer((_) => throw Exception());
+          when(apiClient.getCurrentUser).thenThrow(Exception());
 
           final repository = InAppPurchaseRepository(
             authenticationClient: authenticationClient,
@@ -498,7 +494,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
@@ -526,7 +522,7 @@ void main() {
           );
 
           expect(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
@@ -541,7 +537,7 @@ void main() {
             'and throws PurchaseFailed '
             'when apiClient.createSubscription throws', () async {
           when(
-            () => apiClient.getCurrentUser(),
+            apiClient.getCurrentUser,
           ).thenThrow(Exception());
 
           final repository = InAppPurchaseRepository(
@@ -551,7 +547,7 @@ void main() {
           );
 
           expect(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
@@ -566,7 +562,7 @@ void main() {
       group('when PurchaseDetails status is restored', () {
         setUp(() {
           when(() => inAppPurchase.purchaseStream).thenAnswer(
-            (invocation) => Stream.fromIterable([
+            (_) => Stream.fromIterable([
               [purchaseDetails.copyWith(status: PurchaseStatus.restored)],
             ]),
           );
@@ -585,7 +581,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
@@ -623,7 +619,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(<Matcher>[
               isA<PurchasePurchased>(),
               emitsError(isA<PurchaseFailed>()),
@@ -635,7 +631,7 @@ void main() {
       group('when pendingCompletePurchase is true', () {
         setUp(() {
           when(() => inAppPurchase.purchaseStream).thenAnswer(
-            (invocation) => Stream.fromIterable([
+            (_) => Stream.fromIterable([
               [
                 purchaseDetails.copyWith(
                   status: PurchaseStatus.pending,
@@ -651,7 +647,7 @@ void main() {
             'when inAppPurchase.completePurchase succeeds', () async {
           when(
             () => inAppPurchase.completePurchase(any()),
-          ).thenAnswer((invocation) async {});
+          ).thenAnswer((_) async {});
 
           final repository = InAppPurchaseRepository(
             authenticationClient: authenticationClient,
@@ -660,7 +656,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emits(isA<PurchaseCompleted>()),
           );
         });
@@ -679,7 +675,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsError(
               isA<PurchaseFailed>(),
             ),
@@ -687,13 +683,14 @@ void main() {
         });
 
         test(
-            'calls getSubscriptions only once '
-            'when cachedProducts is not empty', () async {
+            'calls apiClient.getSubscriptions once '
+            'and returns cachedProducts on next '
+            'apiClient.getSubscriptions call', () async {
           when(
             () => inAppPurchase.completePurchase(any()),
-          ).thenAnswer((invocation) async {});
+          ).thenAnswer((_) async {});
           when(() => inAppPurchase.purchaseStream).thenAnswer(
-            (invocation) => Stream.fromIterable([
+            (_) => Stream.fromIterable([
               [
                 purchaseDetails.copyWith(
                   status: PurchaseStatus.pending,
@@ -714,7 +711,7 @@ void main() {
           );
 
           await expectLater(
-            repository.purchaseUpdateStream,
+            repository.purchaseUpdate,
             emitsInOrder(
               <Matcher>[
                 isA<PurchaseCompleted>(),
@@ -729,8 +726,8 @@ void main() {
     group('fetchSubscriptions', () {
       test('returns subscription list from apiClient.getSubscriptions',
           () async {
-        when(() => apiClient.getSubscriptions()).thenAnswer(
-          (invocation) async => SubscriptionsResponse(
+        when(apiClient.getSubscriptions).thenAnswer(
+          (_) async => SubscriptionsResponse(
             subscriptions: [subscription],
           ),
         );
@@ -744,14 +741,14 @@ void main() {
 
         expect(result, equals([subscription]));
         verify(
-          () => apiClient.getSubscriptions(),
+          apiClient.getSubscriptions,
         ).called(1);
       });
 
       test(
           'throws FetchSubscriptionsFailure '
           'when apiClient.getSubscriptions throws', () async {
-        when(() => apiClient.getSubscriptions()).thenThrow(Exception());
+        when(apiClient.getSubscriptions).thenThrow(Exception());
 
         final repository = InAppPurchaseRepository(
           authenticationClient: authenticationClient,

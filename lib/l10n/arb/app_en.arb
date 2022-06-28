@@ -586,5 +586,11 @@
     "description": "Text displayed where year abbreviation is used.",
     "type": "text",
     "placeholders": {}
+  },
+  "slideshow": "Slideshow",
+  "@slideshow": {
+    "description": "Slideshow text shown on slideshow introduction widgets.",
+    "type": "text",
+    "placeholders": {}
   }
 }

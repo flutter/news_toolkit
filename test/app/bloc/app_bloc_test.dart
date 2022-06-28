@@ -319,5 +319,89 @@ void main() {
             expect(currentSubscriptionPlanController.hasListener, isFalse),
       );
     });
+
+    group('AppOpened', () {
+      blocTest<AppBloc, AppState>(
+        'calls UserRepository.incrementAppOpenedCount '
+        'and emits showLoginOverlay as true '
+        'when fetchAppOpenedCount returns a count value of 4 '
+        'and user is anonymous',
+        setUp: () {
+          when(() => userRepository.fetchAppOpenedCount())
+              .thenAnswer((_) async => 4);
+          when(() => userRepository.incrementAppOpenedCount())
+              .thenAnswer((_) async {});
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[
+          AppState(
+            showLoginOverlay: true,
+            status: AppStatus.unauthenticated,
+          )
+        ],
+        verify: (_) {
+          verify(
+            () => userRepository.incrementAppOpenedCount(),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls UserRepository.incrementAppOpenedCount '
+        'when fetchAppOpenedCount returns a count value of 3 '
+        'and user is anonymous',
+        setUp: () {
+          when(() => userRepository.fetchAppOpenedCount())
+              .thenAnswer((_) async => 3);
+          when(() => userRepository.incrementAppOpenedCount())
+              .thenAnswer((_) async {});
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
+        verify: (_) {
+          verify(
+            () => userRepository.incrementAppOpenedCount(),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'does not call UserRepository.incrementAppOpenedCount '
+        'when fetchAppOpenedCount returns a count value of 6 '
+        'and user is anonymous',
+        setUp: () {
+          when(() => userRepository.fetchAppOpenedCount())
+              .thenAnswer((_) async => 6);
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
+        verify: (_) {
+          verifyNever(
+            () => userRepository.incrementAppOpenedCount(),
+          );
+        },
+      );
+    });
   });
 }
