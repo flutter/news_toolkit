@@ -118,11 +118,11 @@ class _SlideshowPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: PageView.builder(
-        key: const Key('slideshow_pageview'),
+        key: const Key('slideshow_pageView'),
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
         itemCount: slides.length,
-        itemBuilder: (contex, index) => SlideshowItem(
+        itemBuilder: (context, index) => SlideshowItem(
           slide: slides[index],
         ),
       ),

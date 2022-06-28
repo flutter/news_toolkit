@@ -11,7 +11,7 @@ import '../helpers/pump_content_themed_app.dart';
 void main() {
   const slideshowCategoryTitleKey = Key('slideshow_categoryTitle');
   const slideshowHeaderKey = Key('slideshow_headerTitle');
-  const slideshowPageViewKey = Key('slideshow_pageview');
+  const slideshowPageViewKey = Key('slideshow_pageView');
   const slideshowItemImageKey = Key('slideshow_slideshowItemImage');
   const slideshowItemCaptionKey = Key('slideshow_slideshowItemCaption');
   const slideshowItemDescriptionKey = Key('slideshow_slideshowItemDescription');
@@ -25,20 +25,21 @@ void main() {
     final slides = List.generate(
       4,
       (index) => SlideBlock(
-          caption: 'Oink, Oink',
-          description: 'Domestic pigs come in different colours, '
-              'shapes and sizes. They are usually pink, but little pigs kept as'
-              ' pets (pot-bellied pigs) are sometimes other colours. '
-              ' Pigs roll in mud to protect themselves from sunlight. '
-              ' Many people think that pigs are dirty and smell. In fact,'
-              ' they roll around in the mud to keep bugs '
-              ' and ticks away from their skin. '
-              ' This also helps to keep their skin moist and lower their body'
-              ' temperature on hot days. They are omnivores, '
-              ' which means that they eat both plants and animals.',
-          photoCredit: 'Photo Credit: Pascal Debrunner',
-          imageUrl:
-              'https://media.4-paws.org/9/4/f/5/94f5197df88687ce362e32f23b926f0a246c1b54/VIER%20PFOTEN_2016-11-16_028%20%281%29-1843x1275.jpg'),
+        caption: 'Oink, Oink',
+        description: 'Domestic pigs come in different colours, '
+            'shapes and sizes. They are usually pink, but little pigs kept as'
+            ' pets (pot-bellied pigs) are sometimes other colours. '
+            ' Pigs roll in mud to protect themselves from sunlight. '
+            ' Many people think that pigs are dirty and smell. In fact,'
+            ' they roll around in the mud to keep bugs '
+            ' and ticks away from their skin. '
+            ' This also helps to keep their skin moist and lower their body'
+            ' temperature on hot days. They are omnivores, '
+            ' which means that they eat both plants and animals.',
+        photoCredit: 'Photo Credit: Pascal',
+        imageUrl:
+            'https://media.4-paws.org/9/4/f/5/94f5197df88687ce362e32f23b926f0a246c1b54/VIER%20PFOTEN_2016-11-16_028%20%281%29-1843x1275.jpg',
+      ),
     );
 
     group('renders', () {
