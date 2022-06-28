@@ -1,3 +1,4 @@
+import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
 
+class MockAdsConsentClient extends Mock implements AdsConsentClient {}
+
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
@@ -67,6 +70,7 @@ extension AppTester on WidgetTester {
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
     InAppPurchaseRepository? inAppPurchaseRepository,
+    AdsConsentClient? adsConsentClient,
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -89,6 +93,9 @@ extension AppTester on WidgetTester {
           ),
           RepositoryProvider.value(
             value: inAppPurchaseRepository ?? MockInAppPurchaseRepository(),
+          ),
+          RepositoryProvider.value(
+            value: adsConsentClient ?? MockAdsConsentClient(),
           ),
         ],
         child: MultiBlocProvider(

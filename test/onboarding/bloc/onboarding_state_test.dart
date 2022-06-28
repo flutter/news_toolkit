@@ -21,18 +21,26 @@ void main() {
       });
     });
 
-    group('OnboardingEnablingNotifications', () {
+    group('EnablingNotifications', () {
       test('supports value comparisons', () {
-        final state1 = OnboardingEnablingNotifications();
-        final state2 = OnboardingEnablingNotifications();
+        final state1 = EnablingNotifications();
+        final state2 = EnablingNotifications();
         expect(state1, equals(state2));
       });
     });
 
-    group('OnboardingEnablingNotificationsFailed', () {
+    group('EnablingNotificationsSucceeded', () {
       test('supports value comparisons', () {
-        final state1 = OnboardingEnablingNotificationsFailed();
-        final state2 = OnboardingEnablingNotificationsFailed();
+        final state1 = EnablingNotificationsSucceeded();
+        final state2 = EnablingNotificationsSucceeded();
+        expect(state1, equals(state2));
+      });
+    });
+
+    group('EnablingNotificationsFailed', () {
+      test('supports value comparisons', () {
+        final state1 = EnablingNotificationsFailed();
+        final state2 = EnablingNotificationsFailed();
         expect(state1, equals(state2));
       });
     });
