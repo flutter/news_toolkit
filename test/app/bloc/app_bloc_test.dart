@@ -371,6 +371,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(AppOpened()),
         seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
         verify: (_) {
           verify(
             () => userRepository.incrementAppOpenedCount(),
@@ -394,6 +395,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(AppOpened()),
         seed: AppState.unauthenticated,
+        expect: () => <AppState>[],
         verify: (_) {
           verifyNever(
             () => userRepository.incrementAppOpenedCount(),
