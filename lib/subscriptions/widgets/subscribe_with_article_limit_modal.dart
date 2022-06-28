@@ -23,7 +23,7 @@ class SubscribeWithArticleLimitModal extends StatefulWidget {
 class _SubscribeWithArticleLimitModalState
     extends State<SubscribeWithArticleLimitModal> {
   bool _rewardedAdShown = false;
-  bool _subscribeLimitModalShown = false;
+  bool _modalShown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _SubscribeWithArticleLimitModalState
 
     return VisibilityDetector(
       key: const Key('subscribeWithArticleLimitModal_visibilityDetector'),
-      onVisibilityChanged: _subscribeLimitModalShown
+      onVisibilityChanged: _modalShown
           ? null
           : (visibility) {
               if (!visibility.visibleBounds.isEmpty) {
@@ -51,7 +51,7 @@ class _SubscribeWithArticleLimitModalState
                         ),
                       ),
                     );
-                setState(() => _subscribeLimitModalShown = true);
+                setState(() => _modalShown = true);
               }
             },
       child: ColoredBox(

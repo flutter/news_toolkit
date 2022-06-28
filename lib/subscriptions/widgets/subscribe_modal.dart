@@ -17,7 +17,7 @@ class SubscribeModal extends StatefulWidget {
 }
 
 class _SubscribeModalState extends State<SubscribeModal> {
-  bool _subscribeModalShown = false;
+  bool _modalShown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
 
     return VisibilityDetector(
       key: const Key('subscribeModal'),
-      onVisibilityChanged: _subscribeModalShown
+      onVisibilityChanged: _modalShown
           ? null
           : (visibility) {
               if (!visibility.visibleBounds.isEmpty) {
@@ -42,7 +42,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
                         ),
                       ),
                     );
-                setState(() => _subscribeModalShown = true);
+                setState(() => _modalShown = true);
               }
             },
       child: ColoredBox(
