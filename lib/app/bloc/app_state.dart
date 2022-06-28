@@ -11,8 +11,8 @@ class AppState extends Equatable {
     required this.status,
     this.user = User.anonymous,
     this.userSubscriptionPlan,
-    bool? showLoginOverlay,
-  }) : showLoginOverlay = showLoginOverlay ?? false;
+    this.showLoginOverlay = false,
+  });
 
   const AppState.authenticated(
     User user, {
