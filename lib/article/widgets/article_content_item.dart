@@ -66,6 +66,11 @@ class ArticleContentItem extends StatelessWidget {
         block: newsBlock,
         title: context.l10n.trendingStoryTitle,
       );
+    } else if (newsBlock is SlideshowIntroductionBlock) {
+      return SlideshowIntroduction(
+        block: newsBlock,
+        slideshowText: context.l10n.slideshow,
+      );
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();

@@ -2,7 +2,41 @@ import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
+import 'package:equatable/equatable.dart';
 import 'package:package_info_client/package_info_client.dart';
+import 'package:storage/storage.dart';
+
+part 'user_storage.dart';
+
+/// {@template user_failure}
+/// A base failure for the user repository failures.
+/// {@endtemplate}
+abstract class UserFailure with EquatableMixin implements Exception {
+  /// {@macro user_failure}
+  const UserFailure(this.error);
+
+  /// The error which was caught.
+  final Object error;
+
+  @override
+  List<Object> get props => [error];
+}
+
+/// {@template fetch_app_opened_count_failure}
+/// Thrown when fetching app opened count fails.
+/// {@endtemplate}
+class FetchAppOpenedCountFailure extends UserFailure {
+  /// {@macro fetch_app_opened_count_failure}
+  const FetchAppOpenedCountFailure(super.error);
+}
+
+/// {@template increment_app_opened_count_failure}
+/// Thrown when incrementing app opened count fails.
+/// {@endtemplate}
+class IncrementAppOpenedCountFailure extends UserFailure {
+  /// {@macro increment_app_opened_count_failure}
+  const IncrementAppOpenedCountFailure(super.error);
+}
 
 /// {@template user_repository}
 /// Repository which manages the user domain.
@@ -13,13 +47,16 @@ class UserRepository {
     required AuthenticationClient authenticationClient,
     required PackageInfoClient packageInfoClient,
     required DeepLinkClient deepLinkClient,
+    required UserStorage storage,
   })  : _authenticationClient = authenticationClient,
         _packageInfoClient = packageInfoClient,
-        _deepLinkClient = deepLinkClient;
+        _deepLinkClient = deepLinkClient,
+        _storage = storage;
 
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
   final DeepLinkClient _deepLinkClient;
+  final UserStorage _storage;
 
   /// Stream of [User] which will emit the current user when
   /// the authentication state changes.
@@ -146,6 +183,32 @@ class UserRepository {
       rethrow;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(LogOutFailure(error), stackTrace);
+    }
+  }
+
+  /// Returns the number of times the app was opened.
+  Future<int> fetchAppOpenedCount() async {
+    try {
+      return await _storage.fetchAppOpenedCount();
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        FetchAppOpenedCountFailure(error),
+        stackTrace,
+      );
+    }
+  }
+
+  /// Increments the number of times the app was opened by 1.
+  Future<void> incrementAppOpenedCount() async {
+    try {
+      final value = await fetchAppOpenedCount();
+      final result = value + 1;
+      await _storage.setAppOpenedCount(count: result);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        IncrementAppOpenedCountFailure(error),
+        stackTrace,
+      );
     }
   }
 }

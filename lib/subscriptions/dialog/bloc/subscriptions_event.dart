@@ -13,6 +13,7 @@ class CurrentSubscriptionChanged extends SubscriptionsEvent {
   CurrentSubscriptionChanged({required this.subscription});
 
   final SubscriptionPlan subscription;
+
   @override
   List<Object> get props => [subscription];
 }
@@ -23,7 +24,7 @@ class SubscriptionPurchaseRequested extends SubscriptionsEvent {
   final Subscription subscription;
 
   @override
-  List<Object?> get props => [subscription];
+  List<Object> get props => [subscription];
 }
 
 class SubscriptionPurchaseCompleted extends SubscriptionsEvent {
@@ -32,14 +33,14 @@ class SubscriptionPurchaseCompleted extends SubscriptionsEvent {
   final Subscription subscription;
 
   @override
-  List<Object?> get props => [subscription];
+  List<Object> get props => [subscription];
 }
 
-class InAppPurchaseUpdated extends SubscriptionsEvent {
-  InAppPurchaseUpdated({required this.purchase});
+class SubscriptionPurchaseUpdated extends SubscriptionsEvent {
+  SubscriptionPurchaseUpdated({required this.purchase});
 
   final PurchaseUpdate purchase;
 
   @override
-  List<Object?> get props => [purchase];
+  List<Object> get props => [purchase];
 }

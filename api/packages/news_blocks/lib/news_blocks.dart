@@ -9,6 +9,7 @@ export 'src/block_action.dart'
         NavigateToArticleAction,
         NavigateToVideoArticleAction,
         NavigateToFeedCategoryAction,
+        NavigateToSlideshowAction,
         UnknownBlockAction;
 export 'src/block_action_converter.dart' show BlockActionConverter;
 export 'src/category.dart' show Category;
@@ -27,6 +28,9 @@ export 'src/post_large_block.dart' show PostLargeBlock;
 export 'src/post_medium_block.dart' show PostMediumBlock;
 export 'src/post_small_block.dart' show PostSmallBlock;
 export 'src/section_header_block.dart' show SectionHeaderBlock;
+export 'src/slide_block.dart' show SlideBlock;
+export 'src/slideshow_block.dart' show SlideshowBlock;
+export 'src/slideshow_introduction_block.dart' show SlideshowIntroductionBlock;
 export 'src/spacer_block.dart' show SpacerBlock, Spacing;
 export 'src/text_caption_block.dart' show TextCaptionBlock, TextCaptionColor;
 export 'src/text_headline_block.dart' show TextHeadlineBlock;

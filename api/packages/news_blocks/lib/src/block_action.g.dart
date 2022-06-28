@@ -87,6 +87,29 @@ const _$CategoryEnumMap = {
   Category.technology: 'technology',
 };
 
+NavigateToSlideshowAction _$NavigateToSlideshowActionFromJson(
+        Map<String, dynamic> json) =>
+    $checkedCreate(
+      'NavigateToSlideshowAction',
+      json,
+      ($checkedConvert) {
+        final val = NavigateToSlideshowAction(
+          slideshow: $checkedConvert('slideshow',
+              (v) => SlideshowBlock.fromJson(v as Map<String, dynamic>)),
+          type: $checkedConvert('type',
+              (v) => v as String? ?? NavigateToSlideshowAction.identifier),
+        );
+        return val;
+      },
+    );
+
+Map<String, dynamic> _$NavigateToSlideshowActionToJson(
+        NavigateToSlideshowAction instance) =>
+    <String, dynamic>{
+      'slideshow': instance.slideshow.toJson(),
+      'type': instance.type,
+    };
+
 UnknownBlockAction _$UnknownBlockActionFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
       'UnknownBlockAction',

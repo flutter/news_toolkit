@@ -275,7 +275,7 @@ void main() {
             ]),
           );
 
-          when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
+          when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
             (_) => const Stream.empty(),
           );
 
