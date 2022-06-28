@@ -40,7 +40,7 @@ void main() {
       expect(find.text(block.title), findsOneWidget);
     });
 
-    testWidgets('renders slideshow category', (tester) async {
+    testWidgets('renders SlideshowCategory', (tester) async {
       final block = SlideshowIntroductionBlock(
         title: 'title',
         coverImageUrl: imageUrl,
@@ -61,7 +61,13 @@ void main() {
         ),
       );
 
-      expect(find.byType(SlideshowCategory), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is SlideshowCategory && widget.isIntroduction == true,
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('renders cover image', (tester) async {
