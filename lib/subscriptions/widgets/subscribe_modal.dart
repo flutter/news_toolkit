@@ -37,7 +37,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 context.read<AnalyticsBloc>().add(
                       TrackAnalyticsEvent(
                         PaywallPromptEvent.impression(
-                          impression: PaywallPromptImpression.rewarded,
+                          impression: PaywallPromptImpression.subscription,
                           articleTitle: articleTitle ?? '',
                         ),
                       ),
