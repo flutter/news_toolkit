@@ -186,6 +186,7 @@ final technologyLargeItems = <NewsItem>[
         coverImageUrl:
             'https://cdn.vox-cdn.com/thumbor/nC20D1S_iVCFb-sPRnEiFPLeg-s=/0x0:3181x2391/1820x1213/filters:focal(1337x942:1845x1450):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70682614/955510a1_40de_495a_ad94_09d04e6105d7.0.jpg',
         action: NavigateToSlideshowAction(
+          articleId: '499305f6-5096-4051-afda-824dcfc7df23',
           slideshow: SlideshowBlock(
             title: 'High end GPUs',
             slides: [
