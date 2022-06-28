@@ -48,5 +48,14 @@ void main() {
         );
       });
     });
+
+    group('AppOpened', () {
+      test('supports value comparisons', () {
+        expect(
+          AppOpened(),
+          AppOpened(),
+        );
+      });
+    });
   });
 }

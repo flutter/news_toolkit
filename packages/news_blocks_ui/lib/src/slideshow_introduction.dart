@@ -2,10 +2,10 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/widgets/slideshow_category.dart';
+import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template slideshow_introduction}
-/// A reusable slideshow introduction.
+/// A reusable slideshow introduction news block widget.
 /// {@endtemplate}
 class SlideshowIntroduction extends StatelessWidget {
   /// {@macro slideshow_introduction}
@@ -23,24 +23,26 @@ class SlideshowIntroduction extends StatelessWidget {
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
   final BlockActionCallback? onPressed;
 
-  /// Text displayed in the slideshow category widget
+  /// Text displayed in the slideshow category widget.
   final String slideshowText;
 
   @override
   Widget build(BuildContext context) {
-    const isContentOverlaid = true;
     final textTheme = Theme.of(context).textTheme;
+    final action = block.action;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
-        onTap: () => onPressed?.call(block.action!),
+        onTap: () {
+          if (action != null) onPressed?.call(action);
+        },
         child: Stack(
-          key: const Key('slideshow_introduction_stack'),
           alignment: Alignment.bottomLeft,
           children: [
             PostLargeImage(
               imageUrl: block.coverImageUrl,
-              isContentOverlaid: isContentOverlaid,
+              isContentOverlaid: true,
               isLocked: false,
             ),
             Padding(

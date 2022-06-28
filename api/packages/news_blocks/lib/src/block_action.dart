@@ -44,6 +44,8 @@ abstract class BlockAction {
         return NavigateToVideoArticleAction.fromJson(json);
       case NavigateToFeedCategoryAction.identifier:
         return NavigateToFeedCategoryAction.fromJson(json);
+      case NavigateToSlideshowAction.identifier:
+        return NavigateToSlideshowAction.fromJson(json);
     }
     return const UnknownBlockAction();
   }
@@ -153,6 +155,41 @@ class NavigateToFeedCategoryAction with EquatableMixin implements BlockAction {
 
   @override
   List<Object?> get props => [type, actionType, category];
+}
+
+/// {@template navigate_to_slideshow_action}
+/// A block action which represents navigation to the slideshow.
+/// {@endtemplate}
+@JsonSerializable()
+class NavigateToSlideshowAction with EquatableMixin implements BlockAction {
+  /// {@macro navigate_to_slideshow_action}
+  const NavigateToSlideshowAction({
+    required this.slideshow,
+    this.type = NavigateToSlideshowAction.identifier,
+  });
+
+  /// Converts a `Map<String, dynamic>`
+  /// into a [NavigateToSlideshowAction] instance.
+  factory NavigateToSlideshowAction.fromJson(Map<String, dynamic> json) =>
+      _$NavigateToSlideshowActionFromJson(json);
+
+  /// The identifier of this block action.
+  static const identifier = '__navigate_to_slideshow__';
+
+  /// The slideshow content.
+  final SlideshowBlock slideshow;
+
+  @override
+  BlockActionType get actionType => BlockActionType.navigation;
+
+  @override
+  final String type;
+
+  @override
+  Map<String, dynamic> toJson() => _$NavigateToSlideshowActionToJson(this);
+
+  @override
+  List<Object?> get props => [type, actionType, slideshow];
 }
 
 /// {@template unknown_block_action}

@@ -17,7 +17,8 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
     this.action,
   });
 
-  /// Converts a `Map<String, dynamic>` into a [SlideshowBlock] instance.
+  /// Converts a `Map<String, dynamic>`
+  /// into a [SlideshowIntroductionBlock] instance.
   factory SlideshowIntroductionBlock.fromJson(Map<String, dynamic> json) =>
       _$SlideshowIntroductionBlockFromJson(json);
 

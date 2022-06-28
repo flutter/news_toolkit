@@ -14,6 +14,7 @@ void main() {
       'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg='
       '/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset'
       '/file/22049166/shollister_201117_4303_0003.0.jpg';
+
   group('SlideshowIntroduction', () {
     testWidgets('renders title', (tester) async {
       final block = SlideshowIntroductionBlock(
@@ -38,7 +39,8 @@ void main() {
 
       expect(find.text(block.title), findsOneWidget);
     });
-    testWidgets('renders slideshow category', (tester) async {
+
+    testWidgets('renders SlideshowCategory', (tester) async {
       final block = SlideshowIntroductionBlock(
         title: 'title',
         coverImageUrl: imageUrl,
@@ -59,7 +61,13 @@ void main() {
         ),
       );
 
-      expect(find.byType(SlideshowCategory), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is SlideshowCategory && widget.isIntroduction == true,
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('renders cover image', (tester) async {
