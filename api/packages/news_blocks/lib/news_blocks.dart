@@ -9,6 +9,7 @@ export 'src/block_action.dart'
         NavigateToArticleAction,
         NavigateToVideoArticleAction,
         NavigateToFeedCategoryAction,
+        NavigateToSlideshowAction,
         UnknownBlockAction;
 export 'src/block_action_converter.dart' show BlockActionConverter;
 export 'src/category.dart' show Category;
