@@ -9,12 +9,12 @@ class SlideshowCategory extends StatelessWidget {
   const SlideshowCategory({
     super.key,
     required this.slideshowText,
-    this.inIntroduction = true,
+    this.isIntroduction = true,
   });
 
-  /// Boolean which tracks if slideshow category is
+  /// Whether this slideshow category is
   /// being displayed in an introduction.
-  final bool inIntroduction;
+  final bool isIntroduction;
 
   /// Text displayed in the slideshow category widget.
   final String slideshowText;
@@ -22,8 +22,8 @@ class SlideshowCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backgroundColor =
-        inIntroduction ? AppColors.secondary : AppColors.transparent;
-    final textColor = inIntroduction ? AppColors.white : AppColors.orange;
+        isIntroduction ? AppColors.secondary : AppColors.transparent;
+    final textColor = isIntroduction ? AppColors.white : AppColors.orange;
     const horizontalSpacing = AppSpacing.xs;
 
     return Column(
