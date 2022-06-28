@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:app_ui/app_ui.dart';
@@ -6,9 +6,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/categories/categories.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
+import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mocktail/mocktail.dart';
@@ -26,11 +28,14 @@ class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
 
 class MockNewsRepository extends Mock implements NewsRepository {}
 
+class MockAppBloc extends Mock implements AppBloc {}
+
 void main() {
   late NewsRepository newsRepository;
   late HomeCubit cubit;
   late CategoriesBloc categoriesBloc;
   late FeedBloc feedBloc;
+  late AppBloc appBloc;
 
   const categories = [Category.top, Category.technology];
 
@@ -53,6 +58,14 @@ void main() {
     categoriesBloc = MockCategoriesBloc();
     feedBloc = MockFeedBloc();
     cubit = MockHomeCubit();
+    appBloc = MockAppBloc();
+
+    when(() => appBloc.state).thenReturn(
+      AppState(
+        showLoginOverlay: false,
+        status: AppStatus.unauthenticated,
+      ),
+    );
 
     when(() => categoriesBloc.state).thenReturn(
       CategoriesState(
@@ -141,7 +154,30 @@ void main() {
       );
       expect(find.byType(FeedView), findsOneWidget);
     });
+
+    testWidgets('shows LoginOverlay when showLoginOverlay is true',
+        (tester) async {
+      whenListen(
+        appBloc,
+        Stream.fromIterable([
+          AppState(status: AppStatus.unauthenticated, showLoginOverlay: false),
+          AppState(status: AppStatus.unauthenticated, showLoginOverlay: true),
+        ]),
+      );
+
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+        appBloc: appBloc,
+      );
+
+      expect(find.byType(LoginModal), findsOneWidget);
+    });
   });
+
   group('BottomNavigationBar', () {
     testWidgets(
       'has selected index to 0 by default.',
@@ -200,6 +236,7 @@ Future<void> pumpHomeView({
   required CategoriesBloc categoriesBloc,
   required FeedBloc feedBloc,
   required NewsRepository newsRepository,
+  AppBloc? appBloc,
 }) async {
   await tester.pumpApp(
     MultiBlocProvider(
@@ -217,5 +254,6 @@ Future<void> pumpHomeView({
       child: HomeView(),
     ),
     newsRepository: newsRepository,
+    appBloc: appBloc,
   );
 }
