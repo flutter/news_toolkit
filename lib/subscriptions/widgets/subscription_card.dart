@@ -58,7 +58,7 @@ class SubscriptionCard extends StatelessWidget {
               height: AppSpacing.xlg + AppSpacing.sm,
             ),
             Text(
-              subscription.name.toString().split('.')[1].toUpperCase(),
+              subscription.name.name.toUpperCase(),
               style: theme.textTheme.headline6
                   ?.copyWith(color: AppColors.secondary),
             ),
