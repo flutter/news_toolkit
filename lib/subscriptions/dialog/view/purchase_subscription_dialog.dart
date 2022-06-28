@@ -84,7 +84,8 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                               PurchaseStatus.completed) {
                             showDialog<void>(
                               context: context,
-                              builder: (context) => const PurchaseCompleted(),
+                              builder: (context) =>
+                                  const PurchaseCompletedDialog(),
                             ).then((_) => Navigator.maybePop(context));
                           }
                         },
@@ -119,14 +120,15 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
 }
 
 @visibleForTesting
-class PurchaseCompleted extends StatefulWidget {
-  const PurchaseCompleted({super.key});
+class PurchaseCompletedDialog extends StatefulWidget {
+  const PurchaseCompletedDialog({super.key});
 
   @override
-  State<PurchaseCompleted> createState() => _PurchaseCompletedState();
+  State<PurchaseCompletedDialog> createState() =>
+      _PurchaseCompletedDialogState();
 }
 
-class _PurchaseCompletedState extends State<PurchaseCompleted> {
+class _PurchaseCompletedDialogState extends State<PurchaseCompletedDialog> {
   late Timer _timer;
 
   static const _closeDialogAfterDuration = Duration(seconds: 3);

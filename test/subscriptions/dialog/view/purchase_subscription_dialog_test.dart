@@ -138,7 +138,7 @@ void main() {
     });
 
     testWidgets(
-        'shows PurchaseCompleted dialog '
+        'shows PurchaseCompletedDialog '
         'when SubscriptionsBloc emits purchaseStatus.completed ',
         (tester) async {
       final navigator = MockNavigator();
@@ -160,12 +160,12 @@ void main() {
         );
 
         await tester.pump();
-        expect(find.byType(PurchaseCompleted), findsOneWidget);
+        expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
       });
     });
   });
 
-  group('PurchaseCompleted', () {
+  group('PurchaseCompletedDialog', () {
     testWidgets('closes after 3 seconds', (tester) async {
       const buttonText = 'buttonText';
 
@@ -176,7 +176,7 @@ void main() {
               child: const Text('buttonText'),
               onPressed: () => showAppModal<void>(
                 context: context,
-                builder: (context) => const PurchaseCompleted(),
+                builder: (context) => const PurchaseCompletedDialog(),
               ),
             );
           },
@@ -186,11 +186,11 @@ void main() {
 
       await tester.tap(find.text(buttonText));
       await tester.pump();
-      expect(find.byType(PurchaseCompleted), findsOneWidget);
+      expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 3));
       await tester.pump();
-      expect(find.byType(PurchaseCompleted), findsNothing);
+      expect(find.byType(PurchaseCompletedDialog), findsNothing);
     });
   });
 }
