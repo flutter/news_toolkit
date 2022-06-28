@@ -222,17 +222,6 @@ final technologyLargeItems = <NewsItem>[
                 imageUrl:
                     'https://cdn.vox-cdn.com/thumbor/oU-H_vwU66ldMk3M69k3eY3Td1U=/34x189:1238x869/1820x1213/filters:focal(295x343:615x663):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70879959/kv.0.jpg',
               ),
-              SlideBlock(
-                caption: 'Asus GeForce RTX 3070 Noctua',
-                description:
-                    'Fusce ornare quis odio eget fringilla. Curabitur gravida '
-                    'velit urna, semper imperdiet metus fermentum congue. '
-                    'Vestibulum ut diam ut risus porta mattis. Proin fringilla '
-                    'arcu lorem, sit amet porttitor ante iaculis sit amet.',
-                photoCredit: 'Asus',
-                imageUrl:
-                    'https://cdn.vox-cdn.com/thumbor/oU-H_vwU66ldMk3M69k3eY3Td1U=/34x189:1238x869/1820x1213/filters:focal(295x343:615x663):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70879959/kv.0.jpg',
-              ),
             ],
           ),
         ),
