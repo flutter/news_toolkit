@@ -11,7 +11,6 @@ import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';

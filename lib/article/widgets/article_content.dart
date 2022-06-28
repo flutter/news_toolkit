@@ -128,16 +128,14 @@ class ArticleContentSeenListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ArticleBloc, ArticleState>(
-      listener: (context, state) {
-        context.read<AnalyticsBloc>().add(
-              TrackAnalyticsEvent(
-                ArticleMilestoneEvent(
-                  milestonePercentage: state.contentMilestone,
-                  articleTitle: state.title!,
-                ),
+      listener: (context, state) => context.read<AnalyticsBloc>().add(
+            TrackAnalyticsEvent(
+              ArticleMilestoneEvent(
+                milestonePercentage: state.contentMilestone,
+                articleTitle: state.title!,
               ),
-            );
-      },
+            ),
+          ),
       listenWhen: (previous, current) =>
           previous.contentMilestone != current.contentMilestone,
       child: child,
