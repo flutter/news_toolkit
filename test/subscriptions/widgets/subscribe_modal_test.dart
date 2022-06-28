@@ -117,10 +117,9 @@ void main() {
     });
 
     testWidgets(
-        'adds PaywallPromptEvent with '
-        'PaywallPromptImpression.rewarded '
-        'to AnalyticsBloc '
-        'when SubscribeModal visible', (tester) async {
+        'adds TrackAnalyticsEvent to AnalyticsBloc '
+        'with PaywallPromptEvent.impression subscription '
+        'when shown', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
@@ -135,7 +134,7 @@ void main() {
           TrackAnalyticsEvent(
             PaywallPromptEvent.impression(
               articleTitle: 'title',
-              impression: PaywallPromptImpression.rewarded,
+              impression: PaywallPromptImpression.subscription,
             ),
           ),
         ),

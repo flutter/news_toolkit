@@ -215,31 +215,29 @@ void main() {
       expect(find.byType(RewardedAd), findsNothing);
     });
 
-    group('when visible', () {
-      testWidgets(
-          'adds TrackAnalyticsEvent to AnalyticsBloc '
-          'with PaywallPromptEvent.impression subscription '
-          'when shown', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: SubscribeWithArticleLimitModal(),
-          ),
-          analyticsBloc: analyticsBloc,
-          appBloc: appBloc,
-        );
+    testWidgets(
+        'adds TrackAnalyticsEvent to AnalyticsBloc '
+        'with PaywallPromptEvent.impression rewarded '
+        'when shown', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
+      );
 
-        verify(
-          () => analyticsBloc.add(
-            TrackAnalyticsEvent(
-              PaywallPromptEvent.impression(
-                articleTitle: 'title',
-                impression: PaywallPromptImpression.subscription,
-              ),
+      verify(
+        () => analyticsBloc.add(
+          TrackAnalyticsEvent(
+            PaywallPromptEvent.impression(
+              articleTitle: 'title',
+              impression: PaywallPromptImpression.rewarded,
             ),
           ),
-        ).called(1);
-      });
+        ),
+      ).called(1);
     });
   });
 }
