@@ -102,6 +102,54 @@ void main() {
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
     });
 
+    testWidgets(
+        'to onboarding page two '
+        'when state is EnablingAdTrackingSucceeded', (tester) async {
+      whenListen(
+        onboardingBloc,
+        Stream.fromIterable([
+          OnboardingInitial(),
+          EnablingAdTrackingSucceeded(),
+        ]),
+        initialState: OnboardingInitial(),
+      );
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: onboardingBloc,
+          child: OnboardingView(),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
+    });
+
+    testWidgets(
+        'to onboarding page two '
+        'when state is EnablingAdTrackingFailed', (tester) async {
+      whenListen(
+        onboardingBloc,
+        Stream.fromIterable([
+          OnboardingInitial(),
+          EnablingAdTrackingFailed(),
+        ]),
+        initialState: OnboardingInitial(),
+      );
+
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: onboardingBloc,
+          child: OnboardingView(),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
+    });
+
     testWidgets('to home when onboarding is complete', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
@@ -178,8 +226,7 @@ void main() {
 
   testWidgets(
       'adds AppOnboardingCompleted to AppBloc '
-      'when OnboardingState is OnboardingEnablingNotificationsSucceeded',
-      (tester) async {
+      'when OnboardingState is EnablingNotificationsSucceeded', (tester) async {
     final onboardingStateController = StreamController<OnboardingState>();
 
     whenListen(
