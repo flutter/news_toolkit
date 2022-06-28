@@ -26,12 +26,16 @@ void main() {
       4,
       (index) => SlideBlock(
           caption: 'Oink, Oink',
-          description:
-              'Pigs facts! Fusce ornare quis odio eget fringilla.Curabitur'
-              ' gravida velit urna, semper imperdiet metus fermentum '
-              'congue. Vestibulum ut diam ut risus porta mattis. Proin '
-              'fringilla arcu lorem, sit amet porttitor ante iaculis sit '
-              'amet.',
+          description: 'Domestic pigs come in different colours, '
+              'shapes and sizes. They are usually pink, but little pigs kept as'
+              ' pets (pot-bellied pigs) are sometimes other colours. '
+              ' Pigs roll in mud to protect themselves from sunlight. '
+              ' Many people think that pigs are dirty and smell. In fact,'
+              ' they roll around in the mud to keep bugs '
+              ' and ticks away from their skin. '
+              ' This also helps to keep their skin moist and lower their body'
+              ' temperature on hot days. They are omnivores, '
+              ' which means that they eat both plants and animals.',
           photoCredit: 'Photo Credit: Pascal Debrunner',
           imageUrl:
               'https://media.4-paws.org/9/4/f/5/94f5197df88687ce362e32f23b926f0a246c1b54/VIER%20PFOTEN_2016-11-16_028%20%281%29-1843x1275.jpg'),
@@ -70,7 +74,7 @@ void main() {
         expect(find.byKey(slideshowHeaderKey), findsOneWidget);
       });
 
-      testWidgets('slidehow page view', (tester) async {
+      testWidgets('slideshow page view', (tester) async {
         await mockNetworkImages(
           () async => tester.pumpContentThemedApp(
             Slideshow(
@@ -86,7 +90,7 @@ void main() {
         expect(find.byKey(slideshowPageViewKey), findsOneWidget);
       });
 
-      testWidgets('slidehow item image', (tester) async {
+      testWidgets('slideshow item image', (tester) async {
         await mockNetworkImages(
           () async => tester.pumpContentThemedApp(
             Slideshow(
@@ -102,7 +106,7 @@ void main() {
         expect(find.byKey(slideshowItemImageKey), findsOneWidget);
       });
 
-      testWidgets('slidehow item caption', (tester) async {
+      testWidgets('slideshow item caption', (tester) async {
         await mockNetworkImages(
           () async => tester.pumpContentThemedApp(
             Slideshow(
@@ -118,7 +122,7 @@ void main() {
         expect(find.byKey(slideshowItemCaptionKey), findsOneWidget);
       });
 
-      testWidgets('slidehow item description', (tester) async {
+      testWidgets('slideshow item description', (tester) async {
         await mockNetworkImages(
           () async => tester.pumpContentThemedApp(
             Slideshow(
@@ -134,7 +138,7 @@ void main() {
         expect(find.byKey(slideshowItemDescriptionKey), findsOneWidget);
       });
 
-      testWidgets('slidehow item photo credit', (tester) async {
+      testWidgets('slideshow item photo credit', (tester) async {
         await mockNetworkImages(
           () async => tester.pumpContentThemedApp(
             Slideshow(
@@ -191,10 +195,10 @@ void main() {
         await tester.tap(previousPageButton);
         await tester.pumpAndSettle(_pageAnimationDuration);
 
-        final slidehowItemPrevious = find.byWidgetPredicate(
+        final slideshowItemPrevious = find.byWidgetPredicate(
           (widget) => widget is SlideshowItem && widget.slide == slides[1],
         );
-        expect(slidehowItemPrevious, findsOneWidget);
+        expect(slideshowItemPrevious, findsOneWidget);
       });
 
       testWidgets('when use next button', (tester) async {
@@ -233,11 +237,11 @@ void main() {
         await tester.tap(nextPageButton);
         await tester.pumpAndSettle(_pageAnimationDuration);
 
-        final slidehowItemNext = find.byWidgetPredicate(
+        final slideshowItemNext = find.byWidgetPredicate(
           (widget) => widget is SlideshowItem && widget.slide == slides[2],
         );
 
-        expect(slidehowItemNext, findsOneWidget);
+        expect(slideshowItemNext, findsOneWidget);
       });
     });
   });
