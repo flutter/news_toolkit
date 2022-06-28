@@ -148,8 +148,8 @@ void main() {
 
     testWidgets(
         'shows PurchaseCompleted dialog '
-        'when SubscriptionsBloc emits purchaseStatus.completed '
-        'and adds UserSubscriptionConversionEvent to AnalyticsBloc',
+        'and adds UserSubscriptionConversionEvent to AnalyticsBloc '
+        'when SubscriptionsBloc emits purchaseStatus.completed',
         (tester) async {
       final navigator = MockNavigator();
       final analyticsBloc = MockAnalyticsBloc();
