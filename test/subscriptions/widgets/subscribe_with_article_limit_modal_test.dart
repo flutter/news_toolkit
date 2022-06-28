@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:google_news_template/ads/ads.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -26,9 +28,14 @@ class MockAdWithoutView extends Mock implements ads.AdWithoutView {}
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
 
+class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
+    implements AnalyticsBloc {}
+
 void main() {
   late AppBloc appBloc;
   late User user;
+  late AnalyticsBloc analyticsBloc;
+  late ArticleBloc articleBloc;
 
   const subscribeButtonKey =
       Key('subscribeWithArticleLimitModal_subscribeButton');
@@ -40,6 +47,15 @@ void main() {
     user = MockUser();
     appBloc = MockAppBloc();
     when(() => appBloc.state).thenReturn(AppState.unauthenticated());
+
+    analyticsBloc = MockAnalyticsBloc();
+    articleBloc = MockArticleBloc();
+
+    when(() => articleBloc.state).thenReturn(
+      ArticleState(status: ArticleStatus.initial, title: 'title'),
+    );
+
+    VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
   group('SubscribeWithArticleLimitModal', () {
@@ -49,8 +65,12 @@ void main() {
           'when user is authenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
-          SubscribeWithArticleLimitModal(),
+          analyticsBloc: analyticsBloc,
           appBloc: appBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeWithArticleLimitModal(),
+          ),
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
         expect(find.byKey(watchVideoButton), findsOneWidget);
@@ -62,8 +82,12 @@ void main() {
           'when user is unauthenticated', (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
-          SubscribeWithArticleLimitModal(),
+          analyticsBloc: analyticsBloc,
           appBloc: appBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeWithArticleLimitModal(),
+          ),
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
         expect(find.byKey(logInButtonKey), findsOneWidget);
@@ -73,7 +97,14 @@ void main() {
 
     group('does nothing', () {
       testWidgets('when tapped on subscribe button', (tester) async {
-        await tester.pumpApp(SubscribeWithArticleLimitModal());
+        await tester.pumpApp(
+          analyticsBloc: analyticsBloc,
+          appBloc: appBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeWithArticleLimitModal(),
+          ),
+        );
         await tester.tap(find.byKey(subscribeButtonKey));
         await tester.pumpAndSettle();
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -90,8 +121,12 @@ void main() {
       );
 
       await tester.pumpApp(
-        SubscribeWithArticleLimitModal(),
+        analyticsBloc: analyticsBloc,
         appBloc: appBloc,
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
       );
 
       await tester.tap(find.byKey(logInButtonKey));
@@ -103,7 +138,14 @@ void main() {
     testWidgets(
         'renders RewardedAd '
         'when tapped on watch video button', (tester) async {
-      await tester.pumpApp(SubscribeWithArticleLimitModal());
+      await tester.pumpApp(
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeWithArticleLimitModal(),
+        ),
+      );
       await tester.tap(find.byKey(watchVideoButton));
       await tester.pump();
       expect(find.byType(RewardedAd), findsOneWidget);
@@ -112,9 +154,9 @@ void main() {
     testWidgets(
         'adds ArticleRewardedAdWatched to ArticleBloc '
         'when onUserEarnedReward is called on RewardedAd', (tester) async {
-      final ArticleBloc articleBloc = MockArticleBloc();
-
       await tester.pumpApp(
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
         BlocProvider.value(
           value: articleBloc,
           child: SubscribeWithArticleLimitModal(),
@@ -132,9 +174,9 @@ void main() {
     testWidgets(
         'hides RewardedAd '
         'when onDismissed is called on RewardedAd', (tester) async {
-      final ArticleBloc articleBloc = MockArticleBloc();
-
       await tester.pumpApp(
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
         BlocProvider.value(
           value: articleBloc,
           child: SubscribeWithArticleLimitModal(),
@@ -154,9 +196,9 @@ void main() {
     testWidgets(
         'hides RewardedAd '
         'when onFailedToLoad is called on RewardedAd', (tester) async {
-      final ArticleBloc articleBloc = MockArticleBloc();
-
       await tester.pumpApp(
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
         BlocProvider.value(
           value: articleBloc,
           child: SubscribeWithArticleLimitModal(),
@@ -171,6 +213,33 @@ void main() {
       await tester.pump();
 
       expect(find.byType(RewardedAd), findsNothing);
+    });
+
+    group('when visible', () {
+      testWidgets(
+          'adds TrackAnalyticsEvent to AnalyticsBloc '
+          'with PaywallPromptEvent.impression subscription '
+          'when shown', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeWithArticleLimitModal(),
+          ),
+          analyticsBloc: analyticsBloc,
+          appBloc: appBloc,
+        );
+
+        verify(
+          () => analyticsBloc.add(
+            TrackAnalyticsEvent(
+              PaywallPromptEvent.impression(
+                articleTitle: 'title',
+                impression: PaywallPromptImpression.subscription,
+              ),
+            ),
+          ),
+        ).called(1);
+      });
     });
   });
 }
