@@ -23,7 +23,7 @@ class SlideshowIntroduction extends StatelessWidget {
   /// A [Uri] from the associated [BlockAction] is provided to the callback.
   final BlockActionCallback? onPressed;
 
-  /// Text displayed in the slideshow category widget
+  /// Text displayed in the slideshow category widget.
   final String slideshowText;
 
   @override
