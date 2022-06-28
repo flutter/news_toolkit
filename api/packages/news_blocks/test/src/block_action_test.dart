@@ -49,6 +49,13 @@ void main() {
         final action = NavigateToFeedCategoryAction(category: Category.top);
         expect(BlockAction.fromJson(action.toJson()), equals(action));
       });
+
+      test('returns NavigateToSlideshowAction', () {
+        final action = NavigateToSlideshowAction(
+          slideshow: SlideshowBlock(title: 'title', slides: []),
+        );
+        expect(BlockAction.fromJson(action.toJson()), equals(action));
+      });
     });
 
     group('UnknownBlockAction', () {
@@ -86,6 +93,18 @@ void main() {
         final action = NavigateToFeedCategoryAction(category: Category.top);
         expect(
           NavigateToFeedCategoryAction.fromJson(action.toJson()),
+          equals(action),
+        );
+      });
+    });
+
+    group('NavigateToSlideshowAction', () {
+      test('can be (de)serialized', () {
+        final action = NavigateToSlideshowAction(
+          slideshow: SlideshowBlock(title: 'title', slides: []),
+        );
+        expect(
+          NavigateToSlideshowAction.fromJson(action.toJson()),
           equals(action),
         );
       });
