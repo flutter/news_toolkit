@@ -43,6 +43,7 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
+
     return Stack(
       children: [
         Scaffold(
@@ -128,11 +129,13 @@ class PurchaseCompleted extends StatefulWidget {
 class _PurchaseCompletedState extends State<PurchaseCompleted> {
   late Timer _timer;
 
+  static const _closeDialogAfterDuration = Duration(seconds: 3);
+
   @override
   void initState() {
     super.initState();
     _timer = Timer(
-      const Duration(seconds: 3),
+      _closeDialogAfterDuration,
       () => Navigator.maybePop(context),
     );
   }
@@ -171,7 +174,7 @@ class _PurchaseCompletedState extends State<PurchaseCompleted> {
 
   @override
   void dispose() {
-    super.dispose();
     _timer.cancel();
+    super.dispose();
   }
 }
