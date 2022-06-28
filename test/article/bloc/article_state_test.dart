@@ -20,6 +20,137 @@ void main() {
       );
     });
 
+    group('contentMilestone', () {
+      test(
+          'returns 0 '
+          'when contentTotalCount is null', () {
+        expect(
+          ArticleState.initial().copyWith(contentSeenCount: 5).contentMilestone,
+          isZero,
+        );
+      });
+
+      test(
+          'returns 0 '
+          'when isPreview is true', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(contentSeenCount: 5, isPreview: true)
+              .contentMilestone,
+          isZero,
+        );
+      });
+
+      test(
+          'returns 0 '
+          'when user has seen less than 25% of content', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 0,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          isZero,
+        );
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 24,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          isZero,
+        );
+      });
+
+      test(
+          'returns 25 '
+          'when user has seen at least 25% of content '
+          'and less than 50%', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 25,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(25),
+        );
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 49,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(25),
+        );
+      });
+
+      test(
+          'returns 50 '
+          'when user has seen at least 50% of content '
+          'and less than 75%', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 50,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(50),
+        );
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 74,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(50),
+        );
+      });
+
+      test(
+          'returns 75 '
+          'when user has seen at least 75% of content '
+          'and less than 100%', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 75,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(75),
+        );
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 99,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(75),
+        );
+      });
+
+      test(
+          'returns 100 '
+          'when user has seen 100% of content', () {
+        expect(
+          ArticleState.initial()
+              .copyWith(
+                contentSeenCount: 100,
+                contentTotalCount: 100,
+              )
+              .contentMilestone,
+          equals(100),
+        );
+      });
+    });
+
     group('copyWith', () {
       test(
           'returns same object '
@@ -77,6 +208,40 @@ void main() {
             ArticleState(
               status: ArticleStatus.populated,
               content: content,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated contentTotalCount '
+          'when contentTotalCount is passed', () {
+        const contentTotalCount = 10;
+        expect(
+          ArticleState(status: ArticleStatus.populated).copyWith(
+            contentTotalCount: contentTotalCount,
+          ),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              contentTotalCount: contentTotalCount,
+            ),
+          ),
+        );
+      });
+
+      test(
+          'returns object with updated contentSeenCount '
+          'when contentSeenCount is passed', () {
+        const contentSeenCount = 10;
+        expect(
+          ArticleState(status: ArticleStatus.populated).copyWith(
+            contentSeenCount: contentSeenCount,
+          ),
+          equals(
+            ArticleState(
+              status: ArticleStatus.populated,
+              contentSeenCount: contentSeenCount,
             ),
           ),
         );

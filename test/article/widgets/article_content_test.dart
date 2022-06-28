@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/ads/ads.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -31,6 +33,8 @@ void main() {
     when(() => articleBloc.state).thenReturn(
       ArticleState(content: content, status: ArticleStatus.populated),
     );
+
+    VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
   group('ArticleContent', () {
@@ -165,6 +169,108 @@ void main() {
         tester.widget<ArticleContentItem>(articleItem).onSharePressed?.call();
 
         verify(() => articleBloc.add(ShareRequested(uri: uri))).called(1);
+      });
+
+      testWidgets(
+          'adds ArticleContentSeen to ArticleBloc '
+          'for every visible content block', (tester) async {
+        final longContent = <NewsBlock>[
+          DividerHorizontalBlock(),
+          SpacerBlock(spacing: Spacing.medium),
+          TextParagraphBlock(text: 'text'),
+          ImageBlock(imageUrl: 'imageUrl'),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          SpacerBlock(spacing: Spacing.extraLarge),
+          TextLeadParagraphBlock(text: 'text'),
+        ];
+
+        final state =
+            ArticleState(content: longContent, status: ArticleStatus.populated);
+
+        whenListen(
+          articleBloc,
+          Stream.value(state),
+          initialState: state,
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        await tester.pump();
+
+        verifyNever(
+          () => articleBloc
+              .add(ArticleContentSeen(contentIndex: longContent.length - 1)),
+        );
+
+        await tester.dragUntilVisible(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is ArticleContentItem &&
+                widget.block == longContent.last,
+          ),
+          find.byType(ArticleContent),
+          Offset(0, -50),
+          duration: Duration.zero,
+        );
+
+        await tester.pump();
+
+        for (var index = 0; index < longContent.length; index++) {
+          verify(
+            () => articleBloc.add(ArticleContentSeen(contentIndex: index)),
+          ).called(isNonZero);
+        }
+      });
+
+      testWidgets(
+          'adds TrackAnalyticsEvent to AnalyticsBloc '
+          'with ArticleMilestoneEvent '
+          'when contentMilestone changes', (tester) async {
+        final analyticsBloc = MockAnalyticsBloc();
+        final initialState = ArticleState.initial().copyWith(title: 'title');
+        final states = [
+          initialState.copyWith(contentSeenCount: 3, contentTotalCount: 10),
+          initialState.copyWith(contentSeenCount: 5, contentTotalCount: 10),
+          initialState.copyWith(contentSeenCount: 10, contentTotalCount: 10),
+        ];
+
+        whenListen(
+          articleBloc,
+          Stream.fromIterable(states),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+          analyticsBloc: analyticsBloc,
+        );
+
+        for (final state in states) {
+          verify(
+            () => analyticsBloc.add(
+              TrackAnalyticsEvent(
+                ArticleMilestoneEvent(
+                  articleTitle: state.title!,
+                  milestonePercentage: state.contentMilestone,
+                ),
+              ),
+            ),
+          ).called(1);
+        }
       });
     });
 

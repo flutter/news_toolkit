@@ -11,6 +11,17 @@ class ArticleRequested extends ArticleEvent {
   const ArticleRequested();
 }
 
+class ArticleContentSeen extends ArticleEvent {
+  const ArticleContentSeen({
+    required this.contentIndex,
+  });
+
+  final int contentIndex;
+
+  @override
+  List<Object> get props => [contentIndex];
+}
+
 class ArticleRewardedAdWatched extends ArticleEvent {
   const ArticleRewardedAdWatched();
 }
