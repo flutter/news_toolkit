@@ -34,7 +34,7 @@ class _SubscribeWithArticleLimitModalState
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
 
-    final watchVideoButton =
+    final watchVideoButtonTitle =
         l10n.subscribeWithArticleLimitModalWatchVideoButton;
 
     return VisibilityDetector(
@@ -128,7 +128,7 @@ class _SubscribeWithArticleLimitModalState
                           children: [
                             Assets.icons.video.svg(),
                             const SizedBox(width: AppSpacing.sm),
-                            Text(watchVideoButton),
+                            Text(watchVideoButtonTitle),
                           ],
                         )
                       : const SizedBox.square(
