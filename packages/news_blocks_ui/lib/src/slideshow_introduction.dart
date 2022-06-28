@@ -29,11 +29,14 @@ class SlideshowIntroduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final action = block.action;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
-        onTap: () => onPressed?.call(block.action!),
+        onTap: () {
+          if (action != null) onPressed?.call(action);
+        },
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
