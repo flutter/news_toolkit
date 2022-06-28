@@ -71,7 +71,7 @@ class _SlideshowCategoryTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: AppSpacing.lg),
       child: SlideshowCategory(
-        inIntroduction: false,
+        isIntroduction: false,
         slideshowText: title,
       ),
     );
