@@ -101,6 +101,7 @@ void main() {
           (_) async => [],
         );
       });
+
       testWidgets('when tapped on subscribe button', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(

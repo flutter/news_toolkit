@@ -164,7 +164,7 @@ void main() {
           );
         });
 
-        testWidgets('when tapped on subscribe button', (tester) async {
+        testWidgets('when tapped', (tester) async {
           await tester.pumpApp(
             Row(children: [ArticleSubscribeButton()]),
             inAppPurchaseRepository: inAppPurchaseRepository,
