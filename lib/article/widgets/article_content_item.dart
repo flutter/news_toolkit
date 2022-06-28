@@ -86,7 +86,10 @@ class ArticleContentItem extends StatelessWidget {
   ) async {
     if (action is NavigateToSlideshowAction) {
       await Navigator.of(context).push<void>(
-        SlideshowPage.route(slideshow: action.slideshow),
+        SlideshowPage.route(
+          slideshow: action.slideshow,
+          articleId: action.articleId,
+        ),
       );
     }
   }

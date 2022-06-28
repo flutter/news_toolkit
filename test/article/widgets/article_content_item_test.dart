@@ -224,6 +224,7 @@ void main() {
             slides: [],
             title: 'title',
           ),
+          articleId: 'articleId',
         ),
       );
       await mockNetworkImages(() async {

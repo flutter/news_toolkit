@@ -12,20 +12,23 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('Slideshow', () {
+    const articleId = 'articleId';
     final slides = List.generate(
       4,
       (index) => SlideBlock(
         caption: 'caption',
         description: 'description',
         photoCredit: 'photo credit',
-        imageUrl:
-            'https://media.4-paws.org/9/4/f/5/94f5197df88687ce362e32f23b926f0a246c1b54/VIER%20PFOTEN_2016-11-16_028%20%281%29-1843x1275.jpg',
+        imageUrl: 'imageUrl',
       ),
     );
     final slideshow = SlideshowBlock(title: 'title', slides: slides);
     test('has a route', () {
       expect(
-        SlideshowPage.route(slideshow: slideshow),
+        SlideshowPage.route(
+          slideshow: slideshow,
+          articleId: articleId,
+        ),
         isA<MaterialPageRoute>(),
       );
     });
@@ -33,7 +36,10 @@ void main() {
     testWidgets('renders a SlideshowPage', (tester) async {
       await mockNetworkImages(
         () async => tester.pumpApp(
-          SlideshowPage(slideshow: slideshow),
+          SlideshowPage(
+            slideshow: slideshow,
+            articleId: articleId,
+          ),
         ),
       );
 
@@ -47,7 +53,10 @@ void main() {
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await mockNetworkImages(
           () async => tester.pumpApp(
-            SlideshowPage(slideshow: slideshow),
+            SlideshowPage(
+              slideshow: slideshow,
+              articleId: articleId,
+            ),
             navigator: navigator,
           ),
         );
