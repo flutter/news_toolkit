@@ -16,6 +16,7 @@ class _OnboardingViewState extends State<OnboardingView> {
   final _controller = PageController();
 
   static const _onboardingItemSwitchDuration = Duration(milliseconds: 500);
+  static const _onboardingPageTwo = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,15 @@ class _OnboardingViewState extends State<OnboardingView> {
 
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
-        if (state is EnablingNotificationsSucceeded) {
+        if ((state is EnablingAdTrackingSucceeded ||
+                state is EnablingAdTrackingFailed) &&
+            _controller.page != _onboardingPageTwo) {
+          _controller.animateToPage(
+            _onboardingPageTwo,
+            duration: _onboardingItemSwitchDuration,
+            curve: Curves.easeInOut,
+          );
+        } else if (state is EnablingNotificationsSucceeded) {
           context.read<AppBloc>().add(const AppOnboardingCompleted());
         }
       },
@@ -47,13 +56,15 @@ class _OnboardingViewState extends State<OnboardingView> {
                   subtitle: l10n.onboardingItemFirstSubtitleTitle,
                   primaryButton: AppButton.darkAqua(
                     key: const Key('onboardingItem_primaryButton_pageOne'),
-                    onPressed: () {},
+                    onPressed: () => context
+                        .read<OnboardingBloc>()
+                        .add(const EnableAdTrackingRequested()),
                     child: Text(l10n.onboardingItemFirstButtonTitle),
                   ),
                   secondaryButton: AppButton.smallTransparent(
                     key: const Key('onboardingItem_secondaryButton_pageOne'),
                     onPressed: () => _controller.animateToPage(
-                      1,
+                      _onboardingPageTwo,
                       duration: _onboardingItemSwitchDuration,
                       curve: Curves.easeInOut,
                     ),
