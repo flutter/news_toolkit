@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/subscriptions/dialog/dialog.dart';
+import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:intl/intl.dart';
 
@@ -58,7 +59,7 @@ class SubscriptionCard extends StatelessWidget {
               height: AppSpacing.xlg + AppSpacing.sm,
             ),
             Text(
-              subscription.name.toString().split('.')[1].toUpperCase(),
+              subscription.name.name.toUpperCase(),
               style: theme.textTheme.headline6
                   ?.copyWith(color: AppColors.secondary),
             ),
@@ -112,14 +113,19 @@ class SubscriptionCard extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               AppButton.smallRedWine(
-                key: const Key('subscriptionCard_subscribeButton'),
+                key: const Key('subscriptionCard_subscribe_appButton'),
                 onPressed: isLoggedIn
                     ? () => context.read<SubscriptionsBloc>().add(
                           SubscriptionPurchaseRequested(
                             subscription: subscription,
                           ),
                         )
-                    : null,
+                    : () => showAppModal<void>(
+                          context: context,
+                          builder: (_) => const LoginModal(),
+                          routeSettings:
+                              const RouteSettings(name: LoginModal.name),
+                        ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -132,7 +138,7 @@ class SubscriptionCard extends StatelessWidget {
               ),
             ] else
               AppButton.smallOutlineTransparent(
-                key: const Key('subscriptionCard_outlinedButton'),
+                key: const Key('subscriptionCard_viewDetails_appButton'),
                 onPressed: () => ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(

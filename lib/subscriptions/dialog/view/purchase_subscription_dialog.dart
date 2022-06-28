@@ -12,7 +12,7 @@ Future<void> showPurchaseSubscriptionDialog({
 }) async =>
     showGeneralDialog(
       context: context,
-      pageBuilder: (context, _, __) => const PurchaseSubscriptionDialog(),
+      pageBuilder: (_, __, ___) => const PurchaseSubscriptionDialog(),
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
           position:
@@ -43,6 +43,7 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final theme = Theme.of(context);
+
     return Stack(
       children: [
         Scaffold(
@@ -83,7 +84,8 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                               PurchaseStatus.completed) {
                             showDialog<void>(
                               context: context,
-                              builder: (context) => const PurchaseCompleted(),
+                              builder: (context) =>
+                                  const PurchaseCompletedDialog(),
                             ).then((_) => Navigator.maybePop(context));
                           }
                         },
@@ -118,21 +120,24 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
 }
 
 @visibleForTesting
-class PurchaseCompleted extends StatefulWidget {
-  const PurchaseCompleted({super.key});
+class PurchaseCompletedDialog extends StatefulWidget {
+  const PurchaseCompletedDialog({super.key});
 
   @override
-  State<PurchaseCompleted> createState() => _PurchaseCompletedState();
+  State<PurchaseCompletedDialog> createState() =>
+      _PurchaseCompletedDialogState();
 }
 
-class _PurchaseCompletedState extends State<PurchaseCompleted> {
+class _PurchaseCompletedDialogState extends State<PurchaseCompletedDialog> {
   late Timer _timer;
+
+  static const _closeDialogAfterDuration = Duration(seconds: 3);
 
   @override
   void initState() {
     super.initState();
     _timer = Timer(
-      const Duration(seconds: 3),
+      _closeDialogAfterDuration,
       () => Navigator.maybePop(context),
     );
   }
@@ -171,7 +176,7 @@ class _PurchaseCompletedState extends State<PurchaseCompleted> {
 
   @override
   void dispose() {
-    super.dispose();
     _timer.cancel();
+    super.dispose();
   }
 }
