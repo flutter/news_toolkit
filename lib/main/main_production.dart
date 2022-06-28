@@ -11,6 +11,7 @@ import 'package:notifications_repository/notifications_repository.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:persistent_storage/persistent_storage.dart';
+import 'package:purchase_client/purchase_client.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -44,12 +45,17 @@ void main() {
         firebaseDynamicLinks: firebaseDynamicLinks,
       );
 
+      final userStorage = UserStorage(storage: persistentStorage);
+
+      final authenticationClient = FirebaseAuthenticationClient(
+        tokenStorage: tokenStorage,
+      );
+
       final userRepository = UserRepository(
-        authenticationClient: FirebaseAuthenticationClient(
-          tokenStorage: tokenStorage,
-        ),
+        authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
+        storage: userStorage,
       );
 
       final newsRepository = NewsRepository(
@@ -69,7 +75,9 @@ void main() {
       );
 
       final inAppPurchaseRepository = InAppPurchaseRepository(
+        authenticationClient: authenticationClient,
         apiClient: apiClient,
+        inAppPurchase: PurchaseClient(),
       );
 
       return App(
@@ -77,8 +85,8 @@ void main() {
         newsRepository: newsRepository,
         notificationsRepository: notificationsRepository,
         articleRepository: articleRepository,
-        inAppPurchaseRepository: inAppPurchaseRepository,
         analyticsRepository: analyticsRepository,
+        inAppPurchaseRepository: inAppPurchaseRepository,
         user: await userRepository.user.first,
       );
     },

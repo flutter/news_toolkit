@@ -24,7 +24,7 @@ class _OnboardingViewState extends State<OnboardingView> {
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         if (state is OnboardingEnablingNotificationsSucceeded) {
-          context.read<AppBloc>().add(AppOnboardingCompleted());
+          context.read<AppBloc>().add(const AppOnboardingCompleted());
         }
       },
       child: ScrollableColumn(
@@ -75,8 +75,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                   secondaryButton: AppButton.smallTransparent(
                     key: const Key('onboardingItem_secondaryButton_pageTwo'),
-                    onPressed: () =>
-                        context.read<AppBloc>().add(AppOnboardingCompleted()),
+                    onPressed: () => context
+                        .read<AppBloc>()
+                        .add(const AppOnboardingCompleted()),
                     child:
                         Text(context.l10n.onboardingItemSecondaryButtonTitle),
                   ),
