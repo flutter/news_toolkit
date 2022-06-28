@@ -22,7 +22,7 @@ class InAppPurchaseException extends InAppPurchaseFailure {
 }
 
 void main() {
-  test('InAppPurchaseFailure supports value comparison', () {
+  test('InAppPurchaseFailure supports value comparisons', () {
     expect(
       InAppPurchaseException('error'),
       equals(
@@ -135,7 +135,6 @@ void main() {
 
     group('fetchSubscriptions', () {
       late InAppPurchaseRepository repository;
-
       setUp(() {
         repository = InAppPurchaseRepository(
           authenticationClient: authenticationClient,
