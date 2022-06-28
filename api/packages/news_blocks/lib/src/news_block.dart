@@ -58,6 +58,14 @@ abstract class NewsBlock {
         return BannerAdBlock.fromJson(json);
       case HtmlBlock.identifier:
         return HtmlBlock.fromJson(json);
+      case TrendingStoryBlock.identifier:
+        return TrendingStoryBlock.fromJson(json);
+      case SlideshowBlock.identifier:
+        return SlideshowBlock.fromJson(json);
+      case SlideBlock.identifier:
+        return SlideBlock.fromJson(json);
+      case SlideshowIntroductionBlock.identifier:
+        return SlideshowIntroductionBlock.fromJson(json);
     }
     return const UnknownBlock();
   }

@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/analytics/analytics.dart' as analytics;
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/onboarding/onboarding.dart';
@@ -31,6 +34,10 @@ class MockInAppPurchaseRepository extends Mock
 class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockAnalyticsBloc
+    extends MockBloc<analytics.AnalyticsEvent, analytics.AnalyticsState>
+    implements analytics.AnalyticsBloc {}
 
 void main() {
   group('App', () {
@@ -83,10 +90,12 @@ void main() {
 
   group('AppView', () {
     late AppBloc appBloc;
+    late analytics.AnalyticsBloc analyticsBloc;
     late UserRepository userRepository;
 
     setUp(() {
       appBloc = MockAppBloc();
+      analyticsBloc = MockAnalyticsBloc();
       userRepository = MockUserRepository();
     });
 
@@ -125,6 +134,72 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
+    });
+
+    group('adds TrackAnalyticsEvent to AnalyticsBloc', () {
+      testWidgets(
+          'with RegistrationEvent '
+          'when user is authenticated and new', (tester) async {
+        final user = MockUser();
+        when(() => user.isAnonymous).thenReturn(false);
+        when(() => user.isNewUser).thenReturn(true);
+
+        whenListen(
+          appBloc,
+          Stream.fromIterable(
+            [
+              AppState.unauthenticated(),
+              AppState.authenticated(user),
+            ],
+          ),
+          initialState: const AppState.unauthenticated(),
+        );
+
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
+        );
+
+        verify(
+          () => analyticsBloc.add(
+            analytics.TrackAnalyticsEvent(analytics.RegistrationEvent()),
+          ),
+        ).called(1);
+      });
+
+      testWidgets(
+          'with LoginEvent '
+          'when user is authenticated and not new', (tester) async {
+        final user = MockUser();
+        when(() => user.isAnonymous).thenReturn(false);
+        when(() => user.isNewUser).thenReturn(false);
+
+        whenListen(
+          appBloc,
+          Stream.fromIterable(
+            [
+              AppState.unauthenticated(),
+              AppState.authenticated(user),
+            ],
+          ),
+          initialState: const AppState.unauthenticated(),
+        );
+
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
+        );
+
+        verify(
+          () => analyticsBloc.add(
+            analytics.TrackAnalyticsEvent(analytics.LoginEvent()),
+          ),
+        ).called(1);
+      });
     });
   });
 }

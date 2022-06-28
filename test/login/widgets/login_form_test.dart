@@ -45,8 +45,8 @@ void main() {
 
     group('adds', () {
       testWidgets(
-          'LoginGoogleSubmitted when sign in with google button is pressed',
-          (tester) async {
+          'LoginGoogleSubmitted to LoginBloc '
+          'when sign in with google button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -56,8 +56,8 @@ void main() {
       });
 
       testWidgets(
-          'LoginTwitterSubmitted when sign in with Twitter button is pressed',
-          (tester) async {
+          'LoginTwitterSubmitted to LoginBloc '
+          'when sign in with Twitter button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -67,8 +67,8 @@ void main() {
       });
 
       testWidgets(
-          'LoginFacebookSubmitted when sign in with Facebook button is pressed',
-          (tester) async {
+          'LoginFacebookSubmitted to LoginBloc '
+          'when sign in with Facebook button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
         );
@@ -78,8 +78,8 @@ void main() {
       });
 
       testWidgets(
-          'LoginAppleSubmitted when sign in with apple button is pressed',
-          (tester) async {
+          'LoginAppleSubmitted to LoginBloc '
+          'when sign in with apple button is pressed', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(value: loginBloc, child: const LoginForm()),
           platform: TargetPlatform.iOS,

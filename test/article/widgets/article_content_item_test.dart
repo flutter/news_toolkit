@@ -6,6 +6,7 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -196,6 +197,7 @@ void main() {
     testWidgets(
         'renders Newsletter '
         'for NewsletterBlock', (tester) async {
+      VisibilityDetectorController.instance.updateInterval = Duration.zero;
       final block = NewsletterBlock();
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(Newsletter), findsOneWidget);
@@ -215,6 +217,22 @@ void main() {
       final block = UnknownBlock();
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(SizedBox), findsOneWidget);
+    });
+
+    testWidgets(
+        'renders TrendingStory '
+        'for TrendingStoryBlock', (tester) async {
+      final content = PostSmallBlock(
+        id: 'id',
+        category: PostCategory.health,
+        author: 'author',
+        publishedAt: DateTime(2022, 3, 11),
+        imageUrl: 'imageUrl',
+        title: 'title',
+      );
+      final block = TrendingStoryBlock(content: content);
+      await tester.pumpApp(ArticleContentItem(block: block));
+      expect(find.byType(TrendingStory), findsOneWidget);
     });
   });
 }

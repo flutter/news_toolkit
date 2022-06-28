@@ -183,6 +183,48 @@ void main() {
         final block = HtmlBlock(content: '<p>hello</p>');
         expect(NewsBlock.fromJson(block.toJson()), equals(block));
       });
+
+      test('returns SlideBlock', () {
+        final block = SlideBlock(
+          imageUrl: 'imageUrl',
+          caption: 'caption',
+          photoCredit: 'photoCredit',
+          description: 'description',
+        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns SlideshowBlock', () {
+        final slide = SlideBlock(
+          imageUrl: 'imageUrl',
+          caption: 'caption',
+          photoCredit: 'photoCredit',
+          description: 'description',
+        );
+        final block = SlideshowBlock(title: 'title', slides: [slide]);
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns SlideshowIntroductionBlock', () {
+        final block = SlideshowIntroductionBlock(
+          title: 'title',
+          coverImageUrl: 'coverImageUrl',
+        );
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
+
+      test('returns TrendingStoryBlock', () {
+        final content = PostSmallBlock(
+          id: 'id',
+          category: PostCategory.health,
+          author: 'author',
+          publishedAt: DateTime(2022, 3, 11),
+          imageUrl: 'imageUrl',
+          title: 'title',
+        );
+        final block = TrendingStoryBlock(content: content);
+        expect(NewsBlock.fromJson(block.toJson()), equals(block));
+      });
     });
   });
 }

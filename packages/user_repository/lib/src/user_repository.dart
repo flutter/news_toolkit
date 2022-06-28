@@ -187,8 +187,6 @@ class UserRepository {
   }
 
   /// Returns the number of times the app was opened.
-  ///
-  /// This method will only be used when the user is anonymous.
   Future<int> fetchAppOpenedCount() async {
     try {
       return await _storage.fetchAppOpenedCount();
@@ -205,7 +203,6 @@ class UserRepository {
     try {
       final value = await fetchAppOpenedCount();
       final result = value + 1;
-
       await _storage.setAppOpenedCount(count: result);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(

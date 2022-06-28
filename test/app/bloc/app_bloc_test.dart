@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'dart:async';
 
-import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
@@ -18,8 +17,6 @@ class MockNotificationsRepository extends Mock
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
 
-class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
-
 class MockUser extends Mock implements User {}
 
 void main() {
@@ -28,13 +25,11 @@ void main() {
     late UserRepository userRepository;
     late NotificationsRepository notificationsRepository;
     late InAppPurchaseRepository inAppPurchaseRepository;
-    late AnalyticsRepository analyticsRepository;
 
     setUp(() {
       userRepository = MockUserRepository();
       notificationsRepository = MockNotificationsRepository();
       inAppPurchaseRepository = MockInAppPurchaseRepository();
-      analyticsRepository = MockAnalyticsRepository();
 
       when(() => userRepository.user).thenAnswer((_) => Stream.empty());
       when(() => inAppPurchaseRepository.currentSubscriptionPlan)
@@ -47,7 +42,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ).state,
         AppState.unauthenticated(),
@@ -65,55 +59,7 @@ void main() {
         when(() => returningUser.id).thenReturn('id');
         when(() => newUser.isNewUser).thenReturn(true);
         when(() => newUser.id).thenReturn('id');
-        when(() => analyticsRepository.setUserId(any()))
-            .thenAnswer((_) async {});
       });
-
-      blocTest<AppBloc, AppState>(
-        'calls setUserId on AnalyticsRepository '
-        'with null when user is anonymous',
-        setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(User.anonymous),
-          );
-        },
-        build: () => AppBloc(
-          userRepository: userRepository,
-          notificationsRepository: notificationsRepository,
-          inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
-          user: user,
-        ),
-        seed: AppState.unauthenticated,
-        verify: (_) {
-          verify(
-            () => analyticsRepository.setUserId(null),
-          ).called(1);
-        },
-      );
-
-      blocTest<AppBloc, AppState>(
-        'calls setUserId on AnalyticsRepository '
-        'with user id when user is not anonymous',
-        setUp: () {
-          when(() => userRepository.user).thenAnswer(
-            (_) => Stream.value(returningUser),
-          );
-        },
-        build: () => AppBloc(
-          userRepository: userRepository,
-          notificationsRepository: notificationsRepository,
-          inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
-          user: user,
-        ),
-        seed: AppState.unauthenticated,
-        verify: (_) {
-          verify(
-            () => analyticsRepository.setUserId(returningUser.id),
-          ).called(1);
-        },
-      );
 
       blocTest<AppBloc, AppState>(
         'emits nothing when '
@@ -127,7 +73,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -146,7 +91,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -164,7 +108,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.onboardingRequired(newUser)],
@@ -181,7 +124,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.authenticated(returningUser)],
@@ -203,7 +145,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [
@@ -221,7 +162,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.onboardingRequired(user),
@@ -236,7 +176,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: User.anonymous,
         ),
         seed: () => AppState.onboardingRequired(User.anonymous),
@@ -255,7 +194,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         expect: () => [AppState.unauthenticated()],
@@ -273,7 +211,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: AppState.unauthenticated,
@@ -290,7 +227,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         seed: () => AppState.authenticated(user),
@@ -320,7 +256,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -337,7 +272,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         act: (bloc) => bloc.add(AppLogoutRequested()),
@@ -368,7 +302,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () => expect(userController.hasListener, isFalse),
@@ -380,7 +313,6 @@ void main() {
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
           inAppPurchaseRepository: inAppPurchaseRepository,
-          analyticsRepository: analyticsRepository,
           user: user,
         ),
         tearDown: () =>
