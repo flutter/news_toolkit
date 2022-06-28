@@ -60,7 +60,7 @@ class App extends StatelessWidget {
               notificationsRepository: _notificationsRepository,
               inAppPurchaseRepository: _inAppPurchaseRepository,
               user: _user,
-            ),
+            )..add(const AppOpened()),
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
           BlocProvider(
