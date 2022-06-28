@@ -33,6 +33,10 @@ class _SubscribeWithArticleLimitModalState
         .select((AppBloc bloc) => bloc.state.status == AppStatus.authenticated);
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
+
+    final watchVideoButton =
+        l10n.subscribeWithArticleLimitModalWatchVideoButton;
+
     return VisibilityDetector(
       key: const Key('subscribeWithArticleLimitModal_visibilityDetector'),
       onVisibilityChanged: _subscribeLimitModalShown
@@ -82,7 +86,8 @@ class _SubscribeWithArticleLimitModalState
                 ),
                 child: AppButton.redWine(
                   key: const Key(
-                      'subscribeWithArticleLimitModal_subscribeButton'),
+                    'subscribeWithArticleLimitModal_subscribeButton',
+                  ),
                   child: Text(l10n.subscribeButtonText),
                   onPressed: () {},
                 ),
@@ -123,9 +128,7 @@ class _SubscribeWithArticleLimitModalState
                           children: [
                             Assets.icons.video.svg(),
                             const SizedBox(width: AppSpacing.sm),
-                            Text(
-                              l10n.subscribeWithArticleLimitModalWatchVideoButton,
-                            ),
+                            Text(watchVideoButton),
                           ],
                         )
                       : const SizedBox.square(
