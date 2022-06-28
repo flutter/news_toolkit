@@ -12,6 +12,7 @@ export 'src/post_large/index.dart';
 export 'src/post_medium/index.dart';
 export 'src/post_small.dart';
 export 'src/section_header.dart';
+export 'src/slideshow_introduction.dart' show SlideshowIntroduction;
 export 'src/spacer.dart';
 export 'src/text_caption.dart';
 export 'src/text_headline.dart';
