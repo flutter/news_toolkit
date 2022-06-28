@@ -12,7 +12,7 @@ Future<void> showPurchaseSubscriptionDialog({
 }) async =>
     showGeneralDialog(
       context: context,
-      pageBuilder: (context, _, __) => const PurchaseSubscriptionDialog(),
+      pageBuilder: (_, __, ___) => const PurchaseSubscriptionDialog(),
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
           position:
