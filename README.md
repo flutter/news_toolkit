@@ -259,6 +259,21 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Ads
+
+### Mediation and Open Bidding
+
+To use mediation in your mobile app, follow the links below to prepare your Google Ad Manager network and your mobile app.
+
+- [Overview of Mediation](https://admanager.google.com/home/resources/feature-brief-app-mediation/)
+- [How-to Guide](https://support.google.com/admanager/answer/7387351?hl=en&ref_topic=6373639)
+
+To use Open Bidding in your mobile app, follow the links below.
+
+- [Developer Documentation](https://developers.google.com/admob/flutter/mediation/get-started)
+- [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
+- [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
+
 ## Push Notifications 📢
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
