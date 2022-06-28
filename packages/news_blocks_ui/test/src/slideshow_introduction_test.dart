@@ -39,6 +39,7 @@ void main() {
 
       expect(find.text(block.title), findsOneWidget);
     });
+
     testWidgets('renders slideshow category', (tester) async {
       final block = SlideshowIntroductionBlock(
         title: 'title',
