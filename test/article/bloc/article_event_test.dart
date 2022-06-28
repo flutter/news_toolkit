@@ -38,7 +38,7 @@ void main() {
           isA<AnalyticsEventMixin>().having(
             (event) => event.event,
             'event',
-            isA<ArticleCommentEvent>(),
+            equals(ArticleCommentEvent(articleTitle: 'title')),
           ),
         );
       });
@@ -58,7 +58,7 @@ void main() {
           isA<AnalyticsEventMixin>().having(
             (event) => event.event,
             'event',
-            isA<SocialShareEvent>(),
+            equals(SocialShareEvent()),
           ),
         );
       });

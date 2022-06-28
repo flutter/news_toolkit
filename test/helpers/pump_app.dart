@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/theme_selector/theme_selector.dart';
@@ -19,6 +20,9 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {
   @override
   AppState get state => const AppState.unauthenticated();
 }
+
+class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
+    implements AnalyticsBloc {}
 
 class MockThemeModeBloc extends MockBloc<ThemeModeEvent, ThemeMode>
     implements ThemeModeBloc {
@@ -57,6 +61,7 @@ extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     AppBloc? appBloc,
+    AnalyticsBloc? analyticsBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
@@ -89,6 +94,7 @@ extension AppTester on WidgetTester {
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(value: appBloc ?? MockAppBloc()),
+            BlocProvider.value(value: analyticsBloc ?? MockAnalyticsBloc()),
             BlocProvider.value(value: themeModeBloc ?? MockThemeModeBloc()),
           ],
           child: MaterialApp(

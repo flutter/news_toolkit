@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
@@ -16,12 +15,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
     required InAppPurchaseRepository inAppPurchaseRepository,
-    required AnalyticsRepository analyticsRepository,
     required User user,
   })  : _userRepository = userRepository,
         _notificationsRepository = notificationsRepository,
         _inAppPurchaseRepository = inAppPurchaseRepository,
-        _analyticsRepository = analyticsRepository,
         super(
           user == User.anonymous
               ? const AppState.unauthenticated()
@@ -41,7 +38,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
   final InAppPurchaseRepository _inAppPurchaseRepository;
-  final AnalyticsRepository _analyticsRepository;
 
   late StreamSubscription<User> _userSubscription;
   late StreamSubscription<SubscriptionPlan>
@@ -54,10 +50,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
     final user = event.user;
-
-    unawaited(
-      _analyticsRepository.setUserId(user != User.anonymous ? user.id : null),
-    );
 
     switch (state.status) {
       case AppStatus.onboardingRequired:

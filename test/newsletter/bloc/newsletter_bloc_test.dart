@@ -26,7 +26,7 @@ void main() {
       );
     });
 
-    group('NewsletterSubscribed', () {
+    group('on NewsletterSubscribed', () {
       blocTest<NewsletterBloc, NewsletterState>(
         'emits [loading, success] '
         'when subscribeToNewsletter succeeds',
@@ -85,9 +85,10 @@ void main() {
       );
     });
 
-    group('EmailChanged', () {
+    group('on EmailChanged', () {
       final initialState = NewsletterState(email: Email.dirty('test'));
       const newEmail = 'test@test.com';
+
       blocTest<NewsletterBloc, NewsletterState>(
         'emits changed state '
         'when emailChanged',
