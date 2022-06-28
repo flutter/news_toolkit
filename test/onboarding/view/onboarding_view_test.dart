@@ -198,7 +198,7 @@ void main() {
 
     verifyNever(() => appBloc.add(AppOnboardingCompleted()));
 
-    onboardingStateController.add(OnboardingEnablingNotificationsSucceeded());
+    onboardingStateController.add(EnablingNotificationsSucceeded());
     await tester.pump();
 
     verify(() => appBloc.add(AppOnboardingCompleted())).called(1);

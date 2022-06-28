@@ -23,7 +23,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
-        if (state is OnboardingEnablingNotificationsSucceeded) {
+        if (state is EnablingNotificationsSucceeded) {
           context.read<AppBloc>().add(const AppOnboardingCompleted());
         }
       },
