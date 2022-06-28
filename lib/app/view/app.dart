@@ -1,3 +1,4 @@
+import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:article_repository/article_repository.dart';
@@ -24,6 +25,7 @@ class App extends StatelessWidget {
     required ArticleRepository articleRepository,
     required InAppPurchaseRepository inAppPurchaseRepository,
     required AnalyticsRepository analyticsRepository,
+    required AdsConsentClient adsConsentClient,
     required User user,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
@@ -31,6 +33,7 @@ class App extends StatelessWidget {
         _articleRepository = articleRepository,
         _inAppPurchaseRepository = inAppPurchaseRepository,
         _analyticsRepository = analyticsRepository,
+        _adsConsentClient = adsConsentClient,
         _user = user;
 
   final UserRepository _userRepository;
@@ -39,6 +42,7 @@ class App extends StatelessWidget {
   final ArticleRepository _articleRepository;
   final InAppPurchaseRepository _inAppPurchaseRepository;
   final AnalyticsRepository _analyticsRepository;
+  final AdsConsentClient _adsConsentClient;
   final User _user;
 
   @override
@@ -51,6 +55,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _articleRepository),
         RepositoryProvider.value(value: _analyticsRepository),
         RepositoryProvider.value(value: _inAppPurchaseRepository),
+        RepositoryProvider.value(value: _adsConsentClient),
       ],
       child: MultiBlocProvider(
         providers: [
