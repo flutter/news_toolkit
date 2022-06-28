@@ -38,23 +38,15 @@ void main() {
 
         when(
           () => inAppPurchaseRepository.currentSubscriptionPlan,
-        ).thenAnswer(
-          (_) => Stream.fromIterable([
-            SubscriptionPlan.none,
-          ]),
-        );
+        ).thenAnswer((_) => Stream.fromIterable([SubscriptionPlan.none]));
 
         when(
           () => inAppPurchaseRepository.purchaseUpdate,
-        ).thenAnswer(
-          (_) => Stream.empty(),
-        );
+        ).thenAnswer((_) => Stream.empty());
 
         when(
           inAppPurchaseRepository.fetchSubscriptions,
-        ).thenAnswer(
-          (_) async => [],
-        );
+        ).thenAnswer((_) async => []);
 
         await tester.pumpApp(
           NavigationDrawerSubscribeButton(),
@@ -62,6 +54,7 @@ void main() {
         );
         await tester.tap(find.byType(NavigationDrawerSubscribeButton));
         await tester.pump();
+
         expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
       });
     });
