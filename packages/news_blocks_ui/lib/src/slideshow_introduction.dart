@@ -5,7 +5,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_blocks_ui/src/widgets/slideshow_category.dart';
 
 /// {@template slideshow_introduction}
-/// A reusable slideshow introduction.
+/// A reusable slideshow introduction news block widget.
 /// {@endtemplate}
 class SlideshowIntroduction extends StatelessWidget {
   /// {@macro slideshow_introduction}
