@@ -113,7 +113,14 @@ void main() {
       );
 
       for (final subscription in subscriptions) {
-        expect(find.byKey(ValueKey(subscription)), findsOneWidget);
+        expect(
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is SubscriptionCard &&
+                widget.key == ValueKey(subscription),
+          ),
+          findsOneWidget,
+        );
       }
     });
 
@@ -153,16 +160,14 @@ void main() {
         ),
       );
 
-      await tester.runAsync(() async {
-        await tester.pumpApp(
-          const PurchaseSubscriptionDialog(),
-          navigator: navigator,
-          inAppPurchaseRepository: inAppPurchaseRepository,
-        );
+      await tester.pumpApp(
+        const PurchaseSubscriptionDialog(),
+        navigator: navigator,
+        inAppPurchaseRepository: inAppPurchaseRepository,
+      );
 
-        await tester.pump();
-        expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
-      });
+      await tester.pump();
+      expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
     });
   });
 
