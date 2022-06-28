@@ -139,6 +139,9 @@ abstract class AppColors {
   /// The medium high emphasis primary color.
   static const Color mediumHighEmphasisPrimary = Color(0xE6FFFFFF);
 
+  /// The medium high emphasis surface color.
+  static const Color mediumHighEmphasisSurface = Color(0xB3000000);
+
   /// The default disabled foreground color.
   static const Color disabledForeground = Color(0x611B1B1B);
 

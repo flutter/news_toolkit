@@ -13,6 +13,8 @@ class MockPackageInfoClient extends Mock implements PackageInfoClient {}
 
 class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
+class MockUserStorage extends Mock implements UserStorage {}
+
 class MockUser extends Mock implements User {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
@@ -48,6 +50,7 @@ void main() {
     late AuthenticationClient authenticationClient;
     late PackageInfoClient packageInfoClient;
     late DeepLinkClient deepLinkClient;
+    late UserStorage storage;
     late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
 
@@ -55,6 +58,7 @@ void main() {
       authenticationClient = MockAuthenticationClient();
       packageInfoClient = MockPackageInfoClient();
       deepLinkClient = MockDeepLinkClient();
+      storage = MockUserStorage();
       deepLinkClientController = StreamController<Uri>.broadcast();
 
       when(() => deepLinkClient.deepLinkStream)
@@ -64,6 +68,7 @@ void main() {
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
+        storage: storage,
       );
     });
 
@@ -388,6 +393,90 @@ void main() {
       test('throws LogOutFailure on generic exception', () async {
         when(() => authenticationClient.logOut()).thenThrow(Exception());
         expect(() => userRepository.logOut(), throwsA(isA<LogOutFailure>()));
+      });
+    });
+
+    group('UserFailure', () {
+      final error = Exception('errorMessage');
+
+      group('FetchAppOpenedCountFailure', () {
+        test('has correct props', () {
+          expect(FetchAppOpenedCountFailure(error).props, [error]);
+        });
+      });
+
+      group('IncrementAppOpenedCountFailure', () {
+        test('has correct props', () {
+          expect(IncrementAppOpenedCountFailure(error).props, [error]);
+        });
+      });
+    });
+
+    group('fetchAppOpenedCount', () {
+      test('returns the app opened count from UserStorage ', () async {
+        when(storage.fetchAppOpenedCount).thenAnswer((_) async => 1);
+
+        final result = await UserRepository(
+          authenticationClient: authenticationClient,
+          packageInfoClient: packageInfoClient,
+          deepLinkClient: deepLinkClient,
+          storage: storage,
+        ).fetchAppOpenedCount();
+        expect(result, 1);
+      });
+
+      test(
+          'throws a FetchAppOpenedCountFailure '
+          'when fetching app opened count fails', () async {
+        when(() => storage.fetchAppOpenedCount()).thenThrow(Exception());
+
+        expect(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).fetchAppOpenedCount(),
+          throwsA(isA<FetchAppOpenedCountFailure>()),
+        );
+      });
+    });
+
+    group('setAppOpenedCount', () {
+      test('increments app opened count by 1 in UserStorage', () async {
+        when(() => storage.fetchAppOpenedCount()).thenAnswer((_) async => 3);
+
+        when(
+          () => storage.setAppOpenedCount(count: 4),
+        ).thenAnswer((_) async {});
+
+        await expectLater(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).incrementAppOpenedCount(),
+          completes,
+        );
+      });
+
+      test(
+          'throws a IncrementAppOpenedCountFailure '
+          'when setting app opened count fails', () async {
+        when(
+          () => storage.setAppOpenedCount(count: any(named: 'count')),
+        ).thenThrow(Exception());
+
+        expect(
+          UserRepository(
+            authenticationClient: authenticationClient,
+            packageInfoClient: packageInfoClient,
+            deepLinkClient: deepLinkClient,
+            storage: storage,
+          ).incrementAppOpenedCount(),
+          throwsA(isA<IncrementAppOpenedCountFailure>()),
+        );
       });
     });
   });

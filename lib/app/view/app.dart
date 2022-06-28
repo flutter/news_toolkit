@@ -49,6 +49,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _newsRepository),
         RepositoryProvider.value(value: _notificationsRepository),
         RepositoryProvider.value(value: _articleRepository),
+        RepositoryProvider.value(value: _analyticsRepository),
         RepositoryProvider.value(value: _inAppPurchaseRepository),
       ],
       child: MultiBlocProvider(
@@ -59,7 +60,7 @@ class App extends StatelessWidget {
               notificationsRepository: _notificationsRepository,
               inAppPurchaseRepository: _inAppPurchaseRepository,
               user: _user,
-            ),
+            )..add(const AppOpened()),
           ),
           BlocProvider(create: (_) => ThemeModeBloc()),
           BlocProvider(
