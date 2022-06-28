@@ -2,14 +2,24 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
+
+class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
+    implements ArticleBloc {}
+
+class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
+    implements AnalyticsBloc {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
@@ -18,6 +28,8 @@ class MockUser extends Mock implements User {}
 void main() {
   late AppBloc appBloc;
   late User user;
+  late AnalyticsBloc analyticsBloc;
+  late ArticleBloc articleBloc;
 
   const subscribeButtonKey = Key('subscribeModal_subscribeButton');
   const logInButtonKey = Key('subscribeModal_logInButton');
@@ -25,7 +37,15 @@ void main() {
   setUp(() {
     user = MockUser();
     appBloc = MockAppBloc();
+    analyticsBloc = MockAnalyticsBloc();
+    articleBloc = MockArticleBloc();
+
+    when(() => articleBloc.state).thenReturn(
+      ArticleState(status: ArticleStatus.initial, title: 'title'),
+    );
     when(() => appBloc.state).thenReturn(AppState.unauthenticated());
+
+    VisibilityDetectorController.instance.updateInterval = Duration.zero;
   });
 
   group('SubscribeModal', () {
@@ -34,7 +54,10 @@ void main() {
           (tester) async {
         when(() => appBloc.state).thenReturn(AppState.authenticated(user));
         await tester.pumpApp(
-          SubscribeModal(),
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeModal(),
+          ),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -45,7 +68,10 @@ void main() {
           (tester) async {
         when(() => appBloc.state).thenReturn(AppState.unauthenticated());
         await tester.pumpApp(
-          SubscribeModal(),
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeModal(),
+          ),
           appBloc: appBloc,
         );
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -55,7 +81,12 @@ void main() {
 
     group('does nothing', () {
       testWidgets('when tapped on subscribe button', (tester) async {
-        await tester.pumpApp(SubscribeModal());
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: SubscribeModal(),
+          ),
+        );
         await tester.tap(find.byKey(subscribeButtonKey));
         await tester.pumpAndSettle();
         expect(find.byKey(subscribeButtonKey), findsOneWidget);
@@ -72,7 +103,10 @@ void main() {
       );
 
       await tester.pumpApp(
-        SubscribeModal(),
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeModal(),
+        ),
         appBloc: appBloc,
       );
 
@@ -80,6 +114,31 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(LoginModal), findsOneWidget);
+    });
+
+    testWidgets(
+        'adds TrackAnalyticsEvent to AnalyticsBloc '
+        'with PaywallPromptEvent.impression subscription '
+        'when shown', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: SubscribeModal(),
+        ),
+        analyticsBloc: analyticsBloc,
+        appBloc: appBloc,
+      );
+
+      verify(
+        () => analyticsBloc.add(
+          TrackAnalyticsEvent(
+            PaywallPromptEvent.impression(
+              articleTitle: 'title',
+              impression: PaywallPromptImpression.subscription,
+            ),
+          ),
+        ),
+      ).called(1);
     });
   });
 }

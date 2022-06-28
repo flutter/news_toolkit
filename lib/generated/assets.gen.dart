@@ -18,6 +18,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/apple.svg
   SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
 
+  /// File path: assets/icons/best_value.svg
+  SvgGenImage get bestValue => const SvgGenImage('assets/icons/best_value.svg');
+
   /// File path: assets/icons/email_outline.svg
   SvgGenImage get emailOutline =>
       const SvgGenImage('assets/icons/email_outline.svg');

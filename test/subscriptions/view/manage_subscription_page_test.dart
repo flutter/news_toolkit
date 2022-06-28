@@ -27,8 +27,6 @@ void main() {
   group('ManageSubscriptionView', () {
     final appBloc = MockAppBloc();
 
-    // TODO(jan-stepien): onTap opens in_app_purchase
-    // subscriptions settings page instead.
     testWidgets(
         'adds AppUserSubscriptionPlanChanged '
         'when subscriptions ListTile tapped', (tester) async {
