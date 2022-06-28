@@ -16,7 +16,7 @@ abstract class InAppPurchaseFailure with EquatableMixin implements Exception {
   final Object error;
 
   @override
-  List<Object?> get props => [error];
+  List<Object> get props => [error];
 }
 
 /// {@template deliver_in_app_purchase_failure}
@@ -393,87 +393,4 @@ class PurchaseFailed extends PurchaseUpdate {
 
   @override
   List<Object> get props => [];
-}
-
-/// {@template purchase_update}
-/// A base class that represents a purchase update.
-/// {@endtemplate}
-abstract class PurchaseUpdate extends Equatable {
-  /// {@macro purchase_update}
-  const PurchaseUpdate();
-}
-
-/// {@template purchase_delivered}
-/// An update representing a delivered purchase.
-/// {@endtemplate}
-class PurchaseDelivered extends PurchaseUpdate {
-  /// {@macro purchase_delivered}
-  const PurchaseDelivered({
-    required this.subscription,
-  }) : super();
-
-  /// A subscription associated with a purchase that was delivered.
-  final Subscription subscription;
-
-  @override
-  List<Object?> get props => [subscription];
-}
-
-/// {@template purchase_completed}
-/// An update representing a completed purchase.
-/// {@endtemplate}
-class PurchaseCompleted extends PurchaseUpdate {
-  /// {@macro purchase_completed}
-  const PurchaseCompleted({
-    required this.subscription,
-  }) : super();
-
-  /// A subscription that was successfully purchased.
-  final Subscription subscription;
-
-  @override
-  List<Object?> get props => [subscription];
-}
-
-/// {@template purchase_purchased}
-/// An update representing a purchased purchase but has not been delivered yet.
-/// {@endtemplate}
-class PurchasePurchased extends PurchaseUpdate {
-  /// {@macro purchase_purchased}
-  const PurchasePurchased({
-    required this.subscription,
-  }) : super();
-
-  /// A subscription that was successfully purchased.
-  final Subscription subscription;
-
-  @override
-  List<Object?> get props => [subscription];
-}
-
-/// {@template purchase_canceled}
-/// An update representing canceled purchase.
-/// {@endtemplate}
-class PurchaseCanceled extends PurchaseUpdate {
-  /// {@macro purchase_canceled}
-  const PurchaseCanceled() : super();
-
-  @override
-  List<Object?> get props => [];
-}
-
-/// {@template purchase_failed}
-/// An update representing failed purchase.
-/// {@endtemplate}
-class PurchaseFailed extends PurchaseUpdate {
-  /// {@macro purchase_failed}
-  const PurchaseFailed({
-    required this.failure,
-  }) : super();
-
-  /// A failure which occurred when purchasing a subscription.
-  final InAppPurchaseFailure failure;
-
-  @override
-  List<Object?> get props => [];
 }
