@@ -13,6 +13,8 @@ dependencies:
   equatable: ^2.0.3
   package_info_client:
     path: ../package_info_client
+  storage:
+    path: ../storage/storage
 
 dev_dependencies:
   mocktail: ^0.3.0
