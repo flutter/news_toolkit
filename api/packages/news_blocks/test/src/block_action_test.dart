@@ -52,6 +52,7 @@ void main() {
 
       test('returns NavigateToSlideshowAction', () {
         final action = NavigateToSlideshowAction(
+          articleId: 'articleId',
           slideshow: SlideshowBlock(title: 'title', slides: []),
         );
         expect(BlockAction.fromJson(action.toJson()), equals(action));
@@ -101,6 +102,7 @@ void main() {
     group('NavigateToSlideshowAction', () {
       test('can be (de)serialized', () {
         final action = NavigateToSlideshowAction(
+          articleId: 'articleId',
           slideshow: SlideshowBlock(title: 'title', slides: []),
         );
         expect(

@@ -94,6 +94,7 @@ NavigateToSlideshowAction _$NavigateToSlideshowActionFromJson(
       json,
       ($checkedConvert) {
         final val = NavigateToSlideshowAction(
+          articleId: $checkedConvert('article_id', (v) => v as String),
           slideshow: $checkedConvert('slideshow',
               (v) => SlideshowBlock.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert('type',
@@ -101,11 +102,13 @@ NavigateToSlideshowAction _$NavigateToSlideshowActionFromJson(
         );
         return val;
       },
+      fieldKeyMap: const {'articleId': 'article_id'},
     );
 
 Map<String, dynamic> _$NavigateToSlideshowActionToJson(
         NavigateToSlideshowAction instance) =>
     <String, dynamic>{
+      'article_id': instance.articleId,
       'slideshow': instance.slideshow.toJson(),
       'type': instance.type,
     };
