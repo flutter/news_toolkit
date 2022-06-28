@@ -520,5 +520,11 @@
     "description": "Title shown in the header of trending story article.",
     "type": "text",
     "placeholders": {}
+  },
+  "slideshow": "Slideshow",
+  "@slideshow": {
+    "description": "Slideshow text shown on slideshow introduction widgets.",
+    "type": "text",
+    "placeholders": {}
   }
 }

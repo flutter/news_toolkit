@@ -14,9 +14,11 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
     required this.title,
     required this.coverImageUrl,
     this.type = SlideshowIntroductionBlock.identifier,
+    this.action,
   });
 
-  /// Converts a `Map<String, dynamic>` into a [SlideshowBlock] instance.
+  /// Converts a `Map<String, dynamic>`
+  /// into a [SlideshowIntroductionBlock] instance.
   factory SlideshowIntroductionBlock.fromJson(Map<String, dynamic> json) =>
       _$SlideshowIntroductionBlockFromJson(json);
 
@@ -25,6 +27,10 @@ class SlideshowIntroductionBlock with EquatableMixin implements NewsBlock {
 
   /// The slideshow cover image URL.
   final String coverImageUrl;
+
+  /// An optional action which occurs upon interaction.
+  @BlockActionConverter()
+  final BlockAction? action;
 
   /// The slideshow introduction block type identifier.
   static const identifier = '__slideshow_introduction__';
