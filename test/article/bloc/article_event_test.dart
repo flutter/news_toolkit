@@ -15,6 +15,15 @@ void main() {
       });
     });
 
+    group('ArticleContentSeen', () {
+      test('supports value comparisons', () {
+        final event1 = ArticleContentSeen(contentIndex: 10);
+        final event2 = ArticleContentSeen(contentIndex: 10);
+
+        expect(event1, equals(event2));
+      });
+    });
+
     group('ArticleRewardedAdWatched', () {
       test('supports value comparisons', () {
         final event1 = ArticleRewardedAdWatched();
