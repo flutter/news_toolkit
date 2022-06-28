@@ -82,6 +82,7 @@ void main() {
       },
     );
   });
+
   group('PurchaseSubscriptionDialogView', () {
     testWidgets('renders list of SubscriptionCard', (tester) async {
       const otherSubscription = Subscription(
