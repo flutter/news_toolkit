@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 
 @visibleForTesting
 class SubscribeModal extends StatelessWidget {
@@ -49,7 +50,8 @@ class SubscribeModal extends StatelessWidget {
               child: AppButton.redWine(
                 key: const Key('subscribeModal_subscribeButton'),
                 child: Text(l10n.subscribeButtonText),
-                onPressed: () {},
+                onPressed: () =>
+                    showPurchaseSubscriptionDialog(context: context),
               ),
             ),
             const SizedBox(height: AppSpacing.sm),

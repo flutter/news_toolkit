@@ -8,6 +8,7 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 
 @visibleForTesting
 class SubscribeWithArticleLimitModal extends StatefulWidget {
@@ -62,7 +63,8 @@ class _SubscribeWithArticleLimitModalState
                 key:
                     const Key('subscribeWithArticleLimitModal_subscribeButton'),
                 child: Text(l10n.subscribeButtonText),
-                onPressed: () {},
+                onPressed: () =>
+                    showPurchaseSubscriptionDialog(context: context),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),

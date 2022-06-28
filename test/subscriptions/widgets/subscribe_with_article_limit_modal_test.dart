@@ -10,6 +10,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -71,12 +72,37 @@ void main() {
       });
     });
 
-    group('does nothing', () {
+    group('opens PurchaseSubscriptionDialog', () {
+      late InAppPurchaseRepository inAppPurchaseRepository;
+
+      setUp(() {
+        inAppPurchaseRepository = MockInAppPurchaseRepository();
+
+        when(
+          () => inAppPurchaseRepository.currentSubscriptionPlan,
+        ).thenAnswer(
+          (_) => Stream.fromIterable([
+            SubscriptionPlan.none,
+          ]),
+        );
+
+        when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
+          (_) => const Stream.empty(),
+        );
+
+        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
+          (_) async => [],
+        );
+      });
+
       testWidgets('when tapped on subscribe button', (tester) async {
-        await tester.pumpApp(SubscribeWithArticleLimitModal());
+        await tester.pumpApp(
+          SubscribeWithArticleLimitModal(),
+          inAppPurchaseRepository: inAppPurchaseRepository,
+        );
         await tester.tap(find.byKey(subscribeButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byKey(subscribeButtonKey), findsOneWidget);
+        await tester.pump();
+        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
       });
     });
 

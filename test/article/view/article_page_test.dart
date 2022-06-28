@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -138,6 +139,40 @@ void main() {
           ),
         );
         expect(find.byType(AppButton), findsOneWidget);
+      });
+
+      group('opens PurchaseSubscriptionDialog', () {
+        late InAppPurchaseRepository inAppPurchaseRepository;
+
+        setUp(() {
+          inAppPurchaseRepository = MockInAppPurchaseRepository();
+
+          when(
+            () => inAppPurchaseRepository.currentSubscriptionPlan,
+          ).thenAnswer(
+            (_) => Stream.fromIterable([
+              SubscriptionPlan.none,
+            ]),
+          );
+
+          when(() => inAppPurchaseRepository.purchaseUpdateStream).thenAnswer(
+            (_) => const Stream.empty(),
+          );
+
+          when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
+            (_) async => [],
+          );
+        });
+
+        testWidgets('when tapped on subscribe button', (tester) async {
+          await tester.pumpApp(
+            Row(children: [ArticleSubscribeButton()]),
+            inAppPurchaseRepository: inAppPurchaseRepository,
+          );
+          await tester.tap(find.byType(ArticleSubscribeButton));
+          await tester.pump();
+          expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
+        });
       });
 
       testWidgets('does nothing when tapped', (tester) async {
