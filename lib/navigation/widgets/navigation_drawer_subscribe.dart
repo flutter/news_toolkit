@@ -1,6 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 
 class NavigationDrawerSubscribe extends StatelessWidget {
   const NavigationDrawerSubscribe({super.key});
@@ -69,7 +70,7 @@ class NavigationDrawerSubscribeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppButton.redWine(
-      onPressed: () {},
+      onPressed: () => showPurchaseSubscriptionDialog(context: context),
       child: Text(context.l10n.subscribeButtonText),
     );
   }
