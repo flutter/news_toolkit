@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -33,6 +34,8 @@ class MockInAppPurchaseRepository extends Mock
 
 class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
 
+class MockAdsConsentClient extends Mock implements AdsConsentClient {}
+
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockAnalyticsBloc
@@ -47,6 +50,7 @@ void main() {
     late ArticleRepository articleRepository;
     late InAppPurchaseRepository inAppPurchaseRepository;
     late AnalyticsRepository analyticsRepository;
+    late AdsConsentClient adsConsentClient;
     late User user;
 
     setUp(() {
@@ -57,6 +61,7 @@ void main() {
       articleRepository = MockArticleRepository();
       inAppPurchaseRepository = MockInAppPurchaseRepository();
       analyticsRepository = MockAnalyticsRepository();
+      adsConsentClient = MockAdsConsentClient();
 
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
@@ -79,6 +84,7 @@ void main() {
             articleRepository: articleRepository,
             inAppPurchaseRepository: inAppPurchaseRepository,
             analyticsRepository: analyticsRepository,
+            adsConsentClient: adsConsentClient,
             user: user,
           ),
         );

@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "31.0.0"
+  ads_consent_client:
+    dependency: "direct main"
+    description:
+      path: "packages/ads_consent_client"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   analytics_repository:
     dependency: "direct main"
     description:
