@@ -35,7 +35,7 @@ class SlideshowIntroduction extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onPressed?.call(block.action!),
         child: Stack(
-          key: const Key('slideshow_introduction_stack'),
+          key: const Key('slideshowIntroduction_stack'),
           alignment: Alignment.bottomLeft,
           children: [
             PostLargeImage(
