@@ -7,7 +7,9 @@ abstract class AppEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AppLogoutRequested extends AppEvent {}
+class AppLogoutRequested extends AppEvent {
+  const AppLogoutRequested();
+}
 
 class AppUserChanged extends AppEvent {
   const AppUserChanged(this.user);
@@ -27,7 +29,9 @@ class AppUserSubscriptionPlanChanged extends AppEvent {
   List<Object> get props => [plan];
 }
 
-class AppOnboardingCompleted extends AppEvent {}
+class AppOnboardingCompleted extends AppEvent {
+  const AppOnboardingCompleted();
+}
 
 class AppOpened extends AppEvent {
   const AppOpened();

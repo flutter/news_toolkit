@@ -36,6 +36,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         .listen(_currentSubscriptionPlanChanged);
   }
 
+  /// The number of app opens after which the login overlay is shown
+  /// for an unauthenticated user.
+  static const _appOpenedCountForLoginOverlay = 5;
+
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
   final InAppPurchaseRepository _inAppPurchaseRepository;
@@ -95,10 +99,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
-    /// The number of app opens after which the login overlay is shown for an
-    ///  unauthenticated user.
-    const _appOpenedCountForLoginOverlay = 5;
-
     if (state.user.isAnonymous) {
       final appOpenedCount = await _userRepository.fetchAppOpenedCount();
 
