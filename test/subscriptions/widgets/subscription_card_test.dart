@@ -37,7 +37,7 @@ void main() {
       ],
     );
 
-    group('when isExpanded is set to true', () {
+    group('when isExpanded is true', () {
       testWidgets('renders correctly', (tester) async {
         await tester.pumpApp(
           const SubscriptionCard(
