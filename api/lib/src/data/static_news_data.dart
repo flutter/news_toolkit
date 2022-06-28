@@ -181,6 +181,63 @@ final technologyLargeItems = <NewsItem>[
             'respect in this supernatural power-driven world.',
       ),
       const SpacerBlock(spacing: Spacing.large),
+      const SlideshowIntroductionBlock(
+        title: 'High end GPUs',
+        coverImageUrl:
+            'https://cdn.vox-cdn.com/thumbor/nC20D1S_iVCFb-sPRnEiFPLeg-s=/0x0:3181x2391/1820x1213/filters:focal(1337x942:1845x1450):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70682614/955510a1_40de_495a_ad94_09d04e6105d7.0.jpg',
+        action: NavigateToSlideshowAction(
+          slideshow: SlideshowBlock(
+            title: 'High end GPUs',
+            slides: [
+              SlideBlock(
+                caption: 'Nvidia RTX 4090',
+                description:
+                    'Fusce ornare quis odio eget fringilla. Curabitur gravida '
+                    'velit urna, semper imperdiet metus fermentum congue. '
+                    'Vestibulum ut diam ut risus porta mattis. Proin fringilla '
+                    'arcu lorem, sit amet porttitor ante iaculis sit amet.',
+                photoCredit: 'Nvidia',
+                imageUrl:
+                    'https://cdn.vox-cdn.com/thumbor/-2TdzHiFfbfz8K1Z0D5V7fv7-3A=/0x0:1200x554/1820x1213/filters:focal(430x196:622x388):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70876010/nvidia_3090_generic.0.jpg',
+              ),
+              SlideBlock(
+                caption: 'AMD Ryzen 7000',
+                description:
+                    'Fusce ornare quis odio eget fringilla. Curabitur gravida '
+                    'velit urna, semper imperdiet metus fermentum congue. '
+                    'Vestibulum ut diam ut risus porta mattis. Proin fringilla '
+                    'arcu lorem, sit amet porttitor ante iaculis sit amet.',
+                photoCredit: 'AMD',
+                imageUrl:
+                    'https://cdn.vox-cdn.com/thumbor/tb-1DMHN6elrf_2in0qFUeARDoY=/0x0:1510x1130/1820x1213/filters:focal(635x445:875x685):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70899444/2022_05_22_15_38_37_Dly6cgt0xY.0.jpg',
+              ),
+              SlideBlock(
+                caption: 'Asus GeForce RTX 3070 Noctua',
+                description:
+                    'Fusce ornare quis odio eget fringilla. Curabitur gravida '
+                    'velit urna, semper imperdiet metus fermentum congue. '
+                    'Vestibulum ut diam ut risus porta mattis. Proin fringilla '
+                    'arcu lorem, sit amet porttitor ante iaculis sit amet.',
+                photoCredit: 'Asus',
+                imageUrl:
+                    'https://cdn.vox-cdn.com/thumbor/oU-H_vwU66ldMk3M69k3eY3Td1U=/34x189:1238x869/1820x1213/filters:focal(295x343:615x663):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70879959/kv.0.jpg',
+              ),
+              SlideBlock(
+                caption: 'Asus GeForce RTX 3070 Noctua',
+                description:
+                    'Fusce ornare quis odio eget fringilla. Curabitur gravida '
+                    'velit urna, semper imperdiet metus fermentum congue. '
+                    'Vestibulum ut diam ut risus porta mattis. Proin fringilla '
+                    'arcu lorem, sit amet porttitor ante iaculis sit amet.',
+                photoCredit: 'Asus',
+                imageUrl:
+                    'https://cdn.vox-cdn.com/thumbor/oU-H_vwU66ldMk3M69k3eY3Td1U=/34x189:1238x869/1820x1213/filters:focal(295x343:615x663):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70879959/kv.0.jpg',
+              ),
+            ],
+          ),
+        ),
+      ),
+      const SpacerBlock(spacing: Spacing.large),
       const BannerAdBlock(size: BannerAdSize.large),
       const SpacerBlock(spacing: Spacing.large),
       const TextHeadlineBlock(text: 'Now, comes the big surprise!'),
