@@ -46,7 +46,7 @@ class _SubscribeWithArticleLimitModalState
                 context.read<AnalyticsBloc>().add(
                       TrackAnalyticsEvent(
                         PaywallPromptEvent.impression(
-                          impression: PaywallPromptImpression.subscription,
+                          impression: PaywallPromptImpression.rewarded,
                           articleTitle: articleTitle ?? '',
                         ),
                       ),
