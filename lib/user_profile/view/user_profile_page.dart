@@ -306,7 +306,8 @@ class UserProfileLogoutButton extends StatelessWidget {
             Text(context.l10n.userProfileLogoutButtonText),
           ],
         ),
-        onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+        onPressed: () =>
+            context.read<AppBloc>().add(const AppLogoutRequested()),
       ),
     );
   }
