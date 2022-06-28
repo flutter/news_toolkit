@@ -33,7 +33,7 @@ void main() {
         () => inAppPurchaseRepository.currentSubscriptionPlan,
       ).thenAnswer((_) => Stream.empty());
       when(
-        () => inAppPurchaseRepository.purchaseUpdateStream,
+        () => inAppPurchaseRepository.purchaseUpdate,
       ).thenAnswer((_) => Stream.empty());
     });
 
@@ -130,7 +130,7 @@ void main() {
       );
     });
 
-    group('when InAppPurchaseRepository.purchaseUpdateStream', () {
+    group('when InAppPurchaseRepository.purchaseUpdate', () {
       blocTest<SubscriptionsBloc, SubscriptionsState>(
         'adds PurchasePurchased '
         'changes purchaseStatus to pending',
@@ -138,7 +138,7 @@ void main() {
           purchaseStatus: PurchaseStatus.none,
         ),
         setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdateStream,
+          () => inAppPurchaseRepository.purchaseUpdate,
         ).thenAnswer(
           (_) => Stream.value(
             PurchasePurchased(
@@ -163,7 +163,7 @@ void main() {
           purchaseStatus: PurchaseStatus.pending,
         ),
         setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdateStream,
+          () => inAppPurchaseRepository.purchaseUpdate,
         ).thenAnswer(
           (_) => Stream.value(
             PurchaseDelivered(
@@ -188,7 +188,7 @@ void main() {
           purchaseStatus: PurchaseStatus.pending,
         ),
         setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdateStream,
+          () => inAppPurchaseRepository.purchaseUpdate,
         ).thenAnswer(
           (_) => Stream.value(
             PurchaseFailed(
@@ -213,7 +213,7 @@ void main() {
           purchaseStatus: PurchaseStatus.pending,
         ),
         setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdateStream,
+          () => inAppPurchaseRepository.purchaseUpdate,
         ).thenAnswer(
           (_) => Stream.value(
             PurchaseCanceled(),

@@ -30,7 +30,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     );
 
     _inAppPurchaseUpdateSubscription =
-        _inAppPurchaseRepository.purchaseUpdateStream.listen(
+        _inAppPurchaseRepository.purchaseUpdate.listen(
       (purchase) => add(SubscriptionPurchaseUpdated(purchase: purchase)),
       onError: addError,
     );
