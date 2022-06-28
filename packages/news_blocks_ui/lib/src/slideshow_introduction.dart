@@ -28,8 +28,8 @@ class SlideshowIntroduction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isContentOverlaid = true;
     final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: GestureDetector(
@@ -40,7 +40,7 @@ class SlideshowIntroduction extends StatelessWidget {
           children: [
             PostLargeImage(
               imageUrl: block.coverImageUrl,
-              isContentOverlaid: isContentOverlaid,
+              isContentOverlaid: true,
               isLocked: false,
             ),
             Padding(
