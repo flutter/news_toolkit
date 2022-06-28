@@ -45,6 +45,8 @@ void main() {
         firebaseDynamicLinks: firebaseDynamicLinks,
       );
 
+      final userStorage = UserStorage(storage: persistentStorage);
+
       final authenticationClient = FirebaseAuthenticationClient(
         tokenStorage: tokenStorage,
       );
@@ -53,6 +55,7 @@ void main() {
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
+        storage: userStorage,
       );
 
       final newsRepository = NewsRepository(
