@@ -7,6 +7,7 @@ import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:share_launcher/share_launcher.dart';
 
@@ -117,7 +118,7 @@ class ArticleSubscribeButton extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: AppButton.smallRedWine(
-          onPressed: () {},
+          onPressed: () => showPurchaseSubscriptionDialog(context: context),
           child: Text(context.l10n.subscribeButtonText),
         ),
       ),
