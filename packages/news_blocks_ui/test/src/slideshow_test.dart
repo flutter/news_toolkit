@@ -23,7 +23,7 @@ void main() {
     const _pageAnimationDuration = Duration(milliseconds: 300);
 
     final slides = List.generate(
-      4,
+      3,
       (index) => SlideBlock(
         caption: 'Oink, Oink',
         description: 'Domestic pigs come in different colours, '
