@@ -26,9 +26,9 @@ void main() {
       3,
       (index) => SlideBlock(
         caption: 'Oink, Oink',
-        description: 'Domestic pigs come in different colours, '
+        description: 'Domestic pigs come in different colors, '
             'shapes and sizes. They are usually pink, but little pigs kept as'
-            ' pets (pot-bellied pigs) are sometimes other colours. '
+            ' pets (pot-bellied pigs) are sometimes other colors. '
             ' Pigs roll in mud to protect themselves from sunlight. '
             ' Many people think that pigs are dirty and smell. In fact,'
             ' they roll around in the mud to keep bugs '
@@ -52,7 +52,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -69,7 +69,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -86,7 +86,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -103,7 +103,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -120,7 +120,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -137,7 +137,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -154,7 +154,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -173,7 +173,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -219,7 +219,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
