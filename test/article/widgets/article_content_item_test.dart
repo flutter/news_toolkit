@@ -4,6 +4,8 @@ import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/slideshow/slideshow.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -212,17 +214,37 @@ void main() {
     });
 
     testWidgets(
-      'renders SlideshowIntroduction '
-      'for SlideshowIntroductionBlock',
-      (tester) async {
-        final block = SlideshowIntroductionBlock(
-          title: 'Slideshow Introduction Block',
-          coverImageUrl: 'coverImageUrl',
+        'renders SlideshowIntroduction '
+        'for SlideshowIntroductionBlock', (tester) async {
+      final block = SlideshowIntroductionBlock(
+        title: 'title',
+        coverImageUrl: 'coverImageUrl',
+        action: NavigateToSlideshowAction(
+          slideshow: SlideshowBlock(
+            slides: [],
+            title: 'title',
+          ),
+          articleId: 'articleId',
+        ),
+      );
+      await mockNetworkImages(() async {
+        await tester.pumpApp(
+          ListView(
+            children: [
+              ArticleContentItem(block: block),
+            ],
+          ),
         );
-        await tester.pumpApp(ArticleContentItem(block: block));
-        expect(find.byType(SlideshowIntroduction), findsOneWidget);
-      },
-    );
+      });
+
+      await tester.ensureVisible(find.byType(SlideshowIntroduction));
+      await tester.tap(find.byType(SlideshowIntroduction));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(SlideshowPage),
+        findsOneWidget,
+      );
+    });
 
     testWidgets(
         'renders SizedBox '
