@@ -14,22 +14,6 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/arrow_left_disable.svg
-  SvgGenImage get arrowLeftDisable =>
-      const SvgGenImage('assets/icons/arrow_left_disable.svg');
-
-  /// File path: assets/icons/arrow_left_enable.svg
-  SvgGenImage get arrowLeftEnable =>
-      const SvgGenImage('assets/icons/arrow_left_enable.svg');
-
-  /// File path: assets/icons/arrow_right_disable.svg
-  SvgGenImage get arrowRightDisable =>
-      const SvgGenImage('assets/icons/arrow_right_disable.svg');
-
-  /// File path: assets/icons/arrow_right_enable.svg
-  SvgGenImage get arrowRightEnable =>
-      const SvgGenImage('assets/icons/arrow_right_enable.svg');
-
   /// File path: assets/icons/play_icon.svg
   SvgGenImage get playIcon => const SvgGenImage('assets/icons/play_icon.svg');
 }
