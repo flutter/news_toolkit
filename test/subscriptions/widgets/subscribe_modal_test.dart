@@ -82,8 +82,11 @@ void main() {
 
     group('opens PurchaseSubscriptionDialog', () {
       late InAppPurchaseRepository inAppPurchaseRepository;
+      late ArticleBloc articleBloc;
+
       setUp(() {
         inAppPurchaseRepository = MockInAppPurchaseRepository();
+        articleBloc = MockArticleBloc();
 
         when(
           () => inAppPurchaseRepository.currentSubscriptionPlan,
@@ -100,19 +103,36 @@ void main() {
         when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
           (_) async => [],
         );
+
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(status: ArticleStatus.initial, title: 'title'),
+        );
       });
 
-      testWidgets('when tapped on subscribe button', (tester) async {
+      testWidgets(
+          'when tapped on subscribe button '
+          'adding PaywallPromptEvent.click to AnalyticsBloc', (tester) async {
+        final analyticsBloc = MockAnalyticsBloc();
+
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
             child: SubscribeModal(),
           ),
           inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsBloc: analyticsBloc,
         );
         await tester.tap(find.byKey(subscribeButtonKey));
         await tester.pump();
-        expect(find.byKey(subscribeButtonKey), findsOneWidget);
+        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
+
+        verify(
+          () => analyticsBloc.add(
+            TrackAnalyticsEvent(
+              PaywallPromptEvent.click(articleTitle: 'title'),
+            ),
+          ),
+        ).called(1);
       });
     });
 

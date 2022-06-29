@@ -80,8 +80,16 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 child: AppButton.redWine(
                   key: const Key('subscribeModal_subscribeButton'),
                   child: Text(l10n.subscribeButtonText),
-                  onPressed: () =>
-                      showPurchaseSubscriptionDialog(context: context),
+                  onPressed: () {
+                    context.read<AnalyticsBloc>().add(
+                          TrackAnalyticsEvent(
+                            PaywallPromptEvent.click(
+                              articleTitle: articleTitle ?? '',
+                            ),
+                          ),
+                        );
+                    showPurchaseSubscriptionDialog(context: context);
+                  },
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),

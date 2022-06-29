@@ -90,8 +90,16 @@ class _SubscribeWithArticleLimitModalState
                     'subscribeWithArticleLimitModal_subscribeButton',
                   ),
                   child: Text(l10n.subscribeButtonText),
-                  onPressed: () =>
-                      showPurchaseSubscriptionDialog(context: context),
+                  onPressed: () {
+                    showPurchaseSubscriptionDialog(context: context);
+                    context.read<AnalyticsBloc>().add(
+                          TrackAnalyticsEvent(
+                            PaywallPromptEvent.click(
+                              articleTitle: articleTitle ?? '',
+                            ),
+                          ),
+                        );
+                  },
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
