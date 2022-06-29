@@ -276,7 +276,12 @@ Mocked products are being exposed in the [products.dart](https://github.com/VGVe
 
 To use [in_app_purchase](https://pub.dev/packages/in_app_purchase) package substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
-Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+[in_app_purchase](https://pub.dev/packages/in_app_purchase) plugin relies on the App Store and Google Play for making in-app purchases. It exposes a unified surface, but you still need to understand and configure your app with each store. Both stores have extensive guides:
+
+- [App Store documentation](https://developer.apple.com/in-app-purchase/)
+- [Google Play documentation](https://developer.android.com/google/play/billing/billing_overview)
+
+Next follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) instructions in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
 
 ## Push Notifications 📢
 
