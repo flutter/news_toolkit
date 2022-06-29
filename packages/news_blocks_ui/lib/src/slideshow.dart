@@ -12,6 +12,7 @@ class Slideshow extends StatefulWidget {
     super.key,
     required this.block,
     required this.categoryTitle,
+    required this.ofTitle,
   });
 
   /// The associated [SlideshowBlock] instance.
@@ -19,6 +20,9 @@ class Slideshow extends StatefulWidget {
 
   /// The title of the category.
   final String categoryTitle;
+
+  /// Word to be displayed on [_SlideshowButtons].
+  final String ofTitle;
 
   @override
   State<Slideshow> createState() => _SlideshowState();
@@ -45,6 +49,7 @@ class _SlideshowState extends State<Slideshow> {
           _SlideshowButtons(
             totalPages: widget.block.slides.length,
             controller: _controller,
+            ofTitle: widget.ofTitle,
           ),
           const SizedBox(height: AppSpacing.lg)
         ],
@@ -159,6 +164,7 @@ class SlideshowItem extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: AppSpacing.lg,
             top: AppSpacing.lg,
+            right: AppSpacing.lg,
           ),
           child: Text(
             slide.caption,
@@ -172,6 +178,7 @@ class SlideshowItem extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: AppSpacing.lg,
             top: AppSpacing.lg,
+            right: AppSpacing.lg,
           ),
           child: Text(
             slide.description,
@@ -202,10 +209,12 @@ class _SlideshowButtons extends StatefulWidget {
   const _SlideshowButtons({
     required this.totalPages,
     required this.controller,
+    required this.ofTitle,
   });
 
   final int totalPages;
   final PageController controller;
+  final String ofTitle;
 
   @override
   State<_SlideshowButtons> createState() => _SlideshowButtonsState();
@@ -225,44 +234,51 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          key: const Key('slideshow_slideshowButtonsLeft'),
-          onPressed: () {
-            if (_currentPage >= 1) {
-              widget.controller.previousPage(
-                duration: _pageAnimationDuration,
-                curve: Curves.easeInOut,
-              );
-            }
-          },
-          icon: const Icon(Icons.arrow_back),
-          color: _currentPage == 0 ? AppColors.grey : AppColors.white,
-        ),
-        Text(
-          '${_currentPage + 1} of ${widget.totalPages}',
-          style: theme.textTheme.headline6?.apply(color: AppColors.white),
-        ),
-        IconButton(
-          key: const Key('slideshow_slideshowButtonsRight'),
-          onPressed: () {
-            if (_currentPage < widget.totalPages - 1) {
-              widget.controller.nextPage(
-                duration: _pageAnimationDuration,
-                curve: Curves.easeInOut,
-              );
-            }
-          },
-          icon: Icon(
-            Icons.arrow_forward,
-            color: _currentPage == widget.totalPages - 1
-                ? AppColors.grey
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            key: const Key('slideshow_slideshowButtonsLeft'),
+            onPressed: () {
+              if (_currentPage >= 1) {
+                widget.controller.previousPage(
+                  duration: _pageAnimationDuration,
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: _currentPage == 0
+                ? AppColors.white.withOpacity(.38)
                 : AppColors.white,
           ),
-        ),
-      ],
+          Text(
+            '${_currentPage + 1} ${widget.ofTitle} ${widget.totalPages}',
+            style: theme.textTheme.headline6?.apply(color: AppColors.white),
+          ),
+          IconButton(
+            key: const Key('slideshow_slideshowButtonsRight'),
+            onPressed: () {
+              if (_currentPage < widget.totalPages - 1) {
+                widget.controller.nextPage(
+                  duration: _pageAnimationDuration,
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
+            icon: Icon(
+              Icons.arrow_forward,
+              color: _currentPage == widget.totalPages - 1
+                  ? AppColors.white.withOpacity(.38)
+                  : AppColors.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

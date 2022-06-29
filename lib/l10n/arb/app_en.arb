@@ -592,5 +592,11 @@
     "description": "Slideshow text shown on slideshow introduction widgets.",
     "type": "text",
     "placeholders": {}
+  },
+  "slideshow_of_title": "of",
+  "@slideshow_of_title": {
+    "description": "Text displayed on the number of pages in the slideshow page.",
+    "type": "text",
+    "placeholders": {}
   }
 }
