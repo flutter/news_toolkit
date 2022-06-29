@@ -52,6 +52,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -68,6 +69,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -84,6 +86,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -100,6 +103,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -116,6 +120,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -132,6 +137,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -148,6 +154,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -166,6 +173,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
@@ -211,6 +219,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
+              ofTitle: 'of',
             ),
           ),
         );
