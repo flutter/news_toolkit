@@ -234,6 +234,8 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final navigationBarLabel =
+        '${_currentPage + 1} ${widget.navigationLabel} ${widget.totalPages}';
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -257,7 +259,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
                 : Assets.icons.arrowLeftEnable.svg(),
           ),
           Text(
-            '${_currentPage + 1} ${widget.navigationLabel} ${widget.totalPages}',
+            navigationBarLabel,
             style: theme.textTheme.headline6?.apply(color: AppColors.white),
           ),
           IconButton(
