@@ -49,7 +49,7 @@ class SlideshowView extends StatelessWidget {
       body: Slideshow(
         block: block,
         categoryTitle: l10n.slideshow.toUpperCase(),
-        ofTitle: l10n.slideshow_of_title,
+        navigationLabel: l10n.slideshow_of_title,
       ),
     );
   }
