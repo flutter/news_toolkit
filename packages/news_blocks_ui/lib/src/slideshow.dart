@@ -1,6 +1,7 @@
-import 'package:app_ui/app_ui.dart';
+import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/src/generated/generated.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template slideshow}
@@ -251,10 +252,9 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
                 );
               }
             },
-            icon: const Icon(Icons.arrow_back),
-            color: _currentPage == 0
-                ? AppColors.white.withOpacity(.38)
-                : AppColors.white,
+            icon: _currentPage == 0
+                ? Assets.icons.arrowLeftDisable.svg()
+                : Assets.icons.arrowLeftEnable.svg(),
           ),
           Text(
             '${_currentPage + 1} ${widget.ofTitle} ${widget.totalPages}',
@@ -270,12 +270,9 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
                 );
               }
             },
-            icon: Icon(
-              Icons.arrow_forward,
-              color: _currentPage == widget.totalPages - 1
-                  ? AppColors.white.withOpacity(.38)
-                  : AppColors.white,
-            ),
+            icon: _currentPage == widget.totalPages - 1
+                ? Assets.icons.arrowRightDisable.svg()
+                : Assets.icons.arrowRightEnable.svg(),
           ),
         ],
       ),
