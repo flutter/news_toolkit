@@ -165,7 +165,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
-## Theming and Brand Updates
+## Theme and Brand Updates
 
 This template comes with already configured light and dark Theme for the app. To know more about Theme visit [Flutter theme guide](https://docs.flutter.dev/cookbook/design/themes).
 
