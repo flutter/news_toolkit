@@ -259,6 +259,22 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Newsletter
+
+Current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription always returns true and the response is handled in the app as a success state. Be aware that current implementation of application does not store state of whether user is subscriber or not.
+
+```dart
+/// Mixin on [Controller] which adds support for subscribing to a newsletter.
+mixin CreateSubscriptionMixin on Controller {
+  /// Subscribe to receive a newsletter.
+  Future<Response> createSubscription(Request request) async {
+    return JsonResponse.created();
+  }
+}
+```
+
+To fully use the newsletter subscription feature please provide your API handling logic or add already existing email service.
+
 ## Push Notifications 📢
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
