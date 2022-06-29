@@ -241,7 +241,7 @@ void main() {
       await tester.tap(find.byType(SlideshowIntroduction));
       await tester.pumpAndSettle();
       expect(
-        find.byWidgetPredicate((widget) => widget is SlideshowPage),
+        find.byType(SlideshowPage),
         findsOneWidget,
       );
     });
