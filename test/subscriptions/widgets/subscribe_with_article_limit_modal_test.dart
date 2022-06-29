@@ -47,10 +47,10 @@ void main() {
   setUp(() {
     user = MockUser();
     appBloc = MockAppBloc();
-    when(() => appBloc.state).thenReturn(AppState.unauthenticated());
-
     analyticsBloc = MockAnalyticsBloc();
     articleBloc = MockArticleBloc();
+
+    when(() => appBloc.state).thenReturn(AppState.unauthenticated());
 
     when(() => articleBloc.state).thenReturn(
       ArticleState(status: ArticleStatus.initial, title: 'title'),
@@ -119,15 +119,10 @@ void main() {
         when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
           (_) async => [],
         );
-        when(
-          () => analyticsBloc.add(
-            TrackAnalyticsEvent(
-              PaywallPromptEvent.click(
-                articleTitle: 'title',
-              ),
-            ),
-          ),
-        ).thenReturn(() {});
+
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(status: ArticleStatus.initial, title: 'title'),
+        );
       });
 
       testWidgets(
