@@ -259,6 +259,22 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Authentication
+
+Currently this project supports multiple ways of authentications such as `email`, `google`, `apple`, `twitter` and `facebook` login.
+
+Current implementation of the login can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside `packages/authentication_client` package.
+
+The package depends on the third-party packages that expose authentication methods such as:
+
+- `firebase_auth`
+- `flutter_facebook_auth`
+- `google_sign_in`
+- `sign_in_with_apple`
+- `twitter_login`
+
+The usage guide of each of this packages can be found on [pub.dev](https://pub.dev/).
+
 ## Push Notifications 📢
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
