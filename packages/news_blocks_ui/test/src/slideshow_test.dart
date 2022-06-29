@@ -52,7 +52,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -69,7 +69,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -86,7 +86,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -103,7 +103,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -120,7 +120,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -137,7 +137,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -154,7 +154,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -173,7 +173,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );
@@ -219,7 +219,7 @@ void main() {
                 slides: slides,
               ),
               categoryTitle: 'SLIDESHOW',
-              ofTitle: 'of',
+              navigationLabel: 'of',
             ),
           ),
         );

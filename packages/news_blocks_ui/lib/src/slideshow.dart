@@ -13,7 +13,7 @@ class Slideshow extends StatefulWidget {
     super.key,
     required this.block,
     required this.categoryTitle,
-    required this.ofTitle,
+    required this.navigationLabel,
   });
 
   /// The associated [SlideshowBlock] instance.
@@ -22,8 +22,8 @@ class Slideshow extends StatefulWidget {
   /// The title of the category.
   final String categoryTitle;
 
-  /// Word to be displayed on [_SlideshowButtons].
-  final String ofTitle;
+  /// The label displayed between navigation buttons of the [_SlideshowButtons].
+  final String navigationLabel;
 
   @override
   State<Slideshow> createState() => _SlideshowState();
@@ -40,7 +40,7 @@ class _SlideshowState extends State<Slideshow> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _SlideshowCategoryTitle(
-            title: widget.categoryTitle,
+            categoryTitle: widget.categoryTitle,
           ),
           _SlideshowHeaderTitle(title: widget.block.title),
           _SlideshowPageView(
@@ -50,7 +50,7 @@ class _SlideshowState extends State<Slideshow> {
           _SlideshowButtons(
             totalPages: widget.block.slides.length,
             controller: _controller,
-            ofTitle: widget.ofTitle,
+            navigationLabel: widget.navigationLabel,
           ),
           const SizedBox(height: AppSpacing.lg)
         ],
@@ -67,10 +67,10 @@ class _SlideshowState extends State<Slideshow> {
 
 class _SlideshowCategoryTitle extends StatelessWidget {
   const _SlideshowCategoryTitle({
-    required this.title,
+    required this.categoryTitle,
   });
 
-  final String title;
+  final String categoryTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _SlideshowCategoryTitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: AppSpacing.lg),
       child: SlideshowCategory(
         isIntroduction: false,
-        slideshowText: title,
+        slideshowText: categoryTitle,
       ),
     );
   }
@@ -210,12 +210,12 @@ class _SlideshowButtons extends StatefulWidget {
   const _SlideshowButtons({
     required this.totalPages,
     required this.controller,
-    required this.ofTitle,
+    required this.navigationLabel,
   });
 
   final int totalPages;
   final PageController controller;
-  final String ofTitle;
+  final String navigationLabel;
 
   @override
   State<_SlideshowButtons> createState() => _SlideshowButtonsState();
@@ -257,7 +257,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
                 : Assets.icons.arrowLeftEnable.svg(),
           ),
           Text(
-            '${_currentPage + 1} ${widget.ofTitle} ${widget.totalPages}',
+            '${_currentPage + 1} ${widget.navigationLabel} ${widget.totalPages}',
             style: theme.textTheme.headline6?.apply(color: AppColors.white),
           ),
           IconButton(

@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template slideshow_category}
-/// A widget displaying a slideshow label.
 /// A widget displaying a slideshow category.
 /// {@endtemplate}
 class SlideshowCategory extends StatelessWidget {
