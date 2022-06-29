@@ -282,7 +282,7 @@ Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getti
 
 ### Mediation and Open Bidding
 
-To use mediation in your mobile app, follow the links below to prepare your Google Ad Manager network and your mobile app.
+To use mediation in your mobile app, follow the links below to prepare your Google AdMob network and your mobile app.
 
 - [Overview of Mediation](https://admanager.google.com/home/resources/feature-brief-app-mediation/)
 - [How-to Guide](https://support.google.com/admanager/answer/7387351?hl=en&ref_topic=6373639)
