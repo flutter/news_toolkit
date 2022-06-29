@@ -3,6 +3,8 @@
 ///  FlutterGen
 /// *****************************************************
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
@@ -11,6 +13,22 @@ import 'package:flutter/services.dart';
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
+
+  /// File path: assets/icons/arrow_left_disable.svg
+  SvgGenImage get arrowLeftDisable =>
+      const SvgGenImage('assets/icons/arrow_left_disable.svg');
+
+  /// File path: assets/icons/arrow_left_enable.svg
+  SvgGenImage get arrowLeftEnable =>
+      const SvgGenImage('assets/icons/arrow_left_enable.svg');
+
+  /// File path: assets/icons/arrow_right_disable.svg
+  SvgGenImage get arrowRightDisable =>
+      const SvgGenImage('assets/icons/arrow_right_disable.svg');
+
+  /// File path: assets/icons/arrow_right_enable.svg
+  SvgGenImage get arrowRightEnable =>
+      const SvgGenImage('assets/icons/arrow_right_enable.svg');
 
   /// File path: assets/icons/play_icon.svg
   SvgGenImage get playIcon => const SvgGenImage('assets/icons/play_icon.svg');
@@ -22,20 +40,23 @@ class Assets {
   static const $AssetsIconsGen icons = $AssetsIconsGen();
 }
 
-class AssetGenImage extends AssetImage {
-  const AssetGenImage(String assetName)
-      : super(assetName, package: 'news_blocks_ui');
+class AssetGenImage {
+  const AssetGenImage(this._assetName);
+
+  final String _assetName;
 
   Image image({
     Key? key,
+    AssetBundle? bundle,
     ImageFrameBuilder? frameBuilder,
-    ImageLoadingBuilder? loadingBuilder,
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
+    double? scale = 1.0,
     double? width,
     double? height,
     Color? color,
+    Animation<double>? opacity,
     BlendMode? colorBlendMode,
     BoxFit? fit,
     AlignmentGeometry alignment = Alignment.center,
@@ -44,19 +65,24 @@ class AssetGenImage extends AssetImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
+    String? package = 'news_blocks_ui',
     FilterQuality filterQuality = FilterQuality.low,
+    int? cacheWidth,
+    int? cacheHeight,
   }) {
-    return Image(
+    return Image.asset(
+      _assetName,
       key: key,
-      image: this,
+      bundle: bundle,
       frameBuilder: frameBuilder,
-      loadingBuilder: loadingBuilder,
       errorBuilder: errorBuilder,
       semanticLabel: semanticLabel,
       excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
       width: width,
       height: height,
       color: color,
+      opacity: opacity,
       colorBlendMode: colorBlendMode,
       fit: fit,
       alignment: alignment,
@@ -65,11 +91,14 @@ class AssetGenImage extends AssetImage {
       matchTextDirection: matchTextDirection,
       gaplessPlayback: gaplessPlayback,
       isAntiAlias: isAntiAlias,
+      package: package,
       filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
     );
   }
 
-  String get path => assetName;
+  String get path => _assetName;
 }
 
 class SvgGenImage {

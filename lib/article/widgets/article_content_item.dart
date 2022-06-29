@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/slideshow/slideshow.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -70,10 +71,26 @@ class ArticleContentItem extends StatelessWidget {
       return SlideshowIntroduction(
         block: newsBlock,
         slideshowText: context.l10n.slideshow,
+        onPressed: (action) => _onContentItemAction(context, action),
       );
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
+    }
+  }
+
+  /// Handles actions triggered by tapping on article content items.
+  Future<void> _onContentItemAction(
+    BuildContext context,
+    BlockAction action,
+  ) async {
+    if (action is NavigateToSlideshowAction) {
+      await Navigator.of(context).push<void>(
+        SlideshowPage.route(
+          slideshow: action.slideshow,
+          articleId: action.articleId,
+        ),
+      );
     }
   }
 }
