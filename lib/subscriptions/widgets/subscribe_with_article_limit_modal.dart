@@ -9,6 +9,7 @@ import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/generated/generated.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 @visibleForTesting
@@ -89,7 +90,16 @@ class _SubscribeWithArticleLimitModalState
                     'subscribeWithArticleLimitModal_subscribeButton',
                   ),
                   child: Text(l10n.subscribeButtonText),
-                  onPressed: () {},
+                  onPressed: () {
+                    showPurchaseSubscriptionDialog(context: context);
+                    context.read<AnalyticsBloc>().add(
+                          TrackAnalyticsEvent(
+                            PaywallPromptEvent.click(
+                              articleTitle: articleTitle ?? '',
+                            ),
+                          ),
+                        );
+                  },
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),

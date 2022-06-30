@@ -63,8 +63,6 @@ class ManageSubscriptionView extends StatelessWidget {
                   style: theme.textTheme.subtitle2
                       ?.copyWith(color: AppColors.darkAqua),
                 ),
-                // TODO(jan-stepien): onTap opens in_app_purchase
-                // subscriptions settings page instead.
                 onTap: () {
                   context.read<AppBloc>().add(
                         const AppUserSubscriptionPlanChanged(

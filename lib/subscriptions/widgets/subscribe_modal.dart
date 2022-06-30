@@ -6,6 +6,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 @visibleForTesting
@@ -23,8 +24,9 @@ class _SubscribeModalState extends State<SubscribeModal> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
-    final isLoggedIn = context
-        .select((AppBloc bloc) => bloc.state.status == AppStatus.authenticated);
+    final isLoggedIn = context.select<AppBloc, bool>(
+      (AppBloc bloc) => bloc.state.status == AppStatus.authenticated,
+    );
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
 
@@ -78,7 +80,16 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 child: AppButton.redWine(
                   key: const Key('subscribeModal_subscribeButton'),
                   child: Text(l10n.subscribeButtonText),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<AnalyticsBloc>().add(
+                          TrackAnalyticsEvent(
+                            PaywallPromptEvent.click(
+                              articleTitle: articleTitle ?? '',
+                            ),
+                          ),
+                        );
+                    showPurchaseSubscriptionDialog(context: context);
+                  },
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),
