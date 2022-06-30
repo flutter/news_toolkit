@@ -299,6 +299,22 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Authentication
+
+Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
+
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
+
+The package depends on the third-party packages that expose authentication methods such as:
+
+- `firebase_auth`
+- `flutter_facebook_auth`
+- `google_sign_in`
+- `sign_in_with_apple`
+- `twitter_login`
+
+The usage guide for each of these packages can be found on [pub.dev](https://pub.dev/).
+
 ## Newsletter
 
 The current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription will always return true and the response is handled in the app as a success state. Be aware that the current implementation of this feature does not store the subscriber state for a user.
