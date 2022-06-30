@@ -261,7 +261,7 @@ final handler = const Pipeline()
 
 ## Subscriptions and purchases
 
-This project uses In-App purchase for Flutter using [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this application a mocked version of `in_app_purchase` was created called [purchase_client](https://github.com/VGVentures/google_news_template/tree/main/packages/purchase_client).
+This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/VGVentures/google_news_template/tree/main/packages/purchase_client).
 
 [PurchaseClient class](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism, exposing the `purchaseStream`
 
