@@ -165,6 +165,42 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
+## Theme and Brand Updates
+
+This template comes with already configured light and dark Theme for the app. To know more about Theme visit [Flutter theme guide](https://docs.flutter.dev/cookbook/design/themes).
+
+```dart
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      themeMode: ThemeMode.light,
+      theme: const AppTheme().themeData,
+      darkTheme: const AppDarkTheme().themeData,
+      ...
+    );
+  }
+}
+```
+
+Configuration of `colors`, `spacing`, `typography`, and globally used widgets can be found in the `lib/packages/app_ui` package within this project and can be maintained globally for the whole application.
+
+Inside the `lib/packages/app_ui` project, the `gallery` folder contains example usage of the `colors`, `spacing`, and `typography`. It is a runnable project that allows you to browse how changes will impact styling of your widgets.
+
+To access the global Theme, use the `BuildContext` tree to read correct styling values.
+
+```dart
+Widget build(BuildContext context) {
+  return Text(
+      context.l10n.loginModalTitle,
+      style: Theme.of(context).textTheme.headline3,
+  );
+}
+```
+
 ## Google News Template API
 
 This package uses `google_news_template_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/VGVentures/google_news_template/tree/main/api)
