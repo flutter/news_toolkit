@@ -280,6 +280,10 @@ Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getti
 
 ## Ads
 
+This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [InterstitialAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/interstitial_ad.dart#L28), [RewardedAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/rewarded_ad.dart#L28), [BannerAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L46) and [StickyAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/sticky_ad.dart#L10).
+
+To get more information about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
+
 ### Mediation and Open Bidding
 
 To use mediation in your mobile app, follow the links below to prepare your Google AdMob network and your mobile app.
