@@ -261,9 +261,10 @@ final handler = const Pipeline()
 
 ## Authentication
 
-Currently this project supports multiple ways of authentications such as `email`, `google`, `apple`, `twitter` and `facebook` login.
+Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
 
-Current implementation of the login can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside `packages/authentication_client` package.
+
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
 
 The package depends on the third-party packages that expose authentication methods such as:
 
@@ -273,7 +274,7 @@ The package depends on the third-party packages that expose authentication metho
 - `sign_in_with_apple`
 - `twitter_login`
 
-The usage guide of each of this packages can be found on [pub.dev](https://pub.dev/).
+The usage guide for each of these packages can be found on [pub.dev](https://pub.dev/).
 
 ## Push Notifications 📢
 
