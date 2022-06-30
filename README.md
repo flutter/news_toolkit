@@ -165,6 +165,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
+## Google News Template API
+
+This package uses `google_news_template_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/VGVentures/google_news_template/tree/main/api)
+
 ## News Data Source 📰
 
 The `google_news_template_api` package defines an interface for a [`NewsDataSource`](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/data/news_data_source.dart):
@@ -263,7 +267,6 @@ final handler = const Pipeline()
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
 
-
 The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
 
 The package depends on the third-party packages that expose authentication methods such as:
@@ -275,6 +278,60 @@ The package depends on the third-party packages that expose authentication metho
 - `twitter_login`
 
 The usage guide for each of these packages can be found on [pub.dev](https://pub.dev/).
+
+## Newsletter
+
+The current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription will always return true and the response is handled in the app as a success state. Be aware that the current implementation of this feature does not store the subscriber state for a user.
+
+```dart
+/// Mixin on [Controller] which adds support for subscribing to a newsletter.
+mixin CreateSubscriptionMixin on Controller {
+  /// Subscribe to receive a newsletter.
+  Future<Response> createSubscription(Request request) async {
+    return JsonResponse.created();
+  }
+}
+```
+
+To fully leverage the newsletter subscription feature please add your API handling logic or an already existing email service, such as [mailchimp.](https://mailchimp.com/)
+
+## Subscriptions and purchases
+
+This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/VGVentures/google_news_template/tree/main/packages/purchase_client).
+
+The [PurchaseClient class](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism to expose the `purchaseStream`.
+
+```
+  @override
+  Stream<List<PurchaseDetails>> get purchaseStream => _purchaseStream.stream;
+```
+
+Mocked products are being exposed in the [products.dart](https://github.com/VGVentures/google_news_template/blob/main/packages/purchase_client/lib/src/products.dart) file.
+
+### in_app_purchase usage
+
+To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
+
+Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Ads
+
+This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [InterstitialAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/interstitial_ad.dart#L28), [RewardedAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/rewarded_ad.dart#L28), [BannerAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L46) and [StickyAd](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/sticky_ad.dart#L10).
+
+To get more information about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
+
+### Mediation and Open Bidding
+
+To use mediation in your mobile app, follow the links below to prepare your Google AdMob network and your mobile app.
+
+- [Overview of Mediation](https://admanager.google.com/home/resources/feature-brief-app-mediation/)
+- [How-to Guide](https://support.google.com/admanager/answer/7387351?hl=en&ref_topic=6373639)
+
+To use Open Bidding in your mobile app, follow the links below.
+
+- [Developer Documentation](https://developers.google.com/admob/flutter/mediation/get-started)
+- [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
+- [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
 
 ## Push Notifications 📢
 
