@@ -369,6 +369,89 @@ To use Open Bidding in your mobile app, follow the links below.
 - [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
 - [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
 
+## Google Analytics
+
+Google Analytics is an app measurement solution, available at no charge, that provides insight on app usage and user engagement.
+
+This project utilizes the `firebase_analytics` package to allow tracking of user activity within the app. To use `firebase_analytics`, it is required to have a Firebase project setup correctly. For instructions on how to add Firebase to your flutter app visit [this site](https://firebase.google.com/docs/flutter/setup).
+
+[AnalyticsRepository](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/analytics_repository/lib/src/analytics_repository.dart#L38) is responsible for handling event tracking and can be accessed globally within the app using `BuildContext`
+
+```dart
+class AnalyticsRepository {
+  const AnalyticsRepository(FirebaseAnalytics analytics)
+      : _analytics = analytics;
+
+  final FirebaseAnalytics _analytics;
+
+  /// Tracks the provided [AnalyticsEvent].
+  Future<void> track(AnalyticsEvent event) async {
+    try {
+      await _analytics.logEvent(
+        name: event.name,
+        parameters: event.properties,
+      );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(TrackEventFailure(error), stackTrace);
+    }
+  }
+  ...
+```
+
+To ease up the process of event tracking two ways of logging events were provided:
+
+- `AnalyticsBloc`
+- `AnalyticsEventMixin`
+
+[AnalyticsBloc](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/analytics/bloc/analytics_bloc.dart#L11) allows you to use the `AnalyticsRepository` by adding `TrackAnalyticsEvent` to the exposed Bloc.
+
+```dart
+class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
+  AnalyticsBloc({
+    required analytics.AnalyticsRepository analyticsRepository,
+    required UserRepository userRepository,
+  })  : _analyticsRepository = analyticsRepository,
+        super(AnalyticsInitial()) {
+    on<TrackAnalyticsEvent>(_onTrackAnalyticsEvent);
+...
+  Future<void> _onTrackAnalyticsEvent(
+    TrackAnalyticsEvent event,
+    Emitter<AnalyticsState> emit,
+  ) async {
+    try {
+      await _analyticsRepository.track(event.event);
+    } catch (error, stackTrace) {
+      addError(error, stackTrace);
+    }
+  }
+  ...
+```
+
+Another way to track analytic events happening on any `Bloc` would be using [AnalyticsEventMixin](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/analytics_repository/lib/src/models/analytics_event.dart#L23). The mixin can be used to extend any existing `BlocEvent` which extends `Equatable`.
+
+```dart
+/// Mixin for tracking analytics events.
+mixin AnalyticsEventMixin on Equatable {
+  /// Analytics event which will be tracked.
+  AnalyticsEvent get event;
+
+  @override
+  List<Object> get props => [event];
+}
+```
+
+Simply by overriding the event parameter within any BlocEvent, `AnalyticsEvent` will be sent to Firebase.
+
+```dart
+
+class SendEmailLinkSubmitted extends LoginEvent with AnalyticsEventMixin {
+  @override
+  AnalyticsEvent get event => const AnalyticsEvent('SendEmailLinkSubmitted');
+}
+```
+
+For a more extensive guide on how to utilize FirebaseAnalytics go to [this Firebase page](https://firebase.google.com/products/analytics).
+
 ## Push Notifications 📢
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
