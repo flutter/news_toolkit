@@ -259,6 +259,40 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+## Subscriptions and purchases
+
+This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/VGVentures/google_news_template/tree/main/packages/purchase_client).
+
+The [PurchaseClient class](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism to expose the `purchaseStream`.
+
+```
+  @override
+  Stream<List<PurchaseDetails>> get purchaseStream => _purchaseStream.stream;
+```
+
+Mocked products are being exposed in the [products.dart](https://github.com/VGVentures/google_news_template/blob/main/packages/purchase_client/lib/src/products.dart) file.
+
+### in_app_purchase usage
+
+To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
+
+Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Ads
+
+### Mediation and Open Bidding
+
+To use mediation in your mobile app, follow the links below to prepare your Google AdMob network and your mobile app.
+
+- [Overview of Mediation](https://admanager.google.com/home/resources/feature-brief-app-mediation/)
+- [How-to Guide](https://support.google.com/admanager/answer/7387351?hl=en&ref_topic=6373639)
+
+To use Open Bidding in your mobile app, follow the links below.
+
+- [Developer Documentation](https://developers.google.com/admob/flutter/mediation/get-started)
+- [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
+- [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
+
 ## Push Notifications 📢
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured.
