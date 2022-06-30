@@ -186,11 +186,11 @@ class AppView extends StatelessWidget {
 }
 ```
 
-Configuration of `colors`, `spacing`, `typography` but also globally used widgets can be found in the `lib/packages/app_ui` package within this project and can be maintained globally for the whole application.
+Configuration of `colors`, `spacing`, `typography`, and globally used widgets can be found in the `lib/packages/app_ui` package within this project and can be maintained globally for the whole application.
 
-Inside `lib/packages/app_ui` project, `gallery` folder contains example usage of the `colors`, `spacing`, `typography`. It is a runnable project that allows you to browse how changes will impact styling of your widgets.
+Inside the `lib/packages/app_ui` project, the `gallery` folder contains example usage of the `colors`, `spacing`, and `typography`. It is a runnable project that allows you to browse how changes will impact styling of your widgets.
 
-To access the global Theme use the `BuildContext` tree to read correct styling values
+To access the global Theme, use the `BuildContext` tree to read correct styling values.
 
 ```dart
 Widget build(BuildContext context) {
