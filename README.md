@@ -261,7 +261,7 @@ final handler = const Pipeline()
 
 ## Newsletter
 
-Current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription always returns true and the response is handled in the app as a success state. Be aware that current implementation of application does not store state of whether user is subscriber or not.
+The current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription will always return true and the response is handled in the app as a success state. Be aware that the current implementation of this feature does not store the subscriber state for a user.
 
 ```dart
 /// Mixin on [Controller] which adds support for subscribing to a newsletter.
@@ -273,7 +273,7 @@ mixin CreateSubscriptionMixin on Controller {
 }
 ```
 
-To fully use the newsletter subscription feature please provide your API handling logic or add already existing email service.
+To fully leverage the newsletter subscription feature please add your API handling logic or an already existing email service, such as [mailchimp.](https://mailchimp.com/)
 
 ## Push Notifications 📢
 
