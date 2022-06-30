@@ -9,6 +9,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -79,17 +80,59 @@ void main() {
       });
     });
 
-    group('does nothing', () {
-      testWidgets('when tapped on subscribe button', (tester) async {
+    group('opens PurchaseSubscriptionDialog', () {
+      late InAppPurchaseRepository inAppPurchaseRepository;
+      late ArticleBloc articleBloc;
+
+      setUp(() {
+        inAppPurchaseRepository = MockInAppPurchaseRepository();
+        articleBloc = MockArticleBloc();
+
+        when(
+          () => inAppPurchaseRepository.currentSubscriptionPlan,
+        ).thenAnswer(
+          (_) => Stream.fromIterable([
+            SubscriptionPlan.none,
+          ]),
+        );
+
+        when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
+          (_) => const Stream.empty(),
+        );
+
+        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
+          (_) async => [],
+        );
+
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(status: ArticleStatus.initial, title: 'title'),
+        );
+      });
+
+      testWidgets(
+          'when tapped on subscribe button '
+          'adding PaywallPromptEvent.click to AnalyticsBloc', (tester) async {
+        final analyticsBloc = MockAnalyticsBloc();
+
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
             child: SubscribeModal(),
           ),
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsBloc: analyticsBloc,
         );
         await tester.tap(find.byKey(subscribeButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byKey(subscribeButtonKey), findsOneWidget);
+        await tester.pump();
+        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
+
+        verify(
+          () => analyticsBloc.add(
+            TrackAnalyticsEvent(
+              PaywallPromptEvent.click(articleTitle: 'title'),
+            ),
+          ),
+        ).called(1);
       });
     });
 

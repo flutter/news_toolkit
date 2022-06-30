@@ -11,13 +11,25 @@ class OnboardingInitial extends OnboardingState {
   const OnboardingInitial();
 }
 
-class OnboardingEnablingNotifications extends OnboardingState {
-  const OnboardingEnablingNotifications();
+class EnablingAdTracking extends OnboardingState {
+  const EnablingAdTracking();
 }
 
-class OnboardingEnablingNotificationsSucceeded extends OnboardingState
+class EnablingAdTrackingSucceeded extends OnboardingState {
+  const EnablingAdTrackingSucceeded();
+}
+
+class EnablingAdTrackingFailed extends OnboardingState {
+  const EnablingAdTrackingFailed();
+}
+
+class EnablingNotifications extends OnboardingState {
+  const EnablingNotifications();
+}
+
+class EnablingNotificationsSucceeded extends OnboardingState
     with AnalyticsEventMixin {
-  const OnboardingEnablingNotificationsSucceeded();
+  const EnablingNotificationsSucceeded();
 
   @override
   AnalyticsEvent get event => PushNotificationSubscriptionEvent();
@@ -26,6 +38,6 @@ class OnboardingEnablingNotificationsSucceeded extends OnboardingState
   List<Object> get props => [event];
 }
 
-class OnboardingEnablingNotificationsFailed extends OnboardingState {
-  const OnboardingEnablingNotificationsFailed();
+class EnablingNotificationsFailed extends OnboardingState {
+  const EnablingNotificationsFailed();
 }

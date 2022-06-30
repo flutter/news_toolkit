@@ -11,6 +11,7 @@ import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
+import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -46,10 +47,10 @@ void main() {
   setUp(() {
     user = MockUser();
     appBloc = MockAppBloc();
-    when(() => appBloc.state).thenReturn(AppState.unauthenticated());
-
     analyticsBloc = MockAnalyticsBloc();
     articleBloc = MockArticleBloc();
+
+    when(() => appBloc.state).thenReturn(AppState.unauthenticated());
 
     when(() => articleBloc.state).thenReturn(
       ArticleState(status: ArticleStatus.initial, title: 'title'),
@@ -95,19 +96,60 @@ void main() {
       });
     });
 
-    group('does nothing', () {
-      testWidgets('when tapped on subscribe button', (tester) async {
+    group('opens PurchaseSubscriptionDialog', () {
+      late InAppPurchaseRepository inAppPurchaseRepository;
+      late AnalyticsBloc analyticsBloc;
+
+      setUp(() {
+        inAppPurchaseRepository = MockInAppPurchaseRepository();
+        analyticsBloc = MockAnalyticsBloc();
+
+        when(
+          () => inAppPurchaseRepository.currentSubscriptionPlan,
+        ).thenAnswer(
+          (_) => Stream.fromIterable([
+            SubscriptionPlan.none,
+          ]),
+        );
+
+        when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
+          (_) => const Stream.empty(),
+        );
+
+        when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
+          (_) async => [],
+        );
+
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(status: ArticleStatus.initial, title: 'title'),
+        );
+      });
+
+      testWidgets(
+          'when tapped on subscribe button '
+          'adding PaywallPromptEvent.click to AnalyticsBloc', (tester) async {
         await tester.pumpApp(
           analyticsBloc: analyticsBloc,
           appBloc: appBloc,
+          inAppPurchaseRepository: inAppPurchaseRepository,
           BlocProvider.value(
             value: articleBloc,
             child: SubscribeWithArticleLimitModal(),
           ),
         );
         await tester.tap(find.byKey(subscribeButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byKey(subscribeButtonKey), findsOneWidget);
+        await tester.pump();
+        expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);
+
+        verify(
+          () => analyticsBloc.add(
+            TrackAnalyticsEvent(
+              PaywallPromptEvent.click(
+                articleTitle: 'title',
+              ),
+            ),
+          ),
+        ).called(1);
       });
     });
 

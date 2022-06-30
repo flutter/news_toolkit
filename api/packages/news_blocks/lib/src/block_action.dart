@@ -164,6 +164,7 @@ class NavigateToFeedCategoryAction with EquatableMixin implements BlockAction {
 class NavigateToSlideshowAction with EquatableMixin implements BlockAction {
   /// {@macro navigate_to_slideshow_action}
   const NavigateToSlideshowAction({
+    required this.articleId,
     required this.slideshow,
     this.type = NavigateToSlideshowAction.identifier,
   });
@@ -175,6 +176,9 @@ class NavigateToSlideshowAction with EquatableMixin implements BlockAction {
 
   /// The identifier of this block action.
   static const identifier = '__navigate_to_slideshow__';
+
+  /// The id of the associated article.
+  final String articleId;
 
   /// The slideshow content.
   final SlideshowBlock slideshow;
@@ -189,7 +193,7 @@ class NavigateToSlideshowAction with EquatableMixin implements BlockAction {
   Map<String, dynamic> toJson() => _$NavigateToSlideshowActionToJson(this);
 
   @override
-  List<Object?> get props => [type, actionType, slideshow];
+  List<Object?> get props => [type, articleId, actionType, slideshow];
 }
 
 /// {@template unknown_block_action}
