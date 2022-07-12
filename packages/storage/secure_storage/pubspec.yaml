@@ -8,7 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_secure_storage: ^4.0.0
+  flutter_secure_storage: ^5.0.2
   storage:
     path: ../storage
 
