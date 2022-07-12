@@ -12,7 +12,7 @@ dependencies:
   news_blocks:
     path: packages/news_blocks
   shelf: ^1.1.0
-  shelf_router: ^1.0.0
+  shelf_router: ^1.1.3
 
 dev_dependencies:
   build_runner: ^2.0.0
