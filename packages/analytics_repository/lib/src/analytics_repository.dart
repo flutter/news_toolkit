@@ -59,7 +59,7 @@ class AnalyticsRepository {
   /// Setting a null [userId] will clear the user identifier.
   Future<void> setUserId(String? userId) async {
     try {
-      await _analytics.setUserId(userId);
+      await _analytics.setUserId(id: userId);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(SetUserIdFailure(error), stackTrace);
     }
