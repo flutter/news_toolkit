@@ -14,6 +14,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart'
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:token_storage/token_storage.dart';
 import 'package:twitter_login/entity/auth_result.dart' as twitter_auth;
@@ -50,6 +51,10 @@ class MockFacebookLoginResult extends Mock
 class MockFacebookAccessToken extends Mock
     implements facebook_auth.AccessToken {}
 
+class MockFirebaseCore extends Mock
+    with MockPlatformInterfaceMixin
+    implements FirebasePlatform {}
+
 class MockUserCredential extends Mock implements firebase_auth.UserCredential {}
 
 class FakeAuthCredential extends Fake implements firebase_auth.AuthCredential {}
@@ -65,33 +70,13 @@ class MockTokenStorage extends Mock implements TokenStorage {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  MethodChannelFirebase.channel.setMockMethodCallHandler((call) async {
-    if (call.method == 'Firebase#initializeCore') {
-      return [
-        {
-          'name': defaultFirebaseAppName,
-          'options': {
-            'apiKey': '123',
-            'appId': '123',
-            'messagingSenderId': '123',
-            'projectId': '123',
-          },
-          'pluginConstants': const <String, String>{},
-        }
-      ];
-    }
 
-    if (call.method == 'Firebase#initializeApp') {
-      final arguments = call.arguments as Map<String, dynamic>;
-      return <String, dynamic>{
-        'name': arguments['appName'],
-        'options': arguments['options'],
-        'pluginConstants': const <String, String>{},
-      };
-    }
-
-    return null;
-  });
+  const options = FirebaseOptions(
+    apiKey: 'apiKey',
+    appId: 'appId',
+    messagingSenderId: 'messagingSenderId',
+    projectId: 'projectId',
+  );
 
   MethodChannelFirebaseAuth.channel.setMockMethodCallHandler((call) async {
     if (call.method == 'Auth#registerIdTokenListener' ||
@@ -100,9 +85,6 @@ void main() {
     }
     return null;
   });
-
-  TestWidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
 
   const email = 'test@gmail.com';
   const emailLink = 'https://email.page.link';
@@ -127,6 +109,20 @@ void main() {
     });
 
     setUp(() {
+      final platformApp = FirebaseAppPlatform(defaultFirebaseAppName, options);
+      final firebaseCore = MockFirebaseCore();
+
+      when(() => firebaseCore.apps).thenReturn([platformApp]);
+      when(firebaseCore.app).thenReturn(platformApp);
+      when(
+        () => firebaseCore.initializeApp(
+          name: defaultFirebaseAppName,
+          options: options,
+        ),
+      ).thenAnswer((_) async => platformApp);
+
+      Firebase.delegatePackingProperty = firebaseCore;
+
       tokenStorage = MockTokenStorage();
       firebaseAuth = MockFirebaseAuth();
       googleSignIn = MockGoogleSignIn();

@@ -29,7 +29,7 @@ Future<void> bootstrap(AppBuilder builder) async {
 
 Future<void> _runApp(AppBuilder builder) async {
   await Firebase.initializeApp();
-  final analyticsRepository = AnalyticsRepository(FirebaseAnalytics());
+  final analyticsRepository = AnalyticsRepository(FirebaseAnalytics.instance);
   final blocObserver = AppBlocObserver(
     analyticsRepository: analyticsRepository,
   );
