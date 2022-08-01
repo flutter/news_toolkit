@@ -9,6 +9,7 @@ enum ArticleStatus {
   rewardedAdWatchedFailure,
 }
 
+@JsonSerializable(explicitToJson: true)
 class ArticleState extends Equatable {
   const ArticleState({
     required this.status,
@@ -23,6 +24,9 @@ class ArticleState extends Equatable {
     this.isPreview = false,
     this.isPremium = false,
   });
+
+  factory ArticleState.fromJson(Map<String, dynamic> json) =>
+      _$ArticleStateFromJson(json);
 
   const ArticleState.initial()
       : this(
@@ -88,6 +92,8 @@ class ArticleState extends Equatable {
       isPremium: isPremium ?? this.isPremium,
     );
   }
+
+  Map<String, dynamic> toJson() => _$ArticleStateToJson(this);
 }
 
 int _getContentMilestoneForPercentage(double percentage) {

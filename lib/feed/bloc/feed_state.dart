@@ -7,6 +7,7 @@ enum FeedStatus {
   failure,
 }
 
+@JsonSerializable(explicitToJson: true)
 class FeedState extends Equatable {
   const FeedState({
     required this.status,
@@ -18,6 +19,9 @@ class FeedState extends Equatable {
       : this(
           status: FeedStatus.initial,
         );
+
+  factory FeedState.fromJson(Map<String, dynamic> json) =>
+      _$FeedStateFromJson(json);
 
   final FeedStatus status;
   final Map<Category, List<NewsBlock>> feed;
@@ -41,4 +45,6 @@ class FeedState extends Equatable {
       hasMoreNews: hasMoreNews ?? this.hasMoreNews,
     );
   }
+
+  Map<String, dynamic> toJson() => _$FeedStateToJson(this);
 }
