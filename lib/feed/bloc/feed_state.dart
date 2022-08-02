@@ -7,7 +7,7 @@ enum FeedStatus {
   failure,
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class FeedState extends Equatable {
   const FeedState({
     required this.status,

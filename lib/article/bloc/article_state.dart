@@ -9,7 +9,7 @@ enum ArticleStatus {
   rewardedAdWatchedFailure,
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class ArticleState extends Equatable {
   const ArticleState({
     required this.status,

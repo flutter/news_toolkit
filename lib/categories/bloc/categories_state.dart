@@ -7,7 +7,7 @@ enum CategoriesStatus {
   failure,
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class CategoriesState extends Equatable {
   const CategoriesState({
     required this.status,
