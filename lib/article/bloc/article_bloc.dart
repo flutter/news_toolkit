@@ -43,6 +43,9 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ///The number of related articles the user may view in the article.
   static const _relatedArticlesLimit = 5;
 
+  static const _facebookShareUrlPrefix =
+      'https://www.facebook.com/sharer.php?display=page&u=';
+
   FutureOr<void> _onArticleRequested(
     ArticleRequested event,
     Emitter<ArticleState> emit,
@@ -150,12 +153,10 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     Emitter<ArticleState> emit,
   ) async {
     try {
-      await launchUrl(
-        // TODO(simpson-peter): See if FB URL should be extracted
-        Uri.parse(
-          'https://www.facebook.com/sharer.php?display=page&u=${event.uri.toString()}',
-        ),
+      final uri = Uri.parse(
+        '$_facebookShareUrlPrefix${Uri.encodeComponent(event.uri.toString())}',
       );
+      await launchUrl(uri);
     } catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
