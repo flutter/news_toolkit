@@ -33,6 +33,19 @@ void main() {
       );
     });
 
+    test('can be (de)serialized', () {
+      final categoriesState = CategoriesState(
+        status: CategoriesStatus.populated,
+        categories: categoriesResponse.categories,
+        selectedCategory: categoriesResponse.categories.first,
+      );
+
+      final serialized = categoriesBloc.toJson(categoriesState);
+      final deserialized = categoriesBloc.fromJson(serialized!);
+
+      expect(deserialized, categoriesState);
+    });
+
     group('CategoriesRequested', () {
       blocTest<CategoriesBloc, CategoriesState>(
         'emits [loading, populated] '

@@ -56,6 +56,13 @@ void main() {
       );
     });
 
+    test('can be (de)serialized', () {
+      final serialized = feedBloc.toJson(feedStatePopulated);
+      final deserialized = feedBloc.fromJson(serialized!);
+
+      expect(deserialized, feedStatePopulated);
+    });
+
     group('FeedRequested', () {
       blocTest<FeedBloc, FeedState>(
         'emits [loading, populated] '

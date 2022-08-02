@@ -83,6 +83,13 @@ void main() {
       );
     });
 
+    test('can be (de)serialized', () {
+      final serialized = articleBloc.toJson(articleStatePopulated);
+      final deserialized = articleBloc.fromJson(serialized!);
+
+      expect(deserialized, articleStatePopulated);
+    });
+
     group('on ArticleRequested', () {
       setUp(() {
         when(articleRepository.incrementArticleViews).thenAnswer((_) async {});
