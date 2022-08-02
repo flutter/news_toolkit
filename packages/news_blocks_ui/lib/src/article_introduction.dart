@@ -48,14 +48,19 @@ class ArticleIntroduction extends StatelessWidget {
         if (onSharePressed != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ShareButton(
-                key: const Key('articleIntroduction_shareButton'),
-                shareText: shareText,
-                color: AppColors.darkAqua,
-                onPressed: onSharePressed,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FacebookShareButton(
+                  onTap: onSharePressed,
+                ),
+                ShareButton(
+                  key: const Key('articleIntroduction_shareButton'),
+                  shareText: shareText,
+                  color: AppColors.darkAqua,
+                  onPressed: onSharePressed,
+                ),
+              ],
             ),
           ),
         const Divider(),
