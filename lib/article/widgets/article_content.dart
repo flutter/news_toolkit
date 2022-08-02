@@ -79,6 +79,12 @@ class ArticleContent extends StatelessWidget {
                               ShareRequested(uri: uri),
                             )
                         : null,
+                    onFacebookSharePressed:
+                        uri != null && uri.toString().isNotEmpty
+                            ? () => context.read<ArticleBloc>().add(
+                                  FacebookShareRequested(uri: uri),
+                                )
+                            : null,
                   ),
                 );
               },
