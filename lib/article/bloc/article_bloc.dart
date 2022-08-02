@@ -158,7 +158,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       );
       await launchUrl(uri);
     } catch (error, stackTrace) {
-      emit(state.copyWith(status: ArticleStatus.facebookShareFailure));
+      emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
     }
   }

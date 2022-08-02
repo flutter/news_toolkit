@@ -6,7 +6,6 @@ enum ArticleStatus {
   populated,
   failure,
   shareFailure,
-  facebookShareFailure,
   rewardedAdWatchedFailure,
 }
 
