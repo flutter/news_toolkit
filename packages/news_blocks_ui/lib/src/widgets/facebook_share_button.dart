@@ -1,3 +1,4 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 /// {@template facebook_share_button}
@@ -16,8 +17,7 @@ class FacebookShareButton extends StatelessWidget {
       onTap: onTap,
       child: const Icon(
         Icons.facebook_rounded,
-        size: 24,
-        color: Color(0xFF1877F2),
+        color: AppColors.blueDress,
       ),
     );
   }
