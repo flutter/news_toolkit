@@ -29,20 +29,24 @@ void main() {
     });
 
     testWidgets('renders ArticleView', (tester) async {
-      await tester.pumpApp(
-        ArticlePage(
-          id: 'id',
-          isVideoArticle: false,
+      await mockHydratedStorage(
+        () => tester.pumpApp(
+          ArticlePage(
+            id: 'id',
+            isVideoArticle: false,
+          ),
         ),
       );
       expect(find.byType(ArticleView), findsOneWidget);
     });
 
     testWidgets('provides ArticleBloc', (tester) async {
-      await tester.pumpApp(
-        ArticlePage(
-          id: 'id',
-          isVideoArticle: false,
+      await mockHydratedStorage(
+        () => tester.pumpApp(
+          ArticlePage(
+            id: 'id',
+            isVideoArticle: false,
+          ),
         ),
       );
       final BuildContext viewContext = tester.element(find.byType(ArticleView));
@@ -60,10 +64,12 @@ void main() {
     });
 
     testWidgets('renders AppBar', (tester) async {
-      await tester.pumpApp(
-        BlocProvider.value(
-          value: articleBloc,
-          child: ArticleView(isVideoArticle: false),
+      await mockHydratedStorage(
+        () => tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
+          ),
         ),
       );
       expect(find.byType(AppBar), findsOneWidget);

@@ -3,7 +3,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/slideshow/view/slideshow_page.dart';
+import 'package:google_news_template/slideshow/slideshow.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -11,7 +11,7 @@ import 'package:news_blocks/news_blocks.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('Slideshow', () {
+  group('SlideshowPage', () {
     const articleId = 'articleId';
     final slides = List.generate(
       4,
@@ -33,17 +33,19 @@ void main() {
       );
     });
 
-    testWidgets('renders a SlideshowPage', (tester) async {
+    testWidgets('renders a SlideshowView', (tester) async {
       await mockNetworkImages(
-        () async => tester.pumpApp(
-          SlideshowPage(
-            slideshow: slideshow,
-            articleId: articleId,
+        () => mockHydratedStorage(
+          () => tester.pumpApp(
+            SlideshowPage(
+              slideshow: slideshow,
+              articleId: articleId,
+            ),
           ),
         ),
       );
 
-      expect(find.byType(SlideshowPage), findsOneWidget);
+      expect(find.byType(SlideshowView), findsOneWidget);
     });
 
     group('navigates', () {
@@ -52,12 +54,14 @@ void main() {
 
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await mockNetworkImages(
-          () async => tester.pumpApp(
-            SlideshowPage(
-              slideshow: slideshow,
-              articleId: articleId,
+          () => mockHydratedStorage(
+            () => tester.pumpApp(
+              SlideshowPage(
+                slideshow: slideshow,
+                articleId: articleId,
+              ),
+              navigator: navigator,
             ),
-            navigator: navigator,
           ),
         );
 

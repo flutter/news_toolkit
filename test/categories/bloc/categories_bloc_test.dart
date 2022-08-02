@@ -7,22 +7,28 @@ import 'package:google_news_template/categories/categories.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 
+import '../../helpers/helpers.dart';
+
 class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
   group('CategoriesBloc', () {
     late NewsRepository newsRepository;
+    late CategoriesBloc categoriesBloc;
 
     final categoriesResponse =
         CategoriesResponse(categories: [Category.top, Category.health]);
 
-    setUp(() {
+    setUp(() async {
       newsRepository = MockNewsRepository();
+      categoriesBloc = await mockHydratedStorage(
+        () => CategoriesBloc(newsRepository: newsRepository),
+      );
     });
 
     test('can be instantiated', () {
       expect(
-        CategoriesBloc(newsRepository: newsRepository),
+        categoriesBloc,
         isNotNull,
       );
     });
@@ -33,7 +39,7 @@ void main() {
         'when getCategories succeeds',
         setUp: () => when(newsRepository.getCategories)
             .thenAnswer((_) async => categoriesResponse),
-        build: () => CategoriesBloc(newsRepository: newsRepository),
+        build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategoriesRequested()),
         expect: () => <CategoriesState>[
           CategoriesState(status: CategoriesStatus.loading),
@@ -49,20 +55,19 @@ void main() {
         'emits [loading, failure] '
         'when getCategories fails',
         setUp: () => when(newsRepository.getCategories).thenThrow(Exception()),
-        build: () => CategoriesBloc(newsRepository: newsRepository),
+        build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategoriesRequested()),
         expect: () => <CategoriesState>[
           CategoriesState(status: CategoriesStatus.loading),
           CategoriesState(status: CategoriesStatus.failure),
         ],
-        errors: () => [isA<Exception>()],
       );
     });
 
     group('CategorySelected', () {
       blocTest<CategoriesBloc, CategoriesState>(
         'emits selectedCategory',
-        build: () => CategoriesBloc(newsRepository: newsRepository),
+        build: () => categoriesBloc,
         act: (bloc) => bloc.add(CategorySelected(category: Category.top)),
         expect: () => <CategoriesState>[
           CategoriesState.initial().copyWith(

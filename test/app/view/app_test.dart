@@ -120,10 +120,12 @@ void main() {
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       when(() => appBloc.state).thenReturn(const AppState.unauthenticated());
-      await tester.pumpApp(
-        const AppView(),
-        appBloc: appBloc,
-        userRepository: userRepository,
+      await mockHydratedStorage(
+        () => tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          userRepository: userRepository,
+        ),
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -133,10 +135,12 @@ void main() {
       final user = MockUser();
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
-      await tester.pumpApp(
-        const AppView(),
-        appBloc: appBloc,
-        userRepository: userRepository,
+      await mockHydratedStorage(
+        () => tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          userRepository: userRepository,
+        ),
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -161,11 +165,13 @@ void main() {
           initialState: const AppState.unauthenticated(),
         );
 
-        await tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          analyticsBloc: analyticsBloc,
-          userRepository: userRepository,
+        await mockHydratedStorage(
+          () => tester.pumpApp(
+            const AppView(),
+            appBloc: appBloc,
+            analyticsBloc: analyticsBloc,
+            userRepository: userRepository,
+          ),
         );
 
         verify(
@@ -193,11 +199,13 @@ void main() {
           initialState: const AppState.unauthenticated(),
         );
 
-        await tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          analyticsBloc: analyticsBloc,
-          userRepository: userRepository,
+        await mockHydratedStorage(
+          () => tester.pumpApp(
+            const AppView(),
+            appBloc: appBloc,
+            analyticsBloc: analyticsBloc,
+            userRepository: userRepository,
+          ),
         );
 
         verify(
