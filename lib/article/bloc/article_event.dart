@@ -55,7 +55,7 @@ class FacebookShareRequested extends ArticleEvent with AnalyticsEventMixin {
 
   final Uri uri;
 
-  // TODO (simpson-peter): See if a more specific analytic event is needed
+  // TODO(simpson-peter): See if a more specific analytic event is needed
   @override
   AnalyticsEvent get event => SocialShareEvent();
 
