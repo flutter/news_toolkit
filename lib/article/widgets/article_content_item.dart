@@ -58,6 +58,7 @@ class ArticleContentItem extends StatelessWidget {
         shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
         onSharePressed: onSharePressed,
+        onFacebookSharePressed: onFacebookSharePressed,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
       return VideoIntroduction(block: newsBlock);
