@@ -172,6 +172,29 @@ void main() {
       });
 
       testWidgets(
+        'adds FacebookShareRequested to ArticleBloc '
+        'when ArticleContentItem onFacebookSharePressed is called',
+        (tester) async {
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: articleBloc,
+              child: ArticleContent(),
+            ),
+          );
+
+          final articleItem = find.byType(ArticleContentItem).first;
+          tester
+              .widget<ArticleContentItem>(articleItem)
+              .onFacebookSharePressed
+              ?.call();
+
+          verify(
+            () => articleBloc.add(FacebookShareRequested(uri: uri)),
+          ).called(1);
+        },
+      );
+
+      testWidgets(
           'adds ArticleContentSeen to ArticleBloc '
           'for every visible content block', (tester) async {
         final longContent = <NewsBlock>[
