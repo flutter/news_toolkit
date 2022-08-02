@@ -305,7 +305,7 @@ void main() {
       //   ),
       //   act: (bloc) => bloc.add(FacebookShareRequested(uri: uri)),
       //   expect: () => <ArticleState>[
-      //     ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
+      //    ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
       //   ],
       // );
 
