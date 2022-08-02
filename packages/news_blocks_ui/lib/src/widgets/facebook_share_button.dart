@@ -16,6 +16,8 @@ class FacebookShareButton extends StatelessWidget {
       onTap: onTap,
       child: const Icon(
         Icons.facebook_rounded,
+        size: 24,
+        color: Color(0xFF1877F2),
       ),
     );
   }
