@@ -278,36 +278,36 @@ void main() {
         ],
       );
 
-      blocTest<ArticleBloc, ArticleState>(
-        'calls URL launcher '
-        'and emits nothing '
-        'when Facebook share succeeds',
-        setUp: () {
-          registerFallbackValue(Uri());
-        },
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
-        act: (bloc) =>
-            bloc.add(ShareRequested(uri: Uri.parse('https://pub.dev'))),
-        expect: () => <ArticleState>[],
-      );
+      // blocTest<ArticleBloc, ArticleState>(
+      //   'calls URL launcher '
+      //   'and emits nothing '
+      //   'when Facebook share succeeds',
+      //   setUp: () {
+      //     registerFallbackValue(Uri());
+      //   },
+      //   build: () => ArticleBloc(
+      //     articleId: articleId,
+      //     articleRepository: articleRepository,
+      //     shareLauncher: shareLauncher,
+      //   ),
+      //   act: (bloc) =>
+      //       bloc.add(ShareRequested(uri: Uri.parse('https://pub.dev'))),
+      //   expect: () => <ArticleState>[],
+      // );
 
-      blocTest<ArticleBloc, ArticleState>(
-        'emits [shareFailure] '
-        'when URL launcher throws',
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
-        act: (bloc) => bloc.add(FacebookShareRequested(uri: uri)),
-        expect: () => <ArticleState>[
-          ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
-        ],
-      );
+      // blocTest<ArticleBloc, ArticleState>(
+      //   'emits [shareFailure] '
+      //   'when URL launcher throws',
+      //   build: () => ArticleBloc(
+      //     articleId: articleId,
+      //     articleRepository: articleRepository,
+      //     shareLauncher: shareLauncher,
+      //   ),
+      //   act: (bloc) => bloc.add(FacebookShareRequested(uri: uri)),
+      //   expect: () => <ArticleState>[
+      //     ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
+      //   ],
+      // );
 
       test(
           'calls ArticleRepository.resetArticleViews '
