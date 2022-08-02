@@ -8,6 +8,7 @@ import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:share_launcher/share_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'article_event.dart';
 part 'article_state.dart';
@@ -26,6 +27,7 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     on<ArticleRewardedAdWatched>(_onArticleRewardedAdWatched);
     on<ArticleCommented>(_onArticleCommented);
     on<ShareRequested>(_onShareRequested);
+    on<FacebookShareRequested>(_onFacebookShareRequested);
   }
 
   final String _articleId;
@@ -137,6 +139,23 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ) async {
     try {
       await _shareLauncher.share(text: event.uri.toString());
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: ArticleStatus.shareFailure));
+      addError(error, stackTrace);
+    }
+  }
+
+  FutureOr<void> _onFacebookShareRequested(
+    FacebookShareRequested event,
+    Emitter<ArticleState> emit,
+  ) async {
+    try {
+      await launchUrl(
+        // TODO(simpson-peter): See if FB URL should be extracted
+        Uri.parse(
+          'https://www.facebook.com/sharer.php?display=page&u=${event.uri.toString()}',
+        ),
+      );
     } catch (error, stackTrace) {
       emit(state.copyWith(status: ArticleStatus.shareFailure));
       addError(error, stackTrace);
