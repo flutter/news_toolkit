@@ -14,6 +14,7 @@ class ArticleIntroduction extends StatelessWidget {
     required this.premiumText,
     required this.shareText,
     this.onSharePressed,
+    this.onFacebookSharePressed,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
@@ -27,6 +28,10 @@ class ArticleIntroduction extends StatelessWidget {
 
   /// An optional callback which is invoked when the share button is pressed.
   final VoidCallback? onSharePressed;
+
+  /// An optional callback which is invoked when
+  /// the Facebook share button is pressed.
+  final VoidCallback? onFacebookSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,7 @@ class ArticleIntroduction extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FacebookShareButton(
-                  onTap: onSharePressed,
+                  onTap: onFacebookSharePressed,
                 ),
                 ShareButton(
                   key: const Key('articleIntroduction_shareButton'),
