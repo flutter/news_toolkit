@@ -11,6 +11,7 @@ class ArticleContentItem extends StatelessWidget {
     super.key,
     required this.block,
     this.onSharePressed,
+    this.onFacebookSharePressed,
   });
 
   /// The associated [NewsBlock] instance.
@@ -18,6 +19,10 @@ class ArticleContentItem extends StatelessWidget {
 
   /// An optional callback which is invoked when the share button is pressed.
   final VoidCallback? onSharePressed;
+
+  /// An optional callback which is invoked when
+  /// the Facebook share button is pressed.
+  final VoidCallback? onFacebookSharePressed;
 
   @override
   Widget build(BuildContext context) {
