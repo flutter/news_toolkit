@@ -72,5 +72,25 @@ void main() {
         );
       });
     });
+
+    group('FacebookShareRequested', () {
+      test('supports value comparisons', () {
+        final event1 = FacebookShareRequested(uri: Uri(path: 'text'));
+        final event2 = FacebookShareRequested(uri: Uri(path: 'text'));
+
+        expect(event1, equals(event2));
+      });
+
+      test('has SocialShareEvent', () {
+        expect(
+          FacebookShareRequested(uri: Uri(path: 'text')),
+          isA<AnalyticsEventMixin>().having(
+            (event) => event.event,
+            'event',
+            equals(SocialShareEvent()),
+          ),
+        );
+      });
+    });
   });
 }
