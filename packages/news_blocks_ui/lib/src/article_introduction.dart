@@ -50,24 +50,32 @@ class ArticleIntroduction extends StatelessWidget {
           ),
         ),
         const Divider(),
-        if (onSharePressed != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                FacebookShareButton(
-                  onTap: onFacebookSharePressed,
-                ),
-                ShareButton(
-                  key: const Key('articleIntroduction_shareButton'),
-                  shareText: shareText,
-                  color: AppColors.darkAqua,
-                  onPressed: onSharePressed,
-                ),
+                const SizedBox(width: AppSpacing.lg),
+                if (onFacebookSharePressed != null)
+                  FacebookShareButton(
+                    onTap: onFacebookSharePressed,
+                  ),
               ],
             ),
-          ),
+            Row(
+              children: [
+                if (onSharePressed != null)
+                  ShareButton(
+                    key: const Key('articleIntroduction_shareButton'),
+                    shareText: shareText,
+                    color: AppColors.darkAqua,
+                    onPressed: onSharePressed,
+                  ),
+                const SizedBox(width: AppSpacing.lg),
+              ],
+            ),
+          ],
+        ),
         const Divider(),
         const SizedBox(height: AppSpacing.lg),
       ],
