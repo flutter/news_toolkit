@@ -49,3 +49,16 @@ class ShareRequested extends ArticleEvent with AnalyticsEventMixin {
   @override
   List<Object> get props => [uri, event];
 }
+
+class FacebookShareRequested extends ArticleEvent with AnalyticsEventMixin {
+  const FacebookShareRequested({required this.uri});
+
+  final Uri uri;
+
+  // TODO (simpson-peter): See if a more specific analytic event is needed
+  @override
+  AnalyticsEvent get event => SocialShareEvent();
+
+  @override
+  List<Object> get props => [uri, event];
+}
