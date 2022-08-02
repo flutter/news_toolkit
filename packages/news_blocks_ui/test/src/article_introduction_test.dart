@@ -81,5 +81,37 @@ void main() {
 
       expect(completer.isCompleted, isTrue);
     });
+
+    testWidgets(
+      'calls onFacebookSharePressed when FacebookShareButton is pressed',
+      (tester) async {
+        final completer = Completer<void>();
+
+        await tester.pumpContentThemedApp(
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                ArticleIntroduction(
+                  block: _technologyArticleIntroduction,
+                  premiumText: premiumText,
+                  shareText: shareText,
+                  onFacebookSharePressed: completer.complete,
+                ),
+              ],
+            ),
+          ),
+        );
+
+        final facebookShareButton = find.byKey(
+          Key('articleIntroduction_facebookShareButton'),
+        );
+
+        await tester.ensureVisible(facebookShareButton);
+
+        await tester.tap(facebookShareButton);
+
+        expect(completer.isCompleted, isTrue);
+      },
+    );
   });
 }

@@ -58,6 +58,7 @@ class ArticleIntroduction extends StatelessWidget {
                 const SizedBox(width: AppSpacing.lg),
                 if (onFacebookSharePressed != null)
                   FacebookShareButton(
+                    key: const Key('articleIntroduction_facebookShareButton'),
                     onTap: onFacebookSharePressed,
                   ),
               ],
