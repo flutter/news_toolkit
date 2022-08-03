@@ -227,23 +227,25 @@ void main() {
           articleId: 'articleId',
         ),
       );
-      await mockNetworkImages(() async {
-        await tester.pumpApp(
-          ListView(
-            children: [
-              ArticleContentItem(block: block),
-            ],
-          ),
+      await mockHydratedStorage(() async {
+        await mockNetworkImages(() async {
+          await tester.pumpApp(
+            ListView(
+              children: [
+                ArticleContentItem(block: block),
+              ],
+            ),
+          );
+        });
+
+        await tester.ensureVisible(find.byType(SlideshowIntroduction));
+        await tester.tap(find.byType(SlideshowIntroduction));
+        await tester.pumpAndSettle();
+        expect(
+          find.byType(SlideshowPage),
+          findsOneWidget,
         );
       });
-
-      await tester.ensureVisible(find.byType(SlideshowIntroduction));
-      await tester.tap(find.byType(SlideshowIntroduction));
-      await tester.pumpAndSettle();
-      expect(
-        find.byType(SlideshowPage),
-        findsOneWidget,
-      );
     });
 
     testWidgets(

@@ -8,11 +8,14 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
 
+import '../../helpers/helpers.dart';
+
 class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
   group('FeedBloc', () {
     late NewsRepository newsRepository;
+    late FeedBloc feedBloc;
 
     final feedResponse = FeedResponse(
       feed: [
@@ -39,15 +42,25 @@ void main() {
       },
     );
 
-    setUp(() {
+    setUp(() async {
       newsRepository = MockNewsRepository();
+      feedBloc = await mockHydratedStorage(
+        () => FeedBloc(newsRepository: newsRepository),
+      );
     });
 
     test('can be instantiated', () {
       expect(
-        FeedBloc(newsRepository: newsRepository),
+        feedBloc,
         isNotNull,
       );
+    });
+
+    test('can be (de)serialized', () {
+      final serialized = feedBloc.toJson(feedStatePopulated);
+      final deserialized = feedBloc.fromJson(serialized!);
+
+      expect(deserialized, feedStatePopulated);
     });
 
     group('FeedRequested', () {
@@ -62,7 +75,7 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => feedResponse),
-        build: () => FeedBloc(newsRepository: newsRepository),
+        build: () => feedBloc,
         act: (bloc) => bloc.add(
           FeedRequested(category: Category.entertainment),
         ),
@@ -93,7 +106,7 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenAnswer((_) async => feedResponse),
-        build: () => FeedBloc(newsRepository: newsRepository),
+        build: () => feedBloc,
         act: (bloc) => bloc.add(
           FeedRequested(category: Category.entertainment),
         ),
@@ -126,7 +139,7 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenThrow(Exception()),
-        build: () => FeedBloc(newsRepository: newsRepository),
+        build: () => feedBloc,
         act: (bloc) => bloc.add(
           FeedRequested(category: Category.entertainment),
         ),
@@ -134,7 +147,6 @@ void main() {
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
         ],
-        errors: () => [isA<Exception>()],
       );
     });
   });

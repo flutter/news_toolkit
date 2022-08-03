@@ -10,6 +10,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:share_launcher/share_launcher.dart';
 
+import '../../helpers/helpers.dart';
+
 class MockArticleRepository extends Mock implements ArticleRepository {}
 
 class MockShareLauncher extends Mock implements ShareLauncher {}
@@ -21,6 +23,7 @@ void main() {
 
     late ArticleRepository articleRepository;
     late ShareLauncher shareLauncher;
+    late ArticleBloc articleBloc;
 
     final articleResponse = ArticleResponse(
       title: 'title',
@@ -52,8 +55,17 @@ void main() {
       totalCount: 2,
     );
 
-    setUp(() {
+    setUp(() async {
       articleRepository = MockArticleRepository();
+      shareLauncher = MockShareLauncher();
+
+      articleBloc = await mockHydratedStorage(
+        () => ArticleBloc(
+          articleId: articleId,
+          shareLauncher: shareLauncher,
+          articleRepository: articleRepository,
+        ),
+      );
 
       when(
         () => articleRepository.getRelatedArticles(
@@ -62,18 +74,20 @@ void main() {
           limit: any(named: 'limit'),
         ),
       ).thenAnswer((_) async => relatedArticlesResponse);
-      shareLauncher = MockShareLauncher();
     });
 
     test('can be instantiated', () {
       expect(
-        ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        articleBloc,
         isNotNull,
       );
+    });
+
+    test('can be (de)serialized', () {
+      final serialized = articleBloc.toJson(articleStatePopulated);
+      final deserialized = articleBloc.fromJson(serialized!);
+
+      expect(deserialized, articleStatePopulated);
     });
 
     group('on ArticleRequested', () {
@@ -97,11 +111,7 @@ void main() {
         'emits [loading, populated] '
         'when getArticle succeeds '
         'and there is more content to fetch',
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
@@ -125,11 +135,7 @@ void main() {
         'when getArticle succeeds '
         'and there is no more content to fetch',
         seed: () => articleStatePopulated,
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           articleStatePopulated.copyWith(status: ArticleStatus.loading),
@@ -156,17 +162,12 @@ void main() {
             limit: any(named: 'limit'),
           ),
         ).thenThrow(Exception()),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
           ArticleState(status: ArticleStatus.failure),
         ],
-        errors: () => [isA<Exception>()],
       );
 
       blocTest<ArticleBloc, ArticleState>(
@@ -189,17 +190,12 @@ void main() {
             ),
           ).thenThrow(Exception());
         },
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           articleStatePopulated.copyWith(status: ArticleStatus.loading),
           articleStatePopulated.copyWith(status: ArticleStatus.failure),
         ],
-        errors: () => [isA<Exception>()],
       );
 
       blocTest<ArticleBloc, ArticleState>(
@@ -209,11 +205,7 @@ void main() {
         'when the number of article views was never reset',
         setUp: () => when(articleRepository.fetchArticleViews)
             .thenAnswer((_) async => ArticleViews(0, null)),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRequested()),
         expect: () => <ArticleState>[
           ArticleState(status: ArticleStatus.loading),
@@ -250,11 +242,7 @@ void main() {
         setUp: () => when(
           () => shareLauncher.share(text: any(named: 'text')),
         ).thenAnswer((_) async {}),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ShareRequested(uri: uri)),
         expect: () => <ArticleState>[],
         verify: (bloc) =>
@@ -267,11 +255,7 @@ void main() {
         setUp: () => when(
           () => shareLauncher.share(text: any(named: 'text')),
         ).thenThrow(Exception()),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ShareRequested(uri: uri)),
         expect: () => <ArticleState>[
           ArticleState.initial().copyWith(status: ArticleStatus.shareFailure),
@@ -286,45 +270,46 @@ void main() {
           'more than a day ago', () async {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 8, 0, 0, 1);
-
-        await withClock(Clock.fixed(now), () async {
-          await testBloc<ArticleBloc, ArticleState>(
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(3, resetAt)),
-            build: () => ArticleBloc(
-              articleId: articleId,
-              shareLauncher: shareLauncher,
-              articleRepository: articleRepository,
-            ),
-            act: (bloc) => bloc.add(ArticleRequested()),
-            expect: () => <ArticleState>[
-              ArticleState(status: ArticleStatus.loading),
-              ArticleState(
-                status: ArticleStatus.populated,
-                title: articleResponse.title,
-                content: articleResponse.content,
-                contentTotalCount: articleResponse.totalCount,
-                uri: articleResponse.url,
-                hasMoreContent: true,
-                hasReachedArticleViewsLimit: false,
-                isPreview: articleResponse.isPreview,
-                isPremium: articleResponse.isPremium,
+        await mockHydratedStorage(
+          () => withClock(Clock.fixed(now), () async {
+            await testBloc<ArticleBloc, ArticleState>(
+              setUp: () => when(articleRepository.fetchArticleViews)
+                  .thenAnswer((_) async => ArticleViews(3, resetAt)),
+              build: () => ArticleBloc(
+                articleId: articleId,
+                articleRepository: articleRepository,
+                shareLauncher: shareLauncher,
               ),
-            ],
-            verify: (bloc) {
-              verify(articleRepository.resetArticleViews).called(1);
-              verify(articleRepository.incrementArticleViews).called(1);
-              verify(
-                () => articleRepository.getArticle(
-                  id: articleId,
-                  offset: any(named: 'offset'),
-                  limit: any(named: 'limit'),
-                  preview: false,
+              act: (bloc) => bloc.add(ArticleRequested()),
+              expect: () => <ArticleState>[
+                ArticleState(status: ArticleStatus.loading),
+                ArticleState(
+                  status: ArticleStatus.populated,
+                  title: articleResponse.title,
+                  content: articleResponse.content,
+                  contentTotalCount: articleResponse.totalCount,
+                  uri: articleResponse.url,
+                  hasMoreContent: true,
+                  hasReachedArticleViewsLimit: false,
+                  isPreview: articleResponse.isPreview,
+                  isPremium: articleResponse.isPremium,
                 ),
-              ).called(1);
-            },
-          );
-        });
+              ],
+              verify: (bloc) {
+                verify(articleRepository.resetArticleViews).called(1);
+                verify(articleRepository.incrementArticleViews).called(1);
+                verify(
+                  () => articleRepository.getArticle(
+                    id: articleId,
+                    offset: any(named: 'offset'),
+                    limit: any(named: 'limit'),
+                    preview: false,
+                  ),
+                ).called(1);
+              },
+            );
+          }),
+        );
       });
 
       test(
@@ -333,47 +318,48 @@ void main() {
           'when the article views limit of 4 was not reached '
           'and the the number of article views was last reset '
           'less than a day ago', () async {
-        final resetAt = DateTime(2022, 6, 7);
+        final resetAt = DateTime(2022, 6, 7, 1, 0, 0);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
-
-        await withClock(Clock.fixed(now), () async {
-          await testBloc<ArticleBloc, ArticleState>(
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(2, resetAt)),
-            build: () => ArticleBloc(
-              articleId: articleId,
-              shareLauncher: shareLauncher,
-              articleRepository: articleRepository,
-            ),
-            act: (bloc) => bloc.add(ArticleRequested()),
-            expect: () => <ArticleState>[
-              ArticleState(status: ArticleStatus.loading),
-              ArticleState(
-                status: ArticleStatus.populated,
-                title: articleResponse.title,
-                content: articleResponse.content,
-                contentTotalCount: articleResponse.totalCount,
-                uri: articleResponse.url,
-                hasMoreContent: true,
-                hasReachedArticleViewsLimit: false,
-                isPreview: articleResponse.isPreview,
-                isPremium: articleResponse.isPremium,
+        await mockHydratedStorage(
+          () => withClock(Clock.fixed(now), () async {
+            await testBloc<ArticleBloc, ArticleState>(
+              setUp: () => when(articleRepository.fetchArticleViews)
+                  .thenAnswer((_) async => ArticleViews(2, resetAt)),
+              build: () => ArticleBloc(
+                articleId: articleId,
+                shareLauncher: shareLauncher,
+                articleRepository: articleRepository,
               ),
-            ],
-            verify: (bloc) {
-              verifyNever(articleRepository.resetArticleViews);
-              verify(articleRepository.incrementArticleViews).called(1);
-              verify(
-                () => articleRepository.getArticle(
-                  id: articleId,
-                  offset: any(named: 'offset'),
-                  limit: any(named: 'limit'),
-                  preview: false,
+              act: (bloc) => bloc.add(ArticleRequested()),
+              expect: () => <ArticleState>[
+                ArticleState(status: ArticleStatus.loading),
+                ArticleState(
+                  status: ArticleStatus.populated,
+                  title: articleResponse.title,
+                  content: articleResponse.content,
+                  contentTotalCount: articleResponse.totalCount,
+                  uri: articleResponse.url,
+                  hasMoreContent: true,
+                  hasReachedArticleViewsLimit: false,
+                  isPreview: articleResponse.isPreview,
+                  isPremium: articleResponse.isPremium,
                 ),
-              ).called(1);
-            },
-          );
-        });
+              ],
+              verify: (bloc) {
+                verify(articleRepository.incrementArticleViews).called(1);
+                verify(
+                  () => articleRepository.getArticle(
+                    id: articleId,
+                    offset: any(named: 'offset'),
+                    limit: any(named: 'limit'),
+                    preview: false,
+                  ),
+                ).called(1);
+                verifyNever(() => articleRepository.resetArticleViews());
+              },
+            );
+          }),
+        );
       });
 
       test(
@@ -385,44 +371,47 @@ void main() {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
 
-        await withClock(Clock.fixed(now), () async {
-          await testBloc<ArticleBloc, ArticleState>(
-            setUp: () => when(articleRepository.fetchArticleViews)
-                .thenAnswer((_) async => ArticleViews(4, resetAt)),
-            build: () => ArticleBloc(
-              articleId: articleId,
-              shareLauncher: shareLauncher,
-              articleRepository: articleRepository,
-            ),
-            act: (bloc) => bloc.add(ArticleRequested()),
-            expect: () => <ArticleState>[
-              ArticleState(status: ArticleStatus.loading),
-              ArticleState(
-                status: ArticleStatus.populated,
-                title: articleResponse.title,
-                content: articleResponse.content,
-                contentTotalCount: articleResponse.totalCount,
-                uri: articleResponse.url,
-                hasMoreContent: true,
-                hasReachedArticleViewsLimit: true,
-                isPreview: articleResponse.isPreview,
-                isPremium: articleResponse.isPremium,
+        await mockHydratedStorage(
+          () => withClock(Clock.fixed(now), () {
+            testBloc<ArticleBloc, ArticleState>(
+              seed: () => ArticleState(status: ArticleStatus.populated),
+              setUp: () => when(articleRepository.fetchArticleViews)
+                  .thenAnswer((_) async => ArticleViews(4, resetAt)),
+              build: () => ArticleBloc(
+                articleId: articleId,
+                articleRepository: articleRepository,
+                shareLauncher: shareLauncher,
               ),
-            ],
-            verify: (bloc) {
-              verifyNever(articleRepository.resetArticleViews);
-              verifyNever(articleRepository.incrementArticleViews);
-              verify(
-                () => articleRepository.getArticle(
-                  id: articleId,
-                  offset: any(named: 'offset'),
-                  limit: any(named: 'limit'),
-                  preview: true,
+              act: (bloc) => bloc.add(ArticleRequested()),
+              expect: () => <ArticleState>[
+                ArticleState(status: ArticleStatus.loading),
+                ArticleState(
+                  status: ArticleStatus.populated,
+                  title: articleResponse.title,
+                  content: articleResponse.content,
+                  contentTotalCount: articleResponse.totalCount,
+                  uri: articleResponse.url,
+                  hasMoreContent: true,
+                  hasReachedArticleViewsLimit: true,
+                  isPreview: articleResponse.isPreview,
+                  isPremium: articleResponse.isPremium,
                 ),
-              ).called(1);
-            },
-          );
-        });
+              ],
+              verify: (bloc) {
+                verifyNever(articleRepository.resetArticleViews);
+                verifyNever(articleRepository.incrementArticleViews);
+                verify(
+                  () => articleRepository.getArticle(
+                    id: articleId,
+                    offset: any(named: 'offset'),
+                    limit: any(named: 'limit'),
+                    preview: true,
+                  ),
+                ).called(1);
+              },
+            );
+          }),
+        );
       });
     });
 
@@ -430,11 +419,7 @@ void main() {
       blocTest<ArticleBloc, ArticleState>(
         'emits updated contentSeenCount '
         'when new count (contentIndex + 1) is higher than current',
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 15)),
         seed: () => articleStatePopulated.copyWith(
           contentSeenCount: 10,
@@ -450,11 +435,7 @@ void main() {
         'does not emit updated contentSeenCount '
         'when new count (contentIndex + 1) is less than '
         'or equal to current',
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleContentSeen(contentIndex: 9)),
         seed: () => articleStatePopulated.copyWith(
           contentSeenCount: 10,
@@ -475,11 +456,7 @@ void main() {
         'the article views limit of 4',
         setUp: () => when(articleRepository.fetchArticleViews)
             .thenAnswer((_) async => ArticleViews(3, null)),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         seed: () => articleStatePopulated.copyWith(
           hasReachedArticleViewsLimit: true,
@@ -500,11 +477,7 @@ void main() {
         'the article views limit of 4',
         setUp: () => when(articleRepository.fetchArticleViews)
             .thenAnswer((_) async => ArticleViews(4, null)),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         seed: () => articleStatePopulated.copyWith(
           hasReachedArticleViewsLimit: false,
@@ -523,11 +496,7 @@ void main() {
         'when decrementArticleViews throws',
         setUp: () => when(articleRepository.decrementArticleViews)
             .thenThrow(Exception()),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         expect: () => <ArticleState>[
           ArticleState.initial()
@@ -540,11 +509,7 @@ void main() {
         'when fetchArticleViews throws',
         setUp: () =>
             when(articleRepository.fetchArticleViews).thenThrow(Exception()),
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleRewardedAdWatched()),
         expect: () => <ArticleState>[
           ArticleState.initial()
@@ -556,11 +521,7 @@ void main() {
     group('on ArticleCommented', () {
       blocTest<ArticleBloc, ArticleState>(
         'does not emit a new state',
-        build: () => ArticleBloc(
-          articleId: articleId,
-          articleRepository: articleRepository,
-          shareLauncher: shareLauncher,
-        ),
+        build: () => articleBloc,
         act: (bloc) => bloc.add(ArticleCommented(articleTitle: 'title')),
         expect: () => <ArticleState>[],
       );

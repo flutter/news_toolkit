@@ -238,22 +238,24 @@ Future<void> pumpHomeView({
   required NewsRepository newsRepository,
   AppBloc? appBloc,
 }) async {
-  await tester.pumpApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider.value(
-          value: categoriesBloc,
-        ),
-        BlocProvider.value(
-          value: feedBloc,
-        ),
-        BlocProvider.value(
-          value: cubit,
-        ),
-      ],
-      child: HomeView(),
-    ),
-    newsRepository: newsRepository,
-    appBloc: appBloc,
-  );
+  await mockHydratedStorage(() async {
+    await tester.pumpApp(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: categoriesBloc,
+          ),
+          BlocProvider.value(
+            value: feedBloc,
+          ),
+          BlocProvider.value(
+            value: cubit,
+          ),
+        ],
+        child: HomeView(),
+      ),
+      newsRepository: newsRepository,
+      appBloc: appBloc,
+    );
+  });
 }
