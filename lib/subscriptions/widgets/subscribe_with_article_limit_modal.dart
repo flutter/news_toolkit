@@ -23,7 +23,6 @@ class SubscribeWithArticleLimitModal extends StatefulWidget {
 
 class _SubscribeWithArticleLimitModalState
     extends State<SubscribeWithArticleLimitModal> {
-  bool _rewardedAdShown = false;
   bool _modalShown = false;
 
   @override
@@ -129,39 +128,24 @@ class _SubscribeWithArticleLimitModalState
                   key: const Key(
                     'subscribeWithArticleLimitModal_watchVideoButton',
                   ),
-                  onPressed: _rewardedAdShown
-                      ? null
-                      : () => setState(() => _rewardedAdShown = true),
-                  child: !_rewardedAdShown
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Assets.icons.video.svg(),
-                            const SizedBox(width: AppSpacing.sm),
-                            Text(watchVideoButtonTitle),
-                          ],
-                        )
-                      : const SizedBox.square(
-                          dimension: 24,
-                          child: CircularProgressIndicator(),
-                        ),
+                  onPressed: () => context
+                      .read<FullScreenAdsBloc>()
+                      .add(const ShowRewardedAdRequested()),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Assets.icons.video.svg(),
+                      const SizedBox(width: AppSpacing.sm),
+                      Text(watchVideoButtonTitle),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),
-              if (_rewardedAdShown)
-                RewardedAd(
-                  onUserEarnedReward: (ad, reward) => context
-                      .read<ArticleBloc>()
-                      .add(const ArticleRewardedAdWatched()),
-                  onDismissed: _hideRewardedAd,
-                  onFailedToLoad: _hideRewardedAd,
-                ),
             ],
           ),
         ),
       ),
     );
   }
-
-  void _hideRewardedAd() => setState(() => _rewardedAdShown = false);
 }
