@@ -2,11 +2,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:async';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:notifications_client/notifications_client.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
@@ -15,7 +14,7 @@ class MockPermissionClient extends Mock implements PermissionClient {}
 
 class MockNotificationsStorage extends Mock implements NotificationsStorage {}
 
-class MockFirebaseMessaging extends Mock implements FirebaseMessaging {}
+class MockNotificationsClient extends Mock implements NotificationsClient {}
 
 class MockGoogleNewsTemplateApiClient extends Mock
     implements GoogleNewsTemplateApiClient {}
@@ -26,13 +25,13 @@ void main() {
   group('NotificationsRepository', () {
     late PermissionClient permissionClient;
     late NotificationsStorage storage;
-    late FirebaseMessaging firebaseMessaging;
+    late NotificationsClient notificationsClient;
     late GoogleNewsTemplateApiClient apiClient;
 
     setUp(() {
       permissionClient = MockPermissionClient();
       storage = MockNotificationsStorage();
-      firebaseMessaging = MockFirebaseMessaging();
+      notificationsClient = MockNotificationsClient();
       apiClient = MockGoogleNewsTemplateApiClient();
 
       when(permissionClient.notificationsStatus)
@@ -55,9 +54,9 @@ void main() {
       when(storage.fetchCategoriesPreferences)
           .thenAnswer((_) async => {Category.top});
 
-      when(() => firebaseMessaging.subscribeToTopic(any()))
+      when(() => notificationsClient.subscribeToCategory(any()))
           .thenAnswer((_) async {});
-      when(() => firebaseMessaging.unsubscribeFromTopic(any()))
+      when(() => notificationsClient.unsubscribeFromCategory(any()))
           .thenAnswer((_) async {});
 
       when(apiClient.getCategories).thenAnswer(
@@ -71,7 +70,7 @@ void main() {
           NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ),
           isNotNull,
@@ -99,7 +98,7 @@ void main() {
         final _ = NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         );
 
@@ -122,7 +121,7 @@ void main() {
           final _ = NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           );
         }, (error, stackTrace) {
@@ -150,7 +149,7 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true);
 
@@ -169,7 +168,7 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true);
 
@@ -188,7 +187,7 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true);
 
@@ -210,12 +209,12 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true);
 
           for (final category in categoriesPreferences) {
-            verify(() => firebaseMessaging.subscribeToTopic(category.name))
+            verify(() => notificationsClient.subscribeToCategory(category.name))
                 .called(1);
           }
         });
@@ -229,7 +228,7 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true);
 
@@ -252,13 +251,14 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: false);
 
           for (final category in categoriesPreferences) {
-            verify(() => firebaseMessaging.unsubscribeFromTopic(category.name))
-                .called(1);
+            verify(
+              () => notificationsClient.unsubscribeFromCategory(category.name),
+            ).called(1);
           }
         });
 
@@ -268,7 +268,7 @@ void main() {
           await NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: false);
 
@@ -287,7 +287,7 @@ void main() {
           () => NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).toggleNotifications(enable: true),
           throwsA(isA<ToggleNotificationsFailure>()),
@@ -308,7 +308,7 @@ void main() {
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchNotificationsEnabled();
 
@@ -327,7 +327,7 @@ void main() {
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchNotificationsEnabled();
 
@@ -346,7 +346,7 @@ void main() {
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchNotificationsEnabled();
 
@@ -365,7 +365,7 @@ void main() {
         final result = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchNotificationsEnabled();
 
@@ -381,7 +381,7 @@ void main() {
           NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).fetchNotificationsEnabled(),
           throwsA(isA<FetchNotificationsEnabledFailure>()),
@@ -406,7 +406,7 @@ void main() {
           NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).setCategoriesPreferences(categoriesPreferences),
           completes,
@@ -431,13 +431,14 @@ void main() {
         await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).setCategoriesPreferences(categoriesPreferences);
 
         for (final category in previousCategoriesPreferences) {
-          verify(() => firebaseMessaging.unsubscribeFromTopic(category.name))
-              .called(1);
+          verify(
+            () => notificationsClient.unsubscribeFromCategory(category.name),
+          ).called(1);
         }
       });
 
@@ -455,12 +456,12 @@ void main() {
         await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).setCategoriesPreferences(categoriesPreferences);
 
         for (final category in categoriesPreferences) {
-          verify(() => firebaseMessaging.subscribeToTopic(category.name))
+          verify(() => notificationsClient.subscribeToCategory(category.name))
               .called(1);
         }
       });
@@ -478,7 +479,7 @@ void main() {
           NotificationsRepository(
             permissionClient: permissionClient,
             storage: storage,
-            firebaseMessaging: firebaseMessaging,
+            notificationsClient: notificationsClient,
             apiClient: apiClient,
           ).setCategoriesPreferences(categoriesPreferences),
           throwsA(isA<SetCategoriesPreferencesFailure>()),
@@ -500,7 +501,7 @@ void main() {
         final actualPreferences = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchCategoriesPreferences();
 
@@ -516,7 +517,7 @@ void main() {
         final preferences = await NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         ).fetchCategoriesPreferences();
 
@@ -529,7 +530,7 @@ void main() {
         final notificationsRepository = NotificationsRepository(
           permissionClient: permissionClient,
           storage: storage,
-          firebaseMessaging: firebaseMessaging,
+          notificationsClient: notificationsClient,
           apiClient: apiClient,
         );
 

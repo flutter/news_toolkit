@@ -2,6 +2,7 @@ import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
+import 'package:firebase_notifications_client/firebase_notifications_client.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/main/bootstrap/bootstrap.dart';
 import 'package:google_news_template/src/version.dart';
@@ -52,6 +53,10 @@ void main() {
         tokenStorage: tokenStorage,
       );
 
+      final notificationsClient = FirebaseNotificationsClient(
+        firebaseMessaging: firebaseMessaging,
+      );
+
       final userRepository = UserRepository(
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
@@ -66,7 +71,7 @@ void main() {
       final notificationsRepository = NotificationsRepository(
         permissionClient: permissionClient,
         storage: NotificationsStorage(storage: persistentStorage),
-        firebaseMessaging: firebaseMessaging,
+        notificationsClient: notificationsClient,
         apiClient: apiClient,
       );
 
