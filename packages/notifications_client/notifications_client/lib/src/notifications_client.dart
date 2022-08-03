@@ -2,9 +2,6 @@
 /// A Generic Notifications Client Interface.
 /// {@endtemplate}
 abstract class NotificationsClient {
-  /// {@macro notifications_client}
-  const NotificationsClient();
-
   /// Subscribes user to the notification group based on category.
   Future<void> subscribeToCategory(String category);
 
