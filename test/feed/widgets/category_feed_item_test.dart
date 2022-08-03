@@ -269,28 +269,29 @@ void main() {
           isContentOverlaid: true,
           action: NavigateToArticleAction(articleId: articleId),
         );
-
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+        await mockHydratedStorage(() async {
+          await mockHydratedStorage(
+            () async => tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
             ),
-            articleRepository: articleRepository,
+          );
+
+          await tester.ensureVisible(find.byType(PostLarge));
+          await tester.tap(find.byType(PostLarge));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is ArticlePage && widget.id == articleId,
+            ),
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostLarge));
-        await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostMedium', (tester) async {
@@ -304,28 +305,29 @@ void main() {
           isContentOverlaid: true,
           action: NavigateToArticleAction(articleId: articleId),
         );
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+          await tester.ensureVisible(find.byType(PostMedium));
+          await tester.tap(find.byType(PostMedium));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is ArticlePage && widget.id == articleId,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostMedium));
-        await tester.tap(find.byType(PostMedium));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostSmall', (tester) async {
@@ -338,28 +340,29 @@ void main() {
           title: 'title',
           action: NavigateToArticleAction(articleId: articleId),
         );
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+          await tester.ensureVisible(find.byType(PostSmallContent));
+          await tester.tap(find.byType(PostSmallContent));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is ArticlePage && widget.id == articleId,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostSmallContent));
-        await tester.tap(find.byType(PostSmallContent));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostGrid', (tester) async {
@@ -377,30 +380,31 @@ void main() {
             )
           ],
         );
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+          // We're tapping on a PostLarge as the first post of the PostGrid
+          // is displayed as a large post.
+          await tester.ensureVisible(find.byType(PostLarge));
+          await tester.tap(find.byType(PostLarge));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is ArticlePage && widget.id == articleId,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        // We're tapping on a PostLarge as the first post of the PostGrid
-        // is displayed as a large post.
-        await tester.ensureVisible(find.byType(PostLarge));
-        await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
-          ),
-          findsOneWidget,
-        );
       });
     });
 
@@ -421,30 +425,32 @@ void main() {
           action: NavigateToVideoArticleAction(articleId: articleId),
         );
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
+
+          await tester.ensureVisible(find.byType(PostLarge));
+          await tester.tap(find.byType(PostLarge));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is ArticlePage &&
+                  widget.id == articleId &&
+                  widget.isVideoArticle == true,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostLarge));
-        await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostMedium', (tester) async {
@@ -459,30 +465,32 @@ void main() {
           action: NavigateToVideoArticleAction(articleId: articleId),
         );
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
+
+          await tester.ensureVisible(find.byType(PostMedium));
+          await tester.tap(find.byType(PostMedium));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is ArticlePage &&
+                  widget.id == articleId &&
+                  widget.isVideoArticle == true,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostMedium));
-        await tester.tap(find.byType(PostMedium));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostSmall', (tester) async {
@@ -496,30 +504,32 @@ void main() {
           action: NavigateToVideoArticleAction(articleId: articleId),
         );
 
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                CategoryFeedItem(block: block),
-              ],
+        await mockHydratedStorage(() async {
+          await mockNetworkImages(() async {
+            await tester.pumpApp(
+              ListView(
+                children: [
+                  CategoryFeedItem(block: block),
+                ],
+              ),
+              articleRepository: articleRepository,
+            );
+          });
+
+          await tester.ensureVisible(find.byType(PostSmallContent));
+          await tester.tap(find.byType(PostSmallContent));
+          await tester.pumpAndSettle();
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is ArticlePage &&
+                  widget.id == articleId &&
+                  widget.isVideoArticle == true,
             ),
-            articleRepository: articleRepository,
+            findsOneWidget,
           );
         });
-
-        await tester.ensureVisible(find.byType(PostSmallContent));
-        await tester.tap(find.byType(PostSmallContent));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
-          ),
-          findsOneWidget,
-        );
       });
 
       testWidgets('from PostGrid', (tester) async {
@@ -538,32 +548,34 @@ void main() {
           ],
         );
 
-        await mockNetworkImages(() async {
+        await mockHydratedStorage(() async {
           await tester.pumpApp(
             ListView(
               children: [
                 CategoryFeedItem(block: block),
               ],
             ),
-            articleRepository: articleRepository,
+          );
+
+          // We're tapping on a PostLarge as the first post of the PostGrid
+          // is displayed as a large post.
+
+          await tester.ensureVisible(find.byType(PostLarge));
+          await tester.tap(find.byType(PostLarge));
+
+          await tester.pump();
+          await tester.pump(kThemeAnimationDuration);
+
+          expect(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is ArticlePage &&
+                  widget.id == articleId &&
+                  widget.isVideoArticle == true,
+            ),
+            findsOneWidget,
           );
         });
-
-        // We're tapping on a PostLarge as the first post of the PostGrid
-        // is displayed as a large post.
-        await tester.ensureVisible(find.byType(PostLarge));
-        await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
-
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
-          ),
-          findsOneWidget,
-        );
       });
     });
 
@@ -578,10 +590,12 @@ void main() {
         action: NavigateToFeedCategoryAction(category: category),
       );
 
-      await tester.pumpApp(
-        BlocProvider<CategoriesBloc>.value(
-          value: categoriesBloc,
-          child: CategoryFeedItem(block: block),
+      await mockHydratedStorage(
+        () async => tester.pumpApp(
+          BlocProvider<CategoriesBloc>.value(
+            value: categoriesBloc,
+            child: CategoryFeedItem(block: block),
+          ),
         ),
       );
 

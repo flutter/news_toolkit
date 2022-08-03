@@ -2,17 +2,19 @@ import 'dart:async';
 
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
-import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:share_launcher/share_launcher.dart';
 
 part 'article_event.dart';
 part 'article_state.dart';
+part 'article_bloc.g.dart';
 
-class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
+class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   ArticleBloc({
     required String articleId,
     required ArticleRepository articleRepository,
@@ -40,6 +42,10 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
   ///The number of related articles the user may view in the article.
   static const _relatedArticlesLimit = 5;
+
+  /// HydratedBloc identifier.
+  @override
+  String get id => _articleId;
 
   FutureOr<void> _onArticleRequested(
     ArticleRequested event,
@@ -169,4 +175,11 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     final currentArticleViews = await _articleRepository.fetchArticleViews();
     return currentArticleViews.views >= _articleViewsLimit;
   }
+
+  @override
+  ArticleState? fromJson(Map<String, dynamic> json) =>
+      ArticleState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(ArticleState state) => state.toJson();
 }

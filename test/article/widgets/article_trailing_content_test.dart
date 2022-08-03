@@ -13,6 +13,7 @@ import 'package:google_news_template_api/client.dart' hide User;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -217,6 +218,7 @@ void main() {
             isPremium: true,
           ),
         );
+        VisibilityDetectorController.instance.updateInterval = Duration.zero;
 
         await tester.pumpApp(
           MultiBlocProvider(

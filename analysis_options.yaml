@@ -3,6 +3,7 @@ analyzer:
   exclude:
     - lib/l10n/*
     - lib/generated/*
+    - lib/**/*.g.dart
     - assets/**/*.gen.dart
     - packages/**/*.gen.dart
 linter:
