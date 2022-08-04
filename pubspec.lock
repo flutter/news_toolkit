@@ -470,6 +470,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  firebase_notifications_client:
+    dependency: "direct main"
+    description:
+      path: "packages/notifications_client/firebase_notifications_client"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   fixnum:
     dependency: transitive
     description:
@@ -889,6 +896,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  notifications_client:
+    dependency: transitive
+    description:
+      path: "packages/notifications_client/notifications_client"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   notifications_repository:
     dependency: "direct main"
     description:

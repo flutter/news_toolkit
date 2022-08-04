@@ -8,11 +8,12 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
-  firebase_messaging: ^12.0.0
   flutter:
     sdk: flutter
   google_news_template_api:
     path: ../../api
+  notifications_client:
+    path: ../notifications_client/notifications_client
   permission_client:
     path: ../permission_client
   storage:
