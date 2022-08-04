@@ -12,15 +12,29 @@ class FirebaseNotificationsClient implements NotificationsClient {
 
   final FirebaseMessaging _firebaseMessaging;
 
-  /// Subscribes to the notification group based on category.
+  /// Subscribes to the notification group based on [category].
   @override
   Future<void> subscribeToCategory(String category) {
-    return _firebaseMessaging.subscribeToTopic(category);
+    try {
+      return _firebaseMessaging.subscribeToTopic(category);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        SubscribeToCategoryFailure(error),
+        stackTrace,
+      );
+    }
   }
 
-  /// UnSubscribes from the notification group based on category.
+  /// Unsubscribes from the notification group based on [category].
   @override
   Future<void> unsubscribeFromCategory(String category) {
-    return _firebaseMessaging.unsubscribeFromTopic(category);
+    try {
+      return _firebaseMessaging.unsubscribeFromTopic(category);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        UnsubscribeFromCategoryFailure(error),
+        stackTrace,
+      );
+    }
   }
 }
