@@ -7,4 +7,4 @@ OneSignal notifications client.
 
 ## Configuration
 
-To use OneSignal as your messaging platform follow [OneSignal documentation](https://documentation.onesignal.com/docs/flutter-sdk-setup)
+To use OneSignal as your messaging platform follow [OneSignal documentation](https://documentation.onesignal.com/docs/flutter-sdk-setup).

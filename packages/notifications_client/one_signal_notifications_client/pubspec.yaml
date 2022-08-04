@@ -1,5 +1,5 @@
 name: one_signal_notifications_client
-description: A Very Good Project created by Very Good CLI.
+description: OneSignal notifications client.
 version: 1.0.0+1
 publish_to: none
 
