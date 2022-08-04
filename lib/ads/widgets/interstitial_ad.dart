@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
+import 'package:google_news_template/ads/ads.dart';
 import 'package:platform/platform.dart' as platform;
 import 'package:very_good_analysis/very_good_analysis.dart';
 
@@ -13,13 +14,6 @@ class InterstitialAdFailedToLoadException implements Exception {
   /// The error which was caught.
   final Object error;
 }
-
-/// Signature for [InterstitialAd] loader.
-typedef InterstitialAdLoader = Future<void> Function({
-  required String adUnitId,
-  required ads.InterstitialAdLoadCallback adLoadCallback,
-  required ads.AdRequest request,
-});
 
 /// {@template interstitial_ad}
 /// A widget that shows an interstitial ad when loaded.
