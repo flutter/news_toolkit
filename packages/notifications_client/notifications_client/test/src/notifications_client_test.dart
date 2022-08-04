@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:notifications_client/notifications_client.dart';
+import 'package:test/fake.dart';
+import 'package:test/test.dart';
 
 class FakeNotificationsClient extends Fake implements NotificationsClient {}
 
