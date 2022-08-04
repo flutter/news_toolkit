@@ -18,7 +18,7 @@ class AdsRetryPolicy {
   /// The interval between retries to load an ad.
   final List<Duration> retryIntervals;
 
-  /// Returns the interval for [retry]'th retry.
+  /// Returns the interval for the given retry.
   Duration getIntervalForRetry(int retry) {
     if (retry <= 0 || retry > maxRetryCount) return Duration.zero;
     return retryIntervals[retry - 1];

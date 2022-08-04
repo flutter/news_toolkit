@@ -25,20 +25,14 @@ void main() {
           adsRetryPolicy.getIntervalForRetry(0),
           equals(Duration.zero),
         );
+        for (var i = 1; i <= adsRetryPolicy.maxRetryCount; i++) {
+          expect(
+            adsRetryPolicy.getIntervalForRetry(i),
+            adsRetryPolicy.retryIntervals[i - 1],
+          );
+        }
         expect(
-          adsRetryPolicy.getIntervalForRetry(1),
-          adsRetryPolicy.retryIntervals[0],
-        );
-        expect(
-          adsRetryPolicy.getIntervalForRetry(2),
-          equals(adsRetryPolicy.retryIntervals[1]),
-        );
-        expect(
-          adsRetryPolicy.getIntervalForRetry(3),
-          equals(adsRetryPolicy.retryIntervals[2]),
-        );
-        expect(
-          adsRetryPolicy.getIntervalForRetry(4),
+          adsRetryPolicy.getIntervalForRetry(adsRetryPolicy.maxRetryCount + 1),
           equals(Duration.zero),
         );
       });
