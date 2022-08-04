@@ -12,7 +12,12 @@ void main() {
     testWidgets('renders BannerAdContainer', (tester) async {
       const block = BannerAdBlock(size: BannerAdSize.normal);
 
-      await tester.pumpApp(BannerAd(block: block));
+      await tester.pumpApp(
+        BannerAd(
+          block: block,
+          adFailedToLoadTitle: 'adFailedToLoadTitle',
+        ),
+      );
 
       expect(
         find.byWidgetPredicate(
@@ -25,7 +30,12 @@ void main() {
     testWidgets('renders BannerAdContent', (tester) async {
       const block = BannerAdBlock(size: BannerAdSize.normal);
 
-      await tester.pumpApp(BannerAd(block: block));
+      await tester.pumpApp(
+        BannerAd(
+          block: block,
+          adFailedToLoadTitle: 'adFailedToLoadTitle',
+        ),
+      );
 
       expect(
         find.byWidgetPredicate(

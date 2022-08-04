@@ -59,7 +59,10 @@ class CategoryFeedItem extends StatelessWidget {
     } else if (newsBlock is NewsletterBlock) {
       return const Newsletter();
     } else if (newsBlock is BannerAdBlock) {
-      return BannerAd(block: newsBlock);
+      return BannerAd(
+        block: newsBlock,
+        adFailedToLoadTitle: context.l10n.adLoadFailure,
+      );
     } else {
       // Render an empty widget for the unsupported block type.
       return const SizedBox();
