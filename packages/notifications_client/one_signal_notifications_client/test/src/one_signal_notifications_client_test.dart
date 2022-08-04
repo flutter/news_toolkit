@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:notifications_client/notifications_client.dart';
 import 'package:one_signal_notifications_client/one_signal_notifications_client.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
@@ -10,6 +11,8 @@ void main() {
   group('OneSignalNotificationsClient', () {
     late OneSignal oneSignal;
     late OneSignalNotificationsClient oneSignalNotificationsClient;
+
+    const category = 'category';
 
     setUp(() {
       oneSignal = MockOneSignal();
@@ -24,27 +27,48 @@ void main() {
       );
     });
 
-    test(
-        'calls OneSignal.sendTag '
-        'when OneSignalNotificationsClient.subscribeToCategory called',
-        () async {
-      when(() => oneSignal.sendTag('category', true))
-          .thenAnswer((_) async => {});
+    group('when OneSignalNotificationsClient.subscribeToCategory called', () {
+      test('calls OneSignal.sendTag', () async {
+        when(() => oneSignal.sendTag(category, true))
+            .thenAnswer((_) async => {});
 
-      await oneSignalNotificationsClient.subscribeToCategory('category');
+        await oneSignalNotificationsClient.subscribeToCategory(category);
 
-      verify(() => oneSignal.sendTag('category', true)).called(1);
+        verify(() => oneSignal.sendTag(category, true)).called(1);
+      });
+
+      test(
+          'throws SubscribeToCategoryFailure '
+          'when OneSignal.deleteTag fails', () async {
+        when(() => oneSignal.sendTag(category, true)).thenThrow(Exception());
+
+        expect(
+          () => oneSignalNotificationsClient.subscribeToCategory(category),
+          throwsA(isA<SubscribeToCategoryFailure>()),
+        );
+      });
     });
 
-    test(
-        'calls OneSignal.deleteTag '
-        'when OneSignalNotificationsClient.unsubscribeFromCategory called',
-        () async {
-      when(() => oneSignal.deleteTag('category')).thenAnswer((_) async => {});
+    group('when OneSignalNotificationsClient.unsubscribeFromCategory called',
+        () {
+      test('calls OneSignal.deleteTag', () async {
+        when(() => oneSignal.deleteTag(category)).thenAnswer((_) async => {});
 
-      await oneSignalNotificationsClient.unsubscribeFromCategory('category');
+        await oneSignalNotificationsClient.unsubscribeFromCategory(category);
 
-      verify(() => oneSignal.deleteTag('category')).called(1);
+        verify(() => oneSignal.deleteTag(category)).called(1);
+      });
+
+      test(
+          'throws UnsubscribeFromCategoryFailure '
+          'when OneSignal.deleteTag fails', () async {
+        when(() => oneSignal.deleteTag(category)).thenThrow(Exception());
+
+        expect(
+          () => oneSignalNotificationsClient.unsubscribeFromCategory(category),
+          throwsA(isA<UnsubscribeFromCategoryFailure>()),
+        );
+      });
     });
   });
 }

@@ -15,11 +15,25 @@ class OneSignalNotificationsClient implements NotificationsClient {
 
   @override
   Future<void> subscribeToCategory(String category) {
-    return _oneSignal.sendTag(category, true);
+    try {
+      return _oneSignal.sendTag(category, true);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        SubscribeToCategoryFailure(error),
+        stackTrace,
+      );
+    }
   }
 
   @override
   Future<void> unsubscribeFromCategory(String category) {
-    return _oneSignal.deleteTag(category);
+    try {
+      return _oneSignal.deleteTag(category);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        UnsubscribeFromCategoryFailure(error),
+        stackTrace,
+      );
+    }
   }
 }
