@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
@@ -29,6 +30,13 @@ class MockThemeModeBloc extends MockBloc<ThemeModeEvent, ThemeMode>
     implements ThemeModeBloc {
   @override
   ThemeMode get state => ThemeMode.system;
+}
+
+class MockFullScreenAdsBloc
+    extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
+    implements FullScreenAdsBloc {
+  @override
+  FullScreenAdsState get state => const FullScreenAdsState.initial();
 }
 
 class MockUserRepository extends Mock implements UserRepository {
@@ -65,6 +73,7 @@ extension AppTester on WidgetTester {
     Widget widgetUnderTest, {
     AppBloc? appBloc,
     AnalyticsBloc? analyticsBloc,
+    FullScreenAdsBloc? fullScreenAdsBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
@@ -103,6 +112,9 @@ extension AppTester on WidgetTester {
             BlocProvider.value(value: appBloc ?? MockAppBloc()),
             BlocProvider.value(value: analyticsBloc ?? MockAnalyticsBloc()),
             BlocProvider.value(value: themeModeBloc ?? MockThemeModeBloc()),
+            BlocProvider.value(
+              value: fullScreenAdsBloc ?? MockFullScreenAdsBloc(),
+            ),
           ],
           child: MaterialApp(
             title: 'Google News Template',

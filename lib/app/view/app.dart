@@ -6,14 +6,18 @@ import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
+import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/login/login.dart' hide LoginEvent;
 import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
+import 'package:platform/platform.dart';
 import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
@@ -79,6 +83,17 @@ class App extends StatelessWidget {
               analyticsRepository: _analyticsRepository,
               userRepository: _userRepository,
             ),
+            lazy: false,
+          ),
+          BlocProvider(
+            create: (context) => FullScreenAdsBloc(
+              interstitialAdLoader: ads.InterstitialAd.load,
+              rewardedAdLoader: ads.RewardedAd.load,
+              adsRetryPolicy: const AdsRetryPolicy(),
+              localPlatform: const LocalPlatform(),
+            )
+              ..add(const LoadInterstitialAdRequested())
+              ..add(const LoadRewardedAdRequested()),
             lazy: false,
           ),
         ],

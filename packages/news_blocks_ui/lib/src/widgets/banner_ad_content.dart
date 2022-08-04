@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -48,6 +50,8 @@ class BannerAdContent extends StatefulWidget {
   const BannerAdContent({
     super.key,
     required this.size,
+    this.adFailedToLoadTitle,
+    this.adsRetryPolicy = const AdsRetryPolicy(),
     this.anchoredAdaptiveWidth,
     this.adUnitId,
     this.adBuilder = BannerAd.new,
@@ -60,6 +64,12 @@ class BannerAdContent extends StatefulWidget {
 
   /// The size of this banner ad.
   final BannerAdSize size;
+
+  /// The title displayed when this ad fails to load.
+  final String? adFailedToLoadTitle;
+
+  /// The retry policy for loading ads.
+  final AdsRetryPolicy adsRetryPolicy;
 
   /// The width of this banner ad for [BannerAdSize.anchoredAdaptive].
   ///
@@ -118,6 +128,7 @@ class _BannerAdContentState extends State<BannerAdContent>
   BannerAd? _ad;
   AdSize? _adSize;
   bool _adLoaded = false;
+  bool _adFailedToLoad = false;
 
   @override
   void didChangeDependencies() {
@@ -134,6 +145,7 @@ class _BannerAdContentState extends State<BannerAdContent>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final adFailedToLoadTitle = widget.adFailedToLoadTitle;
     return SizedBox(
       key: const Key('bannerAdContent_sizedBox'),
       width: (_adSize?.width ?? 0).toDouble(),
@@ -141,9 +153,11 @@ class _BannerAdContentState extends State<BannerAdContent>
       child: Center(
         child: _adLoaded
             ? AdWidget(ad: _ad!)
-            : widget.showProgressIndicator
-                ? const ProgressIndicator(color: AppColors.transparent)
-                : const SizedBox(),
+            : _adFailedToLoad && adFailedToLoadTitle != null
+                ? Text(adFailedToLoadTitle)
+                : widget.showProgressIndicator
+                    ? const ProgressIndicator(color: AppColors.transparent)
+                    : const SizedBox(),
       ),
     );
   }
@@ -167,22 +181,42 @@ class _BannerAdContentState extends State<BannerAdContent>
       );
     }
 
-    setState(
-      () => _ad = widget.adBuilder(
-        adUnitId: widget.adUnitId ??
-            (widget.currentPlatform.isAndroid
-                ? BannerAdContent.androidTestUnitId
-                : BannerAdContent.iosTestUnitAd),
-        request: const AdRequest(),
-        size: _adSize!,
-        listener: BannerAdListener(
-          onAdLoaded: _onAdLoaded,
-          onAdFailedToLoad: _onAdFailedToLoad,
-        ),
-      ),
-    );
+    return _loadAdInstance();
+  }
 
-    return _ad!.load();
+  Future<void> _loadAdInstance({int retry = 0}) async {
+    try {
+      final ad = Completer<Ad>();
+
+      await widget
+          .adBuilder(
+            adUnitId: widget.adUnitId ??
+                (widget.currentPlatform.isAndroid
+                    ? BannerAdContent.androidTestUnitId
+                    : BannerAdContent.iosTestUnitAd),
+            request: const AdRequest(),
+            size: _adSize!,
+            listener: BannerAdListener(
+              onAdLoaded: ad.complete,
+              onAdFailedToLoad: (_, error) => ad.completeError(error),
+            ),
+          )
+          .load();
+
+      _onAdLoaded(await ad.future);
+    } catch (error, stackTrace) {
+      _reportError(BannerAdFailedToLoadException(error), stackTrace);
+
+      if (retry < widget.adsRetryPolicy.maxRetryCount) {
+        final nextRetry = retry + 1;
+        await Future<void>.delayed(
+          widget.adsRetryPolicy.getIntervalForRetry(nextRetry),
+        );
+        return _loadAdInstance(retry: nextRetry);
+      } else {
+        if (mounted) setState(() => _adFailedToLoad = true);
+      }
+    }
   }
 
   void _onAdLoaded(Ad ad) {
@@ -193,11 +227,6 @@ class _BannerAdContentState extends State<BannerAdContent>
       });
       widget.onAdLoaded?.call();
     }
-  }
-
-  void _onAdFailedToLoad(Ad ad, LoadAdError error) {
-    ad.dispose();
-    _reportError(BannerAdFailedToLoadException(error), StackTrace.current);
   }
 
   /// Returns an ad size for [BannerAdSize.anchoredAdaptive].
@@ -212,7 +241,7 @@ class _BannerAdContentState extends State<BannerAdContent>
     );
   }
 
-  void _reportError(Exception exception, StackTrace stackTrace) =>
+  void _reportError(Object exception, StackTrace stackTrace) =>
       FlutterError.reportError(
         FlutterErrorDetails(
           exception: exception,

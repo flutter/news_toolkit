@@ -32,6 +32,10 @@ class MockRewardItem extends Mock implements ads.RewardItem {}
 class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
     implements AnalyticsBloc {}
 
+class MockFullScreenAdsBloc
+    extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
+    implements FullScreenAdsBloc {}
+
 void main() {
   late AppBloc appBloc;
   late User user;
@@ -178,27 +182,14 @@ void main() {
     });
 
     testWidgets(
-        'renders RewardedAd '
+        'adds ShowRewardedAdRequested to FullScreenAdsBloc '
         'when tapped on watch video button', (tester) async {
-      await tester.pumpApp(
-        analyticsBloc: analyticsBloc,
-        appBloc: appBloc,
-        BlocProvider.value(
-          value: articleBloc,
-          child: SubscribeWithArticleLimitModal(),
-        ),
-      );
-      await tester.tap(find.byKey(watchVideoButton));
-      await tester.pump();
-      expect(find.byType(RewardedAd), findsOneWidget);
-    });
+      final fullScreenAdsBloc = MockFullScreenAdsBloc();
 
-    testWidgets(
-        'adds ArticleRewardedAdWatched to ArticleBloc '
-        'when onUserEarnedReward is called on RewardedAd', (tester) async {
       await tester.pumpApp(
         analyticsBloc: analyticsBloc,
         appBloc: appBloc,
+        fullScreenAdsBloc: fullScreenAdsBloc,
         BlocProvider.value(
           value: articleBloc,
           child: SubscribeWithArticleLimitModal(),
@@ -207,54 +198,7 @@ void main() {
       await tester.tap(find.byKey(watchVideoButton));
       await tester.pump();
 
-      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
-      rewardedAd.onUserEarnedReward(MockAdWithoutView(), MockRewardItem());
-
-      verify(() => articleBloc.add(ArticleRewardedAdWatched())).called(1);
-    });
-
-    testWidgets(
-        'hides RewardedAd '
-        'when onDismissed is called on RewardedAd', (tester) async {
-      await tester.pumpApp(
-        analyticsBloc: analyticsBloc,
-        appBloc: appBloc,
-        BlocProvider.value(
-          value: articleBloc,
-          child: SubscribeWithArticleLimitModal(),
-        ),
-      );
-      await tester.tap(find.byKey(watchVideoButton));
-      await tester.pump();
-
-      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
-      rewardedAd.onDismissed!();
-
-      await tester.pump();
-
-      expect(find.byType(RewardedAd), findsNothing);
-    });
-
-    testWidgets(
-        'hides RewardedAd '
-        'when onFailedToLoad is called on RewardedAd', (tester) async {
-      await tester.pumpApp(
-        analyticsBloc: analyticsBloc,
-        appBloc: appBloc,
-        BlocProvider.value(
-          value: articleBloc,
-          child: SubscribeWithArticleLimitModal(),
-        ),
-      );
-      await tester.tap(find.byKey(watchVideoButton));
-      await tester.pump();
-
-      final rewardedAd = tester.widget<RewardedAd>(find.byType(RewardedAd));
-      rewardedAd.onFailedToLoad!();
-
-      await tester.pump();
-
-      expect(find.byType(RewardedAd), findsNothing);
+      verify(() => fullScreenAdsBloc.add(ShowRewardedAdRequested())).called(1);
     });
 
     testWidgets(

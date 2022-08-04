@@ -28,28 +28,6 @@ void main() {
       );
     });
 
-    group('when FirebaseNotificationClient.subscribeFromCategory called', () {
-      test('calls FirebaseMessaging.unsubscribeFromTopic', () async {
-        when(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .thenAnswer((_) async {});
-
-        await firebaseNotificationsClient.unsubscribeFromCategory(category);
-
-        verify(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .called(1);
-      });
-
-      test('throws FirebaseMessaging.unsubscribeFromTopic', () async {
-        when(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .thenThrow(Exception());
-
-        expect(
-          () => firebaseNotificationsClient.unsubscribeFromCategory(category),
-          throwsA(isA<UnsubscribeFromCategoryFailure>()),
-        );
-      });
-    });
-
     group('when FirebaseNotificationClient.subscribeToCategory called', () {
       test('calls FirebaseMessaging.subscribeToTopic', () async {
         when(() => firebaseMessaging.subscribeToTopic(category))
@@ -62,7 +40,7 @@ void main() {
 
       test(
           'throws SubscribeToCategoryFailure '
-          ' when FirebaseMessaging.subscribeToTopic fails', () async {
+          'when FirebaseMessaging.subscribeToTopic fails', () async {
         when(() => firebaseMessaging.subscribeToTopic(category))
             .thenThrow(Exception());
 
@@ -86,7 +64,7 @@ void main() {
 
       test(
           'throws UnsubscribeFromCategoryFailure '
-          ' when FirebaseMessaging.unsubscribeFromTopic fails', () async {
+          'when FirebaseMessaging.unsubscribeFromTopic fails', () async {
         when(() => firebaseMessaging.unsubscribeFromTopic(category))
             .thenThrow(Exception());
 

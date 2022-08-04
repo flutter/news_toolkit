@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -7,6 +8,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:platform/platform.dart';
+import 'package:very_good_analysis/very_good_analysis.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -284,6 +286,62 @@ void main() {
       );
 
       verify(ad.dispose).called(1);
+    });
+
+    testWidgets(
+        'retries loading ad based on AdsRetryPolicy '
+        'and renders placeholder '
+        'when ad fails to load', (tester) async {
+      final fakeAsync = FakeAsync();
+
+      adBuilder = ({
+        required AdSize size,
+        required String adUnitId,
+        required BannerAdListener listener,
+        required AdRequest request,
+      }) {
+        Future.microtask(
+          () => listener.onAdFailedToLoad!(
+            ad,
+            LoadAdError(0, 'domain', 'message', null),
+          ),
+        );
+        return ad;
+      };
+
+      // Ignore thrown errors.
+      FlutterError.onError = (_) {};
+
+      unawaited(
+        fakeAsync.run((async) async {
+          const adFailedToLoadTitle = 'adFailedToLoadTitle';
+          final adsRetryPolicy = AdsRetryPolicy();
+
+          await tester.pumpApp(
+            BannerAdContent(
+              adFailedToLoadTitle: adFailedToLoadTitle,
+              size: BannerAdSize.normal,
+              adBuilder: adBuilder,
+              currentPlatform: platform,
+              adsRetryPolicy: adsRetryPolicy,
+            ),
+          );
+
+          await tester.pump();
+          expect(find.text(adFailedToLoadTitle), findsNothing);
+
+          for (var i = 1; i <= adsRetryPolicy.maxRetryCount; i++) {
+            await tester.pump();
+            expect(find.text(adFailedToLoadTitle), findsNothing);
+            async.elapse(adsRetryPolicy.getIntervalForRetry(i));
+          }
+
+          await tester.pump();
+          expect(find.text(adFailedToLoadTitle), findsOneWidget);
+        }),
+      );
+
+      fakeAsync.flushMicrotasks();
     });
 
     testWidgets(
