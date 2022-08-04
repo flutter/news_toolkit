@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_notifications_client/firebase_notifications_client.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:notifications_client/notifications_client.dart';
 
 class MockFirebaseMessaging extends Mock implements FirebaseMessaging {}
 
@@ -11,12 +12,15 @@ void main() {
     late FirebaseMessaging firebaseMessaging;
     late FirebaseNotificationsClient firebaseNotificationsClient;
 
+    const category = 'category';
+
     setUp(() {
       firebaseMessaging = MockFirebaseMessaging();
       firebaseNotificationsClient = FirebaseNotificationsClient(
         firebaseMessaging: firebaseMessaging,
       );
     });
+
     test('can be instantiated', () {
       expect(
         FirebaseNotificationsClient(firebaseMessaging: firebaseMessaging),
@@ -24,28 +28,73 @@ void main() {
       );
     });
 
-    test(
-        'calls FirebaseMessaging.subscribeToTopic '
-        'when FirebaseNotificationClient.subscribeToCategory called', () async {
-      when(() => firebaseMessaging.subscribeToTopic('category'))
-          .thenAnswer((_) async {});
+    group('when FirebaseNotificationClient.subscribeFromCategory called', () {
+      test('calls FirebaseMessaging.unsubscribeFromTopic', () async {
+        when(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .thenAnswer((_) async {});
 
-      await firebaseNotificationsClient.subscribeToCategory('category');
+        await firebaseNotificationsClient.unsubscribeFromCategory(category);
 
-      verify(() => firebaseMessaging.subscribeToTopic('category')).called(1);
+        verify(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .called(1);
+      });
+
+      test('throws FirebaseMessaging.unsubscribeFromTopic', () async {
+        when(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .thenThrow(Exception());
+
+        expect(
+          () => firebaseNotificationsClient.unsubscribeFromCategory(category),
+          throwsA(isA<UnsubscribeFromCategoryFailure>()),
+        );
+      });
     });
 
-    test(
-        'calls FirebaseMessaging.unsubscribeFromTopic '
-        'when FirebaseNotificationClient.unsubscribeFromCategory called',
-        () async {
-      when(() => firebaseMessaging.unsubscribeFromTopic('category'))
-          .thenAnswer((_) async {});
+    group('when FirebaseNotificationClient.subscribeToCategory called', () {
+      test('calls FirebaseMessaging.subscribeToTopic', () async {
+        when(() => firebaseMessaging.subscribeToTopic(category))
+            .thenAnswer((_) async {});
 
-      await firebaseNotificationsClient.unsubscribeFromCategory('category');
+        await firebaseNotificationsClient.subscribeToCategory(category);
 
-      verify(() => firebaseMessaging.unsubscribeFromTopic('category'))
-          .called(1);
+        verify(() => firebaseMessaging.subscribeToTopic(category)).called(1);
+      });
+
+      test(
+          'throws SubscribeToCategoryFailure '
+          ' when FirebaseMessaging.subscribeToTopic fails', () async {
+        when(() => firebaseMessaging.subscribeToTopic(category))
+            .thenThrow(Exception());
+
+        expect(
+          () => firebaseNotificationsClient.subscribeToCategory(category),
+          throwsA(isA<SubscribeToCategoryFailure>()),
+        );
+      });
+    });
+
+    group('when FirebaseNotificationClient.unsubscribeFromCategory called', () {
+      test('calls FirebaseMessaging.unsubscribeFromTopic', () async {
+        when(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .thenAnswer((_) async {});
+
+        await firebaseNotificationsClient.unsubscribeFromCategory(category);
+
+        verify(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .called(1);
+      });
+
+      test(
+          'throws UnsubscribeFromCategoryFailure '
+          ' when FirebaseMessaging.unsubscribeFromTopic fails', () async {
+        when(() => firebaseMessaging.unsubscribeFromTopic(category))
+            .thenThrow(Exception());
+
+        expect(
+          () => firebaseNotificationsClient.unsubscribeFromCategory(category),
+          throwsA(isA<UnsubscribeFromCategoryFailure>()),
+        );
+      });
     });
   });
 }
