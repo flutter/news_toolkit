@@ -11,22 +11,19 @@ class AppState extends Equatable {
     required this.status,
     this.user = User.anonymous,
     this.showLoginOverlay = false,
-    this.isUserSubscribed = false,
   });
 
-  AppState.authenticated(
+  const AppState.authenticated(
     User user,
   ) : this(
           status: AppStatus.authenticated,
           user: user,
-          isUserSubscribed: user.subscriptionPlan != SubscriptionPlan.none,
         );
 
   const AppState.onboardingRequired(User user)
       : this(
           status: AppStatus.onboardingRequired,
           user: user,
-          isUserSubscribed: false,
         );
 
   const AppState.unauthenticated() : this(status: AppStatus.unauthenticated);
@@ -34,7 +31,7 @@ class AppState extends Equatable {
   final AppStatus status;
   final User user;
   final bool showLoginOverlay;
-  final bool isUserSubscribed;
+  bool get isUserSubscribed => user.subscriptionPlan != SubscriptionPlan.none;
 
   @override
   List<Object?> get props => [
@@ -53,8 +50,6 @@ class AppState extends Equatable {
       status: status ?? this.status,
       user: user ?? this.user,
       showLoginOverlay: showLoginOverlay ?? this.showLoginOverlay,
-      isUserSubscribed:
-          (user ?? this.user).subscriptionPlan != SubscriptionPlan.none,
     );
   }
 }
