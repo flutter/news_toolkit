@@ -55,6 +55,7 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 .fvm/
+.dart_frog
 
 # Android related
 **/android/**/gradle-wrapper.jar

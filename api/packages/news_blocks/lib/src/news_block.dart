@@ -1,4 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -6,7 +5,6 @@ import 'package:news_blocks/news_blocks.dart';
 /// A reusable news block which represents a content-based component.
 /// {@endtemplate}
 @immutable
-@JsonSerializable()
 abstract class NewsBlock {
   /// {@macro news_block}
   const NewsBlock({required this.type});
