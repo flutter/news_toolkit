@@ -83,7 +83,7 @@ void main() {
 
     test(
         'currentSubscriptionPlan emits none '
-        ' when initialized and authenticationClient.user is anonymous',
+        'when initialized and authenticationClient.user is anonymous',
         () async {
       when(() => authenticationClient.user).thenAnswer(
         (invocation) => Stream.value(AuthenticationUser.anonymous),
