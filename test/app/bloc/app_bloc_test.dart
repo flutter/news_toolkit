@@ -133,7 +133,7 @@ void main() {
             (_) => Stream.value(returningUser),
           );
         },
-        seed: () => AppState.authenticated(MockUser()),
+        seed: () => AppState.authenticated(user),
         build: () => AppBloc(
           userRepository: userRepository,
           notificationsRepository: notificationsRepository,
