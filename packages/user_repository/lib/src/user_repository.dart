@@ -7,7 +7,7 @@ import 'package:google_news_template_api/client.dart' hide User;
 import 'package:package_info_client/package_info_client.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:storage/storage.dart';
-import 'package:user_repository/src/models/user.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'user_storage.dart';
 
@@ -77,7 +77,7 @@ class UserRepository {
   Stream<User> get user =>
       Rx.combineLatest2<AuthenticationUser, SubscriptionPlan, User>(
         _authenticationClient.user,
-        _currentSubscriptionPlan,
+        _currentSubscriptionPlanSubject.stream,
         (authenticationUser, subscriptionPlan) => User.fromAuthenticationUser(
           authenticationUser: authenticationUser,
           subscriptionPlan: authenticationUser != AuthenticationUser.anonymous
@@ -88,10 +88,6 @@ class UserRepository {
 
   final BehaviorSubject<SubscriptionPlan> _currentSubscriptionPlanSubject =
       BehaviorSubject.seeded(SubscriptionPlan.none);
-
-  /// A stream of the current subscription plan of a user.
-  Stream<SubscriptionPlan> get _currentSubscriptionPlan =>
-      _currentSubscriptionPlanSubject.stream.asBroadcastStream();
 
   /// A stream of incoming email links used to authenticate the user.
   ///

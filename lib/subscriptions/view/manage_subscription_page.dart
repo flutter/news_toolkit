@@ -62,6 +62,7 @@ class ManageSubscriptionView extends StatelessWidget {
                 ),
                 onTap: () {
                   // No possibility to revoke subscriptions from the app.
+                  // Navigate the user to "Manage Subscriptions" page instead.
                   Navigator.maybePop(context);
                 },
               ),

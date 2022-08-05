@@ -61,7 +61,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   FutureOr<void> _onSubscriptionPurchaseUpdated(
     SubscriptionPurchaseUpdated event,
     Emitter<SubscriptionsState> emit,
-  ) {
+  ) async {
     final purchase = event.purchase;
 
     if (purchase is PurchasePurchased) {
@@ -71,7 +71,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
         ),
       );
     } else if (purchase is PurchaseDelivered) {
-      _userRepository.updateSubscriptionPlan();
+      await _userRepository.updateSubscriptionPlan();
       emit(
         state.copyWith(
           purchaseStatus: PurchaseStatus.completed,
