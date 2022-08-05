@@ -1,0 +1,9 @@
+name: generator
+description: A template generator for Google News Template.
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  path: ^1.8.2

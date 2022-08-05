@@ -15,9 +15,10 @@ This project contains the following flavors:
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
 
 ```sh
-# development
+# Development
 $ flutter run --flavor development --target lib/main/main_development.dart
-# production
+
+# Production
 $ flutter run --flavor production --target lib/main/main_production.dart
 
 ```
