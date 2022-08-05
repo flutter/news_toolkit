@@ -521,7 +521,7 @@ void main() {
         verify(() => apiClient.getCurrentUser()).called(1);
       });
 
-      test('rethrows FetchCurrentSubscriptionFailure', () async {
+      test('throws FetchCurrentSubscriptionFailure on failure', () async {
         when(
           () => apiClient.getCurrentUser(),
         ).thenThrow(Exception());
