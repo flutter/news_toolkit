@@ -27,7 +27,7 @@ void main() {
     ) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = GoogleNewsTemplateApiClient.localhost(
+      final apiClient = GoogleNewsTemplateApiClient(
         tokenProvider: tokenStorage.readToken,
       );
 
