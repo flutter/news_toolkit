@@ -100,6 +100,27 @@ void main() {
           ),
         ],
       );
+
+      blocTest<SubscriptionsBloc, SubscriptionsState>(
+        'adds error to state if fetchSubscriptions throws',
+        setUp: () => when(
+          () => inAppPurchaseRepository.purchase(
+            subscription: subscription,
+          ),
+        ).thenThrow(Exception()),
+        build: () => SubscriptionsBloc(
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
+        ),
+        act: (bloc) =>
+            bloc.add(SubscriptionPurchaseRequested(subscription: subscription)),
+        expect: () => [
+          SubscriptionsState.initial().copyWith(
+            purchaseStatus: PurchaseStatus.pending,
+          ),
+        ],
+        errors: () => [isA<Exception>()],
+      );
     });
 
     group('when InAppPurchaseRepository.purchaseUpdate', () {
