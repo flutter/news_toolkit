@@ -1,8 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart' as api;
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
@@ -19,7 +21,7 @@ class MockUserStorage extends Mock implements UserStorage {}
 class MockUser extends Mock implements AuthenticationUser {}
 
 class MockGoogleNewsTemplateApiClient extends Mock
-    implements GoogleNewsTemplateApiClient {}
+    implements api.GoogleNewsTemplateApiClient {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
 
@@ -89,7 +91,7 @@ void main() {
       final response = await userRepository.user.first;
       expect(
         response.subscriptionPlan,
-        equals(SubscriptionPlan.none),
+        equals(api.SubscriptionPlan.none),
       );
     });
 
@@ -501,6 +503,31 @@ void main() {
             storage: storage,
           ).incrementAppOpenedCount(),
           throwsA(isA<IncrementAppOpenedCountFailure>()),
+        );
+      });
+    });
+
+    group('updateSubscriptionPlan', () {
+      test('calls getCurrentUser on ApiClient', () async {
+        when(() => apiClient.getCurrentUser()).thenAnswer(
+          (_) async => api.CurrentUserResponse(
+            user: api.User(
+              id: 'id',
+              subscription: api.SubscriptionPlan.none,
+            ),
+          ),
+        );
+        await userRepository.updateSubscriptionPlan();
+        verify(() => apiClient.getCurrentUser()).called(1);
+      });
+
+      test('rethrows FetchCurrentSubscriptionFailure', () async {
+        when(
+          () => apiClient.getCurrentUser(),
+        ).thenThrow(Exception());
+        expect(
+          () => userRepository.updateSubscriptionPlan(),
+          throwsA(isA<FetchCurrentSubscriptionFailure>()),
         );
       });
     });
