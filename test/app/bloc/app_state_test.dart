@@ -9,6 +9,13 @@ class MockUser extends Mock implements User {}
 
 void main() {
   group('AppState', () {
+    late User user;
+
+    setUp(() {
+      user = MockUser();
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
+    });
+
     group('unauthenticated', () {
       test('has correct status', () {
         final state = AppState.unauthenticated();
@@ -19,7 +26,6 @@ void main() {
 
     group('authenticated', () {
       test('has correct status', () {
-        final user = MockUser();
         final state = AppState.authenticated(user);
         expect(state.status, AppStatus.authenticated);
         expect(state.user, user);
@@ -28,7 +34,6 @@ void main() {
 
     group('onboardingRequired', () {
       test('has correct status', () {
-        final user = MockUser();
         final state = AppState.onboardingRequired(user);
         expect(state.status, AppStatus.onboardingRequired);
         expect(state.user, user);
@@ -38,7 +43,6 @@ void main() {
     group('isUserSubscribed', () {
       test('returns true when userSubscriptionPlan is not null and not none',
           () {
-        final user = MockUser();
         when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         expect(
           AppState.authenticated(user).isUserSubscribed,
@@ -47,8 +51,6 @@ void main() {
       });
 
       test('returns false when userSubscriptionPlan is none', () {
-        final user = MockUser();
-        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
         expect(
           AppState.authenticated(user).isUserSubscribed,
           isFalse,
@@ -84,7 +86,6 @@ void main() {
       test(
           'returns object with updated user '
           'when user is passed', () {
-        final user = MockUser();
         expect(
           AppState.unauthenticated().copyWith(
             user: user,
