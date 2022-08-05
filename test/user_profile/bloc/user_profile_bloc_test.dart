@@ -6,6 +6,7 @@ import 'package:authentication_client/authentication_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
+import 'package:google_news_template_api/client.dart' hide User;
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -22,8 +23,8 @@ void main() {
     late UserRepository userRepository;
     late NotificationsRepository notificationsRepository;
 
-    const user1 = User(id: '1');
-    const user2 = User(id: '2');
+    const user1 = User(id: '1', subscriptionPlan: SubscriptionPlan.none);
+    const user2 = User(id: '2', subscriptionPlan: SubscriptionPlan.none);
 
     late StreamController<User> userController;
 

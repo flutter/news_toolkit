@@ -59,6 +59,8 @@ void main() {
     testWidgets(
         'renders relatedArticles '
         'when article is not preview', (tester) async {
+      final user = MockUser();
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
       when(() => articleBloc.state).thenReturn(
         ArticleState(
           content: const [
@@ -73,10 +75,7 @@ void main() {
       );
 
       when(() => appBloc.state).thenReturn(
-        AppState.authenticated(
-          MockUser(),
-          userSubscriptionPlan: SubscriptionPlan.premium,
-        ),
+        AppState.authenticated(user),
       );
 
       await tester.pumpApp(
@@ -132,6 +131,8 @@ void main() {
 
     group('when article is preview', () {
       setUp(() {
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
         when(() => articleBloc.state).thenReturn(
           ArticleState(
             content: const [
@@ -145,12 +146,7 @@ void main() {
           ),
         );
 
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.none,
-          ),
-        );
+        when(() => appBloc.state).thenReturn(AppState.authenticated(user));
       });
 
       testWidgets('does not render relatedArticles', (tester) async {
@@ -239,6 +235,8 @@ void main() {
       testWidgets(
           'does not render SubscribeModal '
           'when article is premium and user is a subscriber', (tester) async {
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         when(() => articleBloc.state).thenReturn(
           ArticleState(
             content: const [
@@ -255,8 +253,7 @@ void main() {
 
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
+            user,
           ),
         );
 
@@ -316,6 +313,8 @@ void main() {
           'when article is not premium '
           'and user has reached article views limit '
           'and user is a subscriber', (tester) async {
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         when(() => articleBloc.state).thenReturn(
           ArticleState(
             content: const [
@@ -331,10 +330,7 @@ void main() {
         );
 
         when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ),
+          AppState.authenticated(user),
         );
 
         await tester.pumpApp(

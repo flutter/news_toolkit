@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
@@ -15,7 +16,10 @@ class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
 class MockUserStorage extends Mock implements UserStorage {}
 
-class MockUser extends Mock implements User {}
+class MockUser extends Mock implements AuthenticationUser {}
+
+class MockGoogleNewsTemplateApiClient extends Mock
+    implements GoogleNewsTemplateApiClient {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
 
@@ -53,6 +57,7 @@ void main() {
     late UserStorage storage;
     late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
+    late MockGoogleNewsTemplateApiClient apiClient;
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
@@ -60,15 +65,25 @@ void main() {
       deepLinkClient = MockDeepLinkClient();
       storage = MockUserStorage();
       deepLinkClientController = StreamController<Uri>.broadcast();
+      apiClient = MockGoogleNewsTemplateApiClient();
 
       when(() => deepLinkClient.deepLinkStream)
           .thenAnswer((_) => deepLinkClientController.stream);
 
       userRepository = UserRepository(
+        apiClient: apiClient,
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,
         storage: storage,
+      );
+    });
+
+    test('currentSubscriptionPlan emits none when initialized', () async {
+      final response = await userRepository.user.first;
+      expect(
+        response.subscriptionPlan,
+        equals(SubscriptionPlan.none),
       );
     });
 
@@ -417,6 +432,7 @@ void main() {
         when(storage.fetchAppOpenedCount).thenAnswer((_) async => 1);
 
         final result = await UserRepository(
+          apiClient: apiClient,
           authenticationClient: authenticationClient,
           packageInfoClient: packageInfoClient,
           deepLinkClient: deepLinkClient,
@@ -432,6 +448,7 @@ void main() {
 
         expect(
           UserRepository(
+            apiClient: apiClient,
             authenticationClient: authenticationClient,
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,
@@ -452,6 +469,7 @@ void main() {
 
         await expectLater(
           UserRepository(
+            apiClient: apiClient,
             authenticationClient: authenticationClient,
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,
@@ -470,6 +488,7 @@ void main() {
 
         expect(
           UserRepository(
+            apiClient: apiClient,
             authenticationClient: authenticationClient,
             packageInfoClient: packageInfoClient,
             deepLinkClient: deepLinkClient,

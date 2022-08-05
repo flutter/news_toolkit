@@ -3,7 +3,6 @@ import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_news_template_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// {@template in_app_purchase_failure}
 /// A base failure class for the in-app purchase repository failures.
@@ -70,13 +69,6 @@ class InAppPurchaseBuyNonConsumableFailure extends InAppPurchaseFailure {
   const InAppPurchaseBuyNonConsumableFailure(super.error);
 }
 
-/// {@template fetch_current_subscription_failure}
-/// An exception thrown when fetching current subscription fails.
-class FetchCurrentSubscriptionFailure extends InAppPurchaseFailure {
-  /// {@macro fetch_current_subscription_failure}
-  const FetchCurrentSubscriptionFailure(super.error);
-}
-
 /// {@template in_app_purchase_repository}
 /// The `InAppPurchaseRepository` uses [in_app_purchase](https://pub.dev/packages/in_app_purchase)
 /// package to conduct native in-app purchase.
@@ -112,13 +104,6 @@ class InAppPurchaseRepository {
   final InAppPurchase _inAppPurchase;
   final GoogleNewsTemplateApiClient _apiClient;
   final AuthenticationClient _authenticationClient;
-
-  final BehaviorSubject<SubscriptionPlan> _currentSubscriptionPlanSubject =
-      BehaviorSubject.seeded(SubscriptionPlan.none);
-
-  /// A stream of the current subscription plan of a user.
-  Stream<SubscriptionPlan> get currentSubscriptionPlan =>
-      _currentSubscriptionPlanSubject.stream.asBroadcastStream();
 
   final _purchaseUpdateStreamController =
       StreamController<PurchaseUpdate>.broadcast();
@@ -259,8 +244,6 @@ class InAppPurchaseRepository {
         _purchaseUpdateStreamController.add(
           PurchaseDelivered(subscription: purchasedProduct),
         );
-
-        await _updateCurrentSubscriptionPlan();
       }
     } catch (error, stackTrace) {
       _purchaseUpdateStreamController.addError(
@@ -294,18 +277,6 @@ class InAppPurchaseRepository {
             error,
           ),
         ),
-        stackTrace,
-      );
-    }
-  }
-
-  Future<void> _updateCurrentSubscriptionPlan() async {
-    try {
-      final response = await _apiClient.getCurrentUser();
-      _currentSubscriptionPlanSubject.add(response.user.subscription);
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        FetchCurrentSubscriptionFailure(error),
         stackTrace,
       );
     }

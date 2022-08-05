@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
+import 'package:google_news_template_api/client.dart' hide User;
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -26,7 +27,7 @@ void main() {
 
     setUp(() {
       appBloc = MockAppBloc();
-      user = User(id: 'id');
+      user = User(id: 'id', subscriptionPlan: SubscriptionPlan.none);
     });
 
     setUpAll(() {

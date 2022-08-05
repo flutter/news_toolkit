@@ -15,7 +15,6 @@ void main() {
         equals(
           SubscriptionsState(
             subscriptions: [],
-            currentSubscription: SubscriptionPlan.none,
             purchaseStatus: PurchaseStatus.none,
           ),
         ),
@@ -42,21 +41,6 @@ void main() {
       });
 
       test(
-          'returns object with updated currentSubscription '
-          'when currentSubscription changed', () {
-        expect(
-          SubscriptionsState.initial()
-              .copyWith(currentSubscription: SubscriptionPlan.premium),
-          equals(
-            SubscriptionsState(
-              subscriptions: [],
-              currentSubscription: SubscriptionPlan.premium,
-              purchaseStatus: PurchaseStatus.none,
-            ),
-          ),
-        );
-      });
-      test(
           'returns object with updated purchaseStatus '
           'when status changed', () {
         expect(
@@ -66,7 +50,6 @@ void main() {
           equals(
             SubscriptionsState(
               subscriptions: [],
-              currentSubscription: SubscriptionPlan.none,
               purchaseStatus: PurchaseStatus.completed,
             ),
           ),
@@ -103,7 +86,6 @@ void main() {
                   name: SubscriptionPlan.none,
                 ),
               ],
-              currentSubscription: SubscriptionPlan.none,
               purchaseStatus: PurchaseStatus.none,
             ),
           ),

@@ -7,6 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:user_repository/user_repository.dart';
+
+import '../../../app/view/app_test.dart';
 
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
@@ -14,6 +17,7 @@ class MockInAppPurchaseRepository extends Mock
 void main() {
   group('SubscriptionBloc', () {
     late InAppPurchaseRepository inAppPurchaseRepository;
+    late UserRepository userRepository;
 
     final subscription = Subscription(
       id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
@@ -30,10 +34,8 @@ void main() {
 
     setUp(() {
       inAppPurchaseRepository = MockInAppPurchaseRepository();
+      userRepository = MockUserRepository();
 
-      when(
-        () => inAppPurchaseRepository.currentSubscriptionPlan,
-      ).thenAnswer((_) => Stream.empty());
       when(
         () => inAppPurchaseRepository.purchaseUpdate,
       ).thenAnswer((_) => Stream.empty());
@@ -50,6 +52,7 @@ void main() {
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         act: (bloc) => bloc.add(SubscriptionsRequested()),
         expect: () => <SubscriptionsState>[
@@ -66,44 +69,10 @@ void main() {
         ).thenThrow(Exception()),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         act: (bloc) => bloc.add(SubscriptionsRequested()),
         expect: () => <SubscriptionsState>[],
-        errors: () => [isA<Exception>()],
-      );
-    });
-
-    group(
-        'on CurrentSubscriptionChanged '
-        'updates currentSubscription', () {
-      blocTest<SubscriptionsBloc, SubscriptionsState>(
-        'when InAppPurchaseRepository.currentSubscriptionPlan changed',
-        setUp: () => when(() => inAppPurchaseRepository.currentSubscriptionPlan)
-            .thenAnswer((_) => Stream.fromIterable([SubscriptionPlan.premium])),
-        build: () => SubscriptionsBloc(
-          inAppPurchaseRepository: inAppPurchaseRepository,
-        ),
-        expect: () => <SubscriptionsState>[
-          SubscriptionsState.initial().copyWith(
-            currentSubscription: SubscriptionPlan.premium,
-          ),
-        ],
-      );
-
-      blocTest<SubscriptionsBloc, SubscriptionsState>(
-        'adds error to state if fetchSubscriptions throws',
-        setUp: () => when(
-          () => inAppPurchaseRepository.purchase(subscription: subscription),
-        ).thenThrow(Exception()),
-        build: () => SubscriptionsBloc(
-          inAppPurchaseRepository: inAppPurchaseRepository,
-        ),
-        act: (bloc) =>
-            bloc.add(SubscriptionPurchaseRequested(subscription: subscription)),
-        expect: () => <SubscriptionsState>[
-          SubscriptionsState.initial()
-              .copyWith(purchaseStatus: PurchaseStatus.pending)
-        ],
         errors: () => [isA<Exception>()],
       );
     });
@@ -121,6 +90,7 @@ void main() {
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         act: (bloc) =>
             bloc.add(SubscriptionPurchaseRequested(subscription: subscription)),
@@ -150,6 +120,7 @@ void main() {
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
@@ -164,23 +135,30 @@ void main() {
         seed: () => SubscriptionsState.initial().copyWith(
           purchaseStatus: PurchaseStatus.pending,
         ),
-        setUp: () => when(
-          () => inAppPurchaseRepository.purchaseUpdate,
-        ).thenAnswer(
-          (_) => Stream.value(
-            PurchaseDelivered(
-              subscription: subscription,
+        setUp: () {
+          when(
+            () => inAppPurchaseRepository.purchaseUpdate,
+          ).thenAnswer(
+            (_) => Stream.value(
+              PurchaseDelivered(
+                subscription: subscription,
+              ),
             ),
-          ),
-        ),
+          );
+          when(
+            userRepository.updateSubscriptionPlan,
+          ).thenAnswer((_) async {});
+        },
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
             purchaseStatus: PurchaseStatus.completed,
           ),
         ],
+        verify: (_) => verify(userRepository.updateSubscriptionPlan).called(1),
       );
 
       blocTest<SubscriptionsBloc, SubscriptionsState>(
@@ -200,6 +178,7 @@ void main() {
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
@@ -223,6 +202,7 @@ void main() {
         ),
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         expect: () => <SubscriptionsState>[
           SubscriptionsState.initial().copyWith(
@@ -243,8 +223,6 @@ void main() {
         subscriptionPurchaseUpdateController =
             StreamController<PurchaseUpdate>();
 
-        when(() => inAppPurchaseRepository.currentSubscriptionPlan)
-            .thenAnswer((_) => currentSubscriptionPlanController.stream);
         when(() => inAppPurchaseRepository.purchaseUpdate)
             .thenAnswer((_) => subscriptionPurchaseUpdateController.stream);
       });
@@ -253,6 +231,7 @@ void main() {
         'cancels InAppPurchaseRepository.currentSubscriptionPlan subscription',
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         tearDown: () =>
             expect(currentSubscriptionPlanController.hasListener, isFalse),
@@ -262,6 +241,7 @@ void main() {
         'cancels InAppPurchaseRepository.purchaseUpdate subscription',
         build: () => SubscriptionsBloc(
           inAppPurchaseRepository: inAppPurchaseRepository,
+          userRepository: userRepository,
         ),
         tearDown: () =>
             expect(subscriptionPurchaseUpdateController.hasListener, isFalse),

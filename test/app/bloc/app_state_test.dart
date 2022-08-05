@@ -24,16 +24,6 @@ void main() {
         expect(state.status, AppStatus.authenticated);
         expect(state.user, user);
       });
-
-      test('has correct userSubscriptionPlan', () {
-        const userSubscriptionPlan = SubscriptionPlan.premium;
-        final state = AppState.authenticated(
-          MockUser(),
-          userSubscriptionPlan: userSubscriptionPlan,
-        );
-        expect(state.status, AppStatus.authenticated);
-        expect(state.userSubscriptionPlan, userSubscriptionPlan);
-      });
     });
 
     group('onboardingRequired', () {
@@ -48,28 +38,19 @@ void main() {
     group('isUserSubscribed', () {
       test('returns true when userSubscriptionPlan is not null and not none',
           () {
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         expect(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ).isUserSubscribed,
+          AppState.authenticated(user).isUserSubscribed,
           isTrue,
         );
       });
 
-      test('returns false when userSubscriptionPlan is null', () {
-        expect(
-          AppState.authenticated(MockUser()).isUserSubscribed,
-          isFalse,
-        );
-      });
-
       test('returns false when userSubscriptionPlan is none', () {
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
         expect(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.none,
-          ).isUserSubscribed,
+          AppState.authenticated(user).isUserSubscribed,
           isFalse,
         );
       });
@@ -112,23 +93,6 @@ void main() {
             AppState(
               status: AppStatus.unauthenticated,
               user: user,
-            ),
-          ),
-        );
-      });
-
-      test(
-          'returns object with updated userSubscriptionPlan '
-          'when userSubscriptionPlan is passed', () {
-        const userSubscriptionPlan = SubscriptionPlan.premium;
-        expect(
-          AppState.unauthenticated().copyWith(
-            userSubscriptionPlan: userSubscriptionPlan,
-          ),
-          equals(
-            AppState(
-              status: AppStatus.unauthenticated,
-              userSubscriptionPlan: userSubscriptionPlan,
             ),
           ),
         );
