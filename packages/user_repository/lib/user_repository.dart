@@ -13,7 +13,7 @@ export 'package:authentication_client/authentication_client.dart'
         LogInWithFacebookFailure,
         IsLogInWithEmailLinkFailure,
         LogInWithEmailLinkFailure,
-        LogOutFailure,
-        User;
+        LogOutFailure;
 
+export 'src/models/models.dart';
 export 'src/user_repository.dart';

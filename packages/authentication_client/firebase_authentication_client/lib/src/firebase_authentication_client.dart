@@ -48,14 +48,16 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   final FacebookAuth _facebookAuth;
   final TwitterLogin _twitterLogin;
 
-  /// Stream of [User] which will emit the current user when
+  /// Stream of [AuthenticationUser] which will emit the current user when
   /// the authentication state changes.
   ///
-  /// Emits [User.anonymous] if the user is not authenticated.
+  /// Emits [AuthenticationUser.anonymous] if the user is not authenticated.
   @override
-  Stream<User> get user {
+  Stream<AuthenticationUser> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser == null ? User.anonymous : firebaseUser.toUser;
+      return firebaseUser == null
+          ? AuthenticationUser.anonymous
+          : firebaseUser.toUser;
     });
   }
 
@@ -254,7 +256,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   }
 
   /// Signs out the current user which will emit
-  /// [User.anonymous] from the [user] Stream.
+  /// [AuthenticationUser.anonymous] from the [user] Stream.
   ///
   /// Throws a [LogOutFailure] if an exception occurs.
   @override
@@ -270,7 +272,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
   }
 
   /// Updates the user token in [TokenStorage] if the user is authenticated.
-  Future<void> _onUserChanged(User user) async {
+  Future<void> _onUserChanged(AuthenticationUser user) async {
     if (!user.isAnonymous) {
       await _tokenStorage.saveToken(user.id);
     } else {
@@ -280,8 +282,8 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
 }
 
 extension on firebase_auth.User {
-  User get toUser {
-    return User(
+  AuthenticationUser get toUser {
+    return AuthenticationUser(
       id: uid,
       email: email,
       name: displayName,

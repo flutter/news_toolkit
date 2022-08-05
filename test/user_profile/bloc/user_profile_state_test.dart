@@ -39,6 +39,7 @@ void main() {
           ),
           equals(
             UserProfileState(
+              user: User.anonymous,
               status: UserProfileStatus.fetchingNotificationsEnabled,
             ),
           ),
@@ -54,6 +55,7 @@ void main() {
           ),
           equals(
             UserProfileState(
+              user: User.anonymous,
               status: UserProfileStatus.initial,
               notificationsEnabled: true,
             ),

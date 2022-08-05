@@ -176,14 +176,6 @@ void main() {
           setUp(() {
             inAppPurchaseRepository = MockInAppPurchaseRepository();
 
-            when(
-              () => inAppPurchaseRepository.currentSubscriptionPlan,
-            ).thenAnswer(
-              (_) => Stream.fromIterable([
-                SubscriptionPlan.none,
-              ]),
-            );
-
             when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
               (_) => const Stream.empty(),
             );
@@ -308,8 +300,8 @@ void main() {
               id: 'id',
               name: 'name',
               email: 'email',
+              subscriptionPlan: SubscriptionPlan.premium,
             ),
-            userSubscriptionPlan: SubscriptionPlan.premium,
           ),
         );
 

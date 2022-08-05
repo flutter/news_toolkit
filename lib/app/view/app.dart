@@ -67,7 +67,6 @@ class App extends StatelessWidget {
             create: (_) => AppBloc(
               userRepository: _userRepository,
               notificationsRepository: _notificationsRepository,
-              inAppPurchaseRepository: _inAppPurchaseRepository,
               user: _user,
             )..add(const AppOpened()),
           ),

@@ -181,29 +181,33 @@ class _BannerAdContentState extends State<BannerAdContent>
       );
     }
 
-    return _loadAdInstance();
+    await _loadAdInstance();
   }
 
   Future<void> _loadAdInstance({int retry = 0}) async {
+    if (!mounted) return;
+
     try {
-      final ad = Completer<Ad>();
+      final adCompleter = Completer<Ad>();
 
-      await widget
-          .adBuilder(
-            adUnitId: widget.adUnitId ??
-                (widget.currentPlatform.isAndroid
-                    ? BannerAdContent.androidTestUnitId
-                    : BannerAdContent.iosTestUnitAd),
-            request: const AdRequest(),
-            size: _adSize!,
-            listener: BannerAdListener(
-              onAdLoaded: ad.complete,
-              onAdFailedToLoad: (_, error) => ad.completeError(error),
-            ),
-          )
-          .load();
+      setState(
+        () => _ad = widget.adBuilder(
+          adUnitId: widget.adUnitId ??
+              (widget.currentPlatform.isAndroid
+                  ? BannerAdContent.androidTestUnitId
+                  : BannerAdContent.iosTestUnitAd),
+          request: const AdRequest(),
+          size: _adSize!,
+          listener: BannerAdListener(
+            onAdLoaded: adCompleter.complete,
+            onAdFailedToLoad: (_, error) {
+              adCompleter.completeError(error);
+            },
+          ),
+        )..load(),
+      );
 
-      _onAdLoaded(await ad.future);
+      _onAdLoaded(await adCompleter.future);
     } catch (error, stackTrace) {
       _reportError(BannerAdFailedToLoadException(error), stackTrace);
 

@@ -4,7 +4,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
-import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
@@ -35,10 +34,6 @@ void main() {
       testWidgets('opens PurchaseSubscriptionDialog when tapped',
           (tester) async {
         final inAppPurchaseRepository = MockInAppPurchaseRepository();
-
-        when(
-          () => inAppPurchaseRepository.currentSubscriptionPlan,
-        ).thenAnswer((_) => Stream.fromIterable([SubscriptionPlan.none]));
 
         when(
           () => inAppPurchaseRepository.purchaseUpdate,

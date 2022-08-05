@@ -12,20 +12,6 @@ void main() {
         expect(event1, equals(event2));
       });
     });
-
-    group('CurrentSubscriptionChanged', () {
-      test('supports value comparisons', () {
-        final event1 = CurrentSubscriptionChanged(
-          subscription: SubscriptionPlan.none,
-        );
-        final event2 = CurrentSubscriptionChanged(
-          subscription: SubscriptionPlan.none,
-        );
-
-        expect(event1, equals(event2));
-      });
-    });
-
     group('SubscriptionPurchaseRequested', () {
       test('supports value comparisons', () {
         final event1 = SubscriptionPurchaseRequested(

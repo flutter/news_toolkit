@@ -58,6 +58,7 @@ void main() {
       );
 
       final userRepository = UserRepository(
+        apiClient: apiClient,
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
         deepLinkClient: deepLinkClient,

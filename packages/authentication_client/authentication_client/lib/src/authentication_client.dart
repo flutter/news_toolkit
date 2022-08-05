@@ -103,11 +103,11 @@ class LogOutFailure extends AuthenticationException {
 
 /// A generic Authentication Client Interface.
 abstract class AuthenticationClient {
-  /// Stream of [User] which will emit the current user when
+  /// Stream of [AuthenticationUser] which will emit the current user when
   /// the authentication state changes.
   ///
-  /// Emits [User.anonymous] if the user is not authenticated.
-  Stream<User> get user;
+  /// Emits [AuthenticationUser.anonymous] if the user is not authenticated.
+  Stream<AuthenticationUser> get user;
 
   /// Starts the Sign In with Apple Flow.
   ///
@@ -156,7 +156,7 @@ abstract class AuthenticationClient {
   });
 
   /// Signs out the current user which will emit
-  /// [User.anonymous] from the [user] Stream.
+  /// [AuthenticationUser.anonymous] from the [user] Stream.
   ///
   /// Throws a [LogOutFailure] if an exception occurs.
   Future<void> logOut();

@@ -106,7 +106,7 @@ class _UserProfileViewState extends State<UserProfileView>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const UserProfileTitle(),
-              if (user != null) ...[
+              if (!user.isAnonymous) ...[
                 UserProfileItem(
                   key: const Key('userProfilePage_userItem'),
                   leading: Assets.icons.profileIcon.svg(),

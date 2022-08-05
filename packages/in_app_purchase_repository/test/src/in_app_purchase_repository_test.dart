@@ -45,7 +45,7 @@ void main() {
       currencyCode: 'USD',
     );
 
-    final user = User(
+    final user = AuthenticationUser(
       id: '123',
       name: 'name',
     );
@@ -119,17 +119,6 @@ void main() {
           inAppPurchase: inAppPurchase,
         ),
         isNotNull,
-      );
-    });
-
-    test('currentSubscriptionPlan emits none when initialized', () {
-      expect(
-        InAppPurchaseRepository(
-          authenticationClient: authenticationClient,
-          apiClient: apiClient,
-          inAppPurchase: inAppPurchase,
-        ).currentSubscriptionPlan,
-        emits(SubscriptionPlan.none),
       );
     });
 
@@ -357,7 +346,7 @@ void main() {
         ).thenAnswer((_) async {});
 
         when(() => authenticationClient.user).thenAnswer(
-          (_) => Stream.fromIterable([User.anonymous]),
+          (_) => Stream.fromIterable([AuthenticationUser.anonymous]),
         );
 
         await repository.restorePurchases();
@@ -470,39 +459,6 @@ void main() {
               subscriptionId: any(named: 'subscriptionId'),
             ),
           ).called(1);
-
-          await expectLater(
-            repository.currentSubscriptionPlan,
-            emits(subscription.name),
-          );
-
-          await expectLater(
-            repository.currentSubscriptionPlan,
-            emits(subscription.name),
-          );
-        });
-
-        test(
-            'and throws with PurchaseFailed '
-            'when apiClient.getCurrentUser throws', () async {
-          when(apiClient.getCurrentUser).thenThrow(Exception());
-
-          final repository = InAppPurchaseRepository(
-            authenticationClient: authenticationClient,
-            apiClient: apiClient,
-            inAppPurchase: inAppPurchase,
-          );
-
-          await expectLater(
-            repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
-                isA<PurchasePurchased>(),
-                isA<PurchaseDelivered>(),
-                emitsError(isA<PurchaseFailed>())
-              ],
-            ),
-          );
         });
 
         test(
@@ -526,32 +482,6 @@ void main() {
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
-                emitsError(isA<PurchaseFailed>())
-              ],
-            ),
-          );
-        });
-
-        test(
-            'adds PurchasePurchased event '
-            'and throws PurchaseFailed '
-            'when apiClient.createSubscription throws', () async {
-          when(
-            apiClient.getCurrentUser,
-          ).thenThrow(Exception());
-
-          final repository = InAppPurchaseRepository(
-            authenticationClient: authenticationClient,
-            apiClient: apiClient,
-            inAppPurchase: inAppPurchase,
-          );
-
-          expect(
-            repository.purchaseUpdate,
-            emitsInOrder(
-              <Matcher>[
-                isA<PurchasePurchased>(),
-                isA<PurchaseDelivered>(),
                 emitsError(isA<PurchaseFailed>())
               ],
             ),
@@ -595,11 +525,6 @@ void main() {
               subscriptionId: any(named: 'subscriptionId'),
             ),
           ).called(1);
-
-          await expectLater(
-            repository.currentSubscriptionPlan,
-            emits(isA<SubscriptionPlan>()),
-          );
         });
 
         test(
