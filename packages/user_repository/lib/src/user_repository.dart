@@ -72,7 +72,7 @@ class UserRepository {
   final UserStorage _storage;
 
   /// Stream of [User] which will emit the current user when
-  /// the authentication state changes.
+  /// the authentication state or the subscription plan changes.
   ///
   Stream<User> get user =>
       Rx.combineLatest2<AuthenticationUser, SubscriptionPlan, User>(
