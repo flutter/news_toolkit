@@ -27,7 +27,7 @@ void main() {
     final appBloc = MockAppBloc();
 
     testWidgets(
-        'Navigated to HomePage '
+        'navigates back '
         'when subscriptions ListTile tapped', (tester) async {
       final navigator = MockNavigator();
       when(navigator.maybePop).thenAnswer((_) async => true);
