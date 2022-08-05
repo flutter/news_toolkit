@@ -26,6 +26,7 @@ void main() {
         );
       });
     });
+
     group('isAnonymous', () {
       test('sets isAnonymous correctly', () {
         const anonymousUser = User.anonymous;
