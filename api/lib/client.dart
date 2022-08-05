@@ -26,21 +26,6 @@ export 'package:news_blocks/news_blocks.dart'
         VideoBlock,
         TrendingStoryBlock;
 
-export 'src/api/v1/articles/get_article/models/models.dart'
-    show ArticleResponse;
-export 'src/api/v1/articles/get_related_articles/models/models.dart'
-    show RelatedArticlesResponse;
-export 'src/api/v1/categories/get_categories/models/models.dart'
-    show CategoriesResponse;
-export 'src/api/v1/feed/get_feed/models/models.dart' show FeedResponse;
-export 'src/api/v1/search/popular_search/models/models.dart'
-    show PopularSearchResponse;
-export 'src/api/v1/search/relevant_search/models/models.dart'
-    show RelevantSearchResponse;
-export 'src/api/v1/subscriptions/get_subscriptions/models/models.dart'
-    show SubscriptionsResponse;
-export 'src/api/v1/users/get_current_user/models/models.dart'
-    show CurrentUserResponse;
 export 'src/client/google_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
@@ -48,4 +33,22 @@ export 'src/client/google_news_template_api_client.dart'
         GoogleNewsTemplateApiRequestFailure,
         TokenProvider;
 export 'src/data/models/models.dart'
-    show Category, Feed, Subscription, SubscriptionCost, SubscriptionPlan, User;
+    show
+        Article,
+        Category,
+        Feed,
+        RelatedArticles,
+        Subscription,
+        SubscriptionCost,
+        SubscriptionPlan,
+        User;
+export 'src/models/models.dart'
+    show
+        ArticleResponse,
+        CategoriesResponse,
+        CurrentUserResponse,
+        FeedResponse,
+        PopularSearchResponse,
+        RelatedArticlesResponse,
+        RelevantSearchResponse,
+        SubscriptionsResponse;
