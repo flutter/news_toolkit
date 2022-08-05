@@ -7,6 +7,7 @@ import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 Future<void> showPurchaseSubscriptionDialog({
   required BuildContext context,
@@ -31,6 +32,7 @@ class PurchaseSubscriptionDialog extends StatelessWidget {
     return BlocProvider<SubscriptionsBloc>(
       create: (context) => SubscriptionsBloc(
         inAppPurchaseRepository: context.read<InAppPurchaseRepository>(),
+        userRepository: context.read<UserRepository>(),
       )..add(SubscriptionsRequested()),
       child: const PurchaseSubscriptionDialogView(),
     );

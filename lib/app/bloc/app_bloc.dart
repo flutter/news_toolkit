@@ -14,26 +14,20 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required UserRepository userRepository,
     required NotificationsRepository notificationsRepository,
-    required InAppPurchaseRepository inAppPurchaseRepository,
     required User user,
   })  : _userRepository = userRepository,
         _notificationsRepository = notificationsRepository,
-        _inAppPurchaseRepository = inAppPurchaseRepository,
         super(
           user == User.anonymous
               ? const AppState.unauthenticated()
               : AppState.authenticated(user),
         ) {
     on<AppUserChanged>(_onUserChanged);
-    on<AppUserSubscriptionPlanChanged>(_onUserSubscriptionPlanChanged);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppOpened>(_onAppOpened);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
-    _currentSubscriptionPlanSubscription = _inAppPurchaseRepository
-        .currentSubscriptionPlan
-        .listen(_currentSubscriptionPlanChanged);
   }
 
   /// The number of app opens after which the login overlay is shown
@@ -42,16 +36,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
-  final InAppPurchaseRepository _inAppPurchaseRepository;
 
   late StreamSubscription<User> _userSubscription;
-  late StreamSubscription<SubscriptionPlan>
-      _currentSubscriptionPlanSubscription;
 
   void _userChanged(User user) => add(AppUserChanged(user));
-
-  void _currentSubscriptionPlanChanged(SubscriptionPlan plan) =>
-      add(AppUserSubscriptionPlanChanged(plan));
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) {
     final user = event.user;
@@ -64,20 +52,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             ? emit(AppState.onboardingRequired(user))
             : user == User.anonymous
                 ? emit(const AppState.unauthenticated())
-                : emit(
-                    AppState.authenticated(
-                      user,
-                      userSubscriptionPlan: state.userSubscriptionPlan,
-                    ),
-                  );
+                : emit(AppState.authenticated(user));
     }
   }
-
-  void _onUserSubscriptionPlanChanged(
-    AppUserSubscriptionPlanChanged event,
-    Emitter<AppState> emit,
-  ) =>
-      emit(state.copyWith(userSubscriptionPlan: event.plan));
 
   void _onOnboardingCompleted(
     AppOnboardingCompleted event,
@@ -115,7 +92,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   @override
   Future<void> close() {
     _userSubscription.cancel();
-    _currentSubscriptionPlanSubscription.cancel();
     return super.close();
   }
 }

@@ -9,11 +9,13 @@ import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart'
     hide PurchaseCompleted;
 import 'package:mockingjay/mockingjay.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../../helpers/helpers.dart';
 
 void main() {
   late InAppPurchaseRepository inAppPurchaseRepository;
+  late UserRepository userRepository;
 
   const subscription = Subscription(
     id: 'dd339fda-33e9-49d0-9eb5-0ccb77eb760f',
@@ -31,14 +33,7 @@ void main() {
 
   setUp(() {
     inAppPurchaseRepository = MockInAppPurchaseRepository();
-
-    when(
-      () => inAppPurchaseRepository.currentSubscriptionPlan,
-    ).thenAnswer(
-      (_) => Stream.fromIterable([
-        SubscriptionPlan.none,
-      ]),
-    );
+    userRepository = MockUserRepository();
 
     when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
       (_) => const Stream.empty(),
@@ -47,7 +42,12 @@ void main() {
     when(inAppPurchaseRepository.fetchSubscriptions).thenAnswer(
       (_) async => [],
     );
+
+    when(
+      userRepository.updateSubscriptionPlan,
+    ).thenAnswer((_) async {});
   });
+
   group('showPurchaseSubscriptionDialog', () {
     testWidgets('renders PurchaseSubscriptionDialog', (tester) async {
       await tester.pumpApp(
@@ -155,6 +155,7 @@ void main() {
       final analyticsBloc = MockAnalyticsBloc();
 
       when(navigator.maybePop<void>).thenAnswer((_) async => true);
+
       when(
         () => inAppPurchaseRepository.purchaseUpdate,
       ).thenAnswer(
@@ -168,6 +169,7 @@ void main() {
         navigator: navigator,
         inAppPurchaseRepository: inAppPurchaseRepository,
         analyticsBloc: analyticsBloc,
+        userRepository: userRepository,
       );
 
       await tester.pump();

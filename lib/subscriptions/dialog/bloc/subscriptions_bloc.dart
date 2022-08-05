@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'subscriptions_event.dart';
 part 'subscriptions_state.dart';
@@ -10,24 +11,15 @@ part 'subscriptions_state.dart';
 class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   SubscriptionsBloc({
     required InAppPurchaseRepository inAppPurchaseRepository,
+    required UserRepository userRepository,
   })  : _inAppPurchaseRepository = inAppPurchaseRepository,
+        _userRepository = userRepository,
         super(
           SubscriptionsState.initial(),
         ) {
     on<SubscriptionsRequested>(_onSubscriptionsRequested);
-    on<CurrentSubscriptionChanged>(_onCurrentSubscriptionChanged);
     on<SubscriptionPurchaseRequested>(_onSubscriptionPurchaseRequested);
     on<SubscriptionPurchaseUpdated>(_onSubscriptionPurchaseUpdated);
-
-    _currentSubscriptionPlanSubscription =
-        _inAppPurchaseRepository.currentSubscriptionPlan.listen(
-      (subscription) => add(
-        CurrentSubscriptionChanged(
-          subscription: subscription,
-        ),
-      ),
-      onError: addError,
-    );
 
     _subscriptionPurchaseUpdateSubscription =
         _inAppPurchaseRepository.purchaseUpdate.listen(
@@ -37,9 +29,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   }
 
   final InAppPurchaseRepository _inAppPurchaseRepository;
-
-  late StreamSubscription<SubscriptionPlan>
-      _currentSubscriptionPlanSubscription;
+  final UserRepository _userRepository;
 
   late StreamSubscription<PurchaseUpdate>
       _subscriptionPurchaseUpdateSubscription;
@@ -54,13 +44,6 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
     } catch (error, stackTrace) {
       addError(error, stackTrace);
     }
-  }
-
-  FutureOr<void> _onCurrentSubscriptionChanged(
-    CurrentSubscriptionChanged event,
-    Emitter<SubscriptionsState> emit,
-  ) {
-    emit(state.copyWith(currentSubscription: event.subscription));
   }
 
   FutureOr<void> _onSubscriptionPurchaseRequested(
@@ -78,7 +61,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
   FutureOr<void> _onSubscriptionPurchaseUpdated(
     SubscriptionPurchaseUpdated event,
     Emitter<SubscriptionsState> emit,
-  ) {
+  ) async {
     final purchase = event.purchase;
 
     if (purchase is PurchasePurchased) {
@@ -88,6 +71,7 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
         ),
       );
     } else if (purchase is PurchaseDelivered) {
+      await _userRepository.updateSubscriptionPlan();
       emit(
         state.copyWith(
           purchaseStatus: PurchaseStatus.completed,
@@ -104,7 +88,6 @@ class SubscriptionsBloc extends Bloc<SubscriptionsEvent, SubscriptionsState> {
 
   @override
   Future<void> close() {
-    _currentSubscriptionPlanSubscription.cancel();
     _subscriptionPurchaseUpdateSubscription.cancel();
     return super.close();
   }

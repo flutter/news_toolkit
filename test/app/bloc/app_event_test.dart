@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
-import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -16,17 +15,6 @@ void main() {
         expect(
           AppUserChanged(user),
           AppUserChanged(user),
-        );
-      });
-    });
-
-    group('AppUserSubscriptionPlanChanged', () {
-      const plan = SubscriptionPlan.premium;
-
-      test('supports value comparisons', () {
-        expect(
-          AppUserSubscriptionPlanChanged(plan),
-          AppUserSubscriptionPlanChanged(plan),
         );
       });
     });

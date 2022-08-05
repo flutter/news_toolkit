@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/subscriptions/subscriptions.dart';
-import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -28,23 +27,20 @@ void main() {
     final appBloc = MockAppBloc();
 
     testWidgets(
-        'adds AppUserSubscriptionPlanChanged '
+        'navigates back '
         'when subscriptions ListTile tapped', (tester) async {
+      final navigator = MockNavigator();
+      when(navigator.maybePop).thenAnswer((_) async => true);
+
       await tester.pumpApp(
         ManageSubscriptionPage(),
         appBloc: appBloc,
+        navigator: navigator,
       );
 
       await tester.tap(find.byKey(Key('manageSubscription_subscriptions')));
       await tester.pumpAndSettle();
-
-      verify(
-        () => appBloc.add(
-          AppUserSubscriptionPlanChanged(
-            SubscriptionPlan.none,
-          ),
-        ),
-      ).called(1);
+      verify(navigator.maybePop).called(1);
     });
   });
 }

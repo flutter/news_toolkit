@@ -9,15 +9,6 @@ class SubscriptionsRequested extends SubscriptionsEvent {
   List<Object> get props => [];
 }
 
-class CurrentSubscriptionChanged extends SubscriptionsEvent {
-  CurrentSubscriptionChanged({required this.subscription});
-
-  final SubscriptionPlan subscription;
-
-  @override
-  List<Object> get props => [subscription];
-}
-
 class SubscriptionPurchaseRequested extends SubscriptionsEvent {
   SubscriptionPurchaseRequested({required this.subscription});
 

@@ -4,18 +4,18 @@ import 'package:authentication_client/authentication_client.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('User', () {
+  group('AuthenticationUser', () {
     test('supports value equality', () {
-      final userA = User(id: 'A');
-      final secondUserA = User(id: 'A');
-      final userB = User(id: 'B');
+      final userA = AuthenticationUser(id: 'A');
+      final secondUserA = AuthenticationUser(id: 'A');
+      final userB = AuthenticationUser(id: 'B');
 
       expect(userA, equals(secondUserA));
       expect(userA, isNot(equals(userB)));
     });
 
     test('isAnonymous returns true for anonymous user', () {
-      expect(User.anonymous.isAnonymous, isTrue);
+      expect(AuthenticationUser.anonymous.isAnonymous, isTrue);
     });
   });
 }
