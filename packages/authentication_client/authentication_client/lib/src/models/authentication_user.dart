@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 /// [AuthenticationUser.anonymous] represents an unauthenticated user.
 /// {@endtemplate}
 class AuthenticationUser extends Equatable {
-  /// {@macro user}
+  /// {@macro authentication_user}
   const AuthenticationUser({
     required this.id,
     this.email,
