@@ -1,0 +1,16 @@
+{
+  "app_name": "Google News Template",
+  "project_name": "google_news_template",
+  "flutter_version": "3.0.0",
+  "reverse_domain": "com.google.news.template",
+  "code_owners": "@bselwe",
+  "flavors": [
+    {
+      "name": "development",
+      "suffix": "dev"
+    },
+    {
+      "name": "production"
+    }
+  ]
+}
