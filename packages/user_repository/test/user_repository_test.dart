@@ -79,7 +79,13 @@ void main() {
       );
     });
 
-    test('currentSubscriptionPlan emits none when initialized', () async {
+    test(
+        'currentSubscriptionPlan emits none '
+        ' when initialized and authenticationClient.user is anonymous',
+        () async {
+      when(() => authenticationClient.user).thenAnswer(
+        (invocation) => Stream.value(AuthenticationUser.anonymous),
+      );
       final response = await userRepository.user.first;
       expect(
         response.subscriptionPlan,
