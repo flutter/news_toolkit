@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// {@template user}
+/// {@template authentication_user}
 /// User model
 ///
 /// [AuthenticationUser.anonymous] represents an unauthenticated user.
