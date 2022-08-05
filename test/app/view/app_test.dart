@@ -66,8 +66,6 @@ void main() {
       when(() => userRepository.user).thenAnswer((_) => const Stream.empty());
       when(() => userRepository.incomingEmailLinks)
           .thenAnswer((_) => const Stream.empty());
-      when(() => inAppPurchaseRepository.currentSubscriptionPlan)
-          .thenAnswer((_) => const Stream.empty());
       when(() => userRepository.fetchAppOpenedCount())
           .thenAnswer((_) async => 2);
       when(() => userRepository.incrementAppOpenedCount())
@@ -119,7 +117,7 @@ void main() {
     });
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
-      when(() => appBloc.state).thenReturn(const AppState.unauthenticated());
+      when(() => appBloc.state).thenReturn(AppState.unauthenticated());
       await mockHydratedStorage(
         () => tester.pumpApp(
           const AppView(),
@@ -162,7 +160,7 @@ void main() {
               AppState.authenticated(user),
             ],
           ),
-          initialState: const AppState.unauthenticated(),
+          initialState: AppState.unauthenticated(),
         );
 
         await mockHydratedStorage(
@@ -196,7 +194,7 @@ void main() {
               AppState.authenticated(user),
             ],
           ),
-          initialState: const AppState.unauthenticated(),
+          initialState: AppState.unauthenticated(),
         );
 
         await mockHydratedStorage(

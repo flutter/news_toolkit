@@ -44,7 +44,11 @@ void main() {
       late AnalyticsBloc analyticsBloc;
       late AppBloc appBloc;
 
-      final user = User(id: '1', email: 'email');
+      final user = User(
+        id: '1',
+        email: 'email',
+        subscriptionPlan: SubscriptionPlan.none,
+      );
       const notificationsEnabled = true;
 
       setUp(() {
@@ -69,10 +73,7 @@ void main() {
           Stream.fromIterable(
             <AppState>[AppState.unauthenticated()],
           ),
-          initialState: AppState.authenticated(
-            user,
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ),
+          initialState: AppState.authenticated(user),
         );
       });
 
@@ -148,6 +149,7 @@ void main() {
           Stream.fromIterable([
             UserProfileState.initial(),
             UserProfileState(
+              user: User.anonymous,
               notificationsEnabled: true,
               status: UserProfileStatus.togglingNotificationsSucceeded,
             ),
@@ -237,10 +239,7 @@ void main() {
           whenListen(
             appBloc,
             Stream.fromIterable([
-              AppState.authenticated(
-                user,
-                userSubscriptionPlan: SubscriptionPlan.none,
-              ),
+              AppState.authenticated(user),
             ]),
           );
 
@@ -260,18 +259,7 @@ void main() {
           whenListen(
             appBloc,
             Stream.fromIterable([
-              AppState.authenticated(
-                user,
-                userSubscriptionPlan: SubscriptionPlan.none,
-              ),
-            ]),
-          );
-
-          when(
-            () => inAppPurchaseRepository.currentSubscriptionPlan,
-          ).thenAnswer(
-            (_) => Stream.fromIterable([
-              SubscriptionPlan.none,
+              AppState.authenticated(user),
             ]),
           );
 
@@ -486,14 +474,14 @@ void main() {
             'to ManageSubscriptionPage '
             'when isUserSubscribed is true and '
             'tapped on Manage Subscription', (tester) async {
+          final subscribedUser = User(
+            id: '1',
+            email: 'email',
+            subscriptionPlan: SubscriptionPlan.premium,
+          );
           whenListen(
             appBloc,
-            Stream.fromIterable([
-              AppState.authenticated(
-                user,
-                userSubscriptionPlan: SubscriptionPlan.premium,
-              ),
-            ]),
+            Stream.fromIterable([AppState.authenticated(subscribedUser)]),
           );
 
           await tester.pumpApp(
