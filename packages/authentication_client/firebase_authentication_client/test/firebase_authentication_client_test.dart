@@ -597,7 +597,7 @@ void main() {
       const returningUser =
           AuthenticationUser(id: userId, email: email, isNewUser: false);
 
-      test('emits User.anonymous when firebase user is null', () async {
+      test('emits anonymous user when firebase user is null', () async {
         when(firebaseAuth.authStateChanges)
             .thenAnswer((_) => Stream.value(null));
         await expectLater(
