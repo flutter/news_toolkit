@@ -23,6 +23,12 @@
     "type": "text",
     "placeholders": {}
   },
+  "adLoadFailure": "Failed to load this ad.",
+  "@adLoadFailure": {
+    "description": "Text displayed when loading an ad fails",
+    "type": "text",
+    "placeholders": {}
+  },
   "loginWelcomeText": "Welcome to\nGoogle News Template",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",

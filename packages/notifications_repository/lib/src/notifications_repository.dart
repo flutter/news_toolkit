@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_news_template_api/client.dart';
+import 'package:notifications_client/notifications_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
 import 'package:very_good_analysis/very_good_analysis.dart';
@@ -78,18 +78,18 @@ class NotificationsRepository {
   NotificationsRepository({
     required PermissionClient permissionClient,
     required NotificationsStorage storage,
-    required FirebaseMessaging firebaseMessaging,
+    required NotificationsClient notificationsClient,
     required GoogleNewsTemplateApiClient apiClient,
   })  : _permissionClient = permissionClient,
         _storage = storage,
-        _firebaseMessaging = firebaseMessaging,
+        _notificationsClient = notificationsClient,
         _apiClient = apiClient {
     unawaited(_initializeCategoriesPreferences());
   }
 
   final PermissionClient _permissionClient;
   final NotificationsStorage _storage;
-  final FirebaseMessaging _firebaseMessaging;
+  final NotificationsClient _notificationsClient;
   final GoogleNewsTemplateApiClient _apiClient;
 
   /// Toggles the notifications based on the [enable].
@@ -210,8 +210,8 @@ class NotificationsRepository {
     await Future.wait(
       categoriesPreferences.map((category) {
         return enable
-            ? _firebaseMessaging.subscribeToTopic(category.name)
-            : _firebaseMessaging.unsubscribeFromTopic(category.name);
+            ? _notificationsClient.subscribeToCategory(category.name)
+            : _notificationsClient.unsubscribeFromCategory(category.name);
       }),
     );
   }

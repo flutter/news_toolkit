@@ -29,7 +29,6 @@ Future<void> bootstrap(AppBuilder builder) async {
 
 Future<void> _runApp(AppBuilder builder) async {
   await Firebase.initializeApp();
-  // ignore: prefer_const_constructors
   final analyticsRepository = AnalyticsRepository(FirebaseAnalytics.instance);
   final blocObserver = AppBlocObserver(
     analyticsRepository: analyticsRepository,

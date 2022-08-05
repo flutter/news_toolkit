@@ -10,10 +10,14 @@ class BannerAd extends StatelessWidget {
   const BannerAd({
     super.key,
     required this.block,
+    required this.adFailedToLoadTitle,
   });
 
   /// The associated [BannerAdBlock] instance.
   final BannerAdBlock block;
+
+  /// The title displayed when this ad fails to load.
+  final String adFailedToLoadTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class BannerAd extends StatelessWidget {
       size: block.size,
       child: BannerAdContent(
         size: block.size,
+        adFailedToLoadTitle: adFailedToLoadTitle,
       ),
     );
   }

@@ -37,7 +37,7 @@ void main() {
       ).thenAnswer((_) async {});
 
       when(
-        () => firebaseAnalytics.setUserId(id: any()),
+        () => firebaseAnalytics.setUserId(id: any(named: 'id')),
       ).thenAnswer((_) async {});
     });
 
@@ -102,7 +102,7 @@ void main() {
           'throws SetUserIdFailure '
           'when setUserId throws exception', () async {
         when(
-          () => firebaseAnalytics.setUserId(id: any()),
+          () => firebaseAnalytics.setUserId(id: any(named: 'id')),
         ).thenThrow(Exception());
 
         expect(

@@ -30,15 +30,19 @@ void main() {
   });
 
   testWidgets('renders a HomeView', (tester) async {
-    await tester.pumpApp(const HomePage());
+    await mockHydratedStorage(() async {
+      await tester.pumpApp(const HomePage());
+    });
     expect(find.byType(HomeView), findsOneWidget);
   });
 
   testWidgets('renders FeedView', (tester) async {
-    await tester.pumpApp(
-      HomePage(),
-      newsRepository: newsRepository,
-    );
+    await mockHydratedStorage(() async {
+      await tester.pumpApp(
+        const HomePage(),
+        newsRepository: newsRepository,
+      );
+    });
     expect(find.byType(FeedView), findsOneWidget);
   });
 }
