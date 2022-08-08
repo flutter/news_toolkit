@@ -15,14 +15,18 @@ class UserProfileState extends Equatable {
   const UserProfileState({
     required this.status,
     this.notificationsEnabled = false,
-    this.user,
+    required this.user,
   });
 
-  const UserProfileState.initial() : this(status: UserProfileStatus.initial);
+  const UserProfileState.initial()
+      : this(
+          status: UserProfileStatus.initial,
+          user: User.anonymous,
+        );
 
   final UserProfileStatus status;
   final bool notificationsEnabled;
-  final User? user;
+  final User user;
 
   @override
   List<Object?> get props => [status, user];

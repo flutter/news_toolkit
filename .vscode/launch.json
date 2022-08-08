@@ -55,16 +55,6 @@
         "group": "2_gallery",
         "order": 1
       }
-    },
-    {
-      "name": "Launch API",
-      "request": "launch",
-      "type": "dart",
-      "program": "api/bin/server.dart",
-      "presentation": {
-        "group": "3_backend",
-        "order": 1
-      }
     }
   ]
 }

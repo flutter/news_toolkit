@@ -593,15 +593,18 @@ void main() {
     group('user', () {
       const userId = 'mock-uid';
       const email = 'mock-email';
-      const newUser = User(id: userId, email: email);
-      const returningUser = User(id: userId, email: email, isNewUser: false);
+      const newUser = AuthenticationUser(id: userId, email: email);
+      const returningUser =
+          AuthenticationUser(id: userId, email: email, isNewUser: false);
 
-      test('emits User.anonymous when firebase user is null', () async {
+      test('emits anonymous user when firebase user is null', () async {
         when(firebaseAuth.authStateChanges)
             .thenAnswer((_) => Stream.value(null));
         await expectLater(
           firebaseAuthenticationClient.user,
-          emitsInOrder(const <User>[User.anonymous]),
+          emitsInOrder(
+            const <AuthenticationUser>[AuthenticationUser.anonymous],
+          ),
         );
       });
 
@@ -619,7 +622,7 @@ void main() {
             .thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
-          emitsInOrder(const <User>[newUser]),
+          emitsInOrder(const <AuthenticationUser>[newUser]),
         );
       });
 
@@ -638,7 +641,7 @@ void main() {
             .thenAnswer((_) => Stream.value(firebaseUser));
         await expectLater(
           firebaseAuthenticationClient.user,
-          emitsInOrder(const <User>[returningUser]),
+          emitsInOrder(const <AuthenticationUser>[returningUser]),
         );
       });
 

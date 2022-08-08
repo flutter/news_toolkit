@@ -56,17 +56,21 @@ void main() {
   group('NavigationDrawer', () {
     late CategoriesBloc categoriesBloc;
     late AppBloc appBloc;
+    late User user;
 
     const categories = [Category.top, Category.health];
 
     setUp(() {
       categoriesBloc = MockCategoriesBloc();
       appBloc = MockAppBloc();
+      user = MockUser();
 
       when(() => categoriesBloc.state).thenReturn(
         CategoriesState.initial().copyWith(categories: categories),
       );
-      when(() => appBloc.state).thenReturn(AppState.authenticated(MockUser()));
+
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
+      when(() => appBloc.state).thenReturn(AppState.authenticated(user));
     });
 
     testWidgets('renders Drawer', (tester) async {
@@ -96,11 +100,10 @@ void main() {
     testWidgets(
         'renders NavigationDrawerSubscribe '
         'when user is not subscribed', (tester) async {
+      final user = MockUser();
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
       when(() => appBloc.state).thenReturn(
-        AppState.authenticated(
-          MockUser(),
-          userSubscriptionPlan: SubscriptionPlan.none,
-        ),
+        AppState.authenticated(user),
       );
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
@@ -112,11 +115,10 @@ void main() {
     testWidgets(
         'does not render NavigationDrawerSubscribe '
         'when user is subscribed', (tester) async {
+      final user = MockUser();
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
       when(() => appBloc.state).thenReturn(
-        AppState.authenticated(
-          MockUser(),
-          userSubscriptionPlan: SubscriptionPlan.premium,
-        ),
+        AppState.authenticated(user),
       );
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,

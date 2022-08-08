@@ -266,33 +266,12 @@ void main() {
     });
 
     testWidgets(
-        'throws BannerAdFailedToLoadException '
-        'and disposes ad object '
-        'when ad fails to load', (tester) async {
-      await tester.pumpApp(
-        BannerAdContent(
-          size: BannerAdSize.normal,
-          adBuilder: adBuilder,
-          currentPlatform: platform,
-        ),
-      );
-
-      final error = MockLoadAdError();
-      capturedListener.onAdFailedToLoad!(ad, error);
-
-      expect(
-        tester.takeException(),
-        isA<BannerAdFailedToLoadException>(),
-      );
-
-      verify(ad.dispose).called(1);
-    });
-
-    testWidgets(
         'retries loading ad based on AdsRetryPolicy '
         'and renders placeholder '
         'when ad fails to load', (tester) async {
       final fakeAsync = FakeAsync();
+      const adFailedToLoadTitle = 'adFailedToLoadTitle';
+      final adsRetryPolicy = AdsRetryPolicy();
 
       adBuilder = ({
         required AdSize size,
@@ -309,14 +288,11 @@ void main() {
         return ad;
       };
 
-      // Ignore thrown errors.
-      FlutterError.onError = (_) {};
+      final errors = <Object>[];
+      FlutterError.onError = (error) => errors.add(error.exception);
 
       unawaited(
         fakeAsync.run((async) async {
-          const adFailedToLoadTitle = 'adFailedToLoadTitle';
-          final adsRetryPolicy = AdsRetryPolicy();
-
           await tester.pumpApp(
             BannerAdContent(
               adFailedToLoadTitle: adFailedToLoadTitle,
@@ -342,6 +318,18 @@ void main() {
       );
 
       fakeAsync.flushMicrotasks();
+
+      expect(
+        errors,
+        equals([
+          // Initial load attempt failure.
+          isA<BannerAdFailedToLoadException>(),
+
+          // Retry load attempt failures.
+          for (var i = 1; i <= adsRetryPolicy.maxRetryCount; i++)
+            isA<BannerAdFailedToLoadException>(),
+        ]),
+      );
     });
 
     testWidgets(

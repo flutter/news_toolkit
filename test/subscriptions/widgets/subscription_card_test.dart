@@ -68,11 +68,10 @@ void main() {
         final appBloc = MockAppBloc();
         final SubscriptionsBloc subscriptionsBloc = MockSubscriptionsBloc();
 
+        final user = MockUser();
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         when(() => appBloc.state).thenAnswer(
-          (_) => AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ),
+          (_) => AppState.authenticated(user),
         );
 
         when(() => subscriptionsBloc.state).thenAnswer(

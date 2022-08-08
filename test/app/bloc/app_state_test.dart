@@ -9,6 +9,13 @@ class MockUser extends Mock implements User {}
 
 void main() {
   group('AppState', () {
+    late User user;
+
+    setUp(() {
+      user = MockUser();
+      when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
+    });
+
     group('unauthenticated', () {
       test('has correct status', () {
         final state = AppState.unauthenticated();
@@ -19,26 +26,14 @@ void main() {
 
     group('authenticated', () {
       test('has correct status', () {
-        final user = MockUser();
         final state = AppState.authenticated(user);
         expect(state.status, AppStatus.authenticated);
         expect(state.user, user);
-      });
-
-      test('has correct userSubscriptionPlan', () {
-        const userSubscriptionPlan = SubscriptionPlan.premium;
-        final state = AppState.authenticated(
-          MockUser(),
-          userSubscriptionPlan: userSubscriptionPlan,
-        );
-        expect(state.status, AppStatus.authenticated);
-        expect(state.userSubscriptionPlan, userSubscriptionPlan);
       });
     });
 
     group('onboardingRequired', () {
       test('has correct status', () {
-        final user = MockUser();
         final state = AppState.onboardingRequired(user);
         expect(state.status, AppStatus.onboardingRequired);
         expect(state.user, user);
@@ -48,28 +43,16 @@ void main() {
     group('isUserSubscribed', () {
       test('returns true when userSubscriptionPlan is not null and not none',
           () {
+        when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
         expect(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.premium,
-          ).isUserSubscribed,
+          AppState.authenticated(user).isUserSubscribed,
           isTrue,
-        );
-      });
-
-      test('returns false when userSubscriptionPlan is null', () {
-        expect(
-          AppState.authenticated(MockUser()).isUserSubscribed,
-          isFalse,
         );
       });
 
       test('returns false when userSubscriptionPlan is none', () {
         expect(
-          AppState.authenticated(
-            MockUser(),
-            userSubscriptionPlan: SubscriptionPlan.none,
-          ).isUserSubscribed,
+          AppState.authenticated(user).isUserSubscribed,
           isFalse,
         );
       });
@@ -103,7 +86,6 @@ void main() {
       test(
           'returns object with updated user '
           'when user is passed', () {
-        final user = MockUser();
         expect(
           AppState.unauthenticated().copyWith(
             user: user,
@@ -112,23 +94,6 @@ void main() {
             AppState(
               status: AppStatus.unauthenticated,
               user: user,
-            ),
-          ),
-        );
-      });
-
-      test(
-          'returns object with updated userSubscriptionPlan '
-          'when userSubscriptionPlan is passed', () {
-        const userSubscriptionPlan = SubscriptionPlan.premium;
-        expect(
-          AppState.unauthenticated().copyWith(
-            userSubscriptionPlan: userSubscriptionPlan,
-          ),
-          equals(
-            AppState(
-              status: AppStatus.unauthenticated,
-              userSubscriptionPlan: userSubscriptionPlan,
             ),
           ),
         );

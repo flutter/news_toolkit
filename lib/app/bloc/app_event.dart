@@ -20,15 +20,6 @@ class AppUserChanged extends AppEvent {
   List<Object> get props => [user];
 }
 
-class AppUserSubscriptionPlanChanged extends AppEvent {
-  const AppUserSubscriptionPlanChanged(this.plan);
-
-  final SubscriptionPlan plan;
-
-  @override
-  List<Object> get props => [plan];
-}
-
 class AppOnboardingCompleted extends AppEvent {
   const AppOnboardingCompleted();
 }

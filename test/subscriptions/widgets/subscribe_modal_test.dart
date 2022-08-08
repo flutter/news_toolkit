@@ -88,14 +88,6 @@ void main() {
         inAppPurchaseRepository = MockInAppPurchaseRepository();
         articleBloc = MockArticleBloc();
 
-        when(
-          () => inAppPurchaseRepository.currentSubscriptionPlan,
-        ).thenAnswer(
-          (_) => Stream.fromIterable([
-            SubscriptionPlan.none,
-          ]),
-        );
-
         when(() => inAppPurchaseRepository.purchaseUpdate).thenAnswer(
           (_) => const Stream.empty(),
         );
