@@ -304,6 +304,10 @@ void main() async {
                 '{{project_name.snakeCase()}}',
               )
               .replaceAll(
+                'GoogleNewsTemplate',
+                '{{project_name.pascalCase()}}',
+              )
+              .replaceAll(
                 'google-news-template',
                 '{{project_name.paramCase()}}',
               )
