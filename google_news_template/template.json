@@ -1,16 +1,31 @@
 {
   "app_name": "Google News Template",
   "project_name": "google_news_template",
-  "flutter_version": "3.0.0",
   "reverse_domain": "com.google.news.template",
   "code_owners": "@githubUser",
+  "flutter_version": "3.0.0",
+  "api_url": "https://google-news-template-api-q66trdlzja-uc.a.run.app",
   "flavors": [
     {
       "name": "development",
-      "suffix": "dev"
+      "suffix": "dev",
+      "deep_link_domain": "",
+      "twitter_api_key": "",
+      "twitter_api_secret": "",
+      "facebook_app_id": "",
+      "facebook_client_token": "",
+      "facebook_display_name": "",
+      "admob_app_id": ""
     },
     {
-      "name": "production"
+      "name": "production",
+      "deep_link_domain": "",
+      "twitter_api_key": "",
+      "twitter_api_secret": "",
+      "facebook_app_id": "",
+      "facebook_client_token": "",
+      "facebook_display_name": "",
+      "admob_app_id": ""
     }
   ]
 }

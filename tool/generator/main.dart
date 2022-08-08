@@ -18,6 +18,22 @@ final _targetProjectWorkflow = path.join(
   'workflows',
   'google_news_template.yaml',
 );
+final _targetProjectApiClient = path.join(
+  _targetPath,
+  'api',
+  'lib',
+  'src',
+  'client',
+  'google_news_template_api_client.dart',
+);
+final _targetProjectApiClientTests = path.join(
+  _targetPath,
+  'api',
+  'test',
+  'src',
+  'client',
+  'google_news_template_api_client_test.dart',
+);
 final _targetProjectDependabotConfiguration = path.join(
   _targetPath,
   '.github',
@@ -44,6 +60,8 @@ final _targetIosProject = path.join(
 final _flutterVersionRegExp = RegExp(r'flutter: (.*)');
 final _vgWorkflowFlutterVersionRegExp = RegExp(r'flutter_version: (.*)');
 final _workflowFlutterVersionRegExp = RegExp(r'flutter-version: (.*)');
+final _apiClientRegExp =
+    RegExp('google-news-template-api-q66trdlzja-uc.a.run.app');
 final _workflowWorkingDirectoryRegExp = RegExp(
   r'\s+defaults:(.*?)google_news_project',
   multiLine: true,
@@ -252,6 +270,18 @@ void main() async {
             '''# Development\n\$ flutter run --flavor development --target lib/main/main_development.dart\n\n# Production\n\$ flutter run --flavor production --target lib/main/main_production.dart''',
             '''{{#flavors}}# {{{name}}}\n\$ flutter run --flavor {{{name}}} --target lib/main/main_{{{name}}}.dart\n{{/flavors}}''',
           ),
+        );
+      }
+
+      if (file.path == _targetProjectApiClient) {
+        file.writeAsStringSync(
+          file.readAsStringSync().replaceAll(_apiClientRegExp, '{{api_url}}'),
+        );
+      }
+
+      if (file.path == _targetProjectApiClientTests) {
+        file.writeAsStringSync(
+          file.readAsStringSync().replaceAll(_apiClientRegExp, '{{api_url}}'),
         );
       }
 
