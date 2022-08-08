@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "api/**"
+      - "google_news_project/api/**"
       - ".github/workflows/api.yaml"
     branches:
       - main
@@ -16,7 +16,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: api
+      working_directory: google_news_project/api
       analyze_directories: "routes lib test"
       coverage_excludes: "**/*.g.dart"
       report_on: "routes,lib"
