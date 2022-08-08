@@ -372,9 +372,9 @@ void main() async {
     path.join(
       _targetPath,
       'android',
-      'app',
-      'src',
-      '{{#flavors}}{{{name}}}{{flavors}}',
+      'app/src',
+      '{{#flavors}}{{{name}}}{{',
+      'flavors}}',
       'res',
       'values',
       'strings.xml',
