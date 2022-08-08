@@ -75,7 +75,7 @@ android {
         {{name}} {
             dimension "default"
             applicationIdSuffix "{{suffix}}"
-            manifestPlaceholders = [appName: "{{app_name}} [{{#upperCase}}{{suffix}}{{/upperCase}}]"]
+            manifestPlaceholders = [appName: "{{app_name}} [{{suffix.upperCase()}}]"]
         } {{/flavors}}
     }
 

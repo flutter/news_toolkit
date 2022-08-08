@@ -9,8 +9,7 @@ final _templatePath = path.join(
 );
 final _targetPath = path.join(
   _templatePath,
-  '{{#snakeCase}}{{project_name}}{{',
-  'snakeCase}}',
+  '{{project_name.snakeCase()}}',
 );
 final _targetProjectWorkflow = path.join(
   _targetPath,
@@ -302,11 +301,11 @@ void main() async {
           contents
               .replaceAll(
                 'google_news_template',
-                '{{#snakeCase}}{{project_name}}{{/snakeCase}}',
+                '{{project_name.snakeCase()}}',
               )
               .replaceAll(
                 'google-news-template',
-                '{{#paramCase}}{{project_name}}{{/paramCase}}',
+                '{{project_name.paramCase()}}',
               )
               .replaceAll('Google News Template', '{{app_name}}')
               .replaceAll('{{ github.workflow }}', '{{{ github.workflow }}}')
@@ -500,7 +499,7 @@ void main() async {
         FACEBOOK_APP_ID = "{{facebook_app_id}}";
         FACEBOOK_CLIENT_TOKEN = "{{facebook_client_token}}";
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
-        FLAVOR_APP_NAME = "{{app_name}} [{{#upperCase}}{{suffix}}{{/upperCase}}];
+        FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}];
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
         FRAMEWORK_SEARCH_PATHS = (
           "$(inherited)",
@@ -515,13 +514,13 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{#lowerCase}}{{suffix}}{{/lowerCase}};
+        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
         SWIFT_OPTIMIZATION_LEVEL = "-Onone";
         SWIFT_VERSION = 5.0;
-        TWITTER_REDIRECT_URI_SCHEME = "{{#paramCase}}{{project_name}}{{/paramCase}}";
+        TWITTER_REDIRECT_URI_SCHEME = "{{project_name.paramCase()}}";
         VERSIONING_SYSTEM = "apple-generic";
       };
       name = "Debug-{{name}}";
@@ -598,7 +597,7 @@ void main() async {
         FACEBOOK_APP_ID = {{facebook_app_id}};
         FACEBOOK_CLIENT_TOKEN = {{facebook_client_token}};
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
-        FLAVOR_APP_NAME = "{{app_name}} [{{#upperCase}}{{suffix}}{{/upperCase}}];
+        FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}];
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
         FRAMEWORK_SEARCH_PATHS = (
           "$(inherited)",
@@ -613,12 +612,12 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{#lowerCase}}{{suffix}}{{/lowerCase}};
+        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
         SWIFT_VERSION = 5.0;
-        TWITTER_REDIRECT_URI_SCHEME = "{{#paramCase}}{{project_name}}{{/paramCase}}";
+        TWITTER_REDIRECT_URI_SCHEME = "{{project_name.paramCase()}}";
       };
       name = "Release-{{name}}";
     };

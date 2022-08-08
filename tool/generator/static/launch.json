@@ -23,7 +23,7 @@
                 "--dart-define",
                 "TWITTER_API_SECRET={{twitter_api_secret}}",
                 "--dart-define",
-                "TWITTER_REDIRECT_URI={{#paramCase}}{{project_name}}{{/paramCase}}://"
+                "TWITTER_REDIRECT_URI={{project_name.paramCase()}}://"
             ]
         },
         {{/flavors}}
