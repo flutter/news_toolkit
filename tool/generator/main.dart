@@ -121,7 +121,7 @@ final _blackList = <String>[
     'development',
     'res',
     'values',
-    'google-services.json',
+    'strings.xml',
   ),
   path.join(
     _targetPath,
