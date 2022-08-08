@@ -7,17 +7,21 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "api/**"
-      - "lib/**"
-      - "test/**"
-      - "packages/**"
-      - "pubspec.yaml"
+      - "google_news_project/api/**"
+      - "google_news_project/lib/**"
+      - "google_news_project/test/**"
+      - "google_news_project/packages/**"
+      - "google_news_project/pubspec.yaml"
       - ".github/workflows/google_news_template.yaml"
     branches:
       - main
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: google_news_project
+
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +54,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1
         with:
           exclude: "**/*.g.dart **/*.gen.dart **/l10n/*.dart **/l10n/**/*.dart **/main/bootstrap.dart"
-          path: coverage/lcov.info
+          path: google_news_project/coverage/lcov.info
 
       - name: Generate Visual Architecture
         env:
@@ -66,4 +70,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: visual-architecture-report
-          path: ./pubviz.html
+          path: ./google_news_project/pubviz.html

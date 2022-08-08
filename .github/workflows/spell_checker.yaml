@@ -14,5 +14,5 @@ jobs:
       - uses: zwaldowski/cspell-action@v1
         with:
           paths: "**/*.{md,dart}"
-          config: .vscode/cspell.json
+          config: google_news_project/.vscode/cspell.json
           exclude: ".gitignore"

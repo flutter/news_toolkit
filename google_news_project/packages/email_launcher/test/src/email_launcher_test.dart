@@ -52,15 +52,8 @@ void main() {
 
             final result = await canLaunchUrl(url);
             mock
-              ..setLaunchExpectations(
+              ..setLaunchUrlExpectations(
                 url: url.toString(),
-                useSafariVC: false,
-                useWebView: false,
-                enableJavaScript: true,
-                enableDomStorage: true,
-                universalLinksOnly: false,
-                headers: <String, String>{},
-                webOnlyWindowName: null,
               )
               ..response = true;
             final launch = await launchUrl(url);

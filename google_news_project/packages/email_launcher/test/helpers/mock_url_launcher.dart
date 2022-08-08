@@ -41,7 +41,10 @@ class MockUrlLauncher extends Fake
   /// Bool to know if the URI was launched.
   bool launchCalled = false;
 
-  /// Method to set the needed variables to use the `launchURL`method.
+  /// The launch options.
+  LaunchOptions? options;
+
+  /// Sets needed variables to use the `launch` method.
   void setLaunchExpectations({
     required String url,
     required bool? useSafariVC,
@@ -59,6 +62,15 @@ class MockUrlLauncher extends Fake
     this.enableDomStorage = enableDomStorage;
     this.headers = headers;
     this.webOnlyWindowName = webOnlyWindowName;
+  }
+
+  /// Sets needed variables to use the `launchUrl` method.
+  void setLaunchUrlExpectations({
+    required String url,
+    LaunchOptions? options,
+  }) {
+    canLaunchUrl = url;
+    this.options = options;
   }
 
   @override
@@ -86,6 +98,16 @@ class MockUrlLauncher extends Fake
     expect(enableDomStorage, this.enableDomStorage);
     expect(headers, this.headers);
     expect(webOnlyWindowName, this.webOnlyWindowName);
+    launchCalled = true;
+    return response!;
+  }
+
+  @override
+  Future<bool> launchUrl(String url, LaunchOptions options) async {
+    expect(url, canLaunchUrl);
+    if (this.options != null) {
+      expect(options, this.options);
+    }
     launchCalled = true;
     return response!;
   }
