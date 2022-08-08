@@ -8,11 +8,16 @@ on: [push, pull_request]
 
 jobs:
   test:
+    defaults:
+      run:
+        working-directory: google_news_project
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - uses: zwaldowski/cspell-action@v1
         with:
           paths: "**/*.{md,dart}"
-          config: google_news_project/.vscode/cspell.json
+          config: .vscode/cspell.json
           exclude: ".gitignore"
