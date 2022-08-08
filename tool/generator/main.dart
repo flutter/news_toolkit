@@ -125,12 +125,6 @@ final _blackList = <String>[
     'gallery',
     '.firebase.json',
   ),
-  path.join(_targetPath, '.dart_tool'),
-  path.join(_targetPath, 'build'),
-  path.join(_targetPath, 'coverage'),
-  path.join(_targetPath, '.flutter-plugins'),
-  path.join(_targetPath, '.flutter-plugins-dependencies'),
-  path.join(_targetPath, '.packages'),
 ];
 
 void main() async {
