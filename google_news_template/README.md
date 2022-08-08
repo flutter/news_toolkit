@@ -1,5 +1,7 @@
 # Google News Template
 
+[![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
+
 ## Usage
 
 ### Activate Mason
@@ -29,3 +31,5 @@ mason make google_news_template -c template.json
 ```
 
 For additional usage information and information about how to create custom templates refer to the [mason documentation](https://github.com/felangel/mason).
+
+[1]: https://github.com/felangel/mason
