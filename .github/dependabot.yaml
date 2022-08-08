@@ -6,110 +6,106 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "/tool/generator"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/permission_client"
+    directory: "/google_news_project/api"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/app_ui/gallery"
+    directory: "/google_news_project/api/packages/news_blocks"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/app_ui"
+    directory: "/google_news_project/packages/permission_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/authentication_client/authentication_client"
+    directory: "/google_news_project/packages/app_ui/gallery"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/authentication_client/firebase_authentication_client"
+    directory: "/google_news_project/packages/app_ui"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/authentication_client/token_storage"
+    directory: "/google_news_project/packages/authentication_client/authentication_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/news_repository"
+    directory: "/google_news_project/packages/authentication_client/firebase_authentication_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/share_launcher"
+    directory: "/google_news_project/packages/authentication_client/token_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/form_inputs"
+    directory: "/google_news_project/packages/news_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/storage/storage"
+    directory: "/google_news_project/packages/share_launcher"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/storage/secure_storage"
+    directory: "/google_news_project/packages/form_inputs"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/storage/persistent_storage"
+    directory: "/google_news_project/packages/storage/storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/ads_consent_client"
+    directory: "/google_news_project/packages/storage/secure_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/in_app_purchase_repository"
+    directory: "/google_news_project/packages/storage/persistent_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/article_repository"
+    directory: "/google_news_project/packages/ads_consent_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/package_info_client"
+    directory: "/google_news_project/packages/in_app_purchase_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/email_launcher"
+    directory: "/google_news_project/packages/article_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/user_repository"
+    directory: "/google_news_project/packages/package_info_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/purchase_client"
+    directory: "/google_news_project/packages/email_launcher"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/deep_link_client"
+    directory: "/google_news_project/packages/user_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/notifications_repository"
+    directory: "/google_news_project/packages/purchase_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/analytics_repository"
+    directory: "/google_news_project/packages/deep_link_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/packages/news_blocks_ui"
+    directory: "/google_news_project/packages/notifications_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/api"
+    directory: "/google_news_project/packages/analytics_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/api/packages/news_blocks"
+    directory: "/google_news_project/packages/news_blocks_ui"
     schedule:
       interval: "daily"

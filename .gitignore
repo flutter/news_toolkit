@@ -2,8 +2,8 @@
 .atom/
 .idea/
 .vscode/
-!google_news_project/.idea/
-!google_news_project/.vscode/
+!google_news_**/.idea/
+!google_news_**/.vscode/
 
 # Files and directories created by pub
 .dart_tool/

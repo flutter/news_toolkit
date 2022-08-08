@@ -45,7 +45,7 @@ final _flutterVersionRegExp = RegExp(r'flutter: (.*)');
 final _vgWorkflowFlutterVersionRegExp = RegExp(r'flutter_version: (.*)');
 final _workflowFlutterVersionRegExp = RegExp(r'flutter-version: (.*)');
 final _workflowWorkingDirectoryRegExp = RegExp(
-  r'\s+defaults:(.*?)google_news_template',
+  r'\s+defaults:(.*?)google_news_project',
   multiLine: true,
   dotAll: true,
 );
@@ -125,6 +125,12 @@ final _blackList = <String>[
     'gallery',
     '.firebase.json',
   ),
+  path.join(_targetPath, '.dart_tool'),
+  path.join(_targetPath, 'build'),
+  path.join(_targetPath, 'coverage'),
+  path.join(_targetPath, '.flutter-plugins'),
+  path.join(_targetPath, '.flutter-plugins-dependencies'),
+  path.join(_targetPath, '.packages'),
 ];
 
 void main() async {
@@ -185,7 +191,7 @@ void main() async {
                 r'group: ${{ github.workflow }}-${{ github.ref }}',
                 r'group: ${{#mustacheCase}}github.workflow{{/mustacheCase}}-${{#mustacheCase}}github.ref{{/mustacheCase}}',
               )
-              .replaceAll('google_news_template/', ''),
+              .replaceAll('google_news_project/', ''),
         );
       }
       if (file.path == _targetProjectWorkflow) {
@@ -203,7 +209,7 @@ void main() async {
     directory: "/tool/generator"
     schedule:
       interval: "daily"
-''', '').replaceAll('/google_news_template/', '/'),
+''', '').replaceAll('/google_news_project/', '/'),
         );
       }
 
