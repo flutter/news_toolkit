@@ -1,0 +1,43 @@
+name: news_blocks_ui
+description: A Flutter package that contains UI components for news blocks.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  app_ui:
+    path: ../app_ui
+  cached_network_image: ^3.2.1
+  flutter:
+    sdk: flutter
+  flutter_html: ^2.2.1
+  google_mobile_ads: ^2.0.0
+  news_blocks:
+    path: ../../api/packages/news_blocks
+  video_player: ^2.4.2
+
+dev_dependencies:
+  fake_async: ^1.3.0
+  flutter_test:
+    sdk: flutter
+  mocktail_image_network: ^0.3.1
+  very_good_analysis: ^3.0.0
+
+dependency_overrides:
+  flutter_svg: ^1.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+
+flutter_gen:
+  assets:
+    package_parameter_enabled: true
+  output: lib/src/generated/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
