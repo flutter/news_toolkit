@@ -312,6 +312,7 @@ void main() async {
                 '{{project_name.paramCase()}}',
               )
               .replaceAll('Google News Template', '{{app_name}}')
+              .replaceAll('com.google.news.template', '{{reverse_domain}}')
               .replaceAll('{{ github.workflow }}', '{{{ github.workflow }}}')
               .replaceAll('{{ github.ref }}', '{{{ github.ref }}}')
               .replaceAll('{{ env.FLUTTER_HOME }}', '{{{ env.FLUTTER_HOME }}}'),
