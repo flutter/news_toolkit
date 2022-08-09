@@ -39,7 +39,7 @@ void main() {
 
       final packageInfoClient = PackageInfoClient(
         appName: '{{app_name}} [DEV]',
-        packageName: 'com.google.news.template.dev',
+        packageName: '{{reverse_domain}}.dev',
         packageVersion: packageVersion,
       );
 
