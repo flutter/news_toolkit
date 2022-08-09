@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">{{flavors.facebook_app_id}}</string>
+    <string name="facebook_client_token">{{flavors.facebook_client_token}}</string>
+    <string name="twitter_redirect_uri_scheme">{{flavors.project_name.paramCase()}}</string>
+    <string name="flavor_deep_link_domain">{{flavors.deep_link_domain}}</string>
+    <string name="admob_app_id">{{flavors.admob_app_id}}</string>
+</resources>
