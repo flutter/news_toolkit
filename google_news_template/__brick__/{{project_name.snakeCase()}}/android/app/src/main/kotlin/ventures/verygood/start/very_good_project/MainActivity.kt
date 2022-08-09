@@ -1,4 +1,4 @@
-package com.google.news.template
+package {{reverse_domain}}
 
 import io.flutter.embedding.android.FlutterActivity
 
