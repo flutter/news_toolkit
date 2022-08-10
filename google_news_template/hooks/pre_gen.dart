@@ -60,7 +60,8 @@ Iterable<Map> _configureFlavors(
             return configuredFlavor;
 
           final flavorOption = context.logger.prompt(
-              '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?');
+            '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?',
+          );
 
           return {
             ...configuredFlavor,
