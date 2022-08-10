@@ -9,35 +9,33 @@ Future<void> run(HookContext context) async {
 
   final flavors = vars['flavors'].toString().split(' ').map((flavorName) {
     // Request additional metadata for each flavor.
-    final suffix = context.logger.prompt(
-      '[$flavorName] Please provide a flavor suffix (e.g. dev): ',
-      defaultValue: '',
-    );
+    final suffix = context.logger
+        .prompt('[$flavorName] What is the flavor suffix (e.g. dev)?');
 
     final deepLinkDomain = context.logger.prompt(
-      '[$flavorName] Please provide a flavor deep link domain (e.g. application.page.link): ',
+      '[$flavorName] What is the flavor deep link domain (e.g. application.page.link)?',
     );
 
     final twitterApiKey = context.logger
-        .prompt('[$flavorName] Please provide a flavor Twitter API key: ');
+        .prompt('[$flavorName] What is the flavor Twitter API key?');
 
     final twitterApiSecret = context.logger
-        .prompt('[$flavorName] Please provide a flavor Twitter API secret: ');
+        .prompt('[$flavorName] What is the flavor Twitter API secret?');
 
     final facebookAppId = context.logger
-        .prompt('[$flavorName] Please provide a flavor Facebook App ID: ');
+        .prompt('[$flavorName] What is the flavor Facebook App ID?');
 
-    final facebookClientToken = context.logger.prompt(
-        '[$flavorName] Please provide a flavor Facebook Client Token: ');
+    final facebookClientToken = context.logger
+        .prompt('[$flavorName] What is the flavor Facebook Client Token?');
 
-    final facebookDisplayName = context.logger.prompt(
-        '[$flavorName] Please provide a flavor Facebook Display Name: ');
+    final facebookDisplayName = context.logger
+        .prompt('[$flavorName] What is the flavor Facebook Display Name?');
 
     final adMobAppIdIOS = context.logger
-        .prompt('[$flavorName] Please provide a flavor AdMob App ID for iOS: ');
+        .prompt('[$flavorName] What is the flavor AdMob App ID for iOS?');
 
-    final adMobAppIdAndroid = context.logger.prompt(
-        '[$flavorName] Please provide a flavor AdMob App ID for Android: ');
+    final adMobAppIdAndroid = context.logger
+        .prompt('[$flavorName] What is the flavor AdMob App ID for Android?');
 
     return {
       'name': flavorName,
