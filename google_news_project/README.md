@@ -66,6 +66,8 @@ Assets.images.unicornVgvBlack.image(height: 120),
 
 If you're adding new assets to ui library, make sure to run `fluttergen` inside the package directory as well.
 
+---
+
 ## Working with Translations 🌐
 
 This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization).
@@ -165,6 +167,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
+---
+
 ## Theme and Brand Updates
 
 This template comes with already configured light and dark Theme for the app. To know more about Theme visit [Flutter theme guide](https://docs.flutter.dev/cookbook/design/themes).
@@ -201,11 +205,13 @@ Widget build(BuildContext context) {
 }
 ```
 
+---
+
 ## Google News Template API
 
 This package uses `google_news_template_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/VGVentures/google_news_template/tree/main/api)
 
-## News Data Source 📰
+### News Data Source 📰
 
 The `google_news_template_api` package defines an interface for a [`NewsDataSource`](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/data/news_data_source.dart):
 
@@ -299,6 +305,8 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+---
+
 ## Authentication
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
@@ -315,6 +323,8 @@ The package depends on the third-party packages that expose authentication metho
 
 The usage guide for each of these packages can be found on [pub.dev](https://pub.dev/).
 
+---
+
 ## Newsletter
 
 The current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription will always return true and the response is handled in the app as a success state. Be aware that the current implementation of this feature does not store the subscriber state for a user.
@@ -330,6 +340,8 @@ mixin CreateSubscriptionMixin on Controller {
 ```
 
 To fully leverage the newsletter subscription feature please add your API handling logic or an already existing email service, such as [mailchimp.](https://mailchimp.com/)
+
+---
 
 ## Subscriptions and purchases
 
@@ -348,7 +360,7 @@ Mocked products are being exposed in the [products.dart](https://github.com/VGVe
 
 To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
-Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
 
 ## Ads
 
@@ -368,6 +380,8 @@ To use Open Bidding in your mobile app, follow the links below.
 - [Developer Documentation](https://developers.google.com/admob/flutter/mediation/get-started)
 - [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
 - [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
+
+---
 
 ## Google Analytics
 
