@@ -7,50 +7,12 @@ Future<void> run(HookContext context) async {
 
   context.logger.info('Building flavors...');
 
-  final flavors = vars['flavors'].toString().split(' ').map((flavorName) {
-    // Request additional metadata for each flavor.
-    final suffix = context.logger
-        .prompt('[$flavorName] What is the flavor suffix (e.g. dev)?');
+  final flavors = _areFlavorsConfigured(vars['flavors'])
+      ? List.of(vars['flavors']).cast<Map>()
+      : _configureFlavors(vars['flavors'].split(' '), context);
 
-    final deepLinkDomain = context.logger.prompt(
-      '[$flavorName] What is the flavor deep link domain (e.g. application.page.link)?',
-    );
-
-    final twitterApiKey = context.logger
-        .prompt('[$flavorName] What is the flavor Twitter API key?');
-
-    final twitterApiSecret = context.logger
-        .prompt('[$flavorName] What is the flavor Twitter API secret?');
-
-    final facebookAppId = context.logger
-        .prompt('[$flavorName] What is the flavor Facebook App ID?');
-
-    final facebookClientToken = context.logger
-        .prompt('[$flavorName] What is the flavor Facebook Client Token?');
-
-    final facebookDisplayName = context.logger
-        .prompt('[$flavorName] What is the flavor Facebook Display Name?');
-
-    final adMobAppIdIOS = context.logger
-        .prompt('[$flavorName] What is the flavor AdMob App ID for iOS?');
-
-    final adMobAppIdAndroid = context.logger
-        .prompt('[$flavorName] What is the flavor AdMob App ID for Android?');
-
-    return {
-      'name': flavorName,
-      'suffix': suffix,
-      'deep_link_domain': deepLinkDomain,
-      'twitter_api_key': twitterApiKey,
-      'twitter_api_secret': twitterApiSecret,
-      'facebook_app_id': facebookAppId,
-      'facebook_client_token': facebookClientToken,
-      'facebook_display_name': facebookDisplayName,
-      'ios_admob_app_id': adMobAppIdIOS,
-      'android_admob_app_id': adMobAppIdAndroid,
-    };
-  }).map((flavor) {
-    // Add iOS build configuration variables.
+  // Add iOS build configuration variables.
+  final flavorsWithBuildConfigurations = flavors.map((flavor) {
     return {
       ...flavor,
       'xcconfig_id': _generateRandomUUID(),
@@ -61,10 +23,62 @@ Future<void> run(HookContext context) async {
     };
   }).toList();
 
-  vars['flavors'] = flavors;
+  context.logger.info(flavorsWithBuildConfigurations.toString());
+
+  vars['flavors'] = flavorsWithBuildConfigurations;
   context.vars = vars;
 }
 
+/// A map of required options per each flavor with their descriptions.
+const _requiredFlavorOptions = {
+  'name': 'name (e.g. development)',
+  'suffix': 'suffix (e.g. dev)',
+  'deep_link_domain': 'deep link domain (e.g. application.page.link)',
+  'twitter_api_key': 'Twitter API key',
+  'twitter_api_secret': 'Twitter API secret',
+  'facebook_app_id': 'Facebook App ID',
+  'facebook_client_token': 'Facebook Client Token',
+  'facebook_display_name': 'Facebook Display Name',
+  'ios_admob_app_id': 'AdMob App ID for iOS',
+  'android_admob_app_id': 'AdMob App ID for Android',
+};
+
+/// Returns true if all flavors are configured, i.e.
+/// each flavor has all [_requiredFlavorOptions].
+bool _areFlavorsConfigured(dynamic flavors) =>
+    flavors is List &&
+    flavors.every(
+      (flavor) =>
+          flavor is Map &&
+          _requiredFlavorOptions.keys.every(
+            (flavorOption) => flavor.containsKey(flavorOption),
+          ),
+    );
+
+/// Requests required options for each flavor.
+Iterable<Map> _configureFlavors(
+  List<String> flavors,
+  HookContext context,
+) =>
+    flavors.map((flavor) => {'name': flavor}).map(
+          (flavor) => _requiredFlavorOptions.entries.fold<Map>(
+            flavor,
+            (configuredFlavor, requiredFlavorOption) {
+              if (configuredFlavor.containsKey(requiredFlavorOption.key))
+                return configuredFlavor;
+
+              final flavorOption = context.logger.prompt(
+                  '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?');
+
+              return {
+                ...configuredFlavor,
+                requiredFlavorOption.key: flavorOption,
+              };
+            },
+          ),
+        );
+
+/// Generates a random UUID of length [length].
 String _generateRandomUUID([int length = 24]) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const charactersLength = characters.length;
