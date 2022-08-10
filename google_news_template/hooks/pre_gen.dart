@@ -23,8 +23,6 @@ Future<void> run(HookContext context) async {
     };
   }).toList();
 
-  context.logger.info(flavorsWithBuildConfigurations.toString());
-
   vars['flavors'] = flavorsWithBuildConfigurations;
   context.vars = vars;
 }
