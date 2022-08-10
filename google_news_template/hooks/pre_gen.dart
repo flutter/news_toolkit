@@ -55,7 +55,7 @@ bool _areFlavorsConfigured(dynamic flavors) =>
           ),
     );
 
-/// Requests required options for each flavor.
+/// Requests required options [_requiredFlavorOptions] for each flavor.
 Iterable<Map> _configureFlavors(
   List<String> flavors,
   HookContext context,
