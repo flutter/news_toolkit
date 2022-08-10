@@ -47,7 +47,7 @@ const _requiredFlavorOptions = {
   'android_admob_app_id': 'AdMob App ID for Android',
 };
 
-/// Requests required options [_requiredFlavorOptions] for each flavor.
+/// Configures each flavor of [flavors] based on [_requiredFlavorOptions].
 Iterable<Map> _configureFlavors(
   Iterable<Map> flavors,
   HookContext context,
