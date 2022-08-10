@@ -8,9 +8,12 @@ Future<void> run(HookContext context) async {
   context.logger.info('Building flavors...');
 
   final flavors = _configureFlavors(
-    vars['flavors'] is String
-        ? List.of(vars['flavors'].split(' ')).map((flavor) => {'name': flavor})
-        : List.of(vars['flavors']).cast<Map>(),
+    (vars['flavors'] is String
+            ? List.of(vars['flavors'].split(' '))
+                .map((flavor) => {'name': flavor})
+                .toList()
+            : List.of(vars['flavors']))
+        .cast<Map>(),
     context,
   );
 
