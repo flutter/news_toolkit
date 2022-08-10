@@ -4,7 +4,55 @@ import 'package:mason/mason.dart';
 
 Future<void> run(HookContext context) async {
   final vars = {...context.vars};
-  final flavors = List.of(vars['flavors']).cast<Map>().map((flavor) {
+
+  context.logger.info('Building flavors...');
+
+  final flavors = vars['flavors'].toString().split(' ').map((flavorName) {
+    // Request additional metadata for each flavor.
+    final suffix = context.logger.prompt(
+      '[$flavorName] Please provide a flavor suffix (e.g. dev): ',
+      defaultValue: '',
+    );
+
+    final deepLinkDomain = context.logger.prompt(
+      '[$flavorName] Please provide a flavor deep link domain (e.g. application.page.link): ',
+    );
+
+    final twitterApiKey = context.logger
+        .prompt('[$flavorName] Please provide a flavor Twitter API key: ');
+
+    final twitterApiSecret = context.logger
+        .prompt('[$flavorName] Please provide a flavor Twitter API secret: ');
+
+    final facebookAppId = context.logger
+        .prompt('[$flavorName] Please provide a flavor Facebook App ID: ');
+
+    final facebookClientToken = context.logger.prompt(
+        '[$flavorName] Please provide a flavor Facebook Client Token: ');
+
+    final facebookDisplayName = context.logger.prompt(
+        '[$flavorName] Please provide a flavor Facebook Display Name: ');
+
+    final adMobAppIdIOS = context.logger
+        .prompt('[$flavorName] Please provide a flavor AdMob App ID for iOS: ');
+
+    final adMobAppIdAndroid = context.logger.prompt(
+        '[$flavorName] Please provide a flavor AdMob App ID for Android: ');
+
+    return {
+      'name': flavorName,
+      'suffix': suffix,
+      'deep_link_domain': deepLinkDomain,
+      'twitter_api_key': twitterApiKey,
+      'twitter_api_secret': twitterApiSecret,
+      'facebook_app_id': facebookAppId,
+      'facebook_client_token': facebookClientToken,
+      'facebook_display_name': facebookDisplayName,
+      'ios_admob_app_id': adMobAppIdIOS,
+      'android_admob_app_id': adMobAppIdAndroid,
+    };
+  }).map((flavor) {
+    // Add iOS build configuration variables.
     return {
       ...flavor,
       'xcconfig_id': _generateRandomUUID(),
@@ -14,6 +62,7 @@ Future<void> run(HookContext context) async {
       'xcbuild_configuration_section_debug_2_id': _generateRandomUUID()
     };
   }).toList();
+
   vars['flavors'] = flavors;
   context.vars = vars;
 }
