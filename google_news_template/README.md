@@ -44,7 +44,7 @@ When generating the template, choose "development production" as a list of desir
 
 In Firebase, configure two separate Firebase projects for the development and production flavor. You may do this [from the Firebase console](https://console.firebase.google.com/u/0/) or using the [firebase-tools CLI tool](https://github.com/firebase/firebase-tools) and the `firebase projects:create` command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the `firebase apps:create` command.
 
-When configured, go to each Firebase project settings and export Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations.
+Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations.
 
 ### Recommended Github branch protection rules
 
