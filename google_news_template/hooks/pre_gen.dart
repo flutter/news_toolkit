@@ -7,9 +7,12 @@ Future<void> run(HookContext context) async {
 
   context.logger.info('Building flavors...');
 
-  final flavors = _areFlavorsConfigured(vars['flavors'])
-      ? List.of(vars['flavors']).cast<Map>()
-      : _configureFlavors(vars['flavors'].split(' '), context);
+  final flavors = _configureFlavors(
+    vars['flavors'] is String
+        ? List.of(vars['flavors'].split(' ')).map((flavor) => {'name': flavor})
+        : List.of(vars['flavors']).cast<Map>(),
+    context,
+  );
 
   // Add iOS build configuration variables.
   final flavorsWithBuildConfigurations = flavors.map((flavor) {
@@ -41,40 +44,28 @@ const _requiredFlavorOptions = {
   'android_admob_app_id': 'AdMob App ID for Android',
 };
 
-/// Returns true if all flavors are configured, i.e.
-/// each flavor has all [_requiredFlavorOptions].
-bool _areFlavorsConfigured(dynamic flavors) =>
-    flavors is List &&
-    flavors.every(
-      (flavor) =>
-          flavor is Map &&
-          _requiredFlavorOptions.keys.every(
-            (flavorOption) => flavor.containsKey(flavorOption),
-          ),
-    );
-
 /// Requests required options [_requiredFlavorOptions] for each flavor.
 Iterable<Map> _configureFlavors(
-  List<String> flavors,
+  Iterable<Map> flavors,
   HookContext context,
 ) =>
-    flavors.map((flavor) => {'name': flavor}).map(
-          (flavor) => _requiredFlavorOptions.entries.fold<Map>(
-            flavor,
-            (configuredFlavor, requiredFlavorOption) {
-              if (configuredFlavor.containsKey(requiredFlavorOption.key))
-                return configuredFlavor;
+    flavors.map(
+      (flavor) => _requiredFlavorOptions.entries.fold<Map>(
+        flavor,
+        (configuredFlavor, requiredFlavorOption) {
+          if (configuredFlavor.containsKey(requiredFlavorOption.key))
+            return configuredFlavor;
 
-              final flavorOption = context.logger.prompt(
-                  '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?');
+          final flavorOption = context.logger.prompt(
+              '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?');
 
-              return {
-                ...configuredFlavor,
-                requiredFlavorOption.key: flavorOption,
-              };
-            },
-          ),
-        );
+          return {
+            ...configuredFlavor,
+            requiredFlavorOption.key: flavorOption,
+          };
+        },
+      ),
+    );
 
 /// Generates a random UUID of length [length].
 String _generateRandomUUID([int length = 24]) {
