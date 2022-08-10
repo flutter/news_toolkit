@@ -48,7 +48,7 @@ Once configured, go to each Firebase project's settings and export the Google Se
 
 ### Recommended Github branch protection rules
 
-The generated template includes Github workflows for the application module and all local packages to ensure that formatting, analyzing and all tests pass before merging a pull request. It is recommended to enforce branch protection rules for the main branch of your repository. 
+The generated template includes Github workflows for the application module and all local packages to ensure that formatting, analyzing, and all tests pass before merging a pull request. It is recommended to enforce branch protection rules for the main branch of your repository. 
 
 You may choose to enable branch protection rules in Github repository settings. Below are the recommended options:
 - Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
