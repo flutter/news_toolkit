@@ -373,7 +373,7 @@ This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/go
 
 To configure ads, [create an AdMob account](https://support.google.com/admob/answer/7356219?visit_id=637958065830347515-2588184234&rd=1) and then [register an Android and iOS app](https://support.google.com/admob/answer/9989980?visit_id=637958065834244686-2895946834&rd=1) for each flavor of your application (e.g. 4 apps should be registered for development and production flavors). Make sure to provide correct AdMob app ids when generating the application from the template.
 
-For more details about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
+For details about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
 
 ### Mediation and Open Bidding
 
