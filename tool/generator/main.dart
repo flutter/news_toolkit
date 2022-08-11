@@ -501,8 +501,8 @@ void main() async {
         DEVELOPMENT_TEAM = 42QKVF5N7J;
         ENABLE_BITCODE = NO;
         "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
-        FACEBOOK_APP_ID = "{{facebook_app_id}}";
-        FACEBOOK_CLIENT_TOKEN = "{{facebook_client_token}}";
+        FACEBOOK_APP_ID = {{facebook_app_id}};
+        FACEBOOK_CLIENT_TOKEN = {{facebook_client_token}};
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
         FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}]";
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
