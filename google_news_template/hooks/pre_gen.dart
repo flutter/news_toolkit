@@ -33,19 +33,68 @@ Future<void> run(HookContext context) async {
   context.vars = vars;
 }
 
-/// A map of required options per each flavor with their descriptions.
-const _requiredFlavorOptions = {
-  'name': 'name (e.g. development)',
-  'suffix': 'suffix (e.g. dev)',
-  'deep_link_domain': 'deep link domain (e.g. application.page.link)',
-  'twitter_api_key': 'Twitter API key',
-  'twitter_api_secret': 'Twitter API secret',
-  'facebook_app_id': 'Facebook App ID',
-  'facebook_client_token': 'Facebook Client Token',
-  'facebook_display_name': 'Facebook Display Name',
-  'ios_admob_app_id': 'AdMob App ID for iOS',
-  'android_admob_app_id': 'AdMob App ID for Android',
-};
+/// A list of required options per each flavor with their descriptions.
+const _requiredFlavorOptions = [
+  _FlavorOption(
+    name: 'name',
+    description: 'name',
+    defaultValue: 'development',
+  ),
+  _FlavorOption(
+    name: 'suffix',
+    description: 'suffix',
+  ),
+  _FlavorOption(
+    name: 'deep_link_domain',
+    description: 'deep link domain',
+    defaultValue: 'googlenewstemplate.page.link',
+  ),
+  _FlavorOption(
+    name: 'twitter_api_key',
+    description: 'Twitter API key',
+  ),
+  _FlavorOption(
+    name: 'twitter_api_secret',
+    description: 'Twitter API secret',
+  ),
+  _FlavorOption(
+    name: 'facebook_app_id',
+    description: 'Facebook App ID',
+  ),
+  _FlavorOption(
+    name: 'facebook_client_token',
+    description: 'Facebook Client Token',
+  ),
+  _FlavorOption(
+    name: 'facebook_display_name',
+    description: 'Facebook Display Name',
+  ),
+  _FlavorOption(
+    name: 'ios_admob_app_id',
+    description: 'AdMob App ID for iOS',
+  ),
+  _FlavorOption(
+    name: 'android_admob_app_id',
+    description: 'AdMob App ID for Android',
+  ),
+];
+
+class _FlavorOption {
+  const _FlavorOption({
+    required this.name,
+    required this.description,
+    this.defaultValue,
+  });
+
+  /// The name of this flavor option.
+  final String name;
+
+  /// The description of this flavor option.
+  final String description;
+
+  /// The default value of this flavor option.
+  final String? defaultValue;
+}
 
 /// Configures each flavor of [flavors] based on [_requiredFlavorOptions].
 Iterable<Map> _configureFlavors(
@@ -53,20 +102,21 @@ Iterable<Map> _configureFlavors(
   HookContext context,
 ) =>
     flavors.map(
-      (flavor) => _requiredFlavorOptions.entries.fold<Map>(
+      (flavor) => _requiredFlavorOptions.fold<Map>(
         flavor,
         (configuredFlavor, requiredFlavorOption) {
-          if (configuredFlavor.containsKey(requiredFlavorOption.key)) {
+          if (configuredFlavor.containsKey(requiredFlavorOption.name)) {
             return configuredFlavor;
           }
 
           final flavorOption = context.logger.prompt(
-            '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?',
+            '[${flavor['name']}] What is the flavor ${requiredFlavorOption.description}?',
+            defaultValue: requiredFlavorOption.defaultValue,
           );
 
           return {
             ...configuredFlavor,
-            requiredFlavorOption.key: flavorOption,
+            requiredFlavorOption.name: flavorOption,
           };
         },
       ),
