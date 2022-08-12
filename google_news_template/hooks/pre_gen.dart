@@ -56,8 +56,9 @@ Iterable<Map> _configureFlavors(
       (flavor) => _requiredFlavorOptions.entries.fold<Map>(
         flavor,
         (configuredFlavor, requiredFlavorOption) {
-          if (configuredFlavor.containsKey(requiredFlavorOption.key))
+          if (configuredFlavor.containsKey(requiredFlavorOption.key)) {
             return configuredFlavor;
+          }
 
           final flavorOption = context.logger.prompt(
             '[${flavor['name']}] What is the flavor ${requiredFlavorOption.value}?',

@@ -501,8 +501,8 @@ void main() async {
         DEVELOPMENT_TEAM = 42QKVF5N7J;
         ENABLE_BITCODE = NO;
         "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
-        FACEBOOK_APP_ID = {{facebook_app_id}};
-        FACEBOOK_CLIENT_TOKEN = {{facebook_client_token}};
+        FACEBOOK_APP_ID = "{{facebook_app_id}}";
+        FACEBOOK_CLIENT_TOKEN = "{{facebook_client_token}}";
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
         FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}]";
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
@@ -519,7 +519,7 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
+        PRODUCT_BUNDLE_IDENTIFIER = "{{reverse_domain}}.{{suffix.lowerCase()}}";
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -599,8 +599,8 @@ void main() async {
         DEVELOPMENT_TEAM = 42QKVF5N7J;
         ENABLE_BITCODE = NO;
         "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
-        FACEBOOK_APP_ID = {{facebook_app_id}};
-        FACEBOOK_CLIENT_TOKEN = {{facebook_client_token}};
+        FACEBOOK_APP_ID = "{{facebook_app_id}}";
+        FACEBOOK_CLIENT_TOKEN = "{{facebook_client_token}}";
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
         FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}]";
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
@@ -617,7 +617,7 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
+        PRODUCT_BUNDLE_IDENTIFIER = "{{reverse_domain}}.{{suffix.lowerCase()}}";
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
