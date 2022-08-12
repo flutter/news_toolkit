@@ -7,6 +7,14 @@
 
 ## Getting Started 🚀
 
+### Prerequisites
+
+Enable signing in with email and social methods by following the authentication configuration steps described in [Authentication](#authentication).
+
+Configure ads functionality by following steps described in [Ads](#ads).
+
+### Running
+
 This project contains the following flavors:
 
 {{#flavors}}- {{{name}}}
@@ -65,6 +73,8 @@ Assets.images.unicornVgvBlack.image(height: 120),
 ```
 
 If you're adding new assets to ui library, make sure to run `fluttergen` inside the package directory as well.
+
+---
 
 ## Working with Translations 🌐
 
@@ -165,6 +175,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
+---
+
 ## Theme and Brand Updates
 
 This template comes with already configured light and dark Theme for the app. To know more about Theme visit [Flutter theme guide](https://docs.flutter.dev/cookbook/design/themes).
@@ -201,11 +213,13 @@ Widget build(BuildContext context) {
 }
 ```
 
+---
+
 ## {{app_name}} API
 
 This package uses `{{project_name.snakeCase()}}_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/VGVentures/{{project_name.snakeCase()}}/tree/main/api)
 
-## News Data Source 📰
+### News Data Source 📰
 
 The `{{project_name.snakeCase()}}_api` package defines an interface for a [`NewsDataSource`](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/main/api/lib/src/data/news_data_source.dart):
 
@@ -299,6 +313,8 @@ final handler = const Pipeline()
     .addHandler(controller.handler);
 ```
 
+---
+
 ## Authentication
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
@@ -313,7 +329,18 @@ The package depends on the third-party packages that expose authentication metho
 - `sign_in_with_apple`
 - `twitter_login`
 
-The usage guide for each of these packages can be found on [pub.dev](https://pub.dev/).
+To enable authentication, configure each authentication method:
+- For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+- For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
+- For Apple login, [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple) in the Apple's developer portal and [enable the Apple sign-in provider](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider) in the Firebase Console of your project.
+- For Twitter login, register an app in the Twitter developer portal and enable the Twitter sign-in provider in the Firebase Console of your project.
+- For Facebook login, register an app in the Facebook developer portal and enable the Facebook sign-in provider in the Firebase Console of your project.
+  
+Once configured, make sure to update the Firebase config file (Google services) in your application.
+
+For more detailed usage of these authentication methods, check [firebase.google.com](https://firebase.google.com/docs/auth/flutter/federated-auth) documentation.
+
+---
 
 ## Newsletter
 
@@ -330,6 +357,8 @@ mixin CreateSubscriptionMixin on Controller {
 ```
 
 To fully leverage the newsletter subscription feature please add your API handling logic or an already existing email service, such as [mailchimp.](https://mailchimp.com/)
+
+---
 
 ## Subscriptions and purchases
 
@@ -348,13 +377,15 @@ Mocked products are being exposed in the [products.dart](https://github.com/VGVe
 
 To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
-Than follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
 
 ## Ads
 
-This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [InterstitialAd](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/interstitial_ad.dart#L28), [RewardedAd](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/rewarded_ad.dart#L28), [BannerAd](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L46) and [StickyAd](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/lib/ads/widgets/sticky_ad.dart#L10).
+This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [interstitial and rewarded ads](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/main/google_news_project/lib/ads/bloc/full_screen_ads_bloc.dart#L28), [banner ads](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/main/google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L48) and [sticky ads](https://github.com/VGVentures/{{project_name.snakeCase()}}/blob/main/google_news_project/lib/ads/widgets/sticky_ad.dart#L10).
 
-To get more information about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
+To configure ads, [create an AdMob account](https://support.google.com/admob/answer/7356219?visit_id=637958065830347515-2588184234&rd=1) and then [register an Android and iOS app](https://support.google.com/admob/answer/9989980?visit_id=637958065834244686-2895946834&rd=1) for each flavor of your application (e.g. 4 apps should be registered for development and production flavors). Make sure to provide correct AdMob app ids when generating the application from the template.
+
+For details about AdMob Ad types and usage visit [Google AdMob quick-start page](https://developers.google.com/admob/flutter/quick-start).
 
 ### Mediation and Open Bidding
 
@@ -368,6 +399,8 @@ To use Open Bidding in your mobile app, follow the links below.
 - [Developer Documentation](https://developers.google.com/admob/flutter/mediation/get-started)
 - [Overview of Open-Bidding](https://admanager.google.com/home/resources/feature-brief-open-bidding/)
 - [How-to Guide](https://support.google.com/admanager/answer/7128657?hl=en&ref_topic=7512060)
+
+---
 
 ## Google Analytics
 
