@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/form_inputs/**"
+      - "google_news_project/packages/form_inputs/**"
       - ".github/workflows/form_inputs.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: packages/form_inputs
+      working_directory: google_news_project/packages/form_inputs

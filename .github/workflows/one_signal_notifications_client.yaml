@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/notifications_client/one_signal_notifications_client/**"
+      - "google_news_project/packages/notifications_client/one_signal_notifications_client/**"
       - ".github/workflows/one_signal_notifications_client.yaml"
     branches:
       - main
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 3.0.0
-      working_directory: packages/notifications_client/one_signal_notifications_client
+      working_directory: google_news_project/packages/notifications_client/one_signal_notifications_client
