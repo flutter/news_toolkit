@@ -55,8 +55,8 @@ jobs:
 
       - name: Generate Visual Architecture
         env:
-          FLUTTER_DART_HOME: ${{{ env.FLUTTER_HOME }}}/bin/cache/dart-sdk/bin
-          FLUTTER_PUB_CACHE: ${{{ env.FLUTTER_HOME }}}/.pub-cache/bin
+          FLUTTER_DART_HOME: ${{#mustacheCase}}env.FLUTTER_HOME{{/mustacheCase}}/bin/cache/dart-sdk/bin
+          FLUTTER_PUB_CACHE: ${{#mustacheCase}}env.FLUTTER_HOME{{/mustacheCase}}/.pub-cache/bin
         run: |
           flutter pub global activate pubviz
           export PATH=$PATH:$FLUTTER_DART_HOME
