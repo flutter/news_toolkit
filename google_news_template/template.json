@@ -20,6 +20,7 @@
     },
     {
       "name": "production",
+      "suffix": "",
       "deep_link_domain": "deep_link_domain",
       "twitter_api_key": "twitter_api_key",
       "twitter_api_secret": "twitter_api_secret",
