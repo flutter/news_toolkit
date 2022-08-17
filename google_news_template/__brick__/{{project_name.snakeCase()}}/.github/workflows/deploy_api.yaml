@@ -25,8 +25,8 @@ jobs:
       - name: Setup Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.6.0
         with:
-          project_id: ${{ env.PROJECT_ID }}
-          service_account_key: ${{ secrets.CLOUD_RUN_SA }}
+          project_id: ${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}
+          service_account_key: ${{#mustacheCase}}secrets.CLOUD_RUN_SA{{/mustacheCase}}
           export_default_credentials: true
 
       - name: Install Dart Frog
@@ -41,19 +41,19 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} api/build
-          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
+          docker build -t gcr.io/${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}/${{#mustacheCase}}env.SERVICE{{/mustacheCase}}:${{#mustacheCase}}github.sha{{/mustacheCase}} api/build
+          docker push gcr.io/${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}/${{#mustacheCase}}env.SERVICE{{/mustacheCase}}:${{#mustacheCase}}github.sha{{/mustacheCase}}
 
       - name: Deploy to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0.10.1
         with:
-          service: ${{ env.SERVICE }}
-          image: gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
-          region: ${{ env.REGION }}
+          service: ${{#mustacheCase}}env.SERVICE{{/mustacheCase}}
+          image: gcr.io/${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}/${{#mustacheCase}}env.SERVICE{{/mustacheCase}}:${{#mustacheCase}}github.sha{{/mustacheCase}}
+          region: ${{#mustacheCase}}env.REGION{{/mustacheCase}}
 
       - name: Show Output
-        run: echo ${{ steps.deploy.outputs.url }}
+        run: echo ${{#mustacheCase}}steps.deploy.outputs.url{{/mustacheCase}}
 
       - name: Ping
-        run: curl "${{ steps.deploy.outputs.url }}"
+        run: curl "${{#mustacheCase}}steps.deploy.outputs.url{{/mustacheCase}}"
