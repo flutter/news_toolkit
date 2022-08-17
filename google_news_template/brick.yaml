@@ -24,11 +24,11 @@ vars:
     prompt: What is the application bundle identifier?
   code_owners:
     type: string
-    description: List of codeowners separated by spaces
+    description: List of code owners separated by spaces
     default: "@githubUser"
     prompt: Who are the code owners? (separated by spaces)
   flavors:
     type: string
-    description: "JSON Array of flavors"
-    default: '[{"name":"production"}]'
-    prompt: What flavors would you like to include?
+    description: List of flavors separated by spaces
+    default: "development production"
+    prompt: What flavors would you like to include? (separated by spaces)

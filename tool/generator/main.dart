@@ -58,6 +58,7 @@ final _targetIosProject = path.join(
 
 final _flutterVersionRegExp = RegExp(r'flutter: (.*)');
 final _vgWorkflowFlutterVersionRegExp = RegExp(r'flutter_version: (.*)');
+final _mustacheCaseRegExp = RegExp(r'\${{([^{}]*)}}');
 final _workflowFlutterVersionRegExp = RegExp(r'flutter-version: (.*)');
 final _apiClientRegExp =
     RegExp('google-news-template-api-q66trdlzja-uc.a.run.app');
@@ -208,9 +209,10 @@ void main() async {
                 _vgWorkflowFlutterVersionRegExp,
                 'flutter_version: {{flutter_version}}',
               )
-              .replaceFirst(
-                r'group: ${{ github.workflow }}-${{ github.ref }}',
-                r'group: ${{#mustacheCase}}github.workflow{{/mustacheCase}}-${{#mustacheCase}}github.ref{{/mustacheCase}}',
+              .replaceAllMapped(
+                _mustacheCaseRegExp,
+                (match) =>
+                    "\${{#mustacheCase}}${match.group(1)?.trim()}{{/mustacheCase}}",
               )
               .replaceAll('google_news_project/', ''),
         );
@@ -297,26 +299,21 @@ void main() async {
       try {
         final contents = await file.readAsString();
 
-        await file.writeAsString(
-          contents
-              .replaceAll(
-                'google_news_template',
-                '{{project_name.snakeCase()}}',
-              )
-              .replaceAll(
-                'GoogleNewsTemplate',
-                '{{project_name.pascalCase()}}',
-              )
-              .replaceAll(
-                'google-news-template',
-                '{{project_name.paramCase()}}',
-              )
-              .replaceAll('Google News Template', '{{app_name}}')
-              .replaceAll('com.google.news.template', '{{reverse_domain}}')
-              .replaceAll('{{ github.workflow }}', '{{{ github.workflow }}}')
-              .replaceAll('{{ github.ref }}', '{{{ github.ref }}}')
-              .replaceAll('{{ env.FLUTTER_HOME }}', '{{{ env.FLUTTER_HOME }}}'),
-        );
+        await file.writeAsString(contents
+            .replaceAll(
+              'google_news_template',
+              '{{project_name.snakeCase()}}',
+            )
+            .replaceAll(
+              'GoogleNewsTemplate',
+              '{{project_name.pascalCase()}}',
+            )
+            .replaceAll(
+              'google-news-template',
+              '{{project_name.paramCase()}}',
+            )
+            .replaceAll('Google News Template', '{{app_name}}')
+            .replaceAll('com.google.news.template', '{{reverse_domain}}'));
       } on Exception {}
 
       if (path.basename(file.path).contains('google_news_template')) {
@@ -519,7 +516,7 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
+        PRODUCT_BUNDLE_IDENTIFIER = "{{reverse_domain}}.{{suffix.lowerCase()}}";
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -599,8 +596,8 @@ void main() async {
         DEVELOPMENT_TEAM = 42QKVF5N7J;
         ENABLE_BITCODE = NO;
         "EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
-        FACEBOOK_APP_ID = {{facebook_app_id}};
-        FACEBOOK_CLIENT_TOKEN = {{facebook_client_token}};
+        FACEBOOK_APP_ID = "{{facebook_app_id}}";
+        FACEBOOK_CLIENT_TOKEN = "{{facebook_client_token}}";
         FACEBOOK_DISPLAY_NAME = "{{facebook_display_name}}";
         FLAVOR_APP_NAME = "{{app_name}} [{{suffix.upperCase()}}]";
         FLAVOR_DEEP_LINK_DOMAIN = "{{deep_link_domain}}";
@@ -617,7 +614,7 @@ void main() async {
           "$(inherited)",
           "$(PROJECT_DIR)/Flutter",
         );
-        PRODUCT_BUNDLE_IDENTIFIER = {{reverse_domain}}.{{suffix.lowerCase()}};
+        PRODUCT_BUNDLE_IDENTIFIER = "{{reverse_domain}}.{{suffix.lowerCase()}}";
         PRODUCT_NAME = "$(TARGET_NAME)";
         REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
         SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
