@@ -70,12 +70,12 @@ const _requiredFlavorOptions = [
     description: 'Facebook Display Name',
   ),
   _FlavorOption(
-    name: 'ios_admob_app_id',
-    description: 'AdMob App ID for iOS',
+    name: 'ios_ads_app_id',
+    description: 'Google Ad Manager or AdMob App ID for iOS',
   ),
   _FlavorOption(
-    name: 'android_admob_app_id',
-    description: 'AdMob App ID for Android',
+    name: 'android_ads_app_id',
+    description: 'Google Ad Manager or AdMob App ID for Android',
   ),
 ];
 

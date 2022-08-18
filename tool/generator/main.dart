@@ -490,7 +490,7 @@ void main() async {
       isa = XCBuildConfiguration;
       baseConfigurationReference = {{xcconfig_id}} /* {{name}}.xcconfig */;
       buildSettings = {
-        ADMOB_APP_ID = "{{ios_admob_app_id}}";
+        ADMOB_APP_ID = "{{ios_ads_app_id}}";
         ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
         CLANG_ENABLE_MODULES = YES;
         CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -588,7 +588,7 @@ void main() async {
       isa = XCBuildConfiguration;
       baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
       buildSettings = {
-        ADMOB_APP_ID = "{{ios_admob_app_id}}";
+        ADMOB_APP_ID = "{{ios_ads_app_id}}";
         ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
         CLANG_ENABLE_MODULES = YES;
         CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
