@@ -84,6 +84,45 @@ void main() {
 
     test(
         'responds with a 200 and article preview '
+        'when article preview is requested', () async {
+      final url = Uri.parse('https://dailyglobe.com');
+      final article = Article(
+        title: 'title',
+        blocks: const [],
+        totalBlocks: 0,
+        url: url,
+      );
+      when(
+        () => newsDataSource.getArticle(id: id, preview: true),
+      ).thenAnswer((_) async => article);
+      when(
+        () => newsDataSource.isPremiumArticle(id: id),
+      ).thenAnswer((_) async => false);
+      final expected = ArticleResponse(
+        title: article.title,
+        content: article.blocks,
+        totalCount: article.totalBlocks,
+        url: url,
+        isPremium: false,
+        isPreview: true,
+      );
+      final request = Request(
+        'GET',
+        Uri.parse('http://127.0.0.1/').replace(
+          queryParameters: {'preview': 'true'},
+        ),
+      );
+      final context = _MockRequestContext();
+      when(() => context.request).thenReturn(request);
+      when(() => context.read<NewsDataSource>()).thenReturn(newsDataSource);
+      when(() => context.read<RequestUser>()).thenReturn(RequestUser.anonymous);
+      final response = await route.onRequest(context, id);
+      expect(response.statusCode, equals(HttpStatus.ok));
+      expect(await response.json(), equals(expected.toJson()));
+    });
+
+    test(
+        'responds with a 200 and article preview '
         'when article is premium and user is anonymous', () async {
       final url = Uri.parse('https://dailyglobe.com');
       final article = Article(
