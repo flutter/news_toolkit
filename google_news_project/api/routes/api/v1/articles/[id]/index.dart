@@ -18,7 +18,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
   if (isPremium == null) return Response(statusCode: HttpStatus.notFound);
 
   Future<bool> shouldShowFullArticle() async {
-    if (previewRequested) return true;
+    if (previewRequested) return false;
     if (!isPremium) return true;
     final requestUser = context.read<RequestUser>();
     if (isPremium && requestUser.isAnonymous) return false;
