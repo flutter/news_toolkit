@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+{{#include_ads}}
 import 'package:ads_consent_client/ads_consent_client.dart';
+{{/include_ads}}
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/onboarding/onboarding.dart';
@@ -10,18 +12,25 @@ import 'package:notifications_repository/notifications_repository.dart';
 class MockNotificationsRepository extends Mock
     implements NotificationsRepository {}
 
+{{#include_ads}}
 class MockAdsConsentClient extends Mock implements AdsConsentClient {}
+{{/include_ads}}
 
 void main() {
   group('OnboardingBloc', () {
     late NotificationsRepository notificationsRepository;
+{{#include_ads}}
     late AdsConsentClient adsConsentClient;
+{{/include_ads}}
 
     setUp(() {
       notificationsRepository = MockNotificationsRepository();
+{{#include_ads}}
       adsConsentClient = MockAdsConsentClient();
+{{/include_ads}}
     });
 
+{{#include_ads}}
     group('EnableAdTrackingRequested', () {
       blocTest<OnboardingBloc, OnboardingState>(
         'emits '
@@ -76,6 +85,7 @@ void main() {
         ],
       );
     });
+{{/include_ads}}
 
     group('EnableNotificationsRequested', () {
       setUp(() {
@@ -92,7 +102,9 @@ void main() {
         'when NotificationsRepository.toggleNotifications succeeds',
         build: () => OnboardingBloc(
           notificationsRepository: notificationsRepository,
+{{#include_ads}}
           adsConsentClient: adsConsentClient,
+{{/include_ads}}
         ),
         act: (bloc) => bloc.add(EnableNotificationsRequested()),
         expect: () => <OnboardingState>[
@@ -115,7 +127,9 @@ void main() {
         ).thenThrow(Exception()),
         build: () => OnboardingBloc(
           notificationsRepository: notificationsRepository,
+{{#include_ads}}
           adsConsentClient: adsConsentClient,
+{{/include_ads}}
         ),
         act: (bloc) => bloc.add(EnableNotificationsRequested()),
         expect: () => <OnboardingState>[

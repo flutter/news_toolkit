@@ -24,6 +24,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
+{{#include_ads}}
         if ((state is EnablingAdTrackingSucceeded ||
                 state is EnablingAdTrackingFailed) &&
             _controller.page != _onboardingPageTwo) {
@@ -32,7 +33,9 @@ class _OnboardingViewState extends State<OnboardingView> {
             duration: _onboardingItemSwitchDuration,
             curve: Curves.easeInOut,
           );
-        } else if (state is EnablingNotificationsSucceeded) {
+        } else 
+{{/include_ads}}
+        if (state is EnablingNotificationsSucceeded) {
           context.read<AppBloc>().add(const AppOnboardingCompleted());
         }
       },
@@ -49,6 +52,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               controller: _controller,
               physics: const NeverScrollableScrollPhysics(),
               children: [
+{{#include_ads}}
                 OnboardingViewItem(
                   key: const Key('onboarding_pageOne'),
                   pageNumberTitle: l10n.onboardingItemFirstNumberTitle,
@@ -72,6 +76,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                         Text(context.l10n.onboardingItemSecondaryButtonTitle),
                   ),
                 ),
+{{/include_ads}}
                 OnboardingViewItem(
                   key: const Key('onboarding_pageTwo'),
                   pageNumberTitle: l10n.onboardingItemSecondNumberTitle,

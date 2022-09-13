@@ -109,7 +109,9 @@ void main() {
         onboardingBloc,
         Stream.fromIterable([
           OnboardingInitial(),
+{{#include_ads}}
           EnablingAdTrackingSucceeded(),
+{{/include_ads}}
         ]),
         initialState: OnboardingInitial(),
       );
@@ -133,7 +135,9 @@ void main() {
         onboardingBloc,
         Stream.fromIterable([
           OnboardingInitial(),
+{{#include_ads}}
           EnablingAdTrackingFailed(),
+{{/include_ads}}
         ]),
         initialState: OnboardingInitial(),
       );

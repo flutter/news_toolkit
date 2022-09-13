@@ -5,6 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('OnboardingEvent', () {
+{{#include_ads}}
     group('EnableAdTrackingRequested', () {
       test('supports value comparisons', () {
         final event1 = EnableAdTrackingRequested();
@@ -12,6 +13,7 @@ void main() {
         expect(event1, equals(event2));
       });
     });
+{{/include_ads}}
 
     group('EnableNotificationsRequested', () {
       test('supports value comparisons', () {

@@ -23,11 +23,11 @@ class EnablingAdTrackingSucceeded extends OnboardingState {
 class EnablingAdTrackingFailed extends OnboardingState {
   const EnablingAdTrackingFailed();
 }
+{{/include_ads}}
 
 class EnablingNotifications extends OnboardingState {
   const EnablingNotifications();
 }
-{{/include_ads}}
 
 class EnablingNotificationsSucceeded extends OnboardingState
     with AnalyticsEventMixin {
