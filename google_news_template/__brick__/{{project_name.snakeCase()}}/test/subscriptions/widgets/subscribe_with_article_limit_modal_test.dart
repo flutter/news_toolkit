@@ -4,8 +4,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+{{#include_ads}}
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
@@ -25,16 +27,20 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
 
 class MockUser extends Mock implements User {}
 
+{{#include_ads}}
 class MockAdWithoutView extends Mock implements ads.AdWithoutView {}
+{{/include_ads}}
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
 
 class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
     implements AnalyticsBloc {}
 
+{{#include_ads}}
 class MockFullScreenAdsBloc
     extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
     implements FullScreenAdsBloc {}
+{{/include_ads}}
 
 void main() {
   late AppBloc appBloc;
@@ -173,6 +179,7 @@ void main() {
       expect(find.byType(LoginModal), findsOneWidget);
     });
 
+{{#include_ads}}
     testWidgets(
         'adds ShowRewardedAdRequested to FullScreenAdsBloc '
         'when tapped on watch video button', (tester) async {
@@ -192,6 +199,7 @@ void main() {
 
       verify(() => fullScreenAdsBloc.add(ShowRewardedAdRequested())).called(1);
     });
+{{/include_ads}}
 
     testWidgets(
         'adds TrackAnalyticsEvent to AnalyticsBloc '

@@ -6,8 +6,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+{{#include_ads}}
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
@@ -23,14 +25,17 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
+{{#include_ads}}
 class MockFullScreenAdsBloc
     extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
     implements FullScreenAdsBloc {}
+{{/include_ads}}
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
 
 void main() {
   group('ArticlePage', () {
+{{#include_ads}}
     late FullScreenAdsBloc fullScreenAdsBloc;
 
     setUp(() {
@@ -41,6 +46,7 @@ void main() {
         initialState: FullScreenAdsState.initial(),
       );
     });
+{{/include_ads}}
 
     test('has a route', () {
       expect(ArticlePage.route(id: 'id'), isA<MaterialPageRoute>());
@@ -49,7 +55,9 @@ void main() {
     testWidgets('renders ArticleView', (tester) async {
       await mockHydratedStorage(
         () => tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           ArticlePage(
             id: 'id',
             isVideoArticle: false,
@@ -62,7 +70,9 @@ void main() {
     testWidgets('provides ArticleBloc', (tester) async {
       await mockHydratedStorage(
         () => tester.pumpApp(
+          {{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           ArticlePage(
             id: 'id',
             isVideoArticle: false,
@@ -84,7 +94,9 @@ void main() {
       testWidgets('renders AppBar', (tester) async {
         await mockHydratedStorage(
           () => tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
+{{#include_ads}}
+          fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
             BlocProvider.value(
               value: articleBloc,
               child: ArticleView(isVideoArticle: false),
@@ -100,7 +112,9 @@ void main() {
             ArticleState.initial().copyWith(uri: Uri(path: 'notEmptyUrl')),
           );
           await tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
+{{#include_ads}}
+          fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
             BlocProvider.value(
               value: articleBloc,
               child: ArticleView(isVideoArticle: false),
@@ -117,7 +131,9 @@ void main() {
             ),
           );
           await tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
+{{#include_ads}}
+          fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
             BlocProvider.value(
               value: articleBloc,
               child: ArticleView(isVideoArticle: false),
@@ -139,7 +155,9 @@ void main() {
       group('does not render ShareButton', () {
         testWidgets('when url is empty', (tester) async {
           await tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
+{{#include_ads}}
+          fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
             BlocProvider.value(
               value: articleBloc,
               child: ArticleView(isVideoArticle: false),
@@ -151,7 +169,9 @@ void main() {
 
       testWidgets('renders ArticleSubscribeButton', (tester) async {
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(isVideoArticle: false),
@@ -209,7 +229,9 @@ void main() {
       testWidgets('renders ArticleContent in ArticleThemeOverride',
           (tester) async {
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(isVideoArticle: false),
@@ -235,7 +257,9 @@ void main() {
           ),
         );
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(isVideoArticle: false),
@@ -266,7 +290,9 @@ void main() {
           'when user is not a subscriber '
           'and uri is not provided', (tester) async {
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(isVideoArticle: false),
@@ -310,7 +336,9 @@ void main() {
         );
 
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
@@ -339,7 +367,9 @@ void main() {
           final navigator = MockNavigator();
           when(navigator.pop).thenAnswer((_) async {});
           await tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
+{{#include_ads}}
+          fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
             BlocProvider.value(
               value: articleBloc,
               child: ArticleView(isVideoArticle: false),
@@ -367,7 +397,9 @@ void main() {
           ),
         );
         await tester.pumpApp(
+{{#include_ads}}
           fullScreenAdsBloc: fullScreenAdsBloc,
+{{/include_ads}}
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(isVideoArticle: false),
@@ -376,6 +408,7 @@ void main() {
         verify(() => articleBloc.add(ArticleRequested()));
       });
 
+{{#include_ads}}
       testWidgets(
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
           'when shown', (tester) async {
@@ -413,6 +446,7 @@ void main() {
 
         verify(() => articleBloc.add(ArticleRewardedAdWatched())).called(1);
       });
+{{/include_ads}}
     });
   });
 }
