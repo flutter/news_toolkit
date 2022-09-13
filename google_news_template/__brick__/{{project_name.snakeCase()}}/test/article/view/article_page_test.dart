@@ -29,9 +29,9 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 class MockFullScreenAdsBloc
     extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
     implements FullScreenAdsBloc {}
-{{/include_ads}}
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
+{{/include_ads}}
 
 void main() {
   group('ArticlePage', () {

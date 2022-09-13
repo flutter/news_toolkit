@@ -29,9 +29,9 @@ class MockUser extends Mock implements User {}
 
 {{#include_ads}}
 class MockAdWithoutView extends Mock implements ads.AdWithoutView {}
-{{/include_ads}}
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
+{{/include_ads}}
 
 class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
     implements AnalyticsBloc {}
