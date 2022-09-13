@@ -1,4 +1,6 @@
+{{#include_ads}}
 import 'package:ads_consent_client/ads_consent_client.dart';
+{{/include_ads}}
 import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
@@ -86,9 +88,9 @@ void main() {
         apiClient: apiClient,
         inAppPurchase: PurchaseClient(),
       );
-
+{{#include_ads}}
       final adsConsentClient = AdsConsentClient();
-
+{{/include_ads}}
       return App(
         userRepository: userRepository,
         newsRepository: newsRepository,
@@ -96,7 +98,9 @@ void main() {
         articleRepository: articleRepository,
         analyticsRepository: analyticsRepository,
         inAppPurchaseRepository: inAppPurchaseRepository,
+        {{#include_ads}}
         adsConsentClient: adsConsentClient,
+        {{/include_ads}}
         user: await userRepository.user.first,
       );
     },

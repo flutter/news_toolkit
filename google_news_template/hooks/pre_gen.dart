@@ -72,10 +72,12 @@ const _requiredFlavorOptions = [
   _FlavorOption(
     name: 'ios_ads_app_id',
     description: 'Google Ad Manager or AdMob App ID for iOS',
+    defaultValue: '',
   ),
   _FlavorOption(
     name: 'android_ads_app_id',
     description: 'Google Ad Manager or AdMob App ID for Android',
+    defaultValue: '',
   ),
 ];
 

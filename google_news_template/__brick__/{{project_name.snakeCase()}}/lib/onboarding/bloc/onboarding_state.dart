@@ -11,6 +11,7 @@ class OnboardingInitial extends OnboardingState {
   const OnboardingInitial();
 }
 
+{{#include_ads}}
 class EnablingAdTracking extends OnboardingState {
   const EnablingAdTracking();
 }
@@ -26,6 +27,7 @@ class EnablingAdTrackingFailed extends OnboardingState {
 class EnablingNotifications extends OnboardingState {
   const EnablingNotifications();
 }
+{{/include_ads}}
 
 class EnablingNotificationsSucceeded extends OnboardingState
     with AnalyticsEventMixin {

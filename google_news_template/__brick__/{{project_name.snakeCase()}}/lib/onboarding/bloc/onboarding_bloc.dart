@@ -1,6 +1,7 @@
 import 'dart:async';
-
+{{#include_ads}}
 import 'package:ads_consent_client/ads_consent_client.dart';
+{{/include_ads}}
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
@@ -13,9 +14,13 @@ part 'onboarding_state.dart';
 class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc({
     required NotificationsRepository notificationsRepository,
+{{#include_ads}}
     required AdsConsentClient adsConsentClient,
+{{/include_ads}}
   })  : _notificationsRepository = notificationsRepository,
+{{#include_ads}}
         _adsConsentClient = adsConsentClient,
+{{/include_ads}}
         super(const OnboardingInitial()) {
     on<EnableAdTrackingRequested>(
       _onEnableAdTrackingRequested,
@@ -25,6 +30,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   }
 
   final NotificationsRepository _notificationsRepository;
+{{#include_ads}}
   final AdsConsentClient _adsConsentClient;
 
   Future<void> _onEnableAdTrackingRequested(
@@ -44,6 +50,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       addError(error, stackTrace);
     }
   }
+{{/include_ads}}
 
   Future<void> _onEnableNotificationsRequested(
     EnableNotificationsRequested event,
