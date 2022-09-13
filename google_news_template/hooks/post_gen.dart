@@ -39,7 +39,7 @@ Future<void> run(HookContext context) async {
 
       paths.map((path) => File(path).deleteSync(recursive: true));
     } on Exception catch (e) {
-      context.logger.error(e);
+      context.logger.err(e);
     }
   }
 }
