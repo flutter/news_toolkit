@@ -1,11 +1,15 @@
+{{#include_ads}}
 import 'package:ads_consent_client/ads_consent_client.dart';
+{{/include_ads}}
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+{{#include_ads}}
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
@@ -32,12 +36,14 @@ class MockThemeModeBloc extends MockBloc<ThemeModeEvent, ThemeMode>
   ThemeMode get state => ThemeMode.system;
 }
 
+{{#include_ads}}
 class MockFullScreenAdsBloc
     extends MockBloc<FullScreenAdsEvent, FullScreenAdsState>
     implements FullScreenAdsBloc {
   @override
   FullScreenAdsState get state => const FullScreenAdsState.initial();
 }
+{{/include_ads}}
 
 class MockUserRepository extends Mock implements UserRepository {
   @override
@@ -66,20 +72,26 @@ class MockArticleRepository extends Mock implements ArticleRepository {
 class MockInAppPurchaseRepository extends Mock
     implements InAppPurchaseRepository {}
 
+{{#include_ads}}
 class MockAdsConsentClient extends Mock implements AdsConsentClient {}
+{{/include_ads}}
 
 extension AppTester on WidgetTester {
   Future<void> pumpApp(
     Widget widgetUnderTest, {
     AppBloc? appBloc,
     AnalyticsBloc? analyticsBloc,
+{{#include_ads}}
     FullScreenAdsBloc? fullScreenAdsBloc,
+{{/include_ads}}
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
     ArticleRepository? articleRepository,
     InAppPurchaseRepository? inAppPurchaseRepository,
+{{#include_ads}}
     AdsConsentClient? adsConsentClient,
+{{/include_ads}}
     TargetPlatform? platform,
     ThemeModeBloc? themeModeBloc,
     NavigatorObserver? navigatorObserver,
@@ -103,18 +115,22 @@ extension AppTester on WidgetTester {
           RepositoryProvider.value(
             value: inAppPurchaseRepository ?? MockInAppPurchaseRepository(),
           ),
+{{#include_ads}}
           RepositoryProvider.value(
             value: adsConsentClient ?? MockAdsConsentClient(),
           ),
+{{/include_ads}}
         ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(value: appBloc ?? MockAppBloc()),
             BlocProvider.value(value: analyticsBloc ?? MockAnalyticsBloc()),
             BlocProvider.value(value: themeModeBloc ?? MockThemeModeBloc()),
+{{#include_ads}}
             BlocProvider.value(
               value: fullScreenAdsBloc ?? MockFullScreenAdsBloc(),
             ),
+{{/include_ads}}
           ],
           child: MaterialApp(
             title: '{{app_name}}',

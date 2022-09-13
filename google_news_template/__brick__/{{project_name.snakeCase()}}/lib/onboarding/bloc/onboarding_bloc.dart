@@ -20,7 +20,9 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   })  : _notificationsRepository = notificationsRepository,
 {{#include_ads}}
         _adsConsentClient = adsConsentClient,
+{{/include_ads}}
         super(const OnboardingInitial()) {
+{{#include_ads}}
     on<EnableAdTrackingRequested>(
       _onEnableAdTrackingRequested,
       transformer: droppable(),
