@@ -5,10 +5,10 @@ import 'package:mason/mason.dart';
 Future<void> run(HookContext context) async {
   final vars = {...context.vars};
 
-  context.logger.info('POST GEN clean up..');
-  bool includeAds = vars['include_ads'].toString().toLowerCase() == 'true';
+  context.logger.info('POST GEN clean up.. ${vars['include_ads']}');
+  bool removeAds = vars['include_ads'].toString().toLowerCase() == 'false';
 
-  if (includeAds) {
+  if (removeAds) {
     // remove lib/ads & test/ads, packages/ads_consent_client.
     // clean up NewsBlocs remove banner ad refs
     context.logger.info('POST GEN removing dead code..');
@@ -38,6 +38,8 @@ Future<void> run(HookContext context) async {
       ];
 
       paths.map((path) => File(path).deleteSync(recursive: true));
+
+      context.logger.info('POST GEN clean up complete');
     } on Exception catch (e) {
       context.logger.err(e.toString());
     }
