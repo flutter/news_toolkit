@@ -7,8 +7,10 @@ environment:
   flutter: {{flutter_version}}
 
 dependencies:
+{{#include_ads}}
   ads_consent_client:
     path: packages/ads_consent_client
+{{/include_ads}}
   analytics_repository:
     path: packages/analytics_repository
   app_ui:

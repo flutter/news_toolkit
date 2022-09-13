@@ -4,5 +4,7 @@
     <string name="facebook_client_token">{{flavors.facebook_client_token}}</string>
     <string name="twitter_redirect_uri_scheme">{{project_name.paramCase()}}</string>
     <string name="flavor_deep_link_domain">{{flavors.deep_link_domain}}</string>
+    {{#include_ads}}
     <string name="admob_app_id">{{flavors.android_ads_app_id}}</string>
+    {{/include_ads}}
 </resources>

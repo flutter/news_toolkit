@@ -5,6 +5,7 @@
   "code_owners": "@githubUser",
   "flutter_version": "3.0.0",
   "api_url": "google-news-template-api-q66trdlzja-uc.a.run.app",
+  "include_ads": true,
   "flavors": [
     {
       "name": "development",
