@@ -13,7 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_html: ^2.2.1
+{{#include_ads}}
   google_mobile_ads: ^2.0.0
+{{/include_ads}}
   news_blocks:
     path: ../../api/packages/news_blocks
   video_player: ^2.4.2

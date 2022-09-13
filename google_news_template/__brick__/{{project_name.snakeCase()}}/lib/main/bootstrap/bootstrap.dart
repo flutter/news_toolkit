@@ -7,7 +7,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
+{{#include_ads}}
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/main/bootstrap/app_bloc_observer.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,7 +43,9 @@ Future<void> _runApp(AppBuilder builder) async {
   await runZonedGuarded<Future<void>>(
     () => BlocOverrides.runZoned(
       () async {
+{{#include_ads}}
         unawaited(MobileAds.instance.initialize());
+{{/include_ads}}
         runApp(
           await builder(
             FirebaseDynamicLinks.instance,
