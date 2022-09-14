@@ -47,9 +47,8 @@
 				</array>
 			</dict>
 		</array>
-	{{#include_ads}}
-		<key>GADApplicationIdentifier</key>
 		{{#include_ads}}
+		<key>GADApplicationIdentifier</key>
 		<string>$(ADMOB_APP_ID)</string>
 		{{/include_ads}}
 		<key>NSUserTrackingUsageDescription</key>
