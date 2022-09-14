@@ -2,7 +2,9 @@ import 'package:app_ui/app_ui.dart'
     show AppButton, AppSpacing, AppColors, showAppModal;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+{{#include_ads}}
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
@@ -120,6 +122,7 @@ class _SubscribeWithArticleLimitModalState
                 ),
                 const SizedBox(height: AppSpacing.lg),
               ],
+{{#include_ads}}
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.lg + AppSpacing.xxs,
@@ -141,6 +144,7 @@ class _SubscribeWithArticleLimitModalState
                   ),
                 ),
               ),
+{{/include_ads}}
               const SizedBox(height: AppSpacing.sm),
             ],
           ),

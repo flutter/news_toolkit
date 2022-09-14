@@ -6,7 +6,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+{{#include_ads}}
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:mocktail/mocktail.dart';
@@ -38,6 +40,7 @@ void main() {
   });
 
   group('ArticleContent', () {
+{{#include_ads}}
     testWidgets('renders StickyAd', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
@@ -48,6 +51,7 @@ void main() {
 
       expect(find.byType(StickyAd), findsOneWidget);
     });
+{{/include_ads}}
 
     group('when ArticleStatus is failure', () {
       setUp(() {

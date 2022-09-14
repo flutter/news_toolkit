@@ -56,12 +56,12 @@ class ArticleContentItem extends StatelessWidget {
       );
     } else if (newsBlock is VideoIntroductionBlock) {
       return VideoIntroduction(block: newsBlock);
-    } else if (newsBlock is BannerAdBlock) {
+    } {{#include_ads}} else if (newsBlock is BannerAdBlock) {
       return BannerAd(
         block: newsBlock,
         adFailedToLoadTitle: context.l10n.adLoadFailure,
       );
-    } else if (newsBlock is NewsletterBlock) {
+    } {{/include_ads}} else if (newsBlock is NewsletterBlock) {
       return const Newsletter();
     } else if (newsBlock is HtmlBlock) {
       return Html(block: newsBlock);

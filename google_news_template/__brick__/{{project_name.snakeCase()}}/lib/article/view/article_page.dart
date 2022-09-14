@@ -3,7 +3,9 @@ import 'package:article_repository/article_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+{{#include_ads}}
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
+{{/include_ads}}
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
@@ -63,11 +65,13 @@ class ArticleView extends StatefulWidget {
 }
 
 class _ArticleViewState extends State<ArticleView> {
+{{#include_ads}}
   @override
   void initState() {
     context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
     super.initState();
   }
+{{/include_ads}}
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +164,7 @@ class HasReachedArticleLimitListener extends StatelessWidget {
   }
 }
 
+{{#include_ads}}
 @visibleForTesting
 class HasWatchedRewardedAdListener extends StatelessWidget {
   const HasWatchedRewardedAdListener({super.key, this.child});
@@ -180,3 +185,18 @@ class HasWatchedRewardedAdListener extends StatelessWidget {
     );
   }
 }
+{{/include_ads}}
+
+{{^include_ads}}
+// just return passed widget if not including ads
+class HasWatchedRewardedAdListener extends StatelessWidget {
+  const HasWatchedRewardedAdListener({super.key, this.child});
+
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return child ?? Container();
+  }
+}
+{{/include_ads}}

@@ -188,6 +188,7 @@ void main() {
       );
     });
 
+{{#include_ads}}
     testWidgets(
         'renders BannerAd '
         'for BannerAdBlock', (tester) async {
@@ -195,6 +196,7 @@ void main() {
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(find.byType(BannerAd), findsOneWidget);
     });
+{{/include_ads}}
 
     testWidgets(
         'renders Newsletter '

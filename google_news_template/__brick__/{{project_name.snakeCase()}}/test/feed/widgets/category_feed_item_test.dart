@@ -230,6 +230,7 @@ void main() {
       expect(find.byType(Newsletter), findsOneWidget);
     });
 
+{{#include_ads}}
     testWidgets(
         'renders BannerAd '
         'for BannerAdBlock', (tester) async {
@@ -239,6 +240,7 @@ void main() {
       );
       expect(find.byType(BannerAd), findsOneWidget);
     });
+{{/include_ads}}
 
     testWidgets(
         'renders SizedBox '
