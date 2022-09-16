@@ -15,6 +15,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   })  : _newsRepository = newsRepository,
         super(const FeedState.initial()) {
     on<FeedRequested>(_onFeedRequested, transformer: sequential());
+    on<FeedRefreshRequested>(
+      _onFeedRefreshRequested,
+      transformer: sequential(),
+    );
   }
 
   final NewsRepository _newsRepository;
@@ -44,6 +48,39 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           status: FeedStatus.populated,
           feed: Map<Category, List<NewsBlock>>.from(state.feed)
             ..addAll({category: updatedCategoryFeed}),
+          hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
+            ..addAll({category: hasMoreNewsForCategory}),
+        ),
+      );
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: FeedStatus.failure));
+      addError(error, stackTrace);
+    }
+  }
+
+  FutureOr<void> _onFeedRefreshRequested(
+    FeedRefreshRequested event,
+    Emitter<FeedState> emit,
+  ) async {
+    emit(state.copyWith(status: FeedStatus.loading));
+
+    try {
+      final category = event.category;
+
+      final response = await _newsRepository.getFeed(
+        category: category,
+        offset: 0,
+      );
+
+      final refreshedCategoryFeed = response.feed;
+      final hasMoreNewsForCategory =
+          response.totalCount > refreshedCategoryFeed.length;
+
+      emit(
+        state.copyWith(
+          status: FeedStatus.populated,
+          feed: Map<Category, List<NewsBlock>>.from(state.feed)
+            ..addAll({category: refreshedCategoryFeed}),
           hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
             ..addAll({category: hasMoreNewsForCategory}),
         ),
