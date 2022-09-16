@@ -1,0 +1,104 @@
+name: google_news_template
+version: 0.0.1+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: 3.0.0
+
+dependencies:
+  ads_consent_client:
+    path: packages/ads_consent_client
+  analytics_repository:
+    path: packages/analytics_repository
+  app_ui:
+    path: packages/app_ui
+  article_repository:
+    path: packages/article_repository
+  bloc: ^8.0.3
+  bloc_concurrency: ^0.2.0
+  clock: ^1.1.0
+  email_launcher:
+    path: packages/email_launcher
+  equatable: ^2.0.3
+  firebase_authentication_client:
+    path: packages/authentication_client/firebase_authentication_client
+  firebase_crashlytics: ^2.1.1
+  firebase_notifications_client:
+    path: packages/notifications_client/firebase_notifications_client
+  flow_builder: ^0.0.7
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^1.0.3
+  font_awesome_flutter: ^10.1.0
+  form_inputs:
+    path: packages/form_inputs
+  google_news_template_api:
+    path: api
+  hydrated_bloc: ^9.0.0-dev.1
+  in_app_purchase_repository:
+    path: packages/in_app_purchase_repository
+  intl: ^0.17.0
+  mockingjay: ^0.3.0
+  news_blocks:
+    path: api/packages/news_blocks
+  news_blocks_ui:
+    path: packages/news_blocks_ui
+  news_repository:
+    path: packages/news_repository
+  notifications_repository:
+    path: packages/notifications_repository
+  path_provider: ^2.0.2
+  persistent_storage:
+    path: packages/storage/persistent_storage
+  platform: ^3.0.2
+  purchase_client:
+    path: packages/purchase_client
+  share_launcher:
+    path: packages/share_launcher
+  stream_transform: ^2.0.0
+  token_storage:
+    path: packages/authentication_client/token_storage
+  url_launcher: ^6.0.9
+  user_repository:
+    path: packages/user_repository
+  very_good_analysis: ^3.0.0
+  visibility_detector: ^0.3.3
+
+dependency_overrides:
+  flutter_svg: ^1.0.0
+  platform:
+    git:
+      url: https://github.com/felangel/platform.dart
+      ref: feat/isWeb
+
+dev_dependencies:
+  bloc_test: ^9.0.3
+  build_runner: ^2.0.3
+  build_verify: ^3.0.0
+  build_version: ^2.0.3
+  fake_async: ^1.3.0
+  flutter_gen_runner: ^4.1.6
+  flutter_test:
+    sdk: flutter
+  json_annotation: ^4.6.0
+  json_serializable: ^6.3.1
+  mocktail: ^0.3.0
+  mocktail_image_network: ^0.3.1
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_gen:
+  output: lib/generated/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true

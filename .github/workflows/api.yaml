@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "api/**"
+      - "google_news_project/api/**"
       - ".github/workflows/api.yaml"
     branches:
       - main
@@ -16,22 +16,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: api
-
-  e2e:
-    defaults:
-      run:
-        working-directory: api
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: dart-lang/setup-dart@v1
-
-      - name: Install Dependencies
-        run: dart pub get
-
-      - name: Run Docker Tests
-        run: ./tool/docker_test.sh
+      working_directory: google_news_project/api
+      analyze_directories: "routes lib test"
+      coverage_excludes: "**/*.g.dart"
+      report_on: "routes,lib"

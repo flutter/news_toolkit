@@ -1,0 +1,45 @@
+name: generate_google_news_template
+
+on:
+  push:
+    paths:
+      - tool/generator/**
+      - google_news_project/**
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        working-directory: tool/generator
+        run: dart pub get
+
+      - name: Generate Template
+        run: dart ./tool/generator/main.dart
+
+      - name: Config Git User
+        run: |
+          git config user.name VGV Bot
+          git config user.email bot@verygood.ventures
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.1.1
+        with:
+          base: main
+          branch: chore/generate-google-news-template
+          commit-message: "chore: generate google_news_template"
+          title: "chore: generate google_news_template"
+          body: Please squash and merge me!
+          labels: bot
+          author: VGV Bot <bot@verygood.ventures>
+          assignees: vgvbot
+          reviewers: felangel
+          committer: VGV Bot <bot@verygood.ventures>

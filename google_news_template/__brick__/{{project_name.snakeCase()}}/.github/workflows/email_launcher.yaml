@@ -1,0 +1,21 @@
+name: email_launcher
+
+concurrency:
+  group: ${{#mustacheCase}}github.workflow{{/mustacheCase}}-${{#mustacheCase}}github.ref{{/mustacheCase}}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "packages/email_launcher/**"
+      - ".github/workflows/email_launcher.yaml"
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_version: {{flutter_version}}
+      working_directory: packages/email_launcher
+      coverage_excludes: "lib/src/generated/*.dart"
