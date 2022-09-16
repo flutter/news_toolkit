@@ -28,7 +28,7 @@ jobs:
       - name: Config Git User
         run: |
           git config user.name VGV Bot
-          git config user.email vgvbot@users.noreply.github.com
+          git config user.email bot@verygood.ventures
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4.1.1
@@ -39,7 +39,7 @@ jobs:
           title: "chore: generate google_news_template"
           body: Please squash and merge me!
           labels: bot
-          author: VGV Bot <vgvbot@users.noreply.github.com>
+          author: VGV Bot <bot@verygood.ventures>
           assignees: vgvbot
-          reviewers: bselwe
-          committer: VGV Bot <vgvbot@users.noreply.github.com>
+          reviewers: felangel
+          committer: VGV Bot <bot@verygood.ventures>
