@@ -161,7 +161,7 @@ void main() {
             offset: any(named: 'offset'),
           ),
         ).thenAnswer((_) async => feedResponse),
-        build: () => FeedBloc(newsRepository: newsRepository),
+        build: () => feedBloc,
         act: (bloc) => bloc.add(
           FeedRefreshRequested(category: Category.entertainment),
         ),
@@ -188,7 +188,7 @@ void main() {
             offset: any(named: 'offset'),
           ),
         ).thenThrow(Exception()),
-        build: () => FeedBloc(newsRepository: newsRepository),
+        build: () => feedBloc,
         act: (bloc) => bloc.add(
           FeedRefreshRequested(category: Category.entertainment),
         ),
