@@ -35,6 +35,8 @@ class CategoryFeed extends StatelessWidget {
         onRefresh: () async => context
             .read<FeedBloc>()
             .add(FeedRefreshRequested(category: category)),
+        displacement: 0,
+        color: AppColors.mediumHighEmphasisSurface,
         child: ListView.builder(
           itemCount: categoryFeed.length + 1,
           controller: scrollController,
