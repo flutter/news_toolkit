@@ -60,6 +60,29 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     }
   }
 
+  FutureOr<void> _onFeedResumed(
+    FeedResumed event,
+    Emitter<FeedState> emit,
+  ) async {
+    emit(state.copyWith(status: FeedStatus.loading));
+    try {
+      final category = event.category;
+
+      emit(
+        state.copyWith(
+          status: FeedStatus.initial,
+          feed: Map<Category, List<NewsBlock>>.from(state.feed)
+            ..addAll({category: []}),
+          hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
+            ..addAll({category: true}),
+        ),
+      );
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: FeedStatus.failure));
+      addError(error, stackTrace);
+    }
+  }
+
   @override
   FeedState? fromJson(Map<String, dynamic> json) => FeedState.fromJson(json);
 
