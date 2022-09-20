@@ -117,6 +117,36 @@ void main() {
       expect(find.byKey(Key('feedView_empty')), findsNothing);
     });
 
+    testWidgets(
+      'adds FeedRefreshRequested for populated categories to FeedBloc '
+      'each time the app is resumed',
+      (tester) async {
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: categoriesBloc),
+              BlocProvider.value(value: feedBloc),
+            ],
+            child: FeedView(),
+          ),
+        );
+
+        tester.binding
+            .handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+
+        verify(
+          () => feedBloc.add(
+            FeedResumed(category: Category.top),
+          ),
+        ).called(1);
+        verify(
+          () => feedBloc.add(
+            FeedResumed(category: Category.technology),
+          ),
+        ).called(1);
+      },
+    );
+
     group('FeedViewPopulated', () {
       testWidgets('renders CategoryTabBar with CategoryTab for each category',
           (tester) async {
