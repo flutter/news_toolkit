@@ -87,9 +87,9 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       emit(
         state.copyWith(
           status: FeedStatus.populated,
-          feed: Map<Category, List<NewsBlock>>.from(state.feed)
+          feed: Map<Category, List<NewsBlock>>.of(state.feed)
             ..addAll({category: refreshedCategoryFeed}),
-          hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
+          hasMoreNews: Map<Category, bool>.of(state.hasMoreNews)
             ..addAll({category: hasMoreNewsForCategory}),
         ),
       );
