@@ -187,6 +187,31 @@ void main() {
         verify(() => categoriesBloc.add(CategorySelected(category: category)))
             .called(1);
       });
+
+      testWidgets(
+        'sets tab to zero when NavigationDrawerSectionItem is tapped ',
+        (tester) async {
+          final category = categories.first;
+
+          await tester.pumpDrawer(
+            categoriesBloc: categoriesBloc,
+            appBloc: appBloc,
+            homeCubit: homeCubit,
+          );
+
+          await tester.tap(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is NavigationDrawerSectionItem &&
+                  widget.key == ValueKey(category),
+            ),
+          );
+
+          await tester.pump(kThemeAnimationDuration);
+
+          verify(() => homeCubit.setTab(0)).called(1);
+        },
+      );
     });
   });
 }
