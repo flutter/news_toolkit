@@ -36,7 +36,7 @@ class FeedViewPopulated extends StatefulWidget {
 }
 
 class _FeedViewPopulatedState extends State<FeedViewPopulated>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final TabController _tabController;
 
   final Map<Category, ScrollController> _controllers =
@@ -47,12 +47,27 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(
       length: widget.categories.length,
       vsync: this,
     )..addListener(_onTabChanged);
     for (final category in widget.categories) {
       _controllers[category] = ScrollController();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      WidgetsFlutterBinding.ensureInitialized();
+      for (final category in widget.categories) {
+        final categoryFeedLength =
+            (context.read<FeedBloc>().state.feed[category] ?? []).length;
+        if (categoryFeedLength > 0) {
+          context.read<FeedBloc>().add(FeedResumed(category: category));
+        }
+      }
     }
   }
 
@@ -64,6 +79,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
     _tabController
       ..removeListener(_onTabChanged)
       ..dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
