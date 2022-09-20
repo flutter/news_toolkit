@@ -2,6 +2,7 @@ import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/categories/categories.dart';
+import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
@@ -27,6 +28,7 @@ class NavigationDrawerSections extends StatelessWidget {
               selected: category == selectedCategory,
               onTap: () {
                 Scaffold.of(context).closeDrawer();
+                context.read<HomeCubit>().setTab(0);
                 context
                     .read<CategoriesBloc>()
                     .add(CategorySelected(category: category));

@@ -19,7 +19,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     on<FeedRequested>(_onFeedRequested, transformer: sequential());
     on<FeedRefreshRequested>(
       _onFeedRefreshRequested,
-      transformer: sequential(),
+      transformer: droppable(),
     );
   }
 
