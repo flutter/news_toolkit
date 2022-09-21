@@ -26,6 +26,7 @@ folders with the image asset you want featured on your Android splash screen. Th
 The background color of your splash screen can be changed by editing the hex code value with `name="splash_background"` in `android/app/src/main/res/values/colors.xml`.
 
 ### iOS Splash Screen
+
 You should configure your iOS splash screen using an Xcode storyboard. To begin, add your splash screen image assets named 
 
  - `LaunchImage.png` 
