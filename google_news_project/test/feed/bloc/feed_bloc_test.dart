@@ -149,5 +149,54 @@ void main() {
         ],
       );
     });
+
+    group('FeedRefreshRequested', () {
+      blocTest<FeedBloc, FeedState>(
+        'emits [loading, populated] '
+        'when getFeed succeeds '
+        'and there is more news to fetch',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => feedBloc,
+        act: (bloc) => bloc.add(
+          FeedRefreshRequested(category: Category.entertainment),
+        ),
+        expect: () => <FeedState>[
+          FeedState(status: FeedStatus.loading),
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.entertainment: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.entertainment: true,
+            },
+          ),
+        ],
+      );
+
+      blocTest<FeedBloc, FeedState>(
+        'emits [loading, error] '
+        'when getFeed fails',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+          ),
+        ).thenThrow(Exception()),
+        build: () => feedBloc,
+        act: (bloc) => bloc.add(
+          FeedRefreshRequested(category: Category.entertainment),
+        ),
+        expect: () => <FeedState>[
+          FeedState(status: FeedStatus.loading),
+          FeedState(status: FeedStatus.failure),
+        ],
+      );
+    });
   });
 }

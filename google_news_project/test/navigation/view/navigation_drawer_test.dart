@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/app/app.dart';
 import 'package:google_news_template/categories/categories.dart';
+import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/navigation/navigation.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -22,12 +23,15 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockUser extends Mock implements User {}
 
+class MockHomeCubit extends MockCubit<HomeState> implements HomeCubit {}
+
 const _scaffoldKey = Key('__scaffold__');
 
 extension on WidgetTester {
   Future<void> pumpDrawer({
     required CategoriesBloc categoriesBloc,
     required AppBloc appBloc,
+    required HomeCubit homeCubit,
   }) async {
     await pumpApp(
       MultiBlocProvider(
@@ -37,7 +41,10 @@ extension on WidgetTester {
           ),
           BlocProvider.value(
             value: appBloc,
-          )
+          ),
+          BlocProvider.value(
+            value: homeCubit,
+          ),
         ],
         child: Scaffold(
           key: _scaffoldKey,
@@ -56,6 +63,7 @@ void main() {
   group('NavigationDrawer', () {
     late CategoriesBloc categoriesBloc;
     late AppBloc appBloc;
+    late HomeCubit homeCubit;
     late User user;
 
     const categories = [Category.top, Category.health];
@@ -63,6 +71,7 @@ void main() {
     setUp(() {
       categoriesBloc = MockCategoriesBloc();
       appBloc = MockAppBloc();
+      homeCubit = MockHomeCubit();
       user = MockUser();
 
       when(() => categoriesBloc.state).thenReturn(
@@ -77,6 +86,7 @@ void main() {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
+        homeCubit: homeCubit,
       );
       expect(find.byType(Drawer), findsOneWidget);
     });
@@ -85,6 +95,7 @@ void main() {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
+        homeCubit: homeCubit,
       );
       expect(find.byType(AppLogo), findsOneWidget);
     });
@@ -93,6 +104,7 @@ void main() {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
+        homeCubit: homeCubit,
       );
       expect(find.byType(NavigationDrawerSections), findsOneWidget);
     });
@@ -108,6 +120,7 @@ void main() {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
+        homeCubit: homeCubit,
       );
       expect(find.byType(NavigationDrawerSubscribe), findsOneWidget);
     });
@@ -123,6 +136,7 @@ void main() {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
+        homeCubit: homeCubit,
       );
       expect(find.byType(NavigationDrawerSubscribe), findsNothing);
     });
@@ -132,6 +146,7 @@ void main() {
         await tester.pumpDrawer(
           categoriesBloc: categoriesBloc,
           appBloc: appBloc,
+          homeCubit: homeCubit,
         );
 
         await tester.tap(
@@ -156,6 +171,7 @@ void main() {
         await tester.pumpDrawer(
           categoriesBloc: categoriesBloc,
           appBloc: appBloc,
+          homeCubit: homeCubit,
         );
 
         await tester.tap(
@@ -171,6 +187,31 @@ void main() {
         verify(() => categoriesBloc.add(CategorySelected(category: category)))
             .called(1);
       });
+
+      testWidgets(
+        'sets tab to zero when NavigationDrawerSectionItem is tapped ',
+        (tester) async {
+          final category = categories.first;
+
+          await tester.pumpDrawer(
+            categoriesBloc: categoriesBloc,
+            appBloc: appBloc,
+            homeCubit: homeCubit,
+          );
+
+          await tester.tap(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is NavigationDrawerSectionItem &&
+                  widget.key == ValueKey(category),
+            ),
+          );
+
+          await tester.pump(kThemeAnimationDuration);
+
+          verify(() => homeCubit.setTab(0)).called(1);
+        },
+      );
     });
   });
 }
