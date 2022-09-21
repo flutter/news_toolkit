@@ -31,29 +31,36 @@ class CategoryFeed extends StatelessWidget {
           _handleFailure(context);
         }
       },
-      child: ListView.builder(
-        itemCount: categoryFeed.length + 1,
-        controller: scrollController,
-        itemBuilder: (context, index) {
-          if (index == categoryFeed.length) {
-            return hasMoreNews
-                ? Padding(
-                    padding: EdgeInsets.only(
-                      top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
-                    ),
-                    child: CategoryFeedLoaderItem(
-                      key: ValueKey(index),
-                      onPresented: () => context
-                          .read<FeedBloc>()
-                          .add(FeedRequested(category: category)),
-                    ),
-                  )
-                : const SizedBox();
-          }
+      child: RefreshIndicator(
+        onRefresh: () async => context
+            .read<FeedBloc>()
+            .add(FeedRefreshRequested(category: category)),
+        displacement: 0,
+        color: AppColors.mediumHighEmphasisSurface,
+        child: ListView.builder(
+          itemCount: categoryFeed.length + 1,
+          controller: scrollController,
+          itemBuilder: (context, index) {
+            if (index == categoryFeed.length) {
+              return hasMoreNews
+                  ? Padding(
+                      padding: EdgeInsets.only(
+                        top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
+                      ),
+                      child: CategoryFeedLoaderItem(
+                        key: ValueKey(index),
+                        onPresented: () => context
+                            .read<FeedBloc>()
+                            .add(FeedRequested(category: category)),
+                      ),
+                    )
+                  : const SizedBox();
+            }
 
-          final block = categoryFeed[index];
-          return CategoryFeedItem(block: block);
-        },
+            final block = categoryFeed[index];
+            return CategoryFeedItem(block: block);
+          },
+        ),
       ),
     );
   }
