@@ -14,3 +14,12 @@ class FeedRequested extends FeedEvent {
   @override
   List<Object> get props => [category];
 }
+
+class FeedRefreshRequested extends FeedEvent {
+  const FeedRefreshRequested({required this.category});
+
+  final Category category;
+
+  @override
+  List<Object> get props => [category];
+}
