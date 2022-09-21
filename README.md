@@ -13,6 +13,7 @@
 Flutter's [Adding a Splash Screen to Your Mobile App](https://docs.flutter.dev/development/ui/advanced/splash-screen) documentation provides the most up-to-date and in-depth guidance on customizing the splash screen in your mobile app.
 
 ### Android Splash Screen
+
 Within the `android/app/src/main/res` folder, replace `launch_image.png` inside the 
 
  - `mipmap-mdpi` 
