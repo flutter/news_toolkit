@@ -12,6 +12,7 @@ import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/home/home.dart';
 import 'package:google_news_template/login/login.dart';
 import 'package:google_news_template/navigation/navigation.dart';
+import 'package:google_news_template/search/search.dart';
 import 'package:google_news_template/user_profile/user_profile.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -225,6 +226,41 @@ void main() {
         await tester.ensureVisible(find.byType(BottomNavBar));
         await tester.tap(find.byKey(Key('bottomNavBar_search')));
         verify(() => cubit.setTab(1)).called(1);
+      },
+    );
+
+    testWidgets(
+      'unfocuses keyboard when moving from search to home.',
+      (tester) async {
+        await pumpHomeView(
+          tester: tester,
+          cubit: cubit,
+          categoriesBloc: categoriesBloc,
+          feedBloc: feedBloc,
+          newsRepository: newsRepository,
+        );
+
+        await tester.ensureVisible(find.byType(BottomNavBar));
+        await tester.tap(find.byKey(Key('bottomNavBar_search')));
+        verify(() => cubit.setTab(1)).called(1);
+
+        await tester.pump(kThemeAnimationDuration);
+        await tester.showKeyboard(find.byType(SearchTextField));
+
+        final initialFocus = tester.binding.focusManager.primaryFocus;
+
+        await tester.tap(find.byIcon(Icons.menu));
+        await tester.pump(kThemeAnimationDuration);
+
+        expect(find.byType(NavigationDrawer), findsOneWidget);
+
+        await tester.tap(find.byType(ListTile).first);
+        await tester.pump(kThemeAnimationDuration);
+
+        expect(
+          tester.binding.focusManager.primaryFocus,
+          isNot(equals(initialFocus)),
+        );
       },
     );
   });
