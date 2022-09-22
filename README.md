@@ -14,7 +14,7 @@
 
 For general details regarding font customization, reference Flutter's [Use a Custom Font](https://docs.flutter.dev/cookbook/design/fonts) documentation. 
 
-To change the fonts used in your app, first add your font assets inside `packages/app_ui/assets/fonts`. Then list the added fonts under the `fonts` section of `packages/app_ui/pubspec.yaml`.
+To change the fonts used in your app, first add your font assets inside `packages/app_ui/assets/fonts`, then list the added fonts under the `fonts` section of `packages/app_ui/pubspec.yaml`.
 
 You can specify which fonts you want to be used in different elements in your app in the `packages/app_ui/lib/src/typography/app_text_styles.dart` file.
 
