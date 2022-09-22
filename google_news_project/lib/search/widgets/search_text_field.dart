@@ -22,6 +22,7 @@ class SearchTextField extends StatelessWidget {
           icon: const Icon(Icons.clear),
         ),
         hintText: context.l10n.searchByKeyword,
+        keyboardType: TextInputType.text,
       ),
     );
   }
