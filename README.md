@@ -16,7 +16,7 @@ For general details regarding font customization, reference Flutter's [Use a Cus
 
 To change the fonts used in your app, first add your font assets inside `packages/app_ui/assets/fonts`, then list the added fonts under the `fonts` section of `packages/app_ui/pubspec.yaml`.
 
-You can specify which fonts you want to be used in different elements in your app in the `packages/app_ui/lib/src/typography/app_text_styles.dart` file.
+You can specify which fonts you want used in different elements of your app in the `packages/app_ui/lib/src/typography/app_text_styles.dart` file.
 
 You can specify the fonts used in your app by changing the `fontFamily` value at the following locations inside the `app_text_styles.dart` file to match the name of your desired font family:
 
