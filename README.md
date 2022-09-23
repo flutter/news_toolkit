@@ -24,11 +24,12 @@ Begin by defining a new class which implements `NewsDataSource`.
 
     class YourCustomDataSource implements NewsDataSource
 
-Your data source should have as an attribute some means of interacting with your CMS such as a [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate data source constructors if you have different CMS URLs for different flavors such as development and production.
+Your data source should have a means of interacting with your CMS as an attribute such as a [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate data source constructors if you have different CMS URLs for different flavors such as development and production.
 
 ### Implementing Backend Adapters
 
 After creating your data source class, you should implement the methods defined in `NewsDataSource`:
+
 ```dart
 /// {@template news_data_source}
 /// An interface for a news content data source.
@@ -131,7 +132,6 @@ Future<Article?> getArticle({
 The above example references a class not included in the template, `Post`: 
 
 ```dart
-@JsonSerializable()
 class Post {
   const Post({
     required this.id,
@@ -159,7 +159,7 @@ Since your CMS presumably doesn't respond with data in the block-based format us
 
 You can use a package like [json_serializable](https://pub.dev/packages/json_serializable) to generate code to create a `Post` object from the JSON returned from your CMS (see [JSON and serialization - Flutter Documentation](https://docs.flutter.dev/development/data-and-backend/json)). 
 
-You can then [add an extension method](https://dart.dev/guides/language/extension-methods) such as `toArticle()` to your `Post` class which uses the relevant data from the `Post` object and to create and return an `Article` object which will be served to your client app.
+You can then [add an extension method](https://dart.dev/guides/language/extension-methods) such as `toArticle()` on your `Post` class which uses the relevant data from the `Post` object and to create and return an `Article` object which will be served to your client app.
 
 This structure of `JSON -> Intermediary Object -> API Model` can be repeated in implementing any data source method which receives data from your CMS that differs from what the method is expected to return.
 
