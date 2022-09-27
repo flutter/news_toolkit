@@ -51,7 +51,7 @@ Sticky ads are small dismissible ads that are anchored to the bottom of the scre
 
 ### Updating Rewarded Ads
 
-Rewarded ads allow the user to view an advertisement in order to perform a desired action. In the template, unsubscribed users have the opportunity to watch a rewarded ad after viewing four articles and may watch a rewarded ad to view an additional article. Rewarded ads are built inside the `SubscribeWithArticleLimitModal` widget in the `lib/subscriptions/widgets/subscribe_with_article_limit_modal.dart` file.
+Rewarded ads allow the user to view an advertisement to enable a desired action. In the template, unsubscribed users have the opportunity to watch a rewarded ad after viewing four articles, which unlocks the ability to view an additional article. Rewarded ads are built inside the `SubscribeWithArticleLimitModal` widget in the `lib/subscriptions/widgets/subscribe_with_article_limit_modal.dart` file.
 
 The line
 ```dart
