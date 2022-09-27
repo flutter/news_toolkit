@@ -21,7 +21,7 @@ To introduce banner ads into your app, you can either:
 
 *Inserting Banner Ads Locally*
 
-To insert banner ads locally add `BannerAdBlocks` with your desired size into any block feed by adjusting the state emitted by the `ArticleBloc` and `FeedBloc` respectively. 
+To insert banner ads locally, add `BannerAdBlocks` with your desired size into any block feed by adjusting the state emitted by the `ArticleBloc` and `FeedBloc`, respectively. 
 
 For example, to insert banner ads into the category feed view, edit the `FeedBloc._onFeedRequested()` method to insert a `BannerAdBlock` every 15 blocks, and subsequently emit the updated feed.
 
