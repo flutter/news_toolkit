@@ -24,7 +24,7 @@ Begin by defining a new class which implements `NewsDataSource`.
 
     class YourCustomDataSource implements NewsDataSource
 
-Your data source should have a means of interacting with your CMS as an attribute such as a [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate data source constructors if you have different CMS URLs for different flavors such as development and production.
+Your data source should have a means of interacting with your CMS as an attribute such as an [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate data source constructors if you have different CMS URLs for different flavors, such as development and production.
 
 ### Implementing Backend Adapters
 
