@@ -33,7 +33,7 @@ Inserting banner ads into content served by your backend API is the same as loca
 
 To insert a banner ad on the server, change the behavior of your [custom data source](#implementing-an-api-data-source). Methods such as `getFeed()` and `getArticle()` should insert a `BannerAdBlock` into the blocks returned from the server at your desired positions.
 
-Be sure to update the `totalBlocks` metadata returned by the server to reflect the total number of blocks served to the client so that the client renders all content properly.
+Be sure to update the `totalBlocks` metadata returned by the server to reflect the total number of blocks served to the client. This ensures that the client renders all content properly.
 
 ### Updating Interstitial Ads
 
