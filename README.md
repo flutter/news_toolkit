@@ -24,6 +24,8 @@ This diagram provides an overview of how blocks are used in the example template
 
 ![block-diagram](https://user-images.githubusercontent.com/61138206/192628148-e1af73e4-4b81-4dff-8926-c411294b4b86.png)
 
+In this example, data from the CMS is transformed by the [Dart Frog server](#implementing-an-api-data-source) into a `PostLargeBlock` to respond to a request from the app. The `CategoryFeed` widget receives the data from the app's `FeedBloc` and gives the `PostLargeBlock` to a newly-constructed `PostLarge` widget to dictate what data the widget should render on-screen.
+
 ### Using Blocks
 
 You can view the relationship between blocks and their corresponding widgets in `lib/article/widgets/article_content_item.dart` and `lib/article/widgets/category_feed_item.dart`. 
