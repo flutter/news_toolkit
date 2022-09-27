@@ -43,7 +43,7 @@ Interstitial ads are full-screen ads that appear between content. By default, in
 context.read<FullScreenAdsBloc>().add(const  ShowInterstitialAdRequested());
 ```
 
-or otherwise move that line to a location where it is executed after your desired event. 
+Alternatively, you can move that line to a location to execute after your desired event (e.g. upon article close). 
 
 ### Updating Sticky Ads
 
