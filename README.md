@@ -24,7 +24,7 @@ As described in [Implementing an API Data Source](#implementing-an-api-data-sour
 
 You can view the relationship between blocks and their corresponding widgets in `lib/article/widgets/article_content_item.dart` and `lib/article/widgets/category_feed_item.dart`. 
 
-`ArticleContentItem` specifies how a block will be rendered inside an article view, while `CategoryFeedItem` specifies how a block will be rendered inside the feed view. Both classes also provide callbacks to widgets which exhibit behavior on an interaction such as a press or tap by the user. Look through those files to get a sense for what kind of blocks you can feed into the app out-of-the-box.
+`ArticleContentItem` specifies how a block will be rendered inside an article view, while `CategoryFeedItem` specifies how a block will be rendered inside the feed view. Both classes also provide callbacks to widgets which exhibit behavior on an interaction, such as a press or tap by the user. Look through those files to review the available blocks that can feed into your app out-of-the-box.
 
 Note that if your CMS returns content in an HTML format, you may want to break you article into chunks and provide it to the app inside an `HtmlBlock`, which will render the content inside a [`Html`](https://pub.dev/packages/flutter_html) widget. Styling for HTML content is covered in the [Updating the App Typography](#updating-the-app-typography) section of this document.
 
