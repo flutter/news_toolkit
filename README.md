@@ -29,7 +29,7 @@ If you want banner ads to appear outside of a feed view, you can call the `Banne
 
 *Inserting Banner Ads at the Data Source*
 
-Inserting banner ads into content served by your backend API is the same as local insertion, except that you can only insert a `BannerAdBlock` into block feeds such as the article or category feed and are unable to prompt a call to build a `BannerAd` elsewhere in the app out-of-the-box.
+Inserting banner ads into content served by your backend API is the same as local insertion, except you can only insert a `BannerAdBlock` into block feeds (such as the article or category feed) and you are unable to prompt a call to build a `BannerAd` elsewhere in the app out-of-the-box.
 
 To insert a banner ad on the server, change the behavior of your [custom data source](#implementing-an-api-data-source). Methods such as `getFeed()` and `getArticle()` should insert a `BannerAdBlock` into the blocks returned from the server at your desired positions.
 
