@@ -47,7 +47,7 @@ Alternatively, you can move that line to a location to execute after your desire
 
 ### Updating Sticky Ads
 
-Sticky ads are small dismissible ads that are anchored to the bottom of the screen. Sticky ads are built by the `StickyAd` widget. In the template there is a sticky ad placed in `ArticleContent` inside `lib/article/widgets/article_content.dart`. Move the `StickyAd()` constructor if you want to change which screen sticky ads are shown on.
+Sticky ads are small dismissible ads that are anchored to the bottom of the screen. Sticky ads are built by the `StickyAd` widget. In the template, there is a sticky ad placed in `ArticleContent` inside `lib/article/widgets/article_content.dart`. Move the `StickyAd()` constructor if you want to change which screen sticky ads are shown on.
 
 ### Updating Rewarded Ads
 
