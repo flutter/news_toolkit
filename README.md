@@ -16,7 +16,7 @@ In the sample Google News Project, banner ads are introduced as [blocks](#workin
 
 To introduce banner ads into your app, you can either:
 
- 1. Insert them locally at the client level.
+ 1. Insert them locally at the client level or
  2. Insert them into the data served by your [data source](#implementing-an-api-data-source).
 
 *Inserting Banner Ads Locally*
