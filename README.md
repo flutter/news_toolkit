@@ -20,6 +20,10 @@ These blocks contain the data which the app requires to render a corresponding w
 
 As described in [Implementing an API Data Source](#implementing-an-api-data-source), your backend is responsible for transforming data from your CMS into the block-based format expected by the app. The app will then display the data according to its own internal rendering rules.
 
+This diagram provides an overview of how blocks are used in the example template application:
+
+![block-diagram](https://user-images.githubusercontent.com/61138206/192628148-e1af73e4-4b81-4dff-8926-c411294b4b86.png)
+
 ### Using Blocks
 
 You can view the relationship between blocks and their corresponding widgets in `lib/article/widgets/article_content_item.dart` and `lib/article/widgets/category_feed_item.dart`. 
