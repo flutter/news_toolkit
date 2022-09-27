@@ -10,7 +10,7 @@
 
 ## Implementing an API Data Source
 
-The template's [Dart Frog](https://dartfrog.vgv.dev/)-based API acts as an intermediary between your CMS and the client application, organizing your content into the Blocks that form the basis of content organization within the app.
+The template's [Dart Frog](https://dartfrog.vgv.dev/)-based API acts as an intermediary between your CMS and the client application, organizing your content into the [blocks](#working-with-blocks) that form the basis of content organization within the app.
 
 If you don't intend to write custom code to support the necessary block-organized endpoints from your CMS, you should create and deploy an API which uses the `NewsDataSource` interface to collect and transform data.
 
