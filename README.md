@@ -131,7 +131,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 ### Twitter Authentication:
 
 - Create a project and app in the [Twitter developer portal](https://developer.twitter.com/) - both can have the same name like "Google News Template". Save the API key and secret when creating an app and share these secrets with your developer team.
-- Enable OAuth 2.0 authentication by setting "hespress://" as the callback URI and "Native app" as the type of the app.
+- Enable OAuth 2.0 authentication by setting "yourapp://" as the callback URI and "Native app" as the type of the app.
 - In [Twitter products](https://developer.twitter.com/en/portal/products), make sure to have the Twitter API v2 enabled with "Elevated" access - otherwise Twitter authentication is not going to work. 
 	- You may need to fill out a form to apply for “Elevated” access.
 - If possible, add your full team as developers of the Twitter app.
