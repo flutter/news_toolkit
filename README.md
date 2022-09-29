@@ -153,7 +153,7 @@ class Post {
   final String content;
   final Author author;
   final String image;
-  final HespressPostCategory category;
+  final PostCategory category;
 }
 ```
 
