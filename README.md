@@ -22,7 +22,9 @@ The `NewsDataSource` class found in `api/lib/src/data/news_data_source.dart` pro
 
 Begin by defining a new class which implements `NewsDataSource`. 
 
-    class YourCustomDataSource implements NewsDataSource
+```dart
+class YourCustomDataSource implements NewsDataSource
+```
 
 Your data source should have a means of interacting with your CMS as a field such as an [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate named constructors if you have different CMS URLs for different flavors, such as development and production.
 
