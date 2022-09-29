@@ -31,7 +31,7 @@ jobs:
           git config user.email bot@verygood.ventures
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.1.1
+        uses: peter-evans/create-pull-request@v4.1.3
         with:
           base: main
           branch: chore/generate-google-news-template
