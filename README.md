@@ -71,7 +71,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 - Update your app's [launcher icons](#updating-the-app-launcher-icon).
 -- If you'd like to support [adaptive ions for Android](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive), ensure you have background and foreground assets. 
 - Update the [app logo in the top navigation bar](TODO).
-- Update the app's [color palette](TODO) via the app's theme and [in-line color references](TODO).
+- Update the app's [colors](#updating-app-colors) via the app's [theme](#updating-theme-colors) and [in-line color references](#updating-inline-colors).
 - Update the app's [typography](#updating-the-app-typography).
 - Update the app's [Privacy Policy and/or Terms of Service](#updating-the-privacy-policy-&-terms-of-service) in the app's settings and authentication screens.
 
