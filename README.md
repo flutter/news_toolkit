@@ -65,7 +65,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 ### Theming & Branding
 
-- Update your app's [splash screen](##updating-the-app-splash-screen).
+- Update your app's [splash screen](#updating-the-app-splash-screen).
 - Update your app's [launcher icons](#updating-the-app-launcher-icon).
 -- If you'd like to support [adaptive ions for Android](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive), ensure you have background and foreground assets. 
 - Update the [app logo in the top navigation bar](TODO).
