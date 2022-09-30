@@ -71,7 +71,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 - Update the [app logo in the top navigation bar](TODO).
 - Update the app's [color palette](TODO) via the app's theme and [in-line color references](TODO).
 - Update the app's [typography](##updating-the-app-typography).
-- Update the app's [Privacy Policy and/or Terms of Service](##updating-the-privacy-policy-&-terms-of-service) in the app's settings and authentication screens.
+- Update the app's [Privacy Policy and/or Terms of Service](#updating-the-privacy-policy-&-terms-of-service) in the app's settings and authentication screens.
 
 ### Data Source & Feature Implementation
 
