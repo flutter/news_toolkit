@@ -157,7 +157,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
     
 ### [Google Ad Manager](https://support.google.com/admanager/answer/1656921) or [Admob](https://support.google.com/admob/answer/7356431):
 
--  Create apps for each platform and flavor (4 apps total).
+- Create apps for each platform and flavor (4 apps total).
 - Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
 - Share the app IDs with your developer team.
     
