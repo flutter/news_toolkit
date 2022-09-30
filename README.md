@@ -75,7 +75,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 ### Data Source & Feature Implementation
 
- - Once the app is starting to reflect your brand, you'll want to [implement your API datasource](##implementing-an-api-data-source).
+ - Once the app is starting to reflect your brand, you'll want to [implement your API datasource](#implementing-an-api-data-source).
  - Next, you'll need to [set-up backend adapters](#implementing-backend-adapters) for each of the following endpoints:
 	 - getArticle
 	 - getFeed
