@@ -90,7 +90,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 	 - subscribeToNewsletter
 
  - You'll also want to [implement push notifications](TODO) using either FCM or OneSignal and update the UI to support the categories of notifications that you'd like to enable. 
- - Finally, [make any adjustments to the ads logic](##updating-ads-placement) to match your organization's requirements.
+ - Finally, [make any adjustments to the ads logic](#updating-ads-placement) to match your organization's requirements.
 
 ### API Deployment & Versioning
 
