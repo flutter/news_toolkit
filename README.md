@@ -45,7 +45,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 ### Configuration
 
- - Follow the configuration steps outlined in [this section] before starting your project. These steps will ensure your project is set-up appropriately and will supply your team with the necessary keys required for your application.
+ - Follow the configuration steps outlined in [this section](#configuration) before starting your project. These steps will ensure your project is set-up appropriately and will supply your team with the necessary keys required for your application.
 
 ### Code Generation
 
