@@ -121,7 +121,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 ### Facebook Authentication:
 
--  Create an app in the [Facebook developer portal](https://developers.facebook.com/apps/).
+- Create an app in the [Facebook developer portal](https://developers.facebook.com/apps/).
 - In the same portal, enable the Facebook Login product (`Products -> Facebook Login`).
 - Go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS.
 - In Facebook, go to `Settings -> Advanced` and enable "App authentication, Native or desktop app?"
