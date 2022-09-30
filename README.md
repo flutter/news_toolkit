@@ -9,7 +9,7 @@ The Flutter news app template:
 -   implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 -   allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](##available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
 ## Google News Mason Template
 
