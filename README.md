@@ -8,6 +8,68 @@
 
 [Google News Template](./google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
+## Updating App Colors
+
+The colors used throughout your app are specified in the `app_colors.dart` file found in `packages/app_ui/lib/src/colors`. Add custom colors to this file and reference them as an attribute of the `AppColors` class inside your app (e.g. `AppColors.orange`). The role of colors within your app can be specified as either theme information or as an inline color.
+
+### Updating Theme Colors
+
+Some colors are assigned to themes, which allow colors to be shared throughout your app based on their intended role in the user interface. For additional information on specifying theme colors, reference the Flutter [Use Themes to Share Colors and Font Styles](https://docs.flutter.dev/cookbook/design/themes) cookbook.
+
+App themes are laid out in the `app_theme.dart` file inside the `packages/app_ui/lib/src/theme` folder. For example, the widget-specific theme `_appBarTheme` allow you to specify the colors and theme information for your [AppBar](https://api.flutter.dev/flutter/material/AppBar-class.html).
+
+### Updating Inline Colors
+
+Not all of your desired color assignments can be specified by changing the app's theme data. You may want to use a color only on certain instances of a widget or specify colors with more granularity than the theme information supports. There are several existing inline color specifications in your app:
+
+*Specifying Button Colors*
+
+The colors of an app button are specified by the named constructors laid out in `packages/app_ui/lib/src/widgets/app_button.dart`. To specify new button colors, create a new color constructor. For example, to create an orange app button create the constructor
+
+```dart
+const AppButton.orange({
+  Key? key,
+  VoidCallback? onPressed,
+  double? elevation,
+  TextStyle? textStyle,
+  required Widget child,
+}) : this._(
+        key: key,
+        onPressed: onPressed,
+        buttonColor: AppColors.orange,
+        child: child,
+        foregroundColor: AppColors.white,
+        elevation: elevation,
+        textStyle: textStyle,
+     );
+```
+
+You can then call the new `AppButton.orange` constructor in your app wherever you want to add an orange button, or replace an existing constructor call such as `AppButton.redWine` with your new constructor to update the button color.
+
+*Specifying TabBar Colors*
+
+The `TabBarTheme` specified in `app_theme.dart` does not provide a `backgroundColor` property. To specify a specific color for the `CategoriesTabBar` rendered below the `AppBar`, edit `CategoriesTabBar`'s `build()` method inside `lib/categories/widgets/categories_tab_bar.dart` to place the `TabBar` widget inside a `ColoredBox`:
+
+```dart
+return ColoredBox(
+  color: AppColors.organge,
+  child: TabBar(
+    controller: controller,
+    isScrollable: true,
+    tabs: tabs,
+  ),
+);
+```
+
+Other widgets with in-line specified colors include:
+- `PostContentPremiumCategory`
+- `SlideshowCategory`
+- `PostContentCategory`
+- `MagicLinkPromptSubtitle`
+- `ManageSubscriptionView`
+- `AppTextField`
+- `ArticleIntroduction`
+
 ## Updating Ads Placement
 
 ### Updating Banner Ads
@@ -312,7 +374,6 @@ For styling text contained in `HtmlBlocks`, you can edit the `style` map in `pac
 You can use the [Flutter Launcher Icons](https://pub.dev/packages/flutter_launcher_icons) package to streamline adding your new app launcher icon.
 
 Alternatively, you may want to manually update your app's launcher icon. Flutter's documentation contains information on how to accomplish this for both [iOS](https://docs.flutter.dev/deployment/ios#add-an-app-icon) and [Android](https://docs.flutter.dev/deployment/android#adding-a-launcher-icon).
-
 
 ## Updating the App Splash Screen
 
