@@ -135,7 +135,7 @@ Require linear history.
 - In the same portal, enable the Facebook Login product (`Products -> Facebook Login`).
 - Go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS.
 - In Facebook, go to `Settings -> Advanced` and enable "App authentication, Native or desktop app?"
--  After setting up your [Firebase project](TODO), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
+-  After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
 - Use "OAuth redirect URI" from Firebase to set "Valid Oauth Redirect URIs" in the Facebook portal.
 
 ### Twitter Authentication:
