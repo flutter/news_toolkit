@@ -66,6 +66,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 		 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads) 
 
 ### Translations
+
 This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization). If you would like to support a different language (or multiple languages) in your app, please review [this section](#working-with-translations) for instruction.
 
 ### Theming & Branding
@@ -172,7 +173,6 @@ Require linear history.
 - Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
 - Share the app IDs with your developer team and store them within your app configuration file.
     
-
 ### FCM or OneSignal:
 
 - Share the developer and production app IDs with the development team and store them within your app configuration file.
@@ -186,7 +186,6 @@ Require linear history.
 - Configure the "Localizable Information" and "General Information" in the `App Information` section.
 - Create first release to be able to setup subscriptions.
 - [Set-up the subscription package](https://appstoreconnect.apple.com/) in the developer and production apps (`Features -->In-App Purchases` & `Features -->Subscriptions`).
-    
 
 ### Google Play Store:
 
@@ -207,8 +206,7 @@ Require linear history.
 - Configure the prod_emails and tst_emails in the codemagic.yaml file located in your repository.
 - Set up the [GPLAY_KEY](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
 - Encrypt the GPLAY_KEY in Codemagic .
-- Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
-    
+- Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic
 
 ### Google Cloud API Deployments:
 
