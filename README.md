@@ -1,12 +1,394 @@
 # Google News Template
 
-## Google News Project
+The Google Flutter team and Google News initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever.
 
-[Google News Project](./google_news_project/README.md) is a news application template built as a Flutter app with a [dart_frog](https://pub.dev/packages/dart_frog) backend.
+This template aims to **reduce typical news app development time by 80%.**
+
+The Flutter news app template:
+-   contains common news app UI workflows and core features built in Flutter and Firebase
+-   implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
+-   allows publishers to monetize immediately with pre-built Google Ads and subscription services
+
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
 ## Google News Mason Template
 
-[Google News Template](./google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
+[Google News Template](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
+
+## Google News Project
+
+[Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) is a news application template built as a Flutter app with a [dart_frog](https://pub.dev/packages/dart_frog) backend.
+
+## Available Features
+
+The Google News Template was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
+
+ - Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
+	 - Note that these services can be changed to fit your unique requirements, but would require a development effort. 
+ 
+ - [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
+ - [Push Notifications](#push-notifications) (FCM or OneSignal)
+ - App Tracking
+ - Content Feed
+ - Article Pages
+ - In-Line Images
+ - Image Slideshow
+ - Video Player
+ - Search
+ - [Subscription & Purchases](#subscriptions-and-purchases)
+ - [Newsletter Subscription](#newsletter)
+ - [Ads](#ads) (banner ads, interstitial ads, sticky ads, rewarded ads)
+ - Commenting UI
+ - Pull to Refresh
+
+## Getting Started
+
+Below is an example project roadmap that can be leveraged to implement this template for your very own Flutter application. Please use this as a guide for your development efforts and deviate where necessary.
+
+### Configuration
+
+ - Follow the configuration steps outlined in [this section](#configuration) before starting your project. These steps will ensure your project is set-up appropriately and will supply your team with the necessary keys required for your application.
+
+### Code Generation
+
+ - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
+ - The [Google News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
+	 - Application name (*e.g. News Template*)
+	 - Application package name (*e.g. news_template*)
+	 - Desired Flutter version
+	 - Application bundle identifier (*e.g. com.news.template*)
+	 - Code Owners
+	 - Flavors, where each flavor includes a different:
+		 - Application suffix (appended to the application 			bundle identifier for a given flavor)
+		 - Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
+		 - Twitter configuration (API key and API secret; used to login with Twitter)
+		 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
+		 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads) 
+
+### Translations
+This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization). If you would like to support a different language (or multiple languages) in your app, please review [this section](#working-with-translations) for instruction.
+
+### Theming & Branding
+
+- Update your app's [splash screen](#updating-the-app-splash-screen).
+- Update your app's [launcher icons](#updating-the-app-launcher-icon).
+	 - If you'd like to support [adaptive ions for Android](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive), ensure you have background and foreground assets. 
+
+- Update the [app logo in the top navigation bar](#updating-the-app-logo).
+- Update the app's [colors](#updating-app-colors) via the app's [theme](#updating-theme-colors) and [in-line color references](#updating-inline-colors).
+- Update the app's [typography](#updating-the-app-typography).
+- Update the app's [Privacy Policy and/or Terms of Service](#updating-the-privacy-policy-&-terms-of-service) in the app's settings and authentication screens.
+
+### Data Source & Feature Implementation
+
+ - Once the app is starting to reflect your brand, you'll want to [implement your API datasource](#implementing-an-api-data-source).
+ - Next, you'll need to [set-up backend adapters](#implementing-backend-adapters) for each of the following endpoints:
+	 - getArticle
+	 - getFeed
+	 - getCategories
+	 - getTrendingStory
+	 - getSubscriptions
+	 - getRelatedArticles
+	 - getReleventTopics (search)
+	 - getReleventArticles (search)
+	 - getPopularArticles (search)
+	 - getPopularTopics (search)
+	 - subscribeToNewsletter
+
+ - You'll also want to [implement push notifications](#push-notifications) using either FCM or OneSignal and update the UI to support the categories of notifications that you'd like to enable. 
+- [Organize and adjust your blocks](#organizing-and-adjusting-blocks) in your content feed and article pages to create a customized look and feel for your app.
+ - Finally, [make any adjustments to the ads logic](#updating-ads-placement) to match your organization's requirements.
+
+### API Deployment & Versioning
+
+- After ensuring your dev and production api have been successfully [deployed on Cloud Run](#google-cloud-api-deployments), you'll want to [release a new build version to your app stores](#version-bump).
+
+### Project Wrap-Up
+
+- Remove [test mode configuration](https://developers.google.com/admob/flutter/test-ads) for ads before submitting your app for review. 
+	- Note that this should be done as close to submission as possible to avoid unnecessary costs for ads engagement in your test apps.
+- Finalize metadata and required fields for app store submission and review. 
+	- Google Play Store: `Policy --> App Content`
+	- Apple App Store Connect: `General --> App Privacy --> Data Types`
+- Submit your apps for review.
+- Once approved, release your apps!
+
+# Configuration
+
+## Pre-Project Setup
+
+### Github:
+
+-  Create repository within the ‘Github Organization’ to enable:
+	- The following recommended branch protection rules:
+	 - Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
+	 - Require status checks to pass before merging (require branches to be up to date before merging).
+Require linear history.
+	- [Slack Integration](https://github.com/integrations/slack/blob/master/README.md) (recommended)
+	- [Auto-deletion](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches) and [auto-merge](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository) for branches
+	- Draft PRs
+-  Grant Admin access to at least one developer to enable secrets creation.
+
+### Facebook Authentication:
+
+- Create an app in the [Facebook developer portal](https://developers.facebook.com/apps/).
+- In the same portal, enable the Facebook Login product (`Products -> Facebook Login`).
+- Go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS.
+- In Facebook, go to `Settings -> Advanced` and enable "App authentication, Native or desktop app?"
+-  After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
+- Use "OAuth redirect URI" from Firebase to set "Valid Oauth Redirect URIs" in the Facebook portal.
+
+### Twitter Authentication:
+
+- Create a project and app in the [Twitter developer portal](https://developer.twitter.com/) - both can have the same name like "Google News Template". Save the API key and secret when creating an app and share these secrets with your developer team.
+- Enable OAuth 2.0 authentication by setting "yourapp://" as the callback URI and "Native app" as the type of the app.
+- In [Twitter products](https://developer.twitter.com/en/portal/products), make sure to have the Twitter API v2 enabled with "Elevated" access - otherwise Twitter authentication is not going to work. 
+	- You may need to fill out a form to apply for “Elevated” access.
+- If possible, add your full team as developers of the Twitter app.
+- After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Twitter` to set up Twitter authentication method. Fill in the app ID and secret from the created Twitter app and share these secrets with your developer team.
+
+### [Firebase](https://github.com/flutter/news_template/blob/main/google_news_template/README.md#recommended-firebase-configuration):
+
+- It is recommended to define at least two application environments: development and production. Each environment defines a different configuration of deep links, ads and authentication along with a different entry point to the application (e.g.  `main_development.dart`).
+
+- When generating the template, choose "development production" as a list of desired application flavors. Choose "dev" as the application suffix for the development flavor.
+
+- In Firebase, configure two separate Firebase projects for the development and production flavor. You may do this  [from the Firebase console](https://console.firebase.google.com/u/0/)  or using the  [firebase-tools CLI tool](https://github.com/firebase/firebase-tools)  and the  `firebase projects:create`  command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the  `firebase apps:create`  command.
+
+- Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations. 
+-  Ensure the developer team has admin access.
+-  Note the app IDs for your developer team.
+    - Note that the app IDs can be specified when generating your codebase in mason or otherwise updated manually.
+-  Set-up Firebase authentication for supported sign-in platforms (Apple/Google/Email/Facebook/Twitter/etc.):
+	-   For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+	-   For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
+	-   For Apple login,  [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple)  in the Apple's developer portal and  [enable the Apple sign-in provider](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider)  in the Firebase Console of your project.
+	-   For Twitter login, register an app in the Twitter developer portal and enable the Twitter sign-in provider in the Firebase Console of your project.
+	-   For Facebook login, register an app in the Facebook developer portal and enable the Facebook sign-in provider in the Firebase Console of your project.
+    
+### [Google Ad Manager](https://support.google.com/admanager/answer/1656921) or [Admob](https://support.google.com/admob/answer/7356431):
+
+- Create apps for each platform and flavor (4 apps total).
+- Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
+- Share the app IDs with your developer team and store them within your app configuration file.
+    
+
+### FCM or OneSignal:
+
+- Share the developer and production app IDs with the development team and store them within your app configuration file.
+
+### App Store:
+
+- Create an Apple Developer team/organization.
+- Ensure your project team has the appropriate access and roles in the `Users and Access` tab.
+- Create a developer and production app.
+- Configure the Privacy Policy and Terms of Use (EULA) in the `App Privacy --> Privacy Policy` section.
+- Configure the "Localizable Information" and "General Information" in the `App Information` section.
+- Create first release to be able to setup subscriptions.
+- [Set-up the subscription package](https://appstoreconnect.apple.com/) in the developer and production apps (`Features -->In-App Purchases` & `Features -->Subscriptions`).
+    
+
+### Google Play Store:
+
+- Create a Google Play Developer Console team/organization. 
+- Ensure your project team has the appropriate access and roles. 
+- Create a developer and production app.
+- Configure app information in `Store presence --> Main store listing`.
+- Configure the store settings (`Store presence --> Store settings`).
+- [Set up the subscription product](https://play.google.com/console/u/0/developers/6749221870414263141/app-list) (`Products --> Subscriptions`).
+
+## After Code Generation
+
+### Codemagic:
+
+- Configure the ‘TODO’ fields in the codemagic.yaml file located in your repository.
+- Create the [App Store API Key](https://docs.codemagic.io/yaml-code-signing/signing-ios/#creating-the-app-store-connect-api-key) and add this to your Codemagic account.
+- [Generate and upload a Keystore](https://docs.codemagic.io/yaml-code-signing/signing-android/#generating-a-keystore).
+- Configure the prod_emails and tst_emails in the codemagic.yaml file located in your repository.
+- Set up the [GPLAY_KEY](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
+-  Encrypt the GPLAY_KEY in Codemagic .
+- Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
+    
+
+### Google Cloud API Deployments:
+
+ - Set-up a [Google Cloud   
+   account](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+   to host your API.
+  - Enable Billing.
+- Set-up an [Github Action Service account](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
+- Configure  [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
+   and [user authentication for your   
+   API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth)
+   (optional). 
+
+### Google Play Store:
+
+-   [Set up API access](https://play.google.com/console/u/0/developers/6749221870414263141/api-access)
+
+## Updating the App Logo
+
+App logo image assets are displayed at both the top of the feed view and at the top of the app navigation drawer. To replace these with your custom assets, replace the following files:
+
+- `packages/app_ui/assets/images/logo_dark.png`
+- `packages/app_ui/assets/images/logo_light.png`
+
+Change the dimensions specified in the `AppLogo` widget (`packages/app_ui/lib/src/widgets/app_logo.dart`) to match your new image dimensions.
+
+## Subscriptions and purchases
+
+This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/VGVentures/google_news_template/tree/main/packages/purchase_client).
+
+The [PurchaseClient class](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism to expose the `purchaseStream`.
+
+```
+  @override
+  Stream<List<PurchaseDetails>> get purchaseStream => _purchaseStream.stream;
+```
+
+Mocked products are being exposed in the [products.dart](https://github.com/VGVentures/google_news_template/blob/main/packages/purchase_client/lib/src/products.dart) file.
+
+A list of availiable subscription data featuring copy text and price information is served by Dart Frog backend. To edit the subscription data, change the `getSubscriptions()` method in your custom news data source. Make sure that the product IDs are the same for your iOS and Android purchase project, as this information will be passed to the platform-agnostic `in_app_purchase` package.
+
+### in_app_purchase usage
+
+To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/VGVentures/google_news_template/blob/3f8d5cfd1106d3936b5d7582a82ca143c53d2535/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
+
+Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Google Analytics
+
+Google Analytics is an app measurement solution, available at no charge, that provides insight on app usage and user engagement.
+
+This project utilizes the `firebase_analytics` package to allow tracking of user activity within the app. To use `firebase_analytics`, it is required to have a Firebase project setup correctly. For instructions on how to add Firebase to your flutter app visit [this site](https://firebase.google.com/docs/flutter/setup).
+
+[AnalyticsRepository](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/analytics_repository/lib/src/analytics_repository.dart#L38) is responsible for handling event tracking and can be accessed globally within the app using `BuildContext`
+
+```dart
+class AnalyticsRepository {
+  const AnalyticsRepository(FirebaseAnalytics analytics)
+      : _analytics = analytics;
+
+  final FirebaseAnalytics _analytics;
+
+  /// Tracks the provided [AnalyticsEvent].
+  Future<void> track(AnalyticsEvent event) async {
+    try {
+      await _analytics.logEvent(
+        name: event.name,
+        parameters: event.properties,
+      );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(TrackEventFailure(error), stackTrace);
+    }
+  }
+  ...
+```
+
+## Newsletter
+
+The current [implementation](https://github.com/VGVentures/google_news_template/blob/main/api/lib/src/api/v1/newsletter/create_subscription/create_subscription.dart) of newsletter email subscription will always return true and the response is handled in the app as a success state. Be aware that the current implementation of this feature does not store the subscriber state for a user.
+
+```dart
+/// Mixin on [Controller] which adds support for subscribing to a newsletter.
+mixin CreateSubscriptionMixin on Controller {
+  /// Subscribe to receive a newsletter.
+  Future<Response> createSubscription(Request request) async {
+    return JsonResponse.created();
+  }
+}
+```
+
+To fully leverage the newsletter subscription feature please add your API handling logic or an already existing email service, such as [mailchimp.](https://mailchimp.com/)
+
+## Authentication
+
+Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
+
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
+
+The package depends on the third-party packages that expose authentication methods such as:
+
+- `firebase_auth`
+- `flutter_facebook_auth`
+- `google_sign_in`
+- `sign_in_with_apple`
+- `twitter_login`
+
+To enable authentication, configure each authentication method:
+- For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+- For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
+- For Apple login, [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple) in the Apple's developer portal and [enable the Apple sign-in provider](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider) in the Firebase Console of your project.
+- For Twitter login, register an app in the Twitter developer portal and enable the Twitter sign-in provider in the Firebase Console of your project.
+- For Facebook login, register an app in the Facebook developer portal and enable the Facebook sign-in provider in the Firebase Console of your project.
+  
+Once configured, make sure to update the Firebase config file (Google services) in your application.
+
+For more detailed usage of these authentication methods, check [firebase.google.com](https://firebase.google.com/docs/auth/flutter/federated-auth) documentation.
+
+## Organizing and Adjusting Blocks
+
+As outlined in the [Working With Blocks](#working-with-blocks) section, blocks are the basic organizational components of your app's news content. Re-arranging the order of blocks allows you to control how and where your content is displayed.
+
+Block organization typically occurs within your [backend adapters](#implementing-backend-adapters) and is then served to your app.
+
+Reference the `article_content_item.dart` and `category_feed_item.dart` files to understand the relationship between blocks and their corresponding widgets.
+
+Placing ads is covered in the [Updating Ads Placement](#updating-ads-placement) section, but you may want to control the placement of other widgets such as the `NewsletterBlock` which allows a user to subscribe to a mailing list. One way to arrange a block is to edit your news data source implementation's `getFeed` or `getArticle` method to insert a `NewsletterBlock` at the 15th block in the returned list, for example. This same approach can be used to introduce blocks such as the `DividerHorizontalBlock`, `TextLeadParagraphBlock`, and the `SpacerBlock` into the feed of blocks which your app receives, all of which will allow you to further customize the look and content of your app.
+
+## Push Notifications 📢
+
+This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured. [Instructions are provided below for using OneSignal](#using-onesignal) in lieu of Firebase Cloud Messaging.
+
+Out of the box, the application subscribes to supported topics corresponding to supported news categories such as `health`, `science`, `sports`, etc.
+
+### Triggering a Notification 📬
+
+A notification can be triggered via the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest).
+
+All you need is an access token which can be generated via the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
+
+Select the `https://www.googleapis.com/auth/firebase.messaging` scope under Firebase Cloud Messaging API v1 and click "Authorize APIs".
+
+Then, sign in with the Google Account that has access to the respective Firebase project and click "Exchange authorization code for tokens".
+
+Now you can send a message to a topic by using the following cURL:
+
+```
+curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: application/json" -d '{
+  "message": {
+    "topic" : "<TOPIC-NAME>",
+    "notification": {
+      "body": "This is a Firebase Cloud Messaging Topic Test Message!",
+      "title": "Test Notification"
+    }
+  }
+}' https://fcm.googleapis.com/v1/projects/<PROJECT-ID>/messages:send HTTP/1.1
+```
+
+**❗️ Important**
+
+> Replace `<ACCESS_TOKEN>` with the access token generated from the Google OAuth 2.0 Playground, `<TOPIC-NAME>` with the desired topic name, and `<PROJECT-ID>` with the corresponding Firebase project ID.
+
+**💡 Note**
+
+> Ensure you are running the application on a physical device in order to receive FCM messages.
+
+### Using OneSignal
+
+Follow OneSignal's guide for [setting up the OneSignal Flutter SDK](https://documentation.onesignal.com/docs/flutter-sdk-setup). Make sure to:
+
+- Ensure all requirements for integration listed in the OneSignal documentation are met.
+- Add the OneSignal Flutter SDK dependency.
+- Add an iOS service extension in Xcode.
+- Enable `push capability` in Xcode.
+- Setup OneSignal for Android in the codebase.
+- Initialize OneSignal in the notifications client package.
+- Replace FCM references in the codebase with the corresponding OneSignal infrastructure:
+	- In `lib/main/bootstap/bootstrap.dart` replace `FirebaseMessaging` with `OneSignal` and the `FireBaseMessaging.instance` with a `OneSignal.shared` instance.
+	- In the `main.dart` file for each of your flavors, assign `notificationsClient` to an instance of `OneSignalNotificationsClient`
+- Run the app and send test notifications through OneSignal.
+	- *Note: iOS push notifications only work if tested on a physical device*.
 
 ## Generating Your Codebase With Mason
 
@@ -435,3 +817,106 @@ You should configure your iOS splash screen using an Xcode storyboard. To begin,
  with sizes corresponding to the filename inside the  `ios/Runner/Assets.xcassets/LaunchImage.imageset` folder. 
 
 Open your project's `ios` folder in Xcode and open `Runner/LaunchScreen.storyboard` in the editor. Specify your desired splash screen image and background by selecting those elements and editing their properties in the Xcode inspectors window. Feel free to further edit the splash screen properties in the Xcode inspectors window to customize the exact look of your splash screen.
+
+## Working with Translations 🌐
+
+This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization).
+
+### Adding Strings
+
+1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb`.
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    }
+}
+```
+
+2. Then add a new key/value and description
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "helloWorld": "Hello World",
+    "@helloWorld": {
+        "description": "Hello World Text"
+    }
+}
+```
+
+3. Use the new string
+
+```dart
+import 'package:google_news_template/l10n/l10n.dart';
+
+@override
+Widget build(BuildContext context) {
+  final l10n = context.l10n;
+  return Text(l10n.helloWorld);
+}
+```
+
+### Adding Supported Locales
+
+Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
+
+```xml
+    ...
+
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>en</string>
+        <string>es</string>
+    </array>
+
+    ...
+```
+
+### Adding Translations
+
+1. For each supported locale, add a new ARB file in `lib/l10n/arb`.
+
+```
+├── l10n
+│   ├── arb
+│   │   ├── app_en.arb
+│   │   └── app_es.arb
+```
+
+2. Add the translated strings to each `.arb` file:
+
+`app_en.arb`
+
+```arb
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    }
+}
+```
+
+`app_es.arb`
+
+```arb
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    }
+}
+```
+
+### Text Directionality
+
+Flutter automatically supports right-to-left languages when the user changes their language settings. No additional configuration or code is required to support text directionality as referenced in the [Flutter internationalization guide](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) in your app.
