@@ -55,6 +55,6 @@ Rewarded ads allow the user to view an advertisement to enable a desired action.
 
 The line
 ```dart
-context.read<FullScreenAdsBloc>().add(const  ShowRewardedAdRequested())
+context.read<FullScreenAdsBloc>().add(const ShowRewardedAdRequested())
 ```
 is executed on clicking the `Watch a video to view this article` button on the modal bottom sheet. Move the above line to trigger a rewarded ad at your desired position inside the app. Make sure to create a `HasWatchedRewardedAdListener` similar to the one found in `lib/article/view/article_page.dart` to display the desired content after the user has watched the rewarded ad.
