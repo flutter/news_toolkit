@@ -36,7 +36,7 @@ The Google News Template was crafted to support a variety of news-oriented featu
  - Video Player
  - Search
  - [Subscription & Purchases](#subscriptions-and-purchases)
- - Newsletter Subscription
+ - [Newsletter Subscription](#newsletter)
  - [Ads](#ads) (banner ads, interstitial ads, sticky ads, rewarded ads)
  - Commenting UI
  - Pull to Refresh
