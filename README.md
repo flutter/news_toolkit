@@ -8,6 +8,38 @@
 
 [Google News Template](./google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
+## Generating Your Codebase With Mason
+
+[Mason](https://pub.dev/packages/mason) is a command line application which allows you to generate a customized codebase based on your specifications. To generate your app using Mason, follow the steps below.
+
+### Activate Mason
+
+```sh
+dart pub global activate mason_cli
+```
+
+### Add the Google News Template Brick
+
+When using user/password authentication:
+
+```sh
+mason add google_news_template -g --git-url https://github.com/VGVentures/google_news_template --git-path google_news_template
+```
+
+When using ssh authentication:
+
+```sh
+mason add google_news_template -g --git-url git@github.com:VGVentures/google_news_template.git --git-path google_news_template
+```
+
+### Generate
+
+```sh
+mason make google_news_template -c template.json
+```
+
+For additional usage information and information about how to create custom templates refer to the [mason documentation](https://github.com/felangel/mason).
+
 ## Updating App Colors
 
 The colors used throughout your app are specified in the `app_colors.dart` file found in `packages/app_ui/lib/src/colors`. Add custom colors to this file and reference them as an attribute of the `AppColors` class inside your app (e.g. `AppColors.orange`). The role of colors within your app can be specified as either theme information or as an inline color.
