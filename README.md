@@ -24,7 +24,7 @@ To preview the [available features](#available-features) in this app, run the ex
 The Google News Template was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
 
  - Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
--- Note that these services can be changed to fit your unique requirements, but would require a development effort. 
+	 - Note that these services can be changed to fit your unique requirements, but would require a development effort. 
  
  - [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
  - [Push Notifications](#push-notifications) (FCM or OneSignal)
