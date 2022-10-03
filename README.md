@@ -5,9 +5,9 @@ The Google Flutter team and Google News initiative have co-sponsored the develop
 This template aims to **reduce typical news app development time by 80%.**
 
 The Flutter news app template:
--   contains common news app UI workflows and core features built in Flutter and Firebase
--   implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
--   allows publishers to monetize immediately with pre-built Google Ads and subscription services
+- contains common news app UI workflows and core features built in Flutter and Firebase
+- implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
+- allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
 To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
@@ -119,7 +119,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 ### Github:
 
--  Create repository within the ‘Github Organization’ to enable:
+- Create repository within the ‘Github Organization’ to enable:
 	- The following recommended branch protection rules:
 	 - Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
 	 - Require status checks to pass before merging (require branches to be up to date before merging).
@@ -127,7 +127,7 @@ Require linear history.
 	- [Slack Integration](https://github.com/integrations/slack/blob/master/README.md) (recommended)
 	- [Auto-deletion](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches) and [auto-merge](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository) for branches
 	- Draft PRs
--  Grant Admin access to at least one developer to enable secrets creation.
+- Grant Admin access to at least one developer to enable secrets creation.
 
 ### Facebook Authentication:
 
@@ -135,7 +135,7 @@ Require linear history.
 - In the same portal, enable the Facebook Login product (`Products -> Facebook Login`).
 - Go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS.
 - In Facebook, go to `Settings -> Advanced` and enable "App authentication, Native or desktop app?"
--  After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
+- After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
 - Use "OAuth redirect URI" from Firebase to set "Valid Oauth Redirect URIs" in the Facebook portal.
 
 ### Twitter Authentication:
@@ -149,22 +149,22 @@ Require linear history.
 
 ### [Firebase](https://github.com/flutter/news_template/blob/main/google_news_template/README.md#recommended-firebase-configuration):
 
-- It is recommended to define at least two application environments: development and production. Each environment defines a different configuration of deep links, ads and authentication along with a different entry point to the application (e.g.  `main_development.dart`).
+- It is recommended to define at least two application environments: development and production. Each environment defines a different configuration of deep links, ads and authentication along with a different entry point to the application (e.g. `main_development.dart`).
 
 - When generating the template, choose "development production" as a list of desired application flavors. Choose "dev" as the application suffix for the development flavor.
 
-- In Firebase, configure two separate Firebase projects for the development and production flavor. You may do this  [from the Firebase console](https://console.firebase.google.com/u/0/)  or using the  [firebase-tools CLI tool](https://github.com/firebase/firebase-tools)  and the  `firebase projects:create`  command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the  `firebase apps:create`  command.
+- In Firebase, configure two separate Firebase projects for the development and production flavor. You may do this [from the Firebase console](https://console.firebase.google.com/u/0/) or using the [firebase-tools CLI tool](https://github.com/firebase/firebase-tools) and the `firebase projects:create` command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the `firebase apps:create` command.
 
 - Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations. 
--  Ensure the developer team has admin access.
--  Note the app IDs for your developer team.
+- Ensure the developer team has admin access.
+- Note the app IDs for your developer team.
     - Note that the app IDs can be specified when generating your codebase in mason or otherwise updated manually.
--  Set-up Firebase authentication for supported sign-in platforms (Apple/Google/Email/Facebook/Twitter/etc.):
-	-   For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
-	-   For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
-	-   For Apple login,  [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple)  in the Apple's developer portal and  [enable the Apple sign-in provider](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider)  in the Firebase Console of your project.
-	-   For Twitter login, register an app in the Twitter developer portal and enable the Twitter sign-in provider in the Firebase Console of your project.
-	-   For Facebook login, register an app in the Facebook developer portal and enable the Facebook sign-in provider in the Firebase Console of your project.
+- Set-up Firebase authentication for supported sign-in platforms (Apple/Google/Email/Facebook/Twitter/etc.):
+	- For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+	- For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
+	- For Apple login, [configure sign-in with Apple](https://firebase.google.com/docs/auth/ios/apple#configure-sign-in-with-apple) in the Apple's developer portal and [enable the Apple sign-in provider](https://firebase.google.com/docs/auth/ios/apple#enable-apple-as-a-sign-in-provider) in the Firebase Console of your project.
+	- For Twitter login, register an app in the Twitter developer portal and enable the Twitter sign-in provider in the Firebase Console of your project.
+	- For Facebook login, register an app in the Facebook developer portal and enable the Facebook sign-in provider in the Firebase Console of your project.
     
 ### [Google Ad Manager](https://support.google.com/admanager/answer/1656921) or [Admob](https://support.google.com/admob/answer/7356431):
 
@@ -206,7 +206,7 @@ Require linear history.
 - [Generate and upload a Keystore](https://docs.codemagic.io/yaml-code-signing/signing-android/#generating-a-keystore).
 - Configure the prod_emails and tst_emails in the codemagic.yaml file located in your repository.
 - Set up the [GPLAY_KEY](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
--  Encrypt the GPLAY_KEY in Codemagic .
+- Encrypt the GPLAY_KEY in Codemagic .
 - Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
     
 
@@ -217,14 +217,14 @@ Require linear history.
    to host your API.
   - Enable Billing.
 - Set-up an [Github Action Service account](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
-- Configure  [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
+- Configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
    and [user authentication for your   
    API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth)
    (optional). 
 
 ### Google Play Store:
 
--   [Set up API access](https://play.google.com/console/u/0/developers/6749221870414263141/api-access)
+- [Set up API access](https://play.google.com/console/u/0/developers/6749221870414263141/api-access)
 
 ## Updating the App Logo
 
