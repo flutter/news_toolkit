@@ -99,7 +99,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 ### API Deployment & Versioning
 
-- After ensuring your dev and production api have been successfully [deployed on Cloud Run](TODO), you'll want to [release a new build version to your app stores](TODO).
+- After ensuring your dev and production api have been successfully [deployed on Cloud Run](#google-cloud-api-deployments), you'll want to [release a new build version to your app stores](#version-bump).
 
 ### Project Wrap-Up
 
