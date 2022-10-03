@@ -168,6 +168,8 @@ Below is an example project roadmap that can be leveraged to implement this temp
 		 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
 		 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads) 
 
+### Translations
+This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization). If you would like to support a different language (or multiple languages) in your app, please review [this section](#working-with-translations) for instruction.
 ### Theming & Branding
 
 - Update your app's [splash screen](#updating-the-app-splash-screen).
