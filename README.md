@@ -26,7 +26,7 @@ The Google News Template was crafted to support a variety of news-oriented featu
  - Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
 -- Note that these services can be changed to fit your unique requirements, but would require a development effort. 
  
- - [User Authentication](TODO) (Apple/Google/Email/Facebook/Twitter)
+ - [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
  - [Push Notifications](TODO) (FCM or OneSignal)
  - App Tracking
  - Content Feed
