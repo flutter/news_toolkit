@@ -27,7 +27,7 @@ The Google News Template was crafted to support a variety of news-oriented featu
 -- Note that these services can be changed to fit your unique requirements, but would require a development effort. 
  
  - [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
- - [Push Notifications](TODO) (FCM or OneSignal)
+ - [Push Notifications](#push-notifications) (FCM or OneSignal)
  - App Tracking
  - Content Feed
  - Article Pages
