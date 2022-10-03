@@ -16,7 +16,7 @@ You will want to replace the placeholder text displayed in the `TermsOfServiceMo
 
 You can either:
 
-- Display `WebView` widgets which link to your privacy policy and terms of service documents hosted on the web (*recommended*).
+- Display `WebView` widgets which link to your privacy policy and terms of service documents hosted on the web (*recommended*) or
 - Pass your documents as Strings to `Text` widgets inside the `TermsOfServiceBody` widget.
 
 In order to use the `WebView` solution, replace the `SingleChildScrollView` widget in `TermsOfServiceBody` with one or more `WebView` widgets which link to your documents. Be sure to specify `gestureRecognizers` for `WebViews` so that they are scrollable.
