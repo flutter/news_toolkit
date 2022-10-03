@@ -170,12 +170,12 @@ Require linear history.
 
 - Create apps for each platform and flavor (4 apps total).
 - Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
-- Share the app IDs with your developer team.
+- Share the app IDs with your developer team and store them within your app configuration file.
     
 
 ### FCM or OneSignal:
 
-- Share the developer and production app IDs with the development team.
+- Share the developer and production app IDs with the development team and store them within your app configuration file.
 
 ### App Store:
 
