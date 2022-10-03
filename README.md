@@ -37,7 +37,7 @@ The Google News Template was crafted to support a variety of news-oriented featu
  - Search
  - [Subscription & Purchases](TODO)
  - Newsletter Subscription
- - [Ads](TODO) (banner ads, interstitial ads, sticky ads, rewarded ads)
+ - [Ads](#ads) (banner ads, interstitial ads, sticky ads, rewarded ads)
  - Commenting UI
  - Pull to Refresh
 
