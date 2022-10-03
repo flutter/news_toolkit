@@ -108,6 +108,16 @@ Once configured, make sure to update the Firebase config file (Google services) 
 
 For more detailed usage of these authentication methods, check [firebase.google.com](https://firebase.google.com/docs/auth/flutter/federated-auth) documentation.
 
+## Organizing and Adjusting Blocks
+
+As outlined in [Working With Blocks](#working-with-blocks), blocks are the basic organizational components of your app's news content. Re-arranging the order of blocks allows you to control how and where your content is displayed.
+
+Block organization typically occurs within your [backend adapters](#implementing-backend-adapters) and is then served to your app.
+
+Reference the `article_content_item.dart` and `category_feed_item.dart` files to understand the relationship between blocks and their corresponding widgets.
+
+Placing ads is covered in the [Updating Ads Placement](#updating-ads-placement) section, but you may want to control the placement of other widgets such as the `NewsletterBlock` which allows a user to subscribe to a mailing list. One way to arrange a block is to edit your news data source implementation's `getFeed` or `getArticle` method to insert a `NewsletterBlock` at the 15th block in the returned list, for example. This same approach can be used to introduce blocks such as the `DividerHorizontalBlock`, `TextLeadParagraphBlock`, and the `SpacerBlock` into the feed of blocks which your app receives, all of which will allow you to further customize the look and content of your app.
+
 ## Updating the App Splash Screen
 
 Flutter's [Adding a Splash Screen to Your Mobile App](https://docs.flutter.dev/development/ui/advanced/splash-screen) documentation provides the most up-to-date and in-depth guidance on customizing the splash screen in your mobile app.
