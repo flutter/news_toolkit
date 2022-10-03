@@ -8,6 +8,15 @@
 
 [Google News Template](./google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
+## Updating the App Logo
+
+App logo image assets are displayed at both the top of the feed view and at the top of the app navigation drawer. To replace these with your custom assets, replace the following files:
+
+- `packages/app_ui/assets/images/logo_dark.png`
+- `packages/app_ui/assets/images/logo_light.png`
+
+Change the dimensions specified in the `AppLogo` widget (`packages/app_ui/lib/src/widgets/app_logo.dart`) to match your new image dimensions.
+
 ## Updating the App Splash Screen
 
 Flutter's [Adding a Splash Screen to Your Mobile App](https://docs.flutter.dev/development/ui/advanced/splash-screen) documentation provides the most up-to-date and in-depth guidance on customizing the splash screen in your mobile app.
