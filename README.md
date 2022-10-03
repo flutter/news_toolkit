@@ -40,7 +40,7 @@ Be sure to update the `totalBlocks` metadata returned by the server to reflect t
 Interstitial ads are full-screen ads that appear between content. By default, interstitial ads are displayed upon article entry by `_ArticleViewState`'s `initState` method in `lib/article/view/article_page.dart`. To remove interstitial ads entirely, you can delete
 
 ```dart
-context.read<FullScreenAdsBloc>().add(const  ShowInterstitialAdRequested());
+context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
 ```
 
 Alternatively, you can move that line to a location to execute after your desired event (e.g. upon article close). 
