@@ -95,6 +95,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 	 - subscribeToNewsletter
 
  - You'll also want to [implement push notifications](TODO) using either FCM or OneSignal and update the UI to support the categories of notifications that you'd like to enable. 
+- [Organize and adjust your blocks](#organizing-and-adjusting-blocks) in your content feed and article pages to create a customized look and feel for your app.
  - Finally, [make any adjustments to the ads logic](#updating-ads-placement) to match your organization's requirements.
 
 ### API Deployment & Versioning
