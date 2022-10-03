@@ -110,7 +110,7 @@ For more detailed usage of these authentication methods, check [firebase.google.
 
 ## Organizing and Adjusting Blocks
 
-As outlined in [Working With Blocks](#working-with-blocks), blocks are the basic organizational components of your app's news content. Re-arranging the order of blocks allows you to control how and where your content is displayed.
+As outlined in the [Working With Blocks](#working-with-blocks) section, blocks are the basic organizational components of your app's news content. Re-arranging the order of blocks allows you to control how and where your content is displayed.
 
 Block organization typically occurs within your [backend adapters](#implementing-backend-adapters) and is then served to your app.
 
