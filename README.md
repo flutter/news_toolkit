@@ -8,6 +8,7 @@
 
 [Google News Template](./google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
+
 ## Updating the App Typography
 
 ### Fonts
@@ -43,6 +44,13 @@ For styling text contained in `HtmlBlocks`, you can edit the `style` map in `pac
 ### Illustrating Where App `TextStyles` are Used
 
 <img src="https://user-images.githubusercontent.com/61138206/191820826-7ef6c873-94ee-49e8-bcd6-25e35421c055.png">
+
+## Updating the App Launcher Icon
+
+You can use the [Flutter Launcher Icons](https://pub.dev/packages/flutter_launcher_icons) package to streamline adding your new app launcher icon.
+
+Alternatively, you may want to manually update your app's launcher icon. Flutter's documentation contains information on how to accomplish this for both [iOS](https://docs.flutter.dev/deployment/ios#add-an-app-icon) and [Android](https://docs.flutter.dev/deployment/android#adding-a-launcher-icon).
+
 
 ## Updating the App Splash Screen
 
