@@ -15,10 +15,6 @@ To preview the [available features](#available-features) in this app, run the ex
 
 [Google News Template](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
-## Overview
-
-[Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) is a news application template built as a Flutter app with a [dart_frog](https://pub.dev/packages/dart_frog) backend.
-
 ## Available Features
 
 The Google News Template was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
