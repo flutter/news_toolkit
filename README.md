@@ -218,7 +218,9 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 - Configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
    and [user authentication for your   
    API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth)
-   (optional). 
+   (optional).
+   
+# Implementation Details
 
 ## Generating Your Codebase With Mason
 
