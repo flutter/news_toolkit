@@ -155,7 +155,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 - Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations. 
 - Ensure the developer team has admin access.
 - Note the app IDs for your developer team.
-    - Note that the app IDs can be specified when generating your codebase in mason or otherwise updated manually.
+    - Note that the app IDs can be specified when generating your codebase in mason.
 - Set-up Firebase authentication for supported sign-in platforms (Apple/Google/Email/Facebook/Twitter/etc.):
 	- For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
 	- For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
