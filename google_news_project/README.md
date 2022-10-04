@@ -307,14 +307,10 @@ To integrate with a custom news data source, define a class that implements the 
 class CustomNewsDataSource implements NewsDataSource {...}
 ```
 
-Then in `api/bin/server.dart` inject the `CustomNewsDataSource`:
+Then in `api/routes/_middleware.dart` inject the `CustomNewsDataSource`:
 
 ```dart
-final handler = const Pipeline()
-    // Inject a custom `NewsDataSource`.
-    .inject<NewsDataSource>(const CustomNewsDataSource())
-    .addMiddleware(logRequests())
-    .addHandler(controller.handler);
+.use(provider<NewsDataSource>((_) => customDataSourceInstance));
 ```
 
 ---
