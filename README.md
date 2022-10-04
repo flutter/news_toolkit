@@ -19,23 +19,23 @@ To preview the [available features](#available-features) in this app, run the ex
 
 The Google News Template was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
 
- - Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
-	 - Note that these services can be changed to fit your unique requirements, but would require a development effort. 
+- Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
+	- Note that these services can be changed to fit your unique requirements, but would require a development effort. 
  
- - [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
- - [Push Notifications](#push-notifications) (FCM or OneSignal)
- - App Tracking
- - Content Feed
- - Article Pages
- - In-Line Images
- - Image Slideshow
- - Video Player
- - Search
- - [Subscription & Purchases](#subscriptions-and-purchases)
- - [Newsletter Subscription](#newsletter)
- - [Ads](#ads) (banner ads, interstitial ads, sticky ads, rewarded ads)
- - Commenting UI
- - Pull to Refresh
+- [User Authentication](#authentication) (Apple/Google/Email/Facebook/Twitter)
+- [Push Notifications](#push-notifications) (FCM or OneSignal)
+- App Tracking
+- Content Feed
+- Article Pages
+- In-Line Images
+- Image Slideshow
+- Video Player
+- Search
+- [Subscription & Purchases](#subscriptions-and-purchases)
+- [Newsletter Subscription](#newsletter)
+- [Ads](#ads) (banner ads, interstitial ads, sticky ads, rewarded ads)
+- Commenting UI
+- Pull to Refresh
 
 # Development Roadmap
 
@@ -43,23 +43,23 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 ### Initial Configuration
 
- - Follow the configuration steps outlined in [this section](#configuration) before starting your project. These steps will ensure your project is set-up appropriately and will supply your team with the necessary keys required for your application.
+- Follow the configuration steps outlined in [this section](#configuration) before starting your project. These steps will ensure your project is set-up appropriately and will supply your team with the necessary keys required for your application.
 
 ### Code Generation
 
- - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
- - The [Google News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
-	 - Application name (*e.g. News Template*)
-	 - Application package name (*e.g. news_template*)
-	 - Desired Flutter version
-	 - Application bundle identifier (*e.g. com.news.template*)
-	 - Code Owners
-	 - Flavors, where each flavor includes a different:
-		 - Application suffix (appended to the application bundle identifier for a given flavor)
-		 - Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
-		 - Twitter configuration (API key and API secret; used to login with Twitter)
-		 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
-		 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
+- After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
+- The [Google News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
+	- Application name (*e.g. News Template*)
+	- Application package name (*e.g. news_template*)
+	- Desired Flutter version
+	- Application bundle identifier (*e.g. com.news.template*)
+	- Code Owners
+	- Flavors, where each flavor includes a different:
+		- Application suffix (appended to the application bundle identifier for a given flavor)
+		- Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
+		- Twitter configuration (API key and API secret; used to login with Twitter)
+		- Facebook configuration (App ID, client token and display name; used to login with Facebook)
+		- Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
 
 ### Google Play Store:
 
@@ -82,23 +82,23 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 ### Data Source & Feature Implementation
 
- - Once the app is starting to reflect your brand, you'll want to [implement your API datasource](#implementing-an-api-data-source).
- - Next, you'll need to [set-up backend adapters](#implementing-backend-adapters) for each of the following endpoints:
-	 - getArticle
-	 - getFeed
-	 - getCategories
-	 - getTrendingStory
-	 - getSubscriptions
-	 - getRelatedArticles
-	 - getReleventTopics (search)
-	 - getReleventArticles (search)
-	 - getPopularArticles (search)
-	 - getPopularTopics (search)
-	 - subscribeToNewsletter
+- Once the app is starting to reflect your brand, you'll want to [implement your API datasource](#implementing-an-api-data-source).
+- Next, you'll need to [set-up backend adapters](#implementing-backend-adapters) for each of the following endpoints:
+	- getArticle
+	- getFeed
+	- getCategories
+	- getTrendingStory
+	- getSubscriptions
+	- getRelatedArticles
+	- getReleventTopics (search)
+	- getReleventArticles (search)
+	- getPopularArticles (search)
+	- getPopularTopics (search)
+	- subscribeToNewsletter
 
- - You'll also want to [implement push notifications](#push-notifications) using either FCM or OneSignal and update the UI to support the categories of notifications that you'd like to enable. 
+- You'll also want to [implement push notifications](#push-notifications) using either FCM or OneSignal and update the UI to support the categories of notifications that you'd like to enable. 
 - [Organize and adjust your blocks](#organizing-and-adjusting-blocks) in your content feed and article pages to create a customized look and feel for your app.
- - Finally, [make any adjustments to the ads logic](#updating-ads-placement) to match your organization's requirements.
+- Finally, [make any adjustments to the ads logic](#updating-ads-placement) to match your organization's requirements.
 
 ### API Deployment & Versioning
 
@@ -122,9 +122,9 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 - Create repository within the ‘Github Organization’ to enable:
 	- The following recommended branch protection rules:
-	    - Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
-	    - Require status checks to pass before merging (require branches to be up to date before merging).
-        - Require linear history.
+		- Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
+		- Require status checks to pass before merging (require branches to be up to date before merging).
+		- Require linear history.
 	- [Slack Integration](https://github.com/integrations/slack/blob/master/README.md) (recommended)
 	- [Auto-deletion](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches) and [auto-merge](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository) for branches
 	- Draft PRs
@@ -159,7 +159,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 - Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations. 
 - Ensure the developer team has admin access.
 - Note the app IDs for your developer team.
-    - Note that the app IDs can be specified when generating your codebase in mason.
+	- Note that the app IDs can be specified when generating your codebase in mason.
 - Set-up Firebase authentication for supported sign-in platforms (Apple/Google/Email/Facebook/Twitter/etc.):
 	- For email login, enable the Email/password sign-in provider in the Firebase Console of your project. In the same section, enable Email link sign-in method. On the dynamic links page, set up a new dynamic link URL prefix (e.g. yourApplicationName.page.link) with a dynamic link URL of "/email_login".
 	- For Google login, enable the Google sign-in provider in the Firebase Console of your project. You might need to generate a SHA1 key for use with Android.
@@ -210,10 +210,10 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 ### Google Cloud API Deployments:
 
- - Set-up a [Google Cloud   
+- Set-up a [Google Cloud   
    account](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
    to host your API.
-  - Enable Billing.
+	- Enable Billing.
 - Set-up an [Github Action Service account](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
 - Configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
    and [user authentication for your   
@@ -419,10 +419,10 @@ Flutter's [Adding a Splash Screen to Your Mobile App](https://docs.flutter.dev/d
 
 Within the `android/app/src/main/res` folder, replace `launch_image.png` inside the 
 
- - `mipmap-mdpi` 
- - `mipmap-hdpi` 
- - `mipmap-xhdpi` 
- - `mipmap-xxhdpi`
+- `mipmap-mdpi` 
+- `mipmap-hdpi` 
+- `mipmap-xhdpi` 
+- `mipmap-xxhdpi`
  
 folders with the image asset you want featured on your Android splash screen. The `launch_image.png` you provide inside the `mipmap` folders should have an appropriate size for that folder.
 
@@ -432,9 +432,9 @@ The background color of your splash screen can be changed by editing the hex cod
 
 You should configure your iOS splash screen using an Xcode storyboard. To begin, add your splash screen image assets named 
 
- - `LaunchImage.png` 
- - `LaunchImage@2x.png`  
- - `LaunchImage@3x.png`
+- `LaunchImage.png` 
+- `LaunchImage@2x.png`  
+- `LaunchImage@3x.png`
 
  with sizes corresponding to the filename inside the  `ios/Runner/Assets.xcassets/LaunchImage.imageset` folder. 
 
@@ -886,7 +886,7 @@ Follow OneSignal's guide for [setting up the OneSignal Flutter SDK](https://docu
 	- In `lib/main/bootstap/bootstrap.dart` replace `FirebaseMessaging` with `OneSignal` and the `FireBaseMessaging.instance` with a `OneSignal.shared` instance.
 	- In the `main.dart` file for each of your flavors, assign `notificationsClient` to an instance of `OneSignalNotificationsClient`
 - Run the app and send test notifications through OneSignal.
-    - *Note: iOS push notifications only work if tested on a physical device*.
+	- *Note: iOS push notifications only work if tested on a physical device*.
 
 ## Newsletter
 
