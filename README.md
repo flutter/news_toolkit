@@ -61,30 +61,6 @@ Below is an example project roadmap that can be leveraged to implement this temp
 		 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
 		 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
 
-### After Code Generation
-
-### Codemagic:
-
-- Configure the ‘TODO’ fields in the codemagic.yaml file located in your repository.
-- Create the [App Store API Key](https://docs.codemagic.io/yaml-code-signing/signing-ios/#creating-the-app-store-connect-api-key) and add this to your Codemagic account.
-- [Generate and upload a Keystore](https://docs.codemagic.io/yaml-code-signing/signing-android/#generating-a-keystore).
-- Configure the prod_emails and tst_emails in the codemagic.yaml file located in your repository.
-- Set up the [GPLAY_KEY](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
-- Encrypt the GPLAY_KEY in Codemagic .
-- Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic
-
-### Google Cloud API Deployments:
-
- - Set-up a [Google Cloud   
-   account](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
-   to host your API.
-  - Enable Billing.
-- Set-up an [Github Action Service account](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
-- Configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
-   and [user authentication for your   
-   API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth)
-   (optional). 
-
 ### Google Play Store:
 
 - [Set up API access](https://play.google.com/console/u/0/developers/6749221870414263141/api-access) 
@@ -158,7 +134,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 - Create an app in the [Facebook developer portal](https://developers.facebook.com/apps/).
 - In the same portal, enable the Facebook Login product (`Products -> Facebook Login`).
-- Go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS.
+- Go to `Roles -> Roles` and add your developer team so the team can customize the agpp configuration for Android and iOS.
 - In Facebook, go to `Settings -> Advanced` and enable "App authentication, Native or desktop app?"
 - After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up Facebook authentication method. Fill in the app ID and secret from the created Facebook app and share these secrets with your developer team.
 - Use "OAuth redirect URI" from Firebase to set "Valid Oauth Redirect URIs" in the Facebook portal.
@@ -219,6 +195,30 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 - Configure app information in `Store presence --> Main store listing`.
 - Configure the store settings (`Store presence --> Store settings`).
 - [Set up the subscription product](https://play.google.com/console/u/0/developers/6749221870414263141/app-list) (`Products --> Subscriptions`).
+
+## After Code Generation
+
+### Codemagic:
+
+- Configure the ‘TODO’ fields in the codemagic.yaml file located in your repository.
+- Create the [App Store API Key](https://docs.codemagic.io/yaml-code-signing/signing-ios/#creating-the-app-store-connect-api-key) and add this to your Codemagic account.
+- [Generate and upload a Keystore](https://docs.codemagic.io/yaml-code-signing/signing-android/#generating-a-keystore).
+- Configure the prod_emails and tst_emails in the codemagic.yaml file located in your repository.
+- Set up the [GPLAY_KEY](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic.
+- Encrypt the GPLAY_KEY in Codemagic .
+- Set-up the [GoogleApiService account connection](https://docs.codemagic.io/knowledge-base/google-services-authentication/) in Codemagic
+
+### Google Cloud API Deployments:
+
+ - Set-up a [Google Cloud   
+   account](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+   to host your API.
+  - Enable Billing.
+- Set-up an [Github Action Service account](https://cloud.google.com/blog/products/identity-security/enabling-keyless-authentication-from-github-actions).
+- Configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.)
+   and [user authentication for your   
+   API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth)
+   (optional). 
 
 ## Generating Your Codebase With Mason
 
