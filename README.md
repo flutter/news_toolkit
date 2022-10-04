@@ -37,7 +37,7 @@ The Google News Template was crafted to support a variety of news-oriented featu
  - Commenting UI
  - Pull to Refresh
 
-## Getting Started
+# Development Roadmap
 
 Below is an example project roadmap that can be leveraged to implement this template for your very own Flutter application. Please use this as a guide for your development efforts and deviate where necessary.
 
