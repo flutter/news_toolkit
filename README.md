@@ -55,7 +55,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 	 - Application bundle identifier (*e.g. com.news.template*)
 	 - Code Owners
 	 - Flavors, where each flavor includes a different:
-		 - Application suffix (appended to the application 			bundle identifier for a given flavor)
+		 - Application suffix (appended to the application bundle identifier for a given flavor)
 		 - Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
 		 - Twitter configuration (API key and API secret; used to login with Twitter)
 		 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
