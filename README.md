@@ -69,7 +69,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 - Update your app's [splash screen](#updating-the-app-splash-screen).
 - Update your app's [launcher icons](#updating-the-app-launcher-icon).
-	 - If you'd like to support [adaptive ions for Android](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive), ensure you have background and foreground assets. 
+	- If you'd like to support [adaptive icons for Android](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive), ensure you have background and foreground assets. 
 
 - Update the [app logo in the top navigation bar](#updating-the-app-logo).
 - Update the app's [colors](#updating-app-colors) via the app's [theme](#updating-theme-colors) and [in-line color references](#updating-inline-colors).
