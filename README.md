@@ -254,7 +254,7 @@ mason make google_news_template -c template.json
 
 For additional usage information and information about how to create custom templates refer to the [mason documentation](https://github.com/felangel/mason).
 
-## Working with Translations 🌐
+## Working with Translations
 
 This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization).
 
@@ -834,7 +834,7 @@ context.read<FullScreenAdsBloc>().add(const ShowRewardedAdRequested())
 ```
 is executed upon tapping the `Watch a video to view this article` button on the modal bottom sheet. Move the above line to trigger a rewarded ad at your desired position inside the app. Make sure to create a `HasWatchedRewardedAdListener` similar to the one found in `lib/article/view/article_page.dart` to display the desired content after the user has watched the rewarded ad.
 
-## Push Notifications 📢
+## Push Notifications
 
 This template comes with [Firebase Cloud Messaging][firebase_cloud_messaging_link] pre-configured. [Instructions are provided below for using OneSignal](#using-onesignal) in lieu of Firebase Cloud Messaging.
 
