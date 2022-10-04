@@ -310,7 +310,7 @@ class CustomNewsDataSource implements NewsDataSource {...}
 Then in `api/routes/_middleware.dart` inject the `CustomNewsDataSource`:
 
 ```dart
-.use(provider<NewsDataSource>((_) => customDataSourceInstance));
+.use(provider<NewsDataSource>((_) => customNewsDataSourceInstance));
 ```
 
 ---
