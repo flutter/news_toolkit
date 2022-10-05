@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/user_repository/**"
+      - "google_news_example/packages/user_repository/**"
       - ".github/workflows/user_repository.yaml"
     branches:
       - main
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 3.0.0
-      working_directory: google_news_project/packages/user_repository
+      working_directory: google_news_example/packages/user_repository

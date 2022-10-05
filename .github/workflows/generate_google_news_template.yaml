@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - tool/generator/**
-      - google_news_project/**
+      - google_news_example/**
     branches:
       - main
   workflow_dispatch:

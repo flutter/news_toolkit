@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/notifications_client/notifications_client/**"
+      - "google_news_example/packages/notifications_client/notifications_client/**"
       - ".github/workflows/notifications_client.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: google_news_project/packages/notifications_client/notifications_client
+      working_directory: google_news_example/packages/notifications_client/notifications_client

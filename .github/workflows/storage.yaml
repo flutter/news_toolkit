@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/storage/storage/**"
+      - "google_news_example/packages/storage/storage/**"
       - ".github/workflows/storage.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: google_news_project/packages/storage/storage
+      working_directory: google_news_example/packages/storage/storage

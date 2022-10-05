@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/email_launcher/**"
+      - "google_news_example/packages/email_launcher/**"
       - ".github/workflows/email_launcher.yaml"
     branches:
       - main
@@ -17,5 +17,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 3.0.0
-      working_directory: google_news_project/packages/email_launcher
+      working_directory: google_news_example/packages/email_launcher
       coverage_excludes: "lib/src/generated/*.dart"
