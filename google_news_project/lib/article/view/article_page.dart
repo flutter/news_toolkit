@@ -65,7 +65,11 @@ class ArticleView extends StatefulWidget {
 class _ArticleViewState extends State<ArticleView> {
   @override
   void initState() {
-    context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
+    if (context.read<AppBloc>().state.showAds) {
+      context
+          .read<FullScreenAdsBloc>()
+          .add(const ShowInterstitialAdRequested());
+    }
     super.initState();
   }
 

@@ -11,6 +11,7 @@ class AppState extends Equatable {
     required this.status,
     this.user = User.anonymous,
     this.showLoginOverlay = false,
+    this.showAds = true,
   });
 
   const AppState.authenticated(
@@ -31,6 +32,8 @@ class AppState extends Equatable {
   final AppStatus status;
   final User user;
   final bool showLoginOverlay;
+  final bool showAds;
+
   bool get isUserSubscribed => user.subscriptionPlan != SubscriptionPlan.none;
 
   @override
@@ -45,11 +48,13 @@ class AppState extends Equatable {
     AppStatus? status,
     User? user,
     bool? showLoginOverlay,
+    bool? showAds,
   }) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
       showLoginOverlay: showLoginOverlay ?? this.showLoginOverlay,
+      showAds: showAds ?? this.showAds,
     );
   }
 }

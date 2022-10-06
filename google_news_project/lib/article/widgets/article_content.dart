@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/analytics/analytics.dart';
+import 'package:google_news_template/app/bloc/app_bloc.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -83,7 +84,7 @@ class ArticleContent extends StatelessWidget {
                 );
               },
             ),
-            const StickyAd(),
+            if (context.read<AppBloc>().state.showAds) const StickyAd()
           ],
         ),
       ),

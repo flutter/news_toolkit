@@ -32,3 +32,7 @@ vars:
     description: List of flavors separated by spaces
     default: "development production"
     prompt: What flavors would you like to include? (separated by spaces)
+  show_ads:
+    type: boolean
+    description: Whether your app will display advertisements
+    prompt: Would you like to display ads in your app? (defaults to no)

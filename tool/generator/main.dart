@@ -55,6 +55,13 @@ final _targetIosProject = path.join(
   'Runner.xcodeproj',
   'project.pbxproj',
 );
+final _targetShowAds = path.join(
+  _targetPath,
+  'lib',
+  'app',
+  'bloc',
+  'app_state.dart',
+);
 
 final _flutterVersionRegExp = RegExp(r'flutter: (.*)');
 final _vgWorkflowFlutterVersionRegExp = RegExp(r'flutter_version: (.*)');
@@ -281,6 +288,15 @@ void main() async {
             '''# Development\n\$ flutter run --flavor development --target lib/main/main_development.dart\n\n# Production\n\$ flutter run --flavor production --target lib/main/main_production.dart''',
             '''{{#flavors}}# {{{name}}}\n\$ flutter run --flavor {{{name}}} --target lib/main/main_{{{name}}}.dart\n{{/flavors}}''',
           ),
+        );
+      }
+
+      if (file.path == _targetShowAds) {
+        file.writeAsStringSync(
+          file.readAsStringSync().replaceFirst(
+                'this.showAds = true,',
+                'this.showAds = {{show_ads}},',
+              ),
         );
       }
 
