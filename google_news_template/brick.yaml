@@ -35,4 +35,5 @@ vars:
   show_ads:
     type: boolean
     description: Whether your app will display advertisements
-    prompt: Would you like to display ads in your app? (defaults to no)
+    default: "false"
+    prompt: Would you like to display ads in your app? (true/false)
