@@ -30,5 +30,6 @@
       "ios_ads_app_id": "ios_ads_app_id",
       "android_ads_app_id": "android_ads_app_id"
     }
-  ]
+  ],
+  "show_ads": "false"
 }
