@@ -10,10 +10,10 @@ dependencies:
   firebase_core: ^1.15.0
   firebase_dynamic_links: ^4.2.0
   rxdart: ^0.27.3
-  very_good_analysis: ^3.0.0
 
 dev_dependencies:
   firebase_core_platform_interface: ^4.2.5
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  very_good_analysis: ^3.0.0

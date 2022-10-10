@@ -10,9 +10,9 @@ dependencies:
   firebase_analytics: ^9.3.0
   flutter:
     sdk: flutter
-  very_good_analysis: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  very_good_analysis: ^3.0.0
