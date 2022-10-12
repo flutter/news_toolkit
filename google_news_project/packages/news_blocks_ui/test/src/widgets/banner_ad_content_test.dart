@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +10,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:platform/platform.dart';
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 import '../../helpers/helpers.dart';
 
