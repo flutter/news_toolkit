@@ -9,7 +9,10 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  setUpAll(setUpTolerantComparator);
+  setUpAll(() {
+    setUpTolerantComparator();
+    setUpMockPathProvider();
+  });
 
   group('PostMedium', () {
     const id = '82c49bf1-946d-4920-a801-302291f367b5';
