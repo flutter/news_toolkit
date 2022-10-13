@@ -16,6 +16,7 @@ export 'src/category.dart' show Category;
 export 'src/divider_horizontal_block.dart' show DividerHorizontalBlock;
 export 'src/html_block.dart' show HtmlBlock;
 export 'src/image_block.dart' show ImageBlock;
+export 'src/network_error_block.dart' show NetworkErrorBlock;
 export 'src/news_block.dart' show NewsBlock;
 export 'src/news_blocks_converter.dart' show NewsBlocksConverter;
 export 'src/newsletter_block.dart' show NewsletterBlock;

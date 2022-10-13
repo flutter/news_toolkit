@@ -23,30 +23,62 @@ class NetworkErrorAlert extends StatelessWidget {
   /// Text displayed within the refresh network button.
   final String refreshButtonText;
 
+  static Route route({
+    required Function()? onPressed,
+    required String errorText,
+    required String refreshButtonText,
+  }) {
+    return PageRouteBuilder<void>(
+      pageBuilder: (_, __, ___) => NetworkErrorAlert(
+        onPressed: onPressed,
+        errorText: errorText,
+        refreshButtonText: refreshButtonText,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.error_outline,
-          size: 80,
-          color: AppColors.mediumEmphasisSurface,
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        Text(errorText),
-        AppButton.darkAqua(
-          onPressed: onPressed,
-          child: Row(
-            children: [
-              const Icon(
-                Icons.refresh,
-              ),
-              Text(refreshButtonText),
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.error_outline,
+            size: 100,
+            color: AppColors.mediumEmphasisSurface,
           ),
-        ),
-      ],
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            errorText,
+            style: UITextStyle.bodyText1,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Padding(
+            // TODO find a better way to handle padding
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxlg),
+            child: AppButton.darkAqua(
+              onPressed: onPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.refresh,
+                    size: UITextStyle.button.fontSize,
+                  ),
+                  const SizedBox(width: AppSpacing.xs),
+                  Text(
+                    refreshButtonText,
+                    style: UITextStyle.button,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

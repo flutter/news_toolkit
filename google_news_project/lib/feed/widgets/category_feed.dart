@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
@@ -25,10 +27,35 @@ class CategoryFeed extends StatelessWidget {
         context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
             true;
 
+    final l10n = context.l10n;
+
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
         if (state.status == FeedStatus.failure) {
-          _handleFailure(context);
+          if (state.feed.isEmpty) {
+            Navigator.of(context).push<void>(
+              NetworkErrorAlert.route(
+                onPressed: () {
+                  context
+                      .read<FeedBloc>()
+                      .add(FeedRefreshRequested(category: category));
+                  Navigator.of(context).pop();
+                },
+                errorText: l10n.networkError,
+                refreshButtonText: l10n.networkErrorButton,
+              ),
+            );
+          } else {
+            categoryFeed.add(
+              NetworkErrorBlock(
+                onPressed: () {
+                  context
+                      .read<FeedBloc>()
+                      .add(FeedRequested(category: category));
+                },
+              ),
+            );
+          }
         }
       },
       child: RefreshIndicator(
@@ -63,18 +90,5 @@ class CategoryFeed extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handleFailure(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          key: const Key('categoryFeed_failure_snackBar'),
-          content: Text(
-            context.l10n.unexpectedFailure,
-          ),
-        ),
-      );
   }
 }
