@@ -9,11 +9,11 @@ The Flutter news app template:
 - implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_example/README.md) folder by following the setup steps in the project's README.
 
 ## Google News Mason Template
 
-[Google News Template](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
+[Google News Template](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_example.
 
 ## Available Features
 
@@ -777,7 +777,7 @@ Placing ads is covered in the [Updating Ads Placement](#updating-ads-placement) 
 
 ## Ads
 
-This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [interstitial and rewarded ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_project/lib/ads/bloc/full_screen_ads_bloc.dart#L28), [banner ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L48) and [sticky ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_project/lib/ads/widgets/sticky_ad.dart#L10).
+This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [interstitial and rewarded ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_example/lib/ads/bloc/full_screen_ads_bloc.dart#L28), [banner ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_example/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L48) and [sticky ads](https://github.com/VGVentures/google_news_template/blob/main/google_news_example/lib/ads/widgets/sticky_ad.dart#L10).
 
 To configure ads, [create an AdMob account](https://support.google.com/admob/answer/7356219?visit_id=637958065830347515-2588184234&rd=1) and then [register an Android and iOS app](https://support.google.com/admob/answer/9989980?visit_id=637958065834244686-2895946834&rd=1) for each flavor of your application (e.g. 4 apps should be registered for development and production flavors). Make sure to provide correct AdMob app ids when generating the application from the template.
 
