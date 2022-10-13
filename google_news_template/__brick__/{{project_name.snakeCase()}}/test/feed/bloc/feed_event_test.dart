@@ -14,5 +14,14 @@ void main() {
         expect(event1, equals(event2));
       });
     });
+
+    group('FeedRefreshRequested', () {
+      test('supports value comparisons', () {
+        final event1 = FeedRefreshRequested(category: Category.science);
+        final event2 = FeedRefreshRequested(category: Category.science);
+
+        expect(event1, equals(event2));
+      });
+    });
   });
 }
