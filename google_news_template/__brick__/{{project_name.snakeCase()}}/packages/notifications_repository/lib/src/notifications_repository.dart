@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -5,7 +6,6 @@ import 'package:{{project_name.snakeCase()}}_api/client.dart';
 import 'package:notifications_client/notifications_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 part 'notifications_storage.dart';
 

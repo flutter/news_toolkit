@@ -10,7 +10,10 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('PostSmall', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(() {
+      setUpTolerantComparator();
+      setUpMockPathProvider();
+    });
 
     testWidgets('renders correctly without image', (tester) async {
       await mockNetworkImages(() async {

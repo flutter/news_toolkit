@@ -20,7 +20,7 @@ void main() {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              primary: AppColors.red,
+              backgroundColor: AppColors.red,
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
               textStyle:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

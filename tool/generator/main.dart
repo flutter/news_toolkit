@@ -263,7 +263,7 @@ void main() async {
         file.writeAsStringSync(
           file.readAsStringSync().replaceFirst(
                 // cspell:disable-next-line
-                '@bselwe @felangel @AnnaPS @Jan-Stepien',
+                '@felangel @AnnaPS @simpson-peter',
                 '{{code_owners}}',
               ),
         );

@@ -17,5 +17,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       coverage_excludes: "**/*.g.dart"
-      flutter_version: 3.0.0
+      flutter_version: 3.3.4
       working_directory: google_news_example/packages/storage/persistent_storage

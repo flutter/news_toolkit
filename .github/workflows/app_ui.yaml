@@ -16,6 +16,6 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      flutter_version: 3.0.0
-      working_directory: google_news_example/packages/app_ui
+      flutter_version: 3.3.4
+      working_directory: google_news_project/packages/app_ui
       coverage_excludes: "lib/src/generated/*.dart"

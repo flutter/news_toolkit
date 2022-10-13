@@ -16,5 +16,5 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      flutter: 3.0.0
+      flutter: 3.3.4
       working_directory: google_news_example/packages/in_app_purchase_repository

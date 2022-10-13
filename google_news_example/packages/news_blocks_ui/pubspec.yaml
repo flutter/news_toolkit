@@ -12,7 +12,7 @@ dependencies:
   cached_network_image: ^3.2.1
   flutter:
     sdk: flutter
-  flutter_html: ^2.2.1
+  flutter_html: ^3.0.0-alpha.6
   google_mobile_ads: ^2.0.0
   news_blocks:
     path: ../../api/packages/news_blocks
@@ -24,9 +24,6 @@ dev_dependencies:
     sdk: flutter
   mocktail_image_network: ^0.3.1
   very_good_analysis: ^3.0.0
-
-dependency_overrides:
-  flutter_svg: ^1.0.0
 
 flutter:
   uses-material-design: true

@@ -152,26 +152,28 @@ void main() {
     });
 
     testWidgets('renders AdWidget when ad is loaded', (tester) async {
-      ad = BannerAd(
-        size: AdSize.banner,
-        adUnitId: BannerAdContent.androidTestUnitId,
-        listener: BannerAdListener(),
-        request: AdRequest(),
-      );
+      await tester.runAsync(() async {
+        ad = BannerAd(
+          size: AdSize.banner,
+          adUnitId: BannerAdContent.androidTestUnitId,
+          listener: BannerAdListener(),
+          request: AdRequest(),
+        );
 
-      await tester.pumpApp(
-        BannerAdContent(
-          size: BannerAdSize.normal,
-          adBuilder: adBuilder,
-          currentPlatform: platform,
-        ),
-      );
+        await tester.pumpApp(
+          BannerAdContent(
+            size: BannerAdSize.normal,
+            adBuilder: adBuilder,
+            currentPlatform: platform,
+          ),
+        );
 
-      capturedListener.onAdLoaded!(ad);
-      await tester.pump();
+        capturedListener.onAdLoaded!(ad);
+        await tester.pumpAndSettle();
 
-      expect(find.byType(AdWidget), findsOneWidget);
-      expect(find.byType(ProgressIndicator), findsNothing);
+        expect(find.byType(AdWidget), findsOneWidget);
+        expect(find.byType(ProgressIndicator), findsNothing);
+      });
     });
 
     testWidgets('uses AdSize.banner for BannerAdSize.normal', (tester) async {

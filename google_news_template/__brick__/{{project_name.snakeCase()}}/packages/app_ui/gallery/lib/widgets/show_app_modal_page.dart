@@ -17,7 +17,7 @@ class ShowAppModalPage extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () => _showModal(context: context),
           style: ElevatedButton.styleFrom(
-            primary: AppColors.oceanBlue,
+            backgroundColor: AppColors.oceanBlue,
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.xxlg + _contentSpace,
               vertical: AppSpacing.xlg,

@@ -4,7 +4,7 @@ publish_to: none
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
-  flutter: 3.0.0
+  flutter: 3.3.4
 
 dependencies:
   ads_consent_client:
@@ -66,13 +66,6 @@ dependencies:
   user_repository:
     path: packages/user_repository
   visibility_detector: ^0.3.3
-
-dependency_overrides:
-  flutter_svg: ^1.0.0
-  platform:
-    git:
-      url: https://github.com/felangel/platform.dart
-      ref: feat/isWeb
 
 dev_dependencies:
   bloc_test: ^9.0.3
