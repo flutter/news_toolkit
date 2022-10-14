@@ -11,7 +11,10 @@ part 'network_error_block.g.dart';
 @JsonSerializable()
 class NetworkErrorBlock with EquatableMixin implements NewsBlock {
   /// {@macro network_error_block}
-  const NetworkErrorBlock({this.type = NetworkErrorBlock.identifier});
+  const NetworkErrorBlock({
+    this.type = NetworkErrorBlock.identifier,
+    this.onPressed,
+  });
 
   /// Converts a `Map<String, dynamic>` into a [NetworkErrorBlock] instance.
   factory NetworkErrorBlock.fromJson(Map<String, dynamic> json) =>
@@ -22,6 +25,9 @@ class NetworkErrorBlock with EquatableMixin implements NewsBlock {
 
   @override
   final String type;
+
+  /// An optional callback which is invoked when the widget button is pressed.
+  final Function()? onPressed;
 
   @override
   Map<String, dynamic> toJson() => _$NetworkErrorBlockToJson(this);
