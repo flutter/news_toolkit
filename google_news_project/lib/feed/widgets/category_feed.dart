@@ -52,6 +52,8 @@ class CategoryFeed extends StatelessWidget {
                   context
                       .read<FeedBloc>()
                       .add(FeedRequested(category: category));
+                  categoryFeed
+                      .removeWhere((element) => element is NetworkErrorBlock);
                 },
               ),
             );
