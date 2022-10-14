@@ -15,7 +15,7 @@ vars:
   flutter_version:
     type: string
     description: The Flutter version string
-    default: 3.0.0
+    default: 3.3.4
     prompt: What is the desired Flutter version?
   reverse_domain:
     type: string

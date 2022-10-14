@@ -29,6 +29,7 @@ void main() {
     when(() => feedBloc.state).thenReturn(
       FeedState(feed: feed, status: FeedStatus.populated),
     );
+    registerFallbackValue(FeedRefreshRequested(category: Category.business));
   });
 
   group('CategoryFeed', () {
@@ -117,6 +118,30 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+
+      testWidgets('refreshes on pull to refresh', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
+
+        await tester.fling(
+          find.byType(CategoryFeedItem).last,
+          const Offset(0, 300),
+          1000,
+        );
+
+        await tester.pump();
+
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 1));
+
+        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
+            .called(1);
       });
     });
 

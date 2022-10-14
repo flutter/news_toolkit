@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +10,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:platform/platform.dart';
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -151,26 +152,28 @@ void main() {
     });
 
     testWidgets('renders AdWidget when ad is loaded', (tester) async {
-      ad = BannerAd(
-        size: AdSize.banner,
-        adUnitId: BannerAdContent.androidTestUnitId,
-        listener: BannerAdListener(),
-        request: AdRequest(),
-      );
+      await tester.runAsync(() async {
+        ad = BannerAd(
+          size: AdSize.banner,
+          adUnitId: BannerAdContent.androidTestUnitId,
+          listener: BannerAdListener(),
+          request: AdRequest(),
+        );
 
-      await tester.pumpApp(
-        BannerAdContent(
-          size: BannerAdSize.normal,
-          adBuilder: adBuilder,
-          currentPlatform: platform,
-        ),
-      );
+        await tester.pumpApp(
+          BannerAdContent(
+            size: BannerAdSize.normal,
+            adBuilder: adBuilder,
+            currentPlatform: platform,
+          ),
+        );
 
-      capturedListener.onAdLoaded!(ad);
-      await tester.pump();
+        capturedListener.onAdLoaded!(ad);
+        await tester.pumpAndSettle();
 
-      expect(find.byType(AdWidget), findsOneWidget);
-      expect(find.byType(ProgressIndicator), findsNothing);
+        expect(find.byType(AdWidget), findsOneWidget);
+        expect(find.byType(ProgressIndicator), findsNothing);
+      });
     });
 
     testWidgets('uses AdSize.banner for BannerAdSize.normal', (tester) async {

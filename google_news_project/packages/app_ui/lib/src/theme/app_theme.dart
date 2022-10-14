@@ -170,7 +170,7 @@ class AppTheme {
         ),
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
         textStyle: _textTheme.button,
-        primary: AppColors.blue,
+        backgroundColor: AppColors.blue,
       ),
     );
   }
@@ -181,7 +181,7 @@ class AppTheme {
         textStyle: _textTheme.button?.copyWith(
           fontWeight: AppFontWeight.light,
         ),
-        primary: AppColors.black,
+        foregroundColor: AppColors.black,
       ),
     );
   }
@@ -321,7 +321,7 @@ class AppDarkTheme extends AppTheme {
         textStyle: _textTheme.button?.copyWith(
           fontWeight: AppFontWeight.light,
         ),
-        primary: AppColors.white,
+        foregroundColor: AppColors.white,
       ),
     );
   }
