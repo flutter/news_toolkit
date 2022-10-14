@@ -48,6 +48,8 @@ abstract class NewsBlock {
         return TextParagraphBlock.fromJson(json);
       case ImageBlock.identifier:
         return ImageBlock.fromJson(json);
+      case NetworkErrorBlock.identifier:
+        return NetworkErrorBlock.fromJson(json);
       case NewsletterBlock.identifier:
         return NewsletterBlock.fromJson(json);
       case ArticleIntroductionBlock.identifier:
