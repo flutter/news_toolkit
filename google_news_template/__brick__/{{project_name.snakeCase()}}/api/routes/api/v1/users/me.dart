@@ -8,10 +8,10 @@ Future<Response> onRequest(RequestContext context) async {
     return Response(statusCode: HttpStatus.methodNotAllowed);
   }
 
-  final _user = context.read<RequestUser>();
-  if (_user.isAnonymous) return Response(statusCode: HttpStatus.badRequest);
+  final reqUser = context.read<RequestUser>();
+  if (reqUser.isAnonymous) return Response(statusCode: HttpStatus.badRequest);
 
-  final user = await context.read<NewsDataSource>().getUser(userId: _user.id);
+  final user = await context.read<NewsDataSource>().getUser(userId: reqUser.id);
   if (user == null) return Response(statusCode: HttpStatus.notFound);
 
   final response = CurrentUserResponse(user: user);
