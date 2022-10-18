@@ -29,21 +29,25 @@ class NetworkErrorAlert extends StatelessWidget {
     required String refreshButtonText,
   }) {
     return PageRouteBuilder<void>(
-      pageBuilder: (_, __, ___) => NetworkErrorAlert(
-        onPressed: onPressed,
-        errorText: errorText,
-        refreshButtonText: refreshButtonText,
+      pageBuilder: (_, __, ___) => Scaffold(
+        backgroundColor: AppColors.background,
+        body: NetworkErrorAlert(
+          onPressed: onPressed,
+          errorText: errorText,
+          refreshButtonText: refreshButtonText,
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
+    return ColoredBox(
+      color: AppColors.background,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: AppSpacing.xxxlg),
           const Icon(
             Icons.error_outline,
             size: 100,
@@ -52,13 +56,14 @@ class NetworkErrorAlert extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           Text(
             errorText,
-            style: UITextStyle.bodyText1,
+            style: UITextStyle.bodyText1.copyWith(
+              color: AppColors.mediumEmphasisSurface,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.lg),
-          Padding(
-            // TODO find a better way to handle padding
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxlg),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 75, maxWidth: 150),
             child: AppButton.darkAqua(
               onPressed: onPressed,
               child: Row(
@@ -77,6 +82,7 @@ class NetworkErrorAlert extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: AppSpacing.xxxlg),
         ],
       ),
     );
