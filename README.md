@@ -361,7 +361,7 @@ Flutter automatically supports right-to-left languages when the user changes the
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
 
-The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/flutter/news_template/blob/main/google_news_project/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/flutter/news_template/tree/main/google_news_project/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
 
 The package depends on the third-party packages that expose authentication methods such as:
 
