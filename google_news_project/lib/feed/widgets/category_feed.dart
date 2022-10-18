@@ -27,37 +27,26 @@ class CategoryFeed extends StatelessWidget {
         context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
             true;
 
+    final isFailure = context
+        .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
+
     final l10n = context.l10n;
 
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
-        if (state.status == FeedStatus.failure) {
-          if (state.feed.isEmpty) {
-            Navigator.of(context).push<void>(
-              NetworkErrorAlert.route(
-                onPressed: () {
-                  context
-                      .read<FeedBloc>()
-                      .add(FeedRefreshRequested(category: category));
-                  Navigator.of(context).pop();
-                },
-                errorText: l10n.networkError,
-                refreshButtonText: l10n.networkErrorButton,
-              ),
-            );
-          } else {
-            categoryFeed.add(
-              NetworkErrorBlock(
-                onPressed: () {
-                  context
-                      .read<FeedBloc>()
-                      .add(FeedRefreshRequested(category: category));
-                  categoryFeed
-                      .removeWhere((element) => element is NetworkErrorBlock);
-                },
-              ),
-            );
-          }
+        if (state.status == FeedStatus.failure && state.feed.isEmpty) {
+          Navigator.of(context).push<void>(
+            NetworkErrorAlert.route(
+              onPressed: () {
+                context
+                    .read<FeedBloc>()
+                    .add(FeedRefreshRequested(category: category));
+                Navigator.of(context).pop();
+              },
+              errorText: l10n.networkError,
+              refreshButtonText: l10n.networkErrorButton,
+            ),
+          );
         }
       },
       child: RefreshIndicator(
@@ -71,6 +60,17 @@ class CategoryFeed extends StatelessWidget {
           controller: scrollController,
           itemBuilder: (context, index) {
             if (index == categoryFeed.length) {
+              if (isFailure) {
+                return NetworkErrorAlert(
+                  onPressed: () {
+                    context
+                        .read<FeedBloc>()
+                        .add(FeedRefreshRequested(category: category));
+                  },
+                  errorText: context.l10n.networkError,
+                  refreshButtonText: context.l10n.networkErrorButton,
+                );
+              }
               return hasMoreNews
                   ? Padding(
                       padding: EdgeInsets.only(
