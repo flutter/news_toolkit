@@ -10,7 +10,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  share_plus: ^5.0.0
+  share_plus: ^6.0.0
 
 dev_dependencies:
   flutter_test:
