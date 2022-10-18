@@ -5,6 +5,7 @@ import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
@@ -17,6 +18,9 @@ class ArticleContent extends StatelessWidget {
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
+    final isFailure = context.select(
+        (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure);
+    final l10n = context.l10n;
 
     if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
@@ -27,8 +31,17 @@ class ArticleContent extends StatelessWidget {
     return ArticleContentSeenListener(
       child: BlocListener<ArticleBloc, ArticleState>(
         listener: (context, state) {
-          if (state.status == ArticleStatus.failure) {
-            _handleFailure(context);
+          if (state.status == ArticleStatus.failure && state.content.isEmpty) {
+            Navigator.of(context).push<void>(
+              NetworkErrorAlert.route(
+                onPressed: () {
+                  context.read<ArticleBloc>().add(const ArticleRequested());
+                  Navigator.of(context).pop();
+                },
+                errorText: l10n.networkError,
+                refreshButtonText: l10n.networkErrorButton,
+              ),
+            );
           } else if (state.status == ArticleStatus.shareFailure) {
             _handleShareFailure(context);
           }
@@ -41,6 +54,17 @@ class ArticleContent extends StatelessWidget {
               itemCount: content.length + 1,
               itemBuilder: (context, index) {
                 if (index == content.length) {
+                  if (isFailure) {
+                    return NetworkErrorAlert(
+                      onPressed: () {
+                        context
+                            .read<ArticleBloc>()
+                            .add(const ArticleRequested());
+                      },
+                      errorText: l10n.networkError,
+                      refreshButtonText: l10n.networkErrorButton,
+                    );
+                  }
                   return hasMoreContent
                       ? Padding(
                           padding: EdgeInsets.only(
@@ -88,19 +112,6 @@ class ArticleContent extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handleFailure(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          key: const Key('articleContent_failure_snackBar'),
-          content: Text(
-            context.l10n.unexpectedFailure,
-          ),
-        ),
-      );
   }
 
   void _handleShareFailure(BuildContext context) {
