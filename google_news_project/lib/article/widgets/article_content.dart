@@ -19,7 +19,8 @@ class ArticleContent extends StatelessWidget {
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
     final isFailure = context.select(
-        (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure);
+      (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
+    );
     final l10n = context.l10n;
 
     if (status == ArticleStatus.initial) {

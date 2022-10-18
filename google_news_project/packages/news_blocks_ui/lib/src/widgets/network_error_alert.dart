@@ -23,6 +23,7 @@ class NetworkErrorAlert extends StatelessWidget {
   /// Text displayed within the refresh network button.
   final String refreshButtonText;
 
+  /// Route constructor to display the widget inside a [Scaffold].
   static Route route({
     required Function()? onPressed,
     required String errorText,
@@ -63,7 +64,7 @@ class NetworkErrorAlert extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 75, maxWidth: 150),
+            constraints: const BoxConstraints(maxHeight: 75, maxWidth: 150),
             child: AppButton.darkAqua(
               onPressed: onPressed,
               child: Row(
