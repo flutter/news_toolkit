@@ -11,6 +11,7 @@ import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
@@ -60,7 +61,7 @@ void main() {
         );
       });
 
-      testWidgets('shows SnackBar with error message', (tester) async {
+      testWidgets('shows NetworkErrorAlert', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
@@ -69,7 +70,7 @@ void main() {
         );
 
         expect(
-          find.byKey(const Key('articleContent_failure_snackBar')),
+          find.byType(NetworkErrorAlert),
           findsOneWidget,
         );
       });
@@ -105,19 +106,20 @@ void main() {
         );
       });
 
-      testWidgets('shows SnackBar with error message', (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: ArticleContent(),
-          ),
-        );
+      // TODO seems to be a duplicate, delete if no coverage issues
+      // testWidgets('shows NetworkErrorAlert', (tester) async {
+      //   await tester.pumpApp(
+      //     BlocProvider.value(
+      //       value: articleBloc,
+      //       child: ArticleContent(),
+      //     ),
+      //   );
 
-        expect(
-          find.byKey(const Key('articleContent_shareFailure_snackBar')),
-          findsOneWidget,
-        );
-      });
+      //   expect(
+      //     find.byType(NetworkErrorAlert),
+      //     findsOneWidget,
+      //   );
+      // });
     });
 
     group('when ArticleStatus is populated', () {
