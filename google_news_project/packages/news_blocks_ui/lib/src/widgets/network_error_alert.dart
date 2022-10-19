@@ -8,7 +8,7 @@ class NetworkErrorAlert extends StatelessWidget {
   /// {@macro network_error_alert}
   const NetworkErrorAlert({
     super.key,
-    required this.onPressed,
+    this.onPressed,
     required this.errorText,
     required this.refreshButtonText,
   });
@@ -25,7 +25,7 @@ class NetworkErrorAlert extends StatelessWidget {
 
   /// Route constructor to display the widget inside a [Scaffold].
   static Route route({
-    required Function()? onPressed,
+    Function()? onPressed,
     required String errorText,
     required String refreshButtonText,
   }) {
