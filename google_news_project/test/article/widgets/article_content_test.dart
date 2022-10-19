@@ -138,13 +138,18 @@ void main() {
         );
       });
 
-      testWidgets('shows NetworkErrorAlert on Scaffold', (tester) async {
+      testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
             child: ArticleContent(),
           ),
+          navigatorObserver: navigatorObserver,
         );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
 
         expect(
           find.ancestor(

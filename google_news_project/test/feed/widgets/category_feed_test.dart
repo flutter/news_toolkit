@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
@@ -12,6 +13,8 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import '../../helpers/helpers.dart';
 
 class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 const networkErrorButtonText = 'Try Again';
 
@@ -104,6 +107,75 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+    });
+
+    group('when FeedStatus is failure and feed is unpopulated', () {
+      setUpAll(() {
+        registerFallbackValue(Category.top);
+        registerFallbackValue(
+          NetworkErrorAlert.route(
+            errorText: 'errorText',
+            refreshButtonText: 'refreshButtonText',
+          ),
+        );
+      });
+
+      setUp(() {
+        whenListen(
+          feedBloc,
+          Stream.fromIterable([
+            FeedState.initial(),
+            FeedState(feed: {}, status: FeedStatus.failure),
+          ]),
+        );
+      });
+
+      testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        expect(
+          find.ancestor(
+            of: find.byType(NetworkErrorAlert),
+            matching: find.byType(Scaffold),
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('requests feed refresh on NetworkErrorAlert press',
+          (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        await tester.ensureVisible(find.text(networkErrorButtonText));
+
+        await tester.pump(Duration(seconds: 1));
+        await tester.tap(find.textContaining(networkErrorButtonText));
+        await tester.pump(Duration(seconds: 1));
+
+        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
+            .called(1);
+        verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
 
