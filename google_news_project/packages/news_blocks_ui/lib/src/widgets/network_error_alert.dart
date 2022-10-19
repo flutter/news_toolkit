@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// {@template app_logo}
+/// {@template network_error_alert}
 /// A network error alert.
 /// {@endtemplate}
 class NetworkErrorAlert extends StatelessWidget {
