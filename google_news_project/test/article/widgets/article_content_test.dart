@@ -112,9 +112,12 @@ void main() {
           findsOneWidget,
         );
 
+        await tester.ensureVisible(find.textContaining(networkErrorButtonText));
+
+        await tester.pump(Duration(seconds: 1));
         await tester.tap(find.textContaining(networkErrorButtonText));
 
-        verify(() => articleBloc.add(ArticleRequested())).called(1);
+        verify(() => articleBloc.add(ArticleRequested())).called(2);
       });
     });
 
