@@ -75,9 +75,11 @@ class NetworkErrorAlert extends StatelessWidget {
                     size: UITextStyle.button.fontSize,
                   ),
                   const SizedBox(width: AppSpacing.xs),
-                  Text(
-                    refreshButtonText,
-                    style: UITextStyle.button,
+                  Expanded(
+                    child: Text(
+                      refreshButtonText,
+                      style: UITextStyle.button,
+                    ),
                   ),
                 ],
               ),
