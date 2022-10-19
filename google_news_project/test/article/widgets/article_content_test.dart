@@ -114,7 +114,7 @@ void main() {
 
         await tester.ensureVisible(find.textContaining(networkErrorButtonText));
 
-        await tester.pump(Duration(seconds: 1));
+        await tester.pump(Duration(milliseconds: 100));
         await tester.tap(find.textContaining(networkErrorButtonText));
 
         verify(() => articleBloc.add(ArticleRequested())).called(2);
@@ -182,7 +182,7 @@ void main() {
           findsOneWidget,
         );
 
-        await tester.pump(Duration(seconds: 1));
+        await tester.pump(Duration(milliseconds: 100));
         await tester.tap(find.textContaining(networkErrorButtonText));
 
         verify(() => articleBloc.add(ArticleRequested())).called(2);

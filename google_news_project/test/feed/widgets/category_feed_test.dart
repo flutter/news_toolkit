@@ -171,7 +171,6 @@ void main() {
 
         await tester.pump(Duration(seconds: 1));
         await tester.tap(find.textContaining(networkErrorButtonText));
-        await tester.pump(Duration(seconds: 1));
 
         verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
             .called(1);
