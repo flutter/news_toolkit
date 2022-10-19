@@ -6,7 +6,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:platform/platform.dart' as platform;
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 /// {@template banner_ad_failed_to_load_exception}
 /// An exception thrown when loading a banner ad fails.

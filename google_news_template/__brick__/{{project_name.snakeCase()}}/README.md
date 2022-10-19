@@ -175,6 +175,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
+### Text Directionality
+
+Flutter automatically supports right-to-left languages when the user changes their language settings. No additional configuration or code is required to support text directionality as referenced in the [Flutter internationalization guide](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) in your app.
+
 ---
 
 ## Theme and Brand Updates
