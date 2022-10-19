@@ -555,6 +555,7 @@ void main() {
                 CategoryFeedItem(block: block),
               ],
             ),
+            articleRepository: articleRepository,
           );
 
           // We're tapping on a PostLarge as the first post of the PostGrid
