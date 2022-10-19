@@ -106,7 +106,7 @@ void main() {
         );
       });
 
-      // TODO(simpson-peter): seems to be a duplicate, delete if no coverage issues
+      // TODO(simpson-peter): seems to be a duplicate, delete
       // testWidgets('shows NetworkErrorAlert', (tester) async {
       //   await tester.pumpApp(
       //     BlocProvider.value(

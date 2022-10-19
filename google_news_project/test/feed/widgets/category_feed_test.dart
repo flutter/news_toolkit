@@ -2,12 +2,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
+import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -44,7 +44,7 @@ void main() {
         );
       });
 
-      testWidgets('shows SnackBar with error message', (tester) async {
+      testWidgets('shows NetworkErrorAlert', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
@@ -53,7 +53,7 @@ void main() {
         );
 
         expect(
-          find.byKey(const Key('categoryFeed_failure_snackBar')),
+          find.byType(NetworkErrorAlert),
           findsOneWidget,
         );
       });
