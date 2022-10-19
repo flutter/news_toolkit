@@ -27,15 +27,16 @@ void main() {
           body: Builder(
             builder: (context) {
               return ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push<void>(
-                      NetworkErrorAlert.route(
-                        errorText: 'errorText',
-                        refreshButtonText: 'refreshButtonText',
-                      ),
-                    );
-                  },
-                  child: const Text(tapMeText));
+                onPressed: () {
+                  Navigator.of(context).push<void>(
+                    NetworkErrorAlert.route(
+                      errorText: 'errorText',
+                      refreshButtonText: 'refreshButtonText',
+                    ),
+                  );
+                },
+                child: const Text(tapMeText),
+              );
             },
           ),
         ),
