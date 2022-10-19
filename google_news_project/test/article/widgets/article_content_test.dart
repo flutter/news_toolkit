@@ -50,7 +50,9 @@ void main() {
       expect(find.byType(StickyAd), findsOneWidget);
     });
 
-    group('when ArticleStatus is failure', () {
+    group('when ArticleStatus is failure and content is present', () {
+      const buttonText = 'Try Again';
+
       setUp(() {
         whenListen(
           articleBloc,
@@ -93,6 +95,76 @@ void main() {
           );
         }
       });
+
+      testWidgets('NetworkErrorAlert requests article on press',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.text(buttonText),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.text(buttonText));
+
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+      });
+    });
+
+    group('when ArticleStatus is failure and content is absent', () {
+      const buttonText = 'Try Again';
+
+      setUp(() {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(content: [], status: ArticleStatus.failure),
+          ]),
+        );
+      });
+
+      testWidgets('shows NetworkErrorAlert on Scaffold', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.ancestor(
+            of: find.byType(NetworkErrorAlert),
+            matching: find.byType(Scaffold),
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('NetworkErrorAlert requests article on press',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.text(buttonText),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.text(buttonText));
+        await tester.pumpAndSettle();
+
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+      });
     });
 
     group('when ArticleStatus is shareFailure', () {
@@ -106,20 +178,19 @@ void main() {
         );
       });
 
-      // TODO(simpson-peter): seems to be a duplicate, delete
-      // testWidgets('shows NetworkErrorAlert', (tester) async {
-      //   await tester.pumpApp(
-      //     BlocProvider.value(
-      //       value: articleBloc,
-      //       child: ArticleContent(),
-      //     ),
-      //   );
+      testWidgets('shows SnackBar with error message', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
 
-      //   expect(
-      //     find.byType(NetworkErrorAlert),
-      //     findsOneWidget,
-      //   );
-      // });
+        expect(
+          find.byKey(const Key('articleContent_shareFailure_snackBar')),
+          findsOneWidget,
+        );
+      });
     });
 
     group('when ArticleStatus is populated', () {
