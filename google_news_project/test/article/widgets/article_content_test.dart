@@ -19,6 +19,8 @@ import '../../helpers/helpers.dart';
 class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 void main() {
   late ArticleBloc articleBloc;
 
@@ -119,6 +121,13 @@ void main() {
     group('when ArticleStatus is failure and content is absent', () {
       const buttonText = 'Try Again';
 
+      setUpAll(() {
+        registerFallbackValue(
+          NetworkErrorAlert.route(
+              errorText: 'errorText', refreshButtonText: 'refreshButtonText'),
+        );
+      });
+
       setUp(() {
         whenListen(
           articleBloc,
@@ -148,19 +157,24 @@ void main() {
 
       testWidgets('NetworkErrorAlert requests article on press',
           (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
             child: ArticleContent(),
           ),
+          navigatorObserver: navigatorObserver,
         );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
 
         expect(
           find.text(buttonText),
           findsOneWidget,
         );
 
-        await tester.tap(find.text(buttonText));
+        await tester.press(find.text(buttonText));
         await tester.pumpAndSettle();
 
         verify(() => articleBloc.add(ArticleRequested())).called(1);
