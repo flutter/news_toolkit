@@ -56,12 +56,6 @@ class CategoryFeedItem extends StatelessWidget {
         premiumText: context.l10n.newsBlockPremiumText,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
-    } else if (newsBlock is NetworkErrorBlock) {
-      return NetworkErrorAlert(
-        onPressed: newsBlock.onPressed,
-        errorText: context.l10n.networkError,
-        refreshButtonText: context.l10n.networkErrorButton,
-      );
     } else if (newsBlock is NewsletterBlock) {
       return const Newsletter();
     } else if (newsBlock is BannerAdBlock) {
