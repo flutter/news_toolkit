@@ -14,7 +14,6 @@ class NetworkErrorAlert extends StatelessWidget {
   });
 
   /// An optional callback which is invoked when the widget button is pressed.
-  /// No button will be displayed if onPress is null.
   final Function()? onPressed;
 
   /// Text displayed below the error icon describing the network issue.
