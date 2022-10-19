@@ -13,6 +13,8 @@ import '../../helpers/helpers.dart';
 
 class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
 
+const networkErrorButtonText = 'Try Again';
+
 void main() {
   late FeedBloc feedBloc;
 
@@ -33,7 +35,11 @@ void main() {
   });
 
   group('CategoryFeed', () {
-    group('when FeedStatus is failure', () {
+    group('when FeedStatus is failure and feed is populated', () {
+      setUpAll(() {
+        registerFallbackValue(Category.top);
+      });
+
       setUp(() {
         whenListen(
           feedBloc,
@@ -56,6 +62,23 @@ void main() {
           find.byType(NetworkErrorAlert),
           findsOneWidget,
         );
+      });
+
+      testWidgets('requests feed refresh on NetworkErrorAlert press',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
+
+        await tester.ensureVisible(find.text(networkErrorButtonText));
+
+        await tester.tap(find.textContaining(networkErrorButtonText));
+
+        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
+            .called(1);
       });
 
       testWidgets('shows CategoryFeedItem for each feed block', (tester) async {

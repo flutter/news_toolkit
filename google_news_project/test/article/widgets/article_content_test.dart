@@ -21,6 +21,8 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
+const networkErrorButtonText = 'Try Again';
+
 void main() {
   late ArticleBloc articleBloc;
 
@@ -53,8 +55,6 @@ void main() {
     });
 
     group('when ArticleStatus is failure and content is present', () {
-      const buttonText = 'Try Again';
-
       setUp(() {
         whenListen(
           articleBloc,
@@ -108,23 +108,23 @@ void main() {
         );
 
         expect(
-          find.text(buttonText),
+          find.text(networkErrorButtonText),
           findsOneWidget,
         );
 
-        await tester.tap(find.text(buttonText));
+        await tester.tap(find.textContaining(networkErrorButtonText));
 
         verify(() => articleBloc.add(ArticleRequested())).called(1);
       });
     });
 
     group('when ArticleStatus is failure and content is absent', () {
-      const buttonText = 'Try Again';
-
       setUpAll(() {
         registerFallbackValue(
           NetworkErrorAlert.route(
-              errorText: 'errorText', refreshButtonText: 'refreshButtonText'),
+            errorText: 'errorText',
+            refreshButtonText: 'refreshButtonText',
+          ),
         );
       });
 
@@ -170,14 +170,15 @@ void main() {
         verify(() => navigatorObserver.didPush(any(), any()));
 
         expect(
-          find.text(buttonText),
+          find.text(networkErrorButtonText),
           findsOneWidget,
         );
 
-        await tester.press(find.text(buttonText));
-        await tester.pumpAndSettle();
+        await tester.pump(Duration(seconds: 1));
+        await tester.tap(find.textContaining(networkErrorButtonText));
 
-        verify(() => articleBloc.add(ArticleRequested())).called(1);
+        verify(() => articleBloc.add(ArticleRequested())).called(2);
+        verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
 
