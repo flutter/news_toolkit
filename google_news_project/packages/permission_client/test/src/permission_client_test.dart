@@ -24,7 +24,7 @@ void main() {
           return PermissionStatus.granted.index;
         } else if (call.method == 'requestPermissions') {
           return <int, int>{
-            for (final int key in call.arguments)
+            for (final int key in call.arguments as List<int>)
               key: PermissionStatus.granted.index,
           };
         } else if (call.method == 'openAppSettings') {
