@@ -5,6 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  schedule:
+    - chron: "0 0 * * *"
   pull_request:
     paths:
       - "google_news_project/api/**"
@@ -24,12 +26,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix: 
+        channel: [stable, beta]
+
     steps:
       - uses: actions/checkout@v3
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.3.4
+          channel: ${{matrix.channel}}
           cache: true
 
       - name: Install Dependencies
