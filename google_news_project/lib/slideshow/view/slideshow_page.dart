@@ -13,7 +13,7 @@ class SlideshowPage extends StatelessWidget {
     required this.articleId,
   });
 
-  static Route route({
+  static Route<void> route({
     required SlideshowBlock slideshow,
     required String articleId,
   }) {
