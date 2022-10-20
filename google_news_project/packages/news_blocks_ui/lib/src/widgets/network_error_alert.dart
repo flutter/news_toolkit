@@ -47,7 +47,6 @@ class NetworkErrorAlert extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // TODO maybe size this down?
           const SizedBox(height: AppSpacing.xlg),
           const Icon(
             Icons.error_outline,
