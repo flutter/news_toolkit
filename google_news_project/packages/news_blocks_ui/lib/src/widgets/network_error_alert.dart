@@ -31,10 +31,15 @@ class NetworkErrorAlert extends StatelessWidget {
     return PageRouteBuilder<void>(
       pageBuilder: (_, __, ___) => Scaffold(
         backgroundColor: AppColors.background,
-        body: NetworkErrorAlert(
-          onPressed: onPressed,
-          errorText: errorText,
-          refreshButtonText: refreshButtonText,
+        appBar: AppBar(
+          leading: const AppBackButton(),
+        ),
+        body: Center(
+          child: NetworkErrorAlert(
+            onPressed: onPressed,
+            errorText: errorText,
+            refreshButtonText: refreshButtonText,
+          ),
         ),
       ),
     );
@@ -74,9 +79,11 @@ class NetworkErrorAlert extends StatelessWidget {
                     size: UITextStyle.button.fontSize,
                   ),
                   const SizedBox(width: AppSpacing.xs),
-                  Text(
-                    refreshButtonText,
-                    style: UITextStyle.button,
+                  Flexible(
+                    child: Text(
+                      refreshButtonText,
+                      style: UITextStyle.button,
+                    ),
                   ),
                 ],
               ),
