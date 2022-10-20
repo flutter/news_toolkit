@@ -1,12 +1,12 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
-/// {@template network_error_alert}
+/// {@template network_error}
 /// A network error alert.
 /// {@endtemplate}
-class NetworkErrorAlert extends StatelessWidget {
-  /// {@macro network_error_alert}
-  const NetworkErrorAlert({
+class NetworkError extends StatelessWidget {
+  /// {@macro network_error}
+  const NetworkError({
     super.key,
     this.onPressed,
     required this.errorText,
@@ -35,7 +35,7 @@ class NetworkErrorAlert extends StatelessWidget {
           leading: const AppBackButton(),
         ),
         body: Center(
-          child: NetworkErrorAlert(
+          child: NetworkError(
             onPressed: onPressed,
             errorText: errorText,
             refreshButtonText: refreshButtonText,

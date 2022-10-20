@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:news_blocks_ui/src/widgets/widgets.dart';
+import 'package:google_news_template/network_error/network_error.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   const tapMeText = 'Tap Me';
 
-  group('NetworkErrorAlert', () {
+  group('NetworkError', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(
-        NetworkErrorAlert(
+        NetworkError(
           errorText: 'errorText',
           refreshButtonText: 'refreshButtonText',
         ),
       );
 
-      expect(find.byType(NetworkErrorAlert), findsOneWidget);
+      expect(find.byType(NetworkError), findsOneWidget);
     });
 
     testWidgets('router returns a valid navigation route', (tester) async {
@@ -29,7 +29,7 @@ void main() {
               return ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push<void>(
-                    NetworkErrorAlert.route(
+                    NetworkError.route(
                       errorText: 'errorText',
                       refreshButtonText: 'refreshButtonText',
                     ),
@@ -45,7 +45,7 @@ void main() {
       await tester.tap(find.text(tapMeText));
       await tester.pumpAndSettle();
 
-      expect(find.byType(NetworkErrorAlert), findsOneWidget);
+      expect(find.byType(NetworkError), findsOneWidget);
     });
   });
 }

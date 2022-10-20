@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_news_template/feed/feed.dart';
 import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/network_error/network_error.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
@@ -36,7 +36,7 @@ class CategoryFeed extends StatelessWidget {
       listener: (context, state) {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
           Navigator.of(context).push<void>(
-            NetworkErrorAlert.route(
+            NetworkError.route(
               onPressed: () {
                 context
                     .read<FeedBloc>()
@@ -61,7 +61,7 @@ class CategoryFeed extends StatelessWidget {
           itemBuilder: (context, index) {
             if (index == categoryFeed.length) {
               if (isFailure) {
-                return NetworkErrorAlert(
+                return NetworkError(
                   onPressed: () {
                     context
                         .read<FeedBloc>()

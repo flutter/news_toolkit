@@ -5,7 +5,7 @@ import 'package:google_news_template/ads/ads.dart';
 import 'package:google_news_template/analytics/analytics.dart';
 import 'package:google_news_template/article/article.dart';
 import 'package:google_news_template/l10n/l10n.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:google_news_template/network_error/network_error.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
@@ -35,7 +35,7 @@ class ArticleContent extends StatelessWidget {
         listener: (context, state) {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
             Navigator.of(context).push<void>(
-              NetworkErrorAlert.route(
+              NetworkError.route(
                 onPressed: () {
                   context.read<ArticleBloc>().add(const ArticleRequested());
                   Navigator.of(context).pop();
@@ -57,7 +57,7 @@ class ArticleContent extends StatelessWidget {
               itemBuilder: (context, index) {
                 if (index == content.length) {
                   if (isFailure) {
-                    return NetworkErrorAlert(
+                    return NetworkError(
                       onPressed: () {
                         context
                             .read<ArticleBloc>()

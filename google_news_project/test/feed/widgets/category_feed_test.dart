@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_news_template/feed/feed.dart';
+import 'package:google_news_template/network_error/network_error.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
-import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -62,7 +62,7 @@ void main() {
         );
 
         expect(
-          find.byType(NetworkErrorAlert),
+          find.byType(NetworkError),
           findsOneWidget,
         );
       });
@@ -114,7 +114,7 @@ void main() {
       setUpAll(() {
         registerFallbackValue(Category.top);
         registerFallbackValue(
-          NetworkErrorAlert.route(
+          NetworkError.route(
             errorText: 'errorText',
             refreshButtonText: 'refreshButtonText',
           ),
@@ -146,7 +146,7 @@ void main() {
 
         expect(
           find.ancestor(
-            of: find.byType(NetworkErrorAlert),
+            of: find.byType(NetworkError),
             matching: find.byType(Scaffold),
           ),
           findsOneWidget,
