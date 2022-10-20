@@ -56,7 +56,7 @@ class ArticleContent extends StatelessWidget {
               itemCount: content.length + 1,
               itemBuilder: (context, index) {
                 if (index == content.length) {
-                  if (isFailure && content.isNotEmpty) {
+                  if (isFailure) {
                     return NetworkErrorAlert(
                       onPressed: () {
                         context

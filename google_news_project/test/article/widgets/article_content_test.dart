@@ -175,8 +175,6 @@ void main() {
           navigatorObserver: navigatorObserver,
         );
 
-        await tester.pump(Duration(milliseconds: 100));
-
         verify(() => navigatorObserver.didPush(any(), any()));
 
         expect(
@@ -187,10 +185,10 @@ void main() {
         await tester.ensureVisible(find.textContaining(networkErrorButtonText));
 
         await tester.pump(Duration(milliseconds: 100));
-        await tester.tap(find.textContaining(networkErrorButtonText));
+        await tester.tap(find.textContaining(networkErrorButtonText).last);
         await tester.pump(Duration(milliseconds: 100));
 
-        verify(() => articleBloc.add(ArticleRequested())).called(3);
+        verify(() => articleBloc.add(ArticleRequested())).called(2);
         verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
