@@ -102,7 +102,7 @@ class _SlideshowHeaderTitle extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: theme.headline4?.apply(
+        style: theme.headlineMedium?.apply(
           color: AppColors.highEmphasisPrimary,
         ),
       ),
@@ -169,7 +169,7 @@ class SlideshowItem extends StatelessWidget {
           ),
           child: Text(
             slide.caption,
-            style: theme.headline6?.apply(
+            style: theme.titleLarge?.apply(
               color: AppColors.white,
             ),
           ),
@@ -183,7 +183,7 @@ class SlideshowItem extends StatelessWidget {
           ),
           child: Text(
             slide.description,
-            style: theme.caption?.apply(
+            style: theme.bodySmall?.apply(
               color: AppColors.mediumHighEmphasisPrimary,
             ),
           ),
@@ -196,7 +196,7 @@ class SlideshowItem extends StatelessWidget {
           ),
           child: Text(
             slide.photoCredit,
-            style: theme.caption?.apply(
+            style: theme.bodySmall?.apply(
               color: AppColors.mediumEmphasisPrimary,
             ),
           ),
@@ -260,7 +260,7 @@ class _SlideshowButtonsState extends State<_SlideshowButtons> {
           ),
           Text(
             navigationBarLabel,
-            style: theme.textTheme.headline6?.apply(color: AppColors.white),
+            style: theme.textTheme.titleLarge?.apply(color: AppColors.white),
           ),
           IconButton(
             key: const Key('slideshow_slideshowButtonsRight'),

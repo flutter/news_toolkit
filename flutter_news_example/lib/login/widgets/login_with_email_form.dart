@@ -59,7 +59,7 @@ class _HeaderTitle extends StatelessWidget {
     return Text(
       context.l10n.loginWithEmailHeaderText,
       key: const Key('loginWithEmailForm_header_title'),
-      style: theme.textTheme.headline3,
+      style: theme.textTheme.displaySmall,
     );
   }
 }
@@ -117,11 +117,11 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.loginWithEmailSubtitleText,
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyLarge,
             ),
             TextSpan(
               text: context.l10n.loginWithEmailTermsAndPrivacyPolicyText,
-              style: theme.textTheme.bodyText1?.apply(
+              style: theme.textTheme.bodyLarge?.apply(
                 color: AppColors.darkAqua,
               ),
               recognizer: TapGestureRecognizer()
@@ -132,7 +132,7 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
             ),
             TextSpan(
               text: '.',
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyLarge,
             ),
           ],
         ),

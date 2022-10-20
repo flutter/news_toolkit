@@ -6,8 +6,8 @@ import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
-class NavigationDrawerSections extends StatelessWidget {
-  const NavigationDrawerSections({super.key});
+class NavDrawerSections extends StatelessWidget {
+  const NavDrawerSections({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class NavigationDrawerSections extends StatelessWidget {
 
     return Column(
       children: [
-        const NavigationDrawerSectionsTitle(),
+        const NavDrawerSectionsTitle(),
         ...[
           for (final category in categories)
-            NavigationDrawerSectionItem(
+            NavDrawerSectionItem(
               key: ValueKey(category),
               title: toBeginningOfSentenceCase(category.name) ?? '',
               selected: category == selectedCategory,
@@ -41,8 +41,8 @@ class NavigationDrawerSections extends StatelessWidget {
 }
 
 @visibleForTesting
-class NavigationDrawerSectionsTitle extends StatelessWidget {
-  const NavigationDrawerSectionsTitle({super.key});
+class NavDrawerSectionsTitle extends StatelessWidget {
+  const NavDrawerSectionsTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class NavigationDrawerSectionsTitle extends StatelessWidget {
         ),
         child: Text(
           context.l10n.navigationDrawerSectionsTitle,
-          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColors.primaryContainer,
               ),
         ),
@@ -65,8 +65,8 @@ class NavigationDrawerSectionsTitle extends StatelessWidget {
 }
 
 @visibleForTesting
-class NavigationDrawerSectionItem extends StatelessWidget {
-  const NavigationDrawerSectionItem({
+class NavDrawerSectionItem extends StatelessWidget {
+  const NavDrawerSectionItem({
     super.key,
     required this.title,
     this.onTap,
@@ -105,7 +105,7 @@ class NavigationDrawerSectionItem extends StatelessWidget {
       onTap: onTap,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.button?.copyWith(
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
               color: selected
                   ? AppColors.highEmphasisPrimary
                   : AppColors.mediumEmphasisPrimary,

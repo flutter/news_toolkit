@@ -22,14 +22,14 @@ class UserProfileSubscribeBox extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           Text(
             l10n.userProfileSubscribeBoxSubtitle,
-            style: theme.textTheme.subtitle1?.copyWith(
+            style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: AppFontWeight.medium,
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
             l10n.userProfileSubscribeBoxMessage,
-            style: theme.textTheme.bodyText2
+            style: theme.textTheme.bodyMedium
                 ?.copyWith(color: AppColors.mediumEmphasisSurface),
           ),
           const SizedBox(height: AppSpacing.lg),

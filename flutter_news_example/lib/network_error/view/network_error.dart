@@ -43,7 +43,7 @@ class NetworkError extends StatelessWidget {
         const SizedBox(height: AppSpacing.lg),
         Text(
           l10n.networkError,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: AppSpacing.lg),

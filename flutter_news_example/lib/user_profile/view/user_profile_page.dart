@@ -198,7 +198,7 @@ class UserProfileTitle extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: Text(
         context.l10n.userProfileTitle,
-        style: theme.textTheme.headline3,
+        style: theme.textTheme.displaySmall,
       ),
     );
   }
@@ -225,7 +225,7 @@ class UserProfileSubtitle extends StatelessWidget {
       ),
       child: Text(
         subtitle,
-        style: theme.textTheme.subtitle2,
+        style: theme.textTheme.titleSmall,
       ),
     );
   }
@@ -273,7 +273,7 @@ class UserProfileItem extends StatelessWidget {
       onTap: onTap,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: AppColors.highEmphasisSurface,
             ),
       ),
