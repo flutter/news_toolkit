@@ -47,7 +47,8 @@ class NetworkErrorAlert extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: AppSpacing.xxxlg),
+          // TODO maybe size this down?
+          const SizedBox(height: AppSpacing.xlg),
           const Icon(
             Icons.error_outline,
             size: 100,
@@ -74,17 +75,15 @@ class NetworkErrorAlert extends StatelessWidget {
                     size: UITextStyle.button.fontSize,
                   ),
                   const SizedBox(width: AppSpacing.xs),
-                  Expanded(
-                    child: Text(
-                      refreshButtonText,
-                      style: UITextStyle.button,
-                    ),
+                  Text(
+                    refreshButtonText,
+                    style: UITextStyle.button,
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: AppSpacing.xxxlg),
+          const SizedBox(height: AppSpacing.xlg),
         ],
       ),
     );
