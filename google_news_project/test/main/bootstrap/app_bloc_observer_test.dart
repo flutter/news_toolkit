@@ -19,7 +19,7 @@ class FakeAnalyticsEvent extends Fake implements AnalyticsEvent {}
 
 void main() {
   group('AppBlocObserver', () {
-    late Bloc bloc;
+    late Bloc<dynamic, dynamic> bloc;
     late AnalyticsRepository analyticsRepository;
     late AppBlocObserver observer;
 

@@ -14,7 +14,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 void main() {
   group('ManageSubscriptionPage', () {
     test('has a route', () {
-      expect(ManageSubscriptionPage.route(), isA<MaterialPageRoute>());
+      expect(ManageSubscriptionPage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders ManageSubscriptionView', (tester) async {
