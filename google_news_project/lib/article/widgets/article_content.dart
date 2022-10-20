@@ -21,6 +21,7 @@ class ArticleContent extends StatelessWidget {
     final isFailure = context.select(
       (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
     );
+
     final l10n = context.l10n;
 
     if (status == ArticleStatus.initial) {
@@ -55,7 +56,7 @@ class ArticleContent extends StatelessWidget {
               itemCount: content.length + 1,
               itemBuilder: (context, index) {
                 if (index == content.length) {
-                  if (isFailure) {
+                  if (isFailure && content.isNotEmpty) {
                     return NetworkErrorAlert(
                       onPressed: () {
                         context
