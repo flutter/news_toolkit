@@ -21,10 +21,6 @@ typedef AppBuilder = Future<Widget> Function(
 );
 
 Future<void> bootstrap(AppBuilder builder) async {
-  return _runApp(builder);
-}
-
-Future<void> _runApp(AppBuilder builder) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final analyticsRepository = AnalyticsRepository(FirebaseAnalytics.instance);
