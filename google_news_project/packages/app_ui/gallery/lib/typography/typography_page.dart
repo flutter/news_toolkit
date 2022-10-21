@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TypographyPage extends StatelessWidget {
   const TypographyPage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const TypographyPage());
   }
 

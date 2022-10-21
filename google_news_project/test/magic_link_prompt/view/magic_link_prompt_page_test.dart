@@ -15,7 +15,7 @@ void main() {
     test('has a route', () {
       expect(
         MagicLinkPromptPage.route(email: testEmail),
-        isA<MaterialPageRoute>(),
+        isA<MaterialPageRoute<void>>(),
       );
     });
 

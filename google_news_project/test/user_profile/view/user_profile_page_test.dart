@@ -30,7 +30,7 @@ void main() {
 
   group('UserProfilePage', () {
     test('has a route', () {
-      expect(UserProfilePage.route(), isA<MaterialPageRoute>());
+      expect(UserProfilePage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders UserProfileView', (tester) async {

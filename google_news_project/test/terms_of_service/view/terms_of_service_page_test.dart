@@ -13,7 +13,7 @@ void main() {
   group('TermsOfServicePage', () {
     group('route', () {
       test('has a route', () {
-        expect(TermsOfServicePage.route(), isA<MaterialPageRoute>());
+        expect(TermsOfServicePage.route(), isA<MaterialPageRoute<void>>());
       });
 
       testWidgets('router returns a valid navigation route', (tester) async {

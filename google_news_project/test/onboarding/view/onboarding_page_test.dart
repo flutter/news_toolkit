@@ -13,7 +13,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 void main() {
   group('OnboardingPage', () {
     test('has a page', () {
-      expect(OnboardingPage.page(), isA<MaterialPage>());
+      expect(OnboardingPage.page(), isA<MaterialPage<void>>());
     });
 
     testWidgets('renders OnboardingView', (tester) async {
