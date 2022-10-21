@@ -6,8 +6,6 @@ analyzer:
     - lib/**/*.g.dart
     - assets/**/*.gen.dart
     - packages/**/*.gen.dart
-  errors:
-    deprecated_member_use: ignore
 linter:
   rules:
     public_member_api_docs: false
