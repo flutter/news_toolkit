@@ -101,11 +101,9 @@ class _SearchViewState extends State<SearchView> {
                     ? l10n.searchPopularArticles
                     : l10n.searchRelevantArticles,
               ),
-              ...state.articles
-                  .map<Widget>(
-                    (newsBlock) => CategoryFeedItem(block: newsBlock),
-                  )
-                  .toList(),
+              ...state.articles.map<Widget>(
+                (newsBlock) => CategoryFeedItem(block: newsBlock),
+              ),
             ],
           ),
         );

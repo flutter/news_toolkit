@@ -3,7 +3,7 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.18.0 <3.0.0"
   flutter: 3.3.4
 
 dependencies:
@@ -83,7 +83,7 @@ dependencies:
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^3.0.0
+  very_good_analysis: ^3.1.0
   visibility_detector: ^0.3.3
 
 dev_dependencies:
