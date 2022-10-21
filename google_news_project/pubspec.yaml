@@ -38,7 +38,7 @@ dependencies:
     path: packages/form_inputs
   google_news_template_api:
     path: api
-  hydrated_bloc: ^9.0.0-dev.1
+  hydrated_bloc: ^9.0.0-dev.3
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
   intl: ^0.17.0
