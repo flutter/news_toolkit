@@ -21,38 +21,35 @@ typedef AppBuilder = Future<Widget> Function(
 );
 
 Future<void> bootstrap(AppBuilder builder) async {
-  return HydratedBlocOverrides.runZoned(
-    () => _runApp(builder),
-    createStorage: _createStorage,
-  );
+  return _runApp(builder);
 }
 
 Future<void> _runApp(AppBuilder builder) async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final analyticsRepository = AnalyticsRepository(FirebaseAnalytics.instance);
   final blocObserver = AppBlocObserver(
     analyticsRepository: analyticsRepository,
   );
+  Bloc.observer = blocObserver;
+  HydratedBloc.storage = await _createStorage();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final sharedPreferences = await SharedPreferences.getInstance();
 
   await runZonedGuarded<Future<void>>(
-    () => BlocOverrides.runZoned(
-      () async {
-        unawaited(MobileAds.instance.initialize());
-        runApp(
-          await builder(
-            FirebaseDynamicLinks.instance,
-            FirebaseMessaging.instance,
-            sharedPreferences,
-            analyticsRepository,
-          ),
-        );
-      },
-      blocObserver: blocObserver,
-    ),
+    () async {
+      unawaited(MobileAds.instance.initialize());
+      runApp(
+        await builder(
+          FirebaseDynamicLinks.instance,
+          FirebaseMessaging.instance,
+          sharedPreferences,
+          analyticsRepository,
+        ),
+      );
+    },
     FirebaseCrashlytics.instance.recordError,
   );
 }
