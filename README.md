@@ -927,7 +927,7 @@ Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#gett
 
 ## Removing Advertisements
 
-This section lays out how to remove the different types of advertisements in the codebase from your app.
+You may want to remove ads from your app. This section covers how to remove the different advertisements from your app.
 
 ### Removing Banner Ads
 
@@ -949,7 +949,7 @@ In the template, there is a sticky ad placed in `ArticleContent` inside `lib/art
  
  Rewarded ads are built inside the `SubscribeWithArticleLimitModal` widget in the `lib/subscriptions/widgets/subscribe_with_article_limit_modal.dart` file.
 
-Remove this block in the `SubscribeWithArticleLimitModal` widget to remove the rewarded ad option for premium articles:
+Remove the show rewarded ad button block within the `SubscribeWithArticleLimitModal` widget to remove the rewarded ad option for premium articles:
 ```dart
 Padding(
     padding: const EdgeInsets.symmetric(
@@ -973,3 +973,79 @@ Padding(
     ),
 ),
 ```
+
+### Removing Ad Dependencies
+
+If you are removing advertisements from your app, it's a good idea to remove all advertisement-related dependencies from your codebase.
+
+*Ad Source Code*
+
+Remove the following directories and files entirely:
+
+- `google_news_project/lib/ads`
+- `google_news_project/test/ads`
+- `google_news_project/packages/ads_consent_client`
+
+Remove the noted snippets from the files below:
+
+- `google_news_project/lib/app/view/app.dart`
+	```dart
+	required AdsConsentClient adsConsentClient,
+	```
+	```dart
+	_adsConsentClient = adsConsentClient,
+	```
+	```dart
+	final AdsConsentClient _adsConsentClient;
+	```
+	```dart
+	RepositoryProvider.value(value: _adsConsentClient),
+	```
+	```dart
+	BlocProvider(
+	  create: (context) => FullScreenAdsBloc(
+	    interstitialAdLoader: ads.InterstitialAd.load,
+	    rewardedAdLoader: ads.RewardedAd.load,
+	    adsRetryPolicy: const AdsRetryPolicy(),
+	    localPlatform: const LocalPlatform(),
+	  )
+	    ..add(const LoadInterstitialAdRequested())
+	    ..add(const LoadRewardedAdRequested()),
+	  lazy: false,
+	),
+	```
+
+- `google_news_project/lib/article/view/article_page.dart`
+    - `HasWatchedRewardedAdListener` class
+    - `HasWatchedRewardedAdListener` widget (retain the child `Scaffold` widget)
+- `google_news_project/lib/main/main_development.dart`
+    ```dart
+    final  adsConsentClient = AdsConsentClient();
+    ```
+    ```dart
+    adsConsentClient: adsConsentClient,
+    ```
+ - `google_news_project/lib/main/main_production.dart`
+    ```dart
+    final adsConsentClient = AdsConsentClient();
+    ```
+    ```dart
+    adsConsentClient:  adsConsentClient,
+    ```
+- `google_news_project/lib/onboarding/bloc/onboarding_bloc.dart`
+    ```dart
+    required AdsConsentClient adsConsentClient,
+    ```
+    ```dart
+    _adsConsentClient = adsConsentClient,
+    ```
+    ```dart
+    on<EnableAdTrackingRequested>(
+      _onEnableAdTrackingRequested,
+      transformer: droppable(),
+    );
+    ```
+    ```dart
+    final AdsConsentClient _adsConsentClient;
+    ```
+    - `_onEnableAdTrackingRequested()` function
