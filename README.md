@@ -927,18 +927,18 @@ Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#gett
 
 ## Removing Advertisements
 
-You may want to remove ads from your app. This section covers how to remove the different advertisements from your app.
+You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types from your app.
 
 ### Removing Banner Ads
 
-The `static_news_data.dart` file which your app displays by default contains banner ads. Once you have [implemented your data source](#implementing-an-api-data-source), as long as you do not insert `AdBlocks` into the data returned from your data source, your app will not display `BannerAds`.
+The `static_news_data.dart` file which your app displays contains banner ads by default. As you [implement your data source](#implementing-an-api-data-source),  do not insert `AdBlocks` into the data returned from your data source and your app will not display `BannerAds`.
 
 ### Removing Interstitial Ads
 
 By default, interstitial ads are displayed upon article entry by `_ArticleViewState`'s `initState` method in `lib/article/view/article_page.dart`. To remove interstitial ads entirely, you can delete
 
 ```dart
-context.read<FullScreenAdsBloc>().add(const  ShowInterstitialAdRequested());
+context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
 ```
 
 ### Removing Sticky Ads
@@ -974,7 +974,7 @@ Padding(
 ),
 ```
 
-### Removing Ad Dependencies
+### Removing Advertisement Dependencies
 
 If you are removing advertisements from your app, it's a good idea to remove all advertisement-related dependencies from your codebase.
 
@@ -985,6 +985,10 @@ Remove the following directories and files entirely:
 - `google_news_project/lib/ads`
 - `google_news_project/test/ads`
 - `google_news_project/packages/ads_consent_client`
+- `google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart`
+- `google_news_project/packages/news_blocks_ui/test/src/widgets/banner_ad_content_test.dart`
+- `google_news_project/packages/news_blocks_ui/lib/src/banner_ad.dart`
+- `google_news_project/packages/news_blocks_ui/test/src/banner_ad_test.dart`
 
 Remove the noted snippets from the files below:
 
@@ -1020,7 +1024,7 @@ Remove the noted snippets from the files below:
     - `HasWatchedRewardedAdListener` widget (retain the child `Scaffold` widget)
 - `google_news_project/lib/main/main_development.dart`
     ```dart
-    final  adsConsentClient = AdsConsentClient();
+    final adsConsentClient = AdsConsentClient();
     ```
     ```dart
     adsConsentClient: adsConsentClient,
@@ -1030,7 +1034,7 @@ Remove the noted snippets from the files below:
     final adsConsentClient = AdsConsentClient();
     ```
     ```dart
-    adsConsentClient:  adsConsentClient,
+    adsConsentClient: adsConsentClient,
     ```
 - `google_news_project/lib/onboarding/bloc/onboarding_bloc.dart`
     ```dart
@@ -1048,4 +1052,49 @@ Remove the noted snippets from the files below:
     ```dart
     final AdsConsentClient _adsConsentClient;
     ```
-    - `_onEnableAdTrackingRequested()` function
+    - the `_onEnableAdTrackingRequested()` function
+- `google_news_project/lib/onboarding/view/onboarding_page.dart`
+    ```dart
+    adsConsentClient: context.read<AdsConsentClient>(),
+    ```
+- `google_news_project/lib/article/widgets/article_content_item.dart`
+    ```dart
+    else if (newsBlock is BannerAdBlock) {
+      return BannerAd(
+        block: newsBlock,
+        adFailedToLoadTitle: context.l10n.adLoadFailure,
+      );
+    }
+    ```
+- `google_news_project/lib/article/widgets/article_content_item.dart`
+    ```dart
+    else if (newsBlock is BannerAdBlock) {
+      return BannerAd(
+        block: newsBlock,
+        adFailedToLoadTitle: context.l10n.adLoadFailure,
+      );
+    }
+    ```
+- `google_news_project/packages/news_blocks_ui/lib/news_blocks_ui.dart`
+    ```dart
+    export 'src/banner_ad.dart' show BannerAd;
+    ```
+- `google_news_project/packages/news_blocks_ui/lib/src/widgets/widges.dart`
+    ```dart
+    export 'banner_ad_content.dart';
+    ```
+
+*Pubspec Ad Depenedencies*
+
+Remove the `google_mobile_ads` dependency from the `google_news_project/packages/news_blocks_ui/pubspec.yaml` file, as well as all corresponding
+```dart
+import  'package:google_mobile_ads/google_mobile_ads.dart'
+```
+statements.
+
+Remove the `ads_consent_client` dependency from `google_news_project/pubspec.yaml`, as well as all `ads_consent_client` and all `ads` import statements:
+```dart
+import 'package:ads_consent_client/ads_consent_client.dart';
+import 'package:google_news_template/ads/ads.dart';
+```
+
