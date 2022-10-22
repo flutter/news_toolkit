@@ -924,3 +924,52 @@ A list of availiable subscription data featuring copy text and price information
 To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
 Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Removing Advertisements
+
+This section lays out how to remove the different types of advertisements in the codebase from your app.
+
+### Removing Banner Ads
+
+The `static_news_data.dart` file which your app displays by default contains banner ads. Once you have [implemented your data source](#implementing-an-api-data-source), as long as you do not insert `AdBlocks` into the data returned from your data source, your app will not display `BannerAds`.
+
+### Removing Interstitial Ads
+
+By default, interstitial ads are displayed upon article entry by `_ArticleViewState`'s `initState` method in `lib/article/view/article_page.dart`. To remove interstitial ads entirely, you can delete
+
+```dart
+context.read<FullScreenAdsBloc>().add(const  ShowInterstitialAdRequested());
+```
+
+### Removing Sticky Ads
+
+In the template, there is a sticky ad placed in `ArticleContent` inside `lib/article/widgets/article_content.dart`. In order to remove it, delete the `StickyAd()` constructor call from the `ArticleContent` widget's `Stack.children`.
+
+### Removing Rewarded Ads
+ 
+ Rewarded ads are built inside the `SubscribeWithArticleLimitModal` widget in the `lib/subscriptions/widgets/subscribe_with_article_limit_modal.dart` file.
+
+Remove this block in the `SubscribeWithArticleLimitModal` widget to remove the rewarded ad option for premium articles:
+```dart
+Padding(
+    padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg + AppSpacing.xxs,
+    ),
+    child: AppButton.transparentWhite(
+        key: const Key(
+            'subscribeWithArticleLimitModal_watchVideoButton',
+        ),
+        onPressed: () => context
+            .read<FullScreenAdsBloc>()
+            .add(const ShowRewardedAdRequested()),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                Assets.icons.video.svg(),
+                const SizedBox(width: AppSpacing.sm),
+                Text(watchVideoButtonTitle),
+            ],
+        ),
+    ),
+),
+```
