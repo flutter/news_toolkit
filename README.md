@@ -927,7 +927,7 @@ Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#gett
 
 ## Removing Advertisements
 
-You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types from your app.
+You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types and their dependencies.
 
 ### Removing Banner Ads
 
