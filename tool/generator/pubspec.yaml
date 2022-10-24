@@ -1,5 +1,5 @@
 name: generator
-description: A template generator for Google News Template.
+description: A template generator for Flutter News Toolkit.
 publish_to: none
 
 environment:

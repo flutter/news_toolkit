@@ -36,7 +36,7 @@ class GoogleNewsTemplateApiRequestFailure implements Exception {
 typedef TokenProvider = Future<String?> Function();
 
 /// {@template google_news_template_api_client}
-/// A Dart API client for the Google News Template API.
+/// A Dart API client for the Flutter News Toolkit API.
 /// {@endtemplate}
 class GoogleNewsTemplateApiClient {
   /// Create an instance of [GoogleNewsTemplateApiClient] that integrates

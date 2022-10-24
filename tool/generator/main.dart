@@ -312,7 +312,7 @@ void main() async {
               'google-news-template',
               '{{project_name.paramCase()}}',
             )
-            .replaceAll('Google News Template', '{{app_name}}')
+            .replaceAll('Flutter News Toolkit', '{{app_name}}')
             .replaceAll('com.google.news.template', '{{reverse_domain}}'));
       } on Exception {}
 

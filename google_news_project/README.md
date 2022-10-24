@@ -1,4 +1,4 @@
-# Google News Template
+# Flutter News Toolkit
 
 [![google_news_template][build_status_badge]][workflow_link]
 ![coverage][coverage_badge]
@@ -30,7 +30,7 @@ $ flutter run --flavor production --target lib/main/main_production.dart
 
 ```
 
-_\*Google News Template works on iOS, Android._
+_\*Flutter News Toolkit works on iOS, Android._
 
 ---
 
@@ -219,7 +219,7 @@ Widget build(BuildContext context) {
 
 ---
 
-## Google News Template API
+## Flutter News Toolkit API
 
 This package uses `google_news_template_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/VGVentures/google_news_template/tree/main/api)
 
