@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 
 final _staticDir = path.join('tool', 'generator', 'static');
-final _sourcePath = path.join('google_news_project${path.separator}');
+final _sourcePath = path.join('flutter_news_example${path.separator}');
 final _templatePath = path.join(
   'google_news_template',
   '__brick__',
@@ -63,7 +63,7 @@ final _workflowFlutterVersionRegExp = RegExp(r'flutter-version: (.*)');
 final _apiClientRegExp =
     RegExp('google-news-template-api-q66trdlzja-uc.a.run.app');
 final _workflowWorkingDirectoryRegExp = RegExp(
-  r'\s+defaults:(.*?)google_news_project',
+  r'\s+defaults:(.*?)flutter_news_example',
   multiLine: true,
   dotAll: true,
 );
@@ -214,7 +214,7 @@ void main() async {
                 (match) =>
                     "\${{#mustacheCase}}${match.group(1)?.trim()}{{/mustacheCase}}",
               )
-              .replaceAll('google_news_project/', ''),
+              .replaceAll('flutter_news_example/', ''),
         );
       }
       if (file.path == _targetProjectWorkflow) {
@@ -232,7 +232,7 @@ void main() async {
     directory: "/tool/generator"
     schedule:
       interval: "daily"
-''', '').replaceAll('/google_news_project/', '/'),
+''', '').replaceAll('/flutter_news_example/', '/'),
         );
       }
 

@@ -3,7 +3,7 @@ name: deploy_api
 on:
   push:
     paths:
-      - "google_news_project/api/**"
+      - "flutter_news_example/api/**"
       - ".github/workflows/deploy_api.yaml"
     branches:
       - main
@@ -33,7 +33,7 @@ jobs:
         run: dart pub global activate dart_frog_cli
 
       - name: Create Production Build
-        working-directory: ./google_news_project/api
+        working-directory: ./flutter_news_example/api
         run: dart_frog build
 
       - name: Authorize Docker push
@@ -41,7 +41,7 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} google_news_project/api/build
+          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }} flutter_news_example/api/build
           docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
