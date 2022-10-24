@@ -11,7 +11,7 @@ void main() {
 
   group('LoginWithEmailPage', () {
     test('has a route', () {
-      expect(LoginWithEmailPage.route(), isA<MaterialPageRoute>());
+      expect(LoginWithEmailPage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders LoginWithEmailForm', (tester) async {
