@@ -11,7 +11,7 @@ The Flutter news app template:
 
 To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
-## Google News Mason Template
+## Flutter News Mason Template
 
 [Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
@@ -787,7 +787,7 @@ For details about AdMob Ad types and usage visit [Google AdMob quick-start page]
 
 ### Updating Banner Ads
 
-In the sample Google News Project, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
+In the sample Flutter News Project, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
 
 To introduce banner ads into your app, you can either:
 
