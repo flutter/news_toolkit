@@ -11,7 +11,7 @@ dependencies:
   deep_link_client:
     path: ../deep_link_client
   equatable: ^2.0.3
-  google_news_template_api:
+  flutter_news_template_api:
     path: ../../api
   package_info_client:
     path: ../package_info_client
