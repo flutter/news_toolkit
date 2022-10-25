@@ -13,7 +13,8 @@ export 'src/data/models/models.dart'
         SubscriptionPlan,
         User;
 export 'src/data/news_data_source.dart' show NewsDataSource;
-export 'src/middleware/middleware.dart' show RequestUser, newsDataSourceProvider, userProvider;
+export 'src/middleware/middleware.dart'
+    show RequestUser, newsDataSourceProvider, userProvider;
 export 'src/models/models.dart'
     show
         ArticleResponse,
