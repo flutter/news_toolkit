@@ -28,7 +28,9 @@ Future<void> bootstrap(AppBuilder builder) async {
     analyticsRepository: analyticsRepository,
   );
   Bloc.observer = blocObserver;
-  HydratedBloc.storage = await _createStorage();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationSupportDirectory(),
+  );
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
@@ -47,12 +49,5 @@ Future<void> bootstrap(AppBuilder builder) async {
       );
     },
     FirebaseCrashlytics.instance.recordError,
-  );
-}
-
-Future<Storage> _createStorage() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  return HydratedStorage.build(
-    storageDirectory: await getApplicationSupportDirectory(),
   );
 }
