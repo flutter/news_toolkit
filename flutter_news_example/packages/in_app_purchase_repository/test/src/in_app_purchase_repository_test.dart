@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:authentication_client/authentication_client.dart';
-import 'package:flutter_news_template_api/client.dart' hide User;
-import 'package:flutter_news_template_api/client.dart' as api;
+import 'package:google_news_template_api/client.dart' hide User;
+import 'package:google_news_template_api/client.dart' as api;
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';

@@ -2,7 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/subscriptions/subscriptions.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 
 void main() {

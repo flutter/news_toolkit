@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_template/app/app.dart';
-import 'package:flutter_news_template/article/article.dart';
-import 'package:flutter_news_template/categories/categories.dart';
-import 'package:flutter_news_template/l10n/l10n.dart';
-import 'package:flutter_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/categories/categories.dart';
+import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/newsletter/newsletter.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 

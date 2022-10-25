@@ -3,7 +3,7 @@
 import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/onboarding/onboarding.dart';
+import 'package:google_news_template/onboarding/onboarding.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 

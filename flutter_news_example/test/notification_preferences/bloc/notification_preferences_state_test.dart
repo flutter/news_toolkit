@@ -2,7 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/notification_preferences/notification_preferences.dart';
+import 'package:google_news_template/notification_preferences/notification_preferences.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 void main() {

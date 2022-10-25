@@ -1,12 +1,12 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_template/analytics/analytics.dart';
-import 'package:flutter_news_template/app/app.dart';
-import 'package:flutter_news_template/article/article.dart';
-import 'package:flutter_news_template/l10n/l10n.dart';
-import 'package:flutter_news_template/login/login.dart';
-import 'package:flutter_news_template/subscriptions/subscriptions.dart';
+import 'package:google_news_template/analytics/analytics.dart';
+import 'package:google_news_template/app/app.dart';
+import 'package:google_news_template/article/article.dart';
+import 'package:google_news_template/l10n/l10n.dart';
+import 'package:google_news_template/login/login.dart';
+import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 @visibleForTesting

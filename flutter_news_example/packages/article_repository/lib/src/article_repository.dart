@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:storage/storage.dart';
 
 part 'article_storage.dart';

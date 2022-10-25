@@ -1,4 +1,4 @@
-import 'package:flutter_news_template/src/version.dart';
+import 'package:google_news_template/src/version.dart';
 
 int buildNumber([String version = packageVersion]) {
   final versionSegments = version.split('+');

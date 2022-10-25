@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/search/search.dart';
+import 'package:google_news_template/search/search.dart';
 
 import '../../helpers/helpers.dart';
 

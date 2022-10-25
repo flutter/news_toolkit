@@ -3,7 +3,7 @@
 
 import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_client/notifications_client.dart';
 import 'package:notifications_repository/notifications_repository.dart';

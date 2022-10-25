@@ -3,7 +3,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/slideshow/slideshow.dart';
+import 'package:google_news_template/slideshow/slideshow.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';

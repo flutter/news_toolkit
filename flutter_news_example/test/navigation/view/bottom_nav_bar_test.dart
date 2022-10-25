@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/navigation/navigation.dart';
+import 'package:google_news_template/navigation/navigation.dart';
 
 import '../../helpers/helpers.dart';
 

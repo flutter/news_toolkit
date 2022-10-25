@@ -1,25 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:http/http.dart' as http;
 
-/// {@template flutter_news_template_api_malformed_response}
+/// {@template google_news_template_api_malformed_response}
 /// An exception thrown when there is a problem decoded the response body.
 /// {@endtemplate}
 class GoogleNewsTemplateApiMalformedResponse implements Exception {
-  /// {@macro flutter_news_template_api_malformed_response}
+  /// {@macro google_news_template_api_malformed_response}
   const GoogleNewsTemplateApiMalformedResponse({required this.error});
 
   /// The associated error.
   final Object error;
 }
 
-/// {@template flutter_news_template_api_request_failure}
+/// {@template google_news_template_api_request_failure}
 /// An exception thrown when an http request failure occurs.
 /// {@endtemplate}
 class GoogleNewsTemplateApiRequestFailure implements Exception {
-  /// {@macro flutter_news_template_api_request_failure}
+  /// {@macro google_news_template_api_request_failure}
   const GoogleNewsTemplateApiRequestFailure({
     required this.statusCode,
     required this.body,
@@ -35,14 +35,14 @@ class GoogleNewsTemplateApiRequestFailure implements Exception {
 /// Signature for the authentication token provider.
 typedef TokenProvider = Future<String?> Function();
 
-/// {@template flutter_news_template_api_client}
+/// {@template google_news_template_api_client}
 /// A Dart API client for the Flutter News Toolkit API.
 /// {@endtemplate}
 class GoogleNewsTemplateApiClient {
   /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
   /// with the remote API.
   ///
-  /// {@macro flutter_news_template_api_client}
+  /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient({
     http.Client? httpClient,
     required TokenProvider tokenProvider,
@@ -55,7 +55,7 @@ class GoogleNewsTemplateApiClient {
   /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
   /// with a local instance of the API (http://localhost:8080).
   ///
-  /// {@macro flutter_news_template_api_client}
+  /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient.localhost({
     http.Client? httpClient,
     required TokenProvider tokenProvider,
@@ -65,7 +65,7 @@ class GoogleNewsTemplateApiClient {
           tokenProvider: tokenProvider,
         );
 
-  /// {@macro flutter_news_template_api_client}
+  /// {@macro google_news_template_api_client}
   GoogleNewsTemplateApiClient._({
     required String baseUrl,
     http.Client? httpClient,

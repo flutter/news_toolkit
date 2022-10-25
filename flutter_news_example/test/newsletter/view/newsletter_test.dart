@@ -5,8 +5,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/analytics/analytics.dart';
-import 'package:flutter_news_template/newsletter/newsletter.dart'
+import 'package:google_news_template/analytics/analytics.dart';
+import 'package:google_news_template/newsletter/newsletter.dart'
     hide NewsletterEvent;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';

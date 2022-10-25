@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:authentication_client/authentication_client.dart';
-import 'package:flutter_news_template_api/api.dart' hide User;
+import 'package:google_news_template_api/api.dart' hide User;
 import 'package:test/test.dart';
 import 'package:user_repository/user_repository.dart';
 

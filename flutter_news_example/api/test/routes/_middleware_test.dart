@@ -1,5 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
-import 'package:flutter_news_template_api/api.dart';
+import 'package:google_news_template_api/api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

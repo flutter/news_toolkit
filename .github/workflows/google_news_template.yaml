@@ -1,4 +1,4 @@
-name: flutter_news_template
+name: google_news_template
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,7 +12,7 @@ on:
       - "flutter_news_example/test/**"
       - "flutter_news_example/packages/**"
       - "flutter_news_example/pubspec.yaml"
-      - ".github/workflows/flutter_news_template.yaml"
+      - ".github/workflows/google_news_template.yaml"
     branches:
       - main
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_news_template_api/client.dart';
+import 'package:google_news_template_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 /// {@template in_app_purchase_failure}

@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
-import 'package:flutter_news_template/ads/ads.dart';
+import 'package:google_news_template/ads/ads.dart';
 
 class FakeRewardItem extends Fake implements ads.RewardItem {}
 

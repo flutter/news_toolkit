@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_news_template/analytics/analytics.dart';
+import 'package:google_news_template/analytics/analytics.dart';
 
 void main() {
   group('AnalyticsState', () {

@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:flutter_news_template/newsletter/newsletter.dart';
+import 'package:google_news_template/newsletter/newsletter.dart';
 
 void main() {
   group('NewsletterState', () {

@@ -1,4 +1,4 @@
-name: flutter_news_template
+name: google_news_template
 version: 0.0.1+1
 publish_to: none
 
@@ -36,7 +36,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
-  flutter_news_template_api:
+  google_news_template_api:
     path: api
   hydrated_bloc: ^9.0.0-dev.1
   in_app_purchase_repository:

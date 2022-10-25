@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_template/login/login.dart';
+import 'package:google_news_template/login/login.dart';
 import 'package:user_repository/user_repository.dart';
 
 class LoginModal extends StatelessWidget {
