@@ -8,5 +8,5 @@ Handler middleware(Handler handler) {
   return handler
       .use(requestLogger())
       .use(userProvider())
-      .use(provider<NewsDataSource>((_) => inMemoryNewsDataSource));
+      .use(newsDataSourceProvider());
 }
