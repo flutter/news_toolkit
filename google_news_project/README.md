@@ -310,7 +310,14 @@ class CustomNewsDataSource implements NewsDataSource {...}
 Then in `api/lib/src/middleware/news_data_source_provider.dart` provide the custom news data source:
 
 ```dart
-.use(provider<NewsDataSource>((_) => customNewsDataSourceInstance));
+final _newsDataSource = CustomNewsDataSource(); // <-- Replace with custom news data source
+
+/// Provider a [NewsDataSource] to the current [RequestContext].
+Middleware newsDataSourceProvider() {
+  return (handler) {
+    return handler.use(provider<NewsDataSource>((_) => _newsDataSource));
+  };
+}
 ```
 
 ---
