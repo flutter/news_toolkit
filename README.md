@@ -924,3 +924,12 @@ A list of availiable subscription data featuring copy text and price information
 To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
 Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Testing
+
+Flutter News Toolkit applications come with 100% test coverage out-of-the-box. Tests are located in a parallel file structure relative to your source code, residing in a `test` directory which mirrors the source code `lib` directory. 
+
+Changes you make to your source code such as [implementing an API data source](#implementing-an-api-data-source), [removing advertisements](#removing-advertisements), or [changing block behavior](#using-blocks) may reduce test coverage or cause existing tests to fail. We recommend maintaining 100% test coverage within your application in order to support stability and scalability, but your application functionality will not be compromised if you forgo 100% test coverage.
+
+To support 100% test coverage in your application, make sure that your tests capture any changes you make to the app behavior. For example, if you implement a new data source `your_data_source.dart`, create a corresponding `your_data_source_test.dart` file which properly tests your new data source's behavior. The Flutter community offers [excellent testing resources](https://verygood.ventures/blog/flutter-testing-resources) to guide you in developing effective tests for your application.
+ 
