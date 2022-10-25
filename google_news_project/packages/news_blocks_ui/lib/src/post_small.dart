@@ -45,7 +45,7 @@ class PostSmall extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-            Expanded(
+            Flexible(
               child: PostSmallContent(
                 title: block.title,
                 publishedAt: block.publishedAt,

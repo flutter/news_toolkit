@@ -7,7 +7,7 @@ import '../../helpers/helpers.dart';
 void main() {
   group('LoginModal', () {
     test('has a route', () {
-      expect(LoginModal.route(), isA<MaterialPageRoute>());
+      expect(LoginModal.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders a LoginForm', (tester) async {
