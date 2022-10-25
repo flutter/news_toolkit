@@ -3,7 +3,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/article/article.dart';
+import 'package:flutter_news_template/article/article.dart';
 
 import '../../helpers/helpers.dart';
 

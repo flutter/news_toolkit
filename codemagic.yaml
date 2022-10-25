@@ -8,7 +8,7 @@ definitions:
     tst_emails: &tst_emails
       - engineering@verygood.ventures
     # common_environment: &common_environment
-    #   FLUTTER_PROJECT_DIRECTORY: google_news_template
+    #   FLUTTER_PROJECT_DIRECTORY: flutter_news_template
     automatic_ios_signing: &automatic_ios_signing
       # Encrypt the **content** of the API key for AppStore Connect
       # - Log in to App Store Connect and navigate to Users and Access > Keys.
@@ -45,7 +45,7 @@ definitions:
 workflows:
   development:
     name: development
-    working_directory: google_news_template
+    working_directory: flutter_news_template
     max_build_duration: 60
     environment:
       flutter: 3.3.4
@@ -83,7 +83,7 @@ workflows:
         name: Set up Android key.properties
         script: |
           echo $FCI_KEYSTORE | base64 --decode > $FCI_KEYSTORE_PATH
-          cat >> "$FCI_BUILD_DIR/google_news_template/android/key.properties" <<EOF
+          cat >> "$FCI_BUILD_DIR/flutter_news_template/android/key.properties" <<EOF
           storePassword=$FCI_KEYSTORE_PASSWORD
           keyPassword=$FCI_KEY_PASSWORD
           keyAlias=$FCI_KEY_ALIAS
@@ -91,7 +91,7 @@ workflows:
           EOF
       - &set_up_local_properties
         name: Set up Android local properties
-        script: echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/google_news_template/android/local.properties"
+        script: echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/flutter_news_template/android/local.properties"
       - &setup_keychain
         name: Setup keychain
         script: keychain initialize
@@ -141,7 +141,7 @@ workflows:
         track: internal
   production:
     name: production
-    working_directory: google_news_template
+    working_directory: flutter_news_template
     max_build_duration: 60
     environment:
       flutter: 3.3.4

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/theme_selector/theme_selector.dart';
+import 'package:flutter_news_template/l10n/l10n.dart';
+import 'package:flutter_news_template/theme_selector/theme_selector.dart';
 
 /// A drop down menu to select a new [ThemeMode]
 ///

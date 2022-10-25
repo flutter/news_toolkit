@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/subscriptions/subscriptions.dart';
+import 'package:flutter_news_template/analytics/analytics.dart';
+import 'package:flutter_news_template/l10n/l10n.dart';
+import 'package:flutter_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:user_repository/user_repository.dart';
 

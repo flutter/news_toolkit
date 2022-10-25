@@ -1,4 +1,4 @@
-name: verify_google_news_template
+name: verify_flutter_news_template
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,8 +7,8 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_template/**"
-      - ".github/workflows/verify_google_news_template.yaml"
+      - "flutter_news_template/**"
+      - ".github/workflows/verify_flutter_news_template.yaml"
     branches:
       - main
 
@@ -16,7 +16,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: google_news_template
+        working-directory: flutter_news_template
 
     runs-on: ubuntu-latest
 
@@ -34,13 +34,13 @@ jobs:
           flutter pub global activate very_good_cli
 
       - name: Install Brick
-        run: mason add -g google_news_template --path .
+        run: mason add -g flutter_news_template --path .
 
       - name: Generate Project
-        run: mason make google_news_template -c ./template.json -o tmp
+        run: mason make flutter_news_template -c ./template.json -o tmp
 
       - name: Install Dependencies
-        run: very_good packages get -r tmp/google_news_template
+        run: very_good packages get -r tmp/flutter_news_template
 
       - name: Run Tests
-        run: cd tmp/google_news_template && very_good test -x presubmit-only && cd -
+        run: cd tmp/flutter_news_template && very_good test -x presubmit-only && cd -

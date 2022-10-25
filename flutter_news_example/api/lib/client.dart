@@ -26,7 +26,7 @@ export 'package:news_blocks/news_blocks.dart'
         VideoBlock,
         TrendingStoryBlock;
 
-export 'src/client/google_news_template_api_client.dart'
+export 'src/client/flutter_news_template_api_client.dart'
     show
         GoogleNewsTemplateApiClient,
         GoogleNewsTemplateApiMalformedResponse,

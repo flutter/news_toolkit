@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/main/bootstrap/app_bloc_observer.dart';
+import 'package:flutter_news_template/main/bootstrap/app_bloc_observer.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}

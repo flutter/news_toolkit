@@ -12,7 +12,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  google_news_template_api:
+  flutter_news_template_api:
     path: ../../api
   in_app_purchase: ^3.0.6
 

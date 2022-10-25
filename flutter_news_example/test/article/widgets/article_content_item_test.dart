@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart' hide Spacer, Image;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/newsletter/newsletter.dart';
-import 'package:google_news_template/slideshow/slideshow.dart';
+import 'package:flutter_news_template/article/article.dart';
+import 'package:flutter_news_template/newsletter/newsletter.dart';
+import 'package:flutter_news_template/slideshow/slideshow.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';

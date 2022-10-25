@@ -4,7 +4,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/newsletter/newsletter.dart';
+import 'package:flutter_news_template/newsletter/newsletter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 

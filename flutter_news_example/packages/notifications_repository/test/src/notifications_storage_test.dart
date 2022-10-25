@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:storage/storage.dart';

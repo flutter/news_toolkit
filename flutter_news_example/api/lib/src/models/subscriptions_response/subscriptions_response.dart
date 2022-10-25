@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/api.dart';
+import 'package:flutter_news_template_api/api.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'subscriptions_response.g.dart';

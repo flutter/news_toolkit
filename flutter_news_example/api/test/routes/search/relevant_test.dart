@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:google_news_template_api/api.dart';
-import 'package:google_news_template_api/src/data/in_memory_news_data_source.dart';
+import 'package:flutter_news_template_api/api.dart';
+import 'package:flutter_news_template_api/src/data/in_memory_news_data_source.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

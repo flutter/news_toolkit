@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:google_news_template/onboarding/onboarding.dart';
+import 'package:flutter_news_template/onboarding/onboarding.dart';
 import 'package:test/test.dart';
 
 void main() {
