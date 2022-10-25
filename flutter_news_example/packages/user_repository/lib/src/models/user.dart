@@ -1,5 +1,5 @@
 import 'package:authentication_client/authentication_client.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_template_api/client.dart';
 
 /// {@template user}
 /// User model represents the current user with subscription plan.

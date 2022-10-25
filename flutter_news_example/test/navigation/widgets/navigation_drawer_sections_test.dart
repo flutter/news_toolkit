@@ -5,8 +5,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/categories/categories.dart';
-import 'package:google_news_template/navigation/navigation.dart';
+import 'package:flutter_news_template/categories/categories.dart';
+import 'package:flutter_news_template/navigation/navigation.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 

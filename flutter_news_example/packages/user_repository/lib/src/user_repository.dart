@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart' hide User;
+import 'package:flutter_news_template_api/client.dart' hide User;
 import 'package:package_info_client/package_info_client.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:storage/storage.dart';

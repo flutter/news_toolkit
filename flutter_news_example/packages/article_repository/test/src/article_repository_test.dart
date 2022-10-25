@@ -1,6 +1,6 @@
 import 'package:article_repository/article_repository.dart';
 import 'package:clock/clock.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/article/article.dart';
+import 'package:flutter_news_template/article/article.dart';
 
 void main() {
   group('ArticleEvent', () {

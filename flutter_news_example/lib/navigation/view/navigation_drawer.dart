@@ -1,8 +1,8 @@
 import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppLogo;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/navigation/navigation.dart';
+import 'package:flutter_news_template/app/app.dart';
+import 'package:flutter_news_template/navigation/navigation.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});

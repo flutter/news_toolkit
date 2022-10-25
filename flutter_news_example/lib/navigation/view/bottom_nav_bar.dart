@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_news_template/l10n/l10n.dart';
+import 'package:flutter_news_template/l10n/l10n.dart';
 
 @visibleForTesting
 class BottomNavBar extends StatelessWidget {
