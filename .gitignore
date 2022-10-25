@@ -2,9 +2,7 @@
 .atom/
 .idea/
 .vscode/
-!google_news_**/.idea/
-!flutter_news_**/.idea/
-!google_news_**/.vscode/
+!flutter_news_**/.idea/\
 !flutter_news_**/.vscode/
 
 # Files and directories created by pub
