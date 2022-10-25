@@ -34,7 +34,10 @@ void main() {
     );
 
     test('has a route', () {
-      expect(NotificationPreferencesPage.route(), isA<MaterialPageRoute>());
+      expect(
+        NotificationPreferencesPage.route(),
+        isA<MaterialPageRoute<void>>(),
+      );
     });
 
     testWidgets('renders NotificationPreferencesView', (tester) async {

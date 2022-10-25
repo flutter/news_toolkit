@@ -23,7 +23,6 @@ class NavigationDrawer extends StatelessWidget {
         backgroundColor: AppColors.darkBackground,
         child: ListView(
           physics: const ClampingScrollPhysics(),
-          shrinkWrap: true,
           padding: const EdgeInsets.only(
             top: kToolbarHeight,
             left: AppSpacing.lg,

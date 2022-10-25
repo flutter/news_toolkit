@@ -6,7 +6,7 @@ import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 class TermsOfServicePage extends StatelessWidget {
   const TermsOfServicePage({super.key});
 
-  static Route route() => MaterialPageRoute<void>(
+  static Route<void> route() => MaterialPageRoute<void>(
         builder: (_) => const TermsOfServicePage(),
       );
 
