@@ -1,3 +1,3 @@
 # Flutter News Toolkit UI
 
-A UI Kit for Flutter News Toolkit
+A UI Toolkit for Flutter News
