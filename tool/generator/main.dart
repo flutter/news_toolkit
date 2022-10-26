@@ -251,7 +251,7 @@ void main() async {
 
         file.writeAsStringSync(
           file.readAsStringSync().replaceAll(
-              RegExp('com.google.news.template'), '{{reverse_domain}}'),
+              RegExp('com.flutter.news.toolkit'), '{{reverse_domain}}'),
         );
 
         file.writeAsStringSync(

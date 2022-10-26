@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.google.news.template"
+        applicationId "com.flutter.news.toolkit"
         minSdkVersion 23
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
