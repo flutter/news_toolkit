@@ -19,11 +19,11 @@ void main() {
     final categoriesResponse =
         CategoriesResponse(categories: [Category.top, Category.health]);
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() async {
       newsRepository = MockNewsRepository();
-      categoriesBloc = await mockHydratedStorage(
-        () => CategoriesBloc(newsRepository: newsRepository),
-      );
+      categoriesBloc = CategoriesBloc(newsRepository: newsRepository);
     });
 
     test('can be instantiated', () {
