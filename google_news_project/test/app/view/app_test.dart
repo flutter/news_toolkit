@@ -53,6 +53,8 @@ void main() {
     late AdsConsentClient adsConsentClient;
     late User user;
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() {
       userRepository = MockUserRepository();
       user = User.anonymous;
@@ -73,20 +75,18 @@ void main() {
     });
 
     testWidgets('renders AppView', (tester) async {
-      await mockHydratedStorage(() async {
-        await tester.pumpWidget(
-          App(
-            userRepository: userRepository,
-            newsRepository: newsRepository,
-            notificationsRepository: notificationsRepository,
-            articleRepository: articleRepository,
-            inAppPurchaseRepository: inAppPurchaseRepository,
-            analyticsRepository: analyticsRepository,
-            adsConsentClient: adsConsentClient,
-            user: user,
-          ),
-        );
-      });
+      await tester.pumpWidget(
+        App(
+          userRepository: userRepository,
+          newsRepository: newsRepository,
+          notificationsRepository: notificationsRepository,
+          articleRepository: articleRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          adsConsentClient: adsConsentClient,
+          user: user,
+        ),
+      );
       await tester.pump();
       expect(find.byType(AppView), findsOneWidget);
     });
@@ -118,12 +118,10 @@ void main() {
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       when(() => appBloc.state).thenReturn(AppState.unauthenticated());
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          userRepository: userRepository,
-        ),
+      await tester.pumpApp(
+        const AppView(),
+        appBloc: appBloc,
+        userRepository: userRepository,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -133,12 +131,10 @@ void main() {
       final user = MockUser();
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          userRepository: userRepository,
-        ),
+      await tester.pumpApp(
+        const AppView(),
+        appBloc: appBloc,
+        userRepository: userRepository,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -163,13 +159,11 @@ void main() {
           initialState: AppState.unauthenticated(),
         );
 
-        await mockHydratedStorage(
-          () => tester.pumpApp(
-            const AppView(),
-            appBloc: appBloc,
-            analyticsBloc: analyticsBloc,
-            userRepository: userRepository,
-          ),
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
         );
 
         verify(
@@ -197,13 +191,11 @@ void main() {
           initialState: AppState.unauthenticated(),
         );
 
-        await mockHydratedStorage(
-          () => tester.pumpApp(
-            const AppView(),
-            appBloc: appBloc,
-            analyticsBloc: analyticsBloc,
-            userRepository: userRepository,
-          ),
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
         );
 
         verify(
