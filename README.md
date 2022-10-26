@@ -49,8 +49,8 @@ Below is an example project roadmap that can be leveraged to implement this temp
 
 - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
 - The [Flutter News Toolkit](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
-	- Application name (*e.g. News Template*)
-	- Application package name (*e.g. news_template*)
+	- Application name (*e.g. News Toolkit*)
+	- Application package name (*e.g. news_toolkit*)
 	- Desired Flutter version
 	- Application bundle identifier (*e.g. com.news.template*)
 	- Code Owners
