@@ -39,7 +39,7 @@ void main() {
 
       final packageInfoClient = PackageInfoClient(
         appName: 'Flutter News Toolkit',
-        packageName: 'com.google.news.template',
+        packageName: 'com.flutter.news.toolkit',
         packageVersion: packageVersion,
       );
 

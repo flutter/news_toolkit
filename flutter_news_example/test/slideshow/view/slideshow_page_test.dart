@@ -23,24 +23,25 @@ void main() {
       ),
     );
     final slideshow = SlideshowBlock(title: 'title', slides: slides);
+
+    setUpAll(initMockHydratedStorage);
+
     test('has a route', () {
       expect(
         SlideshowPage.route(
           slideshow: slideshow,
           articleId: articleId,
         ),
-        isA<MaterialPageRoute>(),
+        isA<MaterialPageRoute<void>>(),
       );
     });
 
     testWidgets('renders a SlideshowView', (tester) async {
       await mockNetworkImages(
-        () => mockHydratedStorage(
-          () => tester.pumpApp(
-            SlideshowPage(
-              slideshow: slideshow,
-              articleId: articleId,
-            ),
+        () => tester.pumpApp(
+          SlideshowPage(
+            slideshow: slideshow,
+            articleId: articleId,
           ),
         ),
       );
@@ -54,14 +55,12 @@ void main() {
 
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await mockNetworkImages(
-          () => mockHydratedStorage(
-            () => tester.pumpApp(
-              SlideshowPage(
-                slideshow: slideshow,
-                articleId: articleId,
-              ),
-              navigator: navigator,
+          () => tester.pumpApp(
+            SlideshowPage(
+              slideshow: slideshow,
+              articleId: articleId,
             ),
+            navigator: navigator,
           ),
         );
 
