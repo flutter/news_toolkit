@@ -9,7 +9,7 @@ The Flutter news app template:
 - implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/flutter_news_example/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Flutter News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
 ## Flutter News Mason Template
 
@@ -48,7 +48,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 ### Code Generation
 
 - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
-- The [Flutter News Toolkit](https://github.com/kaiceyd/news_template/blob/patch-1/flutter_news_template/README.md) supports the following decision points:
+- The [Flutter News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
 	- Application name (*e.g. News Template*)
 	- Application package name (*e.g. news_template*)
 	- Desired Flutter version
@@ -924,3 +924,177 @@ A list of availiable subscription data featuring copy text and price information
 To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/flutter/news_template/tree/main/flutter_news_example/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/flutter/news_template/tree/main/flutter_news_example/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
 Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
+
+## Removing Advertisements
+
+You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types and their dependencies.
+
+### Removing Banner Ads
+
+The `static_news_data.dart` file which your app displays contains banner ads by default. As you [implement your data source](#implementing-an-api-data-source),  do not insert `AdBlocks` into the data returned from your data source. This will ensure that your app will not display `BannerAds`.
+
+### Removing Interstitial Ads
+
+By default, interstitial ads are displayed upon article entry by `_ArticleViewState`'s `initState` method in `lib/article/view/article_page.dart`. To remove interstitial ads entirely, you can delete
+
+```dart
+context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
+```
+
+### Removing Sticky Ads
+
+In the template, there is a sticky ad placed in `ArticleContent` inside `lib/article/widgets/article_content.dart`. In order to remove it, delete the `StickyAd()` constructor call from the `ArticleContent` widget's `Stack.children`.
+
+### Removing Rewarded Ads
+ 
+ Rewarded ads are built inside the `SubscribeWithArticleLimitModal` widget in the `lib/subscriptions/widgets/subscribe_with_article_limit_modal.dart` file.
+
+Remove the show rewarded ad button block within the `SubscribeWithArticleLimitModal` widget to remove the rewarded ad option for premium articles:
+```dart
+Padding(
+    padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg + AppSpacing.xxs,
+    ),
+    child: AppButton.transparentWhite(
+        key: const Key(
+            'subscribeWithArticleLimitModal_watchVideoButton',
+        ),
+        onPressed: () => context
+            .read<FullScreenAdsBloc>()
+            .add(const ShowRewardedAdRequested()),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+                Assets.icons.video.svg(),
+                const SizedBox(width: AppSpacing.sm),
+                Text(watchVideoButtonTitle),
+            ],
+        ),
+    ),
+),
+```
+
+### Removing Advertisement Dependencies
+
+If you are removing advertisements from your app, it's a good idea to remove all advertisement-related dependencies from your codebase.
+
+*Ad Source Code*
+
+Remove the following directories and files entirely:
+
+- `google_news_project/lib/ads`
+- `google_news_project/test/ads`
+- `google_news_project/packages/ads_consent_client`
+- `google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart`
+- `google_news_project/packages/news_blocks_ui/test/src/widgets/banner_ad_content_test.dart`
+- `google_news_project/packages/news_blocks_ui/lib/src/banner_ad.dart`
+- `google_news_project/packages/news_blocks_ui/test/src/banner_ad_test.dart`
+
+Remove the noted snippets from the files below:
+
+- `google_news_project/lib/app/view/app.dart`
+	```dart
+	required AdsConsentClient adsConsentClient,
+	```
+	```dart
+	_adsConsentClient = adsConsentClient,
+	```
+	```dart
+	final AdsConsentClient _adsConsentClient;
+	```
+	```dart
+	RepositoryProvider.value(value: _adsConsentClient),
+	```
+	```dart
+	BlocProvider(
+	  create: (context) => FullScreenAdsBloc(
+	    interstitialAdLoader: ads.InterstitialAd.load,
+	    rewardedAdLoader: ads.RewardedAd.load,
+	    adsRetryPolicy: const AdsRetryPolicy(),
+	    localPlatform: const LocalPlatform(),
+	  )
+	    ..add(const LoadInterstitialAdRequested())
+	    ..add(const LoadRewardedAdRequested()),
+	  lazy: false,
+	),
+	```
+
+- `google_news_project/lib/article/view/article_page.dart`
+    - `HasWatchedRewardedAdListener` class
+    - `HasWatchedRewardedAdListener` widget (retain the child `Scaffold` widget)
+- `google_news_project/lib/main/main_development.dart`
+    ```dart
+    final adsConsentClient = AdsConsentClient();
+    ```
+    ```dart
+    adsConsentClient: adsConsentClient,
+    ```
+ - `google_news_project/lib/main/main_production.dart`
+    ```dart
+    final adsConsentClient = AdsConsentClient();
+    ```
+    ```dart
+    adsConsentClient: adsConsentClient,
+    ```
+- `google_news_project/lib/onboarding/bloc/onboarding_bloc.dart`
+    ```dart
+    required AdsConsentClient adsConsentClient,
+    ```
+    ```dart
+    _adsConsentClient = adsConsentClient,
+    ```
+    ```dart
+    on<EnableAdTrackingRequested>(
+      _onEnableAdTrackingRequested,
+      transformer: droppable(),
+    );
+    ```
+    ```dart
+    final AdsConsentClient _adsConsentClient;
+    ```
+    - the `_onEnableAdTrackingRequested()` function
+- `google_news_project/lib/onboarding/view/onboarding_page.dart`
+    ```dart
+    adsConsentClient: context.read<AdsConsentClient>(),
+    ```
+- `google_news_project/lib/article/widgets/article_content_item.dart`
+    ```dart
+    else if (newsBlock is BannerAdBlock) {
+      return BannerAd(
+        block: newsBlock,
+        adFailedToLoadTitle: context.l10n.adLoadFailure,
+      );
+    }
+    ```
+- `google_news_project/lib/article/widgets/article_content_item.dart`
+    ```dart
+    else if (newsBlock is BannerAdBlock) {
+      return BannerAd(
+        block: newsBlock,
+        adFailedToLoadTitle: context.l10n.adLoadFailure,
+      );
+    }
+    ```
+- `google_news_project/packages/news_blocks_ui/lib/news_blocks_ui.dart`
+    ```dart
+    export 'src/banner_ad.dart' show BannerAd;
+    ```
+- `google_news_project/packages/news_blocks_ui/lib/src/widgets/widges.dart`
+    ```dart
+    export 'banner_ad_content.dart';
+    ```
+
+*Pubspec Ad Depenedencies*
+
+Remove the `google_mobile_ads` dependency from the `google_news_project/packages/news_blocks_ui/pubspec.yaml` file, as well as all corresponding
+```dart
+import  'package:google_mobile_ads/google_mobile_ads.dart'
+```
+statements.
+
+Remove the `ads_consent_client` dependency from `google_news_project/pubspec.yaml`, as well as all `ads_consent_client` and all `ads` import statements:
+```dart
+import 'package:ads_consent_client/ads_consent_client.dart';
+import 'package:google_news_template/ads/ads.dart';
+```
+

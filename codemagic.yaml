@@ -55,7 +55,7 @@ workflows:
         <<: *automatic_ios_signing
         <<: *android_signing
         FLAVOR: development
-        BUNDLE_ID: com.google.news.template.dev
+        BUNDLE_ID: com.flutter.news.toolkit.dev
     cache:
       cache_paths:
         - $HOME/Library/Caches/CocoaPods
@@ -151,7 +151,7 @@ workflows:
         <<: *automatic_ios_signing
         <<: *android_signing
         FLAVOR: production
-        BUNDLE_ID: com.google.news.template
+        BUNDLE_ID: com.flutter.news.toolkit
     cache:
       cache_paths:
         - $HOME/Library/Caches/CocoaPods

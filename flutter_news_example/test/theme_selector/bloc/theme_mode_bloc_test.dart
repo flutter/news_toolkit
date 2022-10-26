@@ -7,32 +7,24 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ThemeModeBloc', () {
-    late ThemeModeBloc themeModeBloc;
-
-    setUp(() async {
-      themeModeBloc = await mockHydratedStorage(ThemeModeBloc.new);
-    });
+    setUpAll(initMockHydratedStorage);
 
     test('initial state is ThemeMode.system', () {
-      mockHydratedStorage(() {
-        expect(ThemeModeBloc().state, ThemeMode.system);
-      });
+      expect(ThemeModeBloc().state, ThemeMode.system);
     });
 
     blocTest<ThemeModeBloc, ThemeMode>(
       'on ThemeModeChanged sets the ThemeMode',
-      build: () => themeModeBloc,
+      build: ThemeModeBloc.new,
       act: (bloc) => bloc.add(const ThemeModeChanged(ThemeMode.dark)),
       expect: () => [ThemeMode.dark],
     );
 
     test('toJson and fromJson are inverse', () {
-      mockHydratedStorage(() {
-        for (final mode in ThemeMode.values) {
-          final bloc = ThemeModeBloc();
-          expect(bloc.fromJson(bloc.toJson(mode)), mode);
-        }
-      });
+      for (final mode in ThemeMode.values) {
+        final bloc = ThemeModeBloc();
+        expect(bloc.fromJson(bloc.toJson(mode)), mode);
+      }
     });
   });
 }

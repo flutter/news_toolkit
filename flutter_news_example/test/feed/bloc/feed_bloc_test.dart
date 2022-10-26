@@ -42,11 +42,11 @@ void main() {
       },
     );
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() async {
       newsRepository = MockNewsRepository();
-      feedBloc = await mockHydratedStorage(
-        () => FeedBloc(newsRepository: newsRepository),
-      );
+      feedBloc = FeedBloc(newsRepository: newsRepository);
     });
 
     test('can be instantiated', () {

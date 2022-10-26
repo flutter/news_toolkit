@@ -14,6 +14,8 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('ArticleContentItem', () {
+    setUpAll(initMockHydratedStorage);
+
     testWidgets(
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {
@@ -227,49 +229,45 @@ void main() {
           articleId: 'articleId',
         ),
       );
-      await mockHydratedStorage(() async {
-        await mockNetworkImages(() async {
-          await tester.pumpApp(
-            ListView(
-              children: [
-                ArticleContentItem(block: block),
-              ],
-            ),
-          );
-        });
-
-        await tester.ensureVisible(find.byType(SlideshowIntroduction));
-        await tester.tap(find.byType(SlideshowIntroduction));
-        await tester.pumpAndSettle();
-        expect(
-          find.byType(SlideshowPage),
-          findsOneWidget,
-        );
-      });
-    });
-
-    testWidgets(
-        'renders SizedBox '
-        'for unsupported block', (tester) async {
-      final block = UnknownBlock();
-      await tester.pumpApp(ArticleContentItem(block: block));
-      expect(find.byType(SizedBox), findsOneWidget);
-    });
-
-    testWidgets(
-        'renders TrendingStory '
-        'for TrendingStoryBlock', (tester) async {
-      final content = PostSmallBlock(
-        id: 'id',
-        category: PostCategory.health,
-        author: 'author',
-        publishedAt: DateTime(2022, 3, 11),
-        imageUrl: 'imageUrl',
-        title: 'title',
+      await tester.pumpApp(
+        ListView(
+          children: [
+            ArticleContentItem(block: block),
+          ],
+        ),
       );
-      final block = TrendingStoryBlock(content: content);
-      await tester.pumpApp(ArticleContentItem(block: block));
-      expect(find.byType(TrendingStory), findsOneWidget);
+
+      await tester.ensureVisible(find.byType(SlideshowIntroduction));
+      await tester.tap(find.byType(SlideshowIntroduction));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(SlideshowPage),
+        findsOneWidget,
+      );
     });
+  });
+
+  testWidgets(
+      'renders SizedBox '
+      'for unsupported block', (tester) async {
+    final block = UnknownBlock();
+    await tester.pumpApp(ArticleContentItem(block: block));
+    expect(find.byType(SizedBox), findsOneWidget);
+  });
+
+  testWidgets(
+      'renders TrendingStory '
+      'for TrendingStoryBlock', (tester) async {
+    final content = PostSmallBlock(
+      id: 'id',
+      category: PostCategory.health,
+      author: 'author',
+      publishedAt: DateTime(2022, 3, 11),
+      imageUrl: 'imageUrl',
+      title: 'title',
+    );
+    final block = TrendingStoryBlock(content: content);
+    await tester.pumpApp(ArticleContentItem(block: block));
+    expect(find.byType(TrendingStory), findsOneWidget);
   });
 }

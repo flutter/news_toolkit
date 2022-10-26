@@ -15,6 +15,8 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 void main() {
   late NewsRepository newsRepository;
 
+  setUpAll(initMockHydratedStorage);
+
   setUp(() {
     newsRepository = MockNewsRepository();
 
@@ -26,23 +28,21 @@ void main() {
   });
 
   test('has a page', () {
-    expect(HomePage.page(), isA<MaterialPage>());
+    expect(HomePage.page(), isA<MaterialPage<void>>());
   });
 
   testWidgets('renders a HomeView', (tester) async {
-    await mockHydratedStorage(() async {
-      await tester.pumpApp(const HomePage());
-    });
+    await tester.pumpApp(const HomePage());
+
     expect(find.byType(HomeView), findsOneWidget);
   });
 
   testWidgets('renders FeedView', (tester) async {
-    await mockHydratedStorage(() async {
-      await tester.pumpApp(
-        const HomePage(),
-        newsRepository: newsRepository,
-      );
-    });
+    await tester.pumpApp(
+      const HomePage(),
+      newsRepository: newsRepository,
+    );
+
     expect(find.byType(FeedView), findsOneWidget);
   });
 }
