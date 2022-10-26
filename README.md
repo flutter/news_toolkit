@@ -9,7 +9,7 @@ The Flutter news app template:
 - implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Flutter News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
 ## Flutter News Mason Template
 
@@ -48,9 +48,9 @@ Below is an example project roadmap that can be leveraged to implement this temp
 ### Code Generation
 
 - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
-- The [Flutter News Toolkit](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
-	- Application name (*e.g. News Toolkit*)
-	- Application package name (*e.g. news_toolkit*)
+- The [Flutter News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
+	- Application name (*e.g. News Template*)
+	- Application package name (*e.g. news_template*)
 	- Desired Flutter version
 	- Application bundle identifier (*e.g. com.news.template*)
 	- Code Owners
