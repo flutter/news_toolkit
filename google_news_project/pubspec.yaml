@@ -77,7 +77,7 @@ dependencies:
     path: packages/share_launcher
   shared_preferences: ^2.0.15
   stream_transform: ^2.0.0
-  test: ^1.21.6
+  test: ^1.21.1
   token_storage:
     path: packages/authentication_client/token_storage
   url_launcher: ^6.0.9
