@@ -18,7 +18,7 @@ dependencies:
     path: ../permission_client
   storage:
     path: ../storage/storage
-  test: ^1.21.6
+  test: ^1.21.4
 
 dev_dependencies:
   flutter_test:
