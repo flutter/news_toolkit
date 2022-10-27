@@ -28,7 +28,7 @@ void main() {
       testWidgets(
           'showing LockIcon '
           'when isLocked is true', (tester) async {
-        final _technologyPostLarge = PostLargeBlock(
+        final technologyPostLarge = PostLargeBlock(
           id: id,
           category: category,
           author: author,
@@ -43,7 +43,7 @@ void main() {
               child: Column(
                 children: [
                   PostLarge(
-                    block: _technologyPostLarge,
+                    block: technologyPostLarge,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -60,7 +60,7 @@ void main() {
       testWidgets(
           'not showing LockIcon '
           'when isLocked is false', (tester) async {
-        final _technologyPostLarge = PostLargeBlock(
+        final technologyPostLarge = PostLargeBlock(
           id: id,
           category: category,
           author: author,
@@ -75,7 +75,7 @@ void main() {
               child: Column(
                 children: [
                   PostLarge(
-                    block: _technologyPostLarge,
+                    block: technologyPostLarge,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -94,7 +94,7 @@ void main() {
       testWidgets(
           'showing LockIcon '
           'when isLocked is true', (tester) async {
-        final _technologyPostLarge = PostLargeBlock(
+        final technologyPostLarge = PostLargeBlock(
           id: id,
           category: category,
           author: author,
@@ -109,7 +109,7 @@ void main() {
               child: Column(
                 children: [
                   PostLarge(
-                    block: _technologyPostLarge,
+                    block: technologyPostLarge,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -126,7 +126,7 @@ void main() {
       testWidgets(
           'not showing LockIcon '
           'when isLocked is false', (tester) async {
-        final _technologyPostLarge = PostLargeBlock(
+        final technologyPostLarge = PostLargeBlock(
           id: id,
           category: category,
           author: author,
@@ -141,7 +141,7 @@ void main() {
               child: Column(
                 children: [
                   PostLarge(
-                    block: _technologyPostLarge,
+                    block: technologyPostLarge,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -161,7 +161,7 @@ void main() {
     final action = NavigateToArticleAction(articleId: id);
     final actions = <BlockAction>[];
 
-    final _technologyPostLarge = PostLargeBlock(
+    final technologyPostLarge = PostLargeBlock(
       id: id,
       category: category,
       author: author,
@@ -177,7 +177,7 @@ void main() {
         ListView(
           children: [
             PostLarge(
-              block: _technologyPostLarge,
+              block: technologyPostLarge,
               premiumText: 'Premium',
               onPressed: actions.add,
               isLocked: false,
