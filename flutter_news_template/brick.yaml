@@ -1,16 +1,16 @@
-name: google_news_template
-description: Google News Template Generator
+name: flutter_news_template
+description: Flutter News Template Generator
 version: 0.1.0+1
 vars:
   app_name:
     type: string
     description: The user-facing application name
-    default: Google News Template
+    default: Flutter News Template
     prompt: What is the user-facing application name?
   project_name:
     type: string
     description: The application package name
-    default: google_news_template
+    default: flutter_news_template
     prompt: What is the application package name?
   flutter_version:
     type: string

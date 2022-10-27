@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "google-news-template-gallery",
+    "site": "flutter-news-example-gallery",
     "public": "build/web",
     "ignore": [
       "firebase.json",

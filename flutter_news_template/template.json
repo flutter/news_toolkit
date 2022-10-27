@@ -1,6 +1,6 @@
 {
-  "app_name": "Google News Template",
-  "project_name": "google_news_template",
+  "app_name": "Flutter News Template",
+  "project_name": "flutter_news_template",
   "reverse_domain": "com.google.news.template",
   "code_owners": "@githubUser",
   "flutter_version": "3.3.4",

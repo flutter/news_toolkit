@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Modal which is styled for the Flutter News Toolkit app.
+/// Modal which is styled for the Flutter News Example app.
 Future<T?> showAppModal<T>({
   required BuildContext context,
   required WidgetBuilder builder,

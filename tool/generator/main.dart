@@ -4,7 +4,7 @@ import 'package:path/path.dart' as path;
 final _staticDir = path.join('tool', 'generator', 'static');
 final _sourcePath = path.join('flutter_news_example${path.separator}');
 final _templatePath = path.join(
-  'google_news_template',
+  'flutter_news_template',
   '__brick__',
 );
 final _targetPath = path.join(
@@ -15,7 +15,7 @@ final _targetProjectWorkflow = path.join(
   _targetPath,
   '.github',
   'workflows',
-  'google_news_template.yaml',
+  'flutter_news_example.yaml',
 );
 final _targetProjectApiClient = path.join(
   _targetPath,
@@ -81,13 +81,13 @@ final _blackList = <String>[
     _targetPath,
     '.github',
     'workflows',
-    'verify_google_news_template.yaml',
+    'verify_flutter_news_template.yaml',
   ),
   path.join(
     _targetPath,
     '.github',
     'workflows',
-    'generate_google_news_template.yaml',
+    'generate_flutter_news_template.yaml',
   ),
   path.join(_targetPath, 'lib', 'main', 'main_production.dart'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'development.xml'),
@@ -165,6 +165,7 @@ void main() async {
   // Copy Project Files
   await Shell.cp('$_sourcePath', _targetPath);
   await Shell.cp('.github${path.separator}', path.join(_targetPath, '.github'));
+  await Shell.mkdir(path.join(_targetPath, '.vscode'));
   await Shell.cp(
     path.join(_staticDir, 'launch.json'),
     path.join(_targetPath, '.vscode', 'launch.json'),
@@ -301,22 +302,22 @@ void main() async {
 
         await file.writeAsString(contents
             .replaceAll(
-              'google_news_template',
+              'flutter_news_example',
               '{{project_name.snakeCase()}}',
             )
             .replaceAll(
-              'GoogleNewsTemplate',
+              'FlutterNewsExample',
               '{{project_name.pascalCase()}}',
             )
             .replaceAll(
-              'google-news-template',
+              'flutter-news-example',
               '{{project_name.paramCase()}}',
             )
-            .replaceAll('Flutter News Toolkit', '{{app_name}}')
+            .replaceAll('Flutter News Example', '{{app_name}}')
             .replaceAll('com.flutter.news.example', '{{reverse_domain}}'));
       } on Exception {}
 
-      if (path.basename(file.path).contains('google_news_template')) {
+      if (path.basename(file.path).contains('flutter_news_example')) {
         final newPath = path.join(
           file.parent.path,
           '{{#snakeCase}}{{project_name}}{{',
@@ -327,7 +328,7 @@ void main() async {
             file.parent.path,
             path
                 .basename(file.path)
-                .replaceAll('google_news_template', "snakeCase}}"),
+                .replaceAll('flutter_news_example', "snakeCase}}"),
           ),
         );
         await Shell.cp(file.path, newPath);
