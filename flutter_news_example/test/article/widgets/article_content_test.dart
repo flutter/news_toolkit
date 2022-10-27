@@ -5,10 +5,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_example/ads/ads.dart';
+import 'package:flutter_news_example/analytics/analytics.dart';
+import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/ads/ads.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/article/article.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:visibility_detector/visibility_detector.dart';

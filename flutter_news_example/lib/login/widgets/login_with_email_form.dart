@@ -2,11 +2,11 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/login/login.dart';
+import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
+import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/login/login.dart';
-import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
-import 'package:google_news_template/terms_of_service/terms_of_service.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({super.key});

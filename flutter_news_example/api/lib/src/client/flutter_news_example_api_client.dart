@@ -1,26 +1,26 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:http/http.dart' as http;
 
-/// {@template google_news_template_api_malformed_response}
+/// {@template flutter_news_example_api_malformed_response}
 /// An exception thrown when there is a problem decoded the response body.
 /// {@endtemplate}
-class GoogleNewsTemplateApiMalformedResponse implements Exception {
-  /// {@macro google_news_template_api_malformed_response}
-  const GoogleNewsTemplateApiMalformedResponse({required this.error});
+class FlutterNewsExampleApiMalformedResponse implements Exception {
+  /// {@macro flutter_news_example_api_malformed_response}
+  const FlutterNewsExampleApiMalformedResponse({required this.error});
 
   /// The associated error.
   final Object error;
 }
 
-/// {@template google_news_template_api_request_failure}
+/// {@template flutter_news_example_api_request_failure}
 /// An exception thrown when an http request failure occurs.
 /// {@endtemplate}
-class GoogleNewsTemplateApiRequestFailure implements Exception {
-  /// {@macro google_news_template_api_request_failure}
-  const GoogleNewsTemplateApiRequestFailure({
+class FlutterNewsExampleApiRequestFailure implements Exception {
+  /// {@macro flutter_news_example_api_request_failure}
+  const FlutterNewsExampleApiRequestFailure({
     required this.statusCode,
     required this.body,
   });
@@ -35,15 +35,15 @@ class GoogleNewsTemplateApiRequestFailure implements Exception {
 /// Signature for the authentication token provider.
 typedef TokenProvider = Future<String?> Function();
 
-/// {@template google_news_template_api_client}
+/// {@template flutter_news_example_api_client}
 /// A Dart API client for the Flutter News Toolkit API.
 /// {@endtemplate}
-class GoogleNewsTemplateApiClient {
-  /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
+class FlutterNewsExampleApiClient {
+  /// Create an instance of [FlutterNewsExampleApiClient] that integrates
   /// with the remote API.
   ///
-  /// {@macro google_news_template_api_client}
-  GoogleNewsTemplateApiClient({
+  /// {@macro flutter_news_example_api_client}
+  FlutterNewsExampleApiClient({
     http.Client? httpClient,
     required TokenProvider tokenProvider,
   }) : this._(
@@ -52,11 +52,11 @@ class GoogleNewsTemplateApiClient {
           tokenProvider: tokenProvider,
         );
 
-  /// Create an instance of [GoogleNewsTemplateApiClient] that integrates
+  /// Create an instance of [FlutterNewsExampleApiClient] that integrates
   /// with a local instance of the API (http://localhost:8080).
   ///
-  /// {@macro google_news_template_api_client}
-  GoogleNewsTemplateApiClient.localhost({
+  /// {@macro flutter_news_example_api_client}
+  FlutterNewsExampleApiClient.localhost({
     http.Client? httpClient,
     required TokenProvider tokenProvider,
   }) : this._(
@@ -65,8 +65,8 @@ class GoogleNewsTemplateApiClient {
           tokenProvider: tokenProvider,
         );
 
-  /// {@macro google_news_template_api_client}
-  GoogleNewsTemplateApiClient._({
+  /// {@macro flutter_news_example_api_client}
+  FlutterNewsExampleApiClient._({
     required String baseUrl,
     http.Client? httpClient,
     required TokenProvider tokenProvider,
@@ -107,7 +107,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -142,7 +142,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -178,7 +178,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -198,7 +198,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -218,7 +218,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -238,7 +238,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -260,7 +260,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: body,
         statusCode: response.statusCode,
       );
@@ -280,7 +280,7 @@ class GoogleNewsTemplateApiClient {
     );
 
     if (response.statusCode != HttpStatus.created) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: const <String, dynamic>{},
         statusCode: response.statusCode,
       );
@@ -301,7 +301,7 @@ class GoogleNewsTemplateApiClient {
     );
 
     if (response.statusCode != HttpStatus.created) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: const <String, dynamic>{},
         statusCode: response.statusCode,
       );
@@ -316,7 +316,7 @@ class GoogleNewsTemplateApiClient {
     final body = response.json();
 
     if (response.statusCode != HttpStatus.ok) {
-      throw GoogleNewsTemplateApiRequestFailure(
+      throw FlutterNewsExampleApiRequestFailure(
         body: const <String, dynamic>{},
         statusCode: response.statusCode,
       );
@@ -341,7 +341,7 @@ extension on http.Response {
       return jsonDecode(body) as Map<String, dynamic>;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        GoogleNewsTemplateApiMalformedResponse(error: error),
+        FlutterNewsExampleApiMalformedResponse(error: error),
         stackTrace,
       );
     }

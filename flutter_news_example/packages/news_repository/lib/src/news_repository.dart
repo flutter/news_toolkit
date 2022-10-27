@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 
 /// {@template news_failure}
 /// Base failure class for the news repository failures.
@@ -53,10 +53,10 @@ class RelevantSearchFailure extends NewsFailure {
 class NewsRepository {
   /// {@macro news_repository}
   const NewsRepository({
-    required GoogleNewsTemplateApiClient apiClient,
+    required FlutterNewsExampleApiClient apiClient,
   }) : _apiClient = apiClient;
 
-  final GoogleNewsTemplateApiClient _apiClient;
+  final FlutterNewsExampleApiClient _apiClient;
 
   /// Requests news feed metadata.
   ///

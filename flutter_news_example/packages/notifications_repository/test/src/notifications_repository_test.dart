@@ -2,8 +2,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:async';
+
+import 'package:flutter_news_example_api/client.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_client/notifications_client.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -16,8 +17,8 @@ class MockNotificationsStorage extends Mock implements NotificationsStorage {}
 
 class MockNotificationsClient extends Mock implements NotificationsClient {}
 
-class MockGoogleNewsTemplateApiClient extends Mock
-    implements GoogleNewsTemplateApiClient {}
+class MockFlutterNewsExampleApiClient extends Mock
+    implements FlutterNewsExampleApiClient {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -26,13 +27,13 @@ void main() {
     late PermissionClient permissionClient;
     late NotificationsStorage storage;
     late NotificationsClient notificationsClient;
-    late GoogleNewsTemplateApiClient apiClient;
+    late FlutterNewsExampleApiClient apiClient;
 
     setUp(() {
       permissionClient = MockPermissionClient();
       storage = MockNotificationsStorage();
       notificationsClient = MockNotificationsClient();
-      apiClient = MockGoogleNewsTemplateApiClient();
+      apiClient = MockFlutterNewsExampleApiClient();
 
       when(permissionClient.notificationsStatus)
           .thenAnswer((_) async => PermissionStatus.denied);
@@ -79,7 +80,7 @@ void main() {
 
       test(
           'initializes categories preferences '
-          'from GoogleNewsTemplateApiClient.getCategories', () async {
+          'from FlutterNewsExampleApiClient.getCategories', () async {
         when(storage.fetchCategoriesPreferences).thenAnswer((_) async => null);
 
         final completer = Completer<void>();

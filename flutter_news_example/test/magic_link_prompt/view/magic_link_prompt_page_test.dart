@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/magic_link_prompt/magic_link_prompt.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';

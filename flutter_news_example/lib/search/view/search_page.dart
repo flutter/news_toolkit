@@ -1,9 +1,9 @@
 import 'package:app_ui/app_ui.dart' hide Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/feed/feed.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/search/search.dart';
+import 'package:flutter_news_example/feed/feed.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/search/search.dart';
 import 'package:news_repository/news_repository.dart';
 
 class SearchPage extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:google_news_template_api/api.dart';
+import 'package:flutter_news_example_api/api.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 Future<Response> onRequest(RequestContext context) async {

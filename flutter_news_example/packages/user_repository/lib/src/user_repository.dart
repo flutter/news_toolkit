@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart' hide User;
+import 'package:flutter_news_example_api/client.dart' hide User;
 import 'package:package_info_client/package_info_client.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:storage/storage.dart';
@@ -54,7 +54,7 @@ class FetchCurrentSubscriptionFailure extends UserFailure {
 class UserRepository {
   /// {@macro user_repository}
   UserRepository({
-    required GoogleNewsTemplateApiClient apiClient,
+    required FlutterNewsExampleApiClient apiClient,
     required AuthenticationClient authenticationClient,
     required PackageInfoClient packageInfoClient,
     required DeepLinkClient deepLinkClient,
@@ -65,7 +65,7 @@ class UserRepository {
         _deepLinkClient = deepLinkClient,
         _storage = storage;
 
-  final GoogleNewsTemplateApiClient _apiClient;
+  final FlutterNewsExampleApiClient _apiClient;
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
   final DeepLinkClient _deepLinkClient;

@@ -1,22 +1,22 @@
 import 'package:article_repository/article_repository.dart';
 import 'package:clock/clock.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockGoogleNewsTemplateApiClient extends Mock
-    implements GoogleNewsTemplateApiClient {}
+class MockFlutterNewsExampleApiClient extends Mock
+    implements FlutterNewsExampleApiClient {}
 
 class MockArticleStorage extends Mock implements ArticleStorage {}
 
 void main() {
   group('ArticleRepository', () {
-    late GoogleNewsTemplateApiClient apiClient;
+    late FlutterNewsExampleApiClient apiClient;
     late ArticleStorage storage;
     late ArticleRepository articleRepository;
 
     setUp(() {
-      apiClient = MockGoogleNewsTemplateApiClient();
+      apiClient = MockFlutterNewsExampleApiClient();
       storage = MockArticleStorage();
       when(() => storage.setArticleViews(any())).thenAnswer((_) async {});
       when(() => storage.setArticleViewsResetDate(any()))

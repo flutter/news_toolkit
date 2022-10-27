@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/feed/feed.dart';
 import 'package:news_repository/news_repository.dart';
 
 void main() {

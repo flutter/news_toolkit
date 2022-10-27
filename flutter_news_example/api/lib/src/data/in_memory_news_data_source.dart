@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
-import 'package:google_news_template_api/api.dart';
-import 'package:google_news_template_api/src/data/models/models.dart';
+import 'package:flutter_news_example_api/api.dart';
+import 'package:flutter_news_example_api/src/data/models/models.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 part 'static_news_data.dart';

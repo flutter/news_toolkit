@@ -1,19 +1,19 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:test/test.dart';
 
-class MockGoogleNewsTemplateApiClient extends Mock
-    implements GoogleNewsTemplateApiClient {}
+class MockFlutterNewsExampleApiClient extends Mock
+    implements FlutterNewsExampleApiClient {}
 
 void main() {
   group('NewsRepository', () {
-    late GoogleNewsTemplateApiClient apiClient;
+    late FlutterNewsExampleApiClient apiClient;
     late NewsRepository newsRepository;
 
     setUp(() {
-      apiClient = MockGoogleNewsTemplateApiClient();
+      apiClient = MockFlutterNewsExampleApiClient();
       newsRepository = NewsRepository(apiClient: apiClient);
     });
 

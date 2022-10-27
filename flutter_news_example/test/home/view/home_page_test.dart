@@ -2,9 +2,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_news_example/feed/feed.dart';
+import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/feed/feed.dart';
-import 'package:google_news_template/home/home.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 

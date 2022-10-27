@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
-import 'package:google_news_template/ads/ads.dart';
 
 class FakeRewardItem extends Fake implements ads.RewardItem {}
 

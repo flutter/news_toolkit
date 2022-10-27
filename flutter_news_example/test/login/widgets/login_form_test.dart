@@ -6,10 +6,10 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/login/login.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 

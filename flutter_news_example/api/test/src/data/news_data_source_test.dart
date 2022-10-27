@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:google_news_template_api/api.dart';
-import 'package:google_news_template_api/src/data/in_memory_news_data_source.dart';
+import 'package:flutter_news_example_api/api.dart';
+import 'package:flutter_news_example_api/src/data/in_memory_news_data_source.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:test/test.dart';
 

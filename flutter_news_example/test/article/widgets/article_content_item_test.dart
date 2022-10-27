@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:flutter_news_example/article/article.dart';
+import 'package:flutter_news_example/newsletter/newsletter.dart';
+import 'package:flutter_news_example/slideshow/slideshow.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/newsletter/newsletter.dart';
-import 'package:google_news_template/slideshow/slideshow.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';

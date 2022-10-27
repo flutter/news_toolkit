@@ -23,7 +23,7 @@ final _targetProjectApiClient = path.join(
   'lib',
   'src',
   'client',
-  'google_news_template_api_client.dart',
+  'flutter_news_example_api_client.dart',
 );
 final _targetProjectApiClientTests = path.join(
   _targetPath,
@@ -31,7 +31,7 @@ final _targetProjectApiClientTests = path.join(
   'test',
   'src',
   'client',
-  'google_news_template_api_client_test.dart',
+  'flutter_news_example_api_client_test.dart',
 );
 final _targetProjectDependabotConfiguration = path.join(
   _targetPath,

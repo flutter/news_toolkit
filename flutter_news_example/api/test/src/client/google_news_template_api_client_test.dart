@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -36,9 +36,9 @@ void main() {
     });
   }
 
-  group('GoogleNewsTemplateApiClient', () {
+  group('FlutterNewsExampleApiClient', () {
     late http.Client httpClient;
-    late GoogleNewsTemplateApiClient apiClient;
+    late FlutterNewsExampleApiClient apiClient;
     late TokenProvider tokenProvider;
 
     const token = 'token';
@@ -50,7 +50,7 @@ void main() {
     setUp(() {
       httpClient = MockHttpClient();
       tokenProvider = () async => null;
-      apiClient = GoogleNewsTemplateApiClient(
+      apiClient = FlutterNewsExampleApiClient(
         httpClient: httpClient,
         tokenProvider: tokenProvider,
       );
@@ -59,7 +59,7 @@ void main() {
     group('localhost constructor', () {
       test('can be instantiated (no params)', () {
         expect(
-          () => GoogleNewsTemplateApiClient.localhost(
+          () => FlutterNewsExampleApiClient.localhost(
             tokenProvider: tokenProvider,
           ),
           returnsNormally,
@@ -74,7 +74,7 @@ void main() {
             HttpStatus.ok,
           ),
         );
-        final apiClient = GoogleNewsTemplateApiClient.localhost(
+        final apiClient = FlutterNewsExampleApiClient.localhost(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         );
@@ -93,7 +93,7 @@ void main() {
     group('default constructor', () {
       test('can be instantiated (no params).', () {
         expect(
-          () => GoogleNewsTemplateApiClient(tokenProvider: tokenProvider),
+          () => FlutterNewsExampleApiClient(tokenProvider: tokenProvider),
           returnsNormally,
         );
       });
@@ -106,7 +106,7 @@ void main() {
             HttpStatus.ok,
           ),
         );
-        final apiClient = GoogleNewsTemplateApiClient(
+        final apiClient = FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         );
@@ -197,7 +197,7 @@ void main() {
               http.Response(jsonEncode(articleResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).getArticle(id: articleId);
@@ -214,7 +214,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
@@ -224,12 +224,12 @@ void main() {
 
         expect(
           () => apiClient.getArticle(id: articleId),
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
@@ -242,7 +242,7 @@ void main() {
         expect(
           () => apiClient.getArticle(id: articleId),
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -341,7 +341,7 @@ void main() {
               http.Response(jsonEncode(relatedArticlesResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).getRelatedArticles(id: articleId);
@@ -358,7 +358,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         const articleId = '__article_id__';
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
@@ -368,12 +368,12 @@ void main() {
 
         expect(
           () => apiClient.getRelatedArticles(id: articleId),
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const articleId = '__article_id__';
         const statusCode = HttpStatus.internalServerError;
@@ -386,7 +386,7 @@ void main() {
         expect(
           () => apiClient.getRelatedArticles(id: articleId),
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -476,7 +476,7 @@ void main() {
           (_) async => http.Response(jsonEncode(feedResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).getFeed();
@@ -493,7 +493,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -502,12 +502,12 @@ void main() {
 
         expect(
           apiClient.getFeed,
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -519,7 +519,7 @@ void main() {
         expect(
           apiClient.getFeed,
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -569,7 +569,7 @@ void main() {
               http.Response(jsonEncode(categoriesResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).getCategories();
@@ -586,7 +586,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -595,12 +595,12 @@ void main() {
 
         expect(
           apiClient.getCategories,
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -612,7 +612,7 @@ void main() {
         expect(
           apiClient.getCategories,
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -672,7 +672,7 @@ void main() {
           ),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).getCurrentUser();
@@ -689,7 +689,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -698,12 +698,12 @@ void main() {
 
         expect(
           apiClient.getCurrentUser,
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -715,7 +715,7 @@ void main() {
         expect(
           apiClient.getCurrentUser,
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -762,7 +762,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any())).thenAnswer(
           (_) async => http.Response('', HttpStatus.ok),
@@ -770,12 +770,12 @@ void main() {
 
         expect(
           apiClient.getSubscriptions,
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -786,7 +786,7 @@ void main() {
         expect(
           apiClient.getSubscriptions,
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -850,7 +850,7 @@ void main() {
               http.Response(jsonEncode(popularSearchResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).popularSearch();
@@ -867,7 +867,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -876,12 +876,12 @@ void main() {
 
         expect(
           apiClient.popularSearch,
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -893,7 +893,7 @@ void main() {
         expect(
           apiClient.popularSearch,
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -956,7 +956,7 @@ void main() {
               http.Response(jsonEncode(relevantSearchResponse), HttpStatus.ok),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).relevantSearch(term: term);
@@ -978,7 +978,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiMalformedResponse '
+          'throws FlutterNewsExampleApiMalformedResponse '
           'when response body is malformed.', () {
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -987,12 +987,12 @@ void main() {
 
         expect(
           () => apiClient.relevantSearch(term: term),
-          throwsA(isA<GoogleNewsTemplateApiMalformedResponse>()),
+          throwsA(isA<FlutterNewsExampleApiMalformedResponse>()),
         );
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-200 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         final body = <String, dynamic>{};
@@ -1004,7 +1004,7 @@ void main() {
         expect(
           () => apiClient.relevantSearch(term: term),
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', body),
           ),
@@ -1069,7 +1069,7 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).subscribeToNewsletter(email: email);
@@ -1087,7 +1087,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-201 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         when(
@@ -1103,7 +1103,7 @@ void main() {
         expect(
           () => apiClient.subscribeToNewsletter(email: email),
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', isEmpty),
           ),
@@ -1160,7 +1160,7 @@ void main() {
           (_) async => http.Response('', HttpStatus.created),
         );
 
-        await GoogleNewsTemplateApiClient(
+        await FlutterNewsExampleApiClient(
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         ).createSubscription(subscriptionId: subscriptionId);
@@ -1179,7 +1179,7 @@ void main() {
       });
 
       test(
-          'throws GoogleNewsTemplateApiRequestFailure '
+          'throws FlutterNewsExampleApiRequestFailure '
           'when response has a non-201 status code.', () {
         const statusCode = HttpStatus.internalServerError;
         when(() => httpClient.post(any(), headers: any(named: 'headers')))
@@ -1190,7 +1190,7 @@ void main() {
         expect(
           () => apiClient.createSubscription(subscriptionId: 'subscriptionId'),
           throwsA(
-            isA<GoogleNewsTemplateApiRequestFailure>()
+            isA<FlutterNewsExampleApiRequestFailure>()
                 .having((f) => f.statusCode, 'statusCode', statusCode)
                 .having((f) => f.body, 'body', isEmpty),
           ),

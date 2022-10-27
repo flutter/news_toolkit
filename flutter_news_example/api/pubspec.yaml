@@ -1,4 +1,4 @@
-name: google_news_template_api
+name: flutter_news_example_api
 description: A Flutter News Toolkit server app built with the dart_frog package.
 version: 0.1.0+1
 publish_to: none
