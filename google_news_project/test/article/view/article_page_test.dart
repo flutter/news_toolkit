@@ -33,6 +33,8 @@ void main() {
   group('ArticlePage', () {
     late FullScreenAdsBloc fullScreenAdsBloc;
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() {
       fullScreenAdsBloc = MockFullScreenAdsBloc();
       whenListen(
