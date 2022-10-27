@@ -36,7 +36,7 @@ class FlutterNewsExampleApiRequestFailure implements Exception {
 typedef TokenProvider = Future<String?> Function();
 
 /// {@template flutter_news_example_api_client}
-/// A Dart API client for the Flutter News Toolkit API.
+/// A Dart API client for the Flutter News Example API.
 /// {@endtemplate}
 class FlutterNewsExampleApiClient {
   /// Create an instance of [FlutterNewsExampleApiClient] that integrates

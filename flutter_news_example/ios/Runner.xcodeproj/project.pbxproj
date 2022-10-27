@@ -516,7 +516,7 @@
 				FACEBOOK_APP_ID = "";
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
-				FLAVOR_APP_NAME = "Flutter News Toolkit";
+				FLAVOR_APP_NAME = "Flutter News Example";
 				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -556,7 +556,7 @@
 				FACEBOOK_APP_ID = "";
 				FACEBOOK_CLIENT_TOKEN = "";
 				FACEBOOK_DISPLAY_NAME = "";
-				FLAVOR_APP_NAME = "Flutter News Toolkit";
+				FLAVOR_APP_NAME = "Flutter News Example";
 				FLAVOR_DEEP_LINK_DOMAIN = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -652,8 +652,8 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				FACEBOOK_APP_ID = 3068290313391198;
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
-				FACEBOOK_DISPLAY_NAME = "Flutter News Toolkit";
-				FLAVOR_APP_NAME = "Flutter News Toolkit [DEV]";
+				FACEBOOK_DISPLAY_NAME = "Flutter News Example";
+				FLAVOR_APP_NAME = "Flutter News Example [DEV]";
 				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -692,8 +692,8 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				FACEBOOK_APP_ID = 3068290313391198;
 				FACEBOOK_CLIENT_TOKEN = 7a51baf0a329829a55e6ab8ced3da73a;
-				FACEBOOK_DISPLAY_NAME = "Flutter News Toolkit";
-				FLAVOR_APP_NAME = "Flutter News Toolkit [DEV]";
+				FACEBOOK_DISPLAY_NAME = "Flutter News Example";
+				FLAVOR_APP_NAME = "Flutter News Example [DEV]";
 				FLAVOR_DEEP_LINK_DOMAIN = googlenewstemplatedev.page.link;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

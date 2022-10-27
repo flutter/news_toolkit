@@ -30,7 +30,7 @@ $ flutter run --flavor production --target lib/main/main_production.dart
 
 ```
 
-_\*Flutter News Toolkit works on iOS, Android._
+_\*Flutter News Example works on iOS, Android._
 
 ---
 
@@ -219,7 +219,7 @@ Widget build(BuildContext context) {
 
 ---
 
-## Flutter News Toolkit API
+## Flutter News Example API
 
 This package uses `flutter_news_example_api` that was created for the purpose of this template application. To get more information on how to use and customize the API see the [API README.md file](https://github.com/flutter/news_template/tree/main/flutter_news_example/api)
 
