@@ -103,6 +103,6 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>PermissionGroupNotification</key>
-	<string>Google News Template requires access to notifications to send news notifications.</string>
+	<string>Flutter News Toolkit requires access to notifications to send news notifications.</string>
 </dict>
 </plist>

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:737894073936:android:dce282f64abfa89eb03355",
         "android_client_info": {
-          "package_name": "com.google.news.template.dev"
+          "package_name": "com.flutter.news.toolkit.dev"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "737894073936-epltqsgbon16uf53qm3l49vsva3ejp7f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.google.news.template.dev",
+            "package_name": "com.flutter.news.toolkit.dev",
             "certificate_hash": "7269ff6c92958ba1a5d983636e86427be50a0ab6"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.google.news.template.dev",
+                "bundle_id": "com.flutter.news.toolkit.dev",
                 "app_store_id": "123456789"
               }
             }

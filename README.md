@@ -1,4 +1,4 @@
-# Google News Template
+# Flutter News Toolkit
 
 The Google Flutter team and Google News initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever.
 
@@ -9,15 +9,15 @@ The Flutter news app template:
 - implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](#available-features) in this app, run the example app using this template in the [Google News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Flutter News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
 
-## Google News Mason Template
+## Flutter News Mason Template
 
-[Google News Template](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
+[Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
 
 ## Available Features
 
-The Google News Template was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
+The Flutter News Toolkit was crafted to support a variety of news-oriented features. This feature list and product design was generated from real publisher feedback and direction. Although this list is not all-encompassing, it offers a feature-rich starting point for your own unique news application:
 
 - Ready-to-go core services (e.g. Firebase, [Google Analytics](#google-analytics), Google Ads, FCM or OneSignal, Cloud Run, etc. )
 	- Note that these services can be changed to fit your unique requirements, but would require a development effort. 
@@ -48,7 +48,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 ### Code Generation
 
 - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
-- The [Google News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
+- The [Flutter News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
 	- Application name (*e.g. News Template*)
 	- Application package name (*e.g. news_template*)
 	- Desired Flutter version
@@ -141,7 +141,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 
 ### Twitter Authentication:
 
-- Create a project and app in the [Twitter developer portal](https://developer.twitter.com/) - both can have the same name like "Google News Template". Save the API key and secret when creating an app and share these secrets with your developer team.
+- Create a project and app in the [Twitter developer portal](https://developer.twitter.com/) - both can have the same name like "Flutter News Toolkit". Save the API key and secret when creating an app and share these secrets with your developer team.
 - Enable OAuth 2.0 authentication by setting "yourapp://" as the callback URI and "Native app" as the type of the app.
 - In [Twitter products](https://developer.twitter.com/en/portal/products), make sure to have the Twitter API v2 enabled with "Elevated" access - otherwise Twitter authentication is not going to work. 
 	- You may need to fill out a form to apply for “Elevated” access.
@@ -232,7 +232,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 dart pub global activate mason_cli
 ```
 
-### Add the Google News Template Brick
+### Add the Flutter News Toolkit Brick
 
 When using user/password authentication:
 
@@ -743,7 +743,7 @@ As the template already contains a `NewsDataSource` dependency injection, you ca
 
 *Note: `blocks` are distinct from [`blocs`](https://bloclibrary.dev/#/), which are also used in this application.*
 
-Blocks are the data format used by Google News Template to ensure that a variety of news content can be displayed in a consistent manner. The client application expects to receive data from the server in a block-based format. For example, the `Article` model class contains a list of blocks. 
+Blocks are the data format used by Flutter News Toolkit to ensure that a variety of news content can be displayed in a consistent manner. The client application expects to receive data from the server in a block-based format. For example, the `Article` model class contains a list of blocks. 
 
 These blocks contain the data which the app requires to render a corresponding widget.
 
@@ -787,7 +787,7 @@ For details about AdMob Ad types and usage visit [Google AdMob quick-start page]
 
 ### Updating Banner Ads
 
-In the sample Google News Project, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
+In the sample Flutter News Project, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
 
 To introduce banner ads into your app, you can either:
 

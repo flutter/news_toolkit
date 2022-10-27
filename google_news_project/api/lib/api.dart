@@ -1,4 +1,4 @@
-/// Google News Template API Server-Side Library
+/// Flutter News Toolkit API Server-Side Library
 library api;
 
 export 'src/data/in_memory_news_data_source.dart' show InMemoryNewsDataSource;

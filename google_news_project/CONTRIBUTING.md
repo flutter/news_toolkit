@@ -1,8 +1,8 @@
-# Contributing to Google News Template
+# Contributing to Flutter News Toolkit
 
 👍🎉 First off, thanks for taking the time to contribute! 🎉👍
 
-The following is a set of guidelines for contributing to Google News Template.
+The following is a set of guidelines for contributing to Flutter News Toolkit.
 These are mostly guidelines, not rules. Use your best judgment,
 and feel free to propose changes to this document in a pull request.
 

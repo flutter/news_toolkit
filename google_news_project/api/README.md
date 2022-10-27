@@ -1,8 +1,8 @@
-# Google News Template API ☁️
+# Flutter News Toolkit API ☁️
 
 ## Getting Started 🚀
 
-The Google News Template API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://verygoodopensource.github.io/dart_frog).
+The Flutter News Toolkit API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://verygoodopensource.github.io/dart_frog).
 
 ### Running Server Locally ☁️💻
 

@@ -1,5 +1,5 @@
 name: news_blocks
-description: Reusable News Blocks for the Google News Template Application
+description: Reusable News Blocks for the Flutter News Toolkit Application
 version: 1.0.0+1
 publish_to: none
 

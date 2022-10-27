@@ -1,3 +1,3 @@
-# Google News Template UI
+# Flutter News Toolkit UI
 
-A UI Kit for Google News Template
+A UI Toolkit for Flutter News

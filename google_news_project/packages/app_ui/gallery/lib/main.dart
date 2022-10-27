@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Google News Template Gallery',
+      title: 'Flutter News Toolkit Gallery',
       theme: const AppTheme().themeData,
       home: const RootPage(),
     );
@@ -53,7 +53,7 @@ class RootPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Google News Template Gallery')),
+      appBar: AppBar(title: const Text('Flutter News Toolkit Gallery')),
       body: ListView.separated(
         itemCount: pages.length,
         itemBuilder: (_, index) => pages[index],

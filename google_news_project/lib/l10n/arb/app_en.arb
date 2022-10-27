@@ -1,5 +1,5 @@
 {
-  "appName": "Google News Template",
+  "appName": "Flutter News Toolkit",
   "@appName": {
     "description": "The name of this application",
     "type": "text",
@@ -29,7 +29,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "loginWelcomeText": "Welcome to\nGoogle News Template",
+  "loginWelcomeText": "Welcome to\nFlutter News Toolkit",
   "@loginWelcomeText": {
     "description": "Greeting shown on the login page.",
     "type": "text",

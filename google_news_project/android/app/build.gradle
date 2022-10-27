@@ -44,7 +44,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.google.news.template"
+        applicationId "com.flutter.news.toolkit"
         minSdkVersion 23
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
@@ -75,12 +75,12 @@ android {
         development {
             dimension "default"
             applicationIdSuffix "dev"
-            manifestPlaceholders = [appName: "Google News Template [DEV]"]
+            manifestPlaceholders = [appName: "Flutter News Toolkit [DEV]"]
         } 
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Google News Template"]
+            manifestPlaceholders = [appName: "Flutter News Toolkit"]
         } 
     }
 

@@ -117,7 +117,7 @@ extension AppTester on WidgetTester {
             ),
           ],
           child: MaterialApp(
-            title: 'Google News Template',
+            title: 'Flutter News Toolkit',
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
