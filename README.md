@@ -9,11 +9,11 @@ The Flutter news app template:
 - implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-To preview the [available features](#available-features) in this app, run the example app using this template in the [Flutter News Project](https://github.com/flutter/news_template/blob/main/google_news_project/README.md) folder by following the setup steps in the project's README.
+To preview the [available features](#available-features) in this app, run the example app using this template in the [Flutter News Project](https://github.com/flutter/news_template/blob/main/flutter_news_example/README.md) folder by following the setup steps in the project's README.
 
 ## Flutter News Mason Template
 
-[Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from google_news_project.
+[Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from flutter_news_example.
 
 ## Available Features
 
@@ -361,7 +361,7 @@ Flutter automatically supports right-to-left languages when the user changes the
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
 
-The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/flutter/news_template/tree/main/google_news_project/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/flutter/news_template/tree/main/flutter_news_example/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
 
 The package depends on the third-party packages that expose authentication methods such as:
 
@@ -388,7 +388,7 @@ Google Analytics is an app measurement solution, available at no charge, that pr
 
 This project utilizes the `firebase_analytics` package to allow tracking of user activity within the app. To use `firebase_analytics`, it is required to have a Firebase project setup correctly. For instructions on how to add Firebase to your flutter app visit [this site](https://firebase.google.com/docs/flutter/setup).
 
-[AnalyticsRepository](https://github.com/flutter/news_template/tree/main/google_news_project/packages/analytics_repository/lib/src/analytics_repository.dart#L38) is responsible for handling event tracking and can be accessed globally within the app using `BuildContext`
+[AnalyticsRepository](https://github.com/flutter/news_template/tree/main/flutter_news_example/packages/analytics_repository/lib/src/analytics_repository.dart#L38) is responsible for handling event tracking and can be accessed globally within the app using `BuildContext`
 
 ```dart
 class AnalyticsRepository {
@@ -777,7 +777,7 @@ Placing ads is covered in the [Updating Ads Placement](#updating-ads-placement) 
 
 ## Ads
 
-This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [interstitial and rewarded ads](https://github.com/flutter/news_template/blob/main/google_news_project/lib/ads/bloc/full_screen_ads_bloc.dart#L28), [banner ads](https://github.com/flutter/news_template/blob/main/google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L48) and [sticky ads](https://github.com/flutter/news_template/blob/main/google_news_project/lib/ads/widgets/sticky_ad.dart#L10).
+This project uses [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads), which enables publishers to monetize this Flutter app using the Google Mobile Ads SDK. It utilizes the [Google Mobile Ads Flutter plugin](https://pub.dev/packages/google_mobile_ads) to achieve 4 different kinds of Ads: [interstitial and rewarded ads](https://github.com/flutter/news_template/blob/main/flutter_news_example/lib/ads/bloc/full_screen_ads_bloc.dart#L28), [banner ads](https://github.com/flutter/news_template/blob/main/flutter_news_example/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart#L48) and [sticky ads](https://github.com/flutter/news_template/blob/main/flutter_news_example/lib/ads/widgets/sticky_ad.dart#L10).
 
 To configure ads, [create an AdMob account](https://support.google.com/admob/answer/7356219?visit_id=637958065830347515-2588184234&rd=1) and then [register an Android and iOS app](https://support.google.com/admob/answer/9989980?visit_id=637958065834244686-2895946834&rd=1) for each flavor of your application (e.g. 4 apps should be registered for development and production flavors). Make sure to provide correct AdMob app ids when generating the application from the template.
 
@@ -906,22 +906,22 @@ To fully leverage the newsletter subscription feature please add your API handli
 
 ## Subscriptions and purchases
 
-This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/flutter/news_template/tree/main/google_news_project/packages/purchase_client).
+This project supports in-app purchasing for Flutter using the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package. For the purpose of this template application, a mocked version of the`in_app_purchase` package was created called [purchase_client](https://github.com/flutter/news_template/tree/main/flutter_news_example/packages/purchase_client).
 
-The [PurchaseClient class](https://github.com/flutter/news_template/tree/main/google_news_project/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism to expose the `purchaseStream`.
+The [PurchaseClient class](https://github.com/flutter/news_template/tree/main/flutter_news_example/packages/purchase_client/lib/src/purchase_client.dart#L36) implements `InAppPurchase` from the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package and utilizes the same mechanism to expose the `purchaseStream`.
 
 ```
   @override
   Stream<List<PurchaseDetails>> get purchaseStream => _purchaseStream.stream;
 ```
 
-Mocked products are being exposed in the [products.dart](https://github.com/flutter/news_template/tree/main/google_news_project/packages/purchase_client/lib/src/products.dart) file.
+Mocked products are being exposed in the [products.dart](https://github.com/flutter/news_template/tree/main/flutter_news_example/packages/purchase_client/lib/src/products.dart) file.
 
 A list of availiable subscription data featuring copy text and price information is served by Dart Frog backend. To edit the subscription data, change the `getSubscriptions()` method in your custom news data source. Make sure that the product IDs are the same for your iOS and Android purchase project, as this information will be passed to the platform-agnostic `in_app_purchase` package.
 
 ### in_app_purchase usage
 
-To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/flutter/news_template/tree/main/google_news_project/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
+To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, substitute `PurchaseClient` usage in [main_development.dart](https://github.com/flutter/news_template/tree/main/flutter_news_example/lib/main/main_development.dart#L80) and [main_production.dart](https://github.com/flutter/news_template/tree/main/flutter_news_example/lib/main/main_production.dart#L80) with the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package implementation.
 
 Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
 
@@ -982,17 +982,17 @@ If you are removing advertisements from your app, it's a good idea to remove all
 
 Remove the following directories and files entirely:
 
-- `google_news_project/lib/ads`
-- `google_news_project/test/ads`
-- `google_news_project/packages/ads_consent_client`
-- `google_news_project/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart`
-- `google_news_project/packages/news_blocks_ui/test/src/widgets/banner_ad_content_test.dart`
-- `google_news_project/packages/news_blocks_ui/lib/src/banner_ad.dart`
-- `google_news_project/packages/news_blocks_ui/test/src/banner_ad_test.dart`
+- `flutter_news_example/lib/ads`
+- `flutter_news_example/test/ads`
+- `flutter_news_example/packages/ads_consent_client`
+- `flutter_news_example/packages/news_blocks_ui/lib/src/widgets/banner_ad_content.dart`
+- `flutter_news_example/packages/news_blocks_ui/test/src/widgets/banner_ad_content_test.dart`
+- `flutter_news_example/packages/news_blocks_ui/lib/src/banner_ad.dart`
+- `flutter_news_example/packages/news_blocks_ui/test/src/banner_ad_test.dart`
 
 Remove the noted snippets from the files below:
 
-- `google_news_project/lib/app/view/app.dart`
+- `flutter_news_example/lib/app/view/app.dart`
 	```dart
 	required AdsConsentClient adsConsentClient,
 	```
@@ -1019,24 +1019,24 @@ Remove the noted snippets from the files below:
 	),
 	```
 
-- `google_news_project/lib/article/view/article_page.dart`
+- `flutter_news_example/lib/article/view/article_page.dart`
     - `HasWatchedRewardedAdListener` class
     - `HasWatchedRewardedAdListener` widget (retain the child `Scaffold` widget)
-- `google_news_project/lib/main/main_development.dart`
+- `flutter_news_example/lib/main/main_development.dart`
     ```dart
     final adsConsentClient = AdsConsentClient();
     ```
     ```dart
     adsConsentClient: adsConsentClient,
     ```
- - `google_news_project/lib/main/main_production.dart`
+ - `flutter_news_example/lib/main/main_production.dart`
     ```dart
     final adsConsentClient = AdsConsentClient();
     ```
     ```dart
     adsConsentClient: adsConsentClient,
     ```
-- `google_news_project/lib/onboarding/bloc/onboarding_bloc.dart`
+- `flutter_news_example/lib/onboarding/bloc/onboarding_bloc.dart`
     ```dart
     required AdsConsentClient adsConsentClient,
     ```
@@ -1053,11 +1053,11 @@ Remove the noted snippets from the files below:
     final AdsConsentClient _adsConsentClient;
     ```
     - the `_onEnableAdTrackingRequested()` function
-- `google_news_project/lib/onboarding/view/onboarding_page.dart`
+- `flutter_news_example/lib/onboarding/view/onboarding_page.dart`
     ```dart
     adsConsentClient: context.read<AdsConsentClient>(),
     ```
-- `google_news_project/lib/article/widgets/article_content_item.dart`
+- `flutter_news_example/lib/article/widgets/article_content_item.dart`
     ```dart
     else if (newsBlock is BannerAdBlock) {
       return BannerAd(
@@ -1066,7 +1066,7 @@ Remove the noted snippets from the files below:
       );
     }
     ```
-- `google_news_project/lib/article/widgets/article_content_item.dart`
+- `flutter_news_example/lib/article/widgets/article_content_item.dart`
     ```dart
     else if (newsBlock is BannerAdBlock) {
       return BannerAd(
@@ -1075,24 +1075,24 @@ Remove the noted snippets from the files below:
       );
     }
     ```
-- `google_news_project/packages/news_blocks_ui/lib/news_blocks_ui.dart`
+- `flutter_news_example/packages/news_blocks_ui/lib/news_blocks_ui.dart`
     ```dart
     export 'src/banner_ad.dart' show BannerAd;
     ```
-- `google_news_project/packages/news_blocks_ui/lib/src/widgets/widges.dart`
+- `flutter_news_example/packages/news_blocks_ui/lib/src/widgets/widges.dart`
     ```dart
     export 'banner_ad_content.dart';
     ```
 
 *Pubspec Ad Depenedencies*
 
-Remove the `google_mobile_ads` dependency from the `google_news_project/packages/news_blocks_ui/pubspec.yaml` file, as well as all corresponding
+Remove the `google_mobile_ads` dependency from the `flutter_news_example/packages/news_blocks_ui/pubspec.yaml` file, as well as all corresponding
 ```dart
 import  'package:google_mobile_ads/google_mobile_ads.dart'
 ```
 statements.
 
-Remove the `ads_consent_client` dependency from `google_news_project/pubspec.yaml`, as well as all `ads_consent_client` and all `ads` import statements:
+Remove the `ads_consent_client` dependency from `flutter_news_example/pubspec.yaml`, as well as all `ads_consent_client` and all `ads` import statements:
 ```dart
 import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:google_news_template/ads/ads.dart';

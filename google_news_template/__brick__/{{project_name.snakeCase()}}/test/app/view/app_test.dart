@@ -5,7 +5,8 @@ import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart' as analytics;
+import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart'
+    as analytics;
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/home/home.dart';
 import 'package:{{project_name.snakeCase()}}/onboarding/onboarding.dart';

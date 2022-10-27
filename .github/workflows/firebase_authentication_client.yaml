@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/authentication_client/firebase_authentication_client/**"
+      - "flutter_news_example/packages/authentication_client/firebase_authentication_client/**"
       - ".github/workflows/firebase_authentication_client.yaml"
     branches:
       - main
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 3.3.4
-      working_directory: google_news_project/packages/authentication_client/firebase_authentication_client
+      working_directory: flutter_news_example/packages/authentication_client/firebase_authentication_client

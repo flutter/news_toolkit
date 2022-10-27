@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/authentication_client/token_storage/**"
+      - "flutter_news_example/packages/authentication_client/token_storage/**"
       - ".github/workflows/token_storage.yaml"
     branches:
       - main
@@ -16,4 +16,4 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      working_directory: google_news_project/packages/authentication_client/token_storage
+      working_directory: flutter_news_example/packages/authentication_client/token_storage
