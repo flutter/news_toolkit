@@ -1,0 +1,34 @@
+name: flutter_news_template
+description: Flutter News Template Generator
+version: 0.1.0+1
+vars:
+  app_name:
+    type: string
+    description: The user-facing application name
+    default: Flutter News Template
+    prompt: What is the user-facing application name?
+  project_name:
+    type: string
+    description: The application package name
+    default: flutter_news_template
+    prompt: What is the application package name?
+  flutter_version:
+    type: string
+    description: The Flutter version string
+    default: 3.3.4
+    prompt: What is the desired Flutter version?
+  reverse_domain:
+    type: string
+    description: The application bundle identifier
+    default: com.google.news.template
+    prompt: What is the application bundle identifier?
+  code_owners:
+    type: string
+    description: List of code owners separated by spaces
+    default: "@githubUser"
+    prompt: Who are the code owners? (separated by spaces)
+  flavors:
+    type: string
+    description: List of flavors separated by spaces
+    default: "development production"
+    prompt: What flavors would you like to include? (separated by spaces)

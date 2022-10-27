@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/app_ui/**"
+      - "flutter_news_example/packages/app_ui/**"
       - ".github/workflows/app_ui.yaml"
     branches:
       - main
@@ -17,5 +17,5 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_version: 3.3.4
-      working_directory: google_news_project/packages/app_ui
+      working_directory: flutter_news_example/packages/app_ui
       coverage_excludes: "lib/src/generated/*.dart"
