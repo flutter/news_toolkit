@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +54,8 @@ void main() {
       SpacerBlock(spacing: Spacing.medium),
     ],
   };
+
+  TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(initMockHydratedStorage);
 
@@ -231,8 +235,14 @@ void main() {
     );
 
     testWidgets(
-      'unfocuses keyboard when moving from search to home.',
+      'unfocuses keyboard when tab is changed.',
       (tester) async {
+        final controller = StreamController<HomeState>();
+        whenListen(
+          cubit,
+          controller.stream,
+          initialState: HomeState.topStories,
+        );
         await pumpHomeView(
           tester: tester,
           cubit: cubit,
@@ -245,18 +255,15 @@ void main() {
         await tester.tap(find.byKey(Key('bottomNavBar_search')));
         verify(() => cubit.setTab(1)).called(1);
 
+        controller.add(HomeState.search);
+
         await tester.pump(kThemeAnimationDuration);
         await tester.showKeyboard(find.byType(SearchTextField));
 
         final initialFocus = tester.binding.focusManager.primaryFocus;
 
-        await tester.tap(find.byIcon(Icons.menu));
-        await tester.pump(kThemeAnimationDuration);
-
-        expect(find.byType(NavigationDrawer), findsOneWidget);
-
-        await tester.tap(find.byType(ListTile).first);
-        await tester.pump(kThemeAnimationDuration);
+        controller.add(HomeState.topStories);
+        await tester.pump();
 
         expect(
           tester.binding.focusManager.primaryFocus,

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class AppButtonPage extends StatelessWidget {
   const AppButtonPage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const AppButtonPage());
   }
 
   @override
   Widget build(BuildContext context) {
-    const _contentSpacing = AppSpacing.lg;
+    const contentSpacing = AppSpacing.lg;
     final appButtonList = [
       _AppButtonItem(
         buttonType: ButtonType.google,
@@ -87,7 +87,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.trial,
@@ -96,7 +96,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.logout,
@@ -105,7 +105,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.details,
@@ -114,7 +114,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       const Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.cancel,
@@ -123,7 +123,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.watchVideo,
@@ -139,7 +139,7 @@ class AppButtonPage extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.lg + _contentSpacing,
+          horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: Container(
           height: 100,

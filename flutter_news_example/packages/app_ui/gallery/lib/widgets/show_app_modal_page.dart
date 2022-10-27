@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class ShowAppModalPage extends StatelessWidget {
   const ShowAppModalPage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const ShowAppModalPage());
   }
 
   @override
   Widget build(BuildContext context) {
-    const _contentSpace = 10.0;
+    const contentSpace = 10.0;
     final buttons = [
       Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.lg),
@@ -19,7 +19,7 @@ class ShowAppModalPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.oceanBlue,
             padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xxlg + _contentSpace,
+              horizontal: AppSpacing.xxlg + contentSpace,
               vertical: AppSpacing.xlg,
             ),
             textStyle:
