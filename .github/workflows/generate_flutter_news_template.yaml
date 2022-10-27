@@ -1,13 +1,6 @@
 name: generate_flutter_news_template
 
-on:
-  push:
-    paths:
-      - tool/generator/**
-      - flutter_news_example/**
-    branches:
-      - main
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build:
@@ -34,7 +27,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4.2.0
         with:
           base: main
-          branch: chore/generate-google-news-template
+          branch: chore/generate-flutter-news-template
           commit-message: "chore: generate flutter_news_template"
           title: "chore: generate flutter_news_template"
           body: Please squash and merge me!
