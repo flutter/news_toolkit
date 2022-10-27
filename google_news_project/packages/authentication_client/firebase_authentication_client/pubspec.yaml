@@ -9,9 +9,9 @@ environment:
 dependencies:
   authentication_client:
     path: ../authentication_client
-  firebase_auth: ^3.0.1
-  firebase_auth_platform_interface: ^6.10.1
-  firebase_core: ^1.24.0
+  firebase_auth: ^4.1.0
+  firebase_auth_platform_interface: ^6.11.0
+  firebase_core: ^2.1.1
   firebase_core_platform_interface: ^4.5.1
   flutter:
     sdk: flutter
