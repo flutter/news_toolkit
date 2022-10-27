@@ -251,7 +251,7 @@ void main() async {
 
         file.writeAsStringSync(
           file.readAsStringSync().replaceAll(
-              RegExp('com.flutter.news.toolkit'), '{{reverse_domain}}'),
+              RegExp('com.flutter.news.example'), '{{reverse_domain}}'),
         );
 
         file.writeAsStringSync(
@@ -313,7 +313,7 @@ void main() async {
               '{{project_name.paramCase()}}',
             )
             .replaceAll('Flutter News Toolkit', '{{app_name}}')
-            .replaceAll('com.flutter.news.toolkit', '{{reverse_domain}}'));
+            .replaceAll('com.flutter.news.example', '{{reverse_domain}}'));
       } on Exception {}
 
       if (path.basename(file.path).contains('google_news_template')) {

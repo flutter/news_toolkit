@@ -531,7 +531,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.toolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -571,7 +571,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.toolkit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -668,7 +668,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.toolkit.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.example.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -708,7 +708,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.toolkit.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flutter.news.example.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
