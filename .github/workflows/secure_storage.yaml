@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/storage/secure_storage/**"
+      - "flutter_news_example/packages/storage/secure_storage/**"
       - ".github/workflows/secure_storage.yaml"
     branches:
       - main
@@ -18,4 +18,4 @@ jobs:
     with:
       coverage_excludes: "**/*.g.dart"
       flutter_version: 3.3.4
-      working_directory: google_news_project/packages/storage/secure_storage
+      working_directory: flutter_news_example/packages/storage/secure_storage

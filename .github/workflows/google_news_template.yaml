@@ -7,11 +7,11 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/api/**"
-      - "google_news_project/lib/**"
-      - "google_news_project/test/**"
-      - "google_news_project/packages/**"
-      - "google_news_project/pubspec.yaml"
+      - "flutter_news_example/api/**"
+      - "flutter_news_example/lib/**"
+      - "flutter_news_example/test/**"
+      - "flutter_news_example/packages/**"
+      - "flutter_news_example/pubspec.yaml"
       - ".github/workflows/google_news_template.yaml"
     branches:
       - main
@@ -20,7 +20,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: google_news_project
+        working-directory: flutter_news_example
 
     runs-on: ubuntu-latest
 
@@ -54,7 +54,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
           exclude: "**/*.g.dart **/*.gen.dart **/l10n/*.dart **/l10n/**/*.dart **/main/bootstrap.dart"
-          path: google_news_project/coverage/lcov.info
+          path: flutter_news_example/coverage/lcov.info
 
       - name: Generate Visual Architecture
         env:
@@ -70,4 +70,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: visual-architecture-report
-          path: ./google_news_project/pubviz.html
+          path: ./flutter_news_example/pubviz.html
