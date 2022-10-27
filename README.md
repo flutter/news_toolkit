@@ -925,6 +925,14 @@ To use the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package, 
 
 Then, follow the [Getting started](https://pub.dev/packages/in_app_purchase#getting-started) paragraph in the [in_app_purchase](https://pub.dev/packages/in_app_purchase) package.
 
+## Testing
+
+Flutter News Toolkit applications come with 100% test coverage out-of-the-box. Tests are located in a parallel file structure relative to your source code, residing in a `test` directory which mirrors the source code `lib` directory. 
+
+Changes you make to your source code such as [implementing an API data source](#implementing-an-api-data-source), [removing advertisements](#removing-advertisements), or [changing block behavior](#using-blocks) may reduce test coverage or cause existing tests to fail. We recommend maintaining 100% test coverage within your application in order to support stability and scalability, but your application functionality will not be compromised if you forgo 100% test coverage.
+
+To support 100% test coverage in your application, make sure that your tests capture any changes you make to the app behavior. For example, if you implement a new data source `your_data_source.dart`, create a corresponding `your_data_source_test.dart` file which properly tests your new data source's behavior. The Flutter community offers [excellent testing resources](https://verygood.ventures/blog/flutter-testing-resources) to guide you in developing effective tests for your application.
+ 
 ## Removing Advertisements
 
 You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types and their dependencies.
@@ -1097,4 +1105,3 @@ Remove the `ads_consent_client` dependency from `flutter_news_example/pubspec.ya
 import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:flutter_news_template/ads/ads.dart';
 ```
-
