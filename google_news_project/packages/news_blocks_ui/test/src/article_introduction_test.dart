@@ -26,7 +26,7 @@ void main() {
   group('ArticleIntroduction', () {
     setUpAll(setUpTolerantComparator);
 
-    final _technologyArticleIntroduction = ArticleIntroductionBlock(
+    final technologyArticleIntroduction = ArticleIntroductionBlock(
       category: category,
       author: author,
       publishedAt: publishedAt,
@@ -41,7 +41,7 @@ void main() {
             child: Column(
               children: [
                 ArticleIntroduction(
-                  block: _technologyArticleIntroduction,
+                  block: technologyArticleIntroduction,
                   premiumText: premiumText,
                   shareText: shareText,
                 ),
@@ -63,7 +63,7 @@ void main() {
           child: Column(
             children: [
               ArticleIntroduction(
-                block: _technologyArticleIntroduction,
+                block: technologyArticleIntroduction,
                 premiumText: premiumText,
                 shareText: shareText,
                 onSharePressed: completer.complete,
