@@ -7,13 +7,7 @@ concurrency:
 on: [push, pull_request]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: zwaldowski/cspell-action@v1
-        with:
-          paths: "flutter_news_example/**/*.{md,dart}"
-          config: flutter_news_example/.vscode/cspell.json
-          exclude: ".gitignore"
+  spell-check:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+    with:
+      includes: "**/*.md"
