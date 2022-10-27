@@ -4,12 +4,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
 import 'package:{{project_name.snakeCase()}}_api/client.dart' hide User;
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:user_repository/user_repository.dart';

@@ -2,8 +2,8 @@
 
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/terms_of_service/terms_of_service.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -13,7 +13,7 @@ void main() {
   group('TermsOfServicePage', () {
     group('route', () {
       test('has a route', () {
-        expect(TermsOfServicePage.route(), isA<MaterialPageRoute>());
+        expect(TermsOfServicePage.route(), isA<MaterialPageRoute<void>>());
       });
 
       testWidgets('router returns a valid navigation route', (tester) async {

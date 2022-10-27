@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('AnalyticsState', () {

@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:fake_async/fake_async.dart';
+import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
-import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:platform/platform.dart';
-import 'package:very_good_analysis/very_good_analysis.dart';
 
 class MockInterstitialAd extends Mock implements ads.InterstitialAd {}
 

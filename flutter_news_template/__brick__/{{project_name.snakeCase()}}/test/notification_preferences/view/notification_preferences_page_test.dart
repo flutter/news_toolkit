@@ -4,9 +4,9 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/notification_preferences/notification_preferences.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -34,7 +34,10 @@ void main() {
     );
 
     test('has a route', () {
-      expect(NotificationPreferencesPage.route(), isA<MaterialPageRoute>());
+      expect(
+        NotificationPreferencesPage.route(),
+        isA<MaterialPageRoute<void>>(),
+      );
     });
 
     testWidgets('renders NotificationPreferencesView', (tester) async {

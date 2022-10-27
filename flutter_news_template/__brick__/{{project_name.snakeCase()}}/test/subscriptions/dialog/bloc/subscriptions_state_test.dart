@@ -1,8 +1,8 @@
+import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
 // ignore: lines_longer_than_80_chars
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 
 void main() {

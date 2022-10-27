@@ -8,7 +8,7 @@ class MagicLinkPromptPage extends StatelessWidget {
 
   final String email;
 
-  static Route route({required String email}) {
+  static Route<void> route({required String email}) {
     return MaterialPageRoute<void>(
       builder: (_) => MagicLinkPromptPage(email: email),
     );

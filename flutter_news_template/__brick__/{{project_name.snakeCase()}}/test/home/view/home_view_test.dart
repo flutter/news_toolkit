@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_redundant_argument_values
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'dart:async';
+
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
@@ -14,6 +15,7 @@ import 'package:{{project_name.snakeCase()}}/login/login.dart';
 import 'package:{{project_name.snakeCase()}}/navigation/navigation.dart';
 import 'package:{{project_name.snakeCase()}}/search/search.dart';
 import 'package:{{project_name.snakeCase()}}/user_profile/user_profile.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
@@ -53,9 +55,12 @@ void main() {
     ],
   };
 
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(initMockHydratedStorage);
+
   setUp(() {
     newsRepository = MockNewsRepository();
-
     categoriesBloc = MockCategoriesBloc();
     feedBloc = MockFeedBloc();
     cubit = MockHomeCubit();
@@ -230,8 +235,14 @@ void main() {
     );
 
     testWidgets(
-      'unfocuses keyboard when moving from search to home.',
+      'unfocuses keyboard when tab is changed.',
       (tester) async {
+        final controller = StreamController<HomeState>();
+        whenListen(
+          cubit,
+          controller.stream,
+          initialState: HomeState.topStories,
+        );
         await pumpHomeView(
           tester: tester,
           cubit: cubit,
@@ -244,18 +255,15 @@ void main() {
         await tester.tap(find.byKey(Key('bottomNavBar_search')));
         verify(() => cubit.setTab(1)).called(1);
 
+        controller.add(HomeState.search);
+
         await tester.pump(kThemeAnimationDuration);
         await tester.showKeyboard(find.byType(SearchTextField));
 
         final initialFocus = tester.binding.focusManager.primaryFocus;
 
-        await tester.tap(find.byIcon(Icons.menu));
-        await tester.pump(kThemeAnimationDuration);
-
-        expect(find.byType(NavigationDrawer), findsOneWidget);
-
-        await tester.tap(find.byType(ListTile).first);
-        await tester.pump(kThemeAnimationDuration);
+        controller.add(HomeState.topStories);
+        await tester.pump();
 
         expect(
           tester.binding.focusManager.primaryFocus,
@@ -274,24 +282,22 @@ Future<void> pumpHomeView({
   required NewsRepository newsRepository,
   AppBloc? appBloc,
 }) async {
-  await mockHydratedStorage(() async {
-    await tester.pumpApp(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider.value(
-            value: categoriesBloc,
-          ),
-          BlocProvider.value(
-            value: feedBloc,
-          ),
-          BlocProvider.value(
-            value: cubit,
-          ),
-        ],
-        child: HomeView(),
-      ),
-      newsRepository: newsRepository,
-      appBloc: appBloc,
-    );
-  });
+  await tester.pumpApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: categoriesBloc,
+        ),
+        BlocProvider.value(
+          value: feedBloc,
+        ),
+        BlocProvider.value(
+          value: cubit,
+        ),
+      ],
+      child: HomeView(),
+    ),
+    newsRepository: newsRepository,
+    appBloc: appBloc,
+  );
 }

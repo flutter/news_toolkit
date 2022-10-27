@@ -10,7 +10,7 @@ on:
 
 env:
   PROJECT_ID: news-template-644a1
-  SERVICE: {{project_name.paramCase()}}-api
+  SERVICE: google-news-template-api
   REGION: us-central1
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - name: Setup Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.6.0
+        uses: google-github-actions/setup-gcloud@v0.6.2
         with:
           project_id: ${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}
           service_account_key: ${{#mustacheCase}}secrets.CLOUD_RUN_SA{{/mustacheCase}}
@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0.10.1
+        uses: google-github-actions/deploy-cloudrun@v0.10.3
         with:
           service: ${{#mustacheCase}}env.SERVICE{{/mustacheCase}}
           image: gcr.io/${{#mustacheCase}}env.PROJECT_ID{{/mustacheCase}}/${{#mustacheCase}}env.SERVICE{{/mustacheCase}}:${{#mustacheCase}}github.sha{{/mustacheCase}}

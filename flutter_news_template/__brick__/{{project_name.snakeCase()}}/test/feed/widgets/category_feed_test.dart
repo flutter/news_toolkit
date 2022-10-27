@@ -4,8 +4,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -129,7 +129,7 @@ void main() {
         );
 
         await tester.fling(
-          find.byType(CategoryFeedItem).last,
+          find.byType(CategoryFeed),
           const Offset(0, 300),
           1000,
         );
@@ -140,8 +140,9 @@ void main() {
         await tester.pump(const Duration(seconds: 1));
         await tester.pump(const Duration(seconds: 1));
 
-        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
-            .called(1);
+        verify(
+          () => feedBloc.add(any(that: isA<FeedRefreshRequested>())),
+        ).called(1);
       });
     });
 

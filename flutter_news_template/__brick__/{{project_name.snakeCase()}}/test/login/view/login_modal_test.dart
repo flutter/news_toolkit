@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/login/login.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   group('LoginModal', () {
     test('has a route', () {
-      expect(LoginModal.route(), isA<MaterialPageRoute>());
+      expect(LoginModal.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders a LoginForm', (tester) async {

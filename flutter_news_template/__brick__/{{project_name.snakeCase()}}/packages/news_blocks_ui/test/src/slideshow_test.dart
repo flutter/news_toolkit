@@ -20,7 +20,7 @@ void main() {
   const slideshowButtonsRightKey = Key('slideshow_slideshowButtonsRight');
 
   group('Slideshow', () {
-    const _pageAnimationDuration = Duration(milliseconds: 300);
+    const pageAnimationDuration = Duration(milliseconds: 300);
 
     final slides = List.generate(
       3,
@@ -182,9 +182,9 @@ void main() {
 
         // Set page 2
         await tester.tap(nextPageButton);
-        await tester.pumpAndSettle(_pageAnimationDuration);
+        await tester.pumpAndSettle(pageAnimationDuration);
         await tester.tap(nextPageButton);
-        await tester.pumpAndSettle(_pageAnimationDuration);
+        await tester.pumpAndSettle(pageAnimationDuration);
 
         final previousPageButton = find.byKey(slideshowButtonsLeftKey);
         final slideshowItem = find.byWidgetPredicate(
@@ -202,7 +202,7 @@ void main() {
         expect(currentPage, 2);
 
         await tester.tap(previousPageButton);
-        await tester.pumpAndSettle(_pageAnimationDuration);
+        await tester.pumpAndSettle(pageAnimationDuration);
 
         final slideshowItemPrevious = find.byWidgetPredicate(
           (widget) => widget is SlideshowItem && widget.slide == slides[1],
@@ -228,7 +228,7 @@ void main() {
 
         // Set page 1
         await tester.tap(nextPageButton);
-        await tester.pumpAndSettle(_pageAnimationDuration);
+        await tester.pumpAndSettle(pageAnimationDuration);
 
         final slideshowItem = find.byWidgetPredicate(
           (widget) => widget is SlideshowItem && widget.slide == slides[1],
@@ -245,7 +245,7 @@ void main() {
         expect(slideshowItem, findsOneWidget);
 
         await tester.tap(nextPageButton);
-        await tester.pumpAndSettle(_pageAnimationDuration);
+        await tester.pumpAndSettle(pageAnimationDuration);
 
         final slideshowItemNext = find.byWidgetPredicate(
           (widget) => widget is SlideshowItem && widget.slide == slides[2],

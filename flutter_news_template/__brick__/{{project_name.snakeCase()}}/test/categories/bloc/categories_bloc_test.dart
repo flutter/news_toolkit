@@ -2,8 +2,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 
@@ -19,11 +19,11 @@ void main() {
     final categoriesResponse =
         CategoriesResponse(categories: [Category.top, Category.health]);
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() async {
       newsRepository = MockNewsRepository();
-      categoriesBloc = await mockHydratedStorage(
-        () => CategoriesBloc(newsRepository: newsRepository),
-      );
+      categoriesBloc = CategoriesBloc(newsRepository: newsRepository);
     });
 
     test('can be instantiated', () {

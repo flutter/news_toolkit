@@ -2,9 +2,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:{{project_name.snakeCase()}}/newsletter/newsletter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
-import 'package:{{project_name.snakeCase()}}/newsletter/newsletter.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 

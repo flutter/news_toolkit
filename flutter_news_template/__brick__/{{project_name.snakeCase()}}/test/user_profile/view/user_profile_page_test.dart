@@ -4,13 +4,13 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/notification_preferences/notification_preferences.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
 import 'package:{{project_name.snakeCase()}}/terms_of_service/terms_of_service.dart';
 import 'package:{{project_name.snakeCase()}}/user_profile/user_profile.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -30,7 +30,7 @@ void main() {
 
   group('UserProfilePage', () {
     test('has a route', () {
-      expect(UserProfilePage.route(), isA<MaterialPageRoute>());
+      expect(UserProfilePage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders UserProfileView', (tester) async {

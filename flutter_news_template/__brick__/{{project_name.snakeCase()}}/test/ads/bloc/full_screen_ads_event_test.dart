@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
-import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 
 class FakeRewardItem extends Fake implements ads.RewardItem {}
 

@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:analytics_repository/analytics_repository.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ArticleEvent', () {

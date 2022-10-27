@@ -8,7 +8,7 @@ import 'package:notifications_repository/notifications_repository.dart';
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
 
-  static Page page() => const MaterialPage<void>(child: OnboardingPage());
+  static Page<void> page() => const MaterialPage<void>(child: OnboardingPage());
 
   @override
   Widget build(BuildContext context) {

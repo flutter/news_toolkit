@@ -24,7 +24,7 @@ class ArticlePage extends StatelessWidget {
   /// Whether the requested article is a video article.
   final bool isVideoArticle;
 
-  static Route route({
+  static Route<void> route({
     required String id,
     bool isVideoArticle = false,
   }) =>

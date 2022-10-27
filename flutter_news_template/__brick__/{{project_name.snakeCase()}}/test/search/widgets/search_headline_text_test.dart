@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/search/search.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/helpers.dart';
 
