@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:app_ui/app_ui.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_news_example/analytics/analytics.dart';
+import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart'
     hide PurchaseCompleted;
 import 'package:mockingjay/mockingjay.dart';

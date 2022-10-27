@@ -8,14 +8,14 @@ import 'package:app_ui/app_ui.dart'
         ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/generated/generated.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/notification_preferences/notification_preferences.dart';
-import 'package:google_news_template/subscriptions/subscriptions.dart';
-import 'package:google_news_template/terms_of_service/terms_of_service.dart';
-import 'package:google_news_template/user_profile/user_profile.dart';
+import 'package:flutter_news_example/analytics/analytics.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/generated/generated.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/notification_preferences/notification_preferences.dart';
+import 'package:flutter_news_example/subscriptions/subscriptions.dart';
+import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
+import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 

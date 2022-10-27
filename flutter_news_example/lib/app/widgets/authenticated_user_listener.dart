@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/app/app.dart';
+import 'package:flutter_news_example/analytics/analytics.dart';
+import 'package:flutter_news_example/app/app.dart';
 
 class AuthenticatedUserListener extends StatelessWidget {
   const AuthenticatedUserListener({

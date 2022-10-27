@@ -4,12 +4,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_news_example/ads/ads.dart';
+import 'package:flutter_news_example/analytics/analytics.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/theme_selector/theme_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/ads/ads.dart';
-import 'package:google_news_template/analytics/analytics.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/theme_selector/theme_selector.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart'
     show MockNavigatorProvider, MockNavigator;

@@ -1,9 +1,9 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/l10n/l10n.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/article/article.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 

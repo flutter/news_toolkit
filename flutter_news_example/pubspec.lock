@@ -571,6 +571,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_news_example_api:
+    dependency: "direct main"
+    description:
+      path: api
+      relative: true
+    source: path
+    version: "0.1.0+1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -630,13 +637,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  google_news_template_api:
-    dependency: "direct main"
-    description:
-      path: api
-      relative: true
-    source: path
-    version: "0.1.0+1"
   google_sign_in:
     dependency: transitive
     description:

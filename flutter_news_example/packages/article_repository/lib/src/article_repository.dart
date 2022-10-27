@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:storage/storage.dart';
 
 part 'article_storage.dart';
@@ -88,12 +88,12 @@ class ArticleViews {
 class ArticleRepository {
   /// {@macro article_repository}
   const ArticleRepository({
-    required GoogleNewsTemplateApiClient apiClient,
+    required FlutterNewsExampleApiClient apiClient,
     required ArticleStorage storage,
   })  : _apiClient = apiClient,
         _storage = storage;
 
-  final GoogleNewsTemplateApiClient _apiClient;
+  final FlutterNewsExampleApiClient _apiClient;
   final ArticleStorage _storage;
 
   /// Requests article content metadata.

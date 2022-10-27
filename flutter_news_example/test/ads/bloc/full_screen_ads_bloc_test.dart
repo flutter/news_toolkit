@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:fake_async/fake_async.dart';
+import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
-import 'package:google_news_template/ads/ads.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:platform/platform.dart';

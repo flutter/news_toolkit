@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Spacer, Image;
-import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/l10n/l10n.dart';
-import 'package:google_news_template/newsletter/newsletter.dart';
-import 'package:google_news_template/slideshow/slideshow.dart';
+import 'package:flutter_news_example/article/article.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/newsletter/newsletter.dart';
+import 'package:flutter_news_example/slideshow/slideshow.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 

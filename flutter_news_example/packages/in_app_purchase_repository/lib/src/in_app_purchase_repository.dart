@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:authentication_client/authentication_client.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 /// {@template in_app_purchase_failure}
@@ -91,7 +91,7 @@ class InAppPurchaseRepository {
   /// {@macro in_app_purchase_repository}
   InAppPurchaseRepository({
     required AuthenticationClient authenticationClient,
-    required GoogleNewsTemplateApiClient apiClient,
+    required FlutterNewsExampleApiClient apiClient,
     required InAppPurchase inAppPurchase,
   })  : _apiClient = apiClient,
         _authenticationClient = authenticationClient,
@@ -102,7 +102,7 @@ class InAppPurchaseRepository {
   }
 
   final InAppPurchase _inAppPurchase;
-  final GoogleNewsTemplateApiClient _apiClient;
+  final FlutterNewsExampleApiClient _apiClient;
   final AuthenticationClient _authenticationClient;
 
   final _purchaseUpdateStreamController =

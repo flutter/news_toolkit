@@ -1,4 +1,4 @@
-name: google_news_template
+name: flutter_news_example
 version: 0.0.1+1
 publish_to: none
 
@@ -42,13 +42,13 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_news_example_api:
+    path: api
   flutter_svg: ^1.0.3
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
   google_mobile_ads: ^2.1.0
-  google_news_template_api:
-    path: api
   hydrated_bloc: ^9.0.0-dev.3
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository

@@ -1,4 +1,4 @@
-package com.flutter.news.toolkit
+package com.flutter.news.example
 
 import io.flutter.embedding.android.FlutterActivity
 

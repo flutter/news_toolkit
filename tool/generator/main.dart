@@ -23,7 +23,7 @@ final _targetProjectApiClient = path.join(
   'lib',
   'src',
   'client',
-  'google_news_template_api_client.dart',
+  'flutter_news_example_api_client.dart',
 );
 final _targetProjectApiClientTests = path.join(
   _targetPath,
@@ -31,7 +31,7 @@ final _targetProjectApiClientTests = path.join(
   'test',
   'src',
   'client',
-  'google_news_template_api_client_test.dart',
+  'flutter_news_example_api_client_test.dart',
 );
 final _targetProjectDependabotConfiguration = path.join(
   _targetPath,
@@ -251,7 +251,7 @@ void main() async {
 
         file.writeAsStringSync(
           file.readAsStringSync().replaceAll(
-              RegExp('com.flutter.news.toolkit'), '{{reverse_domain}}'),
+              RegExp('com.flutter.news.example'), '{{reverse_domain}}'),
         );
 
         file.writeAsStringSync(
@@ -313,7 +313,7 @@ void main() async {
               '{{project_name.paramCase()}}',
             )
             .replaceAll('Flutter News Toolkit', '{{app_name}}')
-            .replaceAll('com.flutter.news.toolkit', '{{reverse_domain}}'));
+            .replaceAll('com.flutter.news.example', '{{reverse_domain}}'));
       } on Exception {}
 
       if (path.basename(file.path).contains('google_news_template')) {

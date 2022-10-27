@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:notifications_client/notifications_client.dart';
 import 'package:permission_client/permission_client.dart';
 import 'package:storage/storage.dart';
@@ -79,7 +79,7 @@ class NotificationsRepository {
     required PermissionClient permissionClient,
     required NotificationsStorage storage,
     required NotificationsClient notificationsClient,
-    required GoogleNewsTemplateApiClient apiClient,
+    required FlutterNewsExampleApiClient apiClient,
   })  : _permissionClient = permissionClient,
         _storage = storage,
         _notificationsClient = notificationsClient,
@@ -90,7 +90,7 @@ class NotificationsRepository {
   final PermissionClient _permissionClient;
   final NotificationsStorage _storage;
   final NotificationsClient _notificationsClient;
-  final GoogleNewsTemplateApiClient _apiClient;
+  final FlutterNewsExampleApiClient _apiClient;
 
   /// Toggles the notifications based on the [enable].
   ///

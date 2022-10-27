@@ -4,12 +4,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/article/article.dart';
+import 'package:flutter_news_example/feed/feed.dart';
+import 'package:flutter_news_example/subscriptions/subscriptions.dart';
+import 'package:flutter_news_example_api/client.dart' hide User;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/article/article.dart';
-import 'package:google_news_template/feed/feed.dart';
-import 'package:google_news_template/subscriptions/subscriptions.dart';
-import 'package:google_news_template_api/client.dart' hide User;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:user_repository/user_repository.dart';

@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:authentication_client/authentication_client.dart';
-import 'package:google_news_template_api/client.dart' hide User;
-import 'package:google_news_template_api/client.dart' as api;
+import 'package:flutter_news_example_api/client.dart' hide User;
+import 'package:flutter_news_example_api/client.dart' as api;
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockGoogleNewsTemplateApiClient extends Mock
-    implements GoogleNewsTemplateApiClient {}
+class MockFlutterNewsExampleApiClient extends Mock
+    implements FlutterNewsExampleApiClient {}
 
 class MockAuthenticationClient extends Mock implements AuthenticationClient {}
 
@@ -33,7 +33,7 @@ void main() {
 
   group('InAppPurchaseRepository', () {
     late AuthenticationClient authenticationClient;
-    late GoogleNewsTemplateApiClient apiClient;
+    late FlutterNewsExampleApiClient apiClient;
     late InAppPurchase inAppPurchase;
 
     final product = ProductDetails(
@@ -77,7 +77,7 @@ void main() {
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
-      apiClient = MockGoogleNewsTemplateApiClient();
+      apiClient = MockFlutterNewsExampleApiClient();
       inAppPurchase = MockInAppPurchase();
 
       when(

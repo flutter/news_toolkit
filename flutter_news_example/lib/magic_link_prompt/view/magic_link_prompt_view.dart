@@ -2,8 +2,8 @@ import 'package:app_ui/app_ui.dart'
     show AppSpacing, ScrollableColumn, AppColors, AppButton;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:google_news_template/generated/generated.dart';
-import 'package:google_news_template/l10n/l10n.dart';
+import 'package:flutter_news_example/generated/generated.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
 
 class MagicLinkPromptView extends StatelessWidget {
   const MagicLinkPromptView({super.key, required this.email});

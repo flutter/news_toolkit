@@ -3,10 +3,10 @@ import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
 import 'package:firebase_notifications_client/firebase_notifications_client.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/main/bootstrap/bootstrap.dart';
-import 'package:google_news_template/src/version.dart';
-import 'package:google_news_template_api/client.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/main/bootstrap/bootstrap.dart';
+import 'package:flutter_news_example/src/version.dart';
+import 'package:flutter_news_example_api/client.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -27,7 +27,7 @@ void main() {
     ) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = GoogleNewsTemplateApiClient(
+      final apiClient = FlutterNewsExampleApiClient(
         tokenProvider: tokenStorage.readToken,
       );
 
@@ -39,7 +39,7 @@ void main() {
 
       final packageInfoClient = PackageInfoClient(
         appName: 'Flutter News Toolkit',
-        packageName: 'com.flutter.news.toolkit',
+        packageName: 'com.flutter.news.example',
         packageVersion: packageVersion,
       );
 

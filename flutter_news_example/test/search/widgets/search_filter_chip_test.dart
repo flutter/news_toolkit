@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_news_example/search/search.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/search/search.dart';
 
 import '../../helpers/helpers.dart';
 

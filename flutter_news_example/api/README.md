@@ -1,8 +1,8 @@
-# Flutter News Toolkit API ☁️
+# Flutter News Example API ☁️
 
 ## Getting Started 🚀
 
-The Flutter News Toolkit API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://verygoodopensource.github.io/dart_frog).
+The Flutter News Example API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://verygoodopensource.github.io/dart_frog).
 
 ### Running Server Locally ☁️💻
 

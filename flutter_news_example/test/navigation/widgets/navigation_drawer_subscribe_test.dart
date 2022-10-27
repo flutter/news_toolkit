@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:app_ui/app_ui.dart';
+import 'package:flutter_news_example/navigation/navigation.dart';
+import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/navigation/navigation.dart';
-import 'package:google_news_template/subscriptions/subscriptions.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';

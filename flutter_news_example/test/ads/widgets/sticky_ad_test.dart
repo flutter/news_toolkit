@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_news_template/ads/ads.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 

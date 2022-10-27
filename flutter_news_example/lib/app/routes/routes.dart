@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:google_news_template/app/app.dart';
-import 'package:google_news_template/home/home.dart';
-import 'package:google_news_template/onboarding/onboarding.dart';
+import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/home/home.dart';
+import 'package:flutter_news_example/onboarding/onboarding.dart';
 
 List<Page<dynamic>> onGenerateAppViewPages(
   AppStatus state,

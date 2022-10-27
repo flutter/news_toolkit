@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:authentication_client/authentication_client.dart';
 import 'package:deep_link_client/deep_link_client.dart';
-import 'package:google_news_template_api/client.dart' as api;
+import 'package:flutter_news_example_api/client.dart' as api;
 import 'package:mocktail/mocktail.dart';
 import 'package:package_info_client/package_info_client.dart';
 import 'package:test/test.dart';
@@ -20,8 +20,8 @@ class MockUserStorage extends Mock implements UserStorage {}
 
 class MockUser extends Mock implements AuthenticationUser {}
 
-class MockGoogleNewsTemplateApiClient extends Mock
-    implements api.GoogleNewsTemplateApiClient {}
+class MockFlutterNewsExampleApiClient extends Mock
+    implements api.FlutterNewsExampleApiClient {}
 
 class FakeLogInWithAppleFailure extends Fake implements LogInWithAppleFailure {}
 
@@ -59,7 +59,7 @@ void main() {
     late UserStorage storage;
     late StreamController<Uri> deepLinkClientController;
     late UserRepository userRepository;
-    late MockGoogleNewsTemplateApiClient apiClient;
+    late MockFlutterNewsExampleApiClient apiClient;
 
     setUp(() {
       authenticationClient = MockAuthenticationClient();
@@ -67,7 +67,7 @@ void main() {
       deepLinkClient = MockDeepLinkClient();
       storage = MockUserStorage();
       deepLinkClientController = StreamController<Uri>.broadcast();
-      apiClient = MockGoogleNewsTemplateApiClient();
+      apiClient = MockFlutterNewsExampleApiClient();
 
       when(() => deepLinkClient.deepLinkStream)
           .thenAnswer((_) => deepLinkClientController.stream);
