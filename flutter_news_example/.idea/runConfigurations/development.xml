@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="development" type="FlutterRunConfigurationType" factoryName="Flutter" singleton="false">
+    <option name="additionalArgs" value="--dart-define FLAVOR_DEEP_LINK_DOMAIN=googlenewstemplatedev.page.link --dart-define FLAVOR_DEEP_LINK_PATH=email_login --dart-define TWITTER_API_KEY=jxG8uZsNuHxn6oeUZm8wfWFcH --dart-define TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI --dart-define TWITTER_REDIRECT_URI=google-news-template://" />
+    <option name="buildFlavor" value="development" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/main/main_development.dart" />
+    <method v="2" />
+  </configuration>
+</component>

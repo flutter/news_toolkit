@@ -13,7 +13,7 @@ To preview the [available features](#available-features) in this app, run the ex
 
 ## Flutter News Mason Template
 
-[Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/google_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from flutter_news_example.
+[Flutter News Toolkit](https://github.com/flutter/news_template/blob/main/flutter_news_template/README.md) is a [mason](https://pub.dev/packages/mason) template generated from flutter_news_example.
 
 ## Available Features
 
@@ -48,7 +48,7 @@ Below is an example project roadmap that can be leveraged to implement this temp
 ### Code Generation
 
 - After completing your pre-project setup and configuration, [generate your codebase](#generating-your-codebase-with-mason) using [mason](https://pub.dev/packages/mason).
-- The [Flutter News Template](https://github.com/kaiceyd/news_template/blob/patch-1/google_news_template/README.md) supports the following decision points:
+- The [Flutter News Template](https://github.com/kaiceyd/news_template/blob/patch-1/flutter_news_template/README.md) supports the following decision points:
 	- Application name (*e.g. News Template*)
 	- Application package name (*e.g. news_template*)
 	- Desired Flutter version
@@ -148,7 +148,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 - If possible, add your full team as developers of the Twitter app.
 - After setting up your [Firebase project](#firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Twitter` to set up Twitter authentication method. Fill in the app ID and secret from the created Twitter app and share these secrets with your developer team.
 
-### [Firebase](https://github.com/flutter/news_template/blob/main/google_news_template/README.md#recommended-firebase-configuration):
+### [Firebase](https://github.com/flutter/news_template/blob/main/flutter_news_template/README.md#recommended-firebase-configuration):
 
 - It is recommended to define at least two application environments: development and production. Each environment defines a different configuration of deep links, ads and authentication along with a different entry point to the application (e.g. `main_development.dart`).
 
@@ -237,19 +237,19 @@ dart pub global activate mason_cli
 When using user/password authentication:
 
 ```sh
-mason add google_news_template -g --git-url https://github.com/flutter/news_template --git-path google_news_template
+mason add flutter_news_template -g --git-url https://github.com/flutter/news_template --git-path flutter_news_template
 ```
 
 When using ssh authentication:
 
 ```sh
-mason add google_news_template -g --git-url git@github.com:flutter/news_template.git --git-path google_news_template
+mason add flutter_news_template -g --git-url git@github.com:flutter/news_template.git --git-path flutter_news_template
 ```
 
 ### Generate
 
 ```sh
-mason make google_news_template -c template.json
+mason make flutter_news_template -c template.json
 ```
 
 For additional usage information and information about how to create custom templates refer to the [mason documentation](https://github.com/felangel/mason).
@@ -291,7 +291,7 @@ This project relies on [flutter_localizations](https://api.flutter.dev/flutter/f
 3. Use the new string
 
 ```dart
-import 'package:google_news_template/l10n/l10n.dart';
+import 'package:flutter_news_template/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {
@@ -1095,6 +1095,6 @@ statements.
 Remove the `ads_consent_client` dependency from `flutter_news_example/pubspec.yaml`, as well as all `ads_consent_client` and all `ads` import statements:
 ```dart
 import 'package:ads_consent_client/ads_consent_client.dart';
-import 'package:google_news_template/ads/ads.dart';
+import 'package:flutter_news_template/ads/ads.dart';
 ```
 

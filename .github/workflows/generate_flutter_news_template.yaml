@@ -1,4 +1,4 @@
-name: generate_google_news_template
+name: generate_flutter_news_template
 
 on:
   push:
@@ -35,8 +35,8 @@ jobs:
         with:
           base: main
           branch: chore/generate-google-news-template
-          commit-message: "chore: generate google_news_template"
-          title: "chore: generate google_news_template"
+          commit-message: "chore: generate flutter_news_template"
+          title: "chore: generate flutter_news_template"
           body: Please squash and merge me!
           labels: bot
           author: VGV Bot <bot@verygood.ventures>
