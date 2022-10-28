@@ -198,5 +198,98 @@ void main() {
         ],
       );
     });
+
+    group('FeedResumed', () {
+      blocTest<FeedBloc, FeedState>(
+        'emits [populated] '
+        'when getFeed succeeds '
+        'and there are more news to fetch for a single category',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => feedBloc,
+        seed: () => FeedState(
+          status: FeedStatus.populated,
+          feed: {Category.top: []},
+        ),
+        act: (bloc) => bloc.add(FeedResumed()),
+        expect: () => <FeedState>[
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.top: true,
+            },
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => newsRepository.getFeed(
+              category: Category.top,
+              offset: 0,
+            ),
+          ).called(1);
+        },
+      );
+
+      blocTest<FeedBloc, FeedState>(
+        'emits [populated] '
+        'when getFeed succeeds '
+        'and there are more news to fetch for multiple category',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => feedBloc,
+        seed: () => FeedState(
+          status: FeedStatus.populated,
+          feed: {Category.top: [], Category.technology: []},
+        ),
+        act: (bloc) => bloc.add(FeedResumed()),
+        expect: () => <FeedState>[
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+              Category.technology: [],
+            },
+            hasMoreNews: {
+              Category.top: true,
+            },
+          ),
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+              Category.technology: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.top: true,
+              Category.technology: true,
+            },
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => newsRepository.getFeed(category: Category.top, offset: 0),
+          ).called(1);
+          verify(
+            () => newsRepository.getFeed(
+              category: Category.technology,
+              offset: 0,
+            ),
+          ).called(1);
+        },
+      );
+    });
   });
 }

@@ -7,7 +7,13 @@ concurrency:
 on: [push, pull_request]
 
 jobs:
-  spell-check:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
-    with:
-      includes: "**/*.md"
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: zwaldowski/cspell-action@v1
+        with:
+          paths: "**/*.{md,dart}"
+          config: .vscode/cspell.json
+          exclude: ".gitignore"

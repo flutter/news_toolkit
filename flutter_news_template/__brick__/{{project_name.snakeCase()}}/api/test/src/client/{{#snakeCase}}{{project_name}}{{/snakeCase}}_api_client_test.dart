@@ -116,7 +116,7 @@ void main() {
           () => httpClient.get(
             any(
               that: isAUriHaving(
-                authority: 'google-news-template-api-q66trdlzja-uc.a.run.app',
+                authority: '{{api_url}}',
               ),
             ),
             headers: any(named: 'headers', that: areJsonHeaders()),
