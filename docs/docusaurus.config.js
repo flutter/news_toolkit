@@ -13,7 +13,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'VGVentures',
+  organizationName: 'flutter',
   projectName: 'flutter-news-toolkit-docs',
 
   // Even if you don't use internalization, you can use this field to set useful
