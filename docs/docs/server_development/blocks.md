@@ -9,7 +9,7 @@ description: Learn how to work with blocks to customize your news content.
 
 _Note: `blocks` are distinct from [`blocs`](https://bloclibrary.dev/#/), which are also used in this application._
 
-Blocks are the data format used by Google News Template to ensure that a variety of news content can be displayed in a consistent manner. The client application expects to receive data from the server in a block-based format. For example, the `Article` model class contains a list of blocks.
+Blocks are the data format used by the Flutter News Template to ensure that a variety of news content can be displayed in a consistent manner. The client application expects to receive data from the server in a block-based format. For example, the `Article` model class contains a list of blocks.
 
 These blocks contain the data which the app requires to render a corresponding widget.
 

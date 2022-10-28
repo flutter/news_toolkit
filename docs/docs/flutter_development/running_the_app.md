@@ -25,5 +25,5 @@ flutter run --flavor production --target lib/main_production.dart
 ```
 
 :::note
-Google News Template works on iOS and Android.
+Your app (generated from the Flutter News Template) works on iOS and Android.
 :::

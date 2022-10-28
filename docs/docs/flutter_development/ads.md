@@ -9,7 +9,7 @@ description: Learn how to configure ads in your Flutter news application.
 
 ### Banner Ads
 
-In the sample Google News Project, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
+In the Flutter News Example, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
 
 To introduce banner ads into your app, you can either:
 
