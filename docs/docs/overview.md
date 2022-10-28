@@ -54,6 +54,7 @@ dart pub global activate dart_frog_cli
 ### Template Configuration
 
 The Flutter News Template supports the following decision points:
+
 - Application name (e.g. News Template)
 - Application package name (e.g. news_template)
 - Desired Flutter version
