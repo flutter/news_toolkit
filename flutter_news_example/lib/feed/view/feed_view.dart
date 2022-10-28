@@ -13,9 +13,7 @@ class FeedView extends StatelessWidget {
         context.select((CategoriesBloc bloc) => bloc.state.categories) ?? [];
 
     if (categories.isEmpty) {
-      return const SizedBox(
-        key: Key('feedView_empty'),
-      );
+      return const SizedBox(key: Key('feedView_empty'));
     }
 
     return FeedViewPopulated(categories: categories);
@@ -60,26 +58,17 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      WidgetsFlutterBinding.ensureInitialized();
-      for (final category in widget.categories) {
-        final categoryFeedLength =
-            (context.read<FeedBloc>().state.feed[category] ?? []).length;
-        if (categoryFeedLength > 0) {
-          context.read<FeedBloc>().add(FeedResumed(category: category));
-        }
-      }
+      context.read<FeedBloc>().add(const FeedResumed());
     }
   }
 
   @override
   void dispose() {
-    _controllers.forEach(
-      (_, controller) => controller.dispose(),
-    );
+    WidgetsBinding.instance.removeObserver(this);
+    _controllers.forEach((_, controller) => controller.dispose());
     _tabController
       ..removeListener(_onTabChanged)
       ..dispose();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

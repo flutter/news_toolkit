@@ -23,3 +23,10 @@ class FeedRefreshRequested extends FeedEvent {
   @override
   List<Object> get props => [category];
 }
+
+class FeedResumed extends FeedEvent {
+  const FeedResumed();
+
+  @override
+  List<Object> get props => [];
+}

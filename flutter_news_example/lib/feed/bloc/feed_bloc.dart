@@ -21,6 +21,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       _onFeedRefreshRequested,
       transformer: droppable(),
     );
+    on<FeedResumed>(_onFeedResumed, transformer: droppable());
   }
 
   final NewsRepository _newsRepository;
@@ -30,10 +31,26 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     Emitter<FeedState> emit,
   ) async {
     emit(state.copyWith(status: FeedStatus.loading));
-    try {
-      final category = event.category;
-      final categoryFeed = state.feed[category] ?? [];
+    return _updateFeed(category: event.category, emit: emit);
+  }
 
+  FutureOr<void> _onFeedResumed(
+    FeedResumed event,
+    Emitter<FeedState> emit,
+  ) async {
+    await Future.wait(
+      state.feed.keys.map(
+        (category) => _updateFeed(category: category, emit: emit),
+      ),
+    );
+  }
+
+  Future<void> _updateFeed({
+    required Category category,
+    required Emitter<FeedState> emit,
+  }) async {
+    try {
+      final categoryFeed = state.feed[category] ?? [];
       final response = await _newsRepository.getFeed(
         category: category,
         offset: categoryFeed.length,
@@ -52,29 +69,6 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
             ..addAll({category: updatedCategoryFeed}),
           hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
             ..addAll({category: hasMoreNewsForCategory}),
-        ),
-      );
-    } catch (error, stackTrace) {
-      emit(state.copyWith(status: FeedStatus.failure));
-      addError(error, stackTrace);
-    }
-  }
-
-  FutureOr<void> _onFeedResumed(
-    FeedResumed event,
-    Emitter<FeedState> emit,
-  ) async {
-    emit(state.copyWith(status: FeedStatus.loading));
-    try {
-      final category = event.category;
-
-      emit(
-        state.copyWith(
-          status: FeedStatus.initial,
-          feed: Map<Category, List<NewsBlock>>.from(state.feed)
-            ..addAll({category: []}),
-          hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
-            ..addAll({category: true}),
         ),
       );
     } catch (error, stackTrace) {
