@@ -118,8 +118,7 @@ void main() {
     });
 
     testWidgets(
-      'adds FeedRefreshRequested for populated categories to FeedBloc '
-      'each time the app is resumed',
+      'adds FeedResumed when the app is resumed',
       (tester) async {
         await tester.pumpApp(
           MultiBlocProvider(
@@ -131,18 +130,12 @@ void main() {
           ),
         );
 
-        tester.binding
-            .handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+        tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        );
 
         verify(
-          () => feedBloc.add(
-            FeedResumed(category: Category.top),
-          ),
-        ).called(1);
-        verify(
-          () => feedBloc.add(
-            FeedResumed(category: Category.technology),
-          ),
+          () => feedBloc.add(FeedResumed()),
         ).called(1);
       },
     );
