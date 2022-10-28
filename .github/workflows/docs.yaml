@@ -7,13 +7,13 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "flutter_news_example/docs/**"
+      - "docs/**"
       - ".github/workflows/docs.yaml"
     branches:
       - main
   push:
     paths:
-      - "flutter_news_example/docs/**"
+      - "docs/**"
       - ".github/workflows/docs.yaml"
     branches:
       - main
