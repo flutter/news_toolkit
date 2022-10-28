@@ -11,6 +11,12 @@ on:
       - ".github/workflows/docs.yaml"
     branches:
       - main
+  push:
+    paths:
+      - "flutter_news_example/docs/**"
+      - ".github/workflows/docs.yaml"
+    branches:
+      - main
 
 jobs:
   build:
