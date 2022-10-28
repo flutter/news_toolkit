@@ -66,7 +66,7 @@ The Flutter News Template supports the following decision points:
 - Facebook configuration (App ID, client token and display name; used to login with Facebook)
 - Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
 
-Before generating your project, follow the documentation in the [Social Authentication Setup](https://flutter.github.io/news_toolkit/project_configuration/social_authentication), [Firebase Setup](https://flutter.github.io/news_toolkit/project_configuration/firebase), and [Ads Setup](https://flutter.github.io/news_toolkit/project_configuration/ads) sections. If you leave these fields blank, you can manually set your app IDs with the generated codebase.
+Before generating your project, follow the documentation in the [Social Authentication Setup](/project_configuration/social_authentication), [Firebase Setup](/project_configuration/firebase), and [Ads Setup](/project_configuration/ads) sections. If you leave these fields blank, you can manually set your app IDs with the generated codebase.
 
 ### Generate your project
 
