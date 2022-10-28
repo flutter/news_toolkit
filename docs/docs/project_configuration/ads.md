@@ -19,7 +19,7 @@ You may want to remove advertisements from your app. This section discusses how 
 
 ### Removing Banner Ads
 
-The `static_news_data.dart` file which your app displays contains banner ads by default. As you [implement your data source](#implementing-an-api-data-source), do not insert `AdBlocks` into the data returned from your data source. This will ensure that your app will not display `BannerAds`.
+The `static_news_data.dart` file which your app displays contains banner ads by default. As you [implement your data source](server_development/connecting_your_data_source), do not insert `AdBlocks` into the data returned from your data source. This will ensure that your app will not display `BannerAds`.
 
 ### Removing Interstitial Ads
 

@@ -9,12 +9,12 @@ description: Learn how to configure ads in your Flutter news application.
 
 ### Banner Ads
 
-In the Flutter News Example, banner ads are introduced as [blocks](#working-with-blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
+In the Flutter News Example, banner ads are introduced as [blocks](/server_development/blocks) served from static news data. The static news data contains instances of `BannerAdBlock` which the app renders as ads inside the feed and articles.
 
 To introduce banner ads into your app, you can either:
 
 1.  Insert them locally at the client level or
-2.  Insert them into the data served by your [data source](#implementing-an-api-data-source).
+2.  Insert them into the data served by your [data source](/server_development/connecting_your_data_source).
 
 _Inserting Banner Ads Locally_
 
@@ -28,7 +28,7 @@ _Inserting Banner Ads at the Data Source_
 
 Inserting banner ads into content served by your backend API is the same as local insertion, except you can only insert a `BannerAdBlock` into block feeds (such as the article or category feed) and you are unable to prompt a call to build a `BannerAd` elsewhere in the app out-of-the-box.
 
-To insert a banner ad on the server, change the behavior of your [custom data source](#implementing-an-api-data-source). Methods such as `getFeed()` and `getArticle()` should insert a `BannerAdBlock` into the blocks returned from the server at your desired positions.
+To insert a banner ad on the server, change the behavior of your [custom data source](/server_development/connecting_your_data_source#creating-a-new-data-source). Methods such as `getFeed()` and `getArticle()` should insert a `BannerAdBlock` into the blocks returned from the server at your desired positions.
 
 Be sure to update the `totalBlocks` metadata returned by the server to reflect the total number of blocks served to the client. This ensures that the client renders all content properly.
 
