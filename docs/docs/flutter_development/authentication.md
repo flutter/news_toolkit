@@ -7,7 +7,7 @@ description: Learn how to configure authentication in your Flutter news applicat
 
 Currently, this project supports multiple ways of authentication such as `email`, `google`, `apple`, `twitter` and `facebook` login.
 
-The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/VGVentures/google_news_template/blob/e25b4905604f29f6a2b165b7381e696f4ebc22ee/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
+The current implementation of the login functionality can be found in [FirebaseAuthenticationClient](https://github.com/flutter/news_toolkit/blob/main/flutter_news_example/packages/authentication_client/firebase_authentication_client/lib/src/firebase_authentication_client.dart#L20) inside the `packages/authentication_client` package.
 
 The package depends on the third-party packages that expose authentication methods such as:
 
