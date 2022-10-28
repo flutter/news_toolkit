@@ -51,6 +51,23 @@ dart pub global activate dart_frog_cli
 [Dart Frog][dart_frog_link] is fast, minimalistic backend framework for Dart.
 :::
 
+### Template Configuration
+
+The Flutter News Template supports the following decision points:
+- Application name (e.g. News Template)
+- Application package name (e.g. news_template)
+- Desired Flutter version
+- Application bundle identifier (e.g. com.news.template)
+- Code Owners
+- Flavors, where each flavor includes a different:
+  - Application suffix (appended to the application bundle identifier for a given flavor)
+  - Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
+- Twitter configuration (API key and API secret; used to login with Twitter)
+- Facebook configuration (App ID, client token and display name; used to login with Facebook)
+- Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
+
+Before generating your project, follow the documentation in the [Social Authentication Setup](https://flutter.github.io/news_toolkit/project_configuration/social_authentication), [Firebase Setup](https://flutter.github.io/news_toolkit/project_configuration/firebase), and [Ads Setup](https://flutter.github.io/news_toolkit/project_configuration/ads) sections. If you leave these fields blank, you can manually set your app IDs with the generated codebase.
+
 ### Generate your project
 
 To generate your app using Mason, follow the steps below:
