@@ -1,0 +1,9 @@
+{
+  "label": "Server Development",
+  "position": 5,
+  "link": {
+    "title": "Server Development",
+    "type": "generated-index",
+    "description": "How to start development on your news API server."
+  }
+}
