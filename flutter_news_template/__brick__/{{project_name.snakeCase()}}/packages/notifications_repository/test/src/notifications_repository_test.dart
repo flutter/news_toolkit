@@ -2,8 +2,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:async';
-import 'package:flutter_test/flutter_test.dart';
+
 import 'package:{{project_name.snakeCase()}}_api/client.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notifications_client/notifications_client.dart';
 import 'package:notifications_repository/notifications_repository.dart';

@@ -23,8 +23,8 @@ void main() {
         if (call.method == 'checkPermissionStatus') {
           return PermissionStatus.granted.index;
         } else if (call.method == 'requestPermissions') {
-          return <int, int>{
-            for (final int key in call.arguments)
+          return <dynamic, dynamic>{
+            for (final key in call.arguments as List<dynamic>)
               key: PermissionStatus.granted.index,
           };
         } else if (call.method == 'openAppSettings') {

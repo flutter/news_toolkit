@@ -1,22 +1,16 @@
-import 'dart:async';
-
+import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockStorage extends Mock implements Storage {}
 
-Storage createMockStorage() {
-  final storage = MockStorage();
-  when(() => storage.write(any(), any<dynamic>())).thenAnswer((_) async {});
-  return storage;
-}
+late Storage hydratedStorage;
 
-FutureOr<T> mockHydratedStorage<T>(
-  FutureOr<T> Function() body, {
-  Storage? storage,
-}) {
-  return HydratedBlocOverrides.runZoned(
-    body,
-    createStorage: () => storage ?? createMockStorage(),
-  );
+void initMockHydratedStorage() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  hydratedStorage = MockStorage();
+  when(
+    () => hydratedStorage.write(any(), any<dynamic>()),
+  ).thenAnswer((_) async {});
+  HydratedBloc.storage = hydratedStorage;
 }

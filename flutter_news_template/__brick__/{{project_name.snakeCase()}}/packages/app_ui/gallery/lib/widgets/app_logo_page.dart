@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppLogoPage extends StatelessWidget {
   const AppLogoPage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const AppLogoPage());
   }
 

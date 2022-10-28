@@ -8,7 +8,7 @@ import 'package:news_repository/news_repository.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static Page page() => const MaterialPage<void>(child: HomePage());
+  static Page<void> page() => const MaterialPage<void>(child: HomePage());
 
   @override
   Widget build(BuildContext context) {

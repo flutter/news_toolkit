@@ -5,12 +5,12 @@ import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -33,6 +33,8 @@ void main() {
   group('ArticlePage', () {
     late FullScreenAdsBloc fullScreenAdsBloc;
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() {
       fullScreenAdsBloc = MockFullScreenAdsBloc();
       whenListen(
@@ -43,30 +45,26 @@ void main() {
     });
 
     test('has a route', () {
-      expect(ArticlePage.route(id: 'id'), isA<MaterialPageRoute>());
+      expect(ArticlePage.route(id: 'id'), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders ArticleView', (tester) async {
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          fullScreenAdsBloc: fullScreenAdsBloc,
-          ArticlePage(
-            id: 'id',
-            isVideoArticle: false,
-          ),
+      await tester.pumpApp(
+        fullScreenAdsBloc: fullScreenAdsBloc,
+        ArticlePage(
+          id: 'id',
+          isVideoArticle: false,
         ),
       );
       expect(find.byType(ArticleView), findsOneWidget);
     });
 
     testWidgets('provides ArticleBloc', (tester) async {
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          fullScreenAdsBloc: fullScreenAdsBloc,
-          ArticlePage(
-            id: 'id',
-            isVideoArticle: false,
-          ),
+      await tester.pumpApp(
+        fullScreenAdsBloc: fullScreenAdsBloc,
+        ArticlePage(
+          id: 'id',
+          isVideoArticle: false,
         ),
       );
       final BuildContext viewContext = tester.element(find.byType(ArticleView));
@@ -82,13 +80,11 @@ void main() {
       });
 
       testWidgets('renders AppBar', (tester) async {
-        await mockHydratedStorage(
-          () => tester.pumpApp(
-            fullScreenAdsBloc: fullScreenAdsBloc,
-            BlocProvider.value(
-              value: articleBloc,
-              child: ArticleView(isVideoArticle: false),
-            ),
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(isVideoArticle: false),
           ),
         );
         expect(find.byType(AppBar), findsOneWidget);

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 void main() {

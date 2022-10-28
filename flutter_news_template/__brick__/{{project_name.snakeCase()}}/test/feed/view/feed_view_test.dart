@@ -6,9 +6,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide Spacer;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
@@ -116,6 +116,29 @@ void main() {
       );
       expect(find.byKey(Key('feedView_empty')), findsNothing);
     });
+
+    testWidgets(
+      'adds FeedResumed when the app is resumed',
+      (tester) async {
+        await tester.pumpApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: categoriesBloc),
+              BlocProvider.value(value: feedBloc),
+            ],
+            child: FeedView(),
+          ),
+        );
+
+        tester.binding.handleAppLifecycleStateChanged(
+          AppLifecycleState.resumed,
+        );
+
+        verify(
+          () => feedBloc.add(FeedResumed()),
+        ).called(1);
+      },
+    );
 
     group('FeedViewPopulated', () {
       testWidgets('renders CategoryTabBar with CategoryTab for each category',

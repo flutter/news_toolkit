@@ -2,9 +2,9 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
@@ -14,7 +14,7 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 void main() {
   group('ManageSubscriptionPage', () {
     test('has a route', () {
-      expect(ManageSubscriptionPage.route(), isA<MaterialPageRoute>());
+      expect(ManageSubscriptionPage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders ManageSubscriptionView', (tester) async {

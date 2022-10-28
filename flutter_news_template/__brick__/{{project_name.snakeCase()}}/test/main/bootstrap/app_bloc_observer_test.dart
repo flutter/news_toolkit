@@ -2,8 +2,8 @@ import 'package:analytics_repository/analytics_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/main/bootstrap/app_bloc_observer.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
@@ -19,7 +19,7 @@ class FakeAnalyticsEvent extends Fake implements AnalyticsEvent {}
 
 void main() {
   group('AppBlocObserver', () {
-    late Bloc bloc;
+    late Bloc<dynamic, dynamic> bloc;
     late AnalyticsRepository analyticsRepository;
     late AppBlocObserver observer;
 

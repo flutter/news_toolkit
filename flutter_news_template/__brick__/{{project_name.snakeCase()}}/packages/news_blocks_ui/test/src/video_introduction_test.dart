@@ -22,7 +22,7 @@ void main() {
     setUpAll(setUpTolerantComparator);
 
     testWidgets('renders correctly', (tester) async {
-      final _technologyVideoIntroduction = VideoIntroductionBlock(
+      final technologyVideoIntroduction = VideoIntroductionBlock(
         category: category,
         videoUrl: videoUrl,
         title: title,
@@ -33,7 +33,7 @@ void main() {
           SingleChildScrollView(
             child: Column(
               children: [
-                VideoIntroduction(block: _technologyVideoIntroduction),
+                VideoIntroduction(block: technologyVideoIntroduction),
               ],
             ),
           ),

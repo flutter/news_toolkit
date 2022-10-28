@@ -4,8 +4,8 @@
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:clock/clock.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:share_launcher/share_launcher.dart';
@@ -55,16 +55,16 @@ void main() {
       totalCount: 2,
     );
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() async {
       articleRepository = MockArticleRepository();
       shareLauncher = MockShareLauncher();
 
-      articleBloc = await mockHydratedStorage(
-        () => ArticleBloc(
-          articleId: articleId,
-          shareLauncher: shareLauncher,
-          articleRepository: articleRepository,
-        ),
+      articleBloc = ArticleBloc(
+        articleId: articleId,
+        shareLauncher: shareLauncher,
+        articleRepository: articleRepository,
       );
 
       when(
@@ -270,46 +270,44 @@ void main() {
           'more than a day ago', () async {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 8, 0, 0, 1);
-        await mockHydratedStorage(
-          () => withClock(Clock.fixed(now), () async {
-            await testBloc<ArticleBloc, ArticleState>(
-              setUp: () => when(articleRepository.fetchArticleViews)
-                  .thenAnswer((_) async => ArticleViews(3, resetAt)),
-              build: () => ArticleBloc(
-                articleId: articleId,
-                articleRepository: articleRepository,
-                shareLauncher: shareLauncher,
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(3, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              articleRepository: articleRepository,
+              shareLauncher: shareLauncher,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                title: articleResponse.title,
+                content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
+                uri: articleResponse.url,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: false,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
-              act: (bloc) => bloc.add(ArticleRequested()),
-              expect: () => <ArticleState>[
-                ArticleState(status: ArticleStatus.loading),
-                ArticleState(
-                  status: ArticleStatus.populated,
-                  title: articleResponse.title,
-                  content: articleResponse.content,
-                  contentTotalCount: articleResponse.totalCount,
-                  uri: articleResponse.url,
-                  hasMoreContent: true,
-                  hasReachedArticleViewsLimit: false,
-                  isPreview: articleResponse.isPreview,
-                  isPremium: articleResponse.isPremium,
+            ],
+            verify: (bloc) {
+              verify(articleRepository.resetArticleViews).called(1);
+              verify(articleRepository.incrementArticleViews).called(1);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: false,
                 ),
-              ],
-              verify: (bloc) {
-                verify(articleRepository.resetArticleViews).called(1);
-                verify(articleRepository.incrementArticleViews).called(1);
-                verify(
-                  () => articleRepository.getArticle(
-                    id: articleId,
-                    offset: any(named: 'offset'),
-                    limit: any(named: 'limit'),
-                    preview: false,
-                  ),
-                ).called(1);
-              },
-            );
-          }),
-        );
+              ).called(1);
+            },
+          );
+        });
       });
 
       test(
@@ -320,46 +318,44 @@ void main() {
           'less than a day ago', () async {
         final resetAt = DateTime(2022, 6, 7, 1, 0, 0);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
-        await mockHydratedStorage(
-          () => withClock(Clock.fixed(now), () async {
-            await testBloc<ArticleBloc, ArticleState>(
-              setUp: () => when(articleRepository.fetchArticleViews)
-                  .thenAnswer((_) async => ArticleViews(2, resetAt)),
-              build: () => ArticleBloc(
-                articleId: articleId,
-                shareLauncher: shareLauncher,
-                articleRepository: articleRepository,
+        await withClock(Clock.fixed(now), () async {
+          await testBloc<ArticleBloc, ArticleState>(
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(2, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              shareLauncher: shareLauncher,
+              articleRepository: articleRepository,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                title: articleResponse.title,
+                content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
+                uri: articleResponse.url,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: false,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
-              act: (bloc) => bloc.add(ArticleRequested()),
-              expect: () => <ArticleState>[
-                ArticleState(status: ArticleStatus.loading),
-                ArticleState(
-                  status: ArticleStatus.populated,
-                  title: articleResponse.title,
-                  content: articleResponse.content,
-                  contentTotalCount: articleResponse.totalCount,
-                  uri: articleResponse.url,
-                  hasMoreContent: true,
-                  hasReachedArticleViewsLimit: false,
-                  isPreview: articleResponse.isPreview,
-                  isPremium: articleResponse.isPremium,
+            ],
+            verify: (bloc) {
+              verify(articleRepository.incrementArticleViews).called(1);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: false,
                 ),
-              ],
-              verify: (bloc) {
-                verify(articleRepository.incrementArticleViews).called(1);
-                verify(
-                  () => articleRepository.getArticle(
-                    id: articleId,
-                    offset: any(named: 'offset'),
-                    limit: any(named: 'limit'),
-                    preview: false,
-                  ),
-                ).called(1);
-                verifyNever(() => articleRepository.resetArticleViews());
-              },
-            );
-          }),
-        );
+              ).called(1);
+              verifyNever(() => articleRepository.resetArticleViews());
+            },
+          );
+        });
       });
 
       test(
@@ -371,47 +367,45 @@ void main() {
         final resetAt = DateTime(2022, 6, 7);
         final now = DateTime(2022, 6, 7, 12, 0, 0);
 
-        await mockHydratedStorage(
-          () => withClock(Clock.fixed(now), () {
-            testBloc<ArticleBloc, ArticleState>(
-              seed: () => ArticleState(status: ArticleStatus.populated),
-              setUp: () => when(articleRepository.fetchArticleViews)
-                  .thenAnswer((_) async => ArticleViews(4, resetAt)),
-              build: () => ArticleBloc(
-                articleId: articleId,
-                articleRepository: articleRepository,
-                shareLauncher: shareLauncher,
+        withClock(Clock.fixed(now), () {
+          testBloc<ArticleBloc, ArticleState>(
+            seed: () => ArticleState(status: ArticleStatus.populated),
+            setUp: () => when(articleRepository.fetchArticleViews)
+                .thenAnswer((_) async => ArticleViews(4, resetAt)),
+            build: () => ArticleBloc(
+              articleId: articleId,
+              articleRepository: articleRepository,
+              shareLauncher: shareLauncher,
+            ),
+            act: (bloc) => bloc.add(ArticleRequested()),
+            expect: () => <ArticleState>[
+              ArticleState(status: ArticleStatus.loading),
+              ArticleState(
+                status: ArticleStatus.populated,
+                title: articleResponse.title,
+                content: articleResponse.content,
+                contentTotalCount: articleResponse.totalCount,
+                uri: articleResponse.url,
+                hasMoreContent: true,
+                hasReachedArticleViewsLimit: true,
+                isPreview: articleResponse.isPreview,
+                isPremium: articleResponse.isPremium,
               ),
-              act: (bloc) => bloc.add(ArticleRequested()),
-              expect: () => <ArticleState>[
-                ArticleState(status: ArticleStatus.loading),
-                ArticleState(
-                  status: ArticleStatus.populated,
-                  title: articleResponse.title,
-                  content: articleResponse.content,
-                  contentTotalCount: articleResponse.totalCount,
-                  uri: articleResponse.url,
-                  hasMoreContent: true,
-                  hasReachedArticleViewsLimit: true,
-                  isPreview: articleResponse.isPreview,
-                  isPremium: articleResponse.isPremium,
+            ],
+            verify: (bloc) {
+              verifyNever(articleRepository.resetArticleViews);
+              verifyNever(articleRepository.incrementArticleViews);
+              verify(
+                () => articleRepository.getArticle(
+                  id: articleId,
+                  offset: any(named: 'offset'),
+                  limit: any(named: 'limit'),
+                  preview: true,
                 ),
-              ],
-              verify: (bloc) {
-                verifyNever(articleRepository.resetArticleViews);
-                verifyNever(articleRepository.incrementArticleViews);
-                verify(
-                  () => articleRepository.getArticle(
-                    id: articleId,
-                    offset: any(named: 'offset'),
-                    limit: any(named: 'limit'),
-                    preview: true,
-                  ),
-                ).called(1);
-              },
-            );
-          }),
-        );
+              ).called(1);
+            },
+          );
+        });
       });
     });
 

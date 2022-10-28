@@ -89,6 +89,12 @@ final _blackList = <String>[
     'workflows',
     'generate_flutter_news_template.yaml',
   ),
+  path.join(
+    _targetPath,
+    '.github',
+    'workflows',
+    'deploy_api.yaml',
+  ),
   path.join(_targetPath, 'lib', 'main', 'main_production.dart'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'development.xml'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'production.xml'),
@@ -264,7 +270,7 @@ void main() async {
         file.writeAsStringSync(
           file.readAsStringSync().replaceFirst(
                 // cspell:disable-next-line
-                '@felangel @AnnaPS @simpson-peter',
+                '@felangel @AnnaPS @simpson-peter @kaiceyd @scarletteliza',
                 '{{code_owners}}',
               ),
         );

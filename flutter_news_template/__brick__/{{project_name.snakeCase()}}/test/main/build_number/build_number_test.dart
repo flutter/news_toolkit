@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/main/build_number.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('buildNumber', () {

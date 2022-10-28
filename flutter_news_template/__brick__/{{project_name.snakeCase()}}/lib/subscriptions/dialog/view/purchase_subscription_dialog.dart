@@ -103,14 +103,19 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             );
                           } else {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.subscriptions.length,
-                              itemBuilder: (context, index) => SubscriptionCard(
-                                key: ValueKey(state.subscriptions[index]),
-                                subscription: state.subscriptions[index],
-                                isExpanded: index == 0,
-                              ),
+                            return CustomScrollView(
+                              slivers: <SliverList>[
+                                SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (context, index) => SubscriptionCard(
+                                      key: ValueKey(state.subscriptions[index]),
+                                      subscription: state.subscriptions[index],
+                                      isExpanded: index == 0,
+                                    ),
+                                    childCount: state.subscriptions.length,
+                                  ),
+                                ),
+                              ],
                             );
                           }
                         },

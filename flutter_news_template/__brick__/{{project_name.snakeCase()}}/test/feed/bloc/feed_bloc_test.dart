@@ -2,8 +2,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
@@ -42,11 +42,11 @@ void main() {
       },
     );
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() async {
       newsRepository = MockNewsRepository();
-      feedBloc = await mockHydratedStorage(
-        () => FeedBloc(newsRepository: newsRepository),
-      );
+      feedBloc = FeedBloc(newsRepository: newsRepository);
     });
 
     test('can be instantiated', () {
@@ -196,6 +196,99 @@ void main() {
           FeedState(status: FeedStatus.loading),
           FeedState(status: FeedStatus.failure),
         ],
+      );
+    });
+
+    group('FeedResumed', () {
+      blocTest<FeedBloc, FeedState>(
+        'emits [populated] '
+        'when getFeed succeeds '
+        'and there are more news to fetch for a single category',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => feedBloc,
+        seed: () => FeedState(
+          status: FeedStatus.populated,
+          feed: {Category.top: []},
+        ),
+        act: (bloc) => bloc.add(FeedResumed()),
+        expect: () => <FeedState>[
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.top: true,
+            },
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => newsRepository.getFeed(
+              category: Category.top,
+              offset: 0,
+            ),
+          ).called(1);
+        },
+      );
+
+      blocTest<FeedBloc, FeedState>(
+        'emits [populated] '
+        'when getFeed succeeds '
+        'and there are more news to fetch for multiple category',
+        setUp: () => when(
+          () => newsRepository.getFeed(
+            category: any(named: 'category'),
+            offset: any(named: 'offset'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer((_) async => feedResponse),
+        build: () => feedBloc,
+        seed: () => FeedState(
+          status: FeedStatus.populated,
+          feed: {Category.top: [], Category.technology: []},
+        ),
+        act: (bloc) => bloc.add(FeedResumed()),
+        expect: () => <FeedState>[
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+              Category.technology: [],
+            },
+            hasMoreNews: {
+              Category.top: true,
+            },
+          ),
+          FeedState(
+            status: FeedStatus.populated,
+            feed: {
+              Category.top: feedResponse.feed,
+              Category.technology: feedResponse.feed,
+            },
+            hasMoreNews: {
+              Category.top: true,
+              Category.technology: true,
+            },
+          ),
+        ],
+        verify: (_) {
+          verify(
+            () => newsRepository.getFeed(category: Category.top, offset: 0),
+          ).called(1);
+          verify(
+            () => newsRepository.getFeed(
+              category: Category.technology,
+              offset: 0,
+            ),
+          ).called(1);
+        },
       );
     });
   });

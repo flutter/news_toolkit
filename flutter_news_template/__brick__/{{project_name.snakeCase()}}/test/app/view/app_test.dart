@@ -4,12 +4,11 @@ import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart'
-    as analytics;
+import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart' as analytics;
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
 import 'package:{{project_name.snakeCase()}}/home/home.dart';
 import 'package:{{project_name.snakeCase()}}/onboarding/onboarding.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
@@ -54,6 +53,8 @@ void main() {
     late AdsConsentClient adsConsentClient;
     late User user;
 
+    setUpAll(initMockHydratedStorage);
+
     setUp(() {
       userRepository = MockUserRepository();
       user = User.anonymous;
@@ -74,20 +75,18 @@ void main() {
     });
 
     testWidgets('renders AppView', (tester) async {
-      await mockHydratedStorage(() async {
-        await tester.pumpWidget(
-          App(
-            userRepository: userRepository,
-            newsRepository: newsRepository,
-            notificationsRepository: notificationsRepository,
-            articleRepository: articleRepository,
-            inAppPurchaseRepository: inAppPurchaseRepository,
-            analyticsRepository: analyticsRepository,
-            adsConsentClient: adsConsentClient,
-            user: user,
-          ),
-        );
-      });
+      await tester.pumpWidget(
+        App(
+          userRepository: userRepository,
+          newsRepository: newsRepository,
+          notificationsRepository: notificationsRepository,
+          articleRepository: articleRepository,
+          inAppPurchaseRepository: inAppPurchaseRepository,
+          analyticsRepository: analyticsRepository,
+          adsConsentClient: adsConsentClient,
+          user: user,
+        ),
+      );
       await tester.pump();
       expect(find.byType(AppView), findsOneWidget);
     });
@@ -119,12 +118,10 @@ void main() {
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
       when(() => appBloc.state).thenReturn(AppState.unauthenticated());
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          userRepository: userRepository,
-        ),
+      await tester.pumpApp(
+        const AppView(),
+        appBloc: appBloc,
+        userRepository: userRepository,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -134,12 +131,10 @@ void main() {
       final user = MockUser();
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
-      await mockHydratedStorage(
-        () => tester.pumpApp(
-          const AppView(),
-          appBloc: appBloc,
-          userRepository: userRepository,
-        ),
+      await tester.pumpApp(
+        const AppView(),
+        appBloc: appBloc,
+        userRepository: userRepository,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -164,13 +159,11 @@ void main() {
           initialState: AppState.unauthenticated(),
         );
 
-        await mockHydratedStorage(
-          () => tester.pumpApp(
-            const AppView(),
-            appBloc: appBloc,
-            analyticsBloc: analyticsBloc,
-            userRepository: userRepository,
-          ),
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
         );
 
         verify(
@@ -198,13 +191,11 @@ void main() {
           initialState: AppState.unauthenticated(),
         );
 
-        await mockHydratedStorage(
-          () => tester.pumpApp(
-            const AppView(),
-            appBloc: appBloc,
-            analyticsBloc: analyticsBloc,
-            userRepository: userRepository,
-          ),
+        await tester.pumpApp(
+          const AppView(),
+          appBloc: appBloc,
+          analyticsBloc: analyticsBloc,
+          userRepository: userRepository,
         );
 
         verify(

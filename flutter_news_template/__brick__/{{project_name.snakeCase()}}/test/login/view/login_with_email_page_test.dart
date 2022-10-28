@@ -1,7 +1,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:{{project_name.snakeCase()}}/login/login.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
@@ -11,7 +11,7 @@ void main() {
 
   group('LoginWithEmailPage', () {
     test('has a route', () {
-      expect(LoginWithEmailPage.route(), isA<MaterialPageRoute>());
+      expect(LoginWithEmailPage.route(), isA<MaterialPageRoute<void>>());
     });
 
     testWidgets('renders LoginWithEmailForm', (tester) async {

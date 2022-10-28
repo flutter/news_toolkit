@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppBackButtonPage extends StatefulWidget {
   const AppBackButtonPage({super.key});
 
-  static Route route() {
+  static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const AppBackButtonPage());
   }
 
