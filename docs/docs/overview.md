@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Overview
 
-The Google Flutter team and Google News initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever.
+The Google Flutter team and Google News Initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever.
 
 This template aims to reduce typical news app development time by 80%.
 
@@ -24,7 +24,7 @@ The Flutter news app template:
 In order to generate a project using the news template, you must have the [Dart SDK][dart_installation_link] installed on your machine.
 
 :::info
-Dart `">=2.17.0 <3.0.0"` is required.
+Dart `">=2.18.0 <3.0.0"` is required.
 :::
 
 **Mason**
@@ -55,20 +55,20 @@ dart pub global activate dart_frog_cli
 
 To generate your app using Mason, follow the steps below:
 
-#### Install the Google News Template
+#### Install the Flutter News Template
 
-Use the `mason add` command to install the Google News Template globally on your machine:
+Use the `mason add` command to install the Flutter News Template globally on your machine:
 
 **via https:**
 
 ```bash
-mason add -g google_news_template --git-url https://github.com/VGVentures/google_news_template --git-path google_news_template
+mason add -g flutter_news_template --git-url https://github.com/flutter/news_toolkit --git-path flutter_news_template
 ```
 
 **via ssh**
 
 ```bash
-mason add -g google_news_template --git-url git@github.com:VGVentures/google_news_template.git --git-path google_news_template
+mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-path flutter_news_template
 ```
 
 #### Generate the project
@@ -76,7 +76,7 @@ mason add -g google_news_template --git-url git@github.com:VGVentures/google_new
 Use the `mason make` command to generate your new project from the template:
 
 ```bash
-mason make google_news_template
+mason make flutter_news_template
 ```
 
 #### Run the Flutter app
