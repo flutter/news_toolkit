@@ -13,9 +13,7 @@ class FeedView extends StatelessWidget {
         context.select((CategoriesBloc bloc) => bloc.state.categories) ?? [];
 
     if (categories.isEmpty) {
-      return const SizedBox(
-        key: Key('feedView_empty'),
-      );
+      return const SizedBox(key: Key('feedView_empty'));
     }
 
     return FeedViewPopulated(categories: categories);
@@ -36,7 +34,7 @@ class FeedViewPopulated extends StatefulWidget {
 }
 
 class _FeedViewPopulatedState extends State<FeedViewPopulated>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final TabController _tabController;
 
   final Map<Category, ScrollController> _controllers =
@@ -47,6 +45,7 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(
       length: widget.categories.length,
       vsync: this,
@@ -57,10 +56,16 @@ class _FeedViewPopulatedState extends State<FeedViewPopulated>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<FeedBloc>().add(const FeedResumed());
+    }
+  }
+
+  @override
   void dispose() {
-    _controllers.forEach(
-      (_, controller) => controller.dispose(),
-    );
+    WidgetsBinding.instance.removeObserver(this);
+    _controllers.forEach((_, controller) => controller.dispose());
     _tabController
       ..removeListener(_onTabChanged)
       ..dispose();
