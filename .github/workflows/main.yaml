@@ -1,0 +1,46 @@
+name: Verify Flutter News Template
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "flutter_news_template/**"
+      - ".github/workflows/verify_flutter_news_template.yaml"
+    branches:
+      - templates
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: flutter_news_template
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.3.4
+          cache: true
+
+      - name: Install Global Dependencies
+        run: |
+          flutter pub global activate mason_cli
+          flutter pub global activate very_good_cli
+
+      - name: Install Brick
+        run: mason add -g flutter_news_template --path .
+
+      - name: Generate Project
+        run: mason make flutter_news_template -c ./template.json -o tmp
+
+      - name: Install Dependencies
+        run: very_good packages get -r tmp/flutter_news_template
+
+      - name: Run Tests
+        run: cd tmp/flutter_news_template && very_good test -x presubmit-only && cd -
