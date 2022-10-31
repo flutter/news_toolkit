@@ -5,7 +5,6 @@ import 'package:article_repository/article_repository.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/app/app.dart';
@@ -111,12 +110,7 @@ class AppView extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: const AppTheme().themeData,
       darkTheme: const AppDarkTheme().themeData,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: AuthenticatedUserListener(
         child: FlowBuilder<AppStatus>(
