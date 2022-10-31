@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/api/packages/news_blocks/**"
+      - "flutter_news_example/api/packages/news_blocks/**"
       - ".github/workflows/news_blocks.yaml"
     branches:
       - main
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
       coverage_excludes: "**/*.g.dart"
-      working_directory: google_news_project/api/packages/news_blocks
+      working_directory: flutter_news_example/api/packages/news_blocks

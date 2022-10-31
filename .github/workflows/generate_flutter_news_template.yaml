@@ -1,0 +1,42 @@
+name: generate_flutter_news_template
+
+on:
+  push:
+    paths:
+      - tool/generator/**
+      - flutter_news_example/**
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      pull-requests: write
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        working-directory: tool/generator
+        run: dart pub get
+
+      - name: Generate Template
+        run: dart ./tool/generator/main.dart
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.2.0
+        with:
+          base: templates
+          branch: chore/generate-flutter-news-template
+          commit-message: "chore: generate flutter_news_template"
+          title: "chore: generate flutter_news_template"
+          body: Please squash and merge me!
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          reviewers: felangel
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>

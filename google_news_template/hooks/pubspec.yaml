@@ -1,8 +1,0 @@
-name: _hook_
-publish_to: none
-
-environment:
-  sdk: ">=2.17.0 <3.0.0"
-
-dependencies:
-  mason: ">=0.1.0-dev <0.1.0"

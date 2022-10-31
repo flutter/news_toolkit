@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "google_news_project/packages/in_app_purchase_repository/**"
+      - "flutter_news_example/packages/in_app_purchase_repository/**"
       - ".github/workflows/in_app_purchase_repository.yaml"
     branches:
       - main
@@ -17,4 +17,4 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter: 3.3.4
-      working_directory: google_news_project/packages/in_app_purchase_repository
+      working_directory: flutter_news_example/packages/in_app_purchase_repository

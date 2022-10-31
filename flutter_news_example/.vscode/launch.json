@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch Development",
+        "request": "launch",
+        "type": "dart",
+        "program": "lib/main/main_development.dart",
+        "args": [
+          "--flavor",
+          "development",
+          "--target",
+          "lib/main/main_development.dart",
+          "--dart-define",
+          "FLAVOR_DEEP_LINK_DOMAIN=flutternewsexampledev.page.link",
+          "--dart-define",
+          "FLAVOR_DEEP_LINK_PATH=email_login",
+          "--dart-define",
+          "TWITTER_API_KEY=jxG8uZsNuHxn6oeUZm8wfWFcH",
+          "--dart-define",
+          "TWITTER_API_SECRET=eQMm0mdvraBIxh418IVGsujj6XnHwTEICLoIex7X7wMcJvEytI",
+          "--dart-define",
+          "TWITTER_REDIRECT_URI=flutter-news-example://"
+        ],
+        "presentation": {
+          "group": "1_frontend",
+          "order": 1
+        }
+      },
+      {
+        "name": "Launch Production",
+        "request": "launch",
+        "type": "dart",
+        "program": "lib/main/main_production.dart",
+        "args": [
+          "--flavor",
+          "production",
+          "--target",
+          "lib/main/main_production.dart"
+        ],
+        "presentation": {
+          "group": "1_frontend",
+          "order": 2
+        }
+      },
+      {
+        "name": "Launch UI Gallery",
+        "request": "launch",
+        "type": "dart",
+        "program": "packages/app_ui/gallery/lib/main.dart",
+        "presentation": {
+          "group": "2_gallery",
+          "order": 1
+        }
+      }
+    ]
+  }

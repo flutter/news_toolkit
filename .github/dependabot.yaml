@@ -5,107 +5,111 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+  - package-ecosystem: 'npm'
+    directory: '/docs'
+    schedule:
+      interval: 'daily'
   - package-ecosystem: "pub"
     directory: "/tool/generator"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/api"
+    directory: "/flutter_news_example/api"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/api/packages/news_blocks"
+    directory: "/flutter_news_example/api/packages/news_blocks"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/permission_client"
+    directory: "/flutter_news_example/packages/permission_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/app_ui/gallery"
+    directory: "/flutter_news_example/packages/app_ui/gallery"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/app_ui"
+    directory: "/flutter_news_example/packages/app_ui"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/authentication_client/authentication_client"
+    directory: "/flutter_news_example/packages/authentication_client/authentication_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/authentication_client/firebase_authentication_client"
+    directory: "/flutter_news_example/packages/authentication_client/firebase_authentication_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/authentication_client/token_storage"
+    directory: "/flutter_news_example/packages/authentication_client/token_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/news_repository"
+    directory: "/flutter_news_example/packages/news_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/share_launcher"
+    directory: "/flutter_news_example/packages/share_launcher"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/form_inputs"
+    directory: "/flutter_news_example/packages/form_inputs"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/storage/storage"
+    directory: "/flutter_news_example/packages/storage/storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/storage/secure_storage"
+    directory: "/flutter_news_example/packages/storage/secure_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/storage/persistent_storage"
+    directory: "/flutter_news_example/packages/storage/persistent_storage"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/ads_consent_client"
+    directory: "/flutter_news_example/packages/ads_consent_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/in_app_purchase_repository"
+    directory: "/flutter_news_example/packages/in_app_purchase_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/article_repository"
+    directory: "/flutter_news_example/packages/article_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/package_info_client"
+    directory: "/flutter_news_example/packages/package_info_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/email_launcher"
+    directory: "/flutter_news_example/packages/email_launcher"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/user_repository"
+    directory: "/flutter_news_example/packages/user_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/purchase_client"
+    directory: "/flutter_news_example/packages/purchase_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/deep_link_client"
+    directory: "/flutter_news_example/packages/deep_link_client"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/notifications_repository"
+    directory: "/flutter_news_example/packages/notifications_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/analytics_repository"
+    directory: "/flutter_news_example/packages/analytics_repository"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "/google_news_project/packages/news_blocks_ui"
+    directory: "/flutter_news_example/packages/news_blocks_ui"
     schedule:
       interval: "daily"
