@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="{{flavors.name}}" type="FlutterRunConfigurationType" factoryName="Flutter" singleton="false">
-    <option name="additionalArgs" value="--dart-define FLAVOR_DEEP_LINK_DOMAIN={{flavors.deep_link_domain}} --dart-define FLAVOR_DEEP_LINK_PATH=email_login --dart-define TWITTER_API_KEY={{flavors.twitter_api_key}} --dart-define TWITTER_API_SECRET={{flavors.twitter_api_secret}} --dart-define TWITTER_REDIRECT_URI={{project_name.paramCase()}}://" />
-    <option name="buildFlavor" value="{{flavors.name}}" />
-    <option name="filePath" value="$PROJECT_DIR$/lib/main/main_{{flavors.name}}.dart" />
-    <method v="2" />
-  </configuration>
-</component>
