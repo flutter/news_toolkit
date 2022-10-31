@@ -80,13 +80,13 @@ Use the `mason add` command to install the Flutter News Template globally on you
 **via https:**
 
 ```bash
-mason add -g flutter_news_template --git-url https://github.com/flutter/news_toolkit --git-path flutter_news_template
+mason add -g flutter_news_template --git-url https://github.com/flutter/news_toolkit --git-ref templates --git-path flutter_news_template
 ```
 
 **via ssh**
 
 ```bash
-mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-path flutter_news_template
+mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-ref templates --git-path flutter_news_template
 ```
 
 #### Generate the project
