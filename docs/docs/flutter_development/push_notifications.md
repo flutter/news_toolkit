@@ -7,7 +7,7 @@ description: Learn how to configure push notifications in your Flutter news appl
 
 ## Firebase Cloud Messaging (FCM)
 
-This template comes with [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) pre-configured. [Instructions are provided below for using OneSignal](#using-onesignal) in lieu of Firebase Cloud Messaging.
+This template comes with [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) pre-configured. [Instructions are provided below for using OneSignal](/project_configuration/notifications#onesignal) in lieu of Firebase Cloud Messaging.
 
 Out of the box, the application subscribes to supported topics corresponding to supported news categories such as `health`, `science`, `sports`, etc.
 

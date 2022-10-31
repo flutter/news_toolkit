@@ -7,7 +7,7 @@ description: Learn how to run your news API.
 
 ## Overview
 
-The Flutter News Example API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://verygoodopensource.github.io/dart_frog).
+The Flutter News Example API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://dartfrog.vgv.dev).
 
 ### Running the API Server Locally
 
