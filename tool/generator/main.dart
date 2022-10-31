@@ -246,7 +246,7 @@ void main() async {
     schedule:
       interval: "daily"
 ''', '').replaceFirst('''
-- package-ecosystem: "npm"
+  - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
