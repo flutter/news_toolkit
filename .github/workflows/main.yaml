@@ -8,7 +8,7 @@ on:
   pull_request:
     paths:
       - "flutter_news_template/**"
-      - ".github/workflows/verify_flutter_news_template.yaml"
+      - ".github/workflows/main.yaml"
     branches:
       - templates
 
