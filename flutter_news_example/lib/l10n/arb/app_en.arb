@@ -604,7 +604,7 @@
     "description": "Text displayed on the number of pages in the slideshow page.",
     "type": "text",
     "placeholders": {}
-  }
+  },
   "networkError": "A network error has occured.\nCheck your connection and try again.",
   "@networkError": {
     "description": "Text displayed when a network error occurs.",
