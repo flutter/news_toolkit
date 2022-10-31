@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {

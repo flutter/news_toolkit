@@ -5,6 +5,7 @@ import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
