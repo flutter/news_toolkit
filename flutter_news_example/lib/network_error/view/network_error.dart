@@ -14,7 +14,7 @@ class NetworkError extends StatelessWidget {
   });
 
   /// An optional callback which is invoked when the widget button is pressed.
-  final Function()? onPressed;
+  final VoidCallback? onPressed;
 
   /// Text displayed below the error icon describing the network issue.
   final String errorText;
@@ -23,8 +23,8 @@ class NetworkError extends StatelessWidget {
   final String refreshButtonText;
 
   /// Route constructor to display the widget inside a [Scaffold].
-  static Route route({
-    Function()? onPressed,
+  static Route<void> route({
+    VoidCallback? onPressed,
     required String errorText,
     required String refreshButtonText,
   }) {
