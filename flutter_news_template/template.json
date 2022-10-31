@@ -1,0 +1,34 @@
+{
+  "app_name": "Flutter News Template",
+  "project_name": "flutter_news_template",
+  "reverse_domain": "com.google.news.template",
+  "code_owners": "@githubUser",
+  "flutter_version": "3.3.4",
+  "api_url": "google-news-template-api-q66trdlzja-uc.a.run.app",
+  "flavors": [
+    {
+      "name": "development",
+      "suffix": "dev",
+      "deep_link_domain": "deep_link_domain",
+      "twitter_api_key": "twitter_api_key",
+      "twitter_api_secret": "twitter_api_secret",
+      "facebook_app_id": "facebook_app_id",
+      "facebook_client_token": "facebook_client_token",
+      "facebook_display_name": "facebook_display_name",
+      "ios_ads_app_id": "ios_ads_app_id",
+      "android_ads_app_id": "android_ads_app_id"
+    },
+    {
+      "name": "production",
+      "suffix": "",
+      "deep_link_domain": "deep_link_domain",
+      "twitter_api_key": "twitter_api_key",
+      "twitter_api_secret": "twitter_api_secret",
+      "facebook_app_id": "facebook_app_id",
+      "facebook_client_token": "facebook_client_token",
+      "facebook_display_name": "facebook_display_name",
+      "ios_ads_app_id": "ios_ads_app_id",
+      "android_ads_app_id": "android_ads_app_id"
+    }
+  ]
+}

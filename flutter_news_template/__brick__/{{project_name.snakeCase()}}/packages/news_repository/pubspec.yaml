@@ -1,0 +1,18 @@
+name: news_repository
+description: A repository that exposes news data.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  {{project_name.snakeCase()}}_api:
+    path: ../../api
+
+dev_dependencies:
+  coverage: ^1.2.0
+  mocktail: ^0.3.0
+  test: ^1.21.4
+  very_good_analysis: ^3.1.0
