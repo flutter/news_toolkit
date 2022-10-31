@@ -95,6 +95,12 @@ final _blackList = <String>[
     'workflows',
     'deploy_api.yaml',
   ),
+  path.join(
+    _targetPath,
+    '.github',
+    'workflows',
+    'docs.yaml',
+  ),
   path.join(_targetPath, 'lib', 'main', 'main_production.dart'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'development.xml'),
   path.join(_targetPath, '.idea', 'runConfigurations', 'production.xml'),
@@ -237,6 +243,11 @@ void main() async {
           file.readAsStringSync().replaceFirst('''
   - package-ecosystem: "pub"
     directory: "/tool/generator"
+    schedule:
+      interval: "daily"
+''', '').replaceFirst('''
+- package-ecosystem: "npm"
+    directory: "/docs"
     schedule:
       interval: "daily"
 ''', '').replaceAll('/flutter_news_example/', '/'),
