@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
-import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:news_repository/news_repository.dart';
 
@@ -29,21 +28,17 @@ class CategoryFeed extends StatelessWidget {
     final isFailure = context
         .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
 
-    final l10n = context.l10n;
-
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
           Navigator.of(context).push<void>(
             NetworkError.route(
-              onPressed: () {
+              onRetry: () {
                 context
                     .read<FeedBloc>()
                     .add(FeedRefreshRequested(category: category));
                 Navigator.of(context).pop();
               },
-              errorText: l10n.networkError,
-              refreshButtonText: l10n.networkErrorButton,
             ),
           );
         }
@@ -61,13 +56,11 @@ class CategoryFeed extends StatelessWidget {
             if (index == categoryFeed.length) {
               if (isFailure) {
                 return NetworkError(
-                  onPressed: () {
+                  onRetry: () {
                     context
                         .read<FeedBloc>()
                         .add(FeedRefreshRequested(category: category));
                   },
-                  errorText: context.l10n.networkError,
-                  refreshButtonText: context.l10n.networkErrorButton,
                 );
               }
               return hasMoreNews

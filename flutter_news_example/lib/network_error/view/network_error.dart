@@ -1,33 +1,19 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_example/l10n/l10n.dart';
 
 /// {@template network_error}
 /// A network error alert.
 /// {@endtemplate}
 class NetworkError extends StatelessWidget {
   /// {@macro network_error}
-  const NetworkError({
-    super.key,
-    this.onPressed,
-    required this.errorText,
-    required this.refreshButtonText,
-  });
+  const NetworkError({super.key, this.onRetry});
 
-  /// An optional callback which is invoked when the widget button is pressed.
-  final VoidCallback? onPressed;
-
-  /// Text displayed below the error icon describing the network issue.
-  final String errorText;
-
-  /// Text displayed within the refresh network button.
-  final String refreshButtonText;
+  /// An optional callback which is invoked when the retry button is pressed.
+  final VoidCallback? onRetry;
 
   /// Route constructor to display the widget inside a [Scaffold].
-  static Route<void> route({
-    VoidCallback? onPressed,
-    required String errorText,
-    required String refreshButtonText,
-  }) {
+  static Route<void> route({VoidCallback? onRetry}) {
     return PageRouteBuilder<void>(
       pageBuilder: (_, __, ___) => Scaffold(
         backgroundColor: AppColors.background,
@@ -35,11 +21,7 @@ class NetworkError extends StatelessWidget {
           leading: const AppBackButton(),
         ),
         body: Center(
-          child: NetworkError(
-            onPressed: onPressed,
-            errorText: errorText,
-            refreshButtonText: refreshButtonText,
-          ),
+          child: NetworkError(onRetry: onRetry),
         ),
       ),
     );
@@ -47,51 +29,48 @@ class NetworkError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.background,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: AppSpacing.xlg),
-          const Icon(
-            Icons.error_outline,
-            size: 100,
-            color: AppColors.mediumEmphasisSurface,
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            errorText,
-            style: UITextStyle.bodyText1.copyWith(
-              color: AppColors.mediumEmphasisSurface,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 75, maxWidth: 150),
-            child: AppButton.darkAqua(
-              onPressed: onPressed,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.refresh,
-                    size: UITextStyle.button.fontSize,
+    final l10n = context.l10n;
+    final theme = Theme.of(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: AppSpacing.xlg),
+        const Icon(
+          Icons.error_outline,
+          size: 80,
+          color: AppColors.mediumHighEmphasisSurface,
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        Text(
+          l10n.networkError,
+          style: theme.textTheme.bodyText1,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 140),
+          child: AppButton.darkAqua(
+            onPressed: onRetry,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  flex: 0,
+                  child: Icon(Icons.refresh, size: UITextStyle.button.fontSize),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Flexible(
+                  child: Text(
+                    l10n.networkErrorButton,
+                    style: UITextStyle.button,
                   ),
-                  const SizedBox(width: AppSpacing.xs),
-                  Flexible(
-                    child: Text(
-                      refreshButtonText,
-                      style: UITextStyle.button,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: AppSpacing.xlg),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSpacing.xlg),
+      ],
     );
   }
 }

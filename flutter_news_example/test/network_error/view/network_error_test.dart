@@ -11,12 +11,7 @@ void main() {
 
   group('NetworkError', () {
     testWidgets('renders correctly', (tester) async {
-      await tester.pumpApp(
-        NetworkError(
-          errorText: 'errorText',
-          refreshButtonText: 'refreshButtonText',
-        ),
-      );
+      await tester.pumpApp(NetworkError());
 
       expect(find.byType(NetworkError), findsOneWidget);
     });
@@ -28,12 +23,7 @@ void main() {
             builder: (context) {
               return ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push<void>(
-                    NetworkError.route(
-                      errorText: 'errorText',
-                      refreshButtonText: 'refreshButtonText',
-                    ),
-                  );
+                  Navigator.of(context).push<void>(NetworkError.route());
                 },
                 child: const Text(tapMeText),
               );
