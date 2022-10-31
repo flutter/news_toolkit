@@ -47,8 +47,8 @@ class NetworkError extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: AppSpacing.lg),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 140),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxlg),
           child: AppButton.darkAqua(
             onPressed: onRetry,
             child: Row(
