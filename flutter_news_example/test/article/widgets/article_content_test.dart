@@ -113,11 +113,12 @@ void main() {
         );
 
         await tester.ensureVisible(find.textContaining(networkErrorButtonText));
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
 
-        await tester.pump(Duration(milliseconds: 100));
+        await tester.pump();
         await tester.tap(find.textContaining(networkErrorButtonText));
 
-        verify(() => articleBloc.add(ArticleRequested())).called(2);
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
       });
     });
 
@@ -178,12 +179,13 @@ void main() {
         );
 
         await tester.ensureVisible(find.textContaining(networkErrorButtonText));
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
 
-        await tester.pump(Duration(milliseconds: 100));
+        await tester.pump();
         await tester.tap(find.textContaining(networkErrorButtonText).last);
-        await tester.pump(Duration(milliseconds: 100));
+        await tester.pump();
 
-        verify(() => articleBloc.add(ArticleRequested())).called(2);
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
         verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
