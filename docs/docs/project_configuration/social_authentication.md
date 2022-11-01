@@ -11,7 +11,7 @@ The Flutter News Toolkit comes pre-configured to support social authentication v
 
 ### Create an App
 
-Log in or create an account in the [Facebook Developer Portal](https://developers.facebook.com/apps/) to get started. Once logged in, create a new app to support your development project. In the same portal, enable the Facebook Login product (`Products -> Facebook Login`). Next, go to 'Roles -> Roles' and add your developer team so the team can customize the app configuration for Android and iOS. Finally, go to 'Settings -> Advanced' and enable "App authentication, native or desktop app?"
+Log in or create an account in the [Facebook Developer Portal](https://developers.facebook.com/apps/) to get started. Once logged in, create a new app to support your development project. In the same portal, enable the Facebook Login product (`Products -> Facebook Login`). Next, go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS. Finally, go to `Settings -> Advanced` and enable "App authentication, native or desktop app?"
 
 ### Link App to Firebase
 
