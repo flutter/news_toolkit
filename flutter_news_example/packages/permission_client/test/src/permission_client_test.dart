@@ -63,10 +63,6 @@ void main() {
               ),
         );
 
-    test('can be instantiated', () {
-      expect(PermissionClient(), isNotNull);
-    });
-
     group('requestNotifications', () {
       test('calls correct method', () async {
         await permissionClient.requestNotifications();
