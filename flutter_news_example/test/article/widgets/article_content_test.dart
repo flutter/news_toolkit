@@ -123,12 +123,7 @@ void main() {
 
     group('when ArticleStatus is failure and content is absent', () {
       setUpAll(() {
-        registerFallbackValue(
-          NetworkError.route(
-            errorText: 'errorText',
-            refreshButtonText: 'refreshButtonText',
-          ),
-        );
+        registerFallbackValue(NetworkError.route());
       });
 
       setUp(() {

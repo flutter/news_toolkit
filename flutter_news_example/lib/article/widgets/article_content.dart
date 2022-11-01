@@ -22,8 +22,6 @@ class ArticleContent extends StatelessWidget {
       (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
     );
 
-    final l10n = context.l10n;
-
     if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
         key: Key('articleContent_empty_loaderItem'),
@@ -36,12 +34,10 @@ class ArticleContent extends StatelessWidget {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
             Navigator.of(context).push<void>(
               NetworkError.route(
-                onPressed: () {
+                onRetry: () {
                   context.read<ArticleBloc>().add(const ArticleRequested());
                   Navigator.of(context).pop();
                 },
-                errorText: l10n.networkError,
-                refreshButtonText: l10n.networkErrorButton,
               ),
             );
           } else if (state.status == ArticleStatus.shareFailure) {
@@ -58,13 +54,11 @@ class ArticleContent extends StatelessWidget {
                 if (index == content.length) {
                   if (isFailure) {
                     return NetworkError(
-                      onPressed: () {
+                      onRetry: () {
                         context
                             .read<ArticleBloc>()
                             .add(const ArticleRequested());
                       },
-                      errorText: l10n.networkError,
-                      refreshButtonText: l10n.networkErrorButton,
                     );
                   }
                   return hasMoreContent

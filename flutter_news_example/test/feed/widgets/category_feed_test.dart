@@ -113,12 +113,7 @@ void main() {
     group('when FeedStatus is failure and feed is unpopulated', () {
       setUpAll(() {
         registerFallbackValue(Category.top);
-        registerFallbackValue(
-          NetworkError.route(
-            errorText: 'errorText',
-            refreshButtonText: 'refreshButtonText',
-          ),
-        );
+        registerFallbackValue(NetworkError.route());
       });
 
       setUp(() {
