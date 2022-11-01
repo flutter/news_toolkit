@@ -5,6 +5,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
+import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -12,6 +13,10 @@ import 'package:news_blocks/news_blocks.dart';
 import '../../helpers/helpers.dart';
 
 class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+const networkErrorButtonText = 'Try Again';
 
 void main() {
   late FeedBloc feedBloc;
@@ -33,7 +38,11 @@ void main() {
   });
 
   group('CategoryFeed', () {
-    group('when FeedStatus is failure', () {
+    group('when FeedStatus is failure and feed is populated', () {
+      setUpAll(() {
+        registerFallbackValue(Category.top);
+      });
+
       setUp(() {
         whenListen(
           feedBloc,
@@ -44,7 +53,7 @@ void main() {
         );
       });
 
-      testWidgets('shows SnackBar with error message', (tester) async {
+      testWidgets('shows NetworkErrorAlert', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
@@ -53,9 +62,26 @@ void main() {
         );
 
         expect(
-          find.byKey(const Key('categoryFeed_failure_snackBar')),
+          find.byType(NetworkError),
           findsOneWidget,
         );
+      });
+
+      testWidgets('requests feed refresh on NetworkErrorAlert press',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
+
+        await tester.ensureVisible(find.text(networkErrorButtonText));
+
+        await tester.tap(find.textContaining(networkErrorButtonText));
+
+        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
+            .called(1);
       });
 
       testWidgets('shows CategoryFeedItem for each feed block', (tester) async {
@@ -81,6 +107,69 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+    });
+
+    group('when FeedStatus is failure and feed is unpopulated', () {
+      setUpAll(() {
+        registerFallbackValue(Category.top);
+        registerFallbackValue(NetworkError.route());
+      });
+
+      setUp(() {
+        whenListen(
+          feedBloc,
+          Stream.fromIterable([
+            FeedState.initial(),
+            FeedState(feed: {}, status: FeedStatus.failure),
+          ]),
+        );
+      });
+
+      testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        expect(
+          find.ancestor(
+            of: find.byType(NetworkError),
+            matching: find.byType(Scaffold),
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('requests feed refresh on NetworkErrorAlert press',
+          (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        await tester.ensureVisible(find.text(networkErrorButtonText));
+
+        await tester.pump(Duration(seconds: 1));
+        await tester.tap(find.textContaining(networkErrorButtonText));
+
+        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
+            .called(1);
+        verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
 
