@@ -9,7 +9,7 @@ The Google Flutter team and Google News Initiative have co-sponsored the develop
 
 This template aims to **reduce the type to develop a typical news app by 80%**.
 
-The Flutter news app template:
+The Flutter News Toolkit:
 
 - Contains common news app UI workflows and core features built with Flutter and Firebase
 - Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
