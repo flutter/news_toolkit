@@ -162,6 +162,10 @@ flutter run \
 
 :::
 
+Congrats 🎉
+
+You've generated and run your custom news app! Head over to [project configuration](/category/project-configuration) for next steps.
+
 [dart_frog_cli_link]: https://pub.dev/packages/dart_frog_cli
 [dart_frog_link]: https://dartfrog.vgv.dev
 [dart_installation_link]: https://dart.dev/get-dart
