@@ -5,6 +5,7 @@ import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
+import 'package:{{project_name.snakeCase()}}/network_error/network_error.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
@@ -17,6 +18,9 @@ class ArticleContent extends StatelessWidget {
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
+    final isFailure = context.select(
+      (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
+    );
 
     if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
@@ -27,8 +31,15 @@ class ArticleContent extends StatelessWidget {
     return ArticleContentSeenListener(
       child: BlocListener<ArticleBloc, ArticleState>(
         listener: (context, state) {
-          if (state.status == ArticleStatus.failure) {
-            _handleFailure(context);
+          if (state.status == ArticleStatus.failure && state.content.isEmpty) {
+            Navigator.of(context).push<void>(
+              NetworkError.route(
+                onRetry: () {
+                  context.read<ArticleBloc>().add(const ArticleRequested());
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
           } else if (state.status == ArticleStatus.shareFailure) {
             _handleShareFailure(context);
           }
@@ -41,6 +52,15 @@ class ArticleContent extends StatelessWidget {
               itemCount: content.length + 1,
               itemBuilder: (context, index) {
                 if (index == content.length) {
+                  if (isFailure) {
+                    return NetworkError(
+                      onRetry: () {
+                        context
+                            .read<ArticleBloc>()
+                            .add(const ArticleRequested());
+                      },
+                    );
+                  }
                   return hasMoreContent
                       ? Padding(
                           padding: EdgeInsets.only(
@@ -88,19 +108,6 @@ class ArticleContent extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handleFailure(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          key: const Key('articleContent_failure_snackBar'),
-          content: Text(
-            context.l10n.unexpectedFailure,
-          ),
-        ),
-      );
   }
 
   void _handleShareFailure(BuildContext context) {
