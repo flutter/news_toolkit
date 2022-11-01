@@ -36,7 +36,7 @@ dart pub global activate mason_cli
 ```
 
 :::info
-[Mason][mason_link] is a command line application which allows you to generate a customized codebase based on your specifications.
+[Mason][mason_link] is a command-line tool which allows you to generate a customized codebase based on your specifications.
 
 We'll use mason to generate your customized news application from the Flutter News Template.
 :::
@@ -108,7 +108,7 @@ You'll be prompted with the following questions. Be prepared to provide the foll
 # The application identifier also know as the bundle identifier on iOS.
 ? What is the application bundle identifier? (com.flutter.news.template)
 
-# A list of GitHub usernames who will be codeowners on the repository.
+# A list of GitHub usernames who will be code owners on the repository.
 # See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 ? Who are the code owners? (separated by spaces) (@githubUser)
 
@@ -153,10 +153,10 @@ You can also run the project directly from the command-line using the following 
 flutter run \
   --flavor development \
   --target lib/main/main_development \
-  --dart-define FLAVOR_DEEP_LINK_DOMAIN=<YOUR-DEEP-LINK-DOMAIN>
-  --dart-define FLAVOR_DEEP_LINK_PATH=<YOUR-DEEP-LINK-PATH>
-  --dart-define TWITTER_API_KEY=<YOUR-TWITTER-API-KEY>
-  --dart-define TWITTER_API_SECRET=<YOUR-TWITTER-API-SECRET>
+  --dart-define FLAVOR_DEEP_LINK_DOMAIN=<YOUR-DEEP-LINK-DOMAIN> \
+  --dart-define FLAVOR_DEEP_LINK_PATH=<YOUR-DEEP-LINK-PATH> \
+  --dart-define TWITTER_API_KEY=<YOUR-TWITTER-API-KEY> \
+  --dart-define TWITTER_API_SECRET=<YOUR-TWITTER-API-SECRET> \
   --dart-define TWITTER_REDIRECT_URI=<YOUR-TWITTER-REDIRECT-URI>
 ```
 
