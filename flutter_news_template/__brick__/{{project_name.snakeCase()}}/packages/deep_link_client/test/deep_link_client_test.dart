@@ -118,7 +118,7 @@ void main() {
 
       test('can be instantiated', () async {
         await Firebase.initializeApp();
-        expect(DeepLinkClient(), isA<DeepLinkClient>());
+        expect(DeepLinkClient.new, returnsNormally);
       });
     });
   });

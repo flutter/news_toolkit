@@ -34,6 +34,8 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 class MockAppBloc extends Mock implements AppBloc {}
 
 void main() {
+  initMockHydratedStorage();
+
   late NewsRepository newsRepository;
   late HomeCubit cubit;
   late CategoriesBloc categoriesBloc;
@@ -54,10 +56,6 @@ void main() {
       SpacerBlock(spacing: Spacing.medium),
     ],
   };
-
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  setUpAll(initMockHydratedStorage);
 
   setUp(() {
     newsRepository = MockNewsRepository();

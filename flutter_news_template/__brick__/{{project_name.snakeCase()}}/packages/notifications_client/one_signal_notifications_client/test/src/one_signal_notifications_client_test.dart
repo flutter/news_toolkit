@@ -20,17 +20,12 @@ void main() {
         oneSignal: oneSignal,
       );
     });
-    test('can be instantiated', () {
-      expect(
-        OneSignalNotificationsClient(oneSignal: oneSignal),
-        isNotNull,
-      );
-    });
 
     group('when OneSignalNotificationsClient.subscribeToCategory called', () {
       test('calls OneSignal.sendTag', () async {
-        when(() => oneSignal.sendTag(category, true))
-            .thenAnswer((_) async => {});
+        when(
+          () => oneSignal.sendTag(category, true),
+        ).thenAnswer((_) async => {});
 
         await oneSignalNotificationsClient.subscribeToCategory(category);
 
@@ -40,7 +35,9 @@ void main() {
       test(
           'throws SubscribeToCategoryFailure '
           'when OneSignal.deleteTag fails', () async {
-        when(() => oneSignal.sendTag(category, true)).thenThrow(Exception());
+        when(
+          () => oneSignal.sendTag(category, true),
+        ).thenAnswer((_) async => throw Exception());
 
         expect(
           () => oneSignalNotificationsClient.subscribeToCategory(category),
@@ -62,7 +59,9 @@ void main() {
       test(
           'throws UnsubscribeFromCategoryFailure '
           'when OneSignal.deleteTag fails', () async {
-        when(() => oneSignal.deleteTag(category)).thenThrow(Exception());
+        when(
+          () => oneSignal.deleteTag(category),
+        ).thenAnswer((_) async => throw Exception());
 
         expect(
           () => oneSignalNotificationsClient.unsubscribeFromCategory(category),

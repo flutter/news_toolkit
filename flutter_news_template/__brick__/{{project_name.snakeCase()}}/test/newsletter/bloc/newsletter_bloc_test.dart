@@ -19,13 +19,6 @@ void main() {
   });
 
   group('NewsletterBloc', () {
-    test('can be instantiated', () {
-      expect(
-        NewsletterBloc(newsRepository: newsRepository),
-        isNotNull,
-      );
-    });
-
     group('on NewsletterSubscribed', () {
       blocTest<NewsletterBloc, NewsletterState>(
         'emits [loading, success] '

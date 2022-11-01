@@ -17,13 +17,6 @@ void main() {
       newsRepository = NewsRepository(apiClient: apiClient);
     });
 
-    test('can be instantiated', () {
-      expect(
-        NewsRepository(apiClient: apiClient),
-        isNotNull,
-      );
-    });
-
     group('getFeed', () {
       test(
           'returns FeedResponse '

@@ -21,17 +21,11 @@ void main() {
       );
     });
 
-    test('can be instantiated', () {
-      expect(
-        FirebaseNotificationsClient(firebaseMessaging: firebaseMessaging),
-        isNotNull,
-      );
-    });
-
     group('when FirebaseNotificationClient.subscribeToCategory called', () {
       test('calls FirebaseMessaging.subscribeToTopic', () async {
-        when(() => firebaseMessaging.subscribeToTopic(category))
-            .thenAnswer((_) async {});
+        when(
+          () => firebaseMessaging.subscribeToTopic(category),
+        ).thenAnswer((_) async {});
 
         await firebaseNotificationsClient.subscribeToCategory(category);
 
@@ -41,8 +35,9 @@ void main() {
       test(
           'throws SubscribeToCategoryFailure '
           'when FirebaseMessaging.subscribeToTopic fails', () async {
-        when(() => firebaseMessaging.subscribeToTopic(category))
-            .thenThrow(Exception());
+        when(
+          () => firebaseMessaging.subscribeToTopic(category),
+        ).thenAnswer((_) async => throw Exception());
 
         expect(
           () => firebaseNotificationsClient.subscribeToCategory(category),
@@ -53,8 +48,9 @@ void main() {
 
     group('when FirebaseNotificationClient.unsubscribeFromCategory called', () {
       test('calls FirebaseMessaging.unsubscribeFromTopic', () async {
-        when(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .thenAnswer((_) async {});
+        when(
+          () => firebaseMessaging.unsubscribeFromTopic(category),
+        ).thenAnswer((_) async {});
 
         await firebaseNotificationsClient.unsubscribeFromCategory(category);
 
@@ -65,8 +61,9 @@ void main() {
       test(
           'throws UnsubscribeFromCategoryFailure '
           'when FirebaseMessaging.unsubscribeFromTopic fails', () async {
-        when(() => firebaseMessaging.unsubscribeFromTopic(category))
-            .thenThrow(Exception());
+        when(
+          () => firebaseMessaging.unsubscribeFromTopic(category),
+        ).thenAnswer((_) async => throw Exception());
 
         expect(
           () => firebaseNotificationsClient.unsubscribeFromCategory(category),
