@@ -13,9 +13,9 @@ import '../../helpers/helpers.dart';
 class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
-  late NewsRepository newsRepository;
+  initMockHydratedStorage();
 
-  setUpAll(initMockHydratedStorage);
+  late NewsRepository newsRepository;
 
   setUp(() {
     newsRepository = MockNewsRepository();

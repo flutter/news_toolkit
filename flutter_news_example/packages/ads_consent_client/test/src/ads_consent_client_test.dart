@@ -22,7 +22,7 @@ void main() {
     });
 
     test('can be instantiated', () async {
-      expect(AdsConsentClient(), isA<AdsConsentClient>());
+      expect(AdsConsentClient.new, returnsNormally);
     });
 
     group('requestConsent', () {

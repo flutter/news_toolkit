@@ -24,10 +24,10 @@ class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
 void main() {
+  initMockHydratedStorage();
+
   group('CategoryFeedItem', () {
     late ArticleRepository articleRepository;
-
-    setUpAll(initMockHydratedStorage);
 
     setUp(() {
       articleRepository = MockArticleRepository();

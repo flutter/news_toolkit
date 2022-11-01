@@ -17,6 +17,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {}
 class MockShareLauncher extends Mock implements ShareLauncher {}
 
 void main() {
+  initMockHydratedStorage();
+
   group('ArticleBloc', () {
     const articleId = 'articleId';
     final uri = Uri(path: 'text');
@@ -55,8 +57,6 @@ void main() {
       totalCount: 2,
     );
 
-    setUpAll(initMockHydratedStorage);
-
     setUp(() async {
       articleRepository = MockArticleRepository();
       shareLauncher = MockShareLauncher();
@@ -74,13 +74,6 @@ void main() {
           limit: any(named: 'limit'),
         ),
       ).thenAnswer((_) async => relatedArticlesResponse);
-    });
-
-    test('can be instantiated', () {
-      expect(
-        articleBloc,
-        isNotNull,
-      );
     });
 
     test('can be (de)serialized', () {

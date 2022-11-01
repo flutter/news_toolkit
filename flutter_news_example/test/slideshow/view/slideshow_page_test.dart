@@ -11,6 +11,8 @@ import 'package:news_blocks/news_blocks.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
+  initMockHydratedStorage();
+
   group('SlideshowPage', () {
     const articleId = 'articleId';
     final slides = List.generate(
@@ -23,8 +25,6 @@ void main() {
       ),
     );
     final slideshow = SlideshowBlock(title: 'title', slides: slides);
-
-    setUpAll(initMockHydratedStorage);
 
     test('has a route', () {
       expect(

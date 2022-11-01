@@ -21,13 +21,6 @@ void main() {
       );
     });
 
-    test('can be instantiated', () {
-      expect(
-        FirebaseNotificationsClient(firebaseMessaging: firebaseMessaging),
-        isNotNull,
-      );
-    });
-
     group('when FirebaseNotificationClient.subscribeToCategory called', () {
       test('calls FirebaseMessaging.subscribeToTopic', () async {
         when(() => firebaseMessaging.subscribeToTopic(category))
