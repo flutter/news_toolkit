@@ -317,7 +317,8 @@ class AppButton extends StatelessWidget {
   static const _smallMinimumSize = Size(0, 40);
 
   /// The maximum size of the button.
-  static const _defaultMaximumSize = Size(double.infinity, 56);
+  // ignore: use_named_constants
+  static const _defaultMaximumSize = Size(double.infinity, double.infinity);
 
   /// The minimum size of the button.
   static const _defaultMinimumSize = Size(double.infinity, 56);
