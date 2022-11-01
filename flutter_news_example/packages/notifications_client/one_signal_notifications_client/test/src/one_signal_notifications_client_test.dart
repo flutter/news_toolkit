@@ -20,12 +20,6 @@ void main() {
         oneSignal: oneSignal,
       );
     });
-    test('can be instantiated', () {
-      expect(
-        OneSignalNotificationsClient(oneSignal: oneSignal),
-        isNotNull,
-      );
-    });
 
     group('when OneSignalNotificationsClient.subscribeToCategory called', () {
       test('calls OneSignal.sendTag', () async {

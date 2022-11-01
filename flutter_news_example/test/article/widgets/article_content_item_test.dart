@@ -12,9 +12,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('ArticleContentItem', () {
-    setUpAll(initMockHydratedStorage);
+  initMockHydratedStorage();
 
+  group('ArticleContentItem', () {
     testWidgets(
         'renders DividerHorizontal '
         'for DividerHorizontalBlock', (tester) async {

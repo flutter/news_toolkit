@@ -30,10 +30,10 @@ class MockFullScreenAdsBloc
 class MockRewardItem extends Mock implements ads.RewardItem {}
 
 void main() {
+  initMockHydratedStorage();
+
   group('ArticlePage', () {
     late FullScreenAdsBloc fullScreenAdsBloc;
-
-    setUpAll(initMockHydratedStorage);
 
     setUp(() {
       fullScreenAdsBloc = MockFullScreenAdsBloc();
