@@ -6,9 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('ThemeModeBloc', () {
-    setUpAll(initMockHydratedStorage);
+  initMockHydratedStorage();
 
+  group('ThemeModeBloc', () {
     test('initial state is ThemeMode.system', () {
       expect(ThemeModeBloc().state, ThemeMode.system);
     });

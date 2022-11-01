@@ -111,17 +111,6 @@ void main() {
       );
     });
 
-    test('can be instantiated', () {
-      expect(
-        InAppPurchaseRepository(
-          authenticationClient: authenticationClient,
-          apiClient: apiClient,
-          inAppPurchase: inAppPurchase,
-        ),
-        isNotNull,
-      );
-    });
-
     group('fetchSubscriptions', () {
       late InAppPurchaseRepository repository;
       setUp(() {

@@ -112,18 +112,6 @@ void main() {
       };
     });
 
-    test('can be instantiated', () {
-      expect(
-        FullScreenAdsBloc(
-          adsRetryPolicy: AdsRetryPolicy(),
-          localPlatform: localPlatform,
-          interstitialAdLoader: interstitialAdLoader,
-          rewardedAdLoader: rewardedAdLoader,
-        ),
-        isNotNull,
-      );
-    });
-
     group('LoadInterstitialAdRequested', () {
       blocTest<FullScreenAdsBloc, FullScreenAdsState>(
         'loads ad object correctly on Android',

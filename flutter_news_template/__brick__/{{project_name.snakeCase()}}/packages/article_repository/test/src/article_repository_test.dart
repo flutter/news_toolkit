@@ -22,14 +22,9 @@ void main() {
       when(() => storage.setArticleViewsResetDate(any()))
           .thenAnswer((_) async {});
 
-      articleRepository =
-          ArticleRepository(apiClient: apiClient, storage: storage);
-    });
-
-    test('can be instantiated', () {
-      expect(
-        ArticleRepository(apiClient: apiClient, storage: storage),
-        isNotNull,
+      articleRepository = ArticleRepository(
+        apiClient: apiClient,
+        storage: storage,
       );
     });
 

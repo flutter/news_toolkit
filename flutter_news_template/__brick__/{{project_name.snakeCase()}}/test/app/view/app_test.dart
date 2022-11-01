@@ -43,6 +43,8 @@ class MockAnalyticsBloc
     implements analytics.AnalyticsBloc {}
 
 void main() {
+  initMockHydratedStorage();
+
   group('App', () {
     late UserRepository userRepository;
     late NewsRepository newsRepository;
@@ -52,8 +54,6 @@ void main() {
     late AnalyticsRepository analyticsRepository;
     late AdsConsentClient adsConsentClient;
     late User user;
-
-    setUpAll(initMockHydratedStorage);
 
     setUp(() {
       userRepository = MockUserRepository();

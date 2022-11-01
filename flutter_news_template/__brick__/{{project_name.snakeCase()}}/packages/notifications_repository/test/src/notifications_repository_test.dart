@@ -66,18 +66,6 @@ void main() {
     });
 
     group('constructor', () {
-      test('can be instantiated', () {
-        expect(
-          NotificationsRepository(
-            permissionClient: permissionClient,
-            storage: storage,
-            notificationsClient: notificationsClient,
-            apiClient: apiClient,
-          ),
-          isNotNull,
-        );
-      });
-
       test(
           'initializes categories preferences '
           'from {{project_name.pascalCase()}}ApiClient.getCategories', () async {

@@ -14,9 +14,9 @@ class FirebaseNotificationsClient implements NotificationsClient {
 
   /// Subscribes to the notification group based on [category].
   @override
-  Future<void> subscribeToCategory(String category) {
+  Future<void> subscribeToCategory(String category) async {
     try {
-      return _firebaseMessaging.subscribeToTopic(category);
+      await _firebaseMessaging.subscribeToTopic(category);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         SubscribeToCategoryFailure(error),
@@ -27,9 +27,9 @@ class FirebaseNotificationsClient implements NotificationsClient {
 
   /// Unsubscribes from the notification group based on [category].
   @override
-  Future<void> unsubscribeFromCategory(String category) {
+  Future<void> unsubscribeFromCategory(String category) async {
     try {
-      return _firebaseMessaging.unsubscribeFromTopic(category);
+      await _firebaseMessaging.unsubscribeFromTopic(category);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         UnsubscribeFromCategoryFailure(error),
