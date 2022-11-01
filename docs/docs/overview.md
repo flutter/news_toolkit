@@ -5,14 +5,14 @@ sidebar_position: 1
 
 # Overview
 
-The Google Flutter team and Google News Initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever.
+The Google Flutter team and Google News Initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever in order to make reliable information accessible to all.
 
-This template aims to reduce typical news app development time by 80%.
+This template aims to **reduce the type to develop a typical news app by 80%**.
 
 The Flutter news app template:
 
-- Contains common news app UI workflows and core features built in Flutter and Firebase
-- Implements best practices for news apps based on Google News Initiative research
+- Contains common news app UI workflows and core features built with Flutter and Firebase
+- Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - Allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
 ## Quick Start
@@ -37,6 +37,8 @@ dart pub global activate mason_cli
 
 :::info
 [Mason][mason_link] is a command line application which allows you to generate a customized codebase based on your specifications.
+
+We'll use mason to generate your customized news application from the Flutter News Template.
 :::
 
 **Dart Frog**
@@ -49,33 +51,27 @@ dart pub global activate dart_frog_cli
 
 :::info
 [Dart Frog][dart_frog_link] is fast, minimalistic backend framework for Dart.
+
+We'll use Dart Frog as a backend for frontends (BFF) which will allow you to connect your backend with the Flutter News Template frontend.
 :::
-
-### Template Configuration
-
-The Flutter News Template supports the following decision points:
-
-- Application name (e.g. News Template)
-- Application package name (e.g. news_template)
-- Desired Flutter version
-- Application bundle identifier (e.g. com.news.template)
-- Code Owners
-- Flavors, where each flavor includes a different:
-  - Application suffix (appended to the application bundle identifier for a given flavor)
-  - Deep link domain (used to navigate from the app from email login link, configured from the Firebase Console)
-- Twitter configuration (API key and API secret; used to login with Twitter)
-- Facebook configuration (App ID, client token and display name; used to login with Facebook)
-- Google Ad Manager or Admob configuration (App ID for iOS and Android; used to display ads)
-
-Before generating your project, follow the documentation in the [Social Authentication Setup](/project_configuration/social_authentication), [Firebase Setup](/project_configuration/firebase), and [Ads Setup](/project_configuration/ads) sections. If you leave these fields blank, you can manually set your app IDs with the generated codebase.
 
 ### Generate your project
 
 To generate your app using Mason, follow the steps below:
 
+:::note
+Projects generated from the Flutter News Template will use the latest stable version of Flutter.
+:::
+
 #### Install the Flutter News Template
 
 Use the `mason add` command to install the Flutter News Template globally on your machine:
+
+:::info
+You only need to install the `flutter_news_template` the first time. You can generate multiple projects from the template after it is installed.
+
+You can verify whether or not you have the `flutter_news_template` installed by using the `mason list --global` command.
+:::
 
 **via https:**
 
@@ -89,52 +85,82 @@ mason add -g flutter_news_template --git-url https://github.com/flutter/news_too
 mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-ref templates --git-path flutter_news_template
 ```
 
-#### Generate the project
+#### Generate the app
 
-Use the `mason make` command to generate your new project from the template:
+Use the `mason make` command to generate your new app from the Flutter News Template:
 
 ```bash
 mason make flutter_news_template
 ```
 
-#### Run the Flutter app
+#### Template Configuration
 
-You should now be able to change directories into your newly generated project and run the project in development mode:
+You'll be prompted with the following questions. Be prepared to provide the following information in order to generate your project:
 
 ```bash
-flutter run --flavor development --target lib/main/main_development.dart
+# The name of your application as displayed on the device for end users.
+? What is the user-facing application name? (Flutter News Template)
+
+# The name of your application's package in the pubspec.yaml (developer facing name).
+# This must follow dart package naming conventions: https://dart.dev/tools/pub/pubspec#name
+? What is the application package name? (flutter_news_template)
+
+# The application identifier also know as the bundle identifier on iOS.
+? What is the application bundle identifier? (com.flutter.news.template)
+
+# A list of GitHub usernames who will be codeowners on the repository.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+? Who are the code owners? (separated by spaces) (@githubUser)
+
+# Select all flavors which you want the generated application to include.
+# We recommend having at least development and production flavors.
+# For more information see https://docs.flutter.dev/deployment/flavors
+? What flavors do you want your application to include?
+❯ ◉  development
+  ◯  integration
+  ◯  staging
+  ◉  production
 ```
 
-#### Run the API Server
+After answering the above questions, your custom news application will be generated. You are now ready to run the application locally!
 
-To run the news API server, change directories into the `api` directory of the newly generated project and start the development server:
+:::caution
+
+Your project includes sample configurations so that you can get up and running quickly. You will still need to follow the additional configuration steps for Firebase and ads setup:
+
+- [Configure Firebase](/project_configuration/firebase)
+  - [Configure Social Authentication with Firebase](/project_configuration/social_authentication)
+- [Configure or Remove Ads](/project_configuration/ads)
+
+:::
+
+### Run the API Server
+
+Before running the Flutter application, we need to run the API server locally. Change directories into the `api` directory of the newly-generated project and start the development server:
 
 ```bash
 dart_frog dev
 ```
 
-## Template Features
+### Run the Flutter app
 
-This template includes typical features that a news application requires out of the box and is fully customizable to meet your needs.
+We recommend running the project directly from [VS Code](https://code.visualstudio.com) or [Android Studio](https://developer.android.com/studio).
 
-- Core
-  - Ready-to-go core services
-  - User authentication
-  - Push notifications
-  - App tracking
-  - Content feed
-- News features
-  - Content feed
-    - Pull to refresh
-    - Subscriptions and purchases
-    - Newsletter subscription
-  - Article pages
-    - In-line images
-    - Image slideshow
-    - Video player
-    - Comment section
-  - Ads
-  - Search
+:::info
+You can also run the project directly from the command-line using the following command from the root project directory:
+
+```bash
+flutter run \
+  --flavor development \
+  --target lib/main/main_development \
+  --dart-define FLAVOR_DEEP_LINK_DOMAIN=<YOUR-DEEP-LINK-DOMAIN>
+  --dart-define FLAVOR_DEEP_LINK_PATH=<YOUR-DEEP-LINK-PATH>
+  --dart-define TWITTER_API_KEY=<YOUR-TWITTER-API-KEY>
+  --dart-define TWITTER_API_SECRET=<YOUR-TWITTER-API-SECRET>
+  --dart-define TWITTER_REDIRECT_URI=<YOUR-TWITTER-REDIRECT-URI>
+```
+
+:::
 
 [dart_frog_cli_link]: https://pub.dev/packages/dart_frog_cli
 [dart_frog_link]: https://dartfrog.vgv.dev
