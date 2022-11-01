@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
-import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
+import 'package:{{project_name.snakeCase()}}/network_error/network_error.dart';
 import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
@@ -25,10 +25,22 @@ class CategoryFeed extends StatelessWidget {
         context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
             true;
 
+    final isFailure = context
+        .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
+
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
-        if (state.status == FeedStatus.failure) {
-          _handleFailure(context);
+        if (state.status == FeedStatus.failure && state.feed.isEmpty) {
+          Navigator.of(context).push<void>(
+            NetworkError.route(
+              onRetry: () {
+                context
+                    .read<FeedBloc>()
+                    .add(FeedRefreshRequested(category: category));
+                Navigator.of(context).pop();
+              },
+            ),
+          );
         }
       },
       child: RefreshIndicator(
@@ -42,6 +54,15 @@ class CategoryFeed extends StatelessWidget {
           controller: scrollController,
           itemBuilder: (context, index) {
             if (index == categoryFeed.length) {
+              if (isFailure) {
+                return NetworkError(
+                  onRetry: () {
+                    context
+                        .read<FeedBloc>()
+                        .add(FeedRefreshRequested(category: category));
+                  },
+                );
+              }
               return hasMoreNews
                   ? Padding(
                       padding: EdgeInsets.only(
@@ -63,18 +84,5 @@ class CategoryFeed extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _handleFailure(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          key: const Key('categoryFeed_failure_snackBar'),
-          content: Text(
-            context.l10n.unexpectedFailure,
-          ),
-        ),
-      );
   }
 }

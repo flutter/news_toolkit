@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:{{project_name.snakeCase()}}/network_error/network_error.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -17,6 +18,10 @@ import '../../helpers/helpers.dart';
 
 class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
     implements ArticleBloc {}
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+const networkErrorButtonText = 'Try Again';
 
 void main() {
   late ArticleBloc articleBloc;
@@ -49,7 +54,7 @@ void main() {
       expect(find.byType(StickyAd), findsOneWidget);
     });
 
-    group('when ArticleStatus is failure', () {
+    group('when ArticleStatus is failure and content is present', () {
       setUp(() {
         whenListen(
           articleBloc,
@@ -60,7 +65,7 @@ void main() {
         );
       });
 
-      testWidgets('shows SnackBar with error message', (tester) async {
+      testWidgets('shows NetworkErrorAlert', (tester) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: articleBloc,
@@ -69,7 +74,7 @@ void main() {
         );
 
         expect(
-          find.byKey(const Key('articleContent_failure_snackBar')),
+          find.byType(NetworkError),
           findsOneWidget,
         );
       });
@@ -91,6 +96,97 @@ void main() {
             findsOneWidget,
           );
         }
+      });
+
+      testWidgets('NetworkErrorAlert requests article on press',
+          (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+        );
+
+        expect(
+          find.text(networkErrorButtonText),
+          findsOneWidget,
+        );
+
+        await tester.ensureVisible(find.textContaining(networkErrorButtonText));
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+
+        await tester.pump();
+        await tester.tap(find.textContaining(networkErrorButtonText));
+
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+      });
+    });
+
+    group('when ArticleStatus is failure and content is absent', () {
+      setUpAll(() {
+        registerFallbackValue(NetworkError.route());
+      });
+
+      setUp(() {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable([
+            ArticleState.initial(),
+            ArticleState(content: [], status: ArticleStatus.failure),
+          ]),
+        );
+      });
+
+      testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        expect(
+          find.ancestor(
+            of: find.byType(NetworkError),
+            matching: find.byType(Scaffold),
+          ),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('NetworkErrorAlert requests article on press',
+          (tester) async {
+        final navigatorObserver = MockNavigatorObserver();
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleContent(),
+          ),
+          navigatorObserver: navigatorObserver,
+        );
+
+        verify(() => navigatorObserver.didPush(any(), any()));
+
+        expect(
+          find.text(networkErrorButtonText),
+          findsOneWidget,
+        );
+
+        await tester.ensureVisible(find.textContaining(networkErrorButtonText));
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+
+        await tester.pump();
+        await tester.tap(find.textContaining(networkErrorButtonText).last);
+        await tester.pump();
+
+        verify(() => articleBloc.add(ArticleRequested())).called(1);
+        verify(() => navigatorObserver.didPop(any(), any()));
       });
     });
 
