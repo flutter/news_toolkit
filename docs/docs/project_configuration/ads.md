@@ -3,17 +3,19 @@ sidebar_position: 4
 description: Learn how to configure or remove ads in your application.
 ---
 
-# Ads Setup
+# Ads Setup or Removal
 
-## Google Ad Manager
+## Configure Ads
+
+### Google Ad Manager
 
 - Create apps for each platform and flavor (4 apps total).
 - Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
 - Share the app IDs with your developer team and store them within your app configuration file.
 
-## Google AdMob
+### Google AdMob
 
-## Removing Ads
+## Remove Ads
 
 You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types and their dependencies.
 
