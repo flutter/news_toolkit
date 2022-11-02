@@ -4,16 +4,33 @@ description: Learn how to configure or remove ads in your application.
 ---
 
 # Ads Setup or Removal
+The Flutter News Toolkit is pre-configured to work with Google Ad Manager or AdMob. Follow the configuration steps below if you would like to monetize your app with either of these services.
+
+:::note
+
+If you do not want to monetize your app with Google Ad Manager or AdMob, follow the instructions in the [Remove Ads](#remove-ads) section below.
+
+:::
 
 ## Configure Ads
 
 ### Google Ad Manager
+[Google Ad Manager](https://admanager.google.com) offers publishers a complete ad revenue engine, helping publishers streamline operations and capture the most value for every impression. To leverage this ad exchange platform in your apps, visit [Google Ad Manager](admanager.google.com) and enter your Google Account username and password to sign in. If you do not have an account, sign up for an Ad Manager account to [get started](https://admanager.google.com/home/contact-us/).
 
-- Create apps for each platform and flavor (4 apps total).
-- Link the apps to the appropriate Firebase project (`Engage --> AdMob`)
-- Share the app IDs with your developer team and store them within your app configuration file.
+#### Create Apps
+After successfully creating an account or logging into an existing account, create apps for each platform and flavor. By default, you'll need an app for Android development and production flavors and iOS development and production flavors (4 apps total). If you chose to create additional flavors when generating your project with mason, please be sure to create additional apps in your Google Ad Manager.
+
+#### Firebase Configuraton
+After generating your apps, return to your Firebase Console to link the Google Ad Manager apps to their respective Firebase apps. This is done in the `Engage --> AdMob` section of your Firebase project.
 
 ### Google AdMob
+[Google AdMob](https://admob.google.com/home/) makes earning revenuse easy with in-app ads, actionable insights, and powerful, easy-to-use tools that grow your app business. To leverage this service in your apps, visit Google AdMob to log in or create and account to [get started](https://apps.admob.com/signup/?_ga=2.23772223.461135622.1667403019-1758917868.1667403019&_gl=1*akwl9n*_ga*MTc1ODkxNzg2OC4xNjY3NDAzMDE5*_ga_6R1K8XRD9P*MTY2NzQwMzAxOC4xLjAuMTY2NzQwMzEzOS4wLjAuMA..).
+
+#### Create Apps
+After successfully creating an account or logging into an existing account, create apps for each platform and flavor. By default, you'll need an app for Android development and production flavors and iOS development and production flavors (4 apps total). If you chose to create additional flavors when generating your project with mason, please be sure to create additional apps in your Google AdMob account.
+
+#### Firebase Configuraton
+After generating your apps, return to your Firebase Console to link the Google AdMob apps to their respective Firebase apps. This is done in the `Engage --> AdMob` section of your Firebase project.
 
 ## Remove Ads
 
