@@ -17,7 +17,7 @@ If you do not want to monetize your app with Google Ad Manager or AdMob, follow 
 
 ### Google Ad Manager
 
-[Google Ad Manager](https://admanager.google.com) offers publishers a complete ad revenue engine, helping publishers streamline operations and capture the most value for every impression. To leverage this ad exchange platform in your apps, visit [Google Ad Manager](admanager.google.com) and enter your Google Account username and password to sign in. If you do not have an account, sign up for an Ad Manager account to [get started](https://admanager.google.com/home/contact-us/).
+[Google Ad Manager](https://admanager.google.com) offers publishers a complete ad revenue engine, helping publishers streamline operations and capture the most value for every impression. To leverage this ad exchange platform in your apps, visit [Google Ad Manager](https://admanager.google.com) and enter your Google Account username and password to sign in. If you do not have an account, sign up for an Ad Manager account to [get started](https://admanager.google.com/home/contact-us/).
 
 #### Create Apps
 
@@ -29,7 +29,7 @@ After generating your apps, return to your Firebase Console to link the Google A
 
 ### Google AdMob
 
-[Google AdMob](https://admob.google.com/home/) makes earning revenuse easy with in-app ads, actionable insights, and powerful, easy-to-use tools that grow your app business. To leverage this service in your apps, visit Google AdMob to log in or create and account to [get started](https://apps.admob.com/signup/?_ga=2.23772223.461135622.1667403019-1758917868.1667403019&_gl=1*akwl9n*_ga*MTc1ODkxNzg2OC4xNjY3NDAzMDE5*_ga_6R1K8XRD9P*MTY2NzQwMzAxOC4xLjAuMTY2NzQwMzEzOS4wLjAuMA..).
+[Google AdMob](https://admob.google.com/home/) makes earning revenue easy with in-app ads, actionable insights, and powerful, easy-to-use tools that grow your app business. To leverage this service in your apps, visit Google AdMob to log in or create and account to [get started](https://apps.admob.com/signup/?_ga=2.23772223.461135622.1667403019-1758917868.1667403019&_gl=1*akwl9n*_ga*MTc1ODkxNzg2OC4xNjY3NDAzMDE5*_ga_6R1K8XRD9P*MTY2NzQwMzAxOC4xLjAuMTY2NzQwMzEzOS4wLjAuMA..).
 
 #### Create Apps
 
