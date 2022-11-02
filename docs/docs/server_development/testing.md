@@ -15,7 +15,7 @@ Tests are automatically run on your server codebase using [Very Good Workflows](
 
 The Flutter News Toolkit server comes with 100% test coverage out-of-the-box. Tests are located in a parallel file structure relative to your server source code, residing in the `api/test` directory which mirrors the `api/lib` and `api/routes` directories.
 
-The server tests are written in pure Dart and do not test any Flutter functionality. The Flutter News Toolkit server uses the [Dart Frog](https://dartfrog.vgv.dev/) package. Server tests will evaluate your Dart Frog routes, middleware, as well as any additional classes and functions implemented in the `api/lib` folder.
+Server tests are written in pure Dart and do not test any Flutter functionality. The Flutter News Toolkit server uses the [Dart Frog](https://dartfrog.vgv.dev/) package. Server tests will evaluate your Dart Frog routes, middleware, as well as any additional classes and functions implemented in the `api/lib` folder.
 
 Changes you make to your server such as [implementing an API data source](connecting_your_data_source) may reduce test coverage or cause existing tests to fail. We recommend maintaining 100% test coverage within your server in order to support stability and scalability, but your server functionality will not be compromised if you forgo 100% test coverage.
 
