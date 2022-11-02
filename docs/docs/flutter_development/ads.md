@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 8
 description: Learn how to configure ads in your Flutter news application.
 ---
 

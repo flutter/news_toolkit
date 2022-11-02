@@ -1,19 +1,11 @@
 ---
-sidebar_position: 9
+sidebar_position: 3
 description: Learn how to write and run tests in your application.
 ---
 
-# Testing Flutter Development
+# Testing
 
-:::info
-The Flutter community offers [excellent testing resources](https://verygood.ventures/blog/flutter-testing-resources) to guide you in developing effective tests for your application.
-:::
-
-:::note
-Tests are automatically run on your app using [Very Good Workflows](https://github.com/VeryGoodOpenSource/very_good_workflows).
-:::
-
-Flutter News Toolkit applications come with 100% test coverage out-of-the-box. Tests are located in a parallel file structure relative to your source code, residing in a `test` directory which mirrors the source code `lib` directory.
+Flutter News Toolkit applications come with 100% test coverage out-of-the-box. Tests are located in a parallel file structure relative to your source code, residing in a `test` directory which mirrors the source code `lib` directory. Tests are automatically run on your app using [Very Good Workflows](https://github.com/VeryGoodOpenSource/very_good_workflows).
 
 Changes you make to your source code such as [removing advertisements](/project_configuration/ads#removing-ads) may reduce test coverage or cause existing tests to fail. We recommend maintaining 100% test coverage within your application in order to support stability and scalability, but your application functionality will not be compromised if you forgo 100% test coverage.
 
@@ -21,21 +13,21 @@ To support 100% test coverage in your application, ensure that your tests captur
 
 Your Flutter app's test suite contains bloc, unit, and widget tests.
 
-## Unit Tests
-
 :::info
-Flutter's [Introduction to Unit Testing](https://docs.flutter.dev/cookbook/testing/unit/introduction) cookbook provides further information on unit testing.
+The Flutter community offers [excellent testing resources](https://verygood.ventures/blog/flutter-testing-resources) to guide you in developing effective tests for your application.
 :::
+
+## Unit Tests
 
 Unit tests evaluate a single method, function, or class within your codebase. You should test that your unit behaves appropriately under all conditions under which it might be executed.
 
 For example, `news_repository_test.dart` tests whether the `NewsRepository` class can be instantiated, handle error cases correctly, and correctly execute its behavior under both success and error conditions.
 
-## Widget Tests
-
 :::info
-Flutter's [Introduction to Widget Testing](https://docs.flutter.dev/cookbook/testing/widget/introduction) cookbook provides further information on widget testing.
+Flutter's [Introduction to Unit Testing](https://docs.flutter.dev/cookbook/testing/unit/introduction) cookbook provides further information on unit testing.
 :::
+
+## Widget Tests
 
 Widget tests verify that a single widget behaves correctly within the Flutter framework using a testing environment that enables UI interactions and behaviors.
 
@@ -60,20 +52,20 @@ testWidgets('calls onTap when navigation bar item is tapped', (tester) async {
 });
 ```
 
-## Bloc Tests
-
 :::info
-Bloc's [testing documentation](https://bloclibrary.dev/#/testing) provides a thorough introduction to testing blocs.
+Flutter's [Introduction to Widget Testing](https://docs.flutter.dev/cookbook/testing/widget/introduction) cookbook provides further information on widget testing.
 :::
 
-Bloc tests verify that your app's [bloc state management solution](https://bloclibrary.dev) behaves as expected under a variety of conditions.
+## Bloc Tests
 
-A bloc test will set up the test's initial conditions, instantiate the block, and test whether the bloc's behaves as expected. This test from `analytics_bloc_test.dart` checks whether the `AnalyticsBloc` responds appropriately to a user being non-anonymous:
+Bloc tests verify that your app's [bloc state management library](https://bloclibrary.dev) behaves as expected under a variety of conditions.
+
+A bloc test will set up the test's initial conditions, instantiate the block, and test whether the bloc behaves as expected. This test from `analytics_bloc_test.dart` checks whether the `AnalyticsBloc` responds appropriately to a user being authenticated:
 
 ```dart
 blocTest<AnalyticsBloc, AnalyticsState>(
     'calls AnalyticsRepository.setUserId '
-    'with user id when user is not anonymous',
+    'with user id when user is authenticated',
     setUp: () => when(() => userRepository.user)
         .thenAnswer((_) => Stream.value(user)),
     build: () => AnalyticsBloc(
@@ -87,3 +79,7 @@ blocTest<AnalyticsBloc, AnalyticsState>(
 ```
 
 The test above verifies that a mocked repository is called correctly. Depending on what bloc behavior you are testing, bloc tests can also verify that an error is thrown or that the bloc's state is correct.
+
+:::info
+The [bloc library testing documentation](https://bloclibrary.dev/#/testing) provides a thorough introduction to testing blocs.
+:::

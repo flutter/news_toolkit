@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 description: Learn how to customize the look and feel of your Flutter news application.
 ---
 
