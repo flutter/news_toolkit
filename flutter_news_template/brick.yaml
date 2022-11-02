@@ -14,7 +14,7 @@ vars:
     prompt: What is the application package name?
   reverse_domain:
     type: string
-    description: The application identifier also know as the bundle identifier.
+    description: The application identifier also known as the bundle identifier.
     default: com.google.news.template
     prompt: What is the application bundle identifier?
   code_owners:
