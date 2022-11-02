@@ -1,5 +1,5 @@
 ---
-sidebar_position: 9
+sidebar_position: 5
 description: Learn how to write and run tests for your API.
 ---
 
