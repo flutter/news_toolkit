@@ -10,7 +10,8 @@ The Flutter News Toolkit comes pre-configured to support passwordless email, Goo
 ## Email
 
 ### Firebase Configuration
-In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Email/Password` to set up your email authentication method. The toolkit currently supports a passwordless login flow, so be sure to enable this setting as well. 
+
+In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Email/Password` to set up your email authentication method. The toolkit currently supports a passwordless login flow, so be sure to enable this setting as well.
 
 :::note
 
@@ -19,14 +20,17 @@ Passwordless authentication with email link requires additional configuration st
 ## Google
 
 ### Firebase Configuration
+
 In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Google` to set up your Google authentication method. Add your web ID and web client secret under the Web SDK Configuration dropdown menu. You can find your web client ID for existing projects by selecting your project and OAuth 2.0 entry on the [Google API Console](https://console.developers.google.com/apis/credentials?pli=1&project=hespress-en&authuser=0&hl=en).
 
 ## Apple
 
 ### Firebase Configuration
-In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple` to set up your Apple authentication method. Follow the additional configuration steps for [Apple](https://firebase.google.com/docs/auth/ios/apple?authuser=0&hl=en) and [Android](https://firebase.google.com/docs/auth/android/apple?authuser=0&hl=en) to enable this in your app. 
+
+In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple` to set up your Apple authentication method. Follow the additional configuration steps for [Apple](https://firebase.google.com/docs/auth/ios/apple?authuser=0&hl=en) and [Android](https://firebase.google.com/docs/auth/android/apple?authuser=0&hl=en) to enable this in your app.
 
 ### Complete the Setup
+
 To complete set up, add this authorization callback URL to your app configuration in the Apple Developer Console. Additional steps may be needed to verify ownership of this web domain to Apple. Follow [this link](https://firebase.google.com/docs/auth/?authuser=0&hl=en) to learn more.
 
 ## Facebook
