@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 description: Learn how to work with blocks to customize your news content.
 ---
 
