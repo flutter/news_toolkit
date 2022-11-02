@@ -17,7 +17,7 @@ If you do not want to monetize your app with Google Ad Manager or AdMob, follow 
 
 ### Google Ad Manager
 
-[Google Ad Manager](https://admanager.google.com) offers publishers a complete ad revenue engine, helping publishers streamline operations and capture the most value for every impression. To leverage this ad exchange platform in your apps, visit [Google Ad Manager](admanager.google.com) and enter your Google Account username and password to sign in. If you do not have an account, sign up for an Ad Manager account to [get started](https://admanager.google.com/home/contact-us/).
+[Google Ad Manager](https://admanager.google.com) offers publishers a complete ad revenue engine, helping publishers streamline operations and capture the most value for every impression. To leverage this ad exchange platform in your apps, visit [Google Ad Manager](https://admanager.google.com) and enter your Google Account username and password to sign in. If you do not have an account, sign up for an Ad Manager account to [get started](https://admanager.google.com/home/contact-us/).
 
 #### Create Apps
 
