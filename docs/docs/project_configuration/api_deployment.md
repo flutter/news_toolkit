@@ -19,4 +19,4 @@ You can optionally configure [API authentication](https://cloud.google.com/docs/
 
 ## Other
 
-You can also choose deploy your Dart Frog API to other services, like [AWS App Runner](https://dartfrog.vgv.dev/docs/deploy/aws-app-runner) or [Digital Ocean App Platform](https://dartfrog.vgv.dev/docs/deploy/digital-ocean-app-platform).
+You can also choose to deploy your Dart Frog API to other services, like [AWS App Runner](https://dartfrog.vgv.dev/docs/deploy/aws-app-runner) or [Digital Ocean App Platform](https://dartfrog.vgv.dev/docs/deploy/digital-ocean-app-platform).
