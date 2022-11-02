@@ -13,6 +13,8 @@ import '../../helpers/helpers.dart';
 class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
+  initMockHydratedStorage();
+
   group('FeedBloc', () {
     late NewsRepository newsRepository;
     late FeedBloc feedBloc;
@@ -42,18 +44,9 @@ void main() {
       },
     );
 
-    setUpAll(initMockHydratedStorage);
-
     setUp(() async {
       newsRepository = MockNewsRepository();
       feedBloc = FeedBloc(newsRepository: newsRepository);
-    });
-
-    test('can be instantiated', () {
-      expect(
-        feedBloc,
-        isNotNull,
-      );
     });
 
     test('can be (de)serialized', () {
