@@ -13,7 +13,7 @@ You can choose to deploy your Dart Frog API to [Cloud Run](https://cloud.google.
 
 :::note
 
-You can optionally configure [API authentication](https://cloud.google.com/docs/authentication#:~:text=the%20section%20below.-,Authentication%20strategies,public%20data%20using%20API%20keys.) and [user authentication for your API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth), if desired.
+You can optionally configure [API authentication](https://cloud.google.com/docs/authentication) and [user authentication for your API](https://cloud.google.com/run/docs/authenticating/end-users#cicp-firebase-auth), if desired.
 
 :::
 
