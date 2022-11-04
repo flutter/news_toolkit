@@ -39,6 +39,10 @@ After successfully creating an account or logging into an existing account, crea
 
 After generating your apps, return to your Firebase Console to link the Google AdMob apps to their respective Firebase apps. This is done in the `Engage --> AdMob` section of your Firebase project.
 
+#### Swap Ad IDs
+
+Finally, you need to specify your Google AdMob app IDs. First [find your Google AdMob app IDs](https://support.google.com/admob/answer/7356431?hl=en). For every app flavor's `strings.xml` file within your codebase, replace the placeholder value associated with the `admob_app_id` key with your flavor-specific app ID. Repeat this procedure and replace the placeholder value for every `ADMOB_APP_ID` key within your `project.pbxproj` file.
+
 ## Remove Ads
 
 You may want to remove advertisements from your app. This section discusses how to remove the various advertisement types and their dependencies.
