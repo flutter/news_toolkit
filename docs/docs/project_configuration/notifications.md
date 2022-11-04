@@ -7,7 +7,7 @@ description: Learn how to configure notifications for your application.
 
 The Flutter News Toolkit comes with [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) set up, but your application is equally compatible with [OneSignal](https://onesignal.com/) as a push notification solution.
 
-This section discusses how to integrate your notifications service information into your app. For information on using FCM or OneSignal within your code after following the steps here, please refer to the [Push Notifications](/flutter_development/push_notifications.md) section.
+For information on using FCM or OneSignal, please refer to the [Push Notifications](/flutter_development/push_notifications.md) section of these docs.
 
 :::note
 Notifications will only appear when your app is running on a physical device.
