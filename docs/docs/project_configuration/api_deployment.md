@@ -25,7 +25,7 @@ You can also choose to deploy your Dart Frog API to other services, like [AWS Ap
 
 By default your app expects to receive news data from `localhost`. In order to receive data from your deployed API, you must point your app towards your new URL.
 
-Create a new `ApiClient` class which extends `FlutterNewsExampleApiClient` and set the `_baseURl` field to your new API URL. Additionally, override any `FlutterNewsExampleApiClient` methods which diverge from your API request schema, and implement them to handle the request appropriately. 
+Create a new `ApiClient` class which extends `FlutterNewsExampleApiClient` and set the `_baseURl` field to your new API URL. Additionally, override any `FlutterNewsExampleApiClient` methods which diverge from your API request schema, and implement them to handle the request appropriately.
 
 Finally, edit the `main_flavor.dart` file for every app flavor which you want to receive data from your deployed API. Remove the assignment of `apiClient` to `FlutterNewsExampleApiClient.localhost` and assign `apiClient` to an instance of your new API client:
 
