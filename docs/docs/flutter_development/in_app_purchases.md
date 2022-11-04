@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 9
 description: Learn how to configure in-app purchases in your Flutter news application.
 ---
 

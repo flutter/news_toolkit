@@ -17,6 +17,8 @@ In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method ->
 
 Passwordless authentication with email link requires additional configuration steps. Please follow the steps for [Apple](https://firebase.google.com/docs/auth/ios/email-link-auth?authuser=0&hl=en) and [Android](https://firebase.google.com/docs/auth/android/email-link-auth?authuser=0&hl=en) configurations.
 
+:::
+
 ## Google
 
 ### Firebase Configuration
