@@ -21,8 +21,3 @@ For this project specifically, be sure to create an [App Store API Key](https://
 
 A service account is required when setting up publishing to Google Play. The service account JSON key file must be added to Codemagic to authenticate with these services. To set up a service account for authentication with Google Play and Firebase, follow the instructions [here](https://docs.codemagic.io/knowledge-base/google-services-authentication/).
 
-:::note
-
-Codemagic is not a required service for this project. You're welcome to use other automated CI/CD services for your apps, if desired.
-
-:::
