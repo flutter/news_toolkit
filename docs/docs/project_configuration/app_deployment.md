@@ -7,6 +7,12 @@ description: Learn how to setup continous deployments for your application.
 
 ## Codemagic
 
+::: note
+
+Codemagic is not a required service for this project. You're welcome to use other automated CI/CD services for your apps, if desired.
+
+:::
+
 Codemagic is an automated CI/CD service that streamlines deployments to the Google Play Store and App Store Connect. You can configure your CI/CD pipeuline up front and trigger deployments automatically with each subsequent code change.
 
 To leverage this service, login or [create a Codemagic account](https://codemagic.io/signup?campaign=flutter-ci-header_sign_up_btn) and follow the [getting started guide](https://docs.codemagic.io/yaml-basic-configuration/yaml-getting-started/) to setup your `codemagic.yaml` for build configuration on Codemagic. Be sure to populate all 'TODO' fields in your codemagic.yaml file.
