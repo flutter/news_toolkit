@@ -20,4 +20,3 @@ To leverage this service, login or [create a Codemagic account](https://codemagi
 For this project specifically, be sure to create an [App Store API Key](https://docs.codemagic.io/yaml-code-signing/signing-ios/#creating-the-app-store-connect-api-key) and add this to your Codemagic account. In addition, [generate an upload a keytore](https://docs.codemagic.io/yaml-code-signing/signing-android/#generating-a-keystore).
 
 A service account is required when setting up publishing to Google Play. The service account JSON key file must be added to Codemagic to authenticate with these services. To set up a service account for authentication with Google Play and Firebase, follow the instructions [here](https://docs.codemagic.io/knowledge-base/google-services-authentication/).
-
