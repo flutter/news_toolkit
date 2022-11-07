@@ -27,7 +27,7 @@ By default your app expects to receive news data from `localhost`. In order to r
 
 Create a new `ApiClient` class which extends `FlutterNewsExampleApiClient` and set the `_baseURl` field to your new API URL. Additionally, override any `FlutterNewsExampleApiClient` methods which diverge from your API request schema, and implement them to handle the request appropriately.
 
-Finally, edit the `main_flavor.dart` file for every app flavor which you want to receive data from your deployed API. Remove the assignment of `apiClient` to `FlutterNewsExampleApiClient.localhost` and assign `apiClient` to an instance of your new API client:
+Finally, edit the `main_flavor.dart` file for every app flavor you want receiving data from your deployed API. Remove the assignment of `apiClient` to `FlutterNewsExampleApiClient.localhost` and assign `apiClient` to an instance of your new API client:
 
 ```dart
 final apiClient = YourNewsApiClient(
