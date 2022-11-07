@@ -27,7 +27,7 @@ void main() {
     ) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = FlutterNewsExampleApiClient(
+      final apiClient = FlutterNewsExampleApiClient.localhost(
         tokenProvider: tokenStorage.readToken,
       );
 
