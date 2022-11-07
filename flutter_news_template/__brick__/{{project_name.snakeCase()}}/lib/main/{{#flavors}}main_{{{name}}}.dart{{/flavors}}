@@ -27,7 +27,7 @@ void main() {
     ) async {
       final tokenStorage = InMemoryTokenStorage();
 
-      final apiClient = {{project_name.pascalCase()}}ApiClient(
+      final apiClient = {{project_name.pascalCase()}}ApiClient.localhost(
         tokenProvider: tokenStorage.readToken,
       );
 
