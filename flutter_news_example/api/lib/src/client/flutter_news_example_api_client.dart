@@ -47,7 +47,7 @@ class FlutterNewsExampleApiClient {
     http.Client? httpClient,
     required TokenProvider tokenProvider,
   }) : this._(
-          baseUrl: 'https://google-news-template-api-q66trdlzja-uc.a.run.app',
+          baseUrl: 'https://example-api.a.run.app',
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         );
