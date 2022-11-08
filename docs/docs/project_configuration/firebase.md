@@ -5,7 +5,7 @@ description: Learn how to configure your Firebase project.
 
 # Firebase Setup
 
-Your generated project includes sample configurations for Firebase. Please follow the instructions below to create your own Firebase projects and configure your apps.
+You need to specify Firebase configuration information for your app flavors and platforms. Please follow the instructions below to create your own Firebase projects and configure your apps.
 
 :::note
 
@@ -19,4 +19,4 @@ By default, your codebase should have support a production and development flavo
 
 In the [Firebase Console](https://console.firebase.google.com/u/0/), configure separate Firebase projects for each flavor that your project supports (e.g. development and production). This can also be done using the [firebase-tools CLI](https://github.com/firebase/firebase-tools) and the `firebase projects:create` command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the `firebase apps:create` command.
 
-Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations.
+Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services (`google-services.json` and `GoogleServiceInfo.plist`) using exported configurations.

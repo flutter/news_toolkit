@@ -126,7 +126,7 @@ After answering the above questions, your custom news application will be genera
 
 :::caution
 
-Your project includes sample configurations so that you can get up and running quickly. You will still need to follow the additional configuration steps for Firebase and ads setup:
+Your project does not contain functional placeholder Firebase configuration information. You will need to follow the additional configuration steps for Firebase and ads setup:
 
 - [Configure Firebase](/project_configuration/firebase)
   - [Configure Social Authentication with Firebase](/project_configuration/social_authentication)
