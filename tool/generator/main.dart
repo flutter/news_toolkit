@@ -60,8 +60,7 @@ final _flutterVersionRegExp = RegExp(r'flutter: (.*)');
 final _vgWorkflowFlutterVersionRegExp = RegExp(r'flutter_version: (.*)');
 final _mustacheCaseRegExp = RegExp(r'\${{([^{}]*)}}');
 final _workflowFlutterVersionRegExp = RegExp(r'flutter-version: (.*)');
-final _apiClientRegExp =
-    RegExp('google-news-template-api-q66trdlzja-uc.a.run.app');
+final _apiClientRegExp = RegExp('example-api.a.run.app');
 final _workflowWorkingDirectoryRegExp = RegExp(
   r'\s+defaults:(.*?)flutter_news_example',
   multiLine: true,
