@@ -7,7 +7,7 @@ description: Learn how to setup continous deployments for your application.
 
 ## Codemagic
 
-::: note
+:::note
 
 Codemagic is not a required service for this project. You're welcome to use other automated CI/CD services for your apps, if desired.
 
