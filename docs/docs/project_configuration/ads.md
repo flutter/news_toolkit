@@ -43,7 +43,7 @@ After generating your apps, return to your Firebase Console to link the Google A
 
 Finally, you need to specify your app IDs regardless of whether you are using Google AdMob or Google Ad Manager.
 
-First [find your Google advertising app IDs](https://support.google.com/admob/answer/7356431?hl=en). For every app flavor's `strings.xml` file within your codebase, replace the placeholder value associated with the `admob_app_id` key with your flavor-specific app ID. Repeat this procedure and replace the placeholder value for every `ADMOB_APP_ID` key within your `project.pbxproj` file.
+First find your [Google Ad Manager app IDs](https://support.google.com/admanager/answer/1656921#copy-id) or [AdMob app IDs](https://support.google.com/admob/answer/7356431?hl=en). For every app flavor's `strings.xml` file within your codebase, replace the placeholder value associated with the `admob_app_id` key with your flavor-specific app ID. Repeat this procedure and replace the placeholder value for every `ADMOB_APP_ID` key within your `project.pbxproj` file.
 
 ## Remove Ads
 
