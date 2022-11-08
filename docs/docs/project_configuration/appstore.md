@@ -5,7 +5,7 @@ description: Learn how to setup your application for publishing to the app store
 
 # App Store Setup
 
-Since Flutter allows you to build apps for multiple platforms, your project is compatible for both Android and iOS. Follow the steps below to create apps in both the Google Play Store and Apple App Store.
+This project supports Android and iOS. Follow the steps below to create apps to deploy to both the Google Play Store and Apple App Store.
 
 ## Google Play Store
 
