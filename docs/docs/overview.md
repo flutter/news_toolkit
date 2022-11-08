@@ -7,7 +7,7 @@ sidebar_position: 1
 
 The Google Flutter team and Google News Initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever in order to make reliable information accessible to all.
 
-This template aims to **reduce the type to develop a typical news app by 80%**.
+This template aims to **reduce the time to develop a typical news app by 80%**.
 
 The Flutter News Toolkit:
 
@@ -124,14 +124,69 @@ You'll be prompted with the following questions. Be prepared to provide the foll
 
 After answering the above questions, your custom news application will be generated. You are now ready to run the application locally!
 
+#### Configure Firebase
+
 :::caution
 
-Your project includes sample configurations so that you can get up and running quickly. You will still need to follow the additional configuration steps for Firebase and ads setup:
+Before you can run your generated app, you will need to configure Firebase.
 
-- [Configure Firebase](/project_configuration/firebase)
-  - [Configure Social Authentication with Firebase](/project_configuration/social_authentication)
-- [Configure or Remove Ads](/project_configuration/ads)
+Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (e.g. development and production).
 
+In each Firebase project, create an Android and iOS app with the corresponding application ids. Make sure that the application id includes the correct suffix (e.g. "dev" for the development flavor).
+
+Download the Google Services file for each app from the project settings page in the Firebase Console. Then, go to the source code of your generated app and look for the following `TODOs` for each flavor:
+
+**Android**
+
+```
+// Replace with google-services.json from the Firebase Console //
+```
+
+**iOS**
+
+```
+<!-- Replace with GoogleService-Info.plist from the Firebase Console -->
+```
+
+Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
+
+Lastly, for iOS only you will need to open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding reversed_client_id from the `GoogleServiceInfo.plist` file:
+
+```
+REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+```
+
+For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
+
+```
+<plist version="1.0">
+<dict>
+	...
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t</string>
+  ...
+</dict>
+</plist>
+```
+
+Your `ios/Runner.xcodeproj/project.pbxproj` should contain a section that looks like:
+
+```
+LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
+  }
+}
+```
+
+:::
+
+#### Configure or Remove Ads
+
+:::info
+Your project includes sample configurations for ads so that you can run your generated app with minimal setup. You will need to follow additional steps to [configure or remove ads](/project_configuration/ads).
 :::
 
 ### Run the API Server
