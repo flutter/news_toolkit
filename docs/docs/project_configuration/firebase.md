@@ -5,7 +5,7 @@ description: Learn how to configure your Firebase project.
 
 # Firebase Setup
 
-Your generated project includes sample configurations for Firebase. Please follow the instructions below to create your own Firebase projects and configure your apps.
+You need to specify Firebase configuration information for your app flavors and platforms. Please follow the instructions below to create your own Firebase projects and configure your apps.
 
 :::note
 
@@ -17,6 +17,55 @@ It is recommended to define at least two application environments: development a
 
 By default, your codebase should have support a production and development flavor. However, it's possible that you chose to create additional flavors when generating your project from mason.
 
-In the [Firebase Console](https://console.firebase.google.com/u/0/), configure separate Firebase projects for each flavor that your project supports (e.g. development and production). This can also be done using the [firebase-tools CLI](https://github.com/firebase/firebase-tools) and the `firebase projects:create` command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the `firebase apps:create` command.
+Before you can run your generated app, you will need to configure Firebase.
 
-Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations.
+Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (e.g. development and production).
+
+In each Firebase project, create an Android and iOS app with the corresponding application ids. Make sure that the application id includes the correct suffix (e.g. "dev" for the development flavor).
+
+Download the Google Services file for each app from the project settings page in the Firebase Console. Then, go to the source code of your generated app and look for the following `TODOs` for each flavor:
+
+**Android**
+
+```
+// Replace with google-services.json from the Firebase Console //
+```
+
+**iOS**
+
+```
+<!-- Replace with GoogleService-Info.plist from the Firebase Console -->
+```
+
+Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
+
+Lastly, for iOS only you will need to open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding reversed_client_id from the `GoogleServiceInfo.plist` file:
+
+```
+REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+```
+
+For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
+
+```
+<plist version="1.0">
+<dict>
+	...
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t</string>
+  ...
+</dict>
+</plist>
+```
+
+Your `ios/Runner.xcodeproj/project.pbxproj` should contain a section that looks like:
+
+```
+LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
+  }
+}
+```
