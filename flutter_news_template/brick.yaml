@@ -1,17 +1,17 @@
 name: flutter_news_template
 description: Flutter News Template Generator
+repository: https://github.com/flutter/news_toolkit
 version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.37 <0.1.0"
+
 vars:
   app_name:
     type: string
     description: The name of your application as displayed on the device for end users.
-    default: Flutter News Template
+    default: Daily Globe
     prompt: What is the user-facing application name?
-  project_name:
-    type: string
-    description: The name of your application's package in the pubspec.yaml.
-    default: flutter_news_template
-    prompt: What is the application package name?
   reverse_domain:
     type: string
     description: The application identifier also known as the bundle identifier.
@@ -20,8 +20,7 @@ vars:
   code_owners:
     type: string
     description: A list of GitHub usernames who will be code owners on the repository.
-    default: "@githubUser"
-    prompt: Who are the code owners? (separated by spaces)
+    prompt: Who are the code owners? (e.g. @user1 @user2)
   flavors:
     type: array
     description: The flavors which you want the generated application to include.

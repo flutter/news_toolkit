@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:recase/recase.dart';
 import 'package:mason/mason.dart';
 
 const _supportedFlavors = {
@@ -21,6 +22,8 @@ const _supportedFlavors = {
     "suffix": "",
   },
 };
+const _exampleAndroidAdsId = 'ca-app-pub-3940256099942544~3347511713';
+const _exampleiOSAdsId = 'ca-app-pub-3940256099942544~1458002511';
 const _supportedFlutterVersion = '3.3.6';
 
 Future<void> run(HookContext context) async {
@@ -32,6 +35,8 @@ Future<void> run(HookContext context) async {
     }
     return {
       ..._supportedFlavors[flavor]!,
+      'android_ads_app_id': _exampleAndroidAdsId,
+      'ios_ads_app_id': _exampleiOSAdsId,
       'xcconfig_id': _generateRandomUUID(),
       'xcbuild_configuration_section_release_1_id': _generateRandomUUID(),
       'xcbuild_configuration_section_release_2_id': _generateRandomUUID(),
@@ -39,8 +44,10 @@ Future<void> run(HookContext context) async {
       'xcbuild_configuration_section_debug_2_id': _generateRandomUUID()
     };
   }).toList();
+  final appName = vars['app_name'] as String;
   context.vars = {
     ...vars,
+    'project_name': appName.snakeCase,
     'flavors': flavors,
     'flutter_version': _supportedFlutterVersion,
   };
