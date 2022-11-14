@@ -101,10 +101,6 @@ You'll be prompted with the following questions. Be prepared to provide the foll
 # The name of your application as displayed on the device for end users.
 ? What is the user-facing application name? (Flutter News Template)
 
-# The name of your application's package in the pubspec.yaml (developer facing name).
-# This must follow dart package naming conventions: https://dart.dev/tools/pub/pubspec#name
-? What is the application package name? (flutter_news_template)
-
 # The application identifier also know as the bundle identifier on iOS.
 ? What is the application bundle identifier? (com.flutter.news.template)
 
