@@ -99,15 +99,6 @@ dev_dependencies:
   mocktail: ^0.3.0
   mocktail_image_network: ^0.3.1
 
-dependency_overrides:
-  # Should be removed when a hotfix is released
-  # https://github.com/googleads/googleads-mobile-flutter/issues/673
-  google_mobile_ads:
-    git:
-      url: https://github.com/googleads/googleads-mobile-flutter
-      path: packages/google_mobile_ads
-      ref: 23c37303e542ca7ea16d892a3b06bdc5fa41f0e4
-
 flutter:
   generate: true
   uses-material-design: true

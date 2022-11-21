@@ -633,12 +633,10 @@ packages:
   google_mobile_ads:
     dependency: "direct main"
     description:
-      path: "packages/google_mobile_ads"
-      ref: "23c37303e542ca7ea16d892a3b06bdc5fa41f0e4"
-      resolved-ref: "23c37303e542ca7ea16d892a3b06bdc5fa41f0e4"
-      url: "https://github.com/googleads/googleads-mobile-flutter"
-    source: git
-    version: "2.1.0"
+      name: google_mobile_ads
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
   google_sign_in:
     dependency: transitive
     description:
