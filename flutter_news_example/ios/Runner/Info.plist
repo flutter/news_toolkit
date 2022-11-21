@@ -50,7 +50,7 @@
 	<key>GADApplicationIdentifier</key>
 	<string>$(ADMOB_APP_ID)</string>
 	<key>FLTNewsTemplateVersion</key>
-  <string>1.0.0</string>
+	<string>1.0.0</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>CFBundleVersion</key>
