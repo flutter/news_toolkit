@@ -50,6 +50,8 @@
 	<key>GADApplicationIdentifier</key>
 	<string>$(ADMOB_APP_ID)</string>
 	<key>NSUserTrackingUsageDescription</key>
+	<key>FLTNewsTemplateVersion</key>
+  <string>1.0.0</string>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
