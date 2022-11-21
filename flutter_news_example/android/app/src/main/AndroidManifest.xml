@@ -72,5 +72,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
+        <meta-data
+            android:name="io.flutter.plugins.googlemobileads.FLUTTER_NEWS_TEMPLATE_VERSION"
+            android:value="1.0.0"/>
     </application>
 </manifest>
