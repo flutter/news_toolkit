@@ -172,6 +172,9 @@ void main() {
 
       expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
 
+      await tester.ensureVisible(
+          find.byKey(onboardingViewPageTwoSecondaryButtonKey),
+      );
       final button = find.byKey(onboardingViewPageTwoSecondaryButtonKey);
       await tester.tap(button);
 
