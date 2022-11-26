@@ -8,8 +8,10 @@ import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
+import 'package:flutter_news_example/super_editor_article/super_editor_article.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:share_launcher/share_launcher.dart';
+import 'package:super_editor/super_editor.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
@@ -71,13 +73,10 @@ class _ArticleViewState extends State<ArticleView> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor =
-        widget.isVideoArticle ? AppColors.darkBackground : AppColors.white;
-    final foregroundColor =
-        widget.isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
+    final backgroundColor = widget.isVideoArticle ? AppColors.darkBackground : AppColors.white;
+    final foregroundColor = widget.isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
-    final isSubscriber =
-        context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
+    final isSubscriber = context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
     return HasReachedArticleLimitListener(
       child: HasWatchedRewardedAdListener(
@@ -85,14 +84,10 @@ class _ArticleViewState extends State<ArticleView> {
           backgroundColor: backgroundColor,
           appBar: AppBar(
             systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness:
-                  widget.isVideoArticle ? Brightness.light : Brightness.dark,
-              statusBarBrightness:
-                  widget.isVideoArticle ? Brightness.dark : Brightness.light,
+              statusBarIconBrightness: widget.isVideoArticle ? Brightness.light : Brightness.dark,
+              statusBarBrightness: widget.isVideoArticle ? Brightness.dark : Brightness.light,
             ),
-            leading: widget.isVideoArticle
-                ? const AppBackButton.light()
-                : const AppBackButton(),
+            leading: widget.isVideoArticle ? const AppBackButton.light() : const AppBackButton(),
             actions: [
               if (uri != null && uri.toString().isNotEmpty)
                 Padding(
@@ -101,9 +96,7 @@ class _ArticleViewState extends State<ArticleView> {
                   child: ShareButton(
                     shareText: context.l10n.shareText,
                     color: foregroundColor,
-                    onPressed: () => context
-                        .read<ArticleBloc>()
-                        .add(ShareRequested(uri: uri)),
+                    onPressed: () => context.read<ArticleBloc>().add(ShareRequested(uri: uri)),
                   ),
                 ),
               if (!isSubscriber) const ArticleSubscribeButton()
@@ -111,7 +104,9 @@ class _ArticleViewState extends State<ArticleView> {
           ),
           body: ArticleThemeOverride(
             isVideoArticle: widget.isVideoArticle,
-            child: const ArticleContent(),
+            // child: const ArticleContent(),
+            // ^ original article implementation
+            child: const SuperEditorArticle(),
           ),
         ),
       ),
@@ -152,9 +147,7 @@ class HasReachedArticleLimitListener extends StatelessWidget {
           context.read<ArticleBloc>().add(const ArticleRequested());
         }
       },
-      listenWhen: (previous, current) =>
-          previous.hasReachedArticleViewsLimit !=
-          current.hasReachedArticleViewsLimit,
+      listenWhen: (previous, current) => previous.hasReachedArticleViewsLimit != current.hasReachedArticleViewsLimit,
       child: child,
     );
   }
@@ -174,8 +167,7 @@ class HasWatchedRewardedAdListener extends StatelessWidget {
           context.read<ArticleBloc>().add(const ArticleRewardedAdWatched());
         }
       },
-      listenWhen: (previous, current) =>
-          previous.earnedReward != current.earnedReward,
+      listenWhen: (previous, current) => previous.earnedReward != current.earnedReward,
       child: child,
     );
   }

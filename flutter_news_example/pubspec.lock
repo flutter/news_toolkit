@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  attributed_text:
+    dependency: transitive
+    description:
+      name: attributed_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   authentication_client:
     dependency: "direct main"
     description:
@@ -590,6 +597,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_test_robots:
+    dependency: transitive
+    description:
+      name: flutter_test_robots
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.17"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -805,6 +819,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.5.4"
+  linkify:
+    dependency: transitive
+    description:
+      name: linkify
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.0"
   logging:
     dependency: transitive
     description:
@@ -1363,6 +1384,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  super_editor:
+    dependency: "direct main"
+    description:
+      path: super_editor
+      ref: stable
+      resolved-ref: cf1ec88272f2fc98f1a9232a8f7b6eb4f0c77bee
+      url: "https://github.com/superlistapp/super_editor"
+    source: git
+    version: "0.2.3+1"
+  super_text_layout:
+    dependency: transitive
+    description:
+      name: super_text_layout
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   synchronized:
     dependency: transitive
     description:

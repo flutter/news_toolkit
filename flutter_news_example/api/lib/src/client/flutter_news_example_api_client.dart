@@ -60,7 +60,7 @@ class FlutterNewsExampleApiClient {
     http.Client? httpClient,
     required TokenProvider tokenProvider,
   }) : this._(
-          baseUrl: 'http://localhost:8080',
+          baseUrl: 'http://10.0.2.2:8080', //'http://localhost:8080',
           httpClient: httpClient,
           tokenProvider: tokenProvider,
         );

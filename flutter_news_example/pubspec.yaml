@@ -77,6 +77,11 @@ dependencies:
     path: packages/share_launcher
   shared_preferences: ^2.0.15
   stream_transform: ^2.0.0
+  super_editor:
+    git:
+      url: https://github.com/superlistapp/super_editor
+      path: super_editor
+      ref: stable
   test: ^1.21.4
   token_storage:
     path: packages/authentication_client/token_storage
