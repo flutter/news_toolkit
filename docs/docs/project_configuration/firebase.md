@@ -21,7 +21,7 @@ Before you can run your generated app, you will need to configure Firebase.
 
 :::note
 
-Since the app has support for multiple flavors, we'll need to manually configure Firebase for the app. Setting up Firebase using [flutterfire-cli](https://firebase.google.com/docs/flutter/setup?platform=ios#configure-firebase) has yet to have [support for multiple flavors](https://github.com/invertase/flutterfire_cli/issues/14).
+Since the app has support for multiple flavors, we'll need to manually configure Firebase for the app. Setting up Firebase using [flutterfire-cli](https://firebase.google.com/docs/flutter/setup#configure-firebase) has yet to have [support for multiple flavors](https://github.com/invertase/flutterfire_cli/issues/14).
 
 :::
 
