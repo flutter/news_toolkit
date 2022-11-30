@@ -19,6 +19,12 @@ By default, your codebase should have support a production and development flavo
 
 Before you can run your generated app, you will need to configure Firebase.
 
+:::note
+
+Since the app has support for multiple flavors, we'll need to manually configure Firebase for the app. Setting up Firebase using [flutterfire-cli](https://firebase.google.com/docs/flutter/setup?platform=ios#configure-firebase) has yet to have [support for multiple flavors](https://github.com/invertase/flutterfire_cli/issues/14).
+
+:::
+
 Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (e.g. development and production).
 
 In each Firebase project, create an Android and iOS app with the corresponding application ids. Make sure that the application id includes the correct suffix (e.g. "dev" for the development flavor).
