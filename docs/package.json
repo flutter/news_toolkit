@@ -31,9 +31,9 @@
     "@docusaurus/eslint-plugin": "^2.2.0",
     "@docusaurus/module-type-aliases": "2.2.0",
     "@tsconfig/docusaurus": "^1.0.5",
-    "eslint": "^8.27.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "eslint": "^8.28.0",
+    "prettier": "^2.8.0",
+    "typescript": "^4.9.3"
   },
   "browserslist": {
     "production": [
