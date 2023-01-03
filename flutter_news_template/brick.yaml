@@ -4,7 +4,7 @@ repository: https://github.com/flutter/news_toolkit
 version: 0.1.0+1
 
 environment:
-  mason: ">=0.1.0-dev.37 <0.1.0"
+  mason: ">=0.1.0-dev.40 <0.1.0"
 
 vars:
   app_name:
