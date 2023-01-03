@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:recase/recase.dart';
 import 'package:mason/mason.dart';
 
 const _supportedFlavors = {
