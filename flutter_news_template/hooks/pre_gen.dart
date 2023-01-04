@@ -23,7 +23,7 @@ const _supportedFlavors = {
 };
 const _exampleAndroidAdsId = 'ca-app-pub-3940256099942544~3347511713';
 const _exampleiOSAdsId = 'ca-app-pub-3940256099942544~1458002511';
-const _supportedFlutterVersion = '3.3.6';
+const _supportedFlutterVersion = '3.3.10';
 
 Future<void> run(HookContext context) async {
   final vars = {...context.vars};
