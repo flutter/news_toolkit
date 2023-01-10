@@ -32,7 +32,7 @@ class NewsletterSucceeded extends StatelessWidget {
           Text(
             headerText,
             textAlign: TextAlign.center,
-            style: theme.textTheme.headline4?.copyWith(
+            style: theme.textTheme.headlineMedium?.copyWith(
               color: AppColors.highEmphasisPrimary,
             ),
           ),
@@ -42,7 +42,7 @@ class NewsletterSucceeded extends StatelessWidget {
           Text(
             footerText,
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyLarge?.copyWith(
               color: AppColors.mediumHighEmphasisPrimary,
             ),
           ),

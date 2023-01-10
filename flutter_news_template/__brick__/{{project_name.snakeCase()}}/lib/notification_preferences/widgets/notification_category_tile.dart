@@ -29,7 +29,7 @@ class NotificationCategoryTile extends StatelessWidget {
       onTap: onTap,
       title: Text(
         toBeginningOfSentenceCase(title) ?? '',
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }

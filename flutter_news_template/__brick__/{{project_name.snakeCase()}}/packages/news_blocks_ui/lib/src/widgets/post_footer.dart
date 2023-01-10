@@ -39,7 +39,7 @@ class PostFooter extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            style: textTheme.caption?.copyWith(color: textColor),
+            style: textTheme.bodySmall?.copyWith(color: textColor),
             children: <InlineSpan>[
               if (author != null) ...[
                 TextSpan(

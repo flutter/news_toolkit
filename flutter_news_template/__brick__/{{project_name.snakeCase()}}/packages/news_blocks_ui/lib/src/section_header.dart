@@ -19,7 +19,7 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final title = Text(block.title, style: theme.textTheme.headline3);
+    final title = Text(block.title, style: theme.textTheme.displaySmall);
     final action = block.action;
     final trailing = action != null
         ? IconButton(

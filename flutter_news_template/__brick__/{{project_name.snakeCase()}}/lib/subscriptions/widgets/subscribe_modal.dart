@@ -59,8 +59,8 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeModalTitle,
-                  style:
-                      theme.textTheme.headline3?.apply(color: AppColors.white),
+                  style: theme.textTheme.displaySmall
+                      ?.apply(color: AppColors.white),
                 ),
               ),
               const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
@@ -68,7 +68,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeModalSubtitle,
-                  style: theme.textTheme.subtitle1
+                  style: theme.textTheme.titleMedium
                       ?.apply(color: AppColors.mediumEmphasisPrimary),
                 ),
               ),

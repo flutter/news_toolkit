@@ -38,12 +38,12 @@ class ManageSubscriptionView extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               Text(
                 l10n.manageSubscriptionTile,
-                style: theme.textTheme.headline4,
+                style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
                 l10n.manageSubscriptionBodyText,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyLarge?.copyWith(
                   color: AppColors.mediumEmphasisSurface,
                 ),
               ),
@@ -57,7 +57,7 @@ class ManageSubscriptionView extends StatelessWidget {
                 ),
                 title: Text(
                   l10n.manageSubscriptionLinkText,
-                  style: theme.textTheme.subtitle2
+                  style: theme.textTheme.titleSmall
                       ?.copyWith(color: AppColors.darkAqua),
                 ),
                 onTap: () {

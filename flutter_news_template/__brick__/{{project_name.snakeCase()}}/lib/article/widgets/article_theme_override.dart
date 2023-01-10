@@ -35,9 +35,11 @@ class ArticleThemeOverride extends StatelessWidget {
               ),
             ],
             textTheme: textTheme.copyWith(
-              headline2: textTheme.headline2?.copyWith(color: textHighColor),
-              headline6: textTheme.headline6?.copyWith(color: textHighColor),
-              bodyText1: textTheme.bodyText1?.copyWith(color: textMediumColor),
+              displayMedium: textTheme.displayMedium?.copyWith(
+                color: textHighColor,
+              ),
+              titleLarge: textTheme.titleLarge?.copyWith(color: textHighColor),
+              bodyLarge: textTheme.bodyLarge?.copyWith(color: textMediumColor),
             ),
           ),
           child: child,

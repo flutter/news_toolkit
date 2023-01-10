@@ -48,7 +48,7 @@ class TermsOfServiceHeader extends StatelessWidget {
       ),
       child: Text(
         context.l10n.termsOfServiceModalTitle,
-        style: theme.textTheme.headline4,
+        style: theme.textTheme.headlineMedium,
       ),
     );
   }

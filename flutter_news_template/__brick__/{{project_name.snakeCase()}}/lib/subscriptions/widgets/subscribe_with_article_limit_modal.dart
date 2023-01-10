@@ -66,8 +66,8 @@ class _SubscribeWithArticleLimitModalState
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeWithArticleLimitModalTitle,
-                  style:
-                      theme.textTheme.headline3?.apply(color: AppColors.white),
+                  style: theme.textTheme.displaySmall
+                      ?.apply(color: AppColors.white),
                 ),
               ),
               const SizedBox(height: AppSpacing.sm + AppSpacing.xxs),
@@ -75,7 +75,7 @@ class _SubscribeWithArticleLimitModalState
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xlg),
                 child: Text(
                   l10n.subscribeWithArticleLimitModalSubtitle,
-                  style: theme.textTheme.subtitle1
+                  style: theme.textTheme.titleMedium
                       ?.apply(color: AppColors.mediumEmphasisPrimary),
                 ),
               ),
