@@ -48,12 +48,12 @@ class NotificationPreferencesView extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               Text(
                 l10n.notificationPreferencesTitle,
-                style: theme.textTheme.headline4,
+                style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
                 l10n.notificationPreferencesCategoriesSubtitle,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyLarge?.copyWith(
                   color: AppColors.mediumEmphasisSurface,
                 ),
               ),

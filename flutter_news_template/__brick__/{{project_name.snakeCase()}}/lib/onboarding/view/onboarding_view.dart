@@ -123,7 +123,7 @@ class _OnboardingTitle extends StatelessWidget {
       ),
       child: Text(
         context.l10n.onboardingWelcomeTitle,
-        style: theme.textTheme.headline1?.apply(
+        style: theme.textTheme.displayLarge?.apply(
           color: AppColors.white,
         ),
         textAlign: TextAlign.center,
@@ -146,7 +146,7 @@ class _OnboardingSubtitle extends StatelessWidget {
       ),
       child: Text(
         context.l10n.onboardingSubtitle,
-        style: theme.textTheme.subtitle1?.apply(
+        style: theme.textTheme.titleMedium?.apply(
           color: AppColors.white,
         ),
         textAlign: TextAlign.center,

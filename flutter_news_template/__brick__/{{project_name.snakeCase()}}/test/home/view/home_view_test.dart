@@ -128,7 +128,7 @@ void main() {
     });
 
     testWidgets(
-        'renders NavigationDrawer '
+        'renders NavDrawer '
         'when menu icon is tapped', (tester) async {
       when(() => cubit.state).thenReturn(HomeState.topStories);
 
@@ -140,12 +140,12 @@ void main() {
         newsRepository: newsRepository,
       );
 
-      expect(find.byType(NavigationDrawer), findsNothing);
+      expect(find.byType(NavDrawer), findsNothing);
 
       await tester.tap(find.byIcon(Icons.menu));
       await tester.pump();
 
-      expect(find.byType(NavigationDrawer), findsOneWidget);
+      expect(find.byType(NavDrawer), findsOneWidget);
     });
 
     testWidgets('renders FeedView', (tester) async {

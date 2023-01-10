@@ -56,7 +56,7 @@ class SlideshowIntroduction extends StatelessWidget {
                   ),
                   Text(
                     block.title,
-                    style: textTheme.headline2?.copyWith(
+                    style: textTheme.displayMedium?.copyWith(
                       color: AppColors.highEmphasisPrimary,
                     ),
                     maxLines: 1,

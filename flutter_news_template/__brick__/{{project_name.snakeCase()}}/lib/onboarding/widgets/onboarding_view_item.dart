@@ -40,7 +40,7 @@ class OnboardingViewItem extends StatelessWidget {
             Text(
               key: const Key('onboardingItem_pageNumberTitle'),
               pageNumberTitle,
-              style: theme.textTheme.overline?.apply(
+              style: theme.textTheme.labelSmall?.apply(
                 color: AppColors.secondary.shade600,
               ),
               textAlign: TextAlign.center,
@@ -49,7 +49,7 @@ class OnboardingViewItem extends StatelessWidget {
             Text(
               key: const Key('onboardingItem_title'),
               title,
-              style: theme.textTheme.headline4?.apply(
+              style: theme.textTheme.headlineMedium?.apply(
                 color: AppColors.highEmphasisSurface,
               ),
               textAlign: TextAlign.center,
@@ -58,7 +58,7 @@ class OnboardingViewItem extends StatelessWidget {
             Text(
               key: const Key('onboardingItem_subtitle'),
               subtitle,
-              style: theme.textTheme.subtitle1?.apply(
+              style: theme.textTheme.titleMedium?.apply(
                 color: AppColors.mediumEmphasisSurface,
               ),
               textAlign: TextAlign.center,

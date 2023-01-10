@@ -14,7 +14,7 @@ class ArticleComments extends StatelessWidget {
       children: [
         Text(
           context.l10n.discussion,
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
           key: const Key('articleComments_discussionTitle'),
         ),
         const SizedBox(height: AppSpacing.lg),

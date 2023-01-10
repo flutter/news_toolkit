@@ -41,7 +41,7 @@ class PostContentPremiumCategory extends StatelessWidget {
                 premiumText.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .overline
+                    .labelSmall
                     ?.copyWith(color: textColor),
               ),
             ),
