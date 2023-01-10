@@ -35,7 +35,7 @@ class TrendingStory extends StatelessWidget {
           ),
           child: Text(
             title,
-            style: theme.overline?.apply(color: AppColors.secondary),
+            style: theme.labelSmall?.apply(color: AppColors.secondary),
           ),
         ),
         PostSmall(block: block.content)

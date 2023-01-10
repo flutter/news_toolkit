@@ -23,25 +23,25 @@ class Html extends StatelessWidget {
         data: block.content,
         style: {
           'p': flutter_html.Style.fromTextStyle(
-            theme.textTheme.bodyText1!,
+            theme.textTheme.bodyLarge!,
           ),
           'h1': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline1!,
+            theme.textTheme.displayLarge!,
           ),
           'h2': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline2!,
+            theme.textTheme.displayMedium!,
           ),
           'h3': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline3!,
+            theme.textTheme.displaySmall!,
           ),
           'h4': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline4!,
+            theme.textTheme.headlineMedium!,
           ),
           'h5': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline5!,
+            theme.textTheme.headlineSmall!,
           ),
           'h6': flutter_html.Style.fromTextStyle(
-            theme.textTheme.headline6!,
+            theme.textTheme.titleLarge!,
           ),
         },
       ),

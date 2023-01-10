@@ -55,7 +55,7 @@ class PostContentCategory extends StatelessWidget {
                 categoryName.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .overline
+                    .labelSmall
                     ?.copyWith(color: textColor),
               ),
             ),

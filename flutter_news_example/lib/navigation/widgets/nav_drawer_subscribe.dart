@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 
-class NavigationDrawerSubscribe extends StatelessWidget {
-  const NavigationDrawerSubscribe({super.key});
+class NavDrawerSubscribe extends StatelessWidget {
+  const NavDrawerSubscribe({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        NavigationDrawerSubscribeTitle(),
-        NavigationDrawerSubscribeSubtitle(),
+        NavDrawerSubscribeTitle(),
+        NavDrawerSubscribeSubtitle(),
         SizedBox(height: AppSpacing.xlg),
-        NavigationDrawerSubscribeButton(),
+        NavDrawerSubscribeButton(),
       ],
     );
   }
 }
 
 @visibleForTesting
-class NavigationDrawerSubscribeTitle extends StatelessWidget {
-  const NavigationDrawerSubscribeTitle({super.key});
+class NavDrawerSubscribeTitle extends StatelessWidget {
+  const NavDrawerSubscribeTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class NavigationDrawerSubscribeTitle extends StatelessWidget {
         ),
         child: Text(
           context.l10n.navigationDrawerSubscribeTitle,
-          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColors.highEmphasisPrimary,
               ),
         ),
@@ -44,8 +44,8 @@ class NavigationDrawerSubscribeTitle extends StatelessWidget {
 }
 
 @visibleForTesting
-class NavigationDrawerSubscribeSubtitle extends StatelessWidget {
-  const NavigationDrawerSubscribeSubtitle({super.key});
+class NavDrawerSubscribeSubtitle extends StatelessWidget {
+  const NavDrawerSubscribeSubtitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class NavigationDrawerSubscribeSubtitle extends StatelessWidget {
       ),
       child: Text(
         context.l10n.navigationDrawerSubscribeSubtitle,
-        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppColors.mediumEmphasisPrimary,
             ),
       ),
@@ -64,8 +64,8 @@ class NavigationDrawerSubscribeSubtitle extends StatelessWidget {
 }
 
 @visibleForTesting
-class NavigationDrawerSubscribeButton extends StatelessWidget {
-  const NavigationDrawerSubscribeButton({super.key});
+class NavDrawerSubscribeButton extends StatelessWidget {
+  const NavDrawerSubscribeButton({super.key});
 
   @override
   Widget build(BuildContext context) {
