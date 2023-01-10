@@ -125,43 +125,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemFirstTitle": "This publication is\nad-supported.",
+  "onboardingItemFirstTitle": "ADD YOUR TITLE FOR\nAD TRACKING PERMISSIONS",
   "@onboardingItemFirstTitle": {
     "description": "Text of the first page title of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemFirstSubtitleTitle": "Enable ad tracking to see personalized\nadvertising that is relevant to your\ninterests.",
+  "onboardingItemFirstSubtitleTitle": "ADD YOUR DESCRIPTION FOR\nAD TRACKING PERMISSIONS",
   "@onboardingItemFirstSubtitleTitle": {
     "description": "Text of the first page subtitle of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemFirstButtonTitle": "Personalize my Ads",
+  "onboardingItemFirstButtonTitle": "ADD YOUR CALL TO ACTION",
   "@onboardingItemFirstButtonTitle": {
     "description": "Text of the primary button on the first page of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemSecondTitle": "Don’t miss our\ntop stories!",
+  "onboardingItemSecondTitle": "ADD YOUR TITLE FOR\nNOTIFICATION PERMISSIONS",
   "@onboardingItemSecondTitle": {
-    "description": "Text of the primary button on the second page of the onboarding",
+    "description": "Text of the primary title on the second page of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemSecondSubtitleTitle": "Subscribe to our notifications to stay up\nto date on the latest breaking news.",
+  "onboardingItemSecondSubtitleTitle": "ADD YOUR DESCRIPTION FOR\nNOTIFICATION PERMISSIONS",
   "@onboardingItemSecondSubtitleTitle": {
     "description": "Text of the second page subtitle of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemSecondButtonTitle": "Subscribe to Notifications Now",
+  "onboardingItemSecondButtonTitle": "ADD YOUR CALL TO ACTION",
   "@onboardingItemSecondButtonTitle": {
     "description": "Text of the primary button on the second page of the onboarding.",
     "type": "text",
     "placeholders": {}
   },
-  "onboardingItemSecondaryButtonTitle": "No thanks",
+  "onboardingItemSecondaryButtonTitle": "ADD YOUR DECLINE TEXT",
   "@onboardingItemSecondaryButtonTitle": {
     "description": "Text of the secondary button of the onboarding.",
     "type": "text",
@@ -371,7 +371,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeEmailHeader": "Get top stories in your inbox.",
+  "subscribeEmailHeader": "ADD YOUR EMAIL SIGNUP PROMPT TITLE",
   "@subscribeEmailHeader": {
     "description": "Subscribe header shown in subscribe box",
     "type": "text",
@@ -383,13 +383,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeEmailBody": "Subscribe to our newsletter for fresh headlines every morning.",
+  "subscribeEmailBody": "ADD YOUR EMAIL SIGNUP PROMPT DESCRIPTION",
   "@subscribeEmailBody": {
     "description": "Subscribe body shown in subscribe box",
     "type": "text",
     "placeholders": {}
   },
-  "subscribeEmailButtonText": "Sign Up",
+  "subscribeEmailButtonText": "ADD YOUR CALL TO ACTION",
   "@subscribeEmailButtonText": {
     "description": "Text shown in a button of a subscribe box",
     "type": "text",
@@ -467,13 +467,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalTitle": "Subscribe today for\nunlimited access.",
+  "subscribeModalTitle": "ADD YOUR SUBSCRIPTION\nPROMPT TITLE",
   "@subscribeModalTitle": {
     "description": "Title text shown in the subscribe modal widget.",
     "type": "text",
     "placeholders": {}
   },
-  "subscribeModalSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "subscribeModalSubtitle": "ADD YOUR SUBSCRIPTION\nPROMPT DESCRIPTION",
   "@subscribeModalSubtitle": {
     "description": "Subtitle text shown in the subscribe modal widget.",
     "type": "text",
@@ -491,7 +491,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "subscribeWithArticleLimitModalSubtitle": "Subscribe to get unlimited access\nto all of our content on any device.",
+  "subscribeWithArticleLimitModalSubtitle": "ADD YOUR SUBSCRIPTION\nPROMPT DESCRIPTION",
   "@subscribeWithArticleLimitModalSubtitle": {
     "description": "Subtitle text shown in the subscribe limit modal modal widget.",
     "type": "text",
