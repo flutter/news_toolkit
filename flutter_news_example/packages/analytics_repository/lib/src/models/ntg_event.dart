@@ -19,7 +19,7 @@ abstract class NTGEvent extends AnalyticsEvent {
           properties: <String, Object>{
             'eventCategory': category,
             'eventAction': action,
-            'nonInteraction': nonInteraction,
+            'nonInteraction': '$nonInteraction',
             if (label != null) 'eventLabel': label,
             if (value != null) 'eventValue': value,
             if (hitType != null) 'hitType': hitType,

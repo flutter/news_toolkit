@@ -20,7 +20,7 @@ class SearchFilterChip extends StatelessWidget {
       ),
       label: Text(
         chipText,
-        style: Theme.of(context).textTheme.button,
+        style: Theme.of(context).textTheme.labelLarge,
       ),
       onSelected: (_) => onSelected(chipText),
       backgroundColor: AppColors.transparent,

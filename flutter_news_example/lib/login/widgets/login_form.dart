@@ -87,7 +87,7 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
           padding: const EdgeInsets.only(right: AppSpacing.sm),
           child: Text(
             context.l10n.loginModalTitle,
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
           ),
         ),
         IconButton(
@@ -109,7 +109,7 @@ class _LoginSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.loginModalSubtitle,
-      style: Theme.of(context).textTheme.subtitle1,
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 }
@@ -200,7 +200,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
       onPressed: () => Navigator.of(context).push<void>(
         LoginWithEmailPage.route(),
       ),
-      textStyle: Theme.of(context).textTheme.subtitle1,
+      textStyle: Theme.of(context).textTheme.titleMedium,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

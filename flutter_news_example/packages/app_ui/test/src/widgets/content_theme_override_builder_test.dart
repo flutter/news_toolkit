@@ -23,9 +23,9 @@ void main() {
       );
 
       expect(
-        Theme.of(capturedContext).textTheme.headline1,
+        Theme.of(capturedContext).textTheme.displayLarge,
         equals(
-          AppTheme.uiTextTheme.headline1!.copyWith(
+          AppTheme.uiTextTheme.displayLarge!.copyWith(
             inherit: false,
           ),
         ),
@@ -42,9 +42,9 @@ void main() {
       );
 
       expect(
-        Theme.of(capturedContext).textTheme.headline1,
+        Theme.of(capturedContext).textTheme.displayLarge,
         equals(
-          AppTheme.contentTextTheme.headline1!.copyWith(
+          AppTheme.contentTextTheme.displayLarge!.copyWith(
             inherit: false,
           ),
         ),

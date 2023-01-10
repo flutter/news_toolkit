@@ -44,7 +44,7 @@ class SlideshowCategory extends StatelessWidget {
                 slideshowText.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .overline
+                    .labelSmall
                     ?.copyWith(color: textColor),
               ),
             ),
