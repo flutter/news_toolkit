@@ -35,7 +35,7 @@ class ShareButton extends StatelessWidget {
       onPressed: onPressed,
       label: Text(
         shareText,
-        style: theme.textTheme.button?.copyWith(
+        style: theme.textTheme.labelLarge?.copyWith(
           color: _color,
         ),
       ),

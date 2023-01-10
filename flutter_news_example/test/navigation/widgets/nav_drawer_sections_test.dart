@@ -16,7 +16,7 @@ class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
 
 void main() {
-  group('NavigationDrawerSections', () {
+  group('NavDrawerSections', () {
     late CategoriesBloc categoriesBloc;
 
     const categories = [Category.top, Category.health];
@@ -32,23 +32,23 @@ void main() {
       );
     });
 
-    testWidgets('renders NavigationDrawerSectionsTitle', (tester) async {
+    testWidgets('renders NavDrawerSectionsTitle', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: categoriesBloc,
-          child: NavigationDrawerSections(),
+          child: NavDrawerSections(),
         ),
       );
-      expect(find.byType(NavigationDrawerSectionsTitle), findsOneWidget);
+      expect(find.byType(NavDrawerSectionsTitle), findsOneWidget);
     });
 
     testWidgets(
-        'renders NavigationDrawerSectionItem '
+        'renders NavDrawerSectionItem '
         'for each category', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
           value: categoriesBloc,
-          child: NavigationDrawerSections(),
+          child: NavDrawerSections(),
         ),
       );
 
@@ -56,7 +56,7 @@ void main() {
         expect(
           find.byWidgetPredicate(
             (widget) =>
-                widget is NavigationDrawerSectionItem &&
+                widget is NavDrawerSectionItem &&
                 widget.key == ValueKey(category) &&
                 widget.selected == (category == selectedCategory),
           ),
@@ -65,11 +65,11 @@ void main() {
       }
     });
 
-    group('NavigationDrawerSectionItem', () {
+    group('NavDrawerSectionItem', () {
       testWidgets('renders ListTile with title', (tester) async {
         const title = 'title';
         await tester.pumpApp(
-          NavigationDrawerSectionItem(
+          NavDrawerSectionItem(
             title: title,
           ),
         );
@@ -79,20 +79,20 @@ void main() {
       testWidgets('calls onTap when tapped', (tester) async {
         var tapped = false;
         await tester.pumpApp(
-          NavigationDrawerSectionItem(
+          NavDrawerSectionItem(
             title: 'title',
             onTap: () => tapped = true,
           ),
         );
 
-        await tester.tap(find.byType(NavigationDrawerSectionItem));
+        await tester.tap(find.byType(NavDrawerSectionItem));
 
         expect(tapped, isTrue);
       });
 
       testWidgets('has correct selected color', (tester) async {
         await tester.pumpApp(
-          NavigationDrawerSectionItem(
+          NavDrawerSectionItem(
             title: 'title',
             selected: true,
             onTap: () {},

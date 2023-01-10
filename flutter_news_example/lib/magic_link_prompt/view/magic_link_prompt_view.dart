@@ -40,7 +40,7 @@ class MagicLinkPromptHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.magicLinkPromptHeader,
-      style: Theme.of(context).textTheme.headline3,
+      style: Theme.of(context).textTheme.displaySmall,
     );
   }
 }
@@ -63,12 +63,12 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
         Text(
           context.l10n.magicLinkPromptTitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
         ),
         Text(
           email,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.apply(
+          style: theme.textTheme.bodyLarge?.apply(
             color: AppColors.darkAqua,
           ),
         ),
@@ -76,7 +76,7 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
         Text(
           context.l10n.magicLinkPromptSubtitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
         ),
       ],
     );

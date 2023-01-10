@@ -53,7 +53,7 @@ class TermsOfServiceModalHeader extends StatelessWidget {
             padding: const EdgeInsets.only(right: AppSpacing.sm),
             child: Text(
               context.l10n.termsOfServiceModalTitle,
-              style: theme.textTheme.headline3,
+              style: theme.textTheme.displaySmall,
             ),
           ),
           IconButton(

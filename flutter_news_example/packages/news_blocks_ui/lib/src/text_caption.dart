@@ -37,7 +37,7 @@ class TextCaption extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context).textTheme.caption?.apply(color: color),
+        style: Theme.of(context).textTheme.bodySmall?.apply(color: color),
       ),
     );
   }
