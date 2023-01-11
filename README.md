@@ -16,6 +16,3 @@ The Flutter News Toolkit:
 ## Get Started
 
 To get started, see the official documentation at https://flutter.github.io/news_toolkit.
-
-[logo_black]: ./docs/static/img/header_light.svg#gh-light-mode-only
-[logo_white]: ./docs/static/img/header_dark.svg#gh-dark-mode-only
