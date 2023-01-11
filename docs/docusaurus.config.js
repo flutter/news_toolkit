@@ -48,8 +48,7 @@ const config = {
         title: 'Flutter News Toolkit',
         logo: {
           alt: 'Flutter News Toolkit Logo',
-          src: 'img/logo.svg',
-          srcDark: 'img/logo_dark.svg',
+          src: 'img/logo.svg',          
         },
         items: [
           {
