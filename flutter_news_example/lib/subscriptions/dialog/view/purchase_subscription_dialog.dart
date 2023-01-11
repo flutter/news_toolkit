@@ -63,7 +63,7 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                       children: [
                         Text(
                           l10n.subscriptionPurchaseTitle,
-                          style: theme.textTheme.headline3,
+                          style: theme.textTheme.displaySmall,
                         ),
                         IconButton(
                           key: const Key(
@@ -76,7 +76,7 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                     ),
                     Text(
                       l10n.subscriptionPurchaseSubtitle,
-                      style: theme.textTheme.subtitle1,
+                      style: theme.textTheme.titleMedium,
                     ),
                     const SizedBox(height: AppSpacing.xlg),
                     Expanded(
@@ -177,7 +177,7 @@ class _PurchaseCompletedDialogState extends State<PurchaseCompletedDialog> {
               const SizedBox(height: AppSpacing.xlg),
               Text(
                 context.l10n.subscriptionPurchaseCompleted,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: AppSpacing.md),
             ],

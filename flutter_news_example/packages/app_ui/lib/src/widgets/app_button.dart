@@ -360,7 +360,7 @@ class AppButton extends StatelessWidget {
 
   /// [TextStyle] of the button text.
   ///
-  /// Defaults to [TextTheme.button].
+  /// Defaults to [TextTheme.labelLarge].
   final TextStyle? _textStyle;
 
   /// The maximum size of the button.
@@ -383,7 +383,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = _textStyle ?? Theme.of(context).textTheme.button;
+    final textStyle = _textStyle ?? Theme.of(context).textTheme.labelLarge;
 
     return ElevatedButton(
       onPressed: onPressed,

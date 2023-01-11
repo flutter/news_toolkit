@@ -45,7 +45,7 @@ class ArticleTrailingContent extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                   child: Text(
                     context.l10n.relatedStories,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
