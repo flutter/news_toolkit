@@ -1,6 +1,9 @@
-# Flutter News Toolkit
+<img alt="Flutter News Toolkit Logo" height="75" src="./docs/static/img/header_light.svg#gh-light-mode-only"/>
+<img alt="Flutter News Toolkit Logo" height="75" src="./docs/static/img/header_dark.svg#gh-dark-mode-only"/>
 
-The Google Flutter team and Google News Initiative have co-sponsored the development of a news application template. Our goal is to help news publishers to build apps and monetize more easily than ever in order to make reliable information accessible to all.
+<br/>
+
+The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
 
 This template aims to **reduce the time to develop a typical news app by 80%**.
 
