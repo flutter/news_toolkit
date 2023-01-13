@@ -3,7 +3,7 @@ sidebar_position: 1
 description: Learn how to run your news application.
 ---
 
-# Running the App
+# Running the app
 
 The news application project contains 2 flavors:
 
