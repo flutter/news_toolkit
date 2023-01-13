@@ -4,6 +4,9 @@ part of 'user_repository.dart';
 abstract class UserStorageKeys {
   /// Number of times that a user opened the application.
   static const appOpenedCount = '__app_opened_count_key__';
+
+  /// Number of overall articles views.
+  static const overallArticlesViews = '__overall_articles_views_key__';
 }
 
 /// {@template user_storage}
@@ -26,6 +29,19 @@ class UserStorage {
   /// Fetches the number of times the app was opened value from Storage.
   Future<int> fetchAppOpenedCount() async {
     final count = await _storage.read(key: UserStorageKeys.appOpenedCount);
+    return int.parse(count ?? '0');
+  }
+
+  /// Sets the number of overall articles views.
+  Future<void> setOverallArticlesViews(int count) => _storage.write(
+        key: UserStorageKeys.overallArticlesViews,
+        value: count.toString(),
+      );
+
+  /// Fetches the number of overall articles views value from Storage.
+  Future<int> fetchOverallArticlesViews() async {
+    final count =
+        await _storage.read(key: UserStorageKeys.overallArticlesViews);
     return int.parse(count ?? '0');
   }
 }

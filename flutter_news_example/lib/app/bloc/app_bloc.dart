@@ -25,6 +25,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppOpened>(_onAppOpened);
+    on<ArticleOpened>(_onArticleOpened);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
   }
@@ -75,6 +76,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
+    final overallArticlesViews =
+        await _userRepository.fetchOverallArticleViews();
+    emit(state.copyWith(overallArticleViews: overallArticlesViews));
+
     if (state.user.isAnonymous) {
       final appOpenedCount = await _userRepository.fetchAppOpenedCount();
 
@@ -86,6 +91,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         await _userRepository.incrementAppOpenedCount();
       }
     }
+  }
+
+  Future<void> _onArticleOpened(
+    ArticleOpened event,
+    Emitter<AppState> emit,
+  ) async {
+    await _userRepository.incrementOverallArticleViews();
+    final overallArticleViews =
+        await _userRepository.fetchOverallArticleViews();
+    emit(state.copyWith(overallArticleViews: overallArticleViews));
   }
 
   @override

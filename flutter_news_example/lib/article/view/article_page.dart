@@ -11,11 +11,25 @@ import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:share_launcher/share_launcher.dart';
 
+/// The supported behaviors for interstitial ad.
+enum InterstitialAdBehavior {
+  /// Displays the ad when opening the article.
+  onOpen,
+
+  /// Displays the ad when closing the article.
+  onClose,
+}
+
+/// Indicates the number of article opens before
+/// display an interstitial ad
+const _numberOfArticlesBeforeInterstitialAd = 4;
+
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
     super.key,
     required this.id,
     required this.isVideoArticle,
+    required this.interstitialAdBehavior,
   });
 
   /// The id of the requested article.
@@ -24,14 +38,21 @@ class ArticlePage extends StatelessWidget {
   /// Whether the requested article is a video article.
   final bool isVideoArticle;
 
+  /// Indicates when the interstitial ad will be displayed.
+  /// Default to [InterstitialAdBehavior.onOpen]
+  final InterstitialAdBehavior interstitialAdBehavior;
+
   static Route<void> route({
     required String id,
     bool isVideoArticle = false,
+    InterstitialAdBehavior interstitialAdBehavior =
+        InterstitialAdBehavior.onOpen,
   }) =>
       MaterialPageRoute<void>(
         builder: (_) => ArticlePage(
           id: id,
           isVideoArticle: isVideoArticle,
+          interstitialAdBehavior: interstitialAdBehavior,
         ),
       );
 
@@ -45,6 +66,7 @@ class ArticlePage extends StatelessWidget {
       )..add(const ArticleRequested()),
       child: ArticleView(
         isVideoArticle: isVideoArticle,
+        interstitialAdBehavior: interstitialAdBehavior,
       ),
     );
   }
@@ -54,19 +76,49 @@ class ArticleView extends StatefulWidget {
   const ArticleView({
     super.key,
     required this.isVideoArticle,
+    required this.interstitialAdBehavior,
   });
 
   final bool isVideoArticle;
+  final InterstitialAdBehavior interstitialAdBehavior;
 
   @override
   State<ArticleView> createState() => _ArticleViewState();
 }
 
 class _ArticleViewState extends State<ArticleView> {
+  late final bool _showInterstitialAd;
+  late final FullScreenAdsBloc _fullScreenAdsBloc;
+
   @override
   void initState() {
-    context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
+    _fullScreenAdsBloc = context.read<FullScreenAdsBloc>();
+    context.read<AppBloc>().add(ArticleOpened());
+
+    final overallArticleViews =
+        context.read<AppBloc>().state.overallArticleViews;
+
+    /// show interstitial ad after [_interstitialAdCounter] article opens
+    _showInterstitialAd =
+        (overallArticleViews % _numberOfArticlesBeforeInterstitialAd) == 0 &&
+            (overallArticleViews != 0);
+
+    if (_showInterstitialAd &&
+        widget.interstitialAdBehavior == InterstitialAdBehavior.onOpen) {
+      context
+          .read<FullScreenAdsBloc>()
+          .add(const ShowInterstitialAdRequested());
+    }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_showInterstitialAd &&
+        widget.interstitialAdBehavior == InterstitialAdBehavior.onClose) {
+      _fullScreenAdsBloc.add(const ShowInterstitialAdRequested());
+    }
+    super.dispose();
   }
 
   @override
