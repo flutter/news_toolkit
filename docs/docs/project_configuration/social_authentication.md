@@ -25,7 +25,7 @@ Passwordless authentication with an email link requires additional configuration
 
 ### Firebase configuration
 
-In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Google** to set up your Google authentication method. Add your (Google) web ID and web client secret under the **Web SDK Configuration** dropdown menu. You can find your web client ID for existing projects by selecting your project and OAuth 2.0 entry on the [Google API Console](https://console.developers.google.com/apis/credentials?pli=1&project=hespress-en&authuser=0).
+In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Google** to set up your Google authentication method. Add your (Google) web ID and web client secret under the **Web SDK Configuration** dropdown menu. You can find your web client ID for existing projects by selecting your project and OAuth 2.0 entry on the [Google API Console](https://console.cloud.google.com/apis/credentials).
 
 ## Apple
 
