@@ -34,6 +34,7 @@ To streamline branch management, you can automatically delete head branches afte
 In addition, you can allow or disallow auto-merge for pull requests in your repository. To set this up for your project, check out [managing automerge for PRs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository).
 
 ## Draft PRs
+
 You can set it up so that a new pull request can be optionally created as a draft PR or a standard PR. To learn how to set this up, check out [introducing draft pull requests](https://github.blog/2019-02-14-introducing-draft-pull-requests/). Draft pull requests can't be merged and code owners aren't automatically notified to review them. However, you can collaborate with other team members in GitHub when using this feature. We recommended using draft pull requests for your project, but this isn't a requirement.
 
 :::note
