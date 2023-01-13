@@ -47,13 +47,78 @@ Download the Google Services file for each app from the **Project Settings** pag
 
 Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
 
-Lastly, for iOS only, open `ios/Runner.xcodeproj/project.pbxproj` and replace the following `placeholder` with the corresponding `reversed_client_id` from the `GoogleServiceInfo.plist` file:
+Lastly, for iOS only, you will need to open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding `reversed_client_id` from the `GoogleServiceInfo.plist` file:
 
 ```
 REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
 ```
 
-For example, if your `GoogleServiceInfo.plist` entry for the development flavor looks the following:
+When searching for this placeholder, you should find 4 results related to the predefined flavors on the toolkit and their build modes. There is one configuration section for each possible build of the project:
+
+- **Debug-development** (build development flavor in debug mode)
+- **Release-development** (build development flavor in release mode)
+- **Debug-production** (build production flavor in debug mode)
+- **Release-production** (build production flavor in release mode)
+
+Your `ios/Runner.xcodeproj/project.pbxproj` should contain the following sections:
+
+```bash
+/* Begin XCBuildConfiguration section */
+
+# Release-production
+0CMNTMSTYJKWAP508TXPJJN5 /* Release-production */ = {
+...
+buildSettings = {
+  ...
+  REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+  ...
+};
+name = "Release-production";
+};
+                ...
+
+# Debug-development
+1ON144SZQH163C0TE8AP2QLM /* Debug-development */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+    ...
+  };
+  name = "Debug-development";
+};
+                ...
+
+# Release-development
+53ZSJWL4HHR1DK5C45O2YEZ5 /* Release-development */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+    ...
+  };
+  name = "Release-development";
+};
+                ...
+
+# Debug-production
+HLDEZL79XQNUTPT4UM4UEEL7 /* Debug-production */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+    ...
+  };
+ name = "Debug-production";
+};
+                ...
+
+/* End XCBuildConfiguration section */
+```
+
+If you have more flavors configured in your app, you will also find configuration sections related to those that must be updated with the corresponding `reversed_client_id`.
+
+For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
 
 ```
 <plist version="1.0">
@@ -66,14 +131,6 @@ For example, if your `GoogleServiceInfo.plist` entry for the development flavor 
 </plist>
 ```
 
-Then, add an entry to the `ios/Runner.xcodeproj/project.pbxproj` file that looks like:
+then in `ios/Runner.xcodeproj/project.pbxproj` you should replace the `reversed_client_id` inside the **Debug-development** and **Release-development** configuration sections.
 
-```
-LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
-  ...
-  buildSettings = {
-    ...
-    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
-  }
-}
-```
+This process should also be repeated with the `GoogleServiceInfo.plist` of the other existing flavors on your app (e.g _production_), inside the respective configuration sections of the `project.pbxproj` file.
