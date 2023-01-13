@@ -3,9 +3,9 @@
 
 <br/>
 
-The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
+Google’s Flutter team has been partnering with the Google News Initiative (GNI) in releasing the Flutter News Toolkit, a free, prebuilt Flutter app template to accelerate news application development.
 
-This template aims to **reduce the time to develop a typical news app by 80%**.
+Flutter News Toolkit aims to **reduce the time to develop a typical news app by 80%**.
 
 The Flutter News Toolkit:
 
