@@ -20,10 +20,6 @@ enum InterstitialAdBehavior {
   onClose,
 }
 
-/// Indicates the number of article opens before
-/// display an interstitial ad
-const _numberOfArticlesBeforeInterstitialAd = 4;
-
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
     super.key,
@@ -41,6 +37,10 @@ class ArticlePage extends StatelessWidget {
   /// Indicates when the interstitial ad will be displayed.
   /// Default to [InterstitialAdBehavior.onOpen]
   final InterstitialAdBehavior interstitialAdBehavior;
+
+  /// Indicates the number of article opens before
+  /// display an interstitial ad
+  static const numberOfArticlesBeforeInterstitialAd = 4;
 
   static Route<void> route({
     required String id,
@@ -98,9 +98,12 @@ class _ArticleViewState extends State<ArticleView> {
     final overallArticleViews =
         context.read<AppBloc>().state.overallArticleViews;
 
-    /// show interstitial ad after [_interstitialAdCounter] article opens
+    /// show interstitial ad after
+    /// [ArticlePage.numberOfArticlesBeforeInterstitialAd] article opens
+    const numberOfArticlesBeforeInterstitialAd =
+        ArticlePage.numberOfArticlesBeforeInterstitialAd;
     _showInterstitialAd =
-        (overallArticleViews % _numberOfArticlesBeforeInterstitialAd) == 0 &&
+        (overallArticleViews % numberOfArticlesBeforeInterstitialAd == 0) &&
             (overallArticleViews != 0);
 
     if (_showInterstitialAd &&

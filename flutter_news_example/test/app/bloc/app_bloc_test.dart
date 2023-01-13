@@ -273,6 +273,8 @@ void main() {
               .thenAnswer((_) async => 4);
           when(() => userRepository.incrementAppOpenedCount())
               .thenAnswer((_) async {});
+          when(() => userRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 0);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -303,6 +305,8 @@ void main() {
               .thenAnswer((_) async => 3);
           when(() => userRepository.incrementAppOpenedCount())
               .thenAnswer((_) async {});
+          when(() => userRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 0);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -326,6 +330,8 @@ void main() {
         setUp: () {
           when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 6);
+          when(() => userRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 0);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -339,6 +345,61 @@ void main() {
           verifyNever(
             () => userRepository.incrementAppOpenedCount(),
           );
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'fetches overall articles views and emits state with updated value',
+        setUp: () {
+          when(() => userRepository.fetchAppOpenedCount())
+              .thenAnswer((_) async => 6);
+          when(() => userRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 2);
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[
+          AppState.unauthenticated().copyWith(
+            overallArticleViews: 2,
+          )
+        ],
+      );
+    });
+
+    group('ArticleOpened', () {
+      blocTest<AppBloc, AppState>(
+        'calls incrementOverallArticleViews and '
+        'emits state with the new value of overallArticlesViews ',
+        setUp: () {
+          when(() => userRepository.incrementOverallArticleViews())
+              .thenAnswer((_) async => {});
+          when(() => userRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 2);
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(ArticleOpened()),
+        seed: AppState.unauthenticated,
+        expect: () => <AppState>[
+          AppState.unauthenticated().copyWith(
+            overallArticleViews: 2,
+          )
+        ],
+        verify: (bloc) {
+          verify(
+            () => userRepository.incrementOverallArticleViews(),
+          ).called(1);
+          verify(
+            () => userRepository.fetchOverallArticleViews(),
+          ).called(1);
         },
       );
     });
