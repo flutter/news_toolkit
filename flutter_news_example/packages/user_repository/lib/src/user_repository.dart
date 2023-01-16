@@ -59,9 +59,9 @@ class IncrementOverallArticleViewsFailure extends UserFailure {
 /// {@template fetch_overall_article_views_failure}
 /// Thrown when fetching overall article views fails.
 /// {@endtemplate}
-class FetchArticleOverallViewsFailure extends UserFailure {
+class FetchOverallArticleViewsFailure extends UserFailure {
   /// {@macro fetch_overall_article_views_failure}
-  const FetchArticleOverallViewsFailure(super.error);
+  const FetchOverallArticleViewsFailure(super.error);
 }
 
 /// {@template user_repository}
@@ -286,7 +286,7 @@ class UserRepository {
       return await _storage.fetchOverallArticlesViews();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        FetchArticleOverallViewsFailure(error),
+        FetchOverallArticleViewsFailure(error),
         stackTrace,
       );
     }
