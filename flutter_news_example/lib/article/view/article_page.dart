@@ -96,15 +96,14 @@ class _ArticleViewState extends State<ArticleView> {
     context.read<AppBloc>().add(ArticleOpened());
 
     final overallArticleViews =
-        context.read<AppBloc>().state.overallArticleViews;
+        context.read<AppBloc>().state.overallArticleViews + 1;
 
     /// show interstitial ad after
     /// [ArticlePage.numberOfArticlesBeforeInterstitialAd] article opens
     const numberOfArticlesBeforeInterstitialAd =
-        ArticlePage.numberOfArticlesBeforeInterstitialAd;
+        ArticlePage.numberOfArticlesBeforeInterstitialAd + 1;
     _showInterstitialAd =
-        (overallArticleViews % numberOfArticlesBeforeInterstitialAd == 0) &&
-            (overallArticleViews != 0);
+        overallArticleViews % numberOfArticlesBeforeInterstitialAd == 0;
 
     if (_showInterstitialAd &&
         widget.interstitialAdBehavior == InterstitialAdBehavior.onOpen) {
