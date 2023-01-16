@@ -545,9 +545,9 @@ void main() {
         await userRepository.incrementOverallArticleViews();
 
         verify(storage.fetchOverallArticlesViews).called(1);
-        verify(() =>
-                storage.setOverallArticlesViews(currentOverallArticleViews + 1))
-            .called(1);
+        verify(
+          () => storage.setOverallArticlesViews(currentOverallArticleViews + 1),
+        ).called(1);
       });
 
       test(
