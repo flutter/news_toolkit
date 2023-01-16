@@ -40,7 +40,7 @@ class ArticlePage extends StatelessWidget {
 
   /// Indicates the number of article opens before
   /// display an interstitial ad
-  static const numberOfArticlesBeforeInterstitialAd = 4;
+  static const numberOfArticlesBeforeInterstitialAd = 3;
 
   static Route<void> route({
     required String id,
