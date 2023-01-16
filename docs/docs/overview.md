@@ -154,14 +154,16 @@ Lastly, for iOS only, you will need to open `ios/Runner.xcodeproj/project.pbxpro
 REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
 ```
 
-When searching for this placeholder, you should find 4 results related to the predefined flavors on the toolkit and their build modes. There is one configuration section for each possible build of the project:
+When searching for this placeholder, the number of results will depend on the number of flavors configured for your project. For each flavor configured, there will be 2 configuration sections, related to the flavor's build modes ( `debug` and `release`).
+
+For example, if you set up `development` and `production` as your project's flavors, you will find the following configuration sections:
 
 - **Debug-development** (build development flavor in debug mode)
 - **Release-development** (build development flavor in release mode)
 - **Debug-production** (build production flavor in debug mode)
 - **Release-production** (build production flavor in release mode)
 
-Your `ios/Runner.xcodeproj/project.pbxproj` should contain the following sections:
+Your `ios/Runner.xcodeproj/project.pbxproj` should have the following format:
 
 ```bash
 /* Begin XCBuildConfiguration section */
@@ -217,9 +219,7 @@ HLDEZL79XQNUTPT4UM4UEEL7 /* Debug-production */ = {
 /* End XCBuildConfiguration section */
 ```
 
-If you have more flavors configured in your app, you will also find configuration sections related to those that must be updated with the corresponding `reversed_client_id`.
-
-For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
+If your `GoogleServiceInfo.plist` for the development flavor looks like:
 
 ```
 <plist version="1.0">
