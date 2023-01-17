@@ -3,11 +3,11 @@ sidebar_position: 2
 description: Learn how to work with translations in your Flutter news application.
 ---
 
-# Working with Translations
+# Working with translations
 
 This project relies on [flutter_localizations](https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html) and follows the [official internationalization guide for Flutter](https://flutter.dev/docs/development/accessibility-and-localization/internationalization).
 
-## Adding Strings
+## Adding strings
 
 1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb`.
 
@@ -49,9 +49,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-## Adding Supported Locales
+## Adding supported locales
 
-Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
+Update the `CFBundleLocalizations` array in the `ios/Runner/Info.plist` file to include the new locale. For example:
 
 ```xml
     ...
@@ -65,7 +65,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
     ...
 ```
 
-## Adding Translations
+## Adding translations
 
 1. For each supported locale, add a new ARB file in `lib/l10n/arb`.
 
@@ -102,6 +102,6 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
-## Text Directionality
+## Text directionality
 
 Flutter automatically supports right-to-left languages when the user changes their language settings. No additional configuration or code is required to support text directionality as referenced in the [Flutter internationalization guide](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) in your app.
