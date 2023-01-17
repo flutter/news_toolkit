@@ -3,29 +3,29 @@ sidebar_position: 2
 description: Learn how to connect your news server to a custom data source.
 ---
 
-# Connecting your Data Source
+# Connecting your data source
 
 The template's [Dart Frog](https://dartfrog.vgv.dev) API acts as an intermediary between your CMS and the client application, organizing your content into the [blocks](#working-with-blocks) that form the basis of content organization within the app.
 
-If you don't intend to write custom code to support the necessary block-organized endpoints from your CMS, you should create and deploy an API which uses the `NewsDataSource` interface to collect and transform data.
+If you don't intend to write custom code to support the necessary block-organized endpoints from your CMS, you should create and deploy an API that uses the `NewsDataSource` interface to collect and transform data.
 
-Your implementation of the `NewsDataSource` will be called by the route handlers laid out in the `api/routes` directory. The data source will then request data from your CMS and organize it into the block-based data expected by the client before returning it to the route handler to be served to your client application. For more information about the structure and capabilities of the Dart Frog server that will be utilizing your data source, please consult the [Dart Frog documentation](https://dartfrog.vgv.dev/docs/category/basics).
+Your implementation of the `NewsDataSource` is called by the route handlers laid out in the `api/routes` directory. The data source then requests data from your CMS and organizes it into the block-based data expected by the client before returning it to the route handler to be served to your client application. For more information about the structure and capabilities of the Dart Frog server that uses your data source, consult the [Dart Frog documentation](https://dartfrog.vgv.dev/docs/category/basics).
 
-The `NewsDataSource` class found in `api/lib/src/data/news_data_source.dart` provides an interface which your data source must implement. Feel free to remove methods which provide data that you don't intend to use in the client app, or to add methods to provide data for functionality which you intend on adding to your app.
+The `NewsDataSource` class (`api/lib/src/data/news_data_source.dart`) provides an interface that your data source must implement. Feel free to remove methods that provide data that you don't intend to use in the client app, or to add methods to provide data for functionality that you intend on adding to your app.
 
-## Creating a New Data Source
+## Creating a new data source
 
-Begin by defining a new class which implements `NewsDataSource`.
+Begin by defining a new class that implements `NewsDataSource`:
 
 ```dart
 class YourCustomDataSource implements NewsDataSource
 ```
 
-Your data source should have a means of interacting with your CMS as a field such as an [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you may want to create separate named constructors if you have different CMS URLs for different flavors, such as development and production.
+Your data source should have a means of interacting with your CMS as a field such as an [HTTP](https://pub.dev/packages/http) or [Dio](https://pub.dev/packages/dio) client, and you might want to create separate named constructors if you have different CMS URLs for different flavors, such as `development` and `production`.
 
-## Implementing Your Data Source
+## Implementing your data source
 
-After creating your data source class, you should implement the methods defined in `NewsDataSource`:
+After creating your data source class, implement the methods defined in `NewsDataSource`:
 
 ```dart
 /// {@template news_data_source}
@@ -143,25 +143,25 @@ class Post {
 }
 ```
 
-Since your CMS presumably doesn't respond with data in the block-based format used by the `Article` class, you may want to define classes like `Post` which mirror the data types and formats which your CMS returns.
+Since your CMS presumably doesn't respond with data in the block-based format used by the `Article` class, you might want to define classes like `Post` that mirror the data types and formats that your CMS returns.
 
 You can use a package like [json_serializable](https://pub.dev/packages/json_serializable) to generate code to create a `Post` object from the JSON returned from your CMS (see [JSON and serialization - Flutter Documentation](https://docs.flutter.dev/development/data-and-backend/json)).
 
-You can then [add an extension method](https://dart.dev/guides/language/extension-methods) such as `toArticle()` on your `Post` class which uses the relevant data from the `Post` object and to create and return an `Article` object which will be served to your client app.
+You can then [add an extension method](https://dart.dev/guides/language/extension-methods) such as `toArticle()` on your `Post` class that uses the relevant data from the `Post` object and to create and return an `Article` object that is served to your client app.
 
-This structure of `JSON -> Intermediary Object -> API Model` can be repeated in implementing any data source method which receives data from your CMS that differs from what the method is expected to return.
+This structure of `JSON -> Intermediary Object -> API Model` can be repeated when implementing any data source method, which receives data from your CMS that differs from what the method is expected to return.
 
-## Injecting your Data Source
+## Injecting your data source
 
 After creating your data source, inject it into your API route handler through the [Dart Frog middleware](https://dartfrog.vgv.dev/docs/basics/dependency-injection).
 
-First instantiate your data source:
+First, instantiate your data source:
 
 ```dart
 final yourCustomDataSource = YourCustomDataSource();
 ```
 
-Then inject it through the middleware as a `NewsDataSource`:
+Then, inject it through the middleware as a `NewsDataSource`:
 
 ```dart
 handler.use(provider<NewsDataSource>((_) => yourCustomDataSource));
