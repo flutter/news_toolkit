@@ -13,7 +13,7 @@ Out of the box, the application subscribes to topics corresponding to supported 
 
 ### Triggering a notification 📬
 
-Trigger a notification using the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest): 
+Trigger a notification using the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest):
 
 - First, generate a (required) access token in the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
 
