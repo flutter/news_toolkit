@@ -16,6 +16,8 @@ To introduce banner ads into your app, you can either:
 1.  Insert them locally at the client level or
 2.  Insert them into the data served by your [data source](/server_development/connecting_your_data_source).
 
+For additional tips, best practices, discouraged implementations with banners, review our articles on the Help Center [here](https://support.google.com/admob/answer/6128877).
+
 _Inserting Banner Ads Locally_
 
 To insert banner ads locally, add `BannerAdBlocks` with your desired size into any block feed by adjusting the state emitted by the `ArticleBloc` and `FeedBloc`, respectively.
@@ -41,6 +43,8 @@ context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
 ```
 
 Alternatively, you can move that line to a location to execute after your desired event (e.g. upon article close).
+
+For additional tips, you can review our articles on the Help Center for [recommended implementations](https://support.google.com/admob/answer/6201350) and [ad guidance](https://support.google.com/admob/answer/6066980?hl=en) with interstitials.
 
 ### Sticky Ads
 
