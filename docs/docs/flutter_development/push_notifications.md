@@ -15,13 +15,13 @@ Out of the box, the application subscribes to topics corresponding to supported 
 
 Trigger a notification using the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest): 
 
-* First, generate a (required) access token in the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
+- First, generate a (required) access token in the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
 
-* Select the `https://www.googleapis.com/auth/firebase.messaging` scope under **Firebase Cloud Messaging API v1** and click **Authorize APIs**.
+- Select the `https://www.googleapis.com/auth/firebase.messaging` scope under **Firebase Cloud Messaging API v1** and click **Authorize APIs**.
 
-* Then, sign in with the Google Account that has access to the respective Firebase project and click **Exchange authorization code for tokens**.
+- Then, sign in with the Google Account that has access to the respective Firebase project and click **Exchange authorization code for tokens**.
 
-* To send a message to a topic, use the following `cURL` syntax:
+- To send a message to a topic, use the following `cURL` syntax:
 
 ```
 curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: application/json" -d '{
