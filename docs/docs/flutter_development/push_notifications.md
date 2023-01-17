@@ -21,7 +21,7 @@ Trigger a notification using the [Firebase Cloud Messaging REST API](https://fir
 
 - Then, sign in with the Google Account that has access to the respective Firebase project and click **Exchange authorization code for tokens**.
 
-- To send a message to a topic, use the following `cURL` syntax:
+- Use the following `cURL` syntax to send a message to a topic:
 
 ```
 curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: application/json" -d '{
