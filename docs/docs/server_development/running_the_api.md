@@ -9,39 +9,39 @@ description: Learn how to run your news API.
 
 The Flutter News Example API is written in [Dart](https://dart.dev) and uses [Dart Frog](https://dartfrog.vgv.dev).
 
-### Running the API Server Locally
+### Running the API server locally
 
-To run the server locally, run the following command from the current directory:
+To launch the server locally, run the following command from the current directory:
 
 ```sh
 dart_frog dev
 ```
 
-This will start the server on [localhost:8080](http://localhost:8080).
+This starts the server on [localhost:8080](http://localhost:8080).
 
-### Running the API Server in Docker
+### Running the API server in Docker
 
-To run the server in Docker, make sure you have [Docker installed](https://docs.docker.com/get-docker/).
+To run the server in Docker, make sure you have [Docker installed](https://docs.docker.com/get-docker/), then use the following instructions:
 
-First, create a production build via:
+1. Create a production build with the following command:
 
 ```sh
 dart_frog build
 ```
 
-Next, switch directories into the generated `build` directory.
+2. Switch directories into the generated `build` directory:
 
 ```sh
 cd build
 ```
 
-Then you can create an image:
+3. Create a Docker image:
 
 ```sh
 docker build -q .
 ```
 
-Once you have created an image, you can run the image via:
+Once you have created an image, run it using the following command:
 
 ```sh
 docker run -d -p 8080:8080 --rm <IMAGE>
@@ -53,19 +53,19 @@ To kill the container:
 docker kill <CONTAINER>
 ```
 
-If you wish to delete an image you can run:
+To delete an image:
 
 ```sh
 docker rmi <IMAGE>
 ```
 
-## API Documentation
+## API documentation
 
-The service API documentation can be found in `docs/api.apib`. The documentation uses the [API Blueprint](https://github.com/apiaryio/api-blueprint) specification and can be previewed using the [Apiary Client](https://github.com/apiaryio/apiary-client).
+Find the service API documentation in `docs/api.apib`. The documentation uses the [API Blueprint](https://github.com/apiaryio/api-blueprint) specification. Preview the doc using the [Apiary Client](https://github.com/apiaryio/apiary-client).
 
-### Running the Documentation Locally
+### Running the documentation locally
 
-To run the interactive API documentation locally make sure you have the [Apiary Client](https://github.com/apiaryio/apiary-client) installed:
+To run the interactive API documentation locally, make sure that you have the [Apiary Client](https://github.com/apiaryio/apiary-client) installed:
 
 ```sh
 $ gem install apiaryio
@@ -77,14 +77,14 @@ Then use the `preview` command to run the documentation:
 $ apiary preview --path docs/api.apib --watch
 ```
 
-The interactive documentation will be available at [localhost:8080](http://localhost:8080).
+The interactive documentation is available at [localhost:8080](http://localhost:8080).
 
-Refer to the [Apiary Client Documentation](https://help.apiary.io/tools/apiary-cli) for more information.
+For more information, refer to the [Apiary Client Documentation](https://help.apiary.io/tools/apiary-cli).
 
-### Contributing to the API Documentation
+### Contributing to the API documentation
 
-Refer to [APIBlueprint.org](https://apiblueprint.org/) for documentation and tutorials on using the API Blueprint Specification.
+For documentation and tutorials on using the API Blueprint specification, refer to [APIBlueprint.org](https://apiblueprint.org/).
 
-Refer to the [API Blueprint Specification](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md) for more information.
+For more information, refer to the [API Blueprint Specification](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md).
 
-It is recommended to install the [API Elements VSCode Extension](https://marketplace.visualstudio.com/items?itemName=vncz.vscode-apielements) to provide syntax highlighting and show errors/warnings when using invalid syntax.
+We recommend that you install the [API Elements VSCode Extension](https://marketplace.visualstudio.com/items?itemName=vncz.vscode-apielements) to provide syntax highlighting and show errors and warnings when using invalid syntax.
