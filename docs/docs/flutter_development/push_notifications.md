@@ -3,25 +3,25 @@ sidebar_position: 7
 description: Learn how to configure push notifications in your Flutter news application.
 ---
 
-# Push Notifications
+# Push notifications
 
 ## Firebase Cloud Messaging (FCM)
 
-This template comes with [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) pre-configured. [Instructions are provided below for using OneSignal](/project_configuration/notifications#onesignal) in lieu of Firebase Cloud Messaging.
+This template comes with [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) pre-configured. If you prefer to [use OneSignal](https://flutter.github.io/news_toolkit/project_configuration/notifications/#onesignal) instead, use the instructions in the last section of this page.
 
-Out of the box, the application subscribes to supported topics corresponding to supported news categories such as `health`, `science`, `sports`, etc.
+Out of the box, the application subscribes to topics corresponding to supported news categories, such as `health`, `science`, `sports`, `food`, and so on.
 
-### Triggering a Notification 📬
+### Triggering a notification 📬
 
-A notification can be triggered via the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest).
+Trigger a notification using the [Firebase Cloud Messaging REST API](https://firebase.google.com/docs/reference/fcm/rest):
 
-All you need is an access token which can be generated via the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
+- First, generate a (required) access token in the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/).
 
-Select the `https://www.googleapis.com/auth/firebase.messaging` scope under Firebase Cloud Messaging API v1 and click "Authorize APIs".
+- Select the `https://www.googleapis.com/auth/firebase.messaging` scope under **Firebase Cloud Messaging API v1** and click **Authorize APIs**.
 
-Then, sign in with the Google Account that has access to the respective Firebase project and click "Exchange authorization code for tokens".
+- Then, sign in with the Google Account that has access to the respective Firebase project and click **Exchange authorization code for tokens**.
 
-Now you can send a message to a topic by using the following cURL:
+- Use the following `cURL` syntax to send a message to a topic:
 
 ```
 curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: application/json" -d '{
@@ -37,13 +37,13 @@ curl -X POST -H "Authorization: Bearer <ACCESS_TOKEN>" -H "Content-Type: applica
 
 :::note
 
-> Replace `<ACCESS_TOKEN>` with the access token generated from the Google OAuth 2.0 Playground, `<TOPIC-NAME>` with the desired topic name, and `<PROJECT-ID>` with the corresponding Firebase project ID.
+> In the previous example, replace `<ACCESS_TOKEN>` with the access token generated from the Google OAuth 2.0 Playground, `<TOPIC-NAME>` with the desired topic name, and `<PROJECT-ID>` with the corresponding Firebase project ID.
 
 :::
 
 :::note
 
-Ensure you are running the application on a physical device in order to receive FCM messages.
+Ensure that you're running the application on a physical device in order to receive FCM messages.
 
 :::
 
@@ -59,6 +59,6 @@ Follow OneSignal's guide for [setting up the OneSignal Flutter SDK](https://docu
 - Initialize OneSignal in the notifications client package.
 - Replace FCM references in the codebase with the corresponding OneSignal infrastructure:
   - In `lib/main/bootstap/bootstrap.dart` replace `FirebaseMessaging` with `OneSignal` and the `FireBaseMessaging.instance` with a `OneSignal.shared` instance.
-  - In the `main.dart` file for each of your flavors, assign `notificationsClient` to an instance of `OneSignalNotificationsClient`
+  - In the `main.dart` file for each of your flavors, assign `notificationsClient` to an instance of `OneSignalNotificationsClient`.
 - Run the app and send test notifications through OneSignal.
   - _Note: iOS push notifications only work if tested on a physical device_.
