@@ -47,13 +47,13 @@ Download the Google Services file for each app from the **Project Settings** pag
 
 Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
 
-Lastly, for iOS only, you will need to open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding `reversed_client_id` from the `GoogleServiceInfo.plist` file:
+Lastly, for iOS only, you must open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding `reversed_client_id` from the `GoogleServiceInfo.plist` file:
 
 ```
 REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
 ```
 
-When searching for this placeholder, the number of results will depend on the number of flavors configured for your project. For each flavor configured, there will be 2 configuration sections, related to the flavor's build modes ( `debug` and `release`).
+When searching for this placeholder, the number of results will depend on the number of flavors configured for your project. For each flavor configured, there will be 2 configuration sections (`debug` and `release`).
 
 For example, if you set up `development` and `production` as your project's flavors, you will find the following configuration sections:
 
@@ -131,6 +131,6 @@ If your `GoogleServiceInfo.plist` for the development flavor looks like:
 </plist>
 ```
 
-then in `ios/Runner.xcodeproj/project.pbxproj` you should replace the `reversed_client_id` inside the **Debug-development** and **Release-development** configuration sections.
+then in `ios/Runner.xcodeproj/project.pbxproj` you must replace the `reversed_client_id` inside the **Debug-development** and **Release-development** configuration sections.
 
-This process should also be repeated with the `GoogleServiceInfo.plist` of the other existing flavors on your app (e.g _production_), inside the respective configuration sections of the `project.pbxproj` file.
+This process must also be repeated with the `GoogleServiceInfo.plist` of the other existing flavors on your app (e.g _production_), inside the respective configuration sections of the `project.pbxproj` file.
