@@ -11,7 +11,7 @@ class AppState extends Equatable {
     required this.status,
     this.user = User.anonymous,
     this.showLoginOverlay = false,
-    this.overallArticleViews = 0,
+    this.showInterstitialAd = false,
   });
 
   const AppState.authenticated(
@@ -32,7 +32,7 @@ class AppState extends Equatable {
   final AppStatus status;
   final User user;
   final bool showLoginOverlay;
-  final int overallArticleViews;
+  final bool showInterstitialAd;
   bool get isUserSubscribed => user.subscriptionPlan != SubscriptionPlan.none;
 
   @override
@@ -41,20 +41,20 @@ class AppState extends Equatable {
         user,
         showLoginOverlay,
         isUserSubscribed,
-        overallArticleViews,
+        showInterstitialAd,
       ];
 
   AppState copyWith({
     AppStatus? status,
     User? user,
     bool? showLoginOverlay,
-    int? overallArticleViews,
+    bool? showInterstitialAd,
   }) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
       showLoginOverlay: showLoginOverlay ?? this.showLoginOverlay,
-      overallArticleViews: overallArticleViews ?? this.overallArticleViews,
+      showInterstitialAd: showInterstitialAd ?? this.showInterstitialAd,
     );
   }
 }

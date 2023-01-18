@@ -411,7 +411,7 @@ void main() {
       testWidgets(
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
           'when interstitialAdBehavior is onOpen and '
-          'overall articles views is equals to 4', (tester) async {
+          'showInterstitialAd is true', (tester) async {
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
             User(
@@ -420,8 +420,7 @@ void main() {
               email: 'email',
               subscriptionPlan: SubscriptionPlan.premium,
             ),
-            // 3 because the calculation always adds up to 1
-          ).copyWith(overallArticleViews: 3),
+          ).copyWith(showInterstitialAd: true),
         );
 
         await tester.pumpApp(
@@ -442,8 +441,7 @@ void main() {
       testWidgets(
           'verify ShowInterstitialAdRequested is not '
           'added to FullScreenAdsBloc when interstitialAdBehavior is onOpen '
-          'and overall articles views is less than '
-          'ArticlePage.numberOfArticlesBeforeInterstitialAd', (tester) async {
+          'and showInterstitialAd is false', (tester) async {
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
             User(
@@ -453,8 +451,7 @@ void main() {
               subscriptionPlan: SubscriptionPlan.premium,
             ),
           ).copyWith(
-            overallArticleViews:
-                ArticlePage.numberOfArticlesBeforeInterstitialAd - 1,
+            showInterstitialAd: false,
           ),
         );
 
@@ -469,13 +466,14 @@ void main() {
             ),
           ),
         );
+
         verifyNever(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()));
       });
 
       testWidgets(
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
           'when interstitialAdBehavior in onClose and '
-          'overall articles views is equals to 4', (tester) async {
+          'showInterstitialAd is true', (tester) async {
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
             User(
@@ -484,8 +482,7 @@ void main() {
               email: 'email',
               subscriptionPlan: SubscriptionPlan.premium,
             ),
-            // 3 because the calculation always adds up to 1
-          ).copyWith(overallArticleViews: 3),
+          ).copyWith(showInterstitialAd: true),
         );
 
         await tester.pumpApp(
@@ -511,8 +508,7 @@ void main() {
       testWidgets(
           'verify ShowInterstitialAdRequested is not '
           'added to FullScreenAdsBloc when interstitialAdBehavior is onClose '
-          'and overall articles views is less than '
-          'ArticlePage.numberOfArticlesBeforeInterstitialAd', (tester) async {
+          'showInterstitialAd is false ', (tester) async {
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
             User(
@@ -522,8 +518,7 @@ void main() {
               subscriptionPlan: SubscriptionPlan.premium,
             ),
           ).copyWith(
-            overallArticleViews:
-                ArticlePage.numberOfArticlesBeforeInterstitialAd - 1,
+            showInterstitialAd: false,
           ),
         );
 

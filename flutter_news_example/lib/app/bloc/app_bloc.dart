@@ -34,6 +34,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   /// for an unauthenticated user.
   static const _appOpenedCountForLoginOverlay = 5;
 
+  /// Indicates the number of article views for
+  /// display an interstitial ad
+  static const _numberOfArticleViewsForNewInterstitialAd = 4;
+
   final UserRepository _userRepository;
   final NotificationsRepository _notificationsRepository;
 
@@ -76,9 +80,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
-    final overallArticlesViews =
+    final overallArticleViews =
         await _userRepository.fetchOverallArticleViews();
-    emit(state.copyWith(overallArticleViews: overallArticlesViews));
+    final showInterstitialAdOnNextArticle =
+        _shouldShowInterstitialAd(overallArticleViews);
+    emit(state.copyWith(showInterstitialAd: showInterstitialAdOnNextArticle));
 
     if (state.user.isAnonymous) {
       final appOpenedCount = await _userRepository.fetchAppOpenedCount();
@@ -100,8 +106,18 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     await _userRepository.incrementOverallArticleViews();
     final overallArticleViews =
         await _userRepository.fetchOverallArticleViews();
-    emit(state.copyWith(overallArticleViews: overallArticleViews));
+
+    final showInterstitialAdOnNextArticle =
+        _shouldShowInterstitialAd(overallArticleViews + 1);
+
+    emit(state.copyWith(showInterstitialAd: showInterstitialAdOnNextArticle));
   }
+
+  // show interstitial every [_numberOfArticleViewsForNewInterstitialAd]
+  // article opens
+  bool _shouldShowInterstitialAd(int overallArticleViews) =>
+      (overallArticleViews != 0) &&
+      overallArticleViews % _numberOfArticleViewsForNewInterstitialAd == 0;
 
   @override
   Future<void> close() {

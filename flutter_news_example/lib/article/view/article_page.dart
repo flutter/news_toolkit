@@ -38,10 +38,6 @@ class ArticlePage extends StatelessWidget {
   /// Default to [InterstitialAdBehavior.onOpen]
   final InterstitialAdBehavior interstitialAdBehavior;
 
-  /// Indicates the number of article opens before
-  /// display an interstitial ad
-  static const numberOfArticlesBeforeInterstitialAd = 3;
-
   static Route<void> route({
     required String id,
     bool isVideoArticle = false,
@@ -93,17 +89,8 @@ class _ArticleViewState extends State<ArticleView> {
   @override
   void initState() {
     _fullScreenAdsBloc = context.read<FullScreenAdsBloc>();
-    context.read<AppBloc>().add(ArticleOpened());
-
-    final overallArticleViews =
-        context.read<AppBloc>().state.overallArticleViews + 1;
-
-    /// show interstitial ad after
-    /// [ArticlePage.numberOfArticlesBeforeInterstitialAd] article opens
-    const numberOfArticlesBeforeInterstitialAd =
-        ArticlePage.numberOfArticlesBeforeInterstitialAd + 1;
-    _showInterstitialAd =
-        overallArticleViews % numberOfArticlesBeforeInterstitialAd == 0;
+    final appBloc = context.read<AppBloc>()..add(ArticleOpened());
+    _showInterstitialAd = appBloc.state.showInterstitialAd;
 
     if (_showInterstitialAd &&
         widget.interstitialAdBehavior == InterstitialAdBehavior.onOpen) {

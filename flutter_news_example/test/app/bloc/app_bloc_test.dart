@@ -349,12 +349,14 @@ void main() {
       );
 
       blocTest<AppBloc, AppState>(
-        'fetches overall articles views and emits state with updated value',
+        'fetches overall articles views and emits '
+        'state with showInterstitialAd equals true '
+        'when fetchOverallArticleViews returns 4',
         setUp: () {
           when(() => userRepository.fetchAppOpenedCount())
               .thenAnswer((_) async => 6);
           when(() => userRepository.fetchOverallArticleViews())
-              .thenAnswer((_) async => 2);
+              .thenAnswer((_) async => 4);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -365,21 +367,26 @@ void main() {
         seed: AppState.unauthenticated,
         expect: () => <AppState>[
           AppState.unauthenticated().copyWith(
-            overallArticleViews: 2,
-          )
+            showInterstitialAd: true,
+          ),
         ],
+        verify: (_) {
+          verify(() => userRepository.fetchAppOpenedCount());
+          verify(() => userRepository.fetchOverallArticleViews());
+        },
       );
     });
 
     group('ArticleOpened', () {
       blocTest<AppBloc, AppState>(
         'calls incrementOverallArticleViews and '
-        'emits state with the new value of overallArticlesViews ',
+        'emits state with showInterstitialAd equals true '
+        'when fetchOverallArticleViews returns 3',
         setUp: () {
           when(() => userRepository.incrementOverallArticleViews())
               .thenAnswer((_) async => {});
           when(() => userRepository.fetchOverallArticleViews())
-              .thenAnswer((_) async => 2);
+              .thenAnswer((_) async => 3);
         },
         build: () => AppBloc(
           userRepository: userRepository,
@@ -390,7 +397,7 @@ void main() {
         seed: AppState.unauthenticated,
         expect: () => <AppState>[
           AppState.unauthenticated().copyWith(
-            overallArticleViews: 2,
+            showInterstitialAd: true,
           )
         ],
         verify: (bloc) {
