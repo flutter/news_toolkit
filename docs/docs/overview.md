@@ -127,7 +127,7 @@ After answering the above questions, your custom news application is generated. 
 :::caution
 
 Before you can run your generated app, you must configure Firebase.
-Please follow the instructions specified on the [Firebase setup](/project_configuration/firebase) section.
+Please follow the instructions specified in the [Firebase setup](/project_configuration/firebase) section.
 
 :::
 
