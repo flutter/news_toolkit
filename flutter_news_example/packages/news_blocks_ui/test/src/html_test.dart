@@ -43,7 +43,7 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['p']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.bodyText1!)
+                    flutter_html.Style.fromTextStyle(theme.textTheme.bodyLarge!)
                         .generateTextStyle(),
           ),
           findsOneWidget,
@@ -67,8 +67,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h1']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline1!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.displayLarge!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );
@@ -91,8 +92,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h2']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline2!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.displayMedium!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );
@@ -115,8 +117,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h3']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline3!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.displaySmall!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );
@@ -139,8 +142,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h4']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline4!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.headlineMedium!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );
@@ -163,8 +167,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h5']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline5!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.headlineSmall!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );
@@ -187,8 +192,9 @@ void main() {
             (widget) =>
                 widget is flutter_html.Html &&
                 widget.style['h6']!.generateTextStyle() ==
-                    flutter_html.Style.fromTextStyle(theme.textTheme.headline6!)
-                        .generateTextStyle(),
+                    flutter_html.Style.fromTextStyle(
+                      theme.textTheme.titleLarge!,
+                    ).generateTextStyle(),
           ),
           findsOneWidget,
         );

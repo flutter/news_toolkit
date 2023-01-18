@@ -38,7 +38,7 @@ class AppSwitch extends StatelessWidget {
         ContentThemeOverrideBuilder(
           builder: (context) => Text(
             value ? onText : offText,
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: AppColors.eerieBlack,
                 ),
           ),

@@ -91,7 +91,7 @@ class PostContent extends StatelessWidget {
           ),
           Text(
             title,
-            style: textTheme.headline3?.copyWith(
+            style: textTheme.displaySmall?.copyWith(
               color: isContentOverlaid || isVideoContent
                   ? AppColors.highEmphasisPrimary
                   : AppColors.highEmphasisSurface,

@@ -11,7 +11,7 @@ import '../helpers/helpers.dart';
 void main() {
   group('AppButton', () {
     final theme = AppTheme().themeData;
-    final buttonTextTheme = theme.textTheme.button!.copyWith(
+    final buttonTextTheme = theme.textTheme.labelLarge!.copyWith(
       inherit: false,
     );
 

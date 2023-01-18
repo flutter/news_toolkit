@@ -48,7 +48,7 @@ extension on WidgetTester {
         ],
         child: Scaffold(
           key: _scaffoldKey,
-          drawer: NavigationDrawer(),
+          drawer: NavDrawer(),
           body: Container(),
         ),
       ),
@@ -60,7 +60,7 @@ extension on WidgetTester {
 }
 
 void main() {
-  group('NavigationDrawer', () {
+  group('NavDrawer', () {
     late CategoriesBloc categoriesBloc;
     late AppBloc appBloc;
     late HomeCubit homeCubit;
@@ -100,17 +100,17 @@ void main() {
       expect(find.byType(AppLogo), findsOneWidget);
     });
 
-    testWidgets('renders NavigationDrawerSections', (tester) async {
+    testWidgets('renders NavDrawerSections', (tester) async {
       await tester.pumpDrawer(
         categoriesBloc: categoriesBloc,
         appBloc: appBloc,
         homeCubit: homeCubit,
       );
-      expect(find.byType(NavigationDrawerSections), findsOneWidget);
+      expect(find.byType(NavDrawerSections), findsOneWidget);
     });
 
     testWidgets(
-        'renders NavigationDrawerSubscribe '
+        'renders NavDrawerSubscribe '
         'when user is not subscribed', (tester) async {
       final user = MockUser();
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.none);
@@ -122,11 +122,11 @@ void main() {
         appBloc: appBloc,
         homeCubit: homeCubit,
       );
-      expect(find.byType(NavigationDrawerSubscribe), findsOneWidget);
+      expect(find.byType(NavDrawerSubscribe), findsOneWidget);
     });
 
     testWidgets(
-        'does not render NavigationDrawerSubscribe '
+        'does not render NavDrawerSubscribe '
         'when user is subscribed', (tester) async {
       final user = MockUser();
       when(() => user.subscriptionPlan).thenReturn(SubscriptionPlan.premium);
@@ -138,10 +138,10 @@ void main() {
         appBloc: appBloc,
         homeCubit: homeCubit,
       );
-      expect(find.byType(NavigationDrawerSubscribe), findsNothing);
+      expect(find.byType(NavDrawerSubscribe), findsNothing);
     });
 
-    group('when NavigationDrawerSectionItem is tapped', () {
+    group('when NavDrawerSectionItem is tapped', () {
       testWidgets('closes drawer', (tester) async {
         await tester.pumpDrawer(
           categoriesBloc: categoriesBloc,
@@ -152,7 +152,7 @@ void main() {
         await tester.tap(
           find.byWidgetPredicate(
             (widget) =>
-                widget is NavigationDrawerSectionItem &&
+                widget is NavDrawerSectionItem &&
                 widget.key == ValueKey(categories.first),
           ),
         );
@@ -177,7 +177,7 @@ void main() {
         await tester.tap(
           find.byWidgetPredicate(
             (widget) =>
-                widget is NavigationDrawerSectionItem &&
+                widget is NavDrawerSectionItem &&
                 widget.key == ValueKey(category),
           ),
         );
@@ -189,7 +189,7 @@ void main() {
       });
 
       testWidgets(
-        'sets tab to zero when NavigationDrawerSectionItem is tapped ',
+        'sets tab to zero when NavDrawerSectionItem is tapped ',
         (tester) async {
           final category = categories.first;
 
@@ -202,7 +202,7 @@ void main() {
           await tester.tap(
             find.byWidgetPredicate(
               (widget) =>
-                  widget is NavigationDrawerSectionItem &&
+                  widget is NavDrawerSectionItem &&
                   widget.key == ValueKey(category),
             ),
           );

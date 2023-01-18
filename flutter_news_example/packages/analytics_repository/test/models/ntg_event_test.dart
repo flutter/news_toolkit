@@ -18,7 +18,7 @@ void main() {
           expect(event.properties!['eventCategory'], equals('NTG newsletter'));
           expect(event.properties!['eventAction'], equals('newsletter signup'));
           expect(event.properties!['eventLabel'], equals('success'));
-          expect(event.properties!['nonInteraction'], isFalse);
+          expect(event.properties!['nonInteraction'], equals('false'));
         });
       });
 
@@ -34,7 +34,7 @@ void main() {
             equals('newsletter modal impression 3'),
           );
           expect(event.properties!['eventLabel'], equals(''));
-          expect(event.properties!['nonInteraction'], isFalse);
+          expect(event.properties!['nonInteraction'], equals('false'));
         });
 
         test(
@@ -49,7 +49,7 @@ void main() {
             equals('newsletter modal impression 3'),
           );
           expect(event.properties!['eventLabel'], equals(articleTitle));
-          expect(event.properties!['nonInteraction'], isFalse);
+          expect(event.properties!['nonInteraction'], equals('false'));
         });
       });
     });
@@ -61,7 +61,7 @@ void main() {
         expect(event.properties!['eventCategory'], equals('NTG account'));
         expect(event.properties!['eventAction'], equals('login'));
         expect(event.properties!['eventLabel'], equals('success'));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
 
@@ -72,7 +72,7 @@ void main() {
         expect(event.properties!['eventCategory'], equals('NTG account'));
         expect(event.properties!['eventAction'], equals('registration'));
         expect(event.properties!['eventLabel'], equals('success'));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
 
@@ -95,7 +95,7 @@ void main() {
         );
         expect(event.properties!['eventLabel'], equals(articleTitle));
         expect(event.properties!['eventValue'], equals(milestonePercentage));
-        expect(event.properties!['nonInteraction'], isTrue);
+        expect(event.properties!['nonInteraction'], equals('true'));
         expect(event.properties!['hitType'], equals('event'));
       });
     });
@@ -108,7 +108,7 @@ void main() {
         expect(event.properties!['eventCategory'], equals('NTG user'));
         expect(event.properties!['eventAction'], equals('comment added'));
         expect(event.properties!['eventLabel'], equals(articleTitle));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
 
@@ -119,7 +119,7 @@ void main() {
         expect(event.properties!['eventCategory'], equals('NTG social'));
         expect(event.properties!['eventAction'], equals('social share'));
         expect(event.properties!['eventLabel'], equals('OS share menu'));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
 
@@ -132,7 +132,7 @@ void main() {
           equals('NTG push notification'),
         );
         expect(event.properties!['eventAction'], equals('click'));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
 
@@ -152,7 +152,7 @@ void main() {
             equals('paywall modal impression $impression'),
           );
           expect(event.properties!['eventLabel'], equals(articleTitle));
-          expect(event.properties!['nonInteraction'], isTrue);
+          expect(event.properties!['nonInteraction'], equals('true'));
         });
       });
 
@@ -166,7 +166,7 @@ void main() {
           expect(event.properties!['eventCategory'], equals('NTG paywall'));
           expect(event.properties!['eventAction'], equals('click'));
           expect(event.properties!['eventLabel'], equals(articleTitle));
-          expect(event.properties!['nonInteraction'], isFalse);
+          expect(event.properties!['nonInteraction'], equals('false'));
         });
       });
     });
@@ -188,7 +188,7 @@ void main() {
         expect(event.properties!['eventCategory'], equals('NTG subscription'));
         expect(event.properties!['eventAction'], equals('submit'));
         expect(event.properties!['eventLabel'], equals('success'));
-        expect(event.properties!['nonInteraction'], isFalse);
+        expect(event.properties!['nonInteraction'], equals('false'));
       });
     });
   });

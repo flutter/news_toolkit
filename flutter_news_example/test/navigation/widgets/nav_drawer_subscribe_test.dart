@@ -9,25 +9,25 @@ import 'package:mocktail/mocktail.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('NavigationDrawerSubscribe', () {
-    testWidgets('renders NavigationDrawerSubscribeTitle', (tester) async {
-      await tester.pumpApp(NavigationDrawerSubscribe());
-      expect(find.byType(NavigationDrawerSubscribeTitle), findsOneWidget);
+  group('NavDrawerSubscribe', () {
+    testWidgets('renders NavDrawerSubscribeTitle', (tester) async {
+      await tester.pumpApp(NavDrawerSubscribe());
+      expect(find.byType(NavDrawerSubscribeTitle), findsOneWidget);
     });
 
-    testWidgets('renders NavigationDrawerSubscribeSubtitle', (tester) async {
-      await tester.pumpApp(NavigationDrawerSubscribe());
-      expect(find.byType(NavigationDrawerSubscribeSubtitle), findsOneWidget);
+    testWidgets('renders NavDrawerSubscribeSubtitle', (tester) async {
+      await tester.pumpApp(NavDrawerSubscribe());
+      expect(find.byType(NavDrawerSubscribeSubtitle), findsOneWidget);
     });
 
-    testWidgets('renders NavigationDrawerSubscribeButton', (tester) async {
-      await tester.pumpApp(NavigationDrawerSubscribe());
-      expect(find.byType(NavigationDrawerSubscribeButton), findsOneWidget);
+    testWidgets('renders NavDrawerSubscribeButton', (tester) async {
+      await tester.pumpApp(NavDrawerSubscribe());
+      expect(find.byType(NavDrawerSubscribeButton), findsOneWidget);
     });
 
-    group('NavigationDrawerSubscribeButton', () {
+    group('NavDrawerSubscribeButton', () {
       testWidgets('renders AppButton', (tester) async {
-        await tester.pumpApp(NavigationDrawerSubscribeButton());
+        await tester.pumpApp(NavDrawerSubscribeButton());
         expect(find.byType(AppButton), findsOneWidget);
       });
 
@@ -44,10 +44,10 @@ void main() {
         ).thenAnswer((_) async => []);
 
         await tester.pumpApp(
-          NavigationDrawerSubscribeButton(),
+          NavDrawerSubscribeButton(),
           inAppPurchaseRepository: inAppPurchaseRepository,
         );
-        await tester.tap(find.byType(NavigationDrawerSubscribeButton));
+        await tester.tap(find.byType(NavDrawerSubscribeButton));
         await tester.pump();
 
         expect(find.byType(PurchaseSubscriptionDialog), findsOneWidget);

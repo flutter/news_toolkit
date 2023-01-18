@@ -123,7 +123,7 @@ void main() {
 
         test('background is grey.shade900', () {
           expect(
-            const AppDarkTheme().themeData.backgroundColor,
+            const AppDarkTheme().themeData.colorScheme.background,
             AppColors.grey.shade900,
           );
         });

@@ -84,7 +84,7 @@ class PostSmallContent extends StatelessWidget {
       children: [
         Text(
           title,
-          style: textTheme.headline6?.copyWith(
+          style: textTheme.titleLarge?.copyWith(
             color: AppColors.highEmphasisSurface,
           ),
         ),
