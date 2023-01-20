@@ -1,8 +1,7 @@
-import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing;
+import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing, Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/app/app.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:form_inputs/form_inputs.dart';
