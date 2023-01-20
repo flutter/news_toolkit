@@ -1,8 +1,7 @@
-import 'package:app_ui/app_ui.dart' show AppSpacing, showAppModal;
+import 'package:app_ui/app_ui.dart' show AppSpacing, Assets, showAppModal;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
-import 'package:{{project_name.snakeCase()}}/generated/generated.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/login/login.dart';
 import 'package:{{project_name.snakeCase()}}/user_profile/user_profile.dart';
