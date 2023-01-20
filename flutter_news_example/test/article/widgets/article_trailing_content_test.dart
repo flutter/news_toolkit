@@ -292,17 +292,19 @@ void main() {
           ),
         );
 
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: articleBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+        await tester.runAsync(() async {
+          await tester.pumpApp(
+            MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: articleBloc),
+                BlocProvider.value(value: appBloc),
+              ],
+              child: SingleChildScrollView(
+                child: ArticleTrailingContent(),
+              ),
             ),
-          ),
-        );
+          );
+        });
 
         expect(find.byType(SubscribeWithArticleLimitModal), findsOneWidget);
         expect(find.byType(SubscribeModal), findsNothing);
