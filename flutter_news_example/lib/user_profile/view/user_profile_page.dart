@@ -5,12 +5,12 @@ import 'package:app_ui/app_ui.dart'
         AppColors,
         AppSpacing,
         AppSwitch,
+        Assets,
         ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/app/app.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/notification_preferences/notification_preferences.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';

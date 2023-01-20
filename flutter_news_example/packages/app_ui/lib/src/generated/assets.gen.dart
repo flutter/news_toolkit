@@ -14,11 +14,17 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/about_icon.svg
+  SvgGenImage get aboutIcon => const SvgGenImage('assets/icons/about_icon.svg');
+
   /// File path: assets/icons/apple.svg
   SvgGenImage get apple => const SvgGenImage('assets/icons/apple.svg');
 
   /// File path: assets/icons/back_icon.svg
   SvgGenImage get backIcon => const SvgGenImage('assets/icons/back_icon.svg');
+
+  /// File path: assets/icons/best_value.svg
+  SvgGenImage get bestValue => const SvgGenImage('assets/icons/best_value.svg');
 
   /// File path: assets/icons/close_circle.svg
   SvgGenImage get closeCircle =>
@@ -32,14 +38,41 @@ class $AssetsIconsGen {
   SvgGenImage get emailOutline =>
       const SvgGenImage('assets/icons/email_outline.svg');
 
+  /// File path: assets/icons/envelope_open.svg
+  SvgGenImage get envelopeOpen =>
+      const SvgGenImage('assets/icons/envelope_open.svg');
+
   /// File path: assets/icons/facebook.svg
   SvgGenImage get facebook => const SvgGenImage('assets/icons/facebook.svg');
 
   /// File path: assets/icons/google.svg
   SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
 
+  /// File path: assets/icons/log_in_icon.svg
+  SvgGenImage get logInIcon =>
+      const SvgGenImage('assets/icons/log_in_icon.svg');
+
+  /// File path: assets/icons/log_out_icon.svg
+  SvgGenImage get logOutIcon =>
+      const SvgGenImage('assets/icons/log_out_icon.svg');
+
+  /// File path: assets/icons/notifications_icon.svg
+  SvgGenImage get notificationsIcon =>
+      const SvgGenImage('assets/icons/notifications_icon.svg');
+
+  /// File path: assets/icons/profile_icon.svg
+  SvgGenImage get profileIcon =>
+      const SvgGenImage('assets/icons/profile_icon.svg');
+
+  /// File path: assets/icons/terms_of_use_icon.svg
+  SvgGenImage get termsOfUseIcon =>
+      const SvgGenImage('assets/icons/terms_of_use_icon.svg');
+
   /// File path: assets/icons/twitter.svg
   SvgGenImage get twitter => const SvgGenImage('assets/icons/twitter.svg');
+
+  /// File path: assets/icons/video.svg
+  SvgGenImage get video => const SvgGenImage('assets/icons/video.svg');
 }
 
 class $AssetsImagesGen {
@@ -89,7 +122,7 @@ class AssetGenImage {
     ImageErrorWidgetBuilder? errorBuilder,
     String? semanticLabel,
     bool excludeFromSemantics = false,
-    double? scale = 1.0,
+    double? scale,
     double? width,
     double? height,
     Color? color,
@@ -136,6 +169,8 @@ class AssetGenImage {
   }
 
   String get path => _assetName;
+
+  String get keyName => 'packages/app_ui/$_assetName';
 }
 
 class SvgGenImage {
