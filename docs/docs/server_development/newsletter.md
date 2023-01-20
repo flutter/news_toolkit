@@ -3,7 +3,7 @@ sidebar_position: 5
 description: Learn how to configure your own newsletter.
 ---
 
-# Newsletter
+# Creating a newsletter
 
 The current [implementation](https://github.com/flutter/news_toolkit/blob/main/flutter_news_example/api/routes/api/v1/newsletter/subscription.dart) of a newsletter email subscription always returns true and the response is handled in the app as a success state. Be aware that the current implementation of this feature doesn't store the subscriber state for a user.
 

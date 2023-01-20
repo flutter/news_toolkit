@@ -1,8 +1,7 @@
-import 'package:app_ui/app_ui.dart' hide Assets;
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart'
     hide NewsletterEvent;
