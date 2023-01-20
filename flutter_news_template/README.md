@@ -1,58 +1,17 @@
-# Flutter News Template
+<img alt="Flutter News Toolkit Logo" height="75" src="https://flutter.github.io/news_toolkit/img/header_dark.svg"/>
 
-[![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
+<br/>
 
-## Usage
+The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
 
-### Activate Mason
+This template aims to **reduce the time to develop a typical news app by 80%**.
 
-```sh
-dart pub global activate mason_cli
-```
+The Flutter News Toolkit:
 
-### Add the Flutter News Template Brick
+- Contains common news app UI workflows and core features built with Flutter and Firebase
+- Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
+- Allows publishers to monetize immediately with pre-built Google Ads and subscription services
 
-When using user/password authentication:
+## Get Started
 
-```sh
-mason add flutter_news_template -g --git-url https://github.com/VGVentures/flutter_news_template --git-path flutter_news_template
-```
-
-When using ssh authentication:
-
-```sh
-mason add flutter_news_template -g --git-url git@github.com:VGVentures/flutter_news_template.git --git-path flutter_news_template
-```
-
-### Generate
-
-```sh
-mason make flutter_news_template -c template.json
-```
-
-For additional usage information and information about how to create custom templates refer to the [mason documentation](https://github.com/felangel/mason).
-
----
-
-## Recommendations
-
-### Recommended Firebase configuration
-
-It is recommended to define at least two application environments: development and production. Each environment defines a different configuration of deep links, ads and authentication along with a different entry point to the application (e.g. `main_development.dart`).
-
-When generating the template, choose "development production" as a list of desired application flavors. Choose "dev" as the application suffix for the development flavor.
-
-In Firebase, configure two separate Firebase projects for the development and production flavor. You may do this [from the Firebase console](https://console.firebase.google.com/u/0/) or using the [firebase-tools CLI tool](https://github.com/firebase/firebase-tools) and the `firebase projects:create` command. In each Firebase project, create an Android and iOS app with appropriate package names. Make sure that development apps include the "dev" suffix. You may also do this using the `firebase apps:create` command.
-
-Once configured, go to each Firebase project's settings and export the Google Services file for all apps. In the generated template, replace the content of all generated Google Services using exported configurations.
-
-### Recommended Github branch protection rules
-
-The generated template includes Github workflows for the application module and all local packages to ensure that formatting, analyzing, and all tests pass before merging a pull request. It is recommended to enforce branch protection rules for the main branch of your repository. 
-
-You may choose to enable branch protection rules in Github repository settings. Below are the recommended options:
-- Require a pull request before merging (require approvals, dismiss stale pull request approvals when new commits are pushed, require review from Code Owners).
-- Require status checks to pass before merging (require branches to be up to date before merging).
-- Require linear history.
-
-[1]: https://github.com/felangel/mason
+To get started, see the official documentation at https://flutter.github.io/news_toolkit.
