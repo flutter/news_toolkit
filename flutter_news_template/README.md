@@ -2,6 +2,8 @@
 
 <br/>
 
+[![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
+
 The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
 
 This template aims to **reduce the time to develop a typical news app by 80%**.
