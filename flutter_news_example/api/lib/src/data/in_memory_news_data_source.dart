@@ -56,7 +56,7 @@ class InMemoryNewsDataSource implements NewsDataSource {
       title: article.title,
       blocks: blocks,
       totalBlocks: totalBlocks,
-      url: Uri(),
+      url: Uri(), // Use article.url to show the share section inside an article
     );
   }
 
