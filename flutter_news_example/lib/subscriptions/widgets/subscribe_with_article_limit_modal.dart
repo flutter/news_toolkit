@@ -1,12 +1,11 @@
 import 'package:app_ui/app_ui.dart'
-    show AppButton, AppSpacing, AppColors, showAppModal;
+    show AppButton, AppSpacing, AppColors, Assets, showAppModal;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/article/article.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
