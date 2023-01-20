@@ -56,7 +56,7 @@ class InMemoryNewsDataSource implements NewsDataSource {
       title: article.title,
       blocks: blocks,
       totalBlocks: totalBlocks,
-      url: article.url,
+      url: Uri(),
     );
   }
 

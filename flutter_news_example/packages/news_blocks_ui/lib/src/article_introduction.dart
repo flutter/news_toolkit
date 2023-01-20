@@ -45,7 +45,7 @@ class ArticleIntroduction extends StatelessWidget {
           ),
         ),
         const Divider(),
-        if (onSharePressed != null)
+        if (onSharePressed != null) ...[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             child: Align(
@@ -58,7 +58,8 @@ class ArticleIntroduction extends StatelessWidget {
               ),
             ),
           ),
-        const Divider(),
+          const Divider(),
+        ],
         const SizedBox(height: AppSpacing.lg),
       ],
     );
