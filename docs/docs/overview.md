@@ -205,7 +205,7 @@ You can also run the project directly from the command-line using the following 
 ```bash
 flutter run \
   --flavor development \
-  --target lib/main/main_development \
+  --target lib/main/main_development.dart \
   --dart-define FLAVOR_DEEP_LINK_DOMAIN=<YOUR-DEEP-LINK-DOMAIN> \
   --dart-define FLAVOR_DEEP_LINK_PATH=<YOUR-DEEP-LINK-PATH> \
   --dart-define TWITTER_API_KEY=<YOUR-TWITTER-API-KEY> \
