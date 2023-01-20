@@ -43,6 +43,17 @@ void main() {
   });
 
   group('ArticleContent', () {
+    testWidgets('renders a SelectionArea', (tester) async {
+      await tester.pumpApp(
+        BlocProvider.value(
+          value: articleBloc,
+          child: ArticleContent(),
+        ),
+      );
+
+      expect(find.byType(SelectionArea), findsOneWidget);
+    });
+
     testWidgets('renders StickyAd', (tester) async {
       await tester.pumpApp(
         BlocProvider.value(
