@@ -1,8 +1,7 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, ScrollableColumn, AppColors, AppButton;
+    show AppSpacing, ScrollableColumn, AppColors, AppButton, Assets;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:{{project_name.snakeCase()}}/generated/generated.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 
 class MagicLinkPromptView extends StatelessWidget {

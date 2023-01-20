@@ -5,12 +5,12 @@ import 'package:app_ui/app_ui.dart'
         AppColors,
         AppSpacing,
         AppSwitch,
+        Assets,
         ScrollableColumn;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
-import 'package:{{project_name.snakeCase()}}/generated/generated.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/notification_preferences/notification_preferences.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
