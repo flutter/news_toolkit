@@ -35,7 +35,7 @@ class OnboardingViewItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: AppColors.white,
         ),
-        child: ScrollableColumn(
+        child: _ScrollableColumn(
           children: [
             Text(
               key: const Key('onboardingItem_pageNumberTitle'),
@@ -70,6 +70,31 @@ class OnboardingViewItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ScrollableColumn extends StatelessWidget {
+  const _ScrollableColumn({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Column(children: children),
+            ),
+          ),
+        );
+      },
     );
   }
 }

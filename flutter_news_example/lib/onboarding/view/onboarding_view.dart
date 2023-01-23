@@ -36,7 +36,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           context.read<AppBloc>().add(const AppOnboardingCompleted());
         }
       },
-      child: ScrollableColumn(
+      child: _ScrollableColumn(
         key: const Key('onboarding_scrollableColumn'),
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -151,6 +151,40 @@ class _OnboardingSubtitle extends StatelessWidget {
         ),
         textAlign: TextAlign.center,
       ),
+    );
+  }
+}
+
+class _ScrollableColumn extends StatelessWidget {
+  const _ScrollableColumn({
+    super.key,
+    required this.children,
+    this.mainAxisSize = MainAxisSize.max,
+  });
+
+  final List<Widget> children;
+
+  final MainAxisSize mainAxisSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: mainAxisSize,
+                children: children,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
