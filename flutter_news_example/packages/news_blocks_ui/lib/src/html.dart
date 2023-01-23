@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' as flutter_html;
 
 import 'package:news_blocks/news_blocks.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// {@template html}
 /// A reusable html news block widget.
@@ -20,6 +21,12 @@ class Html extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
       child: flutter_html.Html(
+        onLinkTap: (url, context, attributes, element) {
+          if (url == null) return;
+          final uri = Uri.tryParse(url);
+          if (uri == null) return;
+          launchUrl(uri).ignore();
+        },
         data: block.content,
         style: {
           'p': flutter_html.Style.fromTextStyle(

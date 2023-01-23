@@ -4,13 +4,33 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart' as flutter_html;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import '../helpers/helpers.dart';
 
+class _MockUrlLauncher extends Mock
+    with MockPlatformInterfaceMixin
+    implements UrlLauncherPlatform {}
+
+class _FakeLaunchOptions extends Fake implements LaunchOptions {}
+
 void main() {
   group('Html', () {
+    late UrlLauncherPlatform urlLauncher;
+
+    setUpAll(() {
+      registerFallbackValue(_FakeLaunchOptions());
+    });
+
+    setUp(() {
+      urlLauncher = _MockUrlLauncher();
+      UrlLauncherPlatform.instance = urlLauncher;
+    });
+
     testWidgets('renders HTML text correctly', (tester) async {
       const block = HtmlBlock(content: '<p>Hello</p>');
 
@@ -23,6 +43,52 @@ void main() {
         ),
         findsOneWidget,
       );
+    });
+
+    group('hyperlinks', () {
+      testWidgets('does not launch the url when it is empty', (tester) async {
+        const block = HtmlBlock(
+          content: '<a href="#">flutter.dev</a>',
+        );
+
+        await tester.pumpApp(Html(block: block));
+
+        await tester.tap(
+          find.textContaining('flutter.dev', findRichText: true),
+        );
+
+        verifyNever(() => urlLauncher.launchUrl(any(), any()));
+      });
+
+      testWidgets('does not launch the url when it is invalid', (tester) async {
+        const block = HtmlBlock(
+          content: '<a href="::Not valid URI::">flutter.dev</a>',
+        );
+
+        await tester.pumpApp(Html(block: block));
+
+        await tester.tap(
+          find.textContaining('flutter.dev', findRichText: true),
+        );
+
+        verifyNever(() => urlLauncher.launchUrl(any(), any()));
+      });
+
+      testWidgets('launches the url when it is a valid url', (tester) async {
+        const block = HtmlBlock(
+          content: '<a href="https://flutter.dev">flutter.dev</a>',
+        );
+
+        await tester.pumpApp(Html(block: block));
+
+        await tester.tap(
+          find.textContaining('flutter.dev', findRichText: true),
+        );
+
+        verify(
+          () => urlLauncher.launchUrl('https://flutter.dev', any()),
+        ).called(1);
+      });
     });
 
     group('styles', () {
