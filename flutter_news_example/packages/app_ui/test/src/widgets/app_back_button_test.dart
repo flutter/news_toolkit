@@ -5,6 +5,10 @@ import 'package:mockingjay/mockingjay.dart';
 
 import '../helpers/helpers.dart';
 
+class MockFunction extends Mock {
+  void call();
+}
+
 void main() {
   group('AppBackButton', () {
     testWidgets('renders IconButton', (tester) async {
@@ -48,6 +52,28 @@ void main() {
         await tester.tap(find.byType(IconButton));
         await tester.pumpAndSettle();
         verify(navigator.pop).called(1);
+      });
+
+      testWidgets('call onPressed when is provided ', (tester) async {
+        final onPressed = MockFunction();
+        await tester.pumpApp(
+          AppBackButton(onPressed: onPressed),
+        );
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
+        verify(onPressed).called(1);
+      });
+
+      testWidgets(
+          'call onPressed when is provided '
+          'and style is ligth', (tester) async {
+        final onPressed = MockFunction();
+        await tester.pumpApp(
+          AppBackButton.light(onPressed: onPressed),
+        );
+        await tester.tap(find.byType(IconButton));
+        await tester.pumpAndSettle();
+        verify(onPressed).called(1);
       });
     });
   });
