@@ -45,21 +45,6 @@ class ArticleIntroduction extends StatelessWidget {
           ),
         ),
         const Divider(),
-        if (onSharePressed != null) ...[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ShareButton(
-                key: const Key('articleIntroduction_shareButton'),
-                shareText: shareText,
-                color: AppColors.darkAqua,
-                onPressed: onSharePressed,
-              ),
-            ),
-          ),
-          const Divider(),
-        ],
         const SizedBox(height: AppSpacing.lg),
       ],
     );

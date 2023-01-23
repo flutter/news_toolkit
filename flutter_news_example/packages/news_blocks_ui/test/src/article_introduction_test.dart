@@ -1,6 +1,3 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
@@ -52,34 +49,6 @@ void main() {
       );
 
       expect(find.byType(ArticleIntroduction), findsOneWidget);
-    });
-
-    testWidgets('calls onSharePressed when ShareButton is pressed',
-        (tester) async {
-      final completer = Completer<void>();
-
-      await tester.pumpContentThemedApp(
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              ArticleIntroduction(
-                block: technologyArticleIntroduction,
-                premiumText: premiumText,
-                shareText: shareText,
-                onSharePressed: completer.complete,
-              ),
-            ],
-          ),
-        ),
-      );
-
-      final shareButton = find.byKey(Key('articleIntroduction_shareButton'));
-
-      await tester.ensureVisible(shareButton);
-
-      await tester.tap(shareButton);
-
-      expect(completer.isCompleted, isTrue);
     });
   });
 }
