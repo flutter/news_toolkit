@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
 
+// TODO(): Why does this exist? 
+// This is a very expensive widget.
+// Why not use a ListView??
+
 /// {@template scrollable_column}
 /// Creates a scrollable vertical array of children.
 ///

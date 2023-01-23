@@ -50,8 +50,6 @@ class _LoginContent extends StatelessWidget {
         AppSpacing.lg,
         AppSpacing.xxlg,
       ),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
       children: [
         const _LoginTitleAndCloseButton(),
         const SizedBox(height: AppSpacing.sm),
