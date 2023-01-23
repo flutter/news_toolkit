@@ -10,13 +10,14 @@ Flutter and the [Google News Initiative](https://newsinitiative.withgoogle.com/)
 This template aims to **significantly reduce the development time for typical news applications** by giving developers a head start on core components and features.
 
 The Flutter News Toolkit:
+
 - Contains common news app UI workflows and core features built with Flutter and Firebase
 - Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
 - Allows publishers to monetize immediately with ads and subscription services
 
-Common services such as authentication, notifications, analytics, and ads have been implemented using [Firebase](https://firebase.flutter.dev/docs/overview/) and [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads). Developers are free to substitute these services and can find publicly available packages on [pub.dev](https://pub.dev). 
+Common services such as authentication, notifications, analytics, and ads have been implemented using [Firebase](https://firebase.flutter.dev/docs/overview/) and [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads). Developers are free to substitute these services and can find publicly available packages on [pub.dev](https://pub.dev).
 
-If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template. 
+If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template.
 
 ## Getting Started
 
