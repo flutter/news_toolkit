@@ -71,56 +71,5 @@ void main() {
         expect(result, 0);
       });
     });
-
-    group('setOverallArticleViews', () {
-      test('saves the value in Storage', () async {
-        const views = 3;
-
-        await UserStorage(storage: storage).setOverallArticlesViews(views);
-
-        verify(
-          () => storage.write(
-            key: UserStorageKeys.overallArticlesViews,
-            value: views.toString(),
-          ),
-        ).called(1);
-      });
-    });
-
-    group('fetchOverallArticlesViews', () {
-      test('returns the value from Storage', () async {
-        when(
-          () => storage.read(key: UserStorageKeys.overallArticlesViews),
-        ).thenAnswer((_) async => '3');
-
-        final result =
-            await UserStorage(storage: storage).fetchOverallArticlesViews();
-
-        verify(
-          () => storage.read(
-            key: UserStorageKeys.overallArticlesViews,
-          ),
-        ).called(1);
-
-        expect(result, equals(3));
-      });
-
-      test('returns 0 when no value exists in Storage', () async {
-        when(
-          () => storage.read(key: UserStorageKeys.overallArticlesViews),
-        ).thenAnswer((_) async => null);
-
-        final result =
-            await UserStorage(storage: storage).fetchOverallArticlesViews();
-
-        verify(
-          () => storage.read(
-            key: UserStorageKeys.overallArticlesViews,
-          ),
-        ).called(1);
-
-        expect(result, isZero);
-      });
-    });
   });
 }

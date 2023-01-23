@@ -531,59 +531,5 @@ void main() {
         );
       });
     });
-
-    group('incrementOverallArticleViews', () {
-      test(
-          'calls UserStorage.setOverallArticleViews '
-          'with current overall article views increased by 1', () async {
-        const currentOverallArticleViews = 3;
-        when(storage.fetchOverallArticlesViews)
-            .thenAnswer((_) async => currentOverallArticleViews);
-        when(() => storage.setOverallArticlesViews(any()))
-            .thenAnswer((_) async {});
-
-        await userRepository.incrementOverallArticleViews();
-
-        verify(storage.fetchOverallArticlesViews).called(1);
-        verify(
-          () => storage.setOverallArticlesViews(currentOverallArticleViews + 1),
-        ).called(1);
-      });
-
-      test(
-          'throws an IncrementOverallArticleViewsFailure '
-          'when incrementing overall article views fails', () async {
-        when(() => storage.setOverallArticlesViews(any()))
-            .thenThrow(Exception());
-
-        expect(
-          () => userRepository.incrementOverallArticleViews(),
-          throwsA(isA<IncrementOverallArticleViewsFailure>()),
-        );
-      });
-    });
-
-    group('fetchOverallArticleViews', () {
-      test(
-          'returns the number of overall article views '
-          'from UserStorage.fetchOverallArticleViews', () async {
-        const currentArticleViews = 3;
-        when(storage.fetchOverallArticlesViews)
-            .thenAnswer((_) async => currentArticleViews);
-        final result = await userRepository.fetchOverallArticleViews();
-        expect(result, equals(currentArticleViews));
-      });
-
-      test(
-          'throws a FetchOverallArticleViewsFailure '
-          'when fetching overall article views fails', () async {
-        when(storage.fetchOverallArticlesViews).thenThrow(Exception());
-
-        expect(
-          () => userRepository.fetchOverallArticleViews(),
-          throwsA(isA<FetchOverallArticleViewsFailure>()),
-        );
-      });
-    });
   });
 }
