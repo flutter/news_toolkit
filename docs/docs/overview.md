@@ -67,7 +67,7 @@ Projects generated from the Flutter News Template will use the latest stable ver
 
 #### Install the Flutter News Template
 
-Use the `mason add` command to install the Flutter News Template globally on your machine:
+Use the `mason add` command to install the [Flutter News Template](https://brickhub.dev/bricks/flutter_news_template) globally on your machine:
 
 :::info
 You only need to install the `flutter_news_template` once. You can generate multiple projects from the template after it's installed.
@@ -75,16 +75,8 @@ You only need to install the `flutter_news_template` once. You can generate mult
 You can verify whether you have the `flutter_news_template` installed by using the `mason list --global` command.
 :::
 
-**using https:**
-
 ```bash
-mason add -g flutter_news_template --git-url https://github.com/flutter/news_toolkit --git-ref templates --git-path flutter_news_template
-```
-
-**using ssh**
-
-```bash
-mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-ref templates --git-path flutter_news_template
+mason add -g flutter_news_template
 ```
 
 #### Generate the app
