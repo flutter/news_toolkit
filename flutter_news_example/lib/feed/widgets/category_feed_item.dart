@@ -51,7 +51,7 @@ class CategoryFeedItem extends StatelessWidget {
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostGridGroupBlock) {
-      // TODO(): This widget is a shrinkwrap Grid.
+      // TODO(felangel): This widget is a shrinkwrap Grid.
       return PostGrid(
         gridGroupBlock: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
