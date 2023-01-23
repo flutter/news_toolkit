@@ -66,7 +66,7 @@ void main() {
 
       testWidgets(
           'call onPressed when is provided '
-          'and style is ligth', (tester) async {
+          'and style is light', (tester) async {
         final onPressed = MockFunction();
         await tester.pumpApp(
           AppBackButton.light(onPressed: onPressed),
