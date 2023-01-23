@@ -28,7 +28,7 @@ class LoginWithEmailForm extends StatelessWidget {
             );
         }
       },
-      child: const ScrollableColumn(
+      child: const _ScrollableColumn(
         padding: EdgeInsets.fromLTRB(
           AppSpacing.xlg,
           AppSpacing.lg,
@@ -188,6 +188,49 @@ class ClearIconButton extends StatelessWidget {
           child: Assets.icons.closeCircle.svg(),
         ),
       ),
+    );
+  }
+}
+
+class _ScrollableColumn extends StatelessWidget {
+  const _ScrollableColumn({
+    required this.children,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.max,
+    this.padding,
+  });
+
+  final List<Widget> children;
+
+  final CrossAxisAlignment crossAxisAlignment;
+
+  final MainAxisSize mainAxisSize;
+
+  final EdgeInsets? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: padding ?? EdgeInsets.zero,
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignment,
+                  mainAxisSize: mainAxisSize,
+                  children: children,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
