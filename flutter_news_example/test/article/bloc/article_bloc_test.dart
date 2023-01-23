@@ -89,6 +89,10 @@ void main() {
         when(articleRepository.resetArticleViews).thenAnswer((_) async {});
         when(articleRepository.fetchArticleViews)
             .thenAnswer((_) async => ArticleViews(3, DateTime(2022, 6, 7)));
+        when(() => articleRepository.incrementOverallArticleViews())
+            .thenAnswer((_) async => {});
+        when(() => articleRepository.fetchOverallArticleViews())
+            .thenAnswer((_) async => 0);
 
         when(
           () => articleRepository.getArticle(
@@ -400,6 +404,33 @@ void main() {
           );
         });
       });
+
+      blocTest<ArticleBloc, ArticleState>(
+        'emits showInterstitialAd true '
+        'when fetchOverallArticleViews returns 4 ',
+        setUp: () {
+          when(() => articleRepository.fetchOverallArticleViews())
+              .thenAnswer((_) async => 4);
+        },
+        build: () => articleBloc,
+        act: (bloc) => bloc.add(ArticleRequested()),
+        expect: () => <ArticleState>[
+          ArticleState(status: ArticleStatus.loading),
+          ArticleState(status: ArticleStatus.loading, showInterstitialAd: true),
+          ArticleState(
+            status: ArticleStatus.populated,
+            title: articleResponse.title,
+            content: articleResponse.content,
+            contentTotalCount: articleResponse.totalCount,
+            relatedArticles: [],
+            uri: articleResponse.url,
+            hasMoreContent: true,
+            isPreview: articleResponse.isPreview,
+            isPremium: articleResponse.isPremium,
+            showInterstitialAd: true,
+          ),
+        ],
+      );
     });
 
     group('on ArticleContentSeen', () {

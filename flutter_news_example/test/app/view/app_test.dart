@@ -72,8 +72,6 @@ void main() {
           .thenAnswer((_) async => 2);
       when(() => userRepository.incrementAppOpenedCount())
           .thenAnswer((_) async {});
-      when(() => userRepository.fetchOverallArticleViews())
-          .thenAnswer((_) async => 0);
     });
 
     testWidgets('renders AppView', (tester) async {

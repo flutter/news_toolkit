@@ -412,20 +412,18 @@ void main() {
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
           'when interstitialAdBehavior is onOpen and '
           'showInterstitialAd is true', (tester) async {
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            User(
-              id: 'id',
-              name: 'name',
-              email: 'email',
-              subscriptionPlan: SubscriptionPlan.premium,
-            ),
-          ).copyWith(showInterstitialAd: true),
+        whenListen(
+          articleBloc,
+          Stream.fromIterable(
+            [
+              ArticleState.initial().copyWith(showInterstitialAd: false),
+              ArticleState.initial().copyWith(showInterstitialAd: true),
+            ],
+          ),
         );
 
         await tester.pumpApp(
           fullScreenAdsBloc: fullScreenAdsBloc,
-          appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(
@@ -442,22 +440,17 @@ void main() {
           'verify ShowInterstitialAdRequested is not '
           'added to FullScreenAdsBloc when interstitialAdBehavior is onOpen '
           'and showInterstitialAd is false', (tester) async {
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            User(
-              id: 'id',
-              name: 'name',
-              email: 'email',
-              subscriptionPlan: SubscriptionPlan.premium,
-            ),
-          ).copyWith(
-            showInterstitialAd: false,
+        whenListen(
+          articleBloc,
+          Stream.fromIterable(
+            [
+              ArticleState.initial().copyWith(showInterstitialAd: false),
+            ],
           ),
         );
 
         await tester.pumpApp(
           fullScreenAdsBloc: fullScreenAdsBloc,
-          appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(
@@ -474,20 +467,12 @@ void main() {
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
           'when interstitialAdBehavior in onClose and '
           'showInterstitialAd is true', (tester) async {
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            User(
-              id: 'id',
-              name: 'name',
-              email: 'email',
-              subscriptionPlan: SubscriptionPlan.premium,
-            ),
-          ).copyWith(showInterstitialAd: true),
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
         );
 
         await tester.pumpApp(
           fullScreenAdsBloc: fullScreenAdsBloc,
-          appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(
@@ -497,9 +482,37 @@ void main() {
           ),
         );
 
-        // Pump another widget to call dispose method
-        // from previous pumped widget
-        await tester.pumpWidget(SizedBox.shrink());
+        await tester.tap(find.byType(AppBackButton));
+
+        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
+            .called(1);
+      });
+
+      testWidgets(
+          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
+          'when interstitialAdBehavior in onClose and '
+          'showInterstitialAd is true and '
+          'user taps system back button', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        // Use didPopRoute() to simulate the system back button.
+        final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+        // ignore: avoid_dynamic_calls
+        await widgetsAppState.didPopRoute();
+        await tester.pump();
 
         verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
             .called(1);
@@ -509,22 +522,10 @@ void main() {
           'verify ShowInterstitialAdRequested is not '
           'added to FullScreenAdsBloc when interstitialAdBehavior is onClose '
           'showInterstitialAd is false ', (tester) async {
-        when(() => appBloc.state).thenReturn(
-          AppState.authenticated(
-            User(
-              id: 'id',
-              name: 'name',
-              email: 'email',
-              subscriptionPlan: SubscriptionPlan.premium,
-            ),
-          ).copyWith(
-            showInterstitialAd: false,
-          ),
-        );
+        when(() => articleBloc.state).thenReturn(ArticleState.initial());
 
         await tester.pumpApp(
           fullScreenAdsBloc: fullScreenAdsBloc,
-          appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
             child: ArticleView(
@@ -534,11 +535,35 @@ void main() {
           ),
         );
 
-        // Pump another widget to call dispose method
-        // from previous pumped widget
-        await tester.pumpWidget(SizedBox.shrink());
+        await tester.tap(find.byType(AppBackButton));
 
         verifyNever(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()));
+      });
+
+      testWidgets(
+          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
+          'with video article '
+          'when interstitialAdBehavior in onClose and '
+          'showInterstitialAd is true', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: true,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(AppBackButton));
+
+        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
+            .called(1);
       });
 
       testWidgets(
