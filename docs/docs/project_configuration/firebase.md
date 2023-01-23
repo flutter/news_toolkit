@@ -53,7 +53,7 @@ Lastly, for iOS only, you must open `ios/Runner.xcodeproj/project.pbxproj` and r
 REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
 ```
 
-When searching for this placeholder, the number of results will depend on the number of flavors configured for your project. For each flavor configured, there will be 2 configuration sections (`debug` and `release`).
+When searching for this placeholder, the number of results depend on the number of flavors configured for your project. For each configured flavor, there are two configuration sections (`debug` and `release`).
 
 For example, if you set up `development` and `production` as your project's flavors, you will find the following configuration sections:
 
@@ -133,4 +133,4 @@ If your `GoogleServiceInfo.plist` for the development flavor looks like:
 
 then in `ios/Runner.xcodeproj/project.pbxproj` you must replace the `reversed_client_id` inside the **Debug-development** and **Release-development** configuration sections.
 
-This process must also be repeated with the `GoogleServiceInfo.plist` of the other existing flavors on your app (e.g _production_), inside the respective configuration sections of the `project.pbxproj` file.
+This process must also be repeated with the `GoogleServiceInfo.plist` of the other existing flavors on your app (such as _production_), inside the respective configuration sections of the `project.pbxproj` file.
