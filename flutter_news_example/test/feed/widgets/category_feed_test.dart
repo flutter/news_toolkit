@@ -84,6 +84,17 @@ void main() {
             .called(1);
       });
 
+      testWidgets('renders a SelectionArea', (tester) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: feedBloc,
+            child: CategoryFeed(category: category),
+          ),
+        );
+
+        expect(find.byType(SelectionArea), findsOneWidget);
+      });
+
       testWidgets('shows CategoryFeedItem for each feed block', (tester) async {
         final categoryFeed = feed[category]!;
 

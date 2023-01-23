@@ -49,38 +49,40 @@ class CategoryFeed extends StatelessWidget {
             .add(FeedRefreshRequested(category: category)),
         displacement: 0,
         color: AppColors.mediumHighEmphasisSurface,
-        child: ListView.builder(
-          itemCount: categoryFeed.length + 1,
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            if (index == categoryFeed.length) {
-              if (isFailure) {
-                return NetworkError(
-                  onRetry: () {
-                    context
-                        .read<FeedBloc>()
-                        .add(FeedRefreshRequested(category: category));
-                  },
-                );
+        child: SelectionArea(
+          child: ListView.builder(
+            itemCount: categoryFeed.length + 1,
+            controller: scrollController,
+            itemBuilder: (context, index) {
+              if (index == categoryFeed.length) {
+                if (isFailure) {
+                  return NetworkError(
+                    onRetry: () {
+                      context
+                          .read<FeedBloc>()
+                          .add(FeedRefreshRequested(category: category));
+                    },
+                  );
+                }
+                return hasMoreNews
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                          top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
+                        ),
+                        child: CategoryFeedLoaderItem(
+                          key: ValueKey(index),
+                          onPresented: () => context
+                              .read<FeedBloc>()
+                              .add(FeedRequested(category: category)),
+                        ),
+                      )
+                    : const SizedBox();
               }
-              return hasMoreNews
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                        top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
-                      ),
-                      child: CategoryFeedLoaderItem(
-                        key: ValueKey(index),
-                        onPresented: () => context
-                            .read<FeedBloc>()
-                            .add(FeedRequested(category: category)),
-                      ),
-                    )
-                  : const SizedBox();
-            }
 
-            final block = categoryFeed[index];
-            return CategoryFeedItem(block: block);
-          },
+              final block = categoryFeed[index];
+              return CategoryFeedItem(block: block);
+            },
+          ),
         ),
       ),
     );
