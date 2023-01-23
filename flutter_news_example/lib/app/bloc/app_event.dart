@@ -27,5 +27,3 @@ class AppOnboardingCompleted extends AppEvent {
 class AppOpened extends AppEvent {
   const AppOpened();
 }
-
-class ArticleOpened extends AppEvent {}

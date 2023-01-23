@@ -68,7 +68,7 @@ class ArticlePage extends StatelessWidget {
   }
 }
 
-class ArticleView extends StatefulWidget {
+class ArticleView extends StatelessWidget {
   const ArticleView({
     super.key,
     required this.isVideoArticle,
@@ -79,84 +79,80 @@ class ArticleView extends StatefulWidget {
   final InterstitialAdBehavior interstitialAdBehavior;
 
   @override
-  State<ArticleView> createState() => _ArticleViewState();
-}
-
-class _ArticleViewState extends State<ArticleView> {
-  late final bool _showInterstitialAd;
-  late final FullScreenAdsBloc _fullScreenAdsBloc;
-
-  @override
-  void initState() {
-    _fullScreenAdsBloc = context.read<FullScreenAdsBloc>();
-    final appBloc = context.read<AppBloc>()..add(ArticleOpened());
-    _showInterstitialAd = appBloc.state.showInterstitialAd;
-
-    if (_showInterstitialAd &&
-        widget.interstitialAdBehavior == InterstitialAdBehavior.onOpen) {
-      context
-          .read<FullScreenAdsBloc>()
-          .add(const ShowInterstitialAdRequested());
-    }
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    if (_showInterstitialAd &&
-        widget.interstitialAdBehavior == InterstitialAdBehavior.onClose) {
-      _fullScreenAdsBloc.add(const ShowInterstitialAdRequested());
-    }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final backgroundColor =
-        widget.isVideoArticle ? AppColors.darkBackground : AppColors.white;
+        isVideoArticle ? AppColors.darkBackground : AppColors.white;
     final foregroundColor =
-        widget.isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
+        isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final isSubscriber =
         context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
-    return HasReachedArticleLimitListener(
-      child: HasWatchedRewardedAdListener(
-        child: Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness:
-                  widget.isVideoArticle ? Brightness.light : Brightness.dark,
-              statusBarBrightness:
-                  widget.isVideoArticle ? Brightness.dark : Brightness.light,
-            ),
-            leading: widget.isVideoArticle
-                ? const AppBackButton.light()
-                : const AppBackButton(),
-            actions: [
-              if (uri != null && uri.toString().isNotEmpty)
-                Padding(
-                  key: const Key('articlePage_shareButton'),
-                  padding: const EdgeInsets.only(right: AppSpacing.lg),
-                  child: ShareButton(
-                    shareText: context.l10n.shareText,
-                    color: foregroundColor,
-                    onPressed: () => context
-                        .read<ArticleBloc>()
-                        .add(ShareRequested(uri: uri)),
-                  ),
+    return WillPopScope(
+      onWillPop: () async {
+        _onPop(context);
+        return true;
+      },
+      child: HasToShowInterstitialAdListener(
+        interstitialAdBehavior: interstitialAdBehavior,
+        child: HasReachedArticleLimitListener(
+          child: HasWatchedRewardedAdListener(
+            child: Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: AppBar(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarIconBrightness:
+                      isVideoArticle ? Brightness.light : Brightness.dark,
+                  statusBarBrightness:
+                      isVideoArticle ? Brightness.dark : Brightness.light,
                 ),
-              if (!isSubscriber) const ArticleSubscribeButton()
-            ],
-          ),
-          body: ArticleThemeOverride(
-            isVideoArticle: widget.isVideoArticle,
-            child: const ArticleContent(),
+                leading: isVideoArticle
+                    ? AppBackButton.light(
+                        onPressed: () => _onBackButtonPressed(context),
+                      )
+                    : AppBackButton(
+                        onPressed: () => _onBackButtonPressed(context),
+                      ),
+                actions: [
+                  if (uri != null && uri.toString().isNotEmpty)
+                    Padding(
+                      key: const Key('articlePage_shareButton'),
+                      padding: const EdgeInsets.only(right: AppSpacing.lg),
+                      child: ShareButton(
+                        shareText: context.l10n.shareText,
+                        color: foregroundColor,
+                        onPressed: () => context
+                            .read<ArticleBloc>()
+                            .add(ShareRequested(uri: uri)),
+                      ),
+                    ),
+                  if (!isSubscriber) const ArticleSubscribeButton()
+                ],
+              ),
+              body: ArticleThemeOverride(
+                isVideoArticle: isVideoArticle,
+                child: const ArticleContent(),
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _onBackButtonPressed(BuildContext context) {
+    _onPop(context);
+    Navigator.of(context).pop();
+  }
+
+  void _onPop(BuildContext context) {
+    final state = context.read<ArticleBloc>().state;
+    if (state.showInterstitialAd &&
+        interstitialAdBehavior == InterstitialAdBehavior.onClose) {
+      context
+          .read<FullScreenAdsBloc>()
+          .add(const ShowInterstitialAdRequested());
+    }
   }
 }
 
@@ -217,6 +213,36 @@ class HasWatchedRewardedAdListener extends StatelessWidget {
       },
       listenWhen: (previous, current) =>
           previous.earnedReward != current.earnedReward,
+      child: child,
+    );
+  }
+}
+
+@visibleForTesting
+class HasToShowInterstitialAdListener extends StatelessWidget {
+  const HasToShowInterstitialAdListener({
+    super.key,
+    required this.child,
+    required this.interstitialAdBehavior,
+  });
+
+  final Widget child;
+
+  final InterstitialAdBehavior interstitialAdBehavior;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ArticleBloc, ArticleState>(
+      listener: (context, state) {
+        if (state.showInterstitialAd &&
+            interstitialAdBehavior == InterstitialAdBehavior.onOpen) {
+          context
+              .read<FullScreenAdsBloc>()
+              .add(const ShowInterstitialAdRequested());
+        }
+      },
+      listenWhen: (previous, current) =>
+          previous.showInterstitialAd != current.showInterstitialAd,
       child: child,
     );
   }
