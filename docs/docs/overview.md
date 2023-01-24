@@ -17,7 +17,7 @@ The Flutter News Toolkit:
 
 ## Quick Start
 
-Here's what you need to get started.
+Here's what you need to get started. Depending on the number of flavors you plan to create for your project, the setup time may vary. For example, you can you can complete end-to-end setup in less than 10 minutes for one flavor. For additional flavors, you can expect this setup time to increase. Check out flutter.dev/news for additional information and video tutorials. 
 
 ### Prerequisites
 
