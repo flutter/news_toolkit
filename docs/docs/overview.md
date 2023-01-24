@@ -20,7 +20,7 @@ Common services such as authentication, notifications, analytics, and ads have b
 If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template.
 
 :::note
-Depending on the number of flavors you plan to create for your project, the setup time may vary. For example, you can you can complete end-to-end setup in less than 10 minutes for one flavor. For additional flavors, you can expect this setup time to increase. Check out flutter.dev/news for additional information and video tutorials. 
+Depending on the number of flavors you plan to create for your project, the setup time may vary. For example, you can complete end-to-end setup in less than 10 minutes for one flavor. For additional flavors, you can expect this setup time to increase. Check out flutter.dev/news for additional information and video tutorials.
 :::
 
 ## Getting Started
