@@ -93,7 +93,7 @@ The `TabBarTheme` specified in `app_theme.dart` does not provide a `backgroundCo
 
 ```dart
 return ColoredBox(
-  color: AppColors.organge,
+  color: AppColors.orange,
   child: TabBar(
     controller: controller,
     isScrollable: true,
