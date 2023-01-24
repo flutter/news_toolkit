@@ -1490,12 +1490,12 @@ packages:
     source: hosted
     version: "2.3.8"
   video_player_platform_interface:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: video_player_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.4"
+    version: "6.0.1"
   video_player_web:
     dependency: transitive
     description:
