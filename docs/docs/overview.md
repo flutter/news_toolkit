@@ -121,57 +121,7 @@ After answering the above questions, your custom news application is generated. 
 :::caution
 
 Before you can run your generated app, you must configure Firebase.
-
-Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (for example, one for development and another for production).
-
-In each Firebase project, create an Android and iOS app with the corresponding application IDs. Make sure that the application ID includes the correct suffix (such as "dev" for the development flavor).
-
-Download the Google Services file for each app from the project settings page in the Firebase Console. Then, go to the source code of your generated app and look for the following `TODOs` for each flavor:
-
-**Android**
-
-```
-// Replace with google-services.json from the Firebase Console //
-```
-
-**iOS**
-
-```
-<!-- Replace with GoogleService-Info.plist from the Firebase Console -->
-```
-
-Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
-
-Lastly, for iOS only you must open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding reversed_client_id from the `GoogleServiceInfo.plist` file:
-
-```
-REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
-```
-
-For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
-
-```
-<plist version="1.0">
-<dict>
-	...
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t</string>
-  ...
-</dict>
-</plist>
-```
-
-Your `ios/Runner.xcodeproj/project.pbxproj` should contain a section that looks like:
-
-```
-LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
-  ...
-  buildSettings = {
-    ...
-    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
-  }
-}
-```
+Please follow the instructions specified in the [Firebase setup](/project_configuration/firebase) section.
 
 :::
 
