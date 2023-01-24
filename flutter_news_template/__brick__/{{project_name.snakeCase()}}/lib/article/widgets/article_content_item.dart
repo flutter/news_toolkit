@@ -50,9 +50,7 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is ArticleIntroductionBlock) {
       return ArticleIntroduction(
         block: newsBlock,
-        shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
-        onSharePressed: onSharePressed,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
       return VideoIntroduction(block: newsBlock);
