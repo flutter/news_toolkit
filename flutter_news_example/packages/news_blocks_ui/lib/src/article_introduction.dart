@@ -12,8 +12,6 @@ class ArticleIntroduction extends StatelessWidget {
     super.key,
     required this.block,
     required this.premiumText,
-    required this.shareText,
-    this.onSharePressed,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
@@ -21,12 +19,6 @@ class ArticleIntroduction extends StatelessWidget {
 
   /// Text displayed when article is premium content.
   final String premiumText;
-
-  /// Text displayed over the share button.
-  final String shareText;
-
-  /// An optional callback which is invoked when the share button is pressed.
-  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,6 @@ void main() {
       'and prices are finally falling';
 
   const premiumText = 'Subscriber Exclusive';
-  const shareText = 'Share';
 
   group('ArticleIntroduction', () {
     setUpAll(setUpTolerantComparator);
@@ -40,7 +39,6 @@ void main() {
                 ArticleIntroduction(
                   block: technologyArticleIntroduction,
                   premiumText: premiumText,
-                  shareText: shareText,
                 ),
               ],
             ),
