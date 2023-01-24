@@ -5,19 +5,21 @@ sidebar_position: 1
 
 # Overview
 
-The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
+Flutter and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. The goal of this project is to help news publishers build mobile applications easily in order to make reliable information accessible to all.
 
-This template aims to **reduce the time to develop a typical news app by 80%**.
+This template aims to **significantly reduce the development time for typical news applications** by giving developers a head start on core components and features.
 
 The Flutter News Toolkit:
 
 - Contains common news app UI workflows and core features built with Flutter and Firebase
 - Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
-- Allows publishers to monetize immediately with pre-built Google Ads and subscription services
+- Allows publishers to monetize immediately with ads and subscription services
 
-## Quick Start
+Common services such as authentication, notifications, analytics, and ads have been implemented using [Firebase](https://firebase.flutter.dev/docs/overview/) and [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads). Developers are free to substitute these services and can find publicly available packages on [pub.dev](https://pub.dev).
 
-Here's what you need to get started.
+If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template.
+
+## Getting Started
 
 ### Prerequisites
 
@@ -119,7 +121,57 @@ After answering the above questions, your custom news application is generated. 
 :::caution
 
 Before you can run your generated app, you must configure Firebase.
-Please follow the instructions specified in the [Firebase setup](/project_configuration/firebase) section.
+
+Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (for example, one for development and another for production).
+
+In each Firebase project, create an Android and iOS app with the corresponding application IDs. Make sure that the application ID includes the correct suffix (such as "dev" for the development flavor).
+
+Download the Google Services file for each app from the project settings page in the Firebase Console. Then, go to the source code of your generated app and look for the following `TODOs` for each flavor:
+
+**Android**
+
+```
+// Replace with google-services.json from the Firebase Console //
+```
+
+**iOS**
+
+```
+<!-- Replace with GoogleService-Info.plist from the Firebase Console -->
+```
+
+Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
+
+Lastly, for iOS only you must open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding reversed_client_id from the `GoogleServiceInfo.plist` file:
+
+```
+REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
+```
+
+For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
+
+```
+<plist version="1.0">
+<dict>
+	...
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t</string>
+  ...
+</dict>
+</plist>
+```
+
+Your `ios/Runner.xcodeproj/project.pbxproj` should contain a section that looks like:
+
+```
+LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
+  ...
+  buildSettings = {
+    ...
+    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
+  }
+}
+```
 
 :::
 
