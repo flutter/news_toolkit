@@ -17,7 +17,6 @@ The Flutter News Toolkit:
 
 Common services such as authentication, notifications, analytics, and ads have been implemented using [Firebase](https://firebase.flutter.dev/docs/overview/) and [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads). Developers are free to substitute these services and can find publicly available packages on [pub.dev](https://pub.dev).
 
-Here's what you need to get started. 
 If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template.
 
 :::note
