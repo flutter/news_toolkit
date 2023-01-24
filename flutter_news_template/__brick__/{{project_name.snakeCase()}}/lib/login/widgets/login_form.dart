@@ -43,32 +43,37 @@ class _LoginContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.xxlg,
-      ),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        const _LoginTitleAndCloseButton(),
-        const SizedBox(height: AppSpacing.sm),
-        const _LoginSubtitle(),
-        const SizedBox(height: AppSpacing.lg),
-        _GoogleLoginButton(),
-        if (theme.platform == TargetPlatform.iOS) ...[
-          const SizedBox(height: AppSpacing.lg),
-          _AppleLoginButton(),
-        ],
-        const SizedBox(height: AppSpacing.lg),
-        _FacebookLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _TwitterLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _ContinueWithEmailLoginButton()
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: constraints.maxHeight * .75),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.xxlg,
+            ),
+            children: [
+              const _LoginTitleAndCloseButton(),
+              const SizedBox(height: AppSpacing.sm),
+              const _LoginSubtitle(),
+              const SizedBox(height: AppSpacing.lg),
+              _GoogleLoginButton(),
+              if (theme.platform == TargetPlatform.iOS) ...[
+                const SizedBox(height: AppSpacing.lg),
+                _AppleLoginButton(),
+              ],
+              const SizedBox(height: AppSpacing.lg),
+              _FacebookLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _TwitterLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _ContinueWithEmailLoginButton()
+            ],
+          ),
+        );
+      },
     );
   }
 }

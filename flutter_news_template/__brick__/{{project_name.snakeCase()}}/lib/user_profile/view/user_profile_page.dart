@@ -1,12 +1,5 @@
 import 'package:app_ui/app_ui.dart'
-    show
-        AppBackButton,
-        AppButton,
-        AppColors,
-        AppSpacing,
-        AppSwitch,
-        Assets,
-        ScrollableColumn;
+    show AppBackButton, AppButton, AppColors, AppSpacing, AppSwitch, Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
@@ -101,7 +94,7 @@ class _UserProfileViewState extends State<UserProfileView>
           appBar: AppBar(
             leading: const AppBackButton(),
           ),
-          body: ScrollableColumn(
+          body: _ScrollableColumn(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -319,6 +312,43 @@ class _UserProfileDivider extends StatelessWidget {
         indent: 0,
         endIndent: 0,
       ),
+    );
+  }
+}
+
+class _ScrollableColumn extends StatelessWidget {
+  const _ScrollableColumn({
+    required this.children,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.max,
+  });
+
+  final List<Widget> children;
+
+  final CrossAxisAlignment crossAxisAlignment;
+
+  final MainAxisSize mainAxisSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: crossAxisAlignment,
+                mainAxisSize: mainAxisSize,
+                children: children,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

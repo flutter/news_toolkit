@@ -24,7 +24,10 @@ class SpacingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Spacing')),
-      body: ListView(shrinkWrap: true, children: spacingList),
+      body: ListView.builder(
+        itemCount: spacingList.length,
+        itemBuilder: (_, index) => spacingList[index],
+      ),
     );
   }
 }

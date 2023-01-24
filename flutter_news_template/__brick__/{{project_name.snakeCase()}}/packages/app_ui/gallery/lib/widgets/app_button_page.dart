@@ -170,7 +170,7 @@ class AppButtonPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('App Buttons')),
-      body: ListView(shrinkWrap: true, children: appButtonList),
+      body: ListView(children: appButtonList),
     );
   }
 }

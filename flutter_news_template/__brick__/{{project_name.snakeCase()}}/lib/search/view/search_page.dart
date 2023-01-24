@@ -61,51 +61,48 @@ class _SearchViewState extends State<SearchView> {
         }
       },
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchTextField(
-                key: const Key('searchPage_searchTextField'),
-                controller: _controller,
+        return ListView(
+          children: [
+            SearchTextField(
+              key: const Key('searchPage_searchTextField'),
+              controller: _controller,
+            ),
+            const Divider(),
+            SearchHeadlineText(
+              headerText: state.searchType == SearchType.popular
+                  ? l10n.searchPopularSearches
+                  : l10n.searchRelevantTopics,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                0,
+                AppSpacing.lg,
+                AppSpacing.lg,
               ),
-              const Divider(),
-              SearchHeadlineText(
-                headerText: state.searchType == SearchType.popular
-                    ? l10n.searchPopularSearches
-                    : l10n.searchRelevantTopics,
+              child: Wrap(
+                spacing: AppSpacing.sm,
+                children: state.topics
+                    .map<Widget>(
+                      (topic) => SearchFilterChip(
+                        key: Key('searchFilterChip_$topic'),
+                        chipText: topic,
+                        onSelected: (text) => _controller.text = text,
+                      ),
+                    )
+                    .toList(),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.lg,
-                  0,
-                  AppSpacing.lg,
-                  AppSpacing.lg,
-                ),
-                child: Wrap(
-                  spacing: AppSpacing.sm,
-                  children: state.topics
-                      .map<Widget>(
-                        (topic) => SearchFilterChip(
-                          key: Key('searchFilterChip_$topic'),
-                          chipText: topic,
-                          onSelected: (text) => _controller.text = text,
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-              const Divider(),
-              SearchHeadlineText(
-                headerText: state.searchType == SearchType.popular
-                    ? l10n.searchPopularArticles
-                    : l10n.searchRelevantArticles,
-              ),
-              ...state.articles.map<Widget>(
-                (newsBlock) => CategoryFeedItem(block: newsBlock),
-              ),
-            ],
-          ),
+            ),
+            const Divider(),
+            SearchHeadlineText(
+              headerText: state.searchType == SearchType.popular
+                  ? l10n.searchPopularArticles
+                  : l10n.searchRelevantArticles,
+            ),
+            ...state.articles.map<Widget>(
+              (newsBlock) => CategoryFeedItem(block: newsBlock),
+            ),
+          ],
         );
       },
     );
