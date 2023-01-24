@@ -1,6 +1,4 @@
-<img alt="Flutter News Toolkit Logo" height="75" src="https://flutter.github.io/news_toolkit/img/header_dark.svg"/>
-
-<br/>
+<a href="https://github.com/flutter/news_toolkit"><img alt="Flutter News Toolkit Logo" style="height:75px" src="https://flutter.github.io/news_toolkit/img/header_dark.svg"/></a>
 
 [![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
 
