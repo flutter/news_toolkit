@@ -1,5 +1,5 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, ScrollableColumn, AppColors, AppButton, Assets;
+    show AppSpacing, AppColors, AppButton, Assets;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
@@ -10,7 +10,7 @@ class MagicLinkPromptView extends StatelessWidget {
   final String email;
   @override
   Widget build(BuildContext context) {
-    return ScrollableColumn(
+    return _ScrollableColumn(
       mainAxisSize: MainAxisSize.min,
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.xlg,
@@ -97,6 +97,45 @@ class MagicLinkPromptOpenEmailButton extends StatelessWidget {
       key: const Key('magicLinkPrompt_openMailButton_appButton'),
       onPressed: _emailLauncher.launchEmailApp,
       child: Text(context.l10n.openMailAppButtonText),
+    );
+  }
+}
+
+class _ScrollableColumn extends StatelessWidget {
+  const _ScrollableColumn({
+    required this.children,
+    this.mainAxisSize = MainAxisSize.max,
+    this.padding,
+  });
+
+  final List<Widget> children;
+
+  final MainAxisSize mainAxisSize;
+
+  final EdgeInsets? padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: padding ?? EdgeInsets.zero,
+                child: Column(
+                  mainAxisSize: mainAxisSize,
+                  children: children,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
