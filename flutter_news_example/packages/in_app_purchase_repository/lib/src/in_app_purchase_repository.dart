@@ -257,7 +257,8 @@ class InAppPurchaseRepository {
     }
 
     try {
-      if (purchase.pendingCompletePurchase) {
+      if (purchase.pendingCompletePurchase && 
+          purchase.status != PurchaseStatus.canceled) {
         final purchasedSubscription = (await fetchSubscriptions()).firstWhere(
           (subscription) => subscription.id == purchase.productID,
         );
