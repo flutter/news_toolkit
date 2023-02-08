@@ -35,7 +35,7 @@ class SubscriptionCard extends StatelessWidget {
       subscription.cost.annual / 100,
     );
     final isLoggedIn = context.select<AppBloc, bool>(
-      (AppBloc bloc) => bloc.state.status == AppStatus.authenticated,
+      (AppBloc bloc) => bloc.state.status.isLoggedIn,
     );
 
     return Card(
