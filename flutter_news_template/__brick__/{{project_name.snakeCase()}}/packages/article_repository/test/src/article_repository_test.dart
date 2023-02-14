@@ -288,5 +288,58 @@ void main() {
         });
       });
     });
+
+    group('incrementTotalArticleViews', () {
+      test(
+          'calls UserStorage.setTotalArticleViews '
+          'with current total article views increased by 1', () async {
+        const totalArticleViews = 3;
+        when(storage.fetchTotalArticleViews)
+            .thenAnswer((_) async => totalArticleViews);
+        when(() => storage.setTotalArticleViews(any()))
+            .thenAnswer((_) async {});
+
+        await articleRepository.incrementTotalArticleViews();
+
+        verify(storage.fetchTotalArticleViews).called(1);
+        verify(
+          () => storage.setTotalArticleViews(totalArticleViews + 1),
+        ).called(1);
+      });
+
+      test(
+          'throws an IncrementTotalArticleViewsFailure '
+          'when incrementing total article views fails', () async {
+        when(() => storage.setTotalArticleViews(any())).thenThrow(Exception());
+
+        expect(
+          () => articleRepository.incrementTotalArticleViews(),
+          throwsA(isA<IncrementTotalArticleViewsFailure>()),
+        );
+      });
+    });
+
+    group('fetchTotalArticleViews', () {
+      test(
+          'returns the number of total article views '
+          'from UserStorage.fetchTotalArticleViews', () async {
+        const currentArticleViews = 3;
+        when(storage.fetchTotalArticleViews)
+            .thenAnswer((_) async => currentArticleViews);
+        final result = await articleRepository.fetchTotalArticleViews();
+        expect(result, equals(currentArticleViews));
+      });
+
+      test(
+          'throws a FetchTotalArticleViewsFailure '
+          'when fetching total article views fails', () async {
+        when(storage.fetchTotalArticleViews).thenThrow(Exception());
+
+        expect(
+          () => articleRepository.fetchTotalArticleViews(),
+          throwsA(isA<FetchTotalArticleViewsFailure>()),
+        );
+      });
+    });
   });
 }
