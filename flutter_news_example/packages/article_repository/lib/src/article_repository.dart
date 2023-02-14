@@ -67,20 +67,20 @@ class FetchArticleViewsFailure extends ArticleFailure {
   const FetchArticleViewsFailure(super.error);
 }
 
-/// {@template increment_overall_article_views_failure}
-/// Thrown when incrementing overall article views fails.
+/// {@template increment_total_article_views_failure}
+/// Thrown when incrementing total article views fails.
 /// {@endtemplate}
-class IncrementOverallArticleViewsFailure extends ArticleFailure {
-  /// {@macro increment_overall_article_views_failure}
-  const IncrementOverallArticleViewsFailure(super.error);
+class IncrementTotalArticleViewsFailure extends ArticleFailure {
+  /// {@macro increment_total_article_views_failure}
+  const IncrementTotalArticleViewsFailure(super.error);
 }
 
-/// {@template fetch_overall_article_views_failure}
-/// Thrown when fetching overall article views fails.
+/// {@template fetch_total_article_views_failure}
+/// Thrown when fetching total article views fails.
 /// {@endtemplate}
-class FetchOverallArticleViewsFailure extends ArticleFailure {
-  /// {@macro fetch_overall_article_views_failure}
-  const FetchOverallArticleViewsFailure(super.error);
+class FetchTotalArticleViewsFailure extends ArticleFailure {
+  /// {@macro fetch_total_article_views_failure}
+  const FetchTotalArticleViewsFailure(super.error);
 }
 
 /// {@template article_views}
@@ -220,27 +220,26 @@ class ArticleRepository {
     }
   }
 
-  /// Increments the number of overall article views by 1.
-  Future<void> incrementOverallArticleViews() async {
+  /// Increments the number of total article views by 1.
+  Future<void> incrementTotalArticleViews() async {
     try {
-      final currentOverallArticleViews =
-          await _storage.fetchOverallArticlesViews();
-      await _storage.setOverallArticlesViews(currentOverallArticleViews + 1);
+      final totalArticleViews = await _storage.fetchTotalArticleViews();
+      await _storage.setTotalArticleViews(totalArticleViews + 1);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        IncrementOverallArticleViewsFailure(error),
+        IncrementTotalArticleViewsFailure(error),
         stackTrace,
       );
     }
   }
 
-  /// Fetches the number of overall article views by 1.
-  Future<int> fetchOverallArticleViews() async {
+  /// Fetches the number of total article views.
+  Future<int> fetchTotalArticleViews() async {
     try {
-      return await _storage.fetchOverallArticlesViews();
+      return await _storage.fetchTotalArticleViews();
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        FetchOverallArticleViewsFailure(error),
+        FetchTotalArticleViewsFailure(error),
         stackTrace,
       );
     }

@@ -124,33 +124,33 @@ void main() {
       });
     });
 
-    group('setOverallArticleViews', () {
+    group('setTotalArticleViews', () {
       test('saves the value in Storage', () async {
         const views = 3;
 
-        await ArticleStorage(storage: storage).setOverallArticlesViews(views);
+        await ArticleStorage(storage: storage).setTotalArticleViews(views);
 
         verify(
           () => storage.write(
-            key: ArticleStorageKeys.overallArticlesViews,
+            key: ArticleStorageKeys.totalArticleViews,
             value: views.toString(),
           ),
         ).called(1);
       });
     });
 
-    group('fetchOverallArticlesViews', () {
+    group('fetchTotalArticleViews', () {
       test('returns the value from Storage', () async {
         when(
-          () => storage.read(key: ArticleStorageKeys.overallArticlesViews),
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).thenAnswer((_) async => '3');
 
         final result =
-            await ArticleStorage(storage: storage).fetchOverallArticlesViews();
+            await ArticleStorage(storage: storage).fetchTotalArticleViews();
 
         verify(
           () => storage.read(
-            key: ArticleStorageKeys.overallArticlesViews,
+            key: ArticleStorageKeys.totalArticleViews,
           ),
         ).called(1);
 
@@ -159,15 +159,32 @@ void main() {
 
       test('returns 0 when no value exists in Storage', () async {
         when(
-          () => storage.read(key: ArticleStorageKeys.overallArticlesViews),
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
         ).thenAnswer((_) async => null);
 
         final result =
-            await ArticleStorage(storage: storage).fetchOverallArticlesViews();
+            await ArticleStorage(storage: storage).fetchTotalArticleViews();
 
         verify(
           () => storage.read(
-            key: ArticleStorageKeys.overallArticlesViews,
+            key: ArticleStorageKeys.totalArticleViews,
+          ),
+        ).called(1);
+
+        expect(result, isZero);
+      });
+
+      test('returns 0 when stored value is malformed', () async {
+        when(
+          () => storage.read(key: ArticleStorageKeys.totalArticleViews),
+        ).thenAnswer((_) async => 'malformed');
+
+        final result =
+            await ArticleStorage(storage: storage).fetchTotalArticleViews();
+
+        verify(
+          () => storage.read(
+            key: ArticleStorageKeys.totalArticleViews,
           ),
         ).called(1);
 
