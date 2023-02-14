@@ -2,7 +2,6 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/widgets/widgets.dart';
 
 /// {@template post_grid}
 /// A reusable post grid view.
@@ -40,6 +39,7 @@ class PostGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (gridGroupBlock.tiles.isNotEmpty)
             PostLarge(
@@ -49,21 +49,25 @@ class PostGrid extends StatelessWidget {
               onPressed: onPressed,
             ),
           const SizedBox(height: AppSpacing.md),
-          GridView.count(
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            childAspectRatio: OverlaidImage.aspectRatio,
-            crossAxisSpacing: AppSpacing.md,
-            mainAxisSpacing: AppSpacing.md,
-            children: otherBlocks
-                .map(
-                  (tile) => PostMedium(
-                    block: tile.toPostMediumBlock(),
-                    onPressed: onPressed,
-                  ),
-                )
-                .toList(),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final maxWidth = constraints.maxWidth / 2 - (AppSpacing.md / 2);
+              return Wrap(
+                spacing: AppSpacing.md,
+                runSpacing: AppSpacing.md,
+                children: otherBlocks
+                    .map(
+                      (tile) => ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        child: PostMedium(
+                          block: tile.toPostMediumBlock(),
+                          onPressed: onPressed,
+                        ),
+                      ),
+                    )
+                    .toList(),
+              );
+            },
           ),
         ],
       ),

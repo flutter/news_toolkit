@@ -93,6 +93,14 @@ Use the `mason make` command to generate your new app from the Flutter News Temp
 mason make flutter_news_template
 ```
 
+:::info
+
+Running `mason make` will generate over 900 files that will be listed in the console.
+
+You may need to increase your console scrollback buffer size to see all of the files listed in your console.
+
+:::
+
 #### Template configuration
 
 You'll be prompted with several questions. Be prepared to provide the following information in order to generate your project:
