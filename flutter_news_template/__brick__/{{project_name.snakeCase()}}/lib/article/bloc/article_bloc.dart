@@ -40,8 +40,11 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
   /// The duration after which the number of article views will be reset.
   static const _resetArticleViewsAfterDuration = Duration(days: 1);
 
-  ///The number of related articles the user may view in the article.
+  /// The number of related articles the user may view in the article.
   static const _relatedArticlesLimit = 5;
+
+  /// The number of article views before an interstitial ad is shown.
+  static const _numberOfArticleViewsForNewInterstitialAd = 4;
 
   /// HydratedBloc identifier.
   @override
@@ -55,6 +58,12 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
 
     try {
       emit(state.copyWith(status: ArticleStatus.loading));
+
+      final totalArticleViews = await _updateTotalArticleViews();
+
+      final showInterstitialAd = _shouldShowInterstitialAd(totalArticleViews);
+
+      emit(state.copyWith(showInterstitialAd: showInterstitialAd));
 
       if (isInitialRequest) {
         await _updateArticleViews();
@@ -169,6 +178,18 @@ class ArticleBloc extends HydratedBloc<ArticleEvent, ArticleState> {
       await _articleRepository.incrementArticleViews();
     }
   }
+
+  /// Increments the number of total article views and returns the count.
+  Future<int> _updateTotalArticleViews() async {
+    await _articleRepository.incrementTotalArticleViews();
+    return _articleRepository.fetchTotalArticleViews();
+  }
+
+  // Show interstitial every `_numberOfArticleViewsForNewInterstitialAd`
+  // article opens
+  bool _shouldShowInterstitialAd(int totalArticleViews) =>
+      (totalArticleViews != 0) &&
+      totalArticleViews % _numberOfArticleViewsForNewInterstitialAd == 0;
 
   /// Returns whether the user has reached the limit of article views.
   Future<bool> _hasReachedArticleViewsLimit() async {

@@ -7,6 +7,9 @@ abstract class ArticleStorageKeys {
 
   /// The date when the number of article views was last reset.
   static const articleViewsResetAt = '__article_views_reset_at_storage_key__';
+
+  /// Number of total articles views.
+  static const totalArticleViews = '__total_article_views_key__';
 }
 
 /// {@template article_storage}
@@ -44,5 +47,18 @@ class ArticleStorage {
     final resetDate =
         await _storage.read(key: ArticleStorageKeys.articleViewsResetAt);
     return resetDate != null ? DateTime.parse(resetDate) : null;
+  }
+
+  /// Sets the number of total article views.
+  Future<void> setTotalArticleViews(int count) => _storage.write(
+        key: ArticleStorageKeys.totalArticleViews,
+        value: count.toString(),
+      );
+
+  /// Fetches the number of total article views value from storage.
+  Future<int> fetchTotalArticleViews() async {
+    final count =
+        await _storage.read(key: ArticleStorageKeys.totalArticleViews);
+    return int.tryParse(count ?? '') ?? 0;
   }
 }
