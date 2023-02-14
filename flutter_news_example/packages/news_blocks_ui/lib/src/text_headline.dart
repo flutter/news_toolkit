@@ -7,7 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextHeadline extends StatelessWidget {
   /// {@macro text_headline}
-  const TextHeadline({super.key, required this.block});
+  const TextHeadline({required this.block, super.key});
 
   /// The associated [TextHeadlineBlock] instance.
   final TextHeadlineBlock block;

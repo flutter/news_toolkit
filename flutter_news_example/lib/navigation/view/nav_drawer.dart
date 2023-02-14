@@ -1,4 +1,4 @@
-import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppLogo;
+import 'package:app_ui/app_ui.dart' show AppColors, AppLogo, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/app/app.dart';

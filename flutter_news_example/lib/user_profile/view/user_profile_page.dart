@@ -199,10 +199,7 @@ class UserProfileTitle extends StatelessWidget {
 
 @visibleForTesting
 class UserProfileSubtitle extends StatelessWidget {
-  const UserProfileSubtitle({
-    super.key,
-    required this.subtitle,
-  });
+  const UserProfileSubtitle({required this.subtitle, super.key});
 
   final String subtitle;
 
@@ -227,11 +224,11 @@ class UserProfileSubtitle extends StatelessWidget {
 @visibleForTesting
 class UserProfileItem extends StatelessWidget {
   const UserProfileItem({
-    super.key,
     required this.title,
     this.leading,
     this.trailing,
     this.onTap,
+    super.key,
   });
 
   static const _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;

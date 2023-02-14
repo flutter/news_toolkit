@@ -57,11 +57,11 @@ void main() {
       testWidgets('call onPressed when is provided ', (tester) async {
         final onPressed = MockFunction();
         await tester.pumpApp(
-          AppBackButton(onPressed: onPressed),
+          AppBackButton(onPressed: onPressed.call),
         );
         await tester.tap(find.byType(IconButton));
         await tester.pumpAndSettle();
-        verify(onPressed).called(1);
+        verify(onPressed.call).called(1);
       });
 
       testWidgets(
@@ -69,11 +69,11 @@ void main() {
           'and style is light', (tester) async {
         final onPressed = MockFunction();
         await tester.pumpApp(
-          AppBackButton.light(onPressed: onPressed),
+          AppBackButton.light(onPressed: onPressed.call),
         );
         await tester.tap(find.byType(IconButton));
         await tester.pumpAndSettle();
-        verify(onPressed).called(1);
+        verify(onPressed.call).called(1);
       });
     });
   });

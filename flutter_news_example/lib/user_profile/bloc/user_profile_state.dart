@@ -14,8 +14,8 @@ enum UserProfileStatus {
 class UserProfileState extends Equatable {
   const UserProfileState({
     required this.status,
-    this.notificationsEnabled = false,
     required this.user,
+    this.notificationsEnabled = false,
   });
 
   const UserProfileState.initial()

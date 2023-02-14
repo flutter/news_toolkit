@@ -8,13 +8,13 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostMediumDescriptionLayout extends StatelessWidget {
   /// {@macro post_medium_description_layout}
   const PostMediumDescriptionLayout({
-    super.key,
     required this.title,
     required this.imageUrl,
     required this.publishedAt,
     this.description,
     this.author,
     this.onShare,
+    super.key,
   });
 
   /// Title of post.

@@ -4,7 +4,7 @@ import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 
 class MagicLinkPromptPage extends StatelessWidget {
-  const MagicLinkPromptPage({super.key, required this.email});
+  const MagicLinkPromptPage({required this.email, super.key});
 
   final String email;
 

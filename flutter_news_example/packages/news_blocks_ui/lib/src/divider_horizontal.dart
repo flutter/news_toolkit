@@ -6,7 +6,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class DividerHorizontal extends StatelessWidget {
   /// {@macro divider_horizontal}
-  const DividerHorizontal({super.key, required this.block});
+  const DividerHorizontal({required this.block, super.key});
 
   /// The associated [DividerHorizontalBlock] instance.
   final DividerHorizontalBlock block;

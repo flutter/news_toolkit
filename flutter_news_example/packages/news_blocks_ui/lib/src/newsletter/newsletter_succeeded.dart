@@ -8,10 +8,10 @@ import 'package:news_blocks_ui/src/newsletter/index.dart';
 class NewsletterSucceeded extends StatelessWidget {
   /// {@macro newsletter_success}
   const NewsletterSucceeded({
-    super.key,
     required this.headerText,
     required this.content,
     required this.footerText,
+    super.key,
   });
 
   /// The header displayed message.
