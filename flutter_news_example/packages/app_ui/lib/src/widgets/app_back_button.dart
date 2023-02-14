@@ -8,21 +8,43 @@ import 'package:flutter/material.dart';
 
 class AppBackButton extends StatelessWidget {
   /// Creates a default instance of [AppBackButton].
-  const AppBackButton({Key? key}) : this._(key: key, isLight: false);
+  const AppBackButton({
+    Key? key,
+    VoidCallback? onPressed,
+  }) : this._(
+          key: key,
+          isLight: false,
+          onPressed: onPressed,
+        );
 
   /// Creates a light instance of [AppBackButton].
-  const AppBackButton.light({Key? key}) : this._(key: key, isLight: true);
+  const AppBackButton.light({
+    Key? key,
+    VoidCallback? onPressed,
+  }) : this._(
+          key: key,
+          isLight: true,
+          onPressed: onPressed,
+        );
 
   /// {@macro app_back_button}
-  const AppBackButton._({super.key, required this.isLight});
+  const AppBackButton._({
+    super.key,
+    required this.isLight,
+    this.onPressed,
+  });
 
   /// Whether this app button is light.
   final bool isLight;
 
+  /// Called when the back button has been tapped.
+  /// Defaults to `Navigator.of(context).pop()`
+  final VoidCallback? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: onPressed ?? () => Navigator.of(context).pop(),
       icon: Assets.icons.backIcon.svg(
         color: isLight ? AppColors.white : AppColors.highEmphasisSurface,
       ),
