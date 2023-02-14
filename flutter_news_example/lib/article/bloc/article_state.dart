@@ -23,6 +23,7 @@ class ArticleState extends Equatable {
     this.hasReachedArticleViewsLimit = false,
     this.isPreview = false,
     this.isPremium = false,
+    this.showInterstitialAd = false,
   });
 
   factory ArticleState.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +45,7 @@ class ArticleState extends Equatable {
   final bool hasReachedArticleViewsLimit;
   final bool isPreview;
   final bool isPremium;
+  final bool showInterstitialAd;
 
   int get contentMilestone => contentTotalCount != null && !isPreview
       ? _getContentMilestoneForPercentage(contentSeenCount / contentTotalCount!)
@@ -62,6 +64,7 @@ class ArticleState extends Equatable {
         isPremium,
         contentTotalCount,
         contentSeenCount,
+        showInterstitialAd,
       ];
 
   ArticleState copyWith({
@@ -76,6 +79,7 @@ class ArticleState extends Equatable {
     bool? hasReachedArticleViewsLimit,
     bool? isPreview,
     bool? isPremium,
+    bool? showInterstitialAd,
   }) {
     return ArticleState(
       status: status ?? this.status,
@@ -90,6 +94,7 @@ class ArticleState extends Equatable {
           hasReachedArticleViewsLimit ?? this.hasReachedArticleViewsLimit,
       isPreview: isPreview ?? this.isPreview,
       isPremium: isPremium ?? this.isPremium,
+      showInterstitialAd: showInterstitialAd ?? this.showInterstitialAd,
     );
   }
 
