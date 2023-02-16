@@ -27,13 +27,13 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
+      matrix:
         channel: [stable, beta]
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.8.0
         with:
           channel: ${{matrix.channel}}
           cache: false
