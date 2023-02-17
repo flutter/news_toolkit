@@ -54,7 +54,7 @@ void main() {
       final emailLinkWithInvalidContinueUrl = Uri.https(
         'email.link',
         '/email_login',
-        <String, String>{'continueUrl': Uri.https('', '').toString()},
+        <String, String>{'continueUrl': Uri.https('').toString()},
       );
 
       setUp(() {
