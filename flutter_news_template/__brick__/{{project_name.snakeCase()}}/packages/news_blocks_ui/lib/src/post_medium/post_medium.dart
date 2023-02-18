@@ -7,7 +7,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class PostMedium extends StatelessWidget {
   /// {@macro post_medium}
-  const PostMedium({super.key, required this.block, this.onPressed});
+  const PostMedium({required this.block, this.onPressed, super.key});
 
   /// The associated [PostMediumBlock] instance.
   final PostMediumBlock block;

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:flutter/material.dart' hide Image, Spacer;
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/newsletter/newsletter.dart';
 import 'package:{{project_name.snakeCase()}}/slideshow/slideshow.dart';

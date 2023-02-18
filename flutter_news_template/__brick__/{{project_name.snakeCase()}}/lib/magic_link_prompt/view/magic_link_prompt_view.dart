@@ -1,11 +1,11 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, AppColors, AppButton, Assets;
+    show AppButton, AppColors, AppSpacing, Assets;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 
 class MagicLinkPromptView extends StatelessWidget {
-  const MagicLinkPromptView({super.key, required this.email});
+  const MagicLinkPromptView({required this.email, super.key});
 
   final String email;
   @override
@@ -46,10 +46,7 @@ class MagicLinkPromptHeader extends StatelessWidget {
 
 @visibleForTesting
 class MagicLinkPromptSubtitle extends StatelessWidget {
-  const MagicLinkPromptSubtitle({
-    super.key,
-    required this.email,
-  });
+  const MagicLinkPromptSubtitle({required this.email, super.key});
 
   final String email;
 

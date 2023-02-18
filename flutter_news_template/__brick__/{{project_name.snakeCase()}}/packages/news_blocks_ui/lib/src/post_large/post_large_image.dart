@@ -8,10 +8,10 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostLargeImage extends StatelessWidget {
   /// {@macro post_large_image}
   const PostLargeImage({
-    super.key,
     required this.imageUrl,
     required this.isContentOverlaid,
     required this.isLocked,
+    super.key,
   });
 
   /// The url of image displayed in this post.

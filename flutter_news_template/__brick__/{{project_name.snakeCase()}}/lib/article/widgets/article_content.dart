@@ -128,8 +128,8 @@ class ArticleContent extends StatelessWidget {
 
 class ArticleContentSeenListener extends StatelessWidget {
   const ArticleContentSeenListener({
-    super.key,
     required this.child,
+    super.key,
   });
 
   final Widget child;

@@ -7,7 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextLeadParagraph extends StatelessWidget {
   /// {@macro text_lead_paragraph}
-  const TextLeadParagraph({super.key, required this.block});
+  const TextLeadParagraph({required this.block, super.key});
 
   /// The associated [TextLeadParagraphBlock] instance.
   final TextLeadParagraphBlock block;

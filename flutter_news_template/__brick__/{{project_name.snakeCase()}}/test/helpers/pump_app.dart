@@ -12,7 +12,7 @@ import 'package:{{project_name.snakeCase()}}/theme_selector/theme_selector.dart'
 import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart'
-    show MockNavigatorProvider, MockNavigator;
+    show MockNavigator, MockNavigatorProvider;
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';

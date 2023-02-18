@@ -10,11 +10,11 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostLarge extends StatelessWidget {
   /// {@macro post_large}
   const PostLarge({
-    super.key,
     required this.block,
     required this.premiumText,
     required this.isLocked,
     this.onPressed,
+    super.key,
   });
 
   /// The associated [PostLargeBlock] instance.
@@ -65,9 +65,9 @@ class PostLarge extends StatelessWidget {
 class PostLargeContainer extends StatelessWidget {
   /// {@macro post_large_container}
   const PostLargeContainer({
-    super.key,
     required this.children,
     required this.isContentOverlaid,
+    super.key,
   });
 
   /// List containing children to be laid out.

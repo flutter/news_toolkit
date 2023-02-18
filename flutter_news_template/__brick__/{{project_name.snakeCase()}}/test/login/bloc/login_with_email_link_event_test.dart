@@ -7,7 +7,7 @@ void main() {
   group('LoginWithEmailLinkEvent', () {
     group('LoginWithEmailLinkSubmitted', () {
       test('supports value comparisons', () {
-        final emailLink = Uri.https('example.com', '');
+        final emailLink = Uri.https('example.com');
         expect(
           LoginWithEmailLinkSubmitted(emailLink),
           LoginWithEmailLinkSubmitted(emailLink),

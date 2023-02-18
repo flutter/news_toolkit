@@ -23,8 +23,8 @@ class FeedView extends StatelessWidget {
 @visibleForTesting
 class FeedViewPopulated extends StatefulWidget {
   const FeedViewPopulated({
-    super.key,
     required this.categories,
+    super.key,
   });
 
   final List<Category> categories;

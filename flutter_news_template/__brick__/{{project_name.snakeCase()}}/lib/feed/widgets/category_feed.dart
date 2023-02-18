@@ -7,9 +7,9 @@ import 'package:news_repository/news_repository.dart';
 
 class CategoryFeed extends StatelessWidget {
   const CategoryFeed({
-    super.key,
     required this.category,
     this.scrollController,
+    super.key,
   });
 
   final Category category;

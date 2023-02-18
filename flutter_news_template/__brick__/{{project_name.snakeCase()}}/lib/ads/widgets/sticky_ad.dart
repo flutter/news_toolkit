@@ -58,9 +58,9 @@ class _StickyAdState extends State<StickyAd> {
 @visibleForTesting
 class StickyAdContainer extends StatelessWidget {
   const StickyAdContainer({
-    super.key,
     required this.child,
     required this.shadowEnabled,
+    super.key,
   });
 
   final Widget child;
@@ -99,8 +99,8 @@ class StickyAdContainer extends StatelessWidget {
 
 class StickyAdCloseIcon extends StatelessWidget {
   const StickyAdCloseIcon({
-    super.key,
     required this.onAdClosed,
+    super.key,
   });
 
   final VoidCallback onAdClosed;

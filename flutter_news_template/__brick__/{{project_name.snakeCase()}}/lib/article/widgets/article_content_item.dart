@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:flutter/material.dart' hide Image, Spacer;
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/newsletter/newsletter.dart';
@@ -8,9 +8,9 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class ArticleContentItem extends StatelessWidget {
   const ArticleContentItem({
-    super.key,
     required this.block,
     this.onSharePressed,
+    super.key,
   });
 
   /// The associated [NewsBlock] instance.
