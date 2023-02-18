@@ -12,8 +12,8 @@ part 'text_headline_block.g.dart';
 class TextHeadlineBlock with EquatableMixin implements NewsBlock {
   /// {@macro text_headline_block}
   const TextHeadlineBlock({
-    this.type = TextHeadlineBlock.identifier,
     required this.text,
+    this.type = TextHeadlineBlock.identifier,
   });
 
   /// Converts a `Map<String, dynamic>` into a [TextHeadlineBlock] instance.

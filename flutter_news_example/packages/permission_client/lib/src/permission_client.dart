@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 
 export 'package:permission_handler/permission_handler.dart'
-    show PermissionStatusGetters, PermissionStatus;
+    show PermissionStatus, PermissionStatusGetters;
 
 /// {@template permission_client}
 /// A client that handles requesting permissions on a device.

@@ -157,9 +157,9 @@ class _OnboardingSubtitle extends StatelessWidget {
 
 class _ScrollableColumn extends StatelessWidget {
   const _ScrollableColumn({
-    super.key,
     required this.children,
     this.mainAxisSize = MainAxisSize.max,
+    super.key,
   });
 
   final List<Widget> children;

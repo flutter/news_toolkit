@@ -8,9 +8,9 @@ import 'package:share_launcher/share_launcher.dart';
 
 class SlideshowPage extends StatelessWidget {
   const SlideshowPage({
-    super.key,
     required this.slideshow,
     required this.articleId,
+    super.key,
   });
 
   static Route<void> route({

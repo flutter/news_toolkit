@@ -10,10 +10,10 @@ import 'package:intl/intl.dart';
 
 class SubscriptionCard extends StatelessWidget {
   const SubscriptionCard({
-    super.key,
+    required this.subscription,
     this.isExpanded = false,
     this.isBestValue = false,
-    required this.subscription,
+    super.key,
   });
 
   final bool isExpanded;

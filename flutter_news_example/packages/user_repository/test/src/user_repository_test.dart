@@ -106,9 +106,9 @@ void main() {
     });
 
     group('incomingEmailLinks', () {
-      final validEmailLink = Uri.https('valid.email.link', '');
-      final validEmailLink2 = Uri.https('valid.email.link', '');
-      final invalidEmailLink = Uri.https('invalid.email.link', '');
+      final validEmailLink = Uri.https('valid.email.link');
+      final validEmailLink2 = Uri.https('valid.email.link');
+      final invalidEmailLink = Uri.https('invalid.email.link');
 
       test(
           'emits a new email link '

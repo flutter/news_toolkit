@@ -7,11 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class BannerAdContainer extends StatelessWidget {
   /// {@macro banner_ad_container}
-  const BannerAdContainer({
-    super.key,
-    required this.size,
-    required this.child,
-  });
+  const BannerAdContainer({required this.size, required this.child, super.key});
 
   /// The size of this banner ad.
   final BannerAdSize size;

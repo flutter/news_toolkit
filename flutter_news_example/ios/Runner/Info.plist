@@ -106,5 +106,7 @@
 	<true/>
 	<key>PermissionGroupNotification</key>
 	<string>Flutter News Example requires access to notifications to send news notifications.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

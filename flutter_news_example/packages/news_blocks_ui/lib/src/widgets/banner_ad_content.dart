@@ -47,7 +47,6 @@ typedef AnchoredAdaptiveAdSizeProvider = Future<AnchoredAdaptiveBannerAdSize?>
 class BannerAdContent extends StatefulWidget {
   /// {@macro banner_ad_content}
   const BannerAdContent({
-    super.key,
     required this.size,
     this.adFailedToLoadTitle,
     this.adsRetryPolicy = const AdsRetryPolicy(),
@@ -59,6 +58,7 @@ class BannerAdContent extends StatefulWidget {
     this.currentPlatform = const platform.LocalPlatform(),
     this.onAdLoaded,
     this.showProgressIndicator = true,
+    super.key,
   });
 
   /// The size of this banner ad.

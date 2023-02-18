@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 
 class UserProfileSubscribeBox extends StatelessWidget {
-  const UserProfileSubscribeBox({
-    super.key,
-    required this.onSubscribePressed,
-  });
+  const UserProfileSubscribeBox({required this.onSubscribePressed, super.key});
 
   final VoidCallback onSubscribePressed;
 

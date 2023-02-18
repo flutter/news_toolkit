@@ -8,12 +8,12 @@ import 'package:news_blocks_ui/src/newsletter/index.dart';
 class NewsletterSignUp extends StatelessWidget {
   /// {@macro newsletter_sign_up}
   const NewsletterSignUp({
-    super.key,
     required this.headerText,
     required this.bodyText,
     required this.email,
     required this.buttonText,
     required this.onPressed,
+    super.key,
   });
 
   /// The header displayed message.

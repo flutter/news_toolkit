@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 class PostContentPremiumCategory extends StatelessWidget {
   /// {@macro post_content_premium_category}
   const PostContentPremiumCategory({
-    super.key,
     required this.premiumText,
     required this.isVideoContent,
+    super.key,
   });
 
   /// Text displayed when post is premium content.

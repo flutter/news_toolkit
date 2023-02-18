@@ -8,9 +8,9 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class BannerAd extends StatelessWidget {
   /// {@macro banner_ad}
   const BannerAd({
-    super.key,
     required this.block,
     required this.adFailedToLoadTitle,
+    super.key,
   });
 
   /// The associated [BannerAdBlock] instance.
