@@ -96,8 +96,7 @@ class _UserProfileViewState extends State<UserProfileView>
           ),
           body: CustomScrollView(
             slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
+              SliverToBoxAdapter(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,

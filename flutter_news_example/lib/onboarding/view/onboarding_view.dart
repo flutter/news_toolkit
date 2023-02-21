@@ -38,8 +38,7 @@ class _OnboardingViewState extends State<OnboardingView> {
       },
       child: CustomScrollView(
         slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
+          SliverToBoxAdapter(
             child: Column(
               key: const Key('onboarding_scrollableColumn'),
               mainAxisSize: MainAxisSize.min,
