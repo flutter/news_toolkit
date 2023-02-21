@@ -28,17 +28,17 @@ class LoginWithEmailForm extends StatelessWidget {
             );
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.xlg,
-          AppSpacing.lg,
-          AppSpacing.xlg,
-          AppSpacing.xxlg,
-        ),
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xlg,
+                AppSpacing.lg,
+                AppSpacing.xlg,
+                AppSpacing.xxlg,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
@@ -52,8 +52,8 @@ class LoginWithEmailForm extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

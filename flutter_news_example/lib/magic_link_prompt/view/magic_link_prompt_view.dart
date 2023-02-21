@@ -10,17 +10,17 @@ class MagicLinkPromptView extends StatelessWidget {
   final String email;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.xlg,
-        AppSpacing.xlg,
-        AppSpacing.xlg,
-        AppSpacing.xxlg,
-      ),
-      child: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.xlg,
+              AppSpacing.xlg,
+              AppSpacing.xlg,
+              AppSpacing.xxlg,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -34,8 +34,8 @@ class MagicLinkPromptView extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
