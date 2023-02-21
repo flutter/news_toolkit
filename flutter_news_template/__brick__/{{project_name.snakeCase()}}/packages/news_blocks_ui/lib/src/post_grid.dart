@@ -9,11 +9,11 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 class PostGrid extends StatelessWidget {
   /// {@macro post_grid}
   const PostGrid({
-    super.key,
     required this.gridGroupBlock,
     required this.premiumText,
     this.isLocked = false,
     this.onPressed,
+    super.key,
   });
 
   /// The associated [PostGridGroupBlock] instance.

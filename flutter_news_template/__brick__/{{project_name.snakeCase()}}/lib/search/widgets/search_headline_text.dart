@@ -2,10 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class SearchHeadlineText extends StatelessWidget {
-  const SearchHeadlineText({
-    super.key,
-    required this.headerText,
-  });
+  const SearchHeadlineText({required this.headerText, super.key});
 
   final String headerText;
 

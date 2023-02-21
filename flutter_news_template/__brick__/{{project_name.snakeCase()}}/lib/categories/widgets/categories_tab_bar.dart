@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
   const CategoriesTabBar({
-    super.key,
     required this.controller,
     required this.tabs,
+    super.key,
   });
 
   final TabController controller;
@@ -25,9 +25,9 @@ class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
 
 class CategoryTab extends StatelessWidget {
   const CategoryTab({
-    super.key,
     required this.categoryName,
     this.onDoubleTap,
+    super.key,
   });
 
   final String categoryName;

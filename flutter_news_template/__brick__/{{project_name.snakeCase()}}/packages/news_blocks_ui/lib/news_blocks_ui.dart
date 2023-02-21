@@ -1,5 +1,3 @@
-library news_blocks_ui;
-
 export 'src/article_introduction.dart';
 export 'src/banner_ad.dart' show BannerAd;
 export 'src/block_action_callback.dart';
@@ -23,4 +21,4 @@ export 'src/trending_story.dart';
 export 'src/video.dart';
 export 'src/video_introduction.dart';
 export 'src/widgets/widgets.dart'
-    show ShareButton, BannerAdContent, AdsRetryPolicy;
+    show AdsRetryPolicy, BannerAdContent, ShareButton;

@@ -5,8 +5,8 @@ import 'package:{{project_name.snakeCase()}}/app/app.dart';
 
 class AuthenticatedUserListener extends StatelessWidget {
   const AuthenticatedUserListener({
-    super.key,
     required this.child,
+    super.key,
   });
 
   final Widget child;

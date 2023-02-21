@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 class SlideshowCategory extends StatelessWidget {
   /// {@macro slideshow_category}
   const SlideshowCategory({
-    super.key,
     required this.slideshowText,
     this.isIntroduction = true,
+    super.key,
   });
 
   /// Whether this slideshow category is

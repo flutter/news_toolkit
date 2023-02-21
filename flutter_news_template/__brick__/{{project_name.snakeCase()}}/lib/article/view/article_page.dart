@@ -22,10 +22,10 @@ enum InterstitialAdBehavior {
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
-    super.key,
     required this.id,
     required this.isVideoArticle,
     required this.interstitialAdBehavior,
+    super.key,
   });
 
   /// The id of the requested article.
@@ -70,9 +70,9 @@ class ArticlePage extends StatelessWidget {
 
 class ArticleView extends StatelessWidget {
   const ArticleView({
-    super.key,
     required this.isVideoArticle,
     required this.interstitialAdBehavior,
+    super.key,
   });
 
   final bool isVideoArticle;
@@ -221,9 +221,9 @@ class HasWatchedRewardedAdListener extends StatelessWidget {
 @visibleForTesting
 class HasToShowInterstitialAdListener extends StatelessWidget {
   const HasToShowInterstitialAdListener({
-    super.key,
     required this.child,
     required this.interstitialAdBehavior,
+    super.key,
   });
 
   final Widget child;

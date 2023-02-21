@@ -44,8 +44,8 @@ class {{project_name.pascalCase()}}ApiClient {
   ///
   /// {@macro {{project_name.snakeCase()}}_api_client}
   {{project_name.pascalCase()}}ApiClient({
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   }) : this._(
           baseUrl: 'https://{{api_url}}',
           httpClient: httpClient,
@@ -57,8 +57,8 @@ class {{project_name.pascalCase()}}ApiClient {
   ///
   /// {@macro {{project_name.snakeCase()}}_api_client}
   {{project_name.pascalCase()}}ApiClient.localhost({
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   }) : this._(
           baseUrl: 'http://localhost:8080',
           httpClient: httpClient,
@@ -68,8 +68,8 @@ class {{project_name.pascalCase()}}ApiClient {
   /// {@macro {{project_name.snakeCase()}}_api_client}
   {{project_name.pascalCase()}}ApiClient._({
     required String baseUrl,
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   })  : _baseUrl = baseUrl,
         _httpClient = httpClient ?? http.Client(),
         _tokenProvider = tokenProvider;

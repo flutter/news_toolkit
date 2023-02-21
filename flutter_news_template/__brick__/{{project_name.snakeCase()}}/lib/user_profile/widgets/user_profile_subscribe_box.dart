@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 
 class UserProfileSubscribeBox extends StatelessWidget {
-  const UserProfileSubscribeBox({
-    super.key,
-    required this.onSubscribePressed,
-  });
+  const UserProfileSubscribeBox({required this.onSubscribePressed, super.key});
 
   final VoidCallback onSubscribePressed;
 

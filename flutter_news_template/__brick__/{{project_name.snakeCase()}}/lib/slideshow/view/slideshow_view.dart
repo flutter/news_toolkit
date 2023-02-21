@@ -8,10 +8,7 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class SlideshowView extends StatelessWidget {
-  const SlideshowView({
-    super.key,
-    required this.block,
-  });
+  const SlideshowView({required this.block, super.key});
 
   final SlideshowBlock block;
 

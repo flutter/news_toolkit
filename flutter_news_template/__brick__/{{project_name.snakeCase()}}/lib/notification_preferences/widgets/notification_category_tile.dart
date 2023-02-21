@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 
 class NotificationCategoryTile extends StatelessWidget {
   const NotificationCategoryTile({
-    super.key,
     required this.title,
     required this.trailing,
     this.onTap,
+    super.key,
   });
 
   final String title;

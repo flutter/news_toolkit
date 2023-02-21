@@ -167,8 +167,8 @@ class _NextButton extends StatelessWidget {
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
   const ClearIconButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
 
   final VoidCallback? onPressed;

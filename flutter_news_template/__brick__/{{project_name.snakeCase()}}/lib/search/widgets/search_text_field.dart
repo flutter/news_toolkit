@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({
-    super.key,
-    required this.controller,
-  });
+  const SearchTextField({required this.controller, super.key});
 
   final TextEditingController controller;
 

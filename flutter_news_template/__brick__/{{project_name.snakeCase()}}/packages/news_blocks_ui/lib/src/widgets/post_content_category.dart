@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class PostContentCategory extends StatelessWidget {
   /// {@macro post_content_category}
   const PostContentCategory({
-    super.key,
     required this.categoryName,
     required this.isContentOverlaid,
     required this.isVideoContent,
+    super.key,
   });
 
   /// Category of post.

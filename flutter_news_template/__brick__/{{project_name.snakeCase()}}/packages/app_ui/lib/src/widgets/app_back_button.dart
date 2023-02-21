@@ -28,11 +28,7 @@ class AppBackButton extends StatelessWidget {
         );
 
   /// {@macro app_back_button}
-  const AppBackButton._({
-    super.key,
-    required this.isLight,
-    this.onPressed,
-  });
+  const AppBackButton._({required this.isLight, this.onPressed, super.key});
 
   /// Whether this app button is light.
   final bool isLight;

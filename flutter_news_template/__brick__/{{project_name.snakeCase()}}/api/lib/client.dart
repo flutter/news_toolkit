@@ -3,28 +3,28 @@ library client;
 
 export 'package:news_blocks/news_blocks.dart'
     show
-        NewsBlock,
         BlockAction,
         BlockActionType,
-        SectionHeaderBlock,
         DividerHorizontalBlock,
-        SpacerBlock,
-        Spacing,
+        ImageBlock,
+        NewsBlock,
+        NewsBlocksConverter,
+        PostCategory,
+        PostGridGroupBlock,
+        PostGridTileBlock,
         PostLargeBlock,
         PostMediumBlock,
         PostSmallBlock,
-        PostGridGroupBlock,
-        PostGridTileBlock,
-        PostCategory,
-        NewsBlocksConverter,
+        SectionHeaderBlock,
+        SpacerBlock,
+        Spacing,
         TextCaptionBlock,
         TextCaptionColor,
         TextHeadlineBlock,
         TextLeadParagraphBlock,
         TextParagraphBlock,
-        ImageBlock,
-        VideoBlock,
-        TrendingStoryBlock;
+        TrendingStoryBlock,
+        VideoBlock;
 
 export 'src/client/{{project_name.snakeCase()}}_api_client.dart'
     show

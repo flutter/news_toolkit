@@ -21,7 +21,6 @@ import 'package:user_repository/user_repository.dart';
 
 class App extends StatelessWidget {
   const App({
-    super.key,
     required UserRepository userRepository,
     required NewsRepository newsRepository,
     required NotificationsRepository notificationsRepository,
@@ -30,6 +29,7 @@ class App extends StatelessWidget {
     required AnalyticsRepository analyticsRepository,
     required AdsConsentClient adsConsentClient,
     required User user,
+    super.key,
   })  : _userRepository = userRepository,
         _newsRepository = newsRepository,
         _notificationsRepository = notificationsRepository,

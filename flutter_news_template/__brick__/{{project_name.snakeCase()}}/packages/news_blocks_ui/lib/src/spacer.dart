@@ -6,7 +6,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class Spacer extends StatelessWidget {
   /// {@macro spacer}
-  const Spacer({super.key, required this.block});
+  const Spacer({required this.block, super.key});
 
   /// The associated [SpacerBlock] instance.
   final SpacerBlock block;
