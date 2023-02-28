@@ -29,7 +29,7 @@ mason list --global
 If you have an outdated version installed, upgrade by running `mason upgrade --global`
 
 :::note
-Running `mason upgrade --global` will also upgrade other globally installed templates. If you wish to avoid this you can re-install just the `flutter_news_template` via:
+Running `mason upgrade --global` will also upgrade other globally installed templates. If you wish to avoid this, you can re-install just the `flutter_news_template` via:
 
 ```sh
 # Uninstall the current version of the flutter_news_template
