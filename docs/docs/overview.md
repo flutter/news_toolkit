@@ -58,9 +58,10 @@ dart pub global activate dart_frog_cli
 ```
 
 :::info
-[Dart Frog][dart_frog_link] is fast, minimalistic backend framework for Dart.
+[Dart Frog][dart_frog_link] is a stable, fast, minimalistic backend framework for Dart.
 
-You'll use Dart Frog as a backend for frontends (BFF) which allows you to connect your backend with the Flutter News Template frontend.
+You'll use Dart Frog as a [backend for frontends (BFF)](https://medium.com/mobilepeople/backend-for-frontend-pattern-why-you-need-to-know-it-46f94ce420b0), which allows you to connect your existing backend to the Flutter News Template frontend. Dart Frog reduces the barrier for entry for all publishers, despite backend, and brings your app to market faster without required UI modifications. 
+
 :::
 
 ### Generate your project
