@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class SearchFilterChip extends StatelessWidget {
   const SearchFilterChip({
-    super.key,
     required this.chipText,
     required this.onSelected,
+    super.key,
   });
 
   final ValueSetter<String> onSelected;

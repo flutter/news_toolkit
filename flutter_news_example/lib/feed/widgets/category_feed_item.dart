@@ -10,8 +10,8 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class CategoryFeedItem extends StatelessWidget {
   const CategoryFeedItem({
-    super.key,
     required this.block,
+    super.key,
   });
 
   /// The associated [NewsBlock] instance.

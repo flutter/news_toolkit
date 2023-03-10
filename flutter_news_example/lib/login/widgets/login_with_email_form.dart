@@ -28,22 +28,31 @@ class LoginWithEmailForm extends StatelessWidget {
             );
         }
       },
-      child: const _ScrollableColumn(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.xlg,
-          AppSpacing.lg,
-          AppSpacing.xlg,
-          AppSpacing.xxlg,
-        ),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _HeaderTitle(),
-          SizedBox(height: AppSpacing.xxxlg),
-          _EmailInput(),
-          _TermsAndPrivacyPolicyLinkTexts(),
-          Spacer(),
-          _NextButton(),
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xlg,
+                AppSpacing.lg,
+                AppSpacing.xlg,
+                AppSpacing.xxlg,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  _HeaderTitle(),
+                  SizedBox(height: AppSpacing.xxxlg),
+                  _EmailInput(),
+                  _TermsAndPrivacyPolicyLinkTexts(),
+                  Spacer(),
+                  _NextButton(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -167,8 +176,8 @@ class _NextButton extends StatelessWidget {
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
   const ClearIconButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
 
   final VoidCallback? onPressed;
@@ -188,49 +197,6 @@ class ClearIconButton extends StatelessWidget {
           child: Assets.icons.closeCircle.svg(),
         ),
       ),
-    );
-  }
-}
-
-class _ScrollableColumn extends StatelessWidget {
-  const _ScrollableColumn({
-    required this.children,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.mainAxisSize = MainAxisSize.max,
-    this.padding,
-  });
-
-  final List<Widget> children;
-
-  final CrossAxisAlignment crossAxisAlignment;
-
-  final MainAxisSize mainAxisSize;
-
-  final EdgeInsets? padding;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: constraints.maxWidth,
-              minHeight: constraints.maxHeight,
-            ),
-            child: IntrinsicHeight(
-              child: Padding(
-                padding: padding ?? EdgeInsets.zero,
-                child: Column(
-                  crossAxisAlignment: crossAxisAlignment,
-                  mainAxisSize: mainAxisSize,
-                  children: children,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

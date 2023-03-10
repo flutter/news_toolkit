@@ -10,10 +10,10 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class Slideshow extends StatefulWidget {
   /// {@macro slideshow}
   const Slideshow({
-    super.key,
     required this.block,
     required this.categoryTitle,
     required this.navigationLabel,
+    super.key,
   });
 
   /// The associated [SlideshowBlock] instance.
@@ -142,10 +142,7 @@ class _SlideshowPageView extends StatelessWidget {
 @visibleForTesting
 class SlideshowItem extends StatelessWidget {
   /// {@macro slideshow_item}
-  const SlideshowItem({
-    super.key,
-    required this.slide,
-  });
+  const SlideshowItem({required this.slide, super.key});
 
   /// The slide to be displayed.
   final SlideBlock slide;

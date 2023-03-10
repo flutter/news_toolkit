@@ -8,7 +8,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 /// {@endtemplate}
 class Image extends StatelessWidget {
   /// {@macro image}
-  const Image({super.key, required this.block});
+  const Image({required this.block, super.key});
 
   /// The associated [ImageBlock] instance.
   final ImageBlock block;

@@ -8,9 +8,9 @@ import 'package:news_blocks/news_blocks.dart';
 class TextCaption extends StatelessWidget {
   /// {@macro text_caption}
   const TextCaption({
-    super.key,
     required this.block,
     this.colorValues = _defaultColorValues,
+    super.key,
   });
 
   /// The associated [TextCaption] instance.

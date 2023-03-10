@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// {@endtemplate}
 class Html extends StatelessWidget {
   /// {@macro html}
-  const Html({super.key, required this.block});
+  const Html({required this.block, super.key});
 
   /// The associated [HtmlBlock] instance.
   final HtmlBlock block;

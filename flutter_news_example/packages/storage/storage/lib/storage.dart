@@ -1,5 +1,3 @@
-library storage;
-
 /// {@template storage_exception}
 /// Exception thrown if a storage operation fails.
 /// {@endtemplate}

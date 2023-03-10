@@ -5,8 +5,8 @@ import 'package:flutter_news_example/app/app.dart';
 
 class AuthenticatedUserListener extends StatelessWidget {
   const AuthenticatedUserListener({
-    super.key,
     required this.child,
+    super.key,
   });
 
   final Widget child;

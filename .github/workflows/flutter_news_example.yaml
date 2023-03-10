@@ -27,16 +27,16 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
-        channel: [stable, beta]
+      matrix:
+        channel: [stable]
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.8.0
         with:
           channel: ${{matrix.channel}}
-          cache: true
+          cache: false
 
       - name: Install Dependencies
         run: |

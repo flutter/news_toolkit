@@ -35,66 +35,48 @@ class OnboardingViewItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: AppColors.white,
         ),
-        child: _ScrollableColumn(
-          children: [
-            Text(
-              key: const Key('onboardingItem_pageNumberTitle'),
-              pageNumberTitle,
-              style: theme.textTheme.labelSmall?.apply(
-                color: AppColors.secondary.shade600,
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  Text(
+                    key: const Key('onboardingItem_pageNumberTitle'),
+                    pageNumberTitle,
+                    style: theme.textTheme.labelSmall?.apply(
+                      color: AppColors.secondary.shade600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg + AppSpacing.sm),
+                  Text(
+                    key: const Key('onboardingItem_title'),
+                    title,
+                    style: theme.textTheme.headlineMedium?.apply(
+                      color: AppColors.highEmphasisSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    key: const Key('onboardingItem_subtitle'),
+                    subtitle,
+                    style: theme.textTheme.titleMedium?.apply(
+                      color: AppColors.mediumEmphasisSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Spacer(),
+                  primaryButton,
+                  const SizedBox(height: AppSpacing.sm),
+                  secondaryButton
+                ],
               ),
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: AppSpacing.lg + AppSpacing.sm),
-            Text(
-              key: const Key('onboardingItem_title'),
-              title,
-              style: theme.textTheme.headlineMedium?.apply(
-                color: AppColors.highEmphasisSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              key: const Key('onboardingItem_subtitle'),
-              subtitle,
-              style: theme.textTheme.titleMedium?.apply(
-                color: AppColors.mediumEmphasisSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            primaryButton,
-            const SizedBox(height: AppSpacing.sm),
-            secondaryButton
           ],
         ),
       ),
-    );
-  }
-}
-
-class _ScrollableColumn extends StatelessWidget {
-  const _ScrollableColumn({required this.children});
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: constraints.maxWidth,
-              minHeight: constraints.maxHeight,
-            ),
-            child: IntrinsicHeight(
-              child: Column(children: children),
-            ),
-          ),
-        );
-      },
     );
   }
 }

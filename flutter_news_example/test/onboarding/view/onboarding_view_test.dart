@@ -170,13 +170,17 @@ void main() {
       await tester.tap(buttonOne);
       await tester.pumpAndSettle();
 
-      expect(find.byKey(onboardingViewPageTwoKey), findsOneWidget);
+      final buttonTwo = find.byKey(onboardingViewPageTwoSecondaryButtonKey);
 
-      await tester.ensureVisible(
-        find.byKey(onboardingViewPageTwoSecondaryButtonKey),
+      await tester.dragUntilVisible(
+        buttonTwo,
+        find.byType(OnboardingView),
+        Offset(0, -100),
+        duration: Duration.zero,
       );
-      final button = find.byKey(onboardingViewPageTwoSecondaryButtonKey);
-      await tester.tap(button);
+      await tester.pumpAndSettle();
+
+      await tester.tap(buttonTwo);
 
       verify(() => appBloc.add(AppOnboardingCompleted())).called(1);
     });

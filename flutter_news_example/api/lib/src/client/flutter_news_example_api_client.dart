@@ -44,8 +44,8 @@ class FlutterNewsExampleApiClient {
   ///
   /// {@macro flutter_news_example_api_client}
   FlutterNewsExampleApiClient({
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   }) : this._(
           baseUrl: 'https://example-api.a.run.app',
           httpClient: httpClient,
@@ -57,8 +57,8 @@ class FlutterNewsExampleApiClient {
   ///
   /// {@macro flutter_news_example_api_client}
   FlutterNewsExampleApiClient.localhost({
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   }) : this._(
           baseUrl: 'http://localhost:8080',
           httpClient: httpClient,
@@ -68,8 +68,8 @@ class FlutterNewsExampleApiClient {
   /// {@macro flutter_news_example_api_client}
   FlutterNewsExampleApiClient._({
     required String baseUrl,
-    http.Client? httpClient,
     required TokenProvider tokenProvider,
+    http.Client? httpClient,
   })  : _baseUrl = baseUrl,
         _httpClient = httpClient ?? http.Client(),
         _tokenProvider = tokenProvider;

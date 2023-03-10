@@ -67,11 +67,11 @@ class NavDrawerSectionsTitle extends StatelessWidget {
 @visibleForTesting
 class NavDrawerSectionItem extends StatelessWidget {
   const NavDrawerSectionItem({
-    super.key,
     required this.title,
     this.onTap,
     this.leading,
     this.selected = false,
+    super.key,
   });
 
   static const _borderRadius = 100.0;

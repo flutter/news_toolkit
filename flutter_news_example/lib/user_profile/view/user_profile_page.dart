@@ -94,83 +94,92 @@ class _UserProfileViewState extends State<UserProfileView>
           appBar: AppBar(
             leading: const AppBackButton(),
           ),
-          body: _ScrollableColumn(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const UserProfileTitle(),
-              if (!user.isAnonymous) ...[
-                UserProfileItem(
-                  key: const Key('userProfilePage_userItem'),
-                  leading: Assets.icons.profileIcon.svg(),
-                  title: user.email ?? '',
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const UserProfileTitle(),
+                    if (!user.isAnonymous) ...[
+                      UserProfileItem(
+                        key: const Key('userProfilePage_userItem'),
+                        leading: Assets.icons.profileIcon.svg(),
+                        title: user.email ?? '',
+                      ),
+                      const UserProfileLogoutButton(),
+                    ],
+                    const SizedBox(height: AppSpacing.lg),
+                    const _UserProfileDivider(),
+                    UserProfileSubtitle(
+                      subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
+                    ),
+                    if (isUserSubscribed)
+                      UserProfileItem(
+                        key: const Key('userProfilePage_subscriptionItem'),
+                        title: l10n.manageSubscriptionTile,
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => Navigator.of(context).push(
+                          ManageSubscriptionPage.route(),
+                        ),
+                      )
+                    else
+                      UserProfileSubscribeBox(
+                        onSubscribePressed: () =>
+                            showPurchaseSubscriptionDialog(context: context),
+                      ),
+                    const _UserProfileDivider(),
+                    UserProfileSubtitle(
+                      subtitle: l10n.userProfileSettingsSubtitle,
+                    ),
+                    UserProfileItem(
+                      key: const Key('userProfilePage_notificationsItem'),
+                      leading: Assets.icons.notificationsIcon.svg(),
+                      title: l10n.userProfileSettingsNotificationsTitle,
+                      trailing: AppSwitch(
+                        onText: l10n.checkboxOnTitle,
+                        offText: l10n.userProfileCheckboxOffTitle,
+                        value: notificationsEnabled,
+                        onChanged: (_) => context
+                            .read<UserProfileBloc>()
+                            .add(const ToggleNotifications()),
+                      ),
+                    ),
+                    UserProfileItem(
+                      key: const Key(
+                        'userProfilePage_notificationPreferencesItem',
+                      ),
+                      title: l10n.notificationPreferencesTitle,
+                      trailing: const Icon(
+                        Icons.chevron_right,
+                        key: Key(
+                          '''userProfilePage_notificationPreferencesItem_trailing''',
+                        ),
+                      ),
+                      onTap: () => Navigator.of(context).push(
+                        NotificationPreferencesPage.route(),
+                      ),
+                    ),
+                    const _UserProfileDivider(),
+                    UserProfileSubtitle(
+                      subtitle: l10n.userProfileLegalSubtitle,
+                    ),
+                    UserProfileItem(
+                      key: const Key('userProfilePage_termsOfServiceItem'),
+                      leading: Assets.icons.termsOfUseIcon.svg(),
+                      title:
+                          l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
+                      onTap: () => Navigator.of(context)
+                          .push<void>(TermsOfServicePage.route()),
+                    ),
+                    UserProfileItem(
+                      key: const Key('userProfilePage_aboutItem'),
+                      leading: Assets.icons.aboutIcon.svg(),
+                      title: l10n.userProfileLegalAboutTitle,
+                    ),
+                  ],
                 ),
-                const UserProfileLogoutButton(),
-              ],
-              const SizedBox(height: AppSpacing.lg),
-              const _UserProfileDivider(),
-              UserProfileSubtitle(
-                subtitle: l10n.userProfileSubscriptionDetailsSubtitle,
-              ),
-              if (isUserSubscribed)
-                UserProfileItem(
-                  key: const Key('userProfilePage_subscriptionItem'),
-                  title: l10n.manageSubscriptionTile,
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => Navigator.of(context).push(
-                    ManageSubscriptionPage.route(),
-                  ),
-                )
-              else
-                UserProfileSubscribeBox(
-                  onSubscribePressed: () =>
-                      showPurchaseSubscriptionDialog(context: context),
-                ),
-              const _UserProfileDivider(),
-              UserProfileSubtitle(
-                subtitle: l10n.userProfileSettingsSubtitle,
-              ),
-              UserProfileItem(
-                key: const Key('userProfilePage_notificationsItem'),
-                leading: Assets.icons.notificationsIcon.svg(),
-                title: l10n.userProfileSettingsNotificationsTitle,
-                trailing: AppSwitch(
-                  onText: l10n.checkboxOnTitle,
-                  offText: l10n.userProfileCheckboxOffTitle,
-                  value: notificationsEnabled,
-                  onChanged: (_) => context
-                      .read<UserProfileBloc>()
-                      .add(const ToggleNotifications()),
-                ),
-              ),
-              UserProfileItem(
-                key: const Key('userProfilePage_notificationPreferencesItem'),
-                title: l10n.notificationPreferencesTitle,
-                trailing: const Icon(
-                  Icons.chevron_right,
-                  key: Key(
-                    'userProfilePage_notificationPreferencesItem_trailing',
-                  ),
-                ),
-                onTap: () => Navigator.of(context).push(
-                  NotificationPreferencesPage.route(),
-                ),
-              ),
-              const _UserProfileDivider(),
-              UserProfileSubtitle(
-                subtitle: l10n.userProfileLegalSubtitle,
-              ),
-              UserProfileItem(
-                key: const Key('userProfilePage_termsOfServiceItem'),
-                leading: Assets.icons.termsOfUseIcon.svg(),
-                title: l10n.userProfileLegalTermsOfUseAndPrivacyPolicyTitle,
-                onTap: () => Navigator.of(context)
-                    .push<void>(TermsOfServicePage.route()),
-              ),
-              UserProfileItem(
-                key: const Key('userProfilePage_aboutItem'),
-                leading: Assets.icons.aboutIcon.svg(),
-                title: l10n.userProfileLegalAboutTitle,
               ),
             ],
           ),
@@ -199,10 +208,7 @@ class UserProfileTitle extends StatelessWidget {
 
 @visibleForTesting
 class UserProfileSubtitle extends StatelessWidget {
-  const UserProfileSubtitle({
-    super.key,
-    required this.subtitle,
-  });
+  const UserProfileSubtitle({required this.subtitle, super.key});
 
   final String subtitle;
 
@@ -227,11 +233,11 @@ class UserProfileSubtitle extends StatelessWidget {
 @visibleForTesting
 class UserProfileItem extends StatelessWidget {
   const UserProfileItem({
-    super.key,
     required this.title,
     this.leading,
     this.trailing,
     this.onTap,
+    super.key,
   });
 
   static const _leadingWidth = AppSpacing.xxxlg + AppSpacing.sm;
@@ -312,43 +318,6 @@ class _UserProfileDivider extends StatelessWidget {
         indent: 0,
         endIndent: 0,
       ),
-    );
-  }
-}
-
-class _ScrollableColumn extends StatelessWidget {
-  const _ScrollableColumn({
-    required this.children,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.mainAxisSize = MainAxisSize.max,
-  });
-
-  final List<Widget> children;
-
-  final CrossAxisAlignment crossAxisAlignment;
-
-  final MainAxisSize mainAxisSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: constraints.maxWidth,
-              minHeight: constraints.maxHeight,
-            ),
-            child: IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: crossAxisAlignment,
-                mainAxisSize: mainAxisSize,
-                children: children,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

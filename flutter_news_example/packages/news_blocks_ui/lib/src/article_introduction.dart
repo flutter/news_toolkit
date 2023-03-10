@@ -9,9 +9,9 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class ArticleIntroduction extends StatelessWidget {
   /// {@macro article_introduction}
   const ArticleIntroduction({
-    super.key,
     required this.block,
     required this.premiumText,
+    super.key,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
