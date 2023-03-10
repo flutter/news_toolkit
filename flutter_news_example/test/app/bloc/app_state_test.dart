@@ -58,6 +58,20 @@ void main() {
       });
     });
 
+    group('AppStatus', () {
+      test(
+          'authenticated and onboardingRequired are the only statuses when loggedIn it is true',
+          () {
+        expect(
+          AppStatus.values.map((e) => e.isLoggedIn).toList(),
+          [
+            AppStatus.authenticated,
+            AppStatus.onboardingRequired,
+          ],
+        );
+      });
+    });
+
     group('copyWith', () {
       test(
           'returns same object '
