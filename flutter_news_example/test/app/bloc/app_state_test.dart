@@ -66,8 +66,8 @@ void main() {
           AppStatus.values.where((e) => e.isLoggedIn).toList(),
           equals(
             [
-              AppStatus.authenticated,
               AppStatus.onboardingRequired,
+              AppStatus.authenticated,
             ],
           ),
         );
