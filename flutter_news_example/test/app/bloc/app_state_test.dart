@@ -63,7 +63,7 @@ void main() {
           'authenticated and onboardingRequired are the only statuses '
           'where loggedIn it is true', () {
         expect(
-          AppStatus.values.map((e) => e.isLoggedIn).toList(),
+          AppStatus.values.where((e) => e.isLoggedIn).toList(),
           [
             AppStatus.authenticated,
             AppStatus.onboardingRequired,
