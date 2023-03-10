@@ -60,8 +60,8 @@ void main() {
 
     group('AppStatus', () {
       test(
-          'authenticated and onboardingRequired are the only statuses when loggedIn it is true',
-          () {
+          'authenticated and onboardingRequired are the only statuses '
+          'where loggedIn it is true', () {
         expect(
           AppStatus.values.map((e) => e.isLoggedIn).toList(),
           [
