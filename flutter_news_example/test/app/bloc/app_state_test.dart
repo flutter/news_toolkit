@@ -64,10 +64,12 @@ void main() {
           'where loggedIn it is true', () {
         expect(
           AppStatus.values.where((e) => e.isLoggedIn).toList(),
-          [
-            AppStatus.authenticated,
-            AppStatus.onboardingRequired,
-          ],
+          equals(
+            [
+              AppStatus.authenticated,
+              AppStatus.onboardingRequired,
+            ],
+          ),
         );
       });
     });
