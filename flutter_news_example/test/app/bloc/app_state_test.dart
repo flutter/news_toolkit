@@ -61,7 +61,7 @@ void main() {
     group('AppStatus', () {
       test(
           'authenticated and onboardingRequired are the only statuses '
-          'where loggedIn it is true', () {
+          'where loggedIn is true', () {
         expect(
           AppStatus.values.where((e) => e.isLoggedIn).toList(),
           equals(
