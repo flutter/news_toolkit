@@ -1,19 +1,7 @@
 {
-  "appName": "Flutter News Example",
-  "@appName": {
-    "description": "The name of this application",
-    "type": "text",
-    "placeholders": {}
-  },
   "authenticationFailure": "Authentication failure",
   "@authenticationFailure": {
     "description": "Message shown when there is an error at login",
-    "type": "text",
-    "placeholders": {}
-  },
-  "unexpectedFailure": "An unexpected error occurred. Please try again.",
-  "@unexpectedFailure": {
-    "description": "Text displayed when an unexpected error occurs",
     "type": "text",
     "placeholders": {}
   },
@@ -26,12 +14,6 @@
   "adLoadFailure": "Failed to load this ad.",
   "@adLoadFailure": {
     "description": "Text displayed when loading an ad fails",
-    "type": "text",
-    "placeholders": {}
-  },
-  "loginWelcomeText": "Welcome to\nFlutter News Example",
-  "@loginWelcomeText": {
-    "description": "Greeting shown on the login page.",
     "type": "text",
     "placeholders": {}
   },
@@ -188,12 +170,6 @@
   "loginModalSubtitle": "Log in to access articles and save\nyour preferences.",
   "@loginModalSubtitle": {
     "description": "Log in modal subtitle",
-    "type": "text",
-    "placeholders": {}
-  },
-  "continueWithEmailButtonText": "Continue with Email",
-  "@continueWithEmailButtonText": {
-    "description": "Continue with email button text shown on the log in modal",
     "type": "text",
     "placeholders": {}
   },
