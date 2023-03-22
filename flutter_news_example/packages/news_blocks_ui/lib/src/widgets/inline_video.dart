@@ -13,10 +13,10 @@ typedef VideoPlayerControllerBuilder = VideoPlayerController Function(
 class InlineVideo extends StatefulWidget {
   /// {@macro inline_video}
   const InlineVideo({
-    super.key,
     required this.videoUrl,
     required this.progressIndicator,
     this.videoPlayerControllerBuilder = VideoPlayerController.network,
+    super.key,
   });
 
   /// The aspect ratio of this video.

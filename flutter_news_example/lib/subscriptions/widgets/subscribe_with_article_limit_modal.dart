@@ -1,5 +1,5 @@
 import 'package:app_ui/app_ui.dart'
-    show AppButton, AppSpacing, AppColors, Assets, showAppModal;
+    show AppButton, AppColors, AppSpacing, Assets, showAppModal;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/ads/ads.dart';
@@ -28,8 +28,8 @@ class _SubscribeWithArticleLimitModalState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
-    final isLoggedIn = context
-        .select((AppBloc bloc) => bloc.state.status == AppStatus.authenticated);
+    final isLoggedIn =
+        context.select((AppBloc bloc) => bloc.state.status.isLoggedIn);
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
 

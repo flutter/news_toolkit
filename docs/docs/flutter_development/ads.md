@@ -16,6 +16,8 @@ To introduce banner ads into your app, you can do one of the following:
 1.  Insert them locally at the client level.
 2.  Insert them into the data served by your [data source](/server_development/connecting_your_data_source).
 
+For additional tips, best practices, discouraged implementations with banners, review our articles on the Help Center [here](https://support.google.com/admob/answer/6128877).
+
 _Inserting Banner Ads Locally_
 
 To insert banner ads locally, add `BannerAdBlocks` with your desired size into any block feed by adjusting the state emitted by the `ArticleBloc` and `FeedBloc`, respectively.
@@ -32,7 +34,7 @@ Be sure to update the `totalBlocks` metadata returned by the server to reflect t
 
 ### Interstitial ads
 
-Interstitial ads are full-screen ads that appear between content. By default, interstitial ads are displayed upon article entry by `_ArticleViewState`'s `initState` method (`lib/article/view/article_page.dart`). To remove interstitial ads entirely, you can delete the following line:
+Interstitial ads are full-screen ads that appear between content. As an example, interstitial ads are displayed upon opening each article. Please follow Google Ads recommendations and adjust the frequency of interstitial ads for a better user experience. This logic is handled by `_ArticleViewState`'s `initState` method (`lib/article/view/article_page.dart`). To remove interstitial ads entirely, you can delete the following line:
 
 ```dart
 context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
@@ -40,7 +42,9 @@ context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
 
 Alternatively, you can move that line to a location to execute after your desired event (for example, upon article close).
 
-### Sticky ads
+For additional tips, you can review our articles on the Help Center for [recommended implementations](https://support.google.com/admob/answer/6201350) and [ad guidance](https://support.google.com/admob/answer/6066980?hl=en) with interstitials.
+
+### Sticky Ads
 
 Sticky ads are small dismissible ads that are anchored to the bottom of the screen. Sticky ads are built by the `StickyAd` widget. In the template, there is a sticky ad placed in `ArticleContent` (`lib/article/widgets/article_content.dart`). Move the `StickyAd()` constructor to change which screen shows the sticky ad.
 

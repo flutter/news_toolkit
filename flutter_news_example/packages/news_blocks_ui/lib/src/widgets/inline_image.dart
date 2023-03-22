@@ -7,9 +7,9 @@ import 'package:flutter/widgets.dart';
 class InlineImage extends StatelessWidget {
   /// {@macro inline_image}
   const InlineImage({
-    super.key,
     required this.imageUrl,
     this.progressIndicatorBuilder,
+    super.key,
   });
 
   /// The aspect ratio of this image.

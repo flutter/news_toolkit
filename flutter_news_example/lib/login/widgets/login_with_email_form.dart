@@ -28,22 +28,31 @@ class LoginWithEmailForm extends StatelessWidget {
             );
         }
       },
-      child: const ScrollableColumn(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.xlg,
-          AppSpacing.lg,
-          AppSpacing.xlg,
-          AppSpacing.xxlg,
-        ),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _HeaderTitle(),
-          SizedBox(height: AppSpacing.xxxlg),
-          _EmailInput(),
-          _TermsAndPrivacyPolicyLinkTexts(),
-          Spacer(),
-          _NextButton(),
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xlg,
+                AppSpacing.lg,
+                AppSpacing.xlg,
+                AppSpacing.xxlg,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  _HeaderTitle(),
+                  SizedBox(height: AppSpacing.xxxlg),
+                  _EmailInput(),
+                  _TermsAndPrivacyPolicyLinkTexts(),
+                  Spacer(),
+                  _NextButton(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -167,8 +176,8 @@ class _NextButton extends StatelessWidget {
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
   const ClearIconButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
 
   final VoidCallback? onPressed;

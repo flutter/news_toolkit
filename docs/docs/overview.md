@@ -5,19 +5,25 @@ sidebar_position: 1
 
 # Overview
 
-The Google Flutter team and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. Our goal is to help news publishers build apps and monetize them more easily in order to make reliable information accessible to all.
+Flutter and the [Google News Initiative](https://newsinitiative.withgoogle.com/) have co-sponsored the development of a news application template. The goal of this project is to help news publishers build mobile applications easily in order to make reliable information accessible to all.
 
-This template aims to **reduce the time to develop a typical news app by 80%**.
+This template aims to **significantly reduce the development time for typical news applications** by giving developers a head start on core components and features.
 
 The Flutter News Toolkit:
 
 - Contains common news app UI workflows and core features built with Flutter and Firebase
 - Implements best practices for news apps based on [Google News Initiative research](https://newsinitiative.withgoogle.com/info/assets/static/docs/nci/nci-playbook-en.pdf)
-- Allows publishers to monetize immediately with pre-built Google Ads and subscription services
+- Allows publishers to monetize immediately with ads and subscription services
 
-## Quick Start
+Common services such as authentication, notifications, analytics, and ads have been implemented using [Firebase](https://firebase.flutter.dev/docs/overview/) and [Google Mobile Ads](https://pub.dev/packages/google_mobile_ads). Developers are free to substitute these services and can find publicly available packages on [pub.dev](https://pub.dev).
 
-Here's what you need to get started.
+If you're just getting started with Flutter, we recommend first developing familiarity with the framework by reviewing the [onboarding guides](https://docs.flutter.dev/get-started/install), [tutorials](https://docs.flutter.dev/reference/tutorials), and [codelabs](https://docs.flutter.dev/codelabs) before using this template.
+
+:::note
+Depending on the number of flavors you plan to create for your project, the setup time may vary. For example, you can complete end-to-end setup in less than 10 minutes for one flavor. For additional flavors, you can expect this setup time to increase. Check out flutter.dev/news for additional information and video tutorials.
+:::
+
+## Getting Started
 
 ### Prerequisites
 
@@ -52,9 +58,10 @@ dart pub global activate dart_frog_cli
 ```
 
 :::info
-[Dart Frog][dart_frog_link] is fast, minimalistic backend framework for Dart.
+[Dart Frog][dart_frog_link] is a fast, minimalistic backend framework for Dart. It is stable as of [v0.1.0](https://github.com/VeryGoodOpenSource/dart_frog/releases/tag/dart_frog-v0.1.0).
 
-You'll use Dart Frog as a backend for frontends (BFF) which allows you to connect your backend with the Flutter News Template frontend.
+You'll use Dart Frog as a [backend for frontends (BFF)](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends), which allows you to connect your existing backend to the Flutter News Template frontend. Dart Frog reduces the barrier for entry for all publishers, despite any existing backend, and brings your app to market faster without required client modifications.
+
 :::
 
 ### Generate your project
@@ -67,7 +74,7 @@ Projects generated from the Flutter News Template will use the latest stable ver
 
 #### Install the Flutter News Template
 
-Use the `mason add` command to install the Flutter News Template globally on your machine:
+Use the `mason add` command to install the [Flutter News Template](https://brickhub.dev/bricks/flutter_news_template) globally on your machine:
 
 :::info
 You only need to install the `flutter_news_template` once. You can generate multiple projects from the template after it's installed.
@@ -75,16 +82,8 @@ You only need to install the `flutter_news_template` once. You can generate mult
 You can verify whether you have the `flutter_news_template` installed by using the `mason list --global` command.
 :::
 
-**using https:**
-
 ```bash
-mason add -g flutter_news_template --git-url https://github.com/flutter/news_toolkit --git-ref templates --git-path flutter_news_template
-```
-
-**using ssh**
-
-```bash
-mason add -g flutter_news_template --git-url git@github.com:flutter/news_toolkit.git --git-ref templates --git-path flutter_news_template
+mason add -g flutter_news_template
 ```
 
 #### Generate the app
@@ -94,6 +93,14 @@ Use the `mason make` command to generate your new app from the Flutter News Temp
 ```bash
 mason make flutter_news_template
 ```
+
+:::info
+
+Running `mason make` will generate over 900 files that will be listed in the console.
+
+You may need to increase your console scrollback buffer size to see all of the files listed in your console.
+
+:::
 
 #### Template configuration
 
@@ -127,57 +134,7 @@ After answering the above questions, your custom news application is generated. 
 :::caution
 
 Before you can run your generated app, you must configure Firebase.
-
-Go to the [Firebase Console](https://console.firebase.google.com), sign in with your Google account, and create a separate Firebase project for each flavor that your project supports (for example, one for development and another for production).
-
-In each Firebase project, create an Android and iOS app with the corresponding application IDs. Make sure that the application ID includes the correct suffix (such as "dev" for the development flavor).
-
-Download the Google Services file for each app from the project settings page in the Firebase Console. Then, go to the source code of your generated app and look for the following `TODOs` for each flavor:
-
-**Android**
-
-```
-// Replace with google-services.json from the Firebase Console //
-```
-
-**iOS**
-
-```
-<!-- Replace with GoogleService-Info.plist from the Firebase Console -->
-```
-
-Replace this message (for every flavor of the app) with the contents of the `google-services.json` and `GoogleServiceInfo.plist` files that you just downloaded from the Firebase Console.
-
-Lastly, for iOS only you must open `ios/Runner.xcodeproj/project.pbxproj` and replace the following placeholder with the corresponding reversed_client_id from the `GoogleServiceInfo.plist` file:
-
-```
-REVERSED_CLIENT_ID = "<PASTE-REVERSED-CLIENT-ID-HERE>";
-```
-
-For example, if your `GoogleServiceInfo.plist` for the development flavor looks like:
-
-```
-<plist version="1.0">
-<dict>
-	...
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t</string>
-  ...
-</dict>
-</plist>
-```
-
-Your `ios/Runner.xcodeproj/project.pbxproj` should contain a section that looks like:
-
-```
-LZ6NBM46MCM8MFQRT6CLI6IU /* Debug-development */ = {
-  ...
-  buildSettings = {
-    ...
-    REVERSED_CLIENT_ID = "com.googleusercontent.apps.737894073936-ccvknt0jpr1nk3uhftg14k8duirosg9t";
-  }
-}
-```
+Please follow the instructions specified in the [Firebase setup](/project_configuration/firebase) section.
 
 :::
 

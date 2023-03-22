@@ -14,7 +14,7 @@ class LoginForm extends StatelessWidget {
     final l10n = context.l10n;
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated) {
+        if (state.status.isLoggedIn) {
           // Pop all routes on top of [LoginModal], then pop the modal itself.
           Navigator.of(context)
               .popUntil((route) => route.settings.name == LoginModal.name);
@@ -43,32 +43,37 @@ class _LoginContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.xxlg,
-      ),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        const _LoginTitleAndCloseButton(),
-        const SizedBox(height: AppSpacing.sm),
-        const _LoginSubtitle(),
-        const SizedBox(height: AppSpacing.lg),
-        _GoogleLoginButton(),
-        if (theme.platform == TargetPlatform.iOS) ...[
-          const SizedBox(height: AppSpacing.lg),
-          _AppleLoginButton(),
-        ],
-        const SizedBox(height: AppSpacing.lg),
-        _FacebookLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _TwitterLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _ContinueWithEmailLoginButton()
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: constraints.maxHeight * .75),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.xxlg,
+            ),
+            children: [
+              const _LoginTitleAndCloseButton(),
+              const SizedBox(height: AppSpacing.sm),
+              const _LoginSubtitle(),
+              const SizedBox(height: AppSpacing.lg),
+              _GoogleLoginButton(),
+              if (theme.platform == TargetPlatform.iOS) ...[
+                const SizedBox(height: AppSpacing.lg),
+                _AppleLoginButton(),
+              ],
+              const SizedBox(height: AppSpacing.lg),
+              _FacebookLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _TwitterLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _ContinueWithEmailLoginButton()
+            ],
+          ),
+        );
+      },
     );
   }
 }

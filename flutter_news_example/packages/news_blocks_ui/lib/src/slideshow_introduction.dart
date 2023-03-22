@@ -10,10 +10,10 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class SlideshowIntroduction extends StatelessWidget {
   /// {@macro slideshow_introduction}
   const SlideshowIntroduction({
-    super.key,
     required this.block,
     required this.slideshowText,
     this.onPressed,
+    super.key,
   });
 
   /// The associated [SlideshowIntroductionBlock] instance.

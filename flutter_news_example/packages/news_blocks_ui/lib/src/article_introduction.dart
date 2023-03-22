@@ -9,11 +9,9 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class ArticleIntroduction extends StatelessWidget {
   /// {@macro article_introduction}
   const ArticleIntroduction({
-    super.key,
     required this.block,
     required this.premiumText,
-    required this.shareText,
-    this.onSharePressed,
+    super.key,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
@@ -21,12 +19,6 @@ class ArticleIntroduction extends StatelessWidget {
 
   /// Text displayed when article is premium content.
   final String premiumText;
-
-  /// Text displayed over the share button.
-  final String shareText;
-
-  /// An optional callback which is invoked when the share button is pressed.
-  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +36,6 @@ class ArticleIntroduction extends StatelessWidget {
             isPremium: block.isPremium,
           ),
         ),
-        const Divider(),
-        if (onSharePressed != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: ShareButton(
-                key: const Key('articleIntroduction_shareButton'),
-                shareText: shareText,
-                color: AppColors.darkAqua,
-                onPressed: onSharePressed,
-              ),
-            ),
-          ),
         const Divider(),
         const SizedBox(height: AppSpacing.lg),
       ],

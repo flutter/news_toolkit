@@ -4,7 +4,7 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
   app_ui:
@@ -30,7 +30,7 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^0.3.0
   mocktail_image_network: ^0.3.1
-  very_good_analysis: ^3.1.0
+  very_good_analysis: ^4.0.0
 
 flutter:
   uses-material-design: true

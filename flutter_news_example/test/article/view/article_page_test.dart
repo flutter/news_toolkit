@@ -34,9 +34,11 @@ void main() {
 
   group('ArticlePage', () {
     late FullScreenAdsBloc fullScreenAdsBloc;
+    late AppBloc appBloc;
 
     setUp(() {
       fullScreenAdsBloc = MockFullScreenAdsBloc();
+      appBloc = MockAppBloc();
       whenListen(
         fullScreenAdsBloc,
         Stream.value(FullScreenAdsState.initial()),
@@ -54,6 +56,7 @@ void main() {
         ArticlePage(
           id: 'id',
           isVideoArticle: false,
+          interstitialAdBehavior: InterstitialAdBehavior.onOpen,
         ),
       );
       expect(find.byType(ArticleView), findsOneWidget);
@@ -65,6 +68,7 @@ void main() {
         ArticlePage(
           id: 'id',
           isVideoArticle: false,
+          interstitialAdBehavior: InterstitialAdBehavior.onOpen,
         ),
       );
       final BuildContext viewContext = tester.element(find.byType(ArticleView));
@@ -84,7 +88,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
         expect(find.byType(AppBar), findsOneWidget);
@@ -99,7 +106,10 @@ void main() {
             fullScreenAdsBloc: fullScreenAdsBloc,
             BlocProvider.value(
               value: articleBloc,
-              child: ArticleView(isVideoArticle: false),
+              child: ArticleView(
+                isVideoArticle: false,
+                interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+              ),
             ),
           );
           expect(find.byType(ShareButton), findsOneWidget);
@@ -116,7 +126,10 @@ void main() {
             fullScreenAdsBloc: fullScreenAdsBloc,
             BlocProvider.value(
               value: articleBloc,
-              child: ArticleView(isVideoArticle: false),
+              child: ArticleView(
+                isVideoArticle: false,
+                interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+              ),
             ),
           );
 
@@ -138,7 +151,10 @@ void main() {
             fullScreenAdsBloc: fullScreenAdsBloc,
             BlocProvider.value(
               value: articleBloc,
-              child: ArticleView(isVideoArticle: false),
+              child: ArticleView(
+                isVideoArticle: false,
+                interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+              ),
             ),
           );
           expect(find.byType(ShareButton), findsNothing);
@@ -150,7 +166,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
         expect(find.byType(ArticleSubscribeButton), findsOneWidget);
@@ -208,7 +227,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
         expect(
@@ -234,7 +256,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
 
@@ -265,7 +290,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
 
@@ -289,7 +317,6 @@ void main() {
           'renders AppBar with ShareButton '
           'action when user is a subscriber '
           'and url is not empty', (tester) async {
-        final appBloc = MockAppBloc();
         when(() => appBloc.state).thenReturn(
           AppState.authenticated(
             User(
@@ -310,7 +337,10 @@ void main() {
           appBloc: appBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
 
@@ -338,7 +368,10 @@ void main() {
             fullScreenAdsBloc: fullScreenAdsBloc,
             BlocProvider.value(
               value: articleBloc,
-              child: ArticleView(isVideoArticle: false),
+              child: ArticleView(
+                isVideoArticle: false,
+                interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+              ),
             ),
             navigator: navigator,
           );
@@ -366,7 +399,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
         verify(() => articleBloc.add(ArticleRequested()));
@@ -374,14 +410,158 @@ void main() {
 
       testWidgets(
           'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
-          'when shown', (tester) async {
+          'when interstitialAdBehavior is onOpen and '
+          'showInterstitialAd is true', (tester) async {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable(
+            [
+              ArticleState.initial().copyWith(showInterstitialAd: false),
+              ArticleState.initial().copyWith(showInterstitialAd: true),
+            ],
+          ),
+        );
+
         await tester.pumpApp(
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
+        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
+            .called(1);
+      });
+
+      testWidgets(
+          'verify ShowInterstitialAdRequested is not '
+          'added to FullScreenAdsBloc when interstitialAdBehavior is onOpen '
+          'and showInterstitialAd is false', (tester) async {
+        whenListen(
+          articleBloc,
+          Stream.fromIterable(
+            [
+              ArticleState.initial().copyWith(showInterstitialAd: false),
+            ],
+          ),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
+          ),
+        );
+
+        verifyNever(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()));
+      });
+
+      testWidgets(
+          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
+          'when interstitialAdBehavior in onClose and '
+          'showInterstitialAd is true', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(AppBackButton));
+
+        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
+            .called(1);
+      });
+
+      testWidgets(
+          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
+          'when interstitialAdBehavior in onClose and '
+          'showInterstitialAd is true and '
+          'user taps system back button', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        // Use didPopRoute() to simulate the system back button.
+        final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+        // ignore: avoid_dynamic_calls
+        await widgetsAppState.didPopRoute();
+        await tester.pump();
+
+        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
+            .called(1);
+      });
+
+      testWidgets(
+          'verify ShowInterstitialAdRequested is not '
+          'added to FullScreenAdsBloc when interstitialAdBehavior is onClose '
+          'showInterstitialAd is false ', (tester) async {
+        when(() => articleBloc.state).thenReturn(ArticleState.initial());
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(AppBackButton));
+
+        verifyNever(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()));
+      });
+
+      testWidgets(
+          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
+          'with video article '
+          'when interstitialAdBehavior in onClose and '
+          'showInterstitialAd is true', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState.initial().copyWith(showInterstitialAd: true),
+        );
+
+        await tester.pumpApp(
+          fullScreenAdsBloc: fullScreenAdsBloc,
+          BlocProvider.value(
+            value: articleBloc,
+            child: ArticleView(
+              isVideoArticle: true,
+              interstitialAdBehavior: InterstitialAdBehavior.onClose,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(AppBackButton));
+
         verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
             .called(1);
       });
@@ -403,7 +583,10 @@ void main() {
           fullScreenAdsBloc: fullScreenAdsBloc,
           BlocProvider.value(
             value: articleBloc,
-            child: ArticleView(isVideoArticle: false),
+            child: ArticleView(
+              isVideoArticle: false,
+              interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+            ),
           ),
         );
 

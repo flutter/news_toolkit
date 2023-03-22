@@ -7,7 +7,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class SectionHeader extends StatelessWidget {
   /// {@macro section_header}
-  const SectionHeader({super.key, required this.block, this.onPressed});
+  const SectionHeader({required this.block, this.onPressed, super.key});
 
   /// The associated [SectionHeaderBlock] instance.
   final SectionHeaderBlock block;

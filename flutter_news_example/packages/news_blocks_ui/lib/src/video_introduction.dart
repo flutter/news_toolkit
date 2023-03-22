@@ -8,10 +8,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 /// {@endtemplate}
 class VideoIntroduction extends StatelessWidget {
   /// {@macro video_introduction}
-  const VideoIntroduction({
-    super.key,
-    required this.block,
-  });
+  const VideoIntroduction({required this.block, super.key});
 
   /// The associated [VideoIntroductionBlock] instance.
   final VideoIntroductionBlock block;

@@ -84,10 +84,10 @@ class ColorsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Colors')),
-      body: ListView(
-        shrinkWrap: true,
+      body: ListView.builder(
         scrollDirection: Axis.horizontal,
-        children: colorItems,
+        itemCount: colorItems.length,
+        itemBuilder: (_, index) => colorItems[index],
       ),
     );
   }

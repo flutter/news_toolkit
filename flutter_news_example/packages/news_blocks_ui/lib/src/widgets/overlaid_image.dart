@@ -8,9 +8,9 @@ import 'package:flutter/widgets.dart';
 class OverlaidImage extends StatelessWidget {
   /// {@macro overlaid_image}
   const OverlaidImage({
-    super.key,
     required this.imageUrl,
     required this.gradientColor,
+    super.key,
   });
 
   /// The aspect ratio of this image.

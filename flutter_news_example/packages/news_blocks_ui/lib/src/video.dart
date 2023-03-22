@@ -8,7 +8,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 /// {@endtemplate}
 class Video extends StatelessWidget {
   /// {@macro video}
-  const Video({super.key, required this.block});
+  const Video({required this.block, super.key});
 
   /// The associated [VideoBlock] instance.
   final VideoBlock block;

@@ -13,7 +13,7 @@ Codemagic is not a required service for this project. You're welcome to use othe
 
 :::
 
-Codemagic is an automated CI/CD service that streamlines deployments to the Google Play Store and App Store Connect. You can configure your CI/CD pipeuline up front and trigger deployments automatically with each subsequent code change.
+Codemagic is an automated CI/CD service that streamlines deployments to the Google Play Store and App Store Connect. You can configure your CI/CD pipeline up front and trigger deployments automatically with each subsequent code change.
 
 To use this service, login or [create a Codemagic account](https://codemagic.io/signup?campaign=flutter-ci-header_sign_up_btn) and follow the [getting started guide](https://docs.codemagic.io/yaml-basic-configuration/yaml-getting-started/) guide to set up a `codemagic.yaml` build configuration file. Be sure to populate all 'TODO' fields in your `codemagic.yaml` file.
 

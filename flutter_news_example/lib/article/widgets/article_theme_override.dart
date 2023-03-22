@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class ArticleThemeOverride extends StatelessWidget {
   const ArticleThemeOverride({
-    super.key,
     required this.isVideoArticle,
     required this.child,
+    super.key,
   });
 
   final bool isVideoArticle;
