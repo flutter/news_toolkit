@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class AppButton extends StatelessWidget {
   /// {@macro app_button}
   const AppButton._({
-    super.key,
     required this.child,
     this.onPressed,
     Color? buttonColor,
@@ -20,6 +19,7 @@ class AppButton extends StatelessWidget {
     Size? maximumSize,
     Size? minimumSize,
     EdgeInsets? padding,
+    super.key,
   })  : _buttonColor = buttonColor ?? Colors.white,
         _disabledButtonColor = disabledButtonColor ?? AppColors.disabledButton,
         _borderSide = borderSide,
@@ -34,11 +34,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled black button.
   const AppButton.black({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -51,11 +51,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled blue dress button.
   const AppButton.blueDress({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -68,11 +68,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled crystal blue button.
   const AppButton.crystalBlue({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -85,11 +85,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled red wine button.
   const AppButton.redWine({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -102,12 +102,12 @@ class AppButton extends StatelessWidget {
 
   /// Filled secondary button.
   const AppButton.secondary({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
     Color? disabledButtonColor,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -124,11 +124,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled dark aqua button.
   const AppButton.darkAqua({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -141,11 +141,11 @@ class AppButton extends StatelessWidget {
 
   /// Outlined white button.
   const AppButton.outlinedWhite({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -161,11 +161,11 @@ class AppButton extends StatelessWidget {
 
   /// Outlined transparent dark aqua button.
   const AppButton.outlinedTransparentDarkAqua({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -181,11 +181,11 @@ class AppButton extends StatelessWidget {
 
   /// Outlined transparent white button.
   const AppButton.outlinedTransparentWhite({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -201,11 +201,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled transparent dark aqua button.
   const AppButton.transparentDarkAqua({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -218,11 +218,11 @@ class AppButton extends StatelessWidget {
 
   /// Filled transparent white button.
   const AppButton.transparentWhite({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
     TextStyle? textStyle,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -237,10 +237,10 @@ class AppButton extends StatelessWidget {
 
   /// Filled small red wine blue button.
   const AppButton.smallRedWine({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -255,10 +255,10 @@ class AppButton extends StatelessWidget {
 
   /// Filled small transparent button.
   const AppButton.smallDarkAqua({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -273,10 +273,10 @@ class AppButton extends StatelessWidget {
 
   /// Filled small transparent button.
   const AppButton.smallTransparent({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -291,10 +291,10 @@ class AppButton extends StatelessWidget {
 
   /// Filled small transparent button.
   const AppButton.smallOutlineTransparent({
+    required Widget child,
     Key? key,
     VoidCallback? onPressed,
     double? elevation,
-    required Widget child,
   }) : this._(
           key: key,
           onPressed: onPressed,
@@ -360,7 +360,7 @@ class AppButton extends StatelessWidget {
 
   /// [TextStyle] of the button text.
   ///
-  /// Defaults to [TextTheme.button].
+  /// Defaults to [TextTheme.labelLarge].
   final TextStyle? _textStyle;
 
   /// The maximum size of the button.
@@ -383,7 +383,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = _textStyle ?? Theme.of(context).textTheme.button;
+    final textStyle = _textStyle ?? Theme.of(context).textTheme.labelLarge;
 
     return ElevatedButton(
       onPressed: onPressed,

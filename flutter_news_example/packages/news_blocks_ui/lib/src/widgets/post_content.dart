@@ -8,7 +8,6 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostContent extends StatelessWidget {
   /// {@macro post_content}
   const PostContent({
-    super.key,
     required this.title,
     this.publishedAt,
     this.categoryName,
@@ -19,6 +18,7 @@ class PostContent extends StatelessWidget {
     this.isContentOverlaid = false,
     this.isVideoContent = false,
     this.premiumText = '',
+    super.key,
   });
 
   /// Title of post.
@@ -91,7 +91,7 @@ class PostContent extends StatelessWidget {
           ),
           Text(
             title,
-            style: textTheme.headline3?.copyWith(
+            style: textTheme.displaySmall?.copyWith(
               color: isContentOverlaid || isVideoContent
                   ? AppColors.highEmphasisPrimary
                   : AppColors.highEmphasisSurface,

@@ -35,38 +35,45 @@ class OnboardingViewItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: AppColors.white,
         ),
-        child: ScrollableColumn(
-          children: [
-            Text(
-              key: const Key('onboardingItem_pageNumberTitle'),
-              pageNumberTitle,
-              style: theme.textTheme.overline?.apply(
-                color: AppColors.secondary.shade600,
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  Text(
+                    key: const Key('onboardingItem_pageNumberTitle'),
+                    pageNumberTitle,
+                    style: theme.textTheme.labelSmall?.apply(
+                      color: AppColors.secondary.shade600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg + AppSpacing.sm),
+                  Text(
+                    key: const Key('onboardingItem_title'),
+                    title,
+                    style: theme.textTheme.headlineMedium?.apply(
+                      color: AppColors.highEmphasisSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    key: const Key('onboardingItem_subtitle'),
+                    subtitle,
+                    style: theme.textTheme.titleMedium?.apply(
+                      color: AppColors.mediumEmphasisSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Spacer(),
+                  primaryButton,
+                  const SizedBox(height: AppSpacing.sm),
+                  secondaryButton
+                ],
               ),
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: AppSpacing.lg + AppSpacing.sm),
-            Text(
-              key: const Key('onboardingItem_title'),
-              title,
-              style: theme.textTheme.headline4?.apply(
-                color: AppColors.highEmphasisSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              key: const Key('onboardingItem_subtitle'),
-              subtitle,
-              style: theme.textTheme.subtitle1?.apply(
-                color: AppColors.mediumEmphasisSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            primaryButton,
-            const SizedBox(height: AppSpacing.sm),
-            secondaryButton
           ],
         ),
       ),

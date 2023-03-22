@@ -67,6 +67,22 @@ class FetchArticleViewsFailure extends ArticleFailure {
   const FetchArticleViewsFailure(super.error);
 }
 
+/// {@template increment_total_article_views_failure}
+/// Thrown when incrementing total article views fails.
+/// {@endtemplate}
+class IncrementTotalArticleViewsFailure extends ArticleFailure {
+  /// {@macro increment_total_article_views_failure}
+  const IncrementTotalArticleViewsFailure(super.error);
+}
+
+/// {@template fetch_total_article_views_failure}
+/// Thrown when fetching total article views fails.
+/// {@endtemplate}
+class FetchTotalArticleViewsFailure extends ArticleFailure {
+  /// {@macro fetch_total_article_views_failure}
+  const FetchTotalArticleViewsFailure(super.error);
+}
+
 /// {@template article_views}
 /// Represents the number of article views and the date
 /// when the number of article views was last reset.
@@ -199,6 +215,31 @@ class ArticleRepository {
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         FetchArticleViewsFailure(error),
+        stackTrace,
+      );
+    }
+  }
+
+  /// Increments the number of total article views by 1.
+  Future<void> incrementTotalArticleViews() async {
+    try {
+      final totalArticleViews = await _storage.fetchTotalArticleViews();
+      await _storage.setTotalArticleViews(totalArticleViews + 1);
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        IncrementTotalArticleViewsFailure(error),
+        stackTrace,
+      );
+    }
+  }
+
+  /// Fetches the number of total article views.
+  Future<int> fetchTotalArticleViews() async {
+    try {
+      return await _storage.fetchTotalArticleViews();
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(
+        FetchTotalArticleViewsFailure(error),
         stackTrace,
       );
     }

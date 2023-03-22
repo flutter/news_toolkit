@@ -3,7 +3,7 @@ sidebar_position: 1
 description: Learn how to run your news application.
 ---
 
-# Running the App
+# Running the app
 
 The news application project contains 2 flavors:
 
@@ -15,13 +15,13 @@ To run the desired flavor either use the launch configuration in VSCode/Android 
 # Development
 
 ```bash
-flutter run --flavor development --target lib/main_development.dart
+flutter run --flavor development --target lib/main/main_development.dart
 ```
 
 # Production
 
 ```bash
-flutter run --flavor production --target lib/main_production.dart
+flutter run --flavor production --target lib/main/main_production.dart
 ```
 
 :::note

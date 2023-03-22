@@ -1,32 +1,40 @@
 import 'package:app_ui/app_ui.dart'
-    show AppSpacing, ScrollableColumn, AppColors, AppButton;
+    show AppButton, AppColors, AppSpacing, Assets;
 import 'package:email_launcher/email_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 
 class MagicLinkPromptView extends StatelessWidget {
-  const MagicLinkPromptView({super.key, required this.email});
+  const MagicLinkPromptView({required this.email, super.key});
 
   final String email;
   @override
   Widget build(BuildContext context) {
-    return ScrollableColumn(
-      mainAxisSize: MainAxisSize.min,
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.xlg,
-        AppSpacing.xlg,
-        AppSpacing.xlg,
-        AppSpacing.xxlg,
-      ),
-      children: [
-        const MagicLinkPromptHeader(),
-        const SizedBox(height: AppSpacing.xxxlg),
-        Assets.icons.envelopeOpen.svg(),
-        const SizedBox(height: AppSpacing.xxxlg),
-        MagicLinkPromptSubtitle(email: email),
-        const Spacer(),
-        MagicLinkPromptOpenEmailButton()
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.xlg,
+              AppSpacing.xlg,
+              AppSpacing.xlg,
+              AppSpacing.xxlg,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const MagicLinkPromptHeader(),
+                const SizedBox(height: AppSpacing.xxxlg),
+                Assets.icons.envelopeOpen.svg(),
+                const SizedBox(height: AppSpacing.xxxlg),
+                MagicLinkPromptSubtitle(email: email),
+                const Spacer(),
+                MagicLinkPromptOpenEmailButton()
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -40,17 +48,14 @@ class MagicLinkPromptHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.magicLinkPromptHeader,
-      style: Theme.of(context).textTheme.headline3,
+      style: Theme.of(context).textTheme.displaySmall,
     );
   }
 }
 
 @visibleForTesting
 class MagicLinkPromptSubtitle extends StatelessWidget {
-  const MagicLinkPromptSubtitle({
-    super.key,
-    required this.email,
-  });
+  const MagicLinkPromptSubtitle({required this.email, super.key});
 
   final String email;
 
@@ -63,12 +68,12 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
         Text(
           context.l10n.magicLinkPromptTitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
         ),
         Text(
           email,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.apply(
+          style: theme.textTheme.bodyLarge?.apply(
             color: AppColors.darkAqua,
           ),
         ),
@@ -76,7 +81,7 @@ class MagicLinkPromptSubtitle extends StatelessWidget {
         Text(
           context.l10n.magicLinkPromptSubtitle,
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
         ),
       ],
     );

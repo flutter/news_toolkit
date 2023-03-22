@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class SearchFilterChip extends StatelessWidget {
   const SearchFilterChip({
-    super.key,
     required this.chipText,
     required this.onSelected,
+    super.key,
   });
 
   final ValueSetter<String> onSelected;
@@ -20,7 +20,7 @@ class SearchFilterChip extends StatelessWidget {
       ),
       label: Text(
         chipText,
-        style: Theme.of(context).textTheme.button,
+        style: Theme.of(context).textTheme.labelLarge,
       ),
       onSelected: (_) => onSelected(chipText),
       backgroundColor: AppColors.transparent,

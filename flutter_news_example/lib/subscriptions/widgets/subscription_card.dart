@@ -1,8 +1,7 @@
-import 'package:app_ui/app_ui.dart' hide Assets;
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/app/app.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
@@ -11,10 +10,10 @@ import 'package:intl/intl.dart';
 
 class SubscriptionCard extends StatelessWidget {
   const SubscriptionCard({
-    super.key,
+    required this.subscription,
     this.isExpanded = false,
     this.isBestValue = false,
-    required this.subscription,
+    super.key,
   });
 
   final bool isExpanded;
@@ -36,7 +35,7 @@ class SubscriptionCard extends StatelessWidget {
       subscription.cost.annual / 100,
     );
     final isLoggedIn = context.select<AppBloc, bool>(
-      (AppBloc bloc) => bloc.state.status == AppStatus.authenticated,
+      (AppBloc bloc) => bloc.state.status.isLoggedIn,
     );
 
     return Card(
@@ -60,12 +59,12 @@ class SubscriptionCard extends StatelessWidget {
             ),
             Text(
               subscription.name.name.toUpperCase(),
-              style: theme.textTheme.headline6
+              style: theme.textTheme.titleLarge
                   ?.copyWith(color: AppColors.secondary),
             ),
             Text(
               '$monthlyCost/${l10n.monthAbbreviation} | $annualCost/${l10n.yearAbbreviation}',
-              style: theme.textTheme.headline5,
+              style: theme.textTheme.headlineSmall,
             ),
             if (isBestValue) ...[
               Assets.icons.bestValue
@@ -77,7 +76,7 @@ class SubscriptionCard extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               Text(
                 l10n.subscriptionPurchaseBenefits.toUpperCase(),
-                style: theme.textTheme.subtitle2
+                style: theme.textTheme.titleSmall
                     ?.copyWith(fontWeight: FontWeight.w600),
               ),
             ],
@@ -95,7 +94,7 @@ class SubscriptionCard extends StatelessWidget {
                 ),
                 title: Text(
                   paragraph,
-                  style: theme.textTheme.button?.copyWith(
+                  style: theme.textTheme.labelLarge?.copyWith(
                     color: AppColors.mediumHighEmphasisSurface,
                   ),
                 ),
@@ -106,7 +105,7 @@ class SubscriptionCard extends StatelessWidget {
               Align(
                 child: Text(
                   l10n.subscriptionPurchaseCancelAnytime,
-                  style: theme.textTheme.button?.copyWith(
+                  style: theme.textTheme.labelLarge?.copyWith(
                     color: AppColors.mediumHighEmphasisSurface,
                   ),
                 ),

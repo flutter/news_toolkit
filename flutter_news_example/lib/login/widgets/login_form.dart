@@ -1,8 +1,7 @@
-import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing;
+import 'package:app_ui/app_ui.dart' show AppButton, AppSpacing, Assets;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/app/app.dart';
-import 'package:flutter_news_example/generated/generated.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:form_inputs/form_inputs.dart';
@@ -15,7 +14,7 @@ class LoginForm extends StatelessWidget {
     final l10n = context.l10n;
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated) {
+        if (state.status.isLoggedIn) {
           // Pop all routes on top of [LoginModal], then pop the modal itself.
           Navigator.of(context)
               .popUntil((route) => route.settings.name == LoginModal.name);
@@ -44,32 +43,37 @@ class _LoginContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.lg,
-        AppSpacing.xxlg,
-      ),
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        const _LoginTitleAndCloseButton(),
-        const SizedBox(height: AppSpacing.sm),
-        const _LoginSubtitle(),
-        const SizedBox(height: AppSpacing.lg),
-        _GoogleLoginButton(),
-        if (theme.platform == TargetPlatform.iOS) ...[
-          const SizedBox(height: AppSpacing.lg),
-          _AppleLoginButton(),
-        ],
-        const SizedBox(height: AppSpacing.lg),
-        _FacebookLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _TwitterLoginButton(),
-        const SizedBox(height: AppSpacing.lg),
-        _ContinueWithEmailLoginButton()
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: constraints.maxHeight * .75),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.lg,
+              AppSpacing.xxlg,
+            ),
+            children: [
+              const _LoginTitleAndCloseButton(),
+              const SizedBox(height: AppSpacing.sm),
+              const _LoginSubtitle(),
+              const SizedBox(height: AppSpacing.lg),
+              _GoogleLoginButton(),
+              if (theme.platform == TargetPlatform.iOS) ...[
+                const SizedBox(height: AppSpacing.lg),
+                _AppleLoginButton(),
+              ],
+              const SizedBox(height: AppSpacing.lg),
+              _FacebookLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _TwitterLoginButton(),
+              const SizedBox(height: AppSpacing.lg),
+              _ContinueWithEmailLoginButton()
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -87,7 +91,7 @@ class _LoginTitleAndCloseButton extends StatelessWidget {
           padding: const EdgeInsets.only(right: AppSpacing.sm),
           child: Text(
             context.l10n.loginModalTitle,
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
           ),
         ),
         IconButton(
@@ -109,7 +113,7 @@ class _LoginSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       context.l10n.loginModalSubtitle,
-      style: Theme.of(context).textTheme.subtitle1,
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 }
@@ -200,7 +204,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
       onPressed: () => Navigator.of(context).push<void>(
         LoginWithEmailPage.route(),
       ),
-      textStyle: Theme.of(context).textTheme.subtitle1,
+      textStyle: Theme.of(context).textTheme.titleMedium,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

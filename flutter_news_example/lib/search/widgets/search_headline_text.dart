@@ -2,10 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 
 class SearchHeadlineText extends StatelessWidget {
-  const SearchHeadlineText({
-    super.key,
-    required this.headerText,
-  });
+  const SearchHeadlineText({required this.headerText, super.key});
 
   final String headerText;
 
@@ -20,7 +17,7 @@ class SearchHeadlineText extends StatelessWidget {
       ),
       child: Text(
         headerText.toUpperCase(),
-        style: Theme.of(context).textTheme.subtitle2?.copyWith(
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(
               color: AppColors.secondary,
             ),
       ),

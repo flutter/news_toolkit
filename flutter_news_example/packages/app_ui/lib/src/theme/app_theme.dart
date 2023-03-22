@@ -14,7 +14,6 @@ class AppTheme {
     return ThemeData(
       primaryColor: AppColors.blue,
       canvasColor: _backgroundColor,
-      backgroundColor: _backgroundColor,
       scaffoldBackgroundColor: _backgroundColor,
       iconTheme: _iconTheme,
       appBarTheme: _appBarTheme,
@@ -38,7 +37,10 @@ class AppTheme {
   }
 
   ColorScheme get _colorScheme {
-    return const ColorScheme.light(secondary: AppColors.secondary);
+    return ColorScheme.light(
+      secondary: AppColors.secondary,
+      background: _backgroundColor,
+    );
   }
 
   SnackBarThemeData get _snackBarTheme {
@@ -61,7 +63,7 @@ class AppTheme {
   AppBarTheme get _appBarTheme {
     return AppBarTheme(
       iconTheme: _iconTheme,
-      titleTextStyle: _textTheme.headline6,
+      titleTextStyle: _textTheme.titleLarge,
       elevation: 0,
       toolbarHeight: 64,
       backgroundColor: AppColors.transparent,
@@ -92,19 +94,19 @@ class AppTheme {
 
   /// The Content text theme based on [ContentTextStyle].
   static final contentTextTheme = TextTheme(
-    headline1: ContentTextStyle.headline1,
-    headline2: ContentTextStyle.headline2,
-    headline3: ContentTextStyle.headline3,
-    headline4: ContentTextStyle.headline4,
-    headline5: ContentTextStyle.headline5,
-    headline6: ContentTextStyle.headline6,
-    subtitle1: ContentTextStyle.subtitle1,
-    subtitle2: ContentTextStyle.subtitle2,
-    bodyText1: ContentTextStyle.bodyText1,
-    bodyText2: ContentTextStyle.bodyText2,
-    button: ContentTextStyle.button,
-    caption: ContentTextStyle.caption,
-    overline: ContentTextStyle.overline,
+    displayLarge: ContentTextStyle.headline1,
+    displayMedium: ContentTextStyle.headline2,
+    displaySmall: ContentTextStyle.headline3,
+    headlineMedium: ContentTextStyle.headline4,
+    headlineSmall: ContentTextStyle.headline5,
+    titleLarge: ContentTextStyle.headline6,
+    titleMedium: ContentTextStyle.subtitle1,
+    titleSmall: ContentTextStyle.subtitle2,
+    bodyLarge: ContentTextStyle.bodyText1,
+    bodyMedium: ContentTextStyle.bodyText2,
+    labelLarge: ContentTextStyle.button,
+    bodySmall: ContentTextStyle.caption,
+    labelSmall: ContentTextStyle.overline,
   ).apply(
     bodyColor: AppColors.black,
     displayColor: AppColors.black,
@@ -113,19 +115,19 @@ class AppTheme {
 
   /// The UI text theme based on [UITextStyle].
   static final uiTextTheme = TextTheme(
-    headline1: UITextStyle.headline1,
-    headline2: UITextStyle.headline2,
-    headline3: UITextStyle.headline3,
-    headline4: UITextStyle.headline4,
-    headline5: UITextStyle.headline5,
-    headline6: UITextStyle.headline6,
-    subtitle1: UITextStyle.subtitle1,
-    subtitle2: UITextStyle.subtitle2,
-    bodyText1: UITextStyle.bodyText1,
-    bodyText2: UITextStyle.bodyText2,
-    button: UITextStyle.button,
-    caption: UITextStyle.caption,
-    overline: UITextStyle.overline,
+    displayLarge: UITextStyle.headline1,
+    displayMedium: UITextStyle.headline2,
+    displaySmall: UITextStyle.headline3,
+    headlineMedium: UITextStyle.headline4,
+    headlineSmall: UITextStyle.headline5,
+    titleLarge: UITextStyle.headline6,
+    titleMedium: UITextStyle.subtitle1,
+    titleSmall: UITextStyle.subtitle2,
+    bodyLarge: UITextStyle.bodyText1,
+    bodyMedium: UITextStyle.bodyText2,
+    labelLarge: UITextStyle.button,
+    bodySmall: UITextStyle.caption,
+    labelSmall: UITextStyle.overline,
   ).apply(
     bodyColor: AppColors.black,
     displayColor: AppColors.black,
@@ -169,7 +171,7 @@ class AppTheme {
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
-        textStyle: _textTheme.button,
+        textStyle: _textTheme.labelLarge,
         backgroundColor: AppColors.blue,
       ),
     );
@@ -178,7 +180,7 @@ class AppTheme {
   TextButtonThemeData get _textButtonTheme {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: _textTheme.button?.copyWith(
+        textStyle: _textTheme.labelLarge?.copyWith(
           fontWeight: AppFontWeight.light,
         ),
         foregroundColor: AppColors.black,
@@ -286,6 +288,7 @@ class AppDarkTheme extends AppTheme {
     return const ColorScheme.dark().copyWith(
       primary: AppColors.white,
       secondary: AppColors.secondary,
+      background: AppColors.grey.shade900,
     );
   }
 
@@ -318,7 +321,7 @@ class AppDarkTheme extends AppTheme {
   TextButtonThemeData get _textButtonTheme {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: _textTheme.button?.copyWith(
+        textStyle: _textTheme.labelLarge?.copyWith(
           fontWeight: AppFontWeight.light,
         ),
         foregroundColor: AppColors.white,

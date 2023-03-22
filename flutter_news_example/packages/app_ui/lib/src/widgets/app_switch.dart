@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 class AppSwitch extends StatelessWidget {
   /// {@macro app_switch}
   const AppSwitch({
-    super.key,
     required this.value,
     required this.onChanged,
     this.onText = '',
     this.offText = '',
+    super.key,
   });
 
   /// Text displayed when this switch is set to true.
@@ -38,7 +38,7 @@ class AppSwitch extends StatelessWidget {
         ContentThemeOverrideBuilder(
           builder: (context) => Text(
             value ? onText : offText,
-            style: Theme.of(context).textTheme.button?.copyWith(
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: AppColors.eerieBlack,
                 ),
           ),

@@ -11,11 +11,21 @@ import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:share_launcher/share_launcher.dart';
 
+/// The supported behaviors for interstitial ad.
+enum InterstitialAdBehavior {
+  /// Displays the ad when opening the article.
+  onOpen,
+
+  /// Displays the ad when closing the article.
+  onClose,
+}
+
 class ArticlePage extends StatelessWidget {
   const ArticlePage({
-    super.key,
     required this.id,
     required this.isVideoArticle,
+    required this.interstitialAdBehavior,
+    super.key,
   });
 
   /// The id of the requested article.
@@ -24,14 +34,21 @@ class ArticlePage extends StatelessWidget {
   /// Whether the requested article is a video article.
   final bool isVideoArticle;
 
+  /// Indicates when the interstitial ad will be displayed.
+  /// Default to [InterstitialAdBehavior.onOpen]
+  final InterstitialAdBehavior interstitialAdBehavior;
+
   static Route<void> route({
     required String id,
     bool isVideoArticle = false,
+    InterstitialAdBehavior interstitialAdBehavior =
+        InterstitialAdBehavior.onOpen,
   }) =>
       MaterialPageRoute<void>(
         builder: (_) => ArticlePage(
           id: id,
           isVideoArticle: isVideoArticle,
+          interstitialAdBehavior: interstitialAdBehavior,
         ),
       );
 
@@ -45,77 +62,97 @@ class ArticlePage extends StatelessWidget {
       )..add(const ArticleRequested()),
       child: ArticleView(
         isVideoArticle: isVideoArticle,
+        interstitialAdBehavior: interstitialAdBehavior,
       ),
     );
   }
 }
 
-class ArticleView extends StatefulWidget {
+class ArticleView extends StatelessWidget {
   const ArticleView({
-    super.key,
     required this.isVideoArticle,
+    required this.interstitialAdBehavior,
+    super.key,
   });
 
   final bool isVideoArticle;
-
-  @override
-  State<ArticleView> createState() => _ArticleViewState();
-}
-
-class _ArticleViewState extends State<ArticleView> {
-  @override
-  void initState() {
-    context.read<FullScreenAdsBloc>().add(const ShowInterstitialAdRequested());
-    super.initState();
-  }
+  final InterstitialAdBehavior interstitialAdBehavior;
 
   @override
   Widget build(BuildContext context) {
     final backgroundColor =
-        widget.isVideoArticle ? AppColors.darkBackground : AppColors.white;
+        isVideoArticle ? AppColors.darkBackground : AppColors.white;
     final foregroundColor =
-        widget.isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
+        isVideoArticle ? AppColors.white : AppColors.highEmphasisSurface;
     final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
     final isSubscriber =
         context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
-    return HasReachedArticleLimitListener(
-      child: HasWatchedRewardedAdListener(
-        child: Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness:
-                  widget.isVideoArticle ? Brightness.light : Brightness.dark,
-              statusBarBrightness:
-                  widget.isVideoArticle ? Brightness.dark : Brightness.light,
-            ),
-            leading: widget.isVideoArticle
-                ? const AppBackButton.light()
-                : const AppBackButton(),
-            actions: [
-              if (uri != null && uri.toString().isNotEmpty)
-                Padding(
-                  key: const Key('articlePage_shareButton'),
-                  padding: const EdgeInsets.only(right: AppSpacing.lg),
-                  child: ShareButton(
-                    shareText: context.l10n.shareText,
-                    color: foregroundColor,
-                    onPressed: () => context
-                        .read<ArticleBloc>()
-                        .add(ShareRequested(uri: uri)),
-                  ),
+    return WillPopScope(
+      onWillPop: () async {
+        _onPop(context);
+        return true;
+      },
+      child: HasToShowInterstitialAdListener(
+        interstitialAdBehavior: interstitialAdBehavior,
+        child: HasReachedArticleLimitListener(
+          child: HasWatchedRewardedAdListener(
+            child: Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: AppBar(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarIconBrightness:
+                      isVideoArticle ? Brightness.light : Brightness.dark,
+                  statusBarBrightness:
+                      isVideoArticle ? Brightness.dark : Brightness.light,
                 ),
-              if (!isSubscriber) const ArticleSubscribeButton()
-            ],
-          ),
-          body: ArticleThemeOverride(
-            isVideoArticle: widget.isVideoArticle,
-            child: const ArticleContent(),
+                leading: isVideoArticle
+                    ? AppBackButton.light(
+                        onPressed: () => _onBackButtonPressed(context),
+                      )
+                    : AppBackButton(
+                        onPressed: () => _onBackButtonPressed(context),
+                      ),
+                actions: [
+                  if (uri != null && uri.toString().isNotEmpty)
+                    Padding(
+                      key: const Key('articlePage_shareButton'),
+                      padding: const EdgeInsets.only(right: AppSpacing.lg),
+                      child: ShareButton(
+                        shareText: context.l10n.shareText,
+                        color: foregroundColor,
+                        onPressed: () => context
+                            .read<ArticleBloc>()
+                            .add(ShareRequested(uri: uri)),
+                      ),
+                    ),
+                  if (!isSubscriber) const ArticleSubscribeButton()
+                ],
+              ),
+              body: ArticleThemeOverride(
+                isVideoArticle: isVideoArticle,
+                child: const ArticleContent(),
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _onBackButtonPressed(BuildContext context) {
+    _onPop(context);
+    Navigator.of(context).pop();
+  }
+
+  void _onPop(BuildContext context) {
+    final state = context.read<ArticleBloc>().state;
+    if (state.showInterstitialAd &&
+        interstitialAdBehavior == InterstitialAdBehavior.onClose) {
+      context
+          .read<FullScreenAdsBloc>()
+          .add(const ShowInterstitialAdRequested());
+    }
   }
 }
 
@@ -176,6 +213,36 @@ class HasWatchedRewardedAdListener extends StatelessWidget {
       },
       listenWhen: (previous, current) =>
           previous.earnedReward != current.earnedReward,
+      child: child,
+    );
+  }
+}
+
+@visibleForTesting
+class HasToShowInterstitialAdListener extends StatelessWidget {
+  const HasToShowInterstitialAdListener({
+    required this.child,
+    required this.interstitialAdBehavior,
+    super.key,
+  });
+
+  final Widget child;
+
+  final InterstitialAdBehavior interstitialAdBehavior;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ArticleBloc, ArticleState>(
+      listener: (context, state) {
+        if (state.showInterstitialAd &&
+            interstitialAdBehavior == InterstitialAdBehavior.onOpen) {
+          context
+              .read<FullScreenAdsBloc>()
+              .add(const ShowInterstitialAdRequested());
+        }
+      },
+      listenWhen: (previous, current) =>
+          previous.showInterstitialAd != current.showInterstitialAd,
       child: child,
     );
   }

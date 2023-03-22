@@ -10,7 +10,7 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 /// {@endtemplate}
 class PostSmall extends StatelessWidget {
   /// {@macro post_small}
-  const PostSmall({super.key, required this.block, this.onPressed});
+  const PostSmall({required this.block, this.onPressed, super.key});
 
   /// The size of this post image.
   static const _imageSize = 80.0;
@@ -65,9 +65,9 @@ class PostSmall extends StatelessWidget {
 class PostSmallContent extends StatelessWidget {
   /// {@macro post_small_content}
   const PostSmallContent({
-    super.key,
     required this.title,
     required this.publishedAt,
+    super.key,
   });
 
   /// The title of this post.
@@ -84,7 +84,7 @@ class PostSmallContent extends StatelessWidget {
       children: [
         Text(
           title,
-          style: textTheme.headline6?.copyWith(
+          style: textTheme.titleLarge?.copyWith(
             color: AppColors.highEmphasisSurface,
           ),
         ),

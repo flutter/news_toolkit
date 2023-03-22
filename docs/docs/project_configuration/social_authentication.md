@@ -3,72 +3,74 @@ sidebar_position: 3
 description: Learn how to configure social login with Facebook and Twitter.
 ---
 
-# Authentication Setup
+# Authentication setup
 
-The Flutter News Toolkit comes pre-configured to support passwordless email, Google, Apple and social authentication via Facebook and Twitter login. To set this up for your news app, follow the instructions below for each Firebase project and app.
+The Flutter News Toolkit comes pre-configured to support authentication using passwordless email, Google login, Apple ID, and social authentication using Facebook and Twitter login. To set this up for your news app, use the following instructions for each Firebase project and app.
 
 ## Email
 
-### Firebase Configuration
+The news toolkit supports passwordless login.
 
-In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Email/Password` to set up your email authentication method. The toolkit currently supports a passwordless login flow, so be sure to enable this setting as well.
+### Firebase configuration
+
+In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Email/Password** to set up your email authentication method. The toolkit currently supports a passwordless login flow, **so be sure to enable this setting as well**.
 
 :::note
 
-Passwordless authentication with email link requires additional configuration steps. Please follow the steps for [Apple](https://firebase.google.com/docs/auth/ios/email-link-auth?authuser=0&hl=en) and [Android](https://firebase.google.com/docs/auth/android/email-link-auth?authuser=0&hl=en) configurations.
+Passwordless authentication with an email link requires additional configuration steps. Please follow the steps for [authentication on Apple platforms](https://firebase.google.com/docs/auth/ios/email-link-auth?authuser=0) and [authentication on Android](https://firebase.google.com/docs/auth/android/email-link-auth?authuser=0) configurations.
 
 :::
 
 ## Google
 
-### Firebase Configuration
+### Firebase configuration
 
-In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Google` to set up your Google authentication method. Add your web ID and web client secret under the Web SDK Configuration dropdown menu. You can find your web client ID for existing projects by selecting your project and OAuth 2.0 entry on the [Google API Console](https://console.developers.google.com/apis/credentials?pli=1&project=hespress-en&authuser=0&hl=en).
+In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Google** to set up your Google authentication method. Add your (Google) web ID and web client secret under the **Web SDK Configuration** dropdown menu. You can find your web client ID for existing projects by selecting your project and OAuth 2.0 entry on the [Google API Console](https://console.cloud.google.com/apis/credentials).
 
 ## Apple
 
-### Firebase Configuration
+### Firebase configuration
 
-In your Firebase Console, go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple` to set up your Apple authentication method. Follow the additional configuration steps for [Apple](https://firebase.google.com/docs/auth/ios/apple?authuser=0&hl=en) and [Android](https://firebase.google.com/docs/auth/android/apple?authuser=0&hl=en) to enable this in your app.
+In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple** to set up your Apple authentication method. Enable this in your app by followint the additional configuration steps for [Apple authentication](https://firebase.google.com/docs/auth/ios/apple?authuser=0) and [Apple authentication on Android](https://firebase.google.com/docs/auth/android/apple?authuser=0).
 
-### Complete the Setup
+### Complete the setup
 
-To complete set up, add this authorization callback URL to your app configuration in the Apple Developer Console. Additional steps may be needed to verify ownership of this web domain to Apple. Follow [this link](https://firebase.google.com/docs/auth/?authuser=0&hl=en) to learn more.
+To complete setup, add this authorization callback URL to your app configuration in the Apple Developer Console. Additional steps might be needed to verify ownership of this web domain to Apple. To learn more, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
 
 ## Facebook
 
-### Create an App
+### Create an app
 
-Log in or create an account in the [Facebook Developer Portal](https://developers.facebook.com/apps/) to get started. Once logged in, create a new app to support your development project. In the same portal, enable the Facebook Login product (`Products -> Facebook Login`). Next, go to `Roles -> Roles` and add your developer team so the team can customize the app configuration for Android and iOS. Finally, go to `Settings -> Advanced` and enable "App authentication, native or desktop app?"
+Log in or create an account in the [Facebook Developer Portal](https://developers.facebook.com/apps/) to get started. Once logged in, create a new app to support your development project. In the same portal, enable the Facebook Login product (**Products -> Facebook Login**). Next, go to **Roles -> Roles** and add your developer team so the team can customize the app configuration for Android and iOS. Finally, go to **Settings -> Advanced** and enable **App authentication, native or desktop app?**
 
-### Firebase Configuration
+### Firebase configuration
 
-After setting up your [Firebase project](https://flutter.github.io/news_toolkit/project_configuration/firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook` to set up your Facebook authentication method. Fill in the app ID and secret from the created Facebook app.
+After setting up your [Firebase project](https://flutter.github.io/news_toolkit/project_configuration/firebase), go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Facebook** to set up your Facebook authentication method. Fill in the app ID and secret from the created Facebook app.
 
-### Complete the Setup
+### Complete the setup
 
-To complete your setup, you'll need to add the OAuth redirect URI listed in your Firebase Authentication Sign-in Method to your Facebook app configuration. Follow [this link](https://firebase.google.com/docs/auth/?authuser=0&hl=en) for additional details.
+To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Facebook app configuration. For additional details, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
 
 ## Twitter
 
-### Create an App
+### Create an app
 
 Log in or create an account in the [Twitter Developer Portal](https://developer.twitter.com/). Once logged in, create both a project and an app to enable Twitter authentication in your news app. Enable OAuth 2.0 authentication by setting "yourapp://" as the callback URI and "Native app" as the type of the app. If possible, add your full team as developers of the Twitter app, so everyone has access to the app's ID and secret.
 
-### Enable Elevated Access
+### Enable elevated access
 
-Within [Twitter products](https://developer.twitter.com/en/portal/products), be sure to have the Twitter API v2 enable with "Elevated" access. This is needed for Twitter authentication to work.
+Within [Twitter products](https://developer.twitter.com/en/portal/products), be sure to enable Twitter API v2 with "Elevated" access. Twitter needs this for authentication to work.
 
 :::note
 
-You may need to fill out a form to apply for "Elevated" access.
+You might need to fill out a form to apply for "Elevated" access.
 
 :::
 
-### Firebase Configuration
+### Firebase configuration
 
-After setting up your [Firebase project](https://flutter.github.io/news_toolkit/project_configuration/firebase), go to `Firebase -> Authentication -> Sign-in-method -> Add new provider -> Twitter` to set up your Twitter authentication method. Fill in the app ID and secret from the created Twitter app.
+After setting up your [Firebase project](https://flutter.github.io/news_toolkit/project_configuration/firebase), go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Twitter** to set up your Twitter authentication method. Fill in the app ID and secret from the created Twitter app.
 
-### Complete the Setup
+### Complete the setup
 
-To complete your setup, you'll need to add the OAuth redirect URI listed in your Firebase Authentication Sign-in Method to your Twitter app configuration. Follow [this link](https://firebase.google.com/docs/auth/?authuser=0&hl=en) for additional details.
+To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Twitter app configuration. For more information, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.

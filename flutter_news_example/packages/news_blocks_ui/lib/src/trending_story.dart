@@ -8,11 +8,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class TrendingStory extends StatelessWidget {
   /// {@macro trending_story}
-  const TrendingStory({
-    super.key,
-    required this.title,
-    required this.block,
-  });
+  const TrendingStory({required this.title, required this.block, super.key});
 
   /// Title of the trending story.
   final String title;
@@ -35,7 +31,7 @@ class TrendingStory extends StatelessWidget {
           ),
           child: Text(
             title,
-            style: theme.overline?.apply(color: AppColors.secondary),
+            style: theme.labelSmall?.apply(color: AppColors.secondary),
           ),
         ),
         PostSmall(block: block.content)

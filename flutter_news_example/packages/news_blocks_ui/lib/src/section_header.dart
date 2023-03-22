@@ -7,7 +7,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 /// {@endtemplate}
 class SectionHeader extends StatelessWidget {
   /// {@macro section_header}
-  const SectionHeader({super.key, required this.block, this.onPressed});
+  const SectionHeader({required this.block, this.onPressed, super.key});
 
   /// The associated [SectionHeaderBlock] instance.
   final SectionHeaderBlock block;
@@ -19,7 +19,7 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final title = Text(block.title, style: theme.textTheme.headline3);
+    final title = Text(block.title, style: theme.textTheme.displaySmall);
     final action = block.action;
     final trailing = action != null
         ? IconButton(

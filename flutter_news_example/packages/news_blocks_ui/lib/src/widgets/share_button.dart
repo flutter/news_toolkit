@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class ShareButton extends StatelessWidget {
   /// {@macro share_button}
   const ShareButton({
-    super.key,
     required this.shareText,
     this.onPressed,
     Color? color,
+    super.key,
   }) : _color = color ?? AppColors.black;
 
   /// The text displayed within share icon.
@@ -35,7 +35,7 @@ class ShareButton extends StatelessWidget {
       onPressed: onPressed,
       label: Text(
         shareText,
-        style: theme.textTheme.button?.copyWith(
+        style: theme.textTheme.labelLarge?.copyWith(
           color: _color,
         ),
       ),

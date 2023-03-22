@@ -8,9 +8,9 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostMediumOverlaidLayout extends StatelessWidget {
   /// {@macro post_medium_overlaid_layout}
   const PostMediumOverlaidLayout({
-    super.key,
     required this.title,
     required this.imageUrl,
+    super.key,
   });
 
   /// Title of post.
@@ -35,7 +35,7 @@ class PostMediumOverlaidLayout extends StatelessWidget {
             title,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.subtitle2
+            style: textTheme.titleSmall
                 ?.copyWith(color: AppColors.highEmphasisPrimary),
           ),
         ),

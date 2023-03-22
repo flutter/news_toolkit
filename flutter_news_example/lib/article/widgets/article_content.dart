@@ -47,61 +47,63 @@ class ArticleContent extends StatelessWidget {
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: content.length + 1,
-              itemBuilder: (context, index) {
-                if (index == content.length) {
-                  if (isFailure) {
-                    return NetworkError(
-                      onRetry: () {
+            SelectionArea(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: content.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == content.length) {
+                    if (isFailure) {
+                      return NetworkError(
+                        onRetry: () {
+                          context
+                              .read<ArticleBloc>()
+                              .add(const ArticleRequested());
+                        },
+                      );
+                    }
+                    return hasMoreContent
+                        ? Padding(
+                            padding: EdgeInsets.only(
+                              top: content.isEmpty ? AppSpacing.xxxlg : 0,
+                            ),
+                            child: ArticleContentLoaderItem(
+                              key: const Key(
+                                'articleContent_moreContent_loaderItem',
+                              ),
+                              onPresented: () {
+                                if (status != ArticleStatus.loading) {
+                                  context
+                                      .read<ArticleBloc>()
+                                      .add(const ArticleRequested());
+                                }
+                              },
+                            ),
+                          )
+                        : const ArticleTrailingContent();
+                  }
+
+                  final block = content[index];
+                  return VisibilityDetector(
+                    key: ValueKey(block),
+                    onVisibilityChanged: (visibility) {
+                      if (!visibility.visibleBounds.isEmpty) {
                         context
                             .read<ArticleBloc>()
-                            .add(const ArticleRequested());
-                      },
-                    );
-                  }
-                  return hasMoreContent
-                      ? Padding(
-                          padding: EdgeInsets.only(
-                            top: content.isEmpty ? AppSpacing.xxxlg : 0,
-                          ),
-                          child: ArticleContentLoaderItem(
-                            key: const Key(
-                              'articleContent_moreContent_loaderItem',
-                            ),
-                            onPresented: () {
-                              if (status != ArticleStatus.loading) {
-                                context
-                                    .read<ArticleBloc>()
-                                    .add(const ArticleRequested());
-                              }
-                            },
-                          ),
-                        )
-                      : const ArticleTrailingContent();
-                }
-
-                final block = content[index];
-                return VisibilityDetector(
-                  key: ValueKey(block),
-                  onVisibilityChanged: (visibility) {
-                    if (!visibility.visibleBounds.isEmpty) {
-                      context
-                          .read<ArticleBloc>()
-                          .add(ArticleContentSeen(contentIndex: index));
-                    }
-                  },
-                  child: ArticleContentItem(
-                    block: block,
-                    onSharePressed: uri != null && uri.toString().isNotEmpty
-                        ? () => context.read<ArticleBloc>().add(
-                              ShareRequested(uri: uri),
-                            )
-                        : null,
-                  ),
-                );
-              },
+                            .add(ArticleContentSeen(contentIndex: index));
+                      }
+                    },
+                    child: ArticleContentItem(
+                      block: block,
+                      onSharePressed: uri != null && uri.toString().isNotEmpty
+                          ? () => context.read<ArticleBloc>().add(
+                                ShareRequested(uri: uri),
+                              )
+                          : null,
+                    ),
+                  );
+                },
+              ),
             ),
             const StickyAd(),
           ],
@@ -126,8 +128,8 @@ class ArticleContent extends StatelessWidget {
 
 class ArticleContentSeenListener extends StatelessWidget {
   const ArticleContentSeenListener({
-    super.key,
     required this.child,
+    super.key,
   });
 
   final Widget child;

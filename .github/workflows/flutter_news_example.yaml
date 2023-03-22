@@ -5,6 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   pull_request:
     paths:
       - "flutter_news_example/api/**"
@@ -24,13 +26,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        channel: [stable]
+
     steps:
       - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.8.0
         with:
-          flutter-version: 3.3.10
-          cache: true
+          channel: ${{matrix.channel}}
+          cache: false
 
       - name: Install Dependencies
         run: |

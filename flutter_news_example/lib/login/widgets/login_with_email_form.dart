@@ -28,22 +28,31 @@ class LoginWithEmailForm extends StatelessWidget {
             );
         }
       },
-      child: const ScrollableColumn(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.xlg,
-          AppSpacing.lg,
-          AppSpacing.xlg,
-          AppSpacing.xxlg,
-        ),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _HeaderTitle(),
-          SizedBox(height: AppSpacing.xxxlg),
-          _EmailInput(),
-          _TermsAndPrivacyPolicyLinkTexts(),
-          Spacer(),
-          _NextButton(),
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xlg,
+                AppSpacing.lg,
+                AppSpacing.xlg,
+                AppSpacing.xxlg,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  _HeaderTitle(),
+                  SizedBox(height: AppSpacing.xxxlg),
+                  _EmailInput(),
+                  _TermsAndPrivacyPolicyLinkTexts(),
+                  Spacer(),
+                  _NextButton(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -59,7 +68,7 @@ class _HeaderTitle extends StatelessWidget {
     return Text(
       context.l10n.loginWithEmailHeaderText,
       key: const Key('loginWithEmailForm_header_title'),
-      style: theme.textTheme.headline3,
+      style: theme.textTheme.displaySmall,
     );
   }
 }
@@ -117,11 +126,11 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
           children: <TextSpan>[
             TextSpan(
               text: context.l10n.loginWithEmailSubtitleText,
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyLarge,
             ),
             TextSpan(
               text: context.l10n.loginWithEmailTermsAndPrivacyPolicyText,
-              style: theme.textTheme.bodyText1?.apply(
+              style: theme.textTheme.bodyLarge?.apply(
                 color: AppColors.darkAqua,
               ),
               recognizer: TapGestureRecognizer()
@@ -132,7 +141,7 @@ class _TermsAndPrivacyPolicyLinkTexts extends StatelessWidget {
             ),
             TextSpan(
               text: '.',
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyLarge,
             ),
           ],
         ),
@@ -167,8 +176,8 @@ class _NextButton extends StatelessWidget {
 @visibleForTesting
 class ClearIconButton extends StatelessWidget {
   const ClearIconButton({
-    super.key,
     required this.onPressed,
+    super.key,
   });
 
   final VoidCallback? onPressed;

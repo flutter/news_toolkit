@@ -8,13 +8,13 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class PostMediumDescriptionLayout extends StatelessWidget {
   /// {@macro post_medium_description_layout}
   const PostMediumDescriptionLayout({
-    super.key,
     required this.title,
     required this.imageUrl,
     required this.publishedAt,
     this.description,
     this.author,
     this.onShare,
+    super.key,
   });
 
   /// Title of post.
@@ -49,7 +49,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: textTheme.headline6
+                  style: textTheme.titleLarge
                       ?.copyWith(color: AppColors.highEmphasisSurface),
                 ),
               ),
@@ -61,7 +61,7 @@ class PostMediumDescriptionLayout extends StatelessWidget {
           ),
           Text(
             description ?? '',
-            style: textTheme.bodyText2
+            style: textTheme.bodyMedium
                 ?.copyWith(color: AppColors.mediumEmphasisSurface),
           ),
           const SizedBox(height: AppSpacing.sm),

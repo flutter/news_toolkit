@@ -43,7 +43,7 @@ class HomeView extends StatelessWidget {
           centerTitle: true,
           actions: const [UserProfileButton()],
         ),
-        drawer: const NavigationDrawer(),
+        drawer: const NavDrawer(),
         body: IndexedStack(
           index: selectedTab,
           children: const [

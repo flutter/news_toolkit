@@ -8,9 +8,9 @@ import 'package:news_blocks/news_blocks.dart';
 class TextCaption extends StatelessWidget {
   /// {@macro text_caption}
   const TextCaption({
-    super.key,
     required this.block,
     this.colorValues = _defaultColorValues,
+    super.key,
   });
 
   /// The associated [TextCaption] instance.
@@ -37,7 +37,7 @@ class TextCaption extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context).textTheme.caption?.apply(color: color),
+        style: Theme.of(context).textTheme.bodySmall?.apply(color: color),
       ),
     );
   }

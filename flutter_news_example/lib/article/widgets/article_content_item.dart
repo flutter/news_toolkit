@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Spacer, Image;
+import 'package:flutter/material.dart' hide Image, Spacer;
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart';
@@ -8,9 +8,9 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class ArticleContentItem extends StatelessWidget {
   const ArticleContentItem({
-    super.key,
     required this.block,
     this.onSharePressed,
+    super.key,
   });
 
   /// The associated [NewsBlock] instance.
@@ -50,9 +50,7 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is ArticleIntroductionBlock) {
       return ArticleIntroduction(
         block: newsBlock,
-        shareText: context.l10n.shareText,
         premiumText: context.l10n.newsBlockPremiumText,
-        onSharePressed: onSharePressed,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
       return VideoIntroduction(block: newsBlock);

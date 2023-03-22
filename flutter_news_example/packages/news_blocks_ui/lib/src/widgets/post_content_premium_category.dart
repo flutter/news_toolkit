@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 class PostContentPremiumCategory extends StatelessWidget {
   /// {@macro post_content_premium_category}
   const PostContentPremiumCategory({
-    super.key,
     required this.premiumText,
     required this.isVideoContent,
+    super.key,
   });
 
   /// Text displayed when post is premium content.
@@ -41,7 +41,7 @@ class PostContentPremiumCategory extends StatelessWidget {
                 premiumText.toUpperCase(),
                 style: Theme.of(context)
                     .textTheme
-                    .overline
+                    .labelSmall
                     ?.copyWith(color: textColor),
               ),
             ),

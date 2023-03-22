@@ -52,7 +52,6 @@ class TypographyPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Typography')),
       body: ListView(
-        shrinkWrap: true,
         children: [
           const Center(child: Text('UI Typography')),
           const SizedBox(height: 16),

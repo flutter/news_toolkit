@@ -10,10 +10,10 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 class SlideshowIntroduction extends StatelessWidget {
   /// {@macro slideshow_introduction}
   const SlideshowIntroduction({
-    super.key,
     required this.block,
     required this.slideshowText,
     this.onPressed,
+    super.key,
   });
 
   /// The associated [SlideshowIntroductionBlock] instance.
@@ -56,7 +56,7 @@ class SlideshowIntroduction extends StatelessWidget {
                   ),
                   Text(
                     block.title,
-                    style: textTheme.headline2?.copyWith(
+                    style: textTheme.displayMedium?.copyWith(
                       color: AppColors.highEmphasisPrimary,
                     ),
                     maxLines: 1,

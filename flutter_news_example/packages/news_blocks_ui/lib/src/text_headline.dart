@@ -7,7 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextHeadline extends StatelessWidget {
   /// {@macro text_headline}
-  const TextHeadline({super.key, required this.block});
+  const TextHeadline({required this.block, super.key});
 
   /// The associated [TextHeadlineBlock] instance.
   final TextHeadlineBlock block;
@@ -18,7 +18,7 @@ class TextHeadline extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context).textTheme.headline2,
+        style: Theme.of(context).textTheme.displayMedium,
       ),
     );
   }

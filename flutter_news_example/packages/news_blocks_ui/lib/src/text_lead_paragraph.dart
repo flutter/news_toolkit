@@ -7,7 +7,7 @@ import 'package:news_blocks/news_blocks.dart';
 /// {@endtemplate}
 class TextLeadParagraph extends StatelessWidget {
   /// {@macro text_lead_paragraph}
-  const TextLeadParagraph({super.key, required this.block});
+  const TextLeadParagraph({required this.block, super.key});
 
   /// The associated [TextLeadParagraphBlock] instance.
   final TextLeadParagraphBlock block;
@@ -18,7 +18,7 @@ class TextLeadParagraph extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       child: Text(
         block.text,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }

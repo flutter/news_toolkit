@@ -1,11 +1,11 @@
-import 'package:app_ui/app_ui.dart' show AppColors, AppSpacing, AppLogo;
+import 'package:app_ui/app_ui.dart' show AppColors, AppLogo, AppSpacing;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/navigation/navigation.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({super.key});
+class NavDrawer extends StatelessWidget {
+  const NavDrawer({super.key});
 
   static const _contentPadding = AppSpacing.lg;
 
@@ -40,11 +40,11 @@ class NavigationDrawer extends StatelessWidget {
                 child: AppLogo.light(),
               ),
             ),
-            const _NavigationDrawerDivider(),
-            const NavigationDrawerSections(),
+            const _NavDrawerDivider(),
+            const NavDrawerSections(),
             if (!isUserSubscribed) ...[
-              const _NavigationDrawerDivider(),
-              const NavigationDrawerSubscribe(),
+              const _NavDrawerDivider(),
+              const NavDrawerSubscribe(),
             ],
           ],
         ),
@@ -53,8 +53,8 @@ class NavigationDrawer extends StatelessWidget {
   }
 }
 
-class _NavigationDrawerDivider extends StatelessWidget {
-  const _NavigationDrawerDivider();
+class _NavDrawerDivider extends StatelessWidget {
+  const _NavDrawerDivider();
 
   @override
   Widget build(BuildContext context) {

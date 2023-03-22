@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 
 class NotificationCategoryTile extends StatelessWidget {
   const NotificationCategoryTile({
-    super.key,
     required this.title,
     required this.trailing,
     this.onTap,
+    super.key,
   });
 
   final String title;
@@ -29,7 +29,7 @@ class NotificationCategoryTile extends StatelessWidget {
       onTap: onTap,
       title: Text(
         toBeginningOfSentenceCase(title) ?? '',
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }

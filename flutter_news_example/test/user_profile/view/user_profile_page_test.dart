@@ -463,6 +463,14 @@ void main() {
           );
 
           final termsOfService = find.byKey(termsOfServiceItemKey);
+
+          await tester.dragUntilVisible(
+            termsOfService,
+            find.byType(UserProfileView),
+            Offset(0, -100),
+            duration: Duration.zero,
+          );
+          await tester.pumpAndSettle();
           await tester.ensureVisible(termsOfService);
           await tester.tap(termsOfService);
           await tester.pumpAndSettle();
@@ -511,8 +519,17 @@ void main() {
             ),
           );
 
-          final subscriptionItem =
-              find.byKey(Key('userProfilePage_notificationPreferencesItem'));
+          final subscriptionItem = find.byKey(
+            Key('userProfilePage_notificationPreferencesItem'),
+          );
+          await tester.dragUntilVisible(
+            subscriptionItem,
+            find.byType(UserProfileView),
+            Offset(0, -100),
+            duration: Duration.zero,
+          );
+          await tester.pumpAndSettle();
+
           await tester.ensureVisible(subscriptionItem);
           await tester.tap(subscriptionItem);
           await tester.pumpAndSettle();
