@@ -15,7 +15,7 @@ class AuthenticatedUserListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated) {
+        if (state.status.isLoggedIn) {
           context.read<AnalyticsBloc>().add(
                 TrackAnalyticsEvent(
                   state.user.isNewUser ? RegistrationEvent() : LoginEvent(),

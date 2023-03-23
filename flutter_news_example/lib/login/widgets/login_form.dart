@@ -14,7 +14,7 @@ class LoginForm extends StatelessWidget {
     final l10n = context.l10n;
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
-        if (state.status == AppStatus.authenticated) {
+        if (state.status.isLoggedIn) {
           // Pop all routes on top of [LoginModal], then pop the modal itself.
           Navigator.of(context)
               .popUntil((route) => route.settings.name == LoginModal.name);
