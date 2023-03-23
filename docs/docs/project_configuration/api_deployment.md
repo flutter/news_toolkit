@@ -68,7 +68,7 @@ By default, your app expects to receive news data from `localhost`. In order to 
 
 :::note
 
-If you're using an android emulator, you must set `https://10.0.2.2:8080` as the `baseUrl` instead of `http://localhost:8080`.
+If you're using an android emulator, you must set `http://10.0.2.2:8080` as the `baseUrl` instead of `http://localhost:8080`.
 
 :::
 
