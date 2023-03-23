@@ -234,6 +234,49 @@ void main() {
         expect(find.byType(LoginWithEmailPage), findsNothing);
         expect(find.byType(LoginForm), findsNothing);
       });
+
+      testWidgets('when user is authenticated and onboarding is required',
+          (tester) async {
+        final appStateController = StreamController<AppState>();
+
+        whenListen(
+          appBloc,
+          appStateController.stream,
+          initialState: const AppState.unauthenticated(),
+        );
+
+        await tester.pumpApp(
+          Builder(
+            builder: (context) {
+              return AppButton.black(
+                child: Text(buttonText),
+                onPressed: () => showAppModal<void>(
+                  context: context,
+                  builder: (context) => BlocProvider.value(
+                    value: appBloc,
+                    child: LoginModal(),
+                  ),
+                  routeSettings: const RouteSettings(name: LoginModal.name),
+                ),
+              );
+            },
+          ),
+        );
+        await tester.tap(find.text(buttonText));
+        await tester.pumpAndSettle();
+
+        await tester.ensureVisible(find.byKey(loginButtonKey));
+        await tester.tap(find.byKey(loginButtonKey));
+        await tester.pumpAndSettle();
+        expect(find.byType(LoginWithEmailPage), findsOneWidget);
+
+        appStateController.add(AppState.onboardingRequired(user));
+        await tester.pump();
+        await tester.pumpAndSettle();
+
+        expect(find.byType(LoginWithEmailPage), findsNothing);
+        expect(find.byType(LoginForm), findsNothing);
+      });
     });
   });
 }
