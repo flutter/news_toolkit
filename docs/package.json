@@ -32,7 +32,7 @@
     "@docusaurus/module-type-aliases": "2.3.1",
     "@tsconfig/docusaurus": "^1.0.7",
     "eslint": "^8.34.0",
-    "prettier": "^2.8.6",
+    "prettier": "^2.8.7",
     "typescript": "^5.0.2"
   },
   "browserslist": {
