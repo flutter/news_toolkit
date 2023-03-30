@@ -25,7 +25,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
     final theme = Theme.of(context);
     final l10n = context.l10n;
     final isLoggedIn = context.select<AppBloc, bool>(
-      (AppBloc bloc) => bloc.state.status == AppStatus.authenticated,
+      (AppBloc bloc) => bloc.state.status.isLoggedIn,
     );
 
     final articleTitle = context.select((ArticleBloc bloc) => bloc.state.title);
