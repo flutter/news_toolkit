@@ -1,3 +1,9 @@
+# 1.0.2
+
+- fix: issues with first login
+- docs: fix android emulator address
+- docs: update Dart Frog description
+
 # 1.0.1
 
 - fix: add missing permissions for ads on android 13
