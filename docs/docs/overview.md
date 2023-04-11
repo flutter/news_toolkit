@@ -188,4 +188,4 @@ We invite contributions from the Flutter community. Please review the [Contribut
 
 ## Opening issues
 
-Please open an issue in the main [flutter/flutter](https://github.com/flutter/flutter/issues) issue tracker if you encounter any bugs or have enhancement suggestions for this toolkit. Issues should follow the [Issue hygiene](https://github.com/flutter/flutter/wiki/Issue-hygiene) guidelines and will be [triaged](https://github.com/flutter/flutter/wiki/Triage) by the Flutter team with the appropraite labels and priority.
+Please open an issue in the main [flutter/flutter](https://github.com/flutter/flutter/issues) issue tracker if you encounter any bugs or have enhancement suggestions for this toolkit. Issues should follow the [Issue hygiene](https://github.com/flutter/flutter/wiki/Issue-hygiene) guidelines and will be [triaged](https://github.com/flutter/flutter/wiki/Triage) by the Flutter team with the appropriate labels and priority.
