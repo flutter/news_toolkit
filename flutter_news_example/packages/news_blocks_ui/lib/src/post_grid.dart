@@ -38,7 +38,7 @@ class PostGrid extends StatelessWidget {
 
     final deviceWidth = MediaQuery.of(context).size.width;
     final list = [...gridGroupBlock.tiles];
-    final newList = List.generate(2, (index) => list[index % 4]);
+    final newList = List.generate(30000, (index) => list[index % 4]);
 
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
