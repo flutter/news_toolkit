@@ -3,7 +3,7 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:news_blocks_ui/src/sliver_grid_custom_delegates.dart';
+import 'package:news_blocks_ui/src/sliver_grid_custom_delegate.dart';
 
 void main() {
   group('SliverGridCustomDelegate', () {

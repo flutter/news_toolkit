@@ -84,8 +84,8 @@ void main() {
             BlocProvider.value(value: articleBloc),
             BlocProvider.value(value: appBloc),
           ],
-          child: SingleChildScrollView(
-            child: ArticleTrailingContent(),
+          child: CustomScrollView(
+            slivers: [ArticleTrailingContent()],
           ),
         ),
       );
@@ -119,9 +119,7 @@ void main() {
       await tester.pumpApp(
         BlocProvider.value(
           value: articleBloc,
-          child: SingleChildScrollView(
-            child: ArticleTrailingContent(),
-          ),
+          child: CustomScrollView(slivers: [ArticleTrailingContent()]),
         ),
       );
 
@@ -156,8 +154,8 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+            child: CustomScrollView(
+              slivers: [ArticleTrailingContent()],
             ),
           ),
         );
@@ -172,29 +170,13 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+            child: CustomScrollView(
+              slivers: [ArticleTrailingContent()],
             ),
           ),
         );
 
         expect(find.byType(ArticleComments), findsNothing);
-      });
-
-      testWidgets('renders ArticleTrailingShadow', (tester) async {
-        await tester.pumpApp(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: articleBloc),
-              BlocProvider.value(value: appBloc),
-            ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
-            ),
-          ),
-        );
-
-        expect(find.byType(ArticleTrailingShadow), findsOneWidget);
       });
 
       testWidgets(
@@ -222,8 +204,8 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+            child: CustomScrollView(
+              slivers: [ArticleTrailingContent()],
             ),
           ),
         );
@@ -263,8 +245,8 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+            child: CustomScrollView(
+              slivers: [ArticleTrailingContent()],
             ),
           ),
         );
@@ -299,8 +281,8 @@ void main() {
                 BlocProvider.value(value: articleBloc),
                 BlocProvider.value(value: appBloc),
               ],
-              child: SingleChildScrollView(
-                child: ArticleTrailingContent(),
+              child: CustomScrollView(
+                slivers: [ArticleTrailingContent()],
               ),
             ),
           );
@@ -341,8 +323,8 @@ void main() {
               BlocProvider.value(value: articleBloc),
               BlocProvider.value(value: appBloc),
             ],
-            child: SingleChildScrollView(
-              child: ArticleTrailingContent(),
+            child: CustomScrollView(
+              slivers: [ArticleTrailingContent()],
             ),
           ),
         );
