@@ -71,17 +71,6 @@ class CategoryFeed extends StatelessWidget {
     bool isFailure,
   ) {
     final sliverList = <Widget>[];
-    // All fetchs of the feed are triggered by the CategoryFeedLoaderItem.
-    // The previous code used ListView.builder, and it had
-    // itemCount: feedList + 1.
-    // This caused that the CategoryFeedLoaderItem widget always rendered,
-    // thus the initial fetch always got triggered.
-    // Now we are using CustomScrollView, and it does not have a builder
-    // constructor. To avoid making even more changes to the code
-    // I just translated the behaviour to an indexed for, so that the
-    // CategoryFeedLoaderItem can be rendered and the initial fetch can
-    // get triggered.
-    // I do believe it'd be nice to refactor this at some point in time.
 
     for (var index = 0; index < categoryFeed.length + 1; index++) {
       late Widget result;
@@ -94,27 +83,26 @@ class CategoryFeed extends StatelessWidget {
                   .add(FeedRefreshRequested(category: category));
             },
           );
+        } else {
+          result = hasMoreNews
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
+                  ),
+                  child: CategoryFeedLoaderItem(
+                    key: ValueKey(index),
+                    onPresented: () => context
+                        .read<FeedBloc>()
+                        .add(FeedRequested(category: category)),
+                  ),
+                )
+              : const SizedBox();
         }
-        result = hasMoreNews
-            ? Padding(
-                padding: EdgeInsets.only(
-                  top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
-                ),
-                child: CategoryFeedLoaderItem(
-                  key: ValueKey(index),
-                  onPresented: () => context
-                      .read<FeedBloc>()
-                      .add(FeedRequested(category: category)),
-                ),
-              )
-            : const SizedBox();
-      }
 
-      if (categoryFeed.isEmpty || index == categoryFeed.length) {
         sliverList.add(SliverToBoxAdapter(child: result));
       } else {
         final block = categoryFeed[index];
-        sliverList.add(CategoryFeedItem(block: block, constructAsSliver: true));
+        sliverList.add(CategoryFeedItem(block: block));
       }
     }
 

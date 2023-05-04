@@ -9,18 +9,10 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class CategoryFeedItem extends StatelessWidget {
-  const CategoryFeedItem({
-    required this.block,
-    this.constructAsSliver = false,
-    super.key,
-  });
+  const CategoryFeedItem({required this.block, super.key});
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
-
-  /// If true, returns all block widgets wrapped in sliver adapters.
-  /// This does not apply to the PostGridGroupBlock.
-  final bool constructAsSliver;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +67,7 @@ class CategoryFeedItem extends StatelessWidget {
       widget = const SizedBox();
     }
 
-    return (constructAsSliver && newsBlock is! PostGridGroupBlock)
+    return (newsBlock is! PostGridGroupBlock)
         ? SliverToBoxAdapter(child: widget)
         : widget;
   }
