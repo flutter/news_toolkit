@@ -109,7 +109,7 @@ class HeaderGridTileLayout extends SliverGridRegularTileLayout {
   @override
   double computeMaxScrollOffset(int childCount) {
     // Since the first element is taking up twice the
-    // witdh and height of the other grid elements,
+    // width and height of the other grid elements,
     // for computing max scroll offset it can be assumed
     // as if there was 3 more children on the grid, so
     // every child after that position must move below,
