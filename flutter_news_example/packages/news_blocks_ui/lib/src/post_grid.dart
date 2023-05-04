@@ -2,7 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
-import 'package:news_blocks_ui/src/sliver_grid_custom_delegates.dart';
+import 'package:news_blocks_ui/src/sliver_grid_custom_delegate.dart';
 
 /// {@template post_grid}
 /// A reusable post grid view.
@@ -32,13 +32,11 @@ class PostGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (gridGroupBlock.tiles.isEmpty) return const SizedBox();
-
-    final firstBlock = gridGroupBlock.tiles.first;
+    if (gridGroupBlock.tiles.isEmpty) {
+      return const SliverToBoxAdapter(child: SizedBox());
+    }
 
     final deviceWidth = MediaQuery.of(context).size.width;
-    final list = [...gridGroupBlock.tiles];
-    final newList = List.generate(30000, (index) => list[index % 4]);
 
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -51,10 +49,10 @@ class PostGrid extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
-            print('Item $index rendered');
+            final block = gridGroupBlock.tiles[index];
             if (index == 0) {
               return PostLarge(
-                block: firstBlock.toPostLargeBlock(),
+                block: block.toPostLargeBlock(),
                 premiumText: premiumText,
                 isLocked: isLocked,
                 onPressed: onPressed,
@@ -62,11 +60,11 @@ class PostGrid extends StatelessWidget {
             }
 
             return PostMedium(
-              block: newList.toList()[index].toPostMediumBlock(),
+              block: block.toPostMediumBlock(),
               onPressed: onPressed,
             );
           },
-          childCount: newList.length,
+          childCount: gridGroupBlock.tiles.length,
         ),
       ),
     );

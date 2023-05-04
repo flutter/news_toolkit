@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/rendering.dart';
 
-/// Custom GridDelegate that allows to use [HeaderDelegateTileLayout].
+/// Custom GridDelegate that allows to use [HeaderGridTileLayout].
 /// This way, the grid can have the first element as a header.
 class CustomMaxCrossAxisDelegate
     extends SliverGridDelegateWithMaxCrossAxisExtent {
@@ -33,7 +33,7 @@ class CustomMaxCrossAxisDelegate
     final childCrossAxisExtent = usableCrossAxisExtent / crossAxisCount;
     final childMainAxisExtent =
         mainAxisExtent ?? childCrossAxisExtent / childAspectRatio;
-    return HeaderDelegateTileLayout(
+    return HeaderGridTileLayout(
       crossAxisCount: crossAxisCount,
       mainAxisStride: childMainAxisExtent + mainAxisSpacing,
       crossAxisStride: childCrossAxisExtent + crossAxisSpacing,
@@ -46,10 +46,10 @@ class CustomMaxCrossAxisDelegate
 
 /// Custom [SliverGridRegularTileLayout] that creates a different
 /// [SliverGridGeometry] for the first element of the grid.
-class HeaderDelegateTileLayout extends SliverGridRegularTileLayout {
+class HeaderGridTileLayout extends SliverGridRegularTileLayout {
   /// Creates a custom layout that makes grid layouts with tiles
   /// that have a maximum cross-axis extent.
-  const HeaderDelegateTileLayout({
+  const HeaderGridTileLayout({
     required super.crossAxisCount,
     required super.mainAxisStride,
     required super.crossAxisStride,
@@ -59,15 +59,27 @@ class HeaderDelegateTileLayout extends SliverGridRegularTileLayout {
   });
 
   @override
-  int getMinChildIndexForScrollOffset(double scrollOffset) {
-    final result = super.getMinChildIndexForScrollOffset(scrollOffset);
-    return (result > 0) ? result - 1 : result;
+  // ignore: hash_and_equals
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is HeaderGridTileLayout &&
+        other.childCrossAxisExtent == childCrossAxisExtent &&
+        other.mainAxisStride == mainAxisStride &&
+        other.crossAxisStride == crossAxisStride &&
+        other.childMainAxisExtent == childMainAxisExtent &&
+        other.childCrossAxisExtent == childCrossAxisExtent &&
+        other.reverseCrossAxis == reverseCrossAxis;
   }
 
   @override
-  int getMaxChildIndexForScrollOffset(double scrollOffset) {
+  int getMinChildIndexForScrollOffset(double scrollOffset) {
     final result = super.getMinChildIndexForScrollOffset(scrollOffset);
-    return (result > 0) ? result : result;
+    return (result > 0) ? result - 1 : result;
   }
 
   @override
