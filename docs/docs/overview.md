@@ -58,9 +58,10 @@ dart pub global activate dart_frog_cli
 ```
 
 :::info
-[Dart Frog][dart_frog_link] is fast, minimalistic backend framework for Dart.
+[Dart Frog][dart_frog_link] is a fast, minimalistic backend framework for Dart. It is stable as of [v0.1.0](https://github.com/VeryGoodOpenSource/dart_frog/releases/tag/dart_frog-v0.1.0).
 
-You'll use Dart Frog as a backend for frontends (BFF) which allows you to connect your backend with the Flutter News Template frontend.
+You'll use Dart Frog as a [backend for frontends (BFF)](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends), which allows you to connect your existing backend to the Flutter News Template frontend. Dart Frog reduces the barrier for entry for all publishers, despite any existing backend, and brings your app to market faster without required client modifications.
+
 :::
 
 ### Generate your project
@@ -180,3 +181,11 @@ You've generated and run your custom news app! Head over to [project configurati
 [dart_installation_link]: https://dart.dev/get-dart
 [mason_link]: https://github.com/felangel/mason
 [mason_cli_link]: https://pub.dev/packages/mason_cli
+
+## Contributions
+
+We invite contributions from the Flutter community. Please review the [Contributing to Flutter](https://github.com/flutter/flutter/blob/master/CONTRIBUTING.md) documentation and [Contributor access](https://github.com/flutter/flutter/wiki/Contributor-access) page on our wiki to get started.
+
+## Opening issues
+
+Please open an issue in the main [flutter/flutter](https://github.com/flutter/flutter/issues) issue tracker if you encounter any bugs or have enhancement suggestions for this toolkit. Issues should follow the [Issue hygiene](https://github.com/flutter/flutter/wiki/Issue-hygiene) guidelines and will be [triaged](https://github.com/flutter/flutter/wiki/Triage) by the Flutter team with the appropriate labels and priority.

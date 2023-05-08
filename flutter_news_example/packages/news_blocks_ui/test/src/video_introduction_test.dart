@@ -6,6 +6,7 @@ import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
 import '../helpers/helpers.dart';
 
@@ -19,7 +20,13 @@ void main() {
       'and prices are finally falling';
 
   group('VideoIntroduction', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () {
+        final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+        VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+        setUpTolerantComparator();
+      },
+    );
 
     testWidgets('renders correctly', (tester) async {
       final technologyVideoIntroduction = VideoIntroductionBlock(
