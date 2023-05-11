@@ -45,7 +45,7 @@ jobs:
           very_good packages get --recursive
 
       - name: Format
-        run: flutter format --set-exit-if-changed lib test
+        run: dart format --set-exit-if-changed lib test
 
       - name: Analyze
         run: flutter analyze lib test
