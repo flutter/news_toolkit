@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
-import 'package:news_repository/news_repository.dart';
+import 'package:flutter_news_example_api/client.dart';
 
 class CategoryFeed extends StatelessWidget {
   const CategoryFeed({
@@ -50,41 +50,62 @@ class CategoryFeed extends StatelessWidget {
         displacement: 0,
         color: AppColors.mediumHighEmphasisSurface,
         child: SelectionArea(
-          child: ListView.builder(
-            itemCount: categoryFeed.length + 1,
+          child: CustomScrollView(
             controller: scrollController,
-            itemBuilder: (context, index) {
-              if (index == categoryFeed.length) {
-                if (isFailure) {
-                  return NetworkError(
-                    onRetry: () {
-                      context
-                          .read<FeedBloc>()
-                          .add(FeedRefreshRequested(category: category));
-                    },
-                  );
-                }
-                return hasMoreNews
-                    ? Padding(
-                        padding: EdgeInsets.only(
-                          top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
-                        ),
-                        child: CategoryFeedLoaderItem(
-                          key: ValueKey(index),
-                          onPresented: () => context
-                              .read<FeedBloc>()
-                              .add(FeedRequested(category: category)),
-                        ),
-                      )
-                    : const SizedBox();
-              }
-
-              final block = categoryFeed[index];
-              return CategoryFeedItem(block: block);
-            },
+            slivers: _buildSliverItems(
+              context,
+              categoryFeed,
+              hasMoreNews,
+              isFailure,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildSliverItems(
+    BuildContext context,
+    List<NewsBlock> categoryFeed,
+    bool hasMoreNews,
+    bool isFailure,
+  ) {
+    final sliverList = <Widget>[];
+
+    for (var index = 0; index < categoryFeed.length + 1; index++) {
+      late Widget result;
+      if (index == categoryFeed.length) {
+        if (isFailure) {
+          result = NetworkError(
+            onRetry: () {
+              context
+                  .read<FeedBloc>()
+                  .add(FeedRefreshRequested(category: category));
+            },
+          );
+        } else {
+          result = hasMoreNews
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    top: categoryFeed.isEmpty ? AppSpacing.xxxlg : 0,
+                  ),
+                  child: CategoryFeedLoaderItem(
+                    key: ValueKey(index),
+                    onPresented: () => context
+                        .read<FeedBloc>()
+                        .add(FeedRequested(category: category)),
+                  ),
+                )
+              : const SizedBox();
+        }
+
+        sliverList.add(SliverToBoxAdapter(child: result));
+      } else {
+        final block = categoryFeed[index];
+        sliverList.add(CategoryFeedItem(block: block));
+      }
+    }
+
+    return sliverList;
   }
 }
