@@ -9,10 +9,7 @@ import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
 class CategoryFeedItem extends StatelessWidget {
-  const CategoryFeedItem({
-    required this.block,
-    super.key,
-  });
+  const CategoryFeedItem({required this.block, super.key});
 
   /// The associated [NewsBlock] instance.
   final NewsBlock block;
@@ -24,49 +21,55 @@ class CategoryFeedItem extends StatelessWidget {
     final isUserSubscribed =
         context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
 
+    late Widget widget;
+
     if (newsBlock is DividerHorizontalBlock) {
-      return DividerHorizontal(block: newsBlock);
+      widget = DividerHorizontal(block: newsBlock);
     } else if (newsBlock is SpacerBlock) {
-      return Spacer(block: newsBlock);
+      widget = Spacer(block: newsBlock);
     } else if (newsBlock is SectionHeaderBlock) {
-      return SectionHeader(
+      widget = SectionHeader(
         block: newsBlock,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostLargeBlock) {
-      return PostLarge(
+      widget = PostLarge(
         block: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
         isLocked: newsBlock.isPremium && !isUserSubscribed,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostMediumBlock) {
-      return PostMedium(
+      widget = PostMedium(
         block: newsBlock,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostSmallBlock) {
-      return PostSmall(
+      widget = PostSmall(
         block: newsBlock,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostGridGroupBlock) {
-      return PostGrid(
+      widget = PostGrid(
         gridGroupBlock: newsBlock,
         premiumText: context.l10n.newsBlockPremiumText,
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is NewsletterBlock) {
-      return const Newsletter();
+      widget = const Newsletter();
     } else if (newsBlock is BannerAdBlock) {
-      return BannerAd(
+      widget = BannerAd(
         block: newsBlock,
         adFailedToLoadTitle: context.l10n.adLoadFailure,
       );
     } else {
       // Render an empty widget for the unsupported block type.
-      return const SizedBox();
+      widget = const SizedBox();
     }
+
+    return (newsBlock is! PostGridGroupBlock)
+        ? SliverToBoxAdapter(child: widget)
+        : widget;
   }
 
   /// Handles actions triggered by tapping on feed items.
