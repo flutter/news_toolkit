@@ -44,7 +44,7 @@ dependencies:
     sdk: flutter
   flutter_news_example_api:
     path: api
-  flutter_svg: '>=2.0.1 <2.0.4'
+  flutter_svg: ^2.0.5
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
