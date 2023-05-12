@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   collection: ^1.16.0
-  dart_frog: ^0.3.5
+  dart_frog: ^0.3.2
   equatable: ^2.0.5
   http: ^0.13.5
   json_annotation: ^4.6.0

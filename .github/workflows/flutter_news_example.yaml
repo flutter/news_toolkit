@@ -36,6 +36,7 @@ jobs:
       - uses: subosito/flutter-action@v2.10.0
         with:
           channel: ${{matrix.channel}}
+          flutter-version: "3.7.3"
           cache: false
 
       - name: Install Dependencies
@@ -45,7 +46,7 @@ jobs:
           very_good packages get --recursive
 
       - name: Format
-        run: flutter format --set-exit-if-changed lib test
+        run: dart format --set-exit-if-changed lib test
 
       - name: Analyze
         run: flutter analyze lib test

@@ -5,14 +5,14 @@ PODS:
   - AppAuth/Core (1.6.0)
   - AppAuth/ExternalUserAgent (1.6.0):
     - AppAuth/Core
-  - FBAEMKit (14.1.0):
-    - FBSDKCoreKit_Basics (= 14.1.0)
-  - FBSDKCoreKit (14.1.0):
-    - FBAEMKit (= 14.1.0)
-    - FBSDKCoreKit_Basics (= 14.1.0)
-  - FBSDKCoreKit_Basics (14.1.0)
-  - FBSDKLoginKit (14.1.0):
-    - FBSDKCoreKit (= 14.1.0)
+  - FBAEMKit (15.1.0):
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit (15.1.0):
+    - FBAEMKit (= 15.1.0)
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit_Basics (15.1.0)
+  - FBSDKLoginKit (15.1.0):
+    - FBSDKCoreKit (= 15.1.0)
   - Firebase/Analytics (10.3.0):
     - Firebase/Core
   - Firebase/Auth (10.3.0):
@@ -116,8 +116,10 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Flutter (1.0.0)
-  - flutter_facebook_auth (4.4.1):
-    - FBSDKLoginKit (= 14.1.0)
+  - flutter_facebook_auth (5.0.4):
+    - FBSDKLoginKit (~> 15.1.0)
+    - Flutter
+  - flutter_secure_storage (6.0.0):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -224,6 +226,7 @@ DEPENDENCIES:
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.3.0`)
   - Flutter (from `Flutter`)
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
@@ -285,6 +288,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_facebook_auth:
     :path: ".symlinks/plugins/flutter_facebook_auth/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   google_mobile_ads:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   google_sign_in_ios:
@@ -317,10 +322,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
-  FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
-  FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
-  FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
-  FBSDKLoginKit: 787de205d524c3a4b17d527916f1d066e4361660
+  FBAEMKit: c7f82b5145d446bcbbcd50485c032689032fc6a2
+  FBSDKCoreKit: 7542746fc63a2a38dd6a865eeb54268341f37b83
+  FBSDKCoreKit_Basics: 92d6b26c0bed30ab09bbdd96dccaa26e6c9978d1
+  FBSDKLoginKit: 4e275d30cf90e92bdf3a7c82857a8642abf23037
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
   firebase_analytics: 649edaf7b1f891d4f04e5e3d52c051d8d73432f8
   firebase_auth: d1a0302ad8f1d642fc1cb53c43d25a951d70e190
@@ -338,7 +343,8 @@ SPEC CHECKSUMS:
   FirebaseInstallations: e2f26126089dcf41e215f7b8925af8d953c7d602
   FirebaseMessaging: e345b219fd15d325f0cf2fef28cb8ce00d851b3f
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_facebook_auth: 361ac7a57263ebf327f26089507ead0d66558ee8
+  flutter_facebook_auth: c69f4e643b1d9cc9063ec87c9411bd9ec268108f
+  flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   Google-Mobile-Ads-SDK: 4fe6304b771f8467d29978cb790ec1e56e646946
   google_mobile_ads: 6bfe04d9c9fd5c2a026e6f09ca2d97ae25b78f7e
@@ -363,6 +369,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: fb12c43172927bb5cf75aeebd073f883801f1993
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
 
-PODFILE CHECKSUM: fa3705b6d4d8e7aa6368164166a9cb61168caf85
+PODFILE CHECKSUM: b4af0eccadeea9cd911047c4ba5ea2a38db092eb
 
 COCOAPODS: 1.11.3
