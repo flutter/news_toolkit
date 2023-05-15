@@ -6,6 +6,7 @@ import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/network_error/network_error.dart';
+import 'package:{{project_name.snakeCase()}}_api/client.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
@@ -14,13 +15,9 @@ class ArticleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
-    final content = context.select((ArticleBloc bloc) => bloc.state.content);
-    final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
+
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
-    final isFailure = context.select(
-      (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
-    );
 
     if (status == ArticleStatus.initial) {
       return const ArticleContentLoaderItem(
@@ -48,61 +45,11 @@ class ArticleContent extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             SelectionArea(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: content.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == content.length) {
-                    if (isFailure) {
-                      return NetworkError(
-                        onRetry: () {
-                          context
-                              .read<ArticleBloc>()
-                              .add(const ArticleRequested());
-                        },
-                      );
-                    }
-                    return hasMoreContent
-                        ? Padding(
-                            padding: EdgeInsets.only(
-                              top: content.isEmpty ? AppSpacing.xxxlg : 0,
-                            ),
-                            child: ArticleContentLoaderItem(
-                              key: const Key(
-                                'articleContent_moreContent_loaderItem',
-                              ),
-                              onPresented: () {
-                                if (status != ArticleStatus.loading) {
-                                  context
-                                      .read<ArticleBloc>()
-                                      .add(const ArticleRequested());
-                                }
-                              },
-                            ),
-                          )
-                        : const ArticleTrailingContent();
-                  }
-
-                  final block = content[index];
-                  return VisibilityDetector(
-                    key: ValueKey(block),
-                    onVisibilityChanged: (visibility) {
-                      if (!visibility.visibleBounds.isEmpty) {
-                        context
-                            .read<ArticleBloc>()
-                            .add(ArticleContentSeen(contentIndex: index));
-                      }
-                    },
-                    child: ArticleContentItem(
-                      block: block,
-                      onSharePressed: uri != null && uri.toString().isNotEmpty
-                          ? () => context.read<ArticleBloc>().add(
-                                ShareRequested(uri: uri),
-                              )
-                          : null,
-                    ),
-                  );
-                },
+              child: CustomScrollView(
+                slivers: [
+                  const ArticleContentItemList(),
+                  if (!hasMoreContent) const ArticleTrailingContent(),
+                ],
               ),
             ),
             const StickyAd(),
@@ -149,5 +96,104 @@ class ArticleContentSeenListener extends StatelessWidget {
           previous.contentMilestone != current.contentMilestone,
       child: child,
     );
+  }
+}
+
+class ArticleContentItemList extends StatelessWidget {
+  const ArticleContentItemList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isFailure = context.select(
+      (ArticleBloc bloc) => bloc.state.status == ArticleStatus.failure,
+    );
+    final hasMoreContent =
+        context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
+
+    final status = context.select((ArticleBloc bloc) => bloc.state.status);
+    final content = context.select((ArticleBloc bloc) => bloc.state.content);
+    final uri = context.select((ArticleBloc bloc) => bloc.state.uri);
+    final isArticlePreview =
+        context.select((ArticleBloc bloc) => bloc.state.isPreview);
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (index == content.length) {
+            if (isFailure) {
+              return NetworkError(
+                onRetry: () {
+                  context.read<ArticleBloc>().add(const ArticleRequested());
+                },
+              );
+            }
+            return hasMoreContent
+                ? Padding(
+                    padding: EdgeInsets.only(
+                      top: content.isEmpty ? AppSpacing.xxxlg : 0,
+                    ),
+                    child: ArticleContentLoaderItem(
+                      key: const Key(
+                        'articleContent_moreContent_loaderItem',
+                      ),
+                      onPresented: () {
+                        if (status != ArticleStatus.loading) {
+                          context
+                              .read<ArticleBloc>()
+                              .add(const ArticleRequested());
+                        }
+                      },
+                    ),
+                  )
+                : const SizedBox();
+          }
+
+          return _buildArticleItem(
+            context,
+            index,
+            content,
+            uri,
+            isArticlePreview,
+          );
+        },
+        childCount: content.length + 1,
+      ),
+    );
+  }
+
+  Widget _buildArticleItem(
+    BuildContext context,
+    int index,
+    List<NewsBlock> content,
+    Uri? uri,
+    bool isArticlePreview,
+  ) {
+    final block = content[index];
+    final isFinalItem = index == content.length - 1;
+
+    final visibilityDetectorWidget = VisibilityDetector(
+      key: ValueKey(block),
+      onVisibilityChanged: (visibility) {
+        if (!visibility.visibleBounds.isEmpty) {
+          context
+              .read<ArticleBloc>()
+              .add(ArticleContentSeen(contentIndex: index));
+        }
+      },
+      child: ArticleContentItem(
+        block: block,
+        onSharePressed: uri != null && uri.toString().isNotEmpty
+            ? () => context.read<ArticleBloc>().add(
+                  ShareRequested(uri: uri),
+                )
+            : null,
+      ),
+    );
+    return isFinalItem && isArticlePreview
+        ? Stack(
+            alignment: Alignment.bottomCenter,
+            children: [visibilityDetectorWidget, const ArticleTrailingShadow()],
+          )
+        : visibilityDetectorWidget;
   }
 }
