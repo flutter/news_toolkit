@@ -1,7 +1,3 @@
-# 1.0.3
-
-- refactor: lazy load PostGrid
-
 # 1.0.2
 
 - fix: issues with first login
