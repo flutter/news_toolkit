@@ -4,11 +4,19 @@ import 'package:flutter/material.dart' hide ProgressIndicator;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   group('InlineVideo', () {
+    setUp(
+      () {
+        final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+        VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+      },
+    );
+
     testWidgets('renders progressIndicator when loading', (tester) async {
       const progressIndicatorKey = Key('__progress_indicator__');
       final controller = FakeVideoPlayerController();

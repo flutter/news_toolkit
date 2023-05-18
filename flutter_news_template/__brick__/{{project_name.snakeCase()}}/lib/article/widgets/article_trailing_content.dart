@@ -6,6 +6,7 @@ import 'package:{{project_name.snakeCase()}}/article/article.dart';
 import 'package:{{project_name.snakeCase()}}/feed/feed.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/subscriptions/subscriptions.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class ArticleTrailingContent extends StatelessWidget {
   const ArticleTrailingContent({super.key});
@@ -14,13 +15,14 @@ class ArticleTrailingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final relatedArticles =
         context.select((ArticleBloc bloc) => bloc.state.relatedArticles);
+    final isArticlePreview =
+        context.select((ArticleBloc bloc) => bloc.state.isPreview);
 
     final hasReachedArticleViewsLimit = context
         .select((ArticleBloc bloc) => bloc.state.hasReachedArticleViewsLimit);
     final isUserSubscribed =
         context.select((AppBloc bloc) => bloc.state.isUserSubscribed);
-    final isArticlePreview =
-        context.select((ArticleBloc bloc) => bloc.state.isPreview);
+
     final isArticlePremium =
         context.select((ArticleBloc bloc) => bloc.state.isPremium);
 
@@ -29,50 +31,46 @@ class ArticleTrailingContent extends StatelessWidget {
 
     final showSubscribeModal = isArticlePremium && !isUserSubscribed;
 
-    return Stack(
-      clipBehavior: Clip.none,
+    return MultiSliver(
       children: [
-        SafeArea(
-          bottom: !isArticlePreview,
-          child: Column(
-            key: const Key('articleTrailingContent_column'),
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (relatedArticles.isNotEmpty && !isArticlePreview) ...[
-                const SizedBox(height: AppSpacing.xlg),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                  child: Text(
-                    context.l10n.relatedStories,
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                ...relatedArticles.map(
-                  (articleBlock) => CategoryFeedItem(block: articleBlock),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-              ],
-              if (!isArticlePreview) ...[
-                const SizedBox(height: AppSpacing.xlg),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                  child: ArticleComments(),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-              ],
-              if (isArticlePreview) ...[
+        if (relatedArticles.isNotEmpty && !isArticlePreview) ...[
+          SliverPadding(
+            padding: const EdgeInsets.only(
+              top: AppSpacing.xlg,
+              left: AppSpacing.lg,
+              right: AppSpacing.lg,
+              bottom: AppSpacing.lg,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Text(
+                context.l10n.relatedStories,
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ),
+          ),
+          ...relatedArticles.map(
+            (articleBlock) => CategoryFeedItem(block: articleBlock),
+          ),
+        ],
+        if (!isArticlePreview) ...[
+          const SliverPadding(
+            padding: EdgeInsets.all(AppSpacing.lg),
+            sliver: SliverToBoxAdapter(child: ArticleComments()),
+          )
+        ],
+        if (isArticlePreview) ...[
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
                 const SizedBox(height: AppSpacing.xlg),
                 if (showSubscribeModal)
                   const SubscribeModal()
                 else if (showSubscribeWithArticleLimitModal)
                   const SubscribeWithArticleLimitModal(),
               ],
-            ],
+            ),
           ),
-        ),
-        if (isArticlePreview) const ArticleTrailingShadow(),
+        ]
       ],
     );
   }

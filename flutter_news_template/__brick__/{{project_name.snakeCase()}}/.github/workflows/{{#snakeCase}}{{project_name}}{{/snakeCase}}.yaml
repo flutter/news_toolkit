@@ -30,9 +30,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2.8.0
+      - uses: subosito/flutter-action@v2.10.0
         with:
           channel: ${{#mustacheCase}}matrix.channel{{/mustacheCase}}
+          flutter-version: {{flutter_version}}
           cache: false
 
       - name: Install Dependencies
@@ -42,7 +43,7 @@ jobs:
           very_good packages get --recursive
 
       - name: Format
-        run: flutter format --set-exit-if-changed lib test
+        run: dart format --set-exit-if-changed lib test
 
       - name: Analyze
         run: flutter analyze lib test

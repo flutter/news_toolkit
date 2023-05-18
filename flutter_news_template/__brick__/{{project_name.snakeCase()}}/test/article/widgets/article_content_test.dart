@@ -531,5 +531,22 @@ void main() {
         verifyNever(() => articleBloc.add(ArticleRequested()));
       });
     });
+
+    group('when isArticlePreview is true ', () {
+      testWidgets('renders ArticleTrailingShadow', (tester) async {
+        when(() => articleBloc.state).thenReturn(
+          ArticleState(
+            content: content,
+            status: ArticleStatus.populated,
+            isPreview: true,
+          ),
+        );
+        await tester.pumpApp(
+          BlocProvider.value(value: articleBloc, child: ArticleContent()),
+        );
+
+        expect(find.byType(ArticleTrailingShadow), findsOneWidget);
+      });
+    });
   });
 }

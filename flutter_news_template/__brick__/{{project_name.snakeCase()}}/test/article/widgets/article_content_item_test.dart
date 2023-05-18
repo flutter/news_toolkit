@@ -7,12 +7,19 @@ import 'package:{{project_name.snakeCase()}}/slideshow/slideshow.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../helpers/helpers.dart';
+import '../helpers/helpers.dart';
 
 void main() {
   initMockHydratedStorage();
+
+  void setUpVideoPlayerPlatform() {
+    final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
+    VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
+  }
 
   group('ArticleContentItem', () {
     testWidgets(
@@ -131,6 +138,7 @@ void main() {
     testWidgets(
         'renders Video '
         'for VideoBlock', (tester) async {
+      setUpVideoPlayerPlatform();
       const block = VideoBlock(videoUrl: 'videoUrl');
       await tester.pumpApp(ArticleContentItem(block: block));
       expect(
@@ -169,6 +177,8 @@ void main() {
     testWidgets(
         'renders VideoIntroduction '
         'for VideoIntroductionBlock', (tester) async {
+      setUpVideoPlayerPlatform();
+
       final block = VideoIntroductionBlock(
         category: PostCategory.technology,
         title: 'title',
