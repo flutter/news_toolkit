@@ -1,3 +1,7 @@
+# 1.0.4
+
+- chore: updating template generation bot
+
 # 1.0.3
 
 - refactor: lazy load PostGrid
