@@ -2,6 +2,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:news_blocks_ui/src/sliver_grid_custom_delegate.dart';
 
 /// {@template post_grid}
 /// A reusable post grid view.
@@ -31,45 +32,40 @@ class PostGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (gridGroupBlock.tiles.isEmpty) return const SizedBox();
+    if (gridGroupBlock.tiles.isEmpty) {
+      return const SliverToBoxAdapter(child: SizedBox());
+    }
 
-    final firstBlock = gridGroupBlock.tiles.first;
-    final otherBlocks = gridGroupBlock.tiles.skip(1);
+    final deviceWidth = MediaQuery.of(context).size.width;
 
-    return Padding(
+    return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (gridGroupBlock.tiles.isNotEmpty)
-            PostLarge(
-              block: firstBlock.toPostLargeBlock(),
-              premiumText: premiumText,
-              isLocked: isLocked,
-              onPressed: onPressed,
-            ),
-          const SizedBox(height: AppSpacing.md),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final maxWidth = constraints.maxWidth / 2 - (AppSpacing.md / 2);
-              return Wrap(
-                spacing: AppSpacing.md,
-                runSpacing: AppSpacing.md,
-                children: otherBlocks
-                    .map(
-                      (tile) => ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: maxWidth),
-                        child: PostMedium(
-                          block: tile.toPostMediumBlock(),
-                          onPressed: onPressed,
-                        ),
-                      ),
-                    )
-                    .toList(),
+      sliver: SliverGrid(
+        gridDelegate: CustomMaxCrossAxisDelegate(
+          maxCrossAxisExtent: deviceWidth / 2 - (AppSpacing.md / 2),
+          mainAxisSpacing: AppSpacing.md,
+          crossAxisSpacing: AppSpacing.md,
+          childAspectRatio: 3 / 2,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (BuildContext context, int index) {
+            final block = gridGroupBlock.tiles[index];
+            if (index == 0) {
+              return PostLarge(
+                block: block.toPostLargeBlock(),
+                premiumText: premiumText,
+                isLocked: isLocked,
+                onPressed: onPressed,
               );
-            },
-          ),
-        ],
+            }
+
+            return PostMedium(
+              block: block.toPostMediumBlock(),
+              onPressed: onPressed,
+            );
+          },
+          childCount: gridGroupBlock.tiles.length,
+        ),
       ),
     );
   }

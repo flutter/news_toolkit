@@ -32,20 +32,22 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostGrid(
-                  gridGroupBlock: gridGroupBlock,
-                  premiumText: 'Premium',
-                ),
-              ],
-            ),
+          CustomScrollView(
+            slivers: [
+              PostGrid(
+                gridGroupBlock: gridGroupBlock,
+                premiumText: 'Premium',
+              ),
+            ],
           ),
         ),
       );
 
       expect(find.byType(PostLarge), findsOneWidget);
+      await tester.ensureVisible(find.byType(PostMedium).last);
+
+      await tester.pumpAndSettle();
+
       expect(find.byType(PostMedium), findsNWidgets(4));
     });
 
@@ -57,19 +59,15 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostGrid(
-                  gridGroupBlock: gridGroupBlock,
-                  premiumText: 'Premium',
-                ),
-              ],
-            ),
+          CustomScrollView(
+            slivers: [
+              PostGrid(gridGroupBlock: gridGroupBlock, premiumText: 'Premium'),
+            ],
           ),
         ),
       );
 
+      expect(find.byType(PostGrid), findsOneWidget);
       expect(find.byType(PostLarge), findsOneWidget);
       expect(find.byType(PostMedium), findsNothing);
     });
@@ -82,26 +80,17 @@ void main() {
 
       await mockNetworkImages(
         () async => tester.pumpContentThemedApp(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                PostGrid(
-                  gridGroupBlock: gridGroupBlock,
-                  premiumText: 'Premium',
-                ),
-              ],
-            ),
+          CustomScrollView(
+            slivers: [
+              PostGrid(gridGroupBlock: gridGroupBlock, premiumText: 'Premium'),
+            ],
           ),
         ),
       );
 
-      expect(
-        find.descendant(
-          of: find.byType(PostGrid),
-          matching: find.byType(SizedBox),
-        ),
-        findsOneWidget,
-      );
+      expect(find.byType(SliverToBoxAdapter), findsNothing);
+      expect(find.byType(PostLarge), findsNothing);
+      expect(find.byType(PostMedium), findsNothing);
     });
   });
 }
