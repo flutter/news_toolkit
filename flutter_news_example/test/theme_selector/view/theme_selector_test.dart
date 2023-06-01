@@ -30,11 +30,11 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.byKey(const Key('themeSelector_light_dropdownMenuItem')),
+        find.byKey(const Key('themeSelector_light_dropdownMenuItem')).first,
         findsOneWidget,
       );
       expect(
-        find.byKey(const Key('themeSelector_dark_dropdownMenuItem')),
+        find.byKey(const Key('themeSelector_dark_dropdownMenuItem')).first,
         findsOneWidget,
       );
     });
