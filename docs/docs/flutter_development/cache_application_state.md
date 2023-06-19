@@ -1,11 +1,11 @@
 ---
-sidebar_position: 11
+sidebar_position: 10
 description: Learn how the toolkit caches your news applications's state.
 ---
 
-# Cache application state
+# Cache your application state
 
-[Hydrated Bloc](https://pub.dev/packages/hydrated_bloc) is a extension to the BLoC pattern. It helps automatically persist and restore bloc states, ensuring that the app's state is retained across app restarts or crashes.
+[Hydrated Bloc](https://pub.dev/packages/hydrated_bloc) is a extension to the BLoC pattern. It helps automatically persist and restore BLoC states, ensuring that the app's state is retained across app restarts or crashes.
 
 The project relies on `hydrated_bloc` to persist the state of the following BLoCs:
 
@@ -28,7 +28,7 @@ If there any errors while fetching the feed articles, the user will be notified 
 
 ## Debug mode caching
 
-On the project, `hydrated_bloc`'s caching is automatically disabled for debug mode. Every restart of the application will clear the `hydrated_bloc`'s storage state. In order to enable it, the following code must be removed from the `bootstrap.dart` file:
+On the project, `hydrated_bloc`'s caching is automatically disabled for debug mode. Every restart of the application will clear the `hydrated_bloc`'s storage state, so no state will be restored. In order to enable it, the following code must be removed from the `bootstrap.dart` file:
 
 ```dart
 if (kDebugMode) {
