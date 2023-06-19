@@ -9,7 +9,7 @@ description: Learn how the toolkit caches your news applications's state.
 
 The project relies on `hydrated_bloc` to persist the state of the following BLoCs:
 
-- `feed_bloc`: Persists the feed state, which contains the list of feed articles fetched from the API.
+- `feed_bloc`: Persists the feed state. It contains the list of feed articles fetched from the API.
 - `article_bloc` : Persists each article information fetched from the API.
 - `categories_bloc`: Persists all feed categories fetched from the API.
 - `theme_mode_bloc` : Persists the theme mode of the app selected by the user.
