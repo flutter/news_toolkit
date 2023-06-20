@@ -3,11 +3,11 @@ description: An Authentication Client Interface
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  equatable: ^2.0.3
+  equatable: ^2.0.5
 
 dev_dependencies:
-  test: ^1.21.4
-  very_good_analysis: ^4.0.0
+  test: ^1.24.3
+  very_good_analysis: ^5.0.0+1

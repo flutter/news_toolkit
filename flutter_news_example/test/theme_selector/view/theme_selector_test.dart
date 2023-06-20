@@ -20,10 +20,13 @@ void main() {
 
     testWidgets('contains all three ThemeMode options', (tester) async {
       await tester.pumpApp(const ThemeSelector(), themeModeBloc: themeModeBloc);
+
       expect(find.byKey(const Key('themeSelector_dropdown')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('themeSelector_dropdown')));
+      await tester.pumpAndSettle();
       expect(
         find.byKey(const Key('themeSelector_system_dropdownMenuItem')),
-        findsOneWidget,
+        findsNWidgets(2),
       );
       expect(
         find.byKey(const Key('themeSelector_light_dropdownMenuItem')),

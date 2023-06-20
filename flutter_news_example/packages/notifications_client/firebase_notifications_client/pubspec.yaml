@@ -4,10 +4,10 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  firebase_messaging: ^14.0.3
+  firebase_messaging: ^14.6.3
   flutter:
     sdk: flutter
   notifications_client:
@@ -17,4 +17,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ^5.0.0+1

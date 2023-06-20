@@ -8,17 +8,17 @@ class TermsOfServiceModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
+    return const FractionallySizedBox(
       heightFactor: 0.9,
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: AppSpacing.lg,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               TermsOfServiceModalHeader(),
               TermsOfServiceBody(
                 contentPadding: EdgeInsets.only(
