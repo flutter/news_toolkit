@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:{{project_name.snakeCase()}}/main/bootstrap/app_bloc_observer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -31,6 +32,11 @@ Future<void> bootstrap(AppBuilder builder) async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationSupportDirectory(),
   );
+
+  if (kDebugMode) {
+    await HydratedBloc.storage.clear();
+  }
+
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
