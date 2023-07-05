@@ -3,7 +3,7 @@ description: A Key/Value Storage Client for Dart.
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=2.19.3 <3.0.0"
 
 dev_dependencies:
   test: ^1.21.4
