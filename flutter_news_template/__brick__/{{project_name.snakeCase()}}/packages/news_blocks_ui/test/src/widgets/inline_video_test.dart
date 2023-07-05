@@ -133,7 +133,7 @@ void main() {
           videoUrl: videoUrl,
           progressIndicator: ProgressIndicator(),
           videoPlayerControllerBuilder: (url) {
-            capturedVideoUrl = url;
+            capturedVideoUrl = url.toString();
             return FakeVideoPlayerController();
           },
         ),
