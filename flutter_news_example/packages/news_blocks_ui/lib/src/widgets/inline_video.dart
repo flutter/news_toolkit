@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 
 /// Signature for [VideoPlayerController] builder.
 typedef VideoPlayerControllerBuilder = VideoPlayerController Function(
-  String videoUrl,
+  Uri videoUrl,
 );
 
 /// {@template inline_video}
@@ -15,7 +15,7 @@ class InlineVideo extends StatefulWidget {
   const InlineVideo({
     required this.videoUrl,
     required this.progressIndicator,
-    this.videoPlayerControllerBuilder = VideoPlayerController.network,
+    this.videoPlayerControllerBuilder = VideoPlayerController.networkUrl,
     super.key,
   });
 
@@ -42,7 +42,9 @@ class _InlineVideoState extends State<InlineVideo> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.videoPlayerControllerBuilder(widget.videoUrl)
+    _controller = widget.videoPlayerControllerBuilder(
+      Uri.parse(widget.videoUrl),
+    )
       ..addListener(_onVideoUpdated)
       ..initialize().then((_) {
         // Ensure the first frame of the video is shown
