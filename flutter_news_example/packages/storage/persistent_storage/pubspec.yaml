@@ -3,7 +3,7 @@ description: Storage that saves data in the device's persistent memory.
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=2.19.3 <3.0.0"
 
 dependencies:
   flutter:
