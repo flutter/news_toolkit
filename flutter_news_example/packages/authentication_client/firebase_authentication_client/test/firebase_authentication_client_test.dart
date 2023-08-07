@@ -78,14 +78,6 @@ void main() {
     projectId: 'projectId',
   );
 
-  MethodChannelFirebaseAuth.channel.setMockMethodCallHandler((call) async {
-    if (call.method == 'Auth#registerIdTokenListener' ||
-        call.method == 'Auth#registerAuthStateListener') {
-      return 'mockAuthChannel';
-    }
-    return null;
-  });
-
   const email = 'test@gmail.com';
   const emailLink = 'https://email.page.link';
   const appPackageName = 'app.package.name';
@@ -158,12 +150,26 @@ void main() {
       );
     });
 
-    test('creates FirebaseAuth instance internally when not injected', () {
-      expect(
-        () => FirebaseAuthenticationClient(tokenStorage: tokenStorage),
-        isNot(throwsException),
-      );
-    });
+    testWidgets(
+      'creates FirebaseAuth instance internally when not injected',
+      (tester) async {
+        tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          MethodChannelFirebaseAuth.channel,
+          (call) async {
+            if (call.method == 'Auth#registerIdTokenListener' ||
+                call.method == 'Auth#registerAuthStateListener') {
+              return 'mockAuthChannel';
+            }
+            return null;
+          },
+        );
+
+        expect(
+          () => FirebaseAuthenticationClient(tokenStorage: tokenStorage),
+          isNot(throwsException),
+        );
+      },
+    );
 
     group('logInWithApple', () {
       setUp(() {
