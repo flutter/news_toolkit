@@ -16,9 +16,9 @@ class TermsOfServicePage extends StatelessWidget {
       appBar: AppBar(
         leading: const AppBackButton(),
       ),
-      body: Column(
+      body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           TermsOfServiceHeader(),
           TermsOfServiceBody(
             contentPadding: EdgeInsets.symmetric(
