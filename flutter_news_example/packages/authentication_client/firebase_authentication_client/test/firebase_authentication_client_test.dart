@@ -69,7 +69,7 @@ class MockTwitterAuthResult extends Mock implements twitter_auth.AuthResult {}
 class MockTokenStorage extends Mock implements TokenStorage {}
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   const options = FirebaseOptions(
     apiKey: 'apiKey',
@@ -150,10 +150,10 @@ void main() {
       );
     });
 
-    testWidgets(
+    test(
       'creates FirebaseAuth instance internally when not injected',
-      (tester) async {
-        tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      () async {
+        binding.defaultBinaryMessenger.setMockMethodCallHandler(
           MethodChannelFirebaseAuth.channel,
           (call) async {
             if (call.method == 'Auth#registerIdTokenListener' ||

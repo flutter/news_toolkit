@@ -6,20 +6,19 @@ import 'package:permission_client/permission_client.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   group('PermissionClient', () {
     late PermissionClient permissionClient;
     late List<MethodCall> calls;
+    const methodChannelName = 'flutter.baseflow.com/permissions/methods';
 
     setUp(() {
       permissionClient = PermissionClient();
       calls = [];
-    });
 
-    void setMockPermissionsMethods(WidgetTester tester) {
-      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-        MethodChannel('flutter.baseflow.com/permissions/methods'),
+      binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannel(methodChannelName),
         (call) async {
           calls.add(call);
 
@@ -37,15 +36,14 @@ void main() {
           return null;
         },
       );
-      addTearDown(
-        () {
-          tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-            MethodChannel('flutter.baseflow.com/permissions/methods'),
-            (call) async => null,
-          );
-        },
+    });
+
+    tearDown(() {
+      binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannel(methodChannelName),
+        (call) async => null,
       );
-    }
+    });
 
     Matcher permissionWasRequested(Permission permission) => contains(
           isA<MethodCall>()
@@ -76,24 +74,21 @@ void main() {
         );
 
     group('requestNotifications', () {
-      testWidgets('calls correct method', (tester) async {
-        setMockPermissionsMethods(tester);
+      test('calls correct method', () async {
         await permissionClient.requestNotifications();
         expect(calls, permissionWasRequested(Permission.notification));
       });
     });
 
     group('notificationsStatus', () {
-      testWidgets('calls correct method', (tester) async {
-        setMockPermissionsMethods(tester);
+      test('calls correct method', () async {
         await permissionClient.notificationsStatus();
         expect(calls, permissionWasChecked(Permission.notification));
       });
     });
 
     group('openPermissionSettings', () {
-      testWidgets('calls correct method', (tester) async {
-        setMockPermissionsMethods(tester);
+      test('calls correct method', () async {
         await permissionClient.openPermissionSettings();
 
         expect(
