@@ -4,7 +4,7 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=2.19.3 <4.0.0"
 
 dependencies:
   app_ui:
@@ -12,7 +12,7 @@ dependencies:
   cached_network_image: ^3.2.1
   flutter:
     sdk: flutter
-  flutter_html: ^3.0.0-alpha.6
+  flutter_html: 3.0.0-beta.2
   google_mobile_ads: ^2.0.0
   news_blocks:
     path: ../../api/packages/news_blocks
@@ -21,7 +21,7 @@ dependencies:
   plugin_platform_interface: ^2.1.3
   url_launcher: ^6.1.7
   url_launcher_platform_interface: ^2.1.1
-  video_player: ^2.4.2
+  video_player: ^2.7.0
   video_player_platform_interface: ^6.0.1
 
 dev_dependencies:
@@ -30,9 +30,9 @@ dev_dependencies:
   flutter_gen_runner: ^5.2.0
   flutter_test:
     sdk: flutter
-  mocktail: ^0.3.0
-  mocktail_image_network: ^0.3.1
-  very_good_analysis: ^4.0.0
+  mocktail: ^1.0.0
+  mocktail_image_network: ^1.0.0
+  very_good_analysis: ^5.1.0
 
 flutter:
   uses-material-design: true
