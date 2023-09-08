@@ -4,7 +4,7 @@ version: 0.0.1
 publish_to: none
 
 environment:
-  sdk: ">=2.19.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   app_ui:
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ^5.1.0
 
 flutter:
   uses-material-design: true
