@@ -83,7 +83,7 @@ dependencies:
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ^5.1.0
   video_player_platform_interface: ^6.0.1
   visibility_detector: ^0.3.3
 
