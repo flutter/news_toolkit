@@ -3,11 +3,11 @@ description: A Dart package which exposes reusable form inputs and validation ru
 publish_to: none
 
 environment:
-  sdk: ">=2.19.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   formz: ^0.6.0
 
 dev_dependencies:
   test: ^1.21.4
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ^5.1.0

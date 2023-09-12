@@ -16,5 +16,5 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      flutter_version: 3.7.6
+      flutter_version: 3.10.2
       working_directory: flutter_news_example/packages/user_repository

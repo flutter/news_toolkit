@@ -121,15 +121,15 @@ class AppButtonPage extends StatelessWidget {
           child: Text('Cancel anytime'),
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(
+      const Padding(
+        padding: EdgeInsets.symmetric(
           horizontal: AppSpacing.lg + contentSpacing,
         ),
         child: _AppButtonItem(
           buttonType: ButtonType.watchVideo,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Icon(Icons.video_call_sharp),
               SizedBox(width: AppSpacing.sm),
               Text('Watch a video to view this article'),
@@ -144,11 +144,11 @@ class AppButtonPage extends StatelessWidget {
         child: Container(
           height: 100,
           color: AppColors.darkAqua,
-          child: _AppButtonItem(
+          child: const _AppButtonItem(
             buttonType: ButtonType.watchVideoDark,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.video_call_sharp),
                 SizedBox(width: AppSpacing.sm),
                 Text('Watch a video to view this article'),
