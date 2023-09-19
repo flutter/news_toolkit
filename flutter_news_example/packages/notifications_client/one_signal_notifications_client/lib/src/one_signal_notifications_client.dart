@@ -16,7 +16,7 @@ class OneSignalNotificationsClient implements NotificationsClient {
   @override
   Future<void> subscribeToCategory(String category) async {
     try {
-      await _oneSignal.sendTag(category, true);
+      await OneSignal.User.addTagWithKey(category, true);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         SubscribeToCategoryFailure(error),
@@ -28,7 +28,7 @@ class OneSignalNotificationsClient implements NotificationsClient {
   @override
   Future<void> unsubscribeFromCategory(String category) async {
     try {
-      await _oneSignal.deleteTag(category);
+      await OneSignal.User.removeTag(category);
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         UnsubscribeFromCategoryFailure(error),

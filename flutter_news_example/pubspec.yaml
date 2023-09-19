@@ -3,7 +3,7 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.1.0 <4.0.0"
   flutter: ">=3.7.6"
 dependencies:
   ads_consent_client:
@@ -47,7 +47,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
-  google_mobile_ads: ^2.3.0
+  google_mobile_ads: ^3.0.0
   hydrated_bloc: ^9.0.0
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository

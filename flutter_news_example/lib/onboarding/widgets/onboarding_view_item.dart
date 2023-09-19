@@ -70,7 +70,7 @@ class OnboardingViewItem extends StatelessWidget {
                   const Spacer(),
                   primaryButton,
                   const SizedBox(height: AppSpacing.sm),
-                  secondaryButton
+                  secondaryButton,
                 ],
               ),
             ),

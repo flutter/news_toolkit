@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   notifications_client:
     path: ../notifications_client
-  onesignal_flutter: ^3.4.0
+  onesignal_flutter: ^5.0.1
 
 dev_dependencies:
   flutter_test:

@@ -285,7 +285,7 @@ void main() {
           AppState(
             showLoginOverlay: true,
             status: AppStatus.unauthenticated,
-          )
+          ),
         ],
         verify: (_) {
           verify(

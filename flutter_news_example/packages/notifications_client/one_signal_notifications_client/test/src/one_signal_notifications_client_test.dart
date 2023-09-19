@@ -24,19 +24,19 @@ void main() {
     group('when OneSignalNotificationsClient.subscribeToCategory called', () {
       test('calls OneSignal.sendTag', () async {
         when(
-          () => oneSignal.sendTag(category, true),
+          () => OneSignal.User.addTagWithKey(category, true),
         ).thenAnswer((_) async => {});
 
         await oneSignalNotificationsClient.subscribeToCategory(category);
 
-        verify(() => oneSignal.sendTag(category, true)).called(1);
+        verify(() => OneSignal.User.addTagWithKey(category, true)).called(1);
       });
 
       test(
           'throws SubscribeToCategoryFailure '
           'when OneSignal.deleteTag fails', () async {
         when(
-          () => oneSignal.sendTag(category, true),
+          () => OneSignal.User.addTagWithKey(category, true),
         ).thenAnswer((_) async => throw Exception());
 
         expect(
@@ -46,21 +46,20 @@ void main() {
       });
     });
 
-    group('when OneSignalNotificationsClient.unsubscribeFromCategory called',
-        () {
+    group('when OneSignalNotificationsClient.unsubscribeFromCategory called', () {
       test('calls OneSignal.deleteTag', () async {
-        when(() => oneSignal.deleteTag(category)).thenAnswer((_) async => {});
+        when(() => OneSignal.User.removeTag(category)).thenAnswer((_) async => {});
 
         await oneSignalNotificationsClient.unsubscribeFromCategory(category);
 
-        verify(() => oneSignal.deleteTag(category)).called(1);
+        verify(() => OneSignal.User.removeTag(category)).called(1);
       });
 
       test(
           'throws UnsubscribeFromCategoryFailure '
           'when OneSignal.deleteTag fails', () async {
         when(
-          () => oneSignal.deleteTag(category),
+          () => OneSignal.User.removeTag(category),
         ).thenAnswer((_) async => throw Exception());
 
         expect(
