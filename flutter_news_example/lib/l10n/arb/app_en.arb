@@ -1,596 +1,620 @@
 {
+  "appName": "Flutter News Example",
+  "@appName": {
+    "description": "The name of this application",
+    "type": "String",
+    "placeholders": {}
+  },
   "authenticationFailure": "Authentication failure",
   "@authenticationFailure": {
     "description": "Message shown when there is an error at login",
-    "type": "text",
+    "type": "String",
+    "placeholders": {}
+  },
+  "unexpectedFailure": "An unexpected error occurred. Please try again.",
+  "@unexpectedFailure": {
+    "description": "Text displayed when an unexpected error occurs",
+    "type": "String",
     "placeholders": {}
   },
   "shareFailure": "Problem sharing your content. Please try again.",
   "@shareFailure": {
     "description": "Text displayed when a share error occurs",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "adLoadFailure": "Failed to load this ad.",
   "@adLoadFailure": {
     "description": "Text displayed when loading an ad fails",
-    "type": "text",
+    "type": "String",
+    "placeholders": {}
+  },
+  "loginWelcomeText": "Welcome to\nFlutter News Example",
+  "@loginWelcomeText": {
+    "description": "Greeting shown on the login page.",
+    "type": "String",
     "placeholders": {}
   },
   "loginButtonText": "LOGIN",
   "@loginButtonText": {
     "description": "Login Button Text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailHeaderText": "Please enter your\nemail address.",
   "@loginWithEmailHeaderText": {
     "description": "Header title shown on Login with email form",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailTextFieldHint": "Your email address",
   "@loginWithEmailTextFieldHint": {
     "description": "Hint text shown on the email text field on Login with email form",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailSubtitleText": "By logging in, you agree to our ",
   "@loginWithEmailSubtitleText": {
     "description": "Subtitle shown on Login with email form",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailTermsAndPrivacyPolicyText": "Terms of Use and Privacy Policy",
   "@loginWithEmailTermsAndPrivacyPolicyText": {
     "description": "Text terms and privacy policy shown on Login with email form",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailFailure": "Unable to create an account",
   "@loginWithEmailFailure": {
     "description": "Message shown when there is an error creating an account",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "termsOfServiceModalTitle": "Terms of Use &\nPrivacy Policy",
   "@termsOfServiceModalTitle": {
     "description": "Title shown on the TOS modal",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginWithEmailButtonText": "Continue with Email",
   "@loginWithEmailButtonText": {
     "description": "Log in with email button text shown on the log in modal",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "systemOption": "System",
   "@systemOption": {
     "description": "The option to use system-wide theme in the theme selector menu",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "lightModeOption": "Light",
   "@lightModeOption": {
     "description": "The option for light mode in the theme selector menu",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "darkModeOption": "Dark",
   "@darkModeOption": {
     "description": "The option for dark mode in the theme selector menu",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingWelcomeTitle": "Welcome to\nThe Daily Globe!",
   "@onboardingWelcomeTitle": {
     "description": "Text shown as title on the onboarding page",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingSubtitle": "Please set your preferences to\nget the app up and running.",
   "@onboardingSubtitle": {
     "description": "Text shown as subtitle on the onboarding page",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemFirstNumberTitle": "1 OF 2",
   "@onboardingItemFirstNumberTitle": {
     "description": "Text of the first number page in the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemSecondNumberTitle": "2 OF 2",
   "@onboardingItemSecondNumberTitle": {
     "description": "Text of the second number page in the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemFirstTitle": "ADD YOUR TITLE FOR\nAD TRACKING PERMISSIONS",
   "@onboardingItemFirstTitle": {
     "description": "Text of the first page title of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemFirstSubtitleTitle": "ADD YOUR DESCRIPTION FOR\nAD TRACKING PERMISSIONS",
   "@onboardingItemFirstSubtitleTitle": {
     "description": "Text of the first page subtitle of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemFirstButtonTitle": "ADD YOUR CALL TO ACTION",
   "@onboardingItemFirstButtonTitle": {
     "description": "Text of the primary button on the first page of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemSecondTitle": "ADD YOUR TITLE FOR\nNOTIFICATION PERMISSIONS",
   "@onboardingItemSecondTitle": {
     "description": "Text of the primary title on the second page of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemSecondSubtitleTitle": "ADD YOUR DESCRIPTION FOR\nNOTIFICATION PERMISSIONS",
   "@onboardingItemSecondSubtitleTitle": {
     "description": "Text of the second page subtitle of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemSecondButtonTitle": "ADD YOUR CALL TO ACTION",
   "@onboardingItemSecondButtonTitle": {
     "description": "Text of the primary button on the second page of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "onboardingItemSecondaryButtonTitle": "ADD YOUR DECLINE TEXT",
   "@onboardingItemSecondaryButtonTitle": {
     "description": "Text of the secondary button of the onboarding.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginTooltip": "Login",
   "@loginTooltip": {
     "description": "Tooltip shown on the login button",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "openProfileTooltip": "Open profile",
   "@openProfileTooltip": {
     "description": "Tooltip shown on the open profile button",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginModalTitle": "Log In",
   "@loginModalTitle": {
     "description": "Log in modal title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "loginModalSubtitle": "Log in to access articles and save\nyour preferences.",
   "@loginModalSubtitle": {
     "description": "Log in modal subtitle",
-    "type": "text",
+    "type": "String",
+    "placeholders": {}
+  },
+  "continueWithEmailButtonText": "Continue with Email",
+  "@continueWithEmailButtonText": {
+    "description": "Continue with email button text shown on the log in modal",
+    "type": "String",
     "placeholders": {}
   },
   "navigationDrawerSectionsTitle": "SECTIONS",
   "@navigationDrawerSectionsTitle": {
     "description": "Navigation drawer sections title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "navigationDrawerSubscribeTitle": "Become A Subscriber",
   "@navigationDrawerSubscribeTitle": {
     "description": "Navigation drawer subscribe title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "navigationDrawerSubscribeSubtitle": "Subscribe to access premium content and exclusive online events.",
   "@navigationDrawerSubscribeSubtitle": {
     "description": "Navigation drawer subscribe subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeButtonText": "Subscribe",
   "@subscribeButtonText": {
     "description": "Subscribe button text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "nextButtonText": "Next",
   "@nextButtonText": {
     "description": "Log in with email next button shown on the login with email form",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileTitle": "Your Info",
   "@userProfileTitle": {
     "description": "User profile page title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileLogoutButtonText": "Logout",
   "@userProfileLogoutButtonText": {
     "description": "User profile logout button text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSettingsSubtitle": "Settings",
   "@userProfileSettingsSubtitle": {
     "description": "User profile settings section subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSubscriptionDetailsSubtitle": "Subscription Details",
   "@userProfileSubscriptionDetailsSubtitle": {
     "description": "User profile subscription details section subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSubscribeBoxSubtitle": "You are not currently a subscriber.",
   "@userProfileSubscribeBoxSubtitle": {
     "description": "User profile not a subscriber subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSubscribeBoxMessage": "Become a subscriber to access premium content and exclusive online events.",
   "@userProfileSubscribeBoxMessage": {
     "description": "User profile not a subscriber message",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSubscribeNowButtonText": "Subscribe Now",
   "@userProfileSubscribeNowButtonText": {
     "description": "User profile settings subscribe button text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "manageSubscriptionTile": "Manage Subscription",
   "@manageSubscriptionTile": {
     "description": "Manage subscription section - subscription item title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "manageSubscriptionBodyText": "Manage your subscription through the Subscriptions manager on your device.",
   "@manageSubscriptionBodyText": {
     "description": "Manage subscription section - subscription body text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "manageSubscriptionLinkText": "Subscriptions",
   "@manageSubscriptionLinkText": {
     "description": "Manage subscription link text",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileSettingsNotificationsTitle": "Notifications",
   "@userProfileSettingsNotificationsTitle": {
     "description": "User profile settings section - notifications item title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "notificationPreferencesTitle": "Notification Preferences",
   "@notificationPreferencesTitle": {
     "description": "User profile settings section - notification preferences item title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "notificationPreferencesCategoriesSubtitle": "Notifications will be sent for all active categories below.",
   "@notificationPreferencesCategoriesSubtitle": {
     "description": "User profile settings categories notifications subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileLegalSubtitle": "Legal",
   "@userProfileLegalSubtitle": {
     "description": "User profile legal section subtitle",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileLegalTermsOfUseAndPrivacyPolicyTitle": "Terms of Use & Privacy Policy",
   "@userProfileLegalTermsOfUseAndPrivacyPolicyTitle": {
     "description": "User profile legal section - terms of use and privacy policy item title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileLegalAboutTitle": "About",
   "@userProfileLegalAboutTitle": {
     "description": "User profile legal section - about item title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "checkboxOnTitle": "On",
   "@checkboxOnTitle": {
     "description": "User profile checkbox on title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "userProfileCheckboxOffTitle": "Off",
   "@userProfileCheckboxOffTitle": {
     "description": "User profile checkbox off title",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "magicLinkPromptHeader": "Check your email!",
   "@magicLinkPromptHeader": {
     "description": "Header title shown in the magic link prompt UI",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "magicLinkPromptTitle": "We sent an email to",
   "@magicLinkPromptTitle": {
     "description": "Title shown in the magic link prompt UI",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "magicLinkPromptSubtitle": "It contains a special link. Click it to\ncomplete the log in process.",
   "@magicLinkPromptSubtitle": {
     "description": "Subtitle shown in the magic link prompt UI",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "openMailAppButtonText": "Open Mail App",
   "@openMailAppButtonText": {
     "description": "Open mail app button text shown in the magic link prompt UI",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "newsBlockPremiumText": "Premium",
   "@newsBlockPremiumText": {
     "description": "Premium text shown on the news block widgets",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "shareText": "Share",
   "@shareText": {
     "description": "Share text shown on the news block widgets and article page",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeEmailHeader": "ADD YOUR EMAIL SIGNUP PROMPT TITLE",
   "@subscribeEmailHeader": {
     "description": "Subscribe header shown in subscribe box",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeEmailHint": "Email address",
   "@subscribeEmailHint": {
     "description": "Text shown as a hint in subscribe email text field",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeEmailBody": "ADD YOUR EMAIL SIGNUP PROMPT DESCRIPTION",
   "@subscribeEmailBody": {
     "description": "Subscribe body shown in subscribe box",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeEmailButtonText": "ADD YOUR CALL TO ACTION",
   "@subscribeEmailButtonText": {
     "description": "Text shown in a button of a subscribe box",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeSuccessfulHeader": "Thank you for signing up!",
   "@subscribeSuccessfulHeader": {
     "description": "Subscribe successful header shown in subscribe box",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeSuccessfulEmailBody": "Check your email for all of your newsletter details. ",
   "@subscribeSuccessfulEmailBody": {
     "description": "Subscribe body shown in subscribe box",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeErrorMessage": "Problem ocurred when subscribing to the newsletter",
   "@subscribeErrorMessage": {
     "description": "Message displayed when error ocurred during subscribing to newsletter",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchPopularSearches": "Popular Searches",
   "@searchPopularSearches": {
     "description": "Text displayed at the top of the popular searches.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchPopularArticles": "Popular Articles",
   "@searchPopularArticles": {
     "description": "Text displayed at the top of the popular articles.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchRelevantTopics": "Relevant Topics / Sections",
   "@searchRelevantTopics": {
     "description": "Text displayed at the top of the relevant search.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchRelevantArticles": "Relevant Articles",
   "@searchRelevantArticles": {
     "description": "Text displayed at the top of the relevant articles.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchByKeyword": "Search by keyword",
   "@searchByKeyword": {
     "description": "Hint displayed in search text field.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "searchErrorMessage": "Problem ocurred finding search results.",
   "@searchErrorMessage": {
     "description": "Message displayed when error occurred during fetching search results.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "bottomNavBarTopStories": "Top Stories",
   "@bottomNavBarTopStories": {
     "description": "Top stories text shown in the bottom nav bar widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "bottomNavBarSearch": "Search",
   "@bottomNavBarSearch": {
     "description": "Search text shown in the bottom nav bar widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "relatedStories": "Related Stories",
   "@relatedStories": {
     "description": "Header text shown in the bottom of article content.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeModalTitle": "ADD YOUR SUBSCRIPTION\nPROMPT TITLE",
   "@subscribeModalTitle": {
     "description": "Title text shown in the subscribe modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeModalSubtitle": "ADD YOUR SUBSCRIPTION\nPROMPT DESCRIPTION",
   "@subscribeModalSubtitle": {
     "description": "Subtitle text shown in the subscribe modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeModalLogInButton": "Log In",
   "@subscribeModalLogInButton": {
     "description": "Text shown in log in button on the subscribe modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeWithArticleLimitModalTitle": "You've reached your\n4 article limit.",
   "@subscribeWithArticleLimitModalTitle": {
     "description": "Title text shown in the subscribe limit modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeWithArticleLimitModalSubtitle": "ADD YOUR SUBSCRIPTION\nPROMPT DESCRIPTION",
   "@subscribeWithArticleLimitModalSubtitle": {
     "description": "Subtitle text shown in the subscribe limit modal modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeWithArticleLimitModalLogInButton": "Log In",
   "@subscribeWithArticleLimitModalLogInButton": {
     "description": "Text shown in log in button on the subscribe limit modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscribeWithArticleLimitModalWatchVideoButton": "Watch a video to view this article",
   "@subscribeWithArticleLimitModalWatchVideoButton": {
     "description": "Text shown in watch video button on the subscribe limit modal widget.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "discussion": "Discussion",
   "@discussion": {
     "description": "Header text shown in the bottom of article content above comment entry field.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "commentEntryHint": "Enter comment",
   "@commentEntryHint": {
     "description": "Text shown inside comment entry text field.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "trendingStoryTitle": "TRENDING STORY",
   "@trendingStoryTitle": {
     "description": "Title shown in the header of trending story article.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseTitle": "Subscribe today!",
   "@subscriptionPurchaseTitle": {
     "description": "Text shown in the title of the subscription purchase overlay.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseSubtitle": "Become a subscriber to access premium content and exclusive online events.",
   "@subscriptionPurchaseSubtitle": {
     "description": "Text shown bellow the title of the subscription purchase overlay.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseBenefits": "Benefits",
   "@subscriptionPurchaseBenefits": {
     "description": "Text shown as a header for subscription benefits.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseCancelAnytime": "Cancel Anytime",
   "@subscriptionPurchaseCancelAnytime": {
     "description": "Text shown bellow the subscription benefits.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseButton": "Start Free Trial",
   "@subscriptionPurchaseButton": {
     "description": "Text shown in button on subscription purchase overlay.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionUnauthenticatedPurchaseButton": "Log in to subscribe",
   "@subscriptionUnauthenticatedPurchaseButton": {
     "description": "Text shown in button on subscription purchase overlay when user is unauthenticated.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionViewDetailsButton": "View Details",
   "@subscriptionViewDetailsButton": {
     "description": "Text shown in unimplemented button on subscription purchase overlay.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionViewDetailsButtonSnackBar": "Configure additional subscription packages.",
   "@subscriptionViewDetailsButtonSnackBar": {
     "description": "Text shown when clicked on view details button.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "subscriptionPurchaseCompleted": "Purchase completed!",
   "@subscriptionPurchaseCompleted": {
     "description": "Text shown subscription purchase was completed.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "monthAbbreviation": "mo",
   "@monthAbbreviation": {
     "description": "Text displayed where month abbreviation is used.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "yearAbbreviation": "yr",
   "@yearAbbreviation": {
     "description": "Text displayed where year abbreviation is used.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "slideshow": "Slideshow",
   "@slideshow": {
     "description": "Slideshow text shown on slideshow introduction widgets.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "slideshow_of_title": "of",
   "@slideshow_of_title": {
     "description": "Text displayed on the number of pages in the slideshow page.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "networkError": "A network error has occured.\nCheck your connection and try again.",
   "@networkError": {
     "description": "Text displayed when a network error occurs.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   },
   "networkErrorButton": "Try Again",
   "@networkErrorButton": {
     "description": "Text displayed on the refresh button when a network error occurs.",
-    "type": "text",
+    "type": "String",
     "placeholders": {}
   }
 }
