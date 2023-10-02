@@ -47,10 +47,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
-        checkReleaseBuilds false
-    }
 
     defaultConfig {
         applicationId "com.flutter.news.example"
@@ -100,6 +96,11 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
+    }
+    namespace 'com.flutter.news.example'
+    lint {
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
     }
 }
 
