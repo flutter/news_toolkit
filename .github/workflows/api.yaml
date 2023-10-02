@@ -16,7 +16,7 @@ jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      dart_sdk: 2.19.3
+      dart_sdk: 3.0.2
       working_directory: flutter_news_example/api
       analyze_directories: "routes lib test"
       coverage_excludes: "**/*.g.dart"

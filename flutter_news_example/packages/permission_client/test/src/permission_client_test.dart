@@ -6,33 +6,43 @@ import 'package:permission_client/permission_client.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   group('PermissionClient', () {
     late PermissionClient permissionClient;
     late List<MethodCall> calls;
+    const methodChannelName = 'flutter.baseflow.com/permissions/methods';
 
     setUp(() {
       permissionClient = PermissionClient();
       calls = [];
 
-      MethodChannel('flutter.baseflow.com/permissions/methods')
-          .setMockMethodCallHandler((call) async {
-        calls.add(call);
+      binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannel(methodChannelName),
+        (call) async {
+          calls.add(call);
 
-        if (call.method == 'checkPermissionStatus') {
-          return PermissionStatus.granted.index;
-        } else if (call.method == 'requestPermissions') {
-          return <dynamic, dynamic>{
-            for (final key in call.arguments as List<dynamic>)
-              key: PermissionStatus.granted.index,
-          };
-        } else if (call.method == 'openAppSettings') {
-          return true;
-        }
+          if (call.method == 'checkPermissionStatus') {
+            return PermissionStatus.granted.index;
+          } else if (call.method == 'requestPermissions') {
+            return <dynamic, dynamic>{
+              for (final key in call.arguments as List<dynamic>)
+                key: PermissionStatus.granted.index,
+            };
+          } else if (call.method == 'openAppSettings') {
+            return true;
+          }
 
-        return null;
-      });
+          return null;
+        },
+      );
+    });
+
+    tearDown(() {
+      binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannel(methodChannelName),
+        (call) async => null,
+      );
     });
 
     Matcher permissionWasRequested(Permission permission) => contains(
