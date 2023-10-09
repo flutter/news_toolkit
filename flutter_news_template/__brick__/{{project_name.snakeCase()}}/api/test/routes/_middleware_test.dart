@@ -10,15 +10,23 @@ class _MockRequestContext extends Mock implements RequestContext {}
 void main() {
   group('middleware', () {
     test('provides NewsDataSource instance.', () async {
+      final context = _MockRequestContext();
+
       final handler = middleware(
-        (context) {
+        (_) {
           expect(context.read<NewsDataSource>(), isNotNull);
           return Response();
         },
       );
       final request = Request('GET', Uri.parse('http://127.0.0.1/'));
-      final context = _MockRequestContext();
+
       when(() => context.request).thenReturn(request);
+
+      when(() => context.read<NewsDataSource>())
+          .thenReturn(InMemoryNewsDataSource());
+
+      when(() => context.provide<NewsDataSource>(any())).thenReturn(context);
+      when(() => context.provide<RequestUser>(any())).thenReturn(context);
       await handler(context);
     });
   });

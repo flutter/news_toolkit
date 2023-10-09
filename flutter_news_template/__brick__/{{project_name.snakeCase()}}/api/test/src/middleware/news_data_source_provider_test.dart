@@ -9,15 +9,22 @@ void main() {
   group('newsDataSourceProvider', () {
     test('provides a NewsDataSource instance', () async {
       NewsDataSource? value;
+      final context = _MockRequestContext();
       final handler = newsDataSourceProvider()(
-        (context) {
+        (_) {
           value = context.read<NewsDataSource>();
           return Response(body: '');
         },
       );
       final request = Request.get(Uri.parse('http://localhost/'));
-      final context = _MockRequestContext();
       when(() => context.request).thenReturn(request);
+
+      when(() => context.read<NewsDataSource>())
+          .thenReturn(InMemoryNewsDataSource());
+
+      when(() => context.provide<NewsDataSource>(any())).thenReturn(context);
+      when(() => context.provide<RequestUser>(any())).thenReturn(context);
+
       await handler(context);
       expect(value, isNotNull);
     });
