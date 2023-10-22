@@ -19,5 +19,5 @@ dev_dependencies:
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
   mocktail: ^1.0.1
-  test: ^1.24.7
+  test: ^1.24.8
   very_good_analysis: ^5.1.0
