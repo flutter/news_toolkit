@@ -1,3 +1,8 @@
+# 1.0.5
+
+- chore: update to Dart 3 and Flutter 3.10
+- chore: update dependencies
+
 # 1.0.4
 
 - chore: updating template generation bot
