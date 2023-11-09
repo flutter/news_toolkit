@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2.11.0
+      - uses: subosito/flutter-action@v2.12.0
         with:
           channel: ${{#mustacheCase}}matrix.channel{{/mustacheCase}}
           flutter-version: {{flutter_version}}
