@@ -1,3 +1,7 @@
+# 1.0.6
+
+- chore: upgraded Flutter version set on pre_gen script and codemagic.yaml file
+
 # 1.0.5
 
 - chore: update to Dart 3 and Flutter 3.10
