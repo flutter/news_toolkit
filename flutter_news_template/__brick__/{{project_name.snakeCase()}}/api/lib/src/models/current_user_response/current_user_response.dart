@@ -7,7 +7,7 @@ part 'current_user_response.g.dart';
 /// {@template current_user_response}
 /// A response object which contains the current user.
 /// {@endtemplate}
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CurrentUserResponse extends Equatable {
   /// {@macro current_user_response}
   const CurrentUserResponse({required this.user});
