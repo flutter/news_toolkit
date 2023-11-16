@@ -1,35 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: cast_nullable_to_non_nullable, implicit_dynamic_parameter, lines_longer_than_80_chars, prefer_const_constructors, require_trailing_commas
-
 part of 'subscription.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Subscription _$SubscriptionFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'Subscription',
-      json,
-      ($checkedConvert) {
-        final val = Subscription(
-          id: $checkedConvert('id', (v) => v as String),
-          name: $checkedConvert(
-              'name', (v) => $enumDecode(_$SubscriptionPlanEnumMap, v)),
-          cost: $checkedConvert('cost',
-              (v) => SubscriptionCost.fromJson(v as Map<String, dynamic>)),
-          benefits: $checkedConvert('benefits',
-              (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-        );
-        return val;
-      },
+Subscription _$SubscriptionFromJson(Map<String, dynamic> json) => Subscription(
+      id: json['id'] as String,
+      name: $enumDecode(_$SubscriptionPlanEnumMap, json['name']),
+      cost: SubscriptionCost.fromJson(json['cost'] as Map<String, dynamic>),
+      benefits:
+          (json['benefits'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$SubscriptionToJson(Subscription instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': _$SubscriptionPlanEnumMap[instance.name],
+      'name': _$SubscriptionPlanEnumMap[instance.name]!,
       'cost': instance.cost.toJson(),
       'benefits': instance.benefits,
     };
@@ -42,16 +30,9 @@ const _$SubscriptionPlanEnumMap = {
 };
 
 SubscriptionCost _$SubscriptionCostFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'SubscriptionCost',
-      json,
-      ($checkedConvert) {
-        final val = SubscriptionCost(
-          monthly: $checkedConvert('monthly', (v) => v as int),
-          annual: $checkedConvert('annual', (v) => v as int),
-        );
-        return val;
-      },
+    SubscriptionCost(
+      monthly: json['monthly'] as int,
+      annual: json['annual'] as int,
     );
 
 Map<String, dynamic> _$SubscriptionCostToJson(SubscriptionCost instance) =>
