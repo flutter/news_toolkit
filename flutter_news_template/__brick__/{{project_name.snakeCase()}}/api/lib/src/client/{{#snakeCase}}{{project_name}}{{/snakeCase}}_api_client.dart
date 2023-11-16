@@ -338,7 +338,8 @@ class {{project_name.pascalCase()}}ApiClient {
 extension on http.Response {
   Map<String, dynamic> json() {
     try {
-      return jsonDecode(body) as Map<String, dynamic>;
+      final decodedBody = utf8.decode(bodyBytes);
+      return jsonDecode(decodedBody) as Map<String, dynamic>;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         {{project_name.pascalCase()}}ApiMalformedResponse(error: error),
