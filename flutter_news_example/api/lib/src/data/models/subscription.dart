@@ -7,7 +7,7 @@ part 'subscription.g.dart';
 /// A news subscription object which contains
 /// metadata about a subscription tier.
 /// {@endtemplate}
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Subscription extends Equatable {
   /// {@macro subscription}
   const Subscription({
