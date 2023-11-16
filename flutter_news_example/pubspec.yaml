@@ -3,7 +3,7 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=2.19.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.7.6"
 dependencies:
   ads_consent_client:
@@ -47,13 +47,13 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
-  google_mobile_ads: ^2.3.0
+  google_mobile_ads: ^3.1.0
   hydrated_bloc: ^9.0.0
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
   intl: ^0.18.0
   json_annotation: ^4.7.0
-  mockingjay: ^0.3.0
+  mockingjay: ^0.4.0
   news_blocks:
     path: api/packages/news_blocks
   news_blocks_ui:
@@ -83,9 +83,9 @@ dependencies:
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^4.0.0
+  very_good_analysis: ^5.1.0
   video_player_platform_interface: ^6.0.1
-  visibility_detector: ^0.3.3
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -96,8 +96,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.3.1
-  mocktail: ^0.3.0
-  mocktail_image_network: ^0.3.1
+  mocktail: ^1.0.0
+  mocktail_image_network: ^1.0.0
 
 dependency_overrides:
   intl: ^0.18.0

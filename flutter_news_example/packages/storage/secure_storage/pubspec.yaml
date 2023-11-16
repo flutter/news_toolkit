@@ -3,17 +3,17 @@ description: A Key/Value Secure Storage Client
 publish_to: none
 
 environment:
-  sdk: ">=2.19.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_secure_storage: ^8.0.0
+  flutter_secure_storage: ^9.0.0
   storage:
     path: ../storage
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^0.3.0
-  very_good_analysis: ^4.0.0
+  mocktail: ^1.0.0
+  very_good_analysis: ^5.1.0

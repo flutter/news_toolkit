@@ -4,11 +4,11 @@ version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.19.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   collection: ^1.16.0
-  dart_frog: ^0.3.2
+  dart_frog: ^1.0.1
   equatable: ^2.0.5
   http: ^0.13.5
   json_annotation: ^4.6.0
@@ -16,8 +16,8 @@ dependencies:
     path: packages/news_blocks
 
 dev_dependencies:
-  build_runner: ^2.3.3
-  json_serializable: ^6.5.4
-  mocktail: ^0.3.0
-  test: ^1.24.3
-  very_good_analysis: ^4.0.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+  mocktail: ^1.0.1
+  test: ^1.24.9
+  very_good_analysis: ^5.1.0

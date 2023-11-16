@@ -31,12 +31,12 @@ jobs:
         channel: [stable]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2.10.0
+      - uses: subosito/flutter-action@v2.12.0
         with:
           channel: ${{matrix.channel}}
-          flutter-version: "3.7.6"
+          flutter-version: "3.10.2"
           cache: false
 
       - name: Install Dependencies
