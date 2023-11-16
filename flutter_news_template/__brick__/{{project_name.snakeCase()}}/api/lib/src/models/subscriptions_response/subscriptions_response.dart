@@ -8,7 +8,7 @@ part 'subscriptions_response.g.dart';
 /// A subscriptions response object which
 /// contains a list of all available subscriptions.
 /// {@endtemplate}
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SubscriptionsResponse extends Equatable {
   /// {@macro subscriptions_response}
   const SubscriptionsResponse({required this.subscriptions});

@@ -7,7 +7,7 @@ part 'user.g.dart';
 /// {@template user}
 /// A user object which contains user metadata.
 /// {@endtemplate}
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class User extends Equatable {
   /// {@macro user}
   const User({required this.id, required this.subscription});
