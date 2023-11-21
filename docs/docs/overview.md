@@ -32,7 +32,7 @@ Depending on the number of flavors you plan to create for your project, the setu
 In order to generate a project using the news template, you must have the [Dart SDK][dart_installation_link] installed on your machine.
 
 :::info
-Dart `">=2.18.0 <3.0.0"` is required.
+Dart `">=3.0.0 <4.0.0"` is required.
 :::
 
 **Mason**
