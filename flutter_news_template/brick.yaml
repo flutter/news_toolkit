@@ -1,7 +1,7 @@
 name: flutter_news_template
 description: A news application template built in Flutter, by Google and Very Good Ventures.
 repository: https://github.com/flutter/news_toolkit
-version: 1.0.6
+version: 1.0.7
 
 environment:
   mason: ">=0.1.0-dev.40 <0.1.0"

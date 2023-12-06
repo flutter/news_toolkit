@@ -1,3 +1,7 @@
+# 1.0.7
+
+- fix: Modified NewsBlockConverter() return type and added explicitToJson statements on models to resolve issues with API tests and code generation.
+
 # 1.0.6
 
 - chore: upgraded Flutter version set on pre_gen script and codemagic.yaml file
