@@ -31,7 +31,7 @@ In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -
 
 ### Firebase configuration
 
-In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple** to set up your Apple authentication method. Enable this in your app by followint the additional configuration steps for [Apple authentication](https://firebase.google.com/docs/auth/ios/apple?authuser=0) and [Apple authentication on Android](https://firebase.google.com/docs/auth/android/apple?authuser=0).
+In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -> Add new provider -> Apple** to set up your Apple authentication method. Enable this in your app by following the additional configuration steps for [Apple authentication](https://firebase.google.com/docs/auth/ios/apple?authuser=0) and [Apple authentication on Android](https://firebase.google.com/docs/auth/android/apple?authuser=0).
 
 ### Complete the setup
 
