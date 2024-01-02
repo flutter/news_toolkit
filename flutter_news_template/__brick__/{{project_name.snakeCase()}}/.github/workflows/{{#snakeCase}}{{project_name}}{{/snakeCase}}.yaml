@@ -71,7 +71,7 @@ jobs:
           pubviz print -d > pubviz.html
 
       - name: Upload Visual Architecture Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: visual-architecture-report
           path: ./pubviz.html
