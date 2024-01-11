@@ -1,3 +1,10 @@
+# 1.0.8
+
+- chore: update dependencies
+- fix: update documentation typo
+- fix: Remove GoogleService-Info.plist copy in iOS project
+- fix: revert change that caused mason template generation issue
+
 # 1.0.7
 
 - fix: Modified NewsBlockConverter() return type and added explicitToJson statements on models to resolve issues with API tests and code generation.
