@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.5
-  intl: ^0.18.0
+  intl: ^0.19.0
   mockingjay: ^0.4.0
 
 dev_dependencies:
