@@ -9,7 +9,7 @@ The Flutter News Toolkit comes pre-configured to support authentication using pa
 
 ## Email
 
-The news toolkit supports passwordless login.
+The news toolkit supports passwordless login. This means a deep link is sent to the user's email address, that when clicked will open your app and log the user in.
 
 ### Firebase configuration
 
@@ -20,6 +20,12 @@ In your Firebase Console, go to **Firebase -> Authentication -> Sign-in-method -
 Passwordless authentication with an email link requires additional configuration steps. Please follow the steps for [authentication on Apple platforms](https://firebase.google.com/docs/auth/ios/email-link-auth?authuser=0) and [authentication on Android](https://firebase.google.com/docs/auth/android/email-link-auth?authuser=0) configurations.
 
 :::
+
+Once the email authentication method is set up, go to **Firebase -> Engage -> Dynamic links**. Set up a new dynamic link URL prefix (for example, yourApplicationName.page.link) with a dynamic link URL of "/email_login".
+
+Once the dynamic link is set up, replace the placeholder value for **FLAVOR_DEEP_LINK_DOMAIN** inside the `launch.json` file with the **dynamic link URL prefix** you just created. This enviroment variable will be used inside `firebase_authentication_client.dart` to generate the dynamic link URL that will be sent to the user.
+
+In addition, replace the placeholder value for every **FLAVOR_DEEP_LINK_DOMAIN** key within your `project.pbxproj` file with the dynamic link URL prefix you just created.
 
 ## Google
 
@@ -49,7 +55,11 @@ After setting up your [Firebase project](https://flutter.github.io/news_toolkit/
 
 ### Complete the setup
 
-To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Facebook app configuration. For additional details, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
+To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Facebook app configuration.
+
+In addition, replace the placeholder value for every **FACEBOOK_APP_ID** , **FACEBOOK_CLIENT_TOKEN** and **FACEBOOK_DISPLAY_NAME** keys within your `project.pbxproj` file with their corresponding values.
+
+For additional details, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
 
 ## Twitter
 
@@ -73,4 +83,8 @@ After setting up your [Firebase project](https://flutter.github.io/news_toolkit/
 
 ### Complete the setup
 
-To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Twitter app configuration. For more information, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
+To complete your setup, add the OAuth redirect URI listed in your **Firebase Authentication Sign-in Method** to your Twitter app configuration.
+
+In addition, replace the placeholder values for **TWITTER_API_KEY** and **TWITTER_API_SECRET** inside the `launch.json` file. You must also replace the placeholder value for every **TWITTER_REDIRECT_URI_SCHEME** key within your `project.pbxproj` file with their corresponding values.
+
+For more information, check out the [Firebase authentication](https://firebase.google.com/docs/auth/?authuser=0) page.
