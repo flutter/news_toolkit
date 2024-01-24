@@ -325,10 +325,10 @@ packages:
     dependency: "direct dev"
     description:
       name: mocktail
-      sha256: f603ebd85a576e5914870b02e5839fc5d0243b867bf710651cf239a28ebb365e
+      sha256: c4b5007d91ca4f67256e720cb1b6d704e79a510183a12fa551021f652577dce6
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   news_blocks:
     dependency: "direct main"
     description:
