@@ -51,7 +51,7 @@ dependencies:
   hydrated_bloc: ^9.0.0
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
-  intl: ^0.18.0
+  intl: ^0.19.0
   json_annotation: ^4.7.0
   mockingjay: ^0.4.0
   news_blocks:
@@ -96,11 +96,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.3.1
-  mocktail: ^1.0.0
+  mocktail: ^1.0.2
   mocktail_image_network: ^1.0.0
 
 dependency_overrides:
-  intl: ^0.18.0
+  intl: ^0.19.0
 
 flutter:
   generate: true
