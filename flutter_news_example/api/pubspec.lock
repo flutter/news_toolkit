@@ -157,10 +157,10 @@ packages:
     dependency: "direct main"
     description:
       name: dart_frog
-      sha256: d4863f6e9f2c0b9d14d74b3e2793cc6ee8cd6fb40c9fadff9d9a22997e6b805a
+      sha256: a5da81b1ea4f3e8f03dfcd0bc9b44ba83a6576ce6dae1bb138a6a8f7b70fe727
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   dart_style:
     dependency: transitive
     description:
