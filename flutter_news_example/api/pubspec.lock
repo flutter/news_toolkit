@@ -229,10 +229,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.1"
   http_methods:
     dependency: transitive
     description:
@@ -568,6 +568,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  web:
+    dependency: transitive
+    description:
+      name: web
+      sha256: "1d9158c616048c38f712a6646e317a3426da10e884447626167240d45209cbad"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   web_socket_channel:
     dependency: transitive
     description:

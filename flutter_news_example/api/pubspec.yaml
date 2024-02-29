@@ -10,7 +10,7 @@ dependencies:
   collection: ^1.16.0
   dart_frog: ^1.1.0
   equatable: ^2.0.5
-  http: ^1.0.0
+  http: ^1.2.1
   json_annotation: ^4.6.0
   news_blocks:
     path: packages/news_blocks
