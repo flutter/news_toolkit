@@ -19,15 +19,15 @@ jobs:
       - name: Install Flutter ⚙️
         uses: subosito/flutter-action@v2.12.0
         with:
-        channel: ${{matrix.channel}}
-        flutter-version: "3.10.2"
-        cache: false
+          channel: ${{matrix.channel}}
+          flutter-version: "3.10.2"
+          cache: false
 
-      - name: Install Dependencies 📦
+      - name: Install Dependencies
         run: |
-        flutter pub global activate very_good_cli
-        very_good --analytics false
-        very_good packages get --recursive
+          flutter pub global activate very_good_cli
+          very_good --analytics false
+          very_good packages get --recursive
 
       - name: Cache pods 🍎
         uses: actions/cache@v1
