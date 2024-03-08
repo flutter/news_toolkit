@@ -1,0 +1,55 @@
+name: Update Cocoapods Dependencies after Dependabot package upgrade
+on:
+  push:
+    branches:
+      - dependabot/pub/**
+  pull_request:
+    branches:
+      - dependabot/pub/**
+
+jobs:
+  run:
+    name: Run pod install
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install Flutter ⚙️
+        uses: subosito/flutter-action@v2.12.0
+        with:
+        channel: ${{matrix.channel}}
+        flutter-version: "3.10.2"
+        cache: false
+
+      - name: Install Dependencies 📦
+        run: |
+        flutter pub global activate very_good_cli
+        very_good --analytics false
+        very_good packages get --recursive
+
+      - name: Cache pods 🍎
+        uses: actions/cache@v1
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install Cocoapods Packages 🍏
+        run: pushd ios && pod install --verbose && popd
+
+      - name: Generate Commit Message
+        id: generate_commit_message
+        # eg: ⬆️ Bump Cocoapods Packages for apple-signin-auth-1.4.0
+        run: |
+          branch=${GITHUB_REF#refs/heads/}
+          # add `[dependabot skip]` prefix so Dependabot force pushes any rebases over our changes triggering the action again
+          commit_message="[dependabot skip] :arrow_up: Bump Cocoapods Packages for${branch//dependabot\/pub\// }"
+          echo ::set-output name=commit_message::$commit_message
+
+      - uses: stefanzweifel/git-auto-commit-action@v4.1.1
+        with:
+          branch: ${{ github.head_ref }}
+          commit_message: ${{ steps.generate_commit_message.outputs.commit_message }}
