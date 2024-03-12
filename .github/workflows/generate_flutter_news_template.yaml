@@ -30,7 +30,7 @@ jobs:
         run: dart ./tool/generator/main.dart
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6.0.0
+        uses: peter-evans/create-pull-request@v6.0.2
         with:
           base: templates
           branch: chore/generate-flutter-news-template
