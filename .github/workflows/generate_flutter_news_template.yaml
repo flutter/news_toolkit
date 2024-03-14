@@ -29,8 +29,8 @@ jobs:
       - name: Generate Template
         run: dart ./tool/generator/main.dart
 
-      - name: Stage All Changes
-        run: git status && git add --all
+      - name: Stage Deleted Files
+        run: git rm $(git ls-files --deleted) 
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6.0.2
