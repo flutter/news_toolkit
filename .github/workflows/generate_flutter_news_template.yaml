@@ -30,7 +30,7 @@ jobs:
         run: dart ./tool/generator/main.dart
 
       - name: Stash Changes
-        run: git stash
+        run: git stash -u
 
       - name: Checkout Target Branch
         uses: actions/checkout@v4
