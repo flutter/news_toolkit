@@ -30,7 +30,7 @@ jobs:
         run: dart ./tool/generator/main.dart
 
       - name: Stage All Changes
-        run: git status && git add .
+        run: git status && git add --all
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6.0.2
