@@ -1,0 +1,58 @@
+name: app_ui
+description: App UI Component Library
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.5
+  intl: ^0.19.0
+  mockingjay: ^0.4.0
+
+dev_dependencies:
+  build_runner: ^2.0.3
+  flutter_gen_runner: ^5.2.0
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^5.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
+  fonts:
+    - family: NotoSerif
+      fonts:
+        - asset: assets/fonts/NotoSerif-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/NotoSerif-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/NotoSerif-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NotoSerif-Regular.ttf
+          weight: 400
+    - family: NotoSansDisplay
+      fonts:
+        - asset: assets/fonts/NotoSansDisplay-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansDisplay-SemiBold.ttf
+          weight: 600
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+
+flutter_gen:
+  assets:
+    enabled: true
+    outputs:
+      package_parameter_enabled: true
+  output: lib/src/generated/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true

@@ -1,0 +1,20 @@
+name: firebase_notifications_client
+description: A Firebase Cloud Messaging notifications client.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  firebase_messaging: ^14.0.3
+  flutter:
+    sdk: flutter
+  notifications_client:
+    path: ../notifications_client
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.2
+  very_good_analysis: ^5.1.0

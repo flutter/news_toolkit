@@ -1,0 +1,19 @@
+name: secure_storage
+description: A Key/Value Secure Storage Client
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.0.0
+  storage:
+    path: ../storage
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.2
+  very_good_analysis: ^5.1.0

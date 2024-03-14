@@ -1,0 +1,14 @@
+name: package_info_client
+description: A client that provides information about the app's package metadata
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+
+dev_dependencies:
+  test: ^1.21.4
+  very_good_analysis: ^5.1.0

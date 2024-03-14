@@ -1,0 +1,13 @@
+name: authentication_client
+description: An Authentication Client Interface
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+
+dev_dependencies:
+  test: ^1.21.4
+  very_good_analysis: ^5.1.0

@@ -169,7 +169,7 @@ final _blackList = <String>[
 void main() async {
   // Remove Previously Generated Files
   final templateDir = Directory(_templatePath);
-  if (templateDir.existsSync()) await templateDir.delete(recursive: true);
+  if (templateDir.existsSync()) await Shell.rm(_templatePath);
   final targetDir = Directory(_targetPath);
   await targetDir.create(recursive: true);
 
@@ -689,6 +689,10 @@ class Shell {
 
   static Future<void> mkdir(String destination) {
     return _Cmd.run('mkdir', ['-p', destination]);
+  }
+
+  static Future<void> rm(String source) {
+    return _Cmd.run('git', ['rm', '-r', '--ignore-unmatch', source]);
   }
 }
 

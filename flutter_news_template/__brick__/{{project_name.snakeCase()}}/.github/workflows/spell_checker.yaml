@@ -1,0 +1,19 @@
+name: spell_checker
+
+concurrency:
+  group: ${{#mustacheCase}}github.workflow{{/mustacheCase}}-${{#mustacheCase}}github.ref{{/mustacheCase}}
+  cancel-in-progress: true
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: zwaldowski/cspell-action@v1
+        with:
+          paths: "**/*.{md,dart}"
+          config: .vscode/cspell.json
+          exclude: ".gitignore"
