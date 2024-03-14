@@ -30,7 +30,9 @@ jobs:
         run: dart ./tool/generator/main.dart
 
       - name: Commit All Changes
-        run: git commit -am "chore:generate flutter_news_template"
+        run: |
+          git add -A
+          git commit -m "chore: generate flutter_news_template"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6.0.2
