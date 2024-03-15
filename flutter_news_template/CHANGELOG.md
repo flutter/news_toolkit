@@ -1,7 +1,7 @@
 # 1.0.9
 
 - chore: update dependencies
-- fix: Remove Podfile.lock from iOS project [#141462]
+- fix: Remove Podfile.lock from iOS project [[#141462]](https://github.com/flutter/flutter/issues/141462)
 
 # 1.0.8
 
