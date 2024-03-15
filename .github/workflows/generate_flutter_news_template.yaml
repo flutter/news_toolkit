@@ -29,7 +29,8 @@ jobs:
       - name: Generate Template
         run: dart ./tool/generator/main.dart
 
-      - name: Stash Changes
+      - name: Stash New Template Version  
+        # Save the new version of the template to apply the changes later.
         run: git stash -u
 
       - name: Checkout Target Branch
@@ -37,13 +38,17 @@ jobs:
         with:
           ref: templates
 
-      - name: Clean Template
+      - name: Clean Up Current Template 
+        # Delete the current version of the template using git to keep 
+        # track of all changes afterwards.
         run: git rm -r --ignore-unmatch flutter_news_template/__brick__
 
-      - name: Unstash Changes
+      - name: Unstash New Template Version
+        # Pop the new version of the template previously saved to compare it with
+        # the previous deleted one to keep track of all changes, including deletions.
         run: git stash pop
 
-      - name: Create Pull Request
+      - name: Create Pull Request With Required Changes
         uses: peter-evans/create-pull-request@v6.0.2
         with:
           branch: chore/generate-flutter-news-template
