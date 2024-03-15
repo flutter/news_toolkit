@@ -1,3 +1,8 @@
+# 1.0.9
+
+- chore: update dependencies
+- fix: Remove Podfile.lock from iOS project [#141462]
+
 # 1.0.8
 
 - chore: update dependencies
