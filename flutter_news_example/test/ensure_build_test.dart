@@ -15,7 +15,7 @@ void main() {
           'run',
           'build_runner',
           'build',
-          '--delete-conflicting-outputs'
+          '--delete-conflicting-outputs',
         ],
       );
     },

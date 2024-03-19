@@ -126,7 +126,7 @@ class ArticleView extends StatelessWidget {
                             .add(ShareRequested(uri: uri)),
                       ),
                     ),
-                  if (!isSubscriber) const ArticleSubscribeButton()
+                  if (!isSubscriber) const ArticleSubscribeButton(),
                 ],
               ),
               body: ArticleThemeOverride(

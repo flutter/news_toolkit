@@ -199,7 +199,7 @@ void main() {
             publishedAt: DateTime(2022, 3, 12),
             imageUrl: 'imageUrl',
             title: 'title',
-          )
+          ),
         ],
       );
       await mockNetworkImages(() async {
@@ -361,7 +361,7 @@ void main() {
               imageUrl: 'imageUrl',
               title: 'title',
               action: NavigateToArticleAction(articleId: articleId),
-            )
+            ),
           ],
         );
 
@@ -513,7 +513,7 @@ void main() {
               imageUrl: 'imageUrl',
               title: 'title',
               action: NavigateToVideoArticleAction(articleId: articleId),
-            )
+            ),
           ],
         );
 

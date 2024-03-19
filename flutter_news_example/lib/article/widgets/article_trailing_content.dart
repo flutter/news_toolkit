@@ -56,7 +56,7 @@ class ArticleTrailingContent extends StatelessWidget {
           const SliverPadding(
             padding: EdgeInsets.all(AppSpacing.lg),
             sliver: SliverToBoxAdapter(child: ArticleComments()),
-          )
+          ),
         ],
         if (isArticlePreview) ...[
           SliverList(
@@ -70,7 +70,7 @@ class ArticleTrailingContent extends StatelessWidget {
               ],
             ),
           ),
-        ]
+        ],
       ],
     );
   }
