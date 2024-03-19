@@ -45,6 +45,8 @@ class FakeLogInWithFacebookCanceled extends Fake
 
 class FakeLogOutFailure extends Fake implements LogOutFailure {}
 
+class FakeDeleteAccountFailure extends Fake implements DeleteAccountFailure {}
+
 class FakeSendLoginEmailLinkFailure extends Fake
     implements SendLoginEmailLinkFailure {}
 
@@ -416,6 +418,29 @@ void main() {
       test('throws LogOutFailure on generic exception', () async {
         when(() => authenticationClient.logOut()).thenThrow(Exception());
         expect(() => userRepository.logOut(), throwsA(isA<LogOutFailure>()));
+      });
+    });
+
+    group('deleteAccount', () {
+      test('calls logOut on AuthenticationClient', () async {
+        when(() => authenticationClient.deleteAccount())
+            .thenAnswer((_) async {});
+        await userRepository.deleteAccount();
+        verify(() => authenticationClient.deleteAccount()).called(1);
+      });
+
+      test('rethrows DeleteAccountFailure', () async {
+        final exception = FakeDeleteAccountFailure();
+        when(() => authenticationClient.deleteAccount()).thenThrow(exception);
+        expect(() => userRepository.deleteAccount(), throwsA(exception));
+      });
+
+      test('throws DeleteAccountFailure on generic exception', () async {
+        when(() => authenticationClient.deleteAccount()).thenThrow(Exception());
+        expect(
+          () => userRepository.deleteAccount(),
+          throwsA(isA<DeleteAccountFailure>()),
+        );
       });
     });
 

@@ -211,6 +211,16 @@ class UserRepository {
     }
   }
 
+ /// Deletes the current user account.
+  Future<void> deleteAccount() async {
+    try {
+      await _authenticationClient.deleteAccount();
+    } on DeleteAccountFailure {
+      rethrow;
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(DeleteAccountFailure(error), stackTrace);
+    }
+  }
   /// Returns the number of times the app was opened.
   Future<int> fetchAppOpenedCount() async {
     try {
