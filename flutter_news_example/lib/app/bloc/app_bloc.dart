@@ -24,6 +24,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppUserChanged>(_onUserChanged);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AppLogoutRequested>(_onLogoutRequested);
+    on<AppDeleteAccountRequested>(_onDeleteAccountRequested);
     on<AppOpened>(_onAppOpened);
 
     _userSubscription = _userRepository.user.listen(_userChanged);
@@ -72,6 +73,21 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     unawaited(_notificationsRepository.toggleNotifications(enable: false));
 
     unawaited(_userRepository.logOut());
+  }
+
+  Future<void> _onDeleteAccountRequested(
+    AppDeleteAccountRequested event,
+    Emitter<AppState> emit,
+  ) async {
+    try {
+      // We are disabling notifications when a user deletes their account
+      // because the user should not receive any notifications after their
+      // account is deleted.
+      unawaited(_notificationsRepository.toggleNotifications(enable: false));
+      await _userRepository.deleteAccount();
+    } catch (e) {
+      await _userRepository.logOut();
+    }
   }
 
   Future<void> _onAppOpened(AppOpened event, Emitter<AppState> emit) async {
