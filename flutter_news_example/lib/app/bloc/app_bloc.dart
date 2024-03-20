@@ -84,7 +84,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       // because the user should not receive any notifications after their
       // account is deleted.
       unawaited(_notificationsRepository.toggleNotifications(enable: false));
-
       await _userRepository.deleteAccount();
     } catch (e) {
       await _userRepository.logOut();
