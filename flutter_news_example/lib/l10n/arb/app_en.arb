@@ -617,15 +617,9 @@
     "type": "String",
     "placeholders": {}
   },
-  "userProfileDeleteAccountButton": "Delete account",
-  "@userProfileDeleteAccountButton": {
-    "description": "User profile delete account button title",
-    "type": "String",
-    "placeholders": {}
-  },
-  "deleteAccountDialogTitle": "ADD YOUR DELETE DIALOG TITLE",
-  "@deleteAccountDialogTitle": {
-    "description": "Delete account dialog title",
+  "deleteAccountDialogCancelButtonText": "Cancel",
+  "@deleteAccountDialogCancelButtonText": {
+    "description": "Delete account dialog cancel button text",
     "type": "String",
     "placeholders": {}
   },
@@ -635,9 +629,15 @@
     "type": "String",
     "placeholders": {}
   },
-  "deleteAccountDialogCancelButtonText": "Cancel",
-  "@deleteAccountDialogCancelButtonText": {
-    "description": "Delete account dialog cancel button text",
+  "deleteAccountDialogTitle": "ADD YOUR DELETE DIALOG TITLE",
+  "@deleteAccountDialogTitle": {
+    "description": "Delete account dialog title",
+    "type": "String",
+    "placeholders": {}
+  },
+  "userProfileDeleteAccountButton": "Delete account",
+  "@userProfileDeleteAccountButton": {
+    "description": "User profile delete account button title",
     "type": "String",
     "placeholders": {}
   }
