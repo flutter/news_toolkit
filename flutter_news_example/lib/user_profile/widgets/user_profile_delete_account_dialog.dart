@@ -16,15 +16,9 @@ class UserProfileDeleteAccountDialog extends StatelessWidget {
         l10n.deleteAccountDialogTitle,
         style: Theme.of(context).textTheme.titleLarge,
       ),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            Text(
-              l10n.deleteAccountDialogSubtitle,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
-        ),
+      content: Text(
+        l10n.deleteAccountDialogSubtitle,
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
       actions: <Widget>[
         AppButton.smallDarkAqua(
