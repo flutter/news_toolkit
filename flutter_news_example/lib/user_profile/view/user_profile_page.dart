@@ -184,13 +184,12 @@ class _UserProfileViewState extends State<UserProfileView>
                         onPressed: () {
                           showDialog<void>(
                             context: context,
-                            builder: (BuildContext context) {
-                              return const UserProfileDeleteAccountDialog();
-                            },
+                            builder: (_) =>
+                                const UserProfileDeleteAccountDialog(),
                           );
                         },
                         child: Text(
-                          context.l10n.userProfileDeleteAccountButton,
+                          l10n.userProfileDeleteAccountButton,
                         ),
                       ),
                     ),
