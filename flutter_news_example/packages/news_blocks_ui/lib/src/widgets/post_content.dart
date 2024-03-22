@@ -86,7 +86,7 @@ class PostContent extends StatelessWidget {
                   premiumText: premiumText,
                   isVideoContent: isVideoContent,
                 ),
-              ]
+              ],
             ],
           ),
           Text(

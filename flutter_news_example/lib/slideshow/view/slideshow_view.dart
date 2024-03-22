@@ -37,9 +37,9 @@ class SlideshowView extends StatelessWidget {
                     },
                   ),
                 ),
-              if (!isSubscriber) const ArticleSubscribeButton()
+              if (!isSubscriber) const ArticleSubscribeButton(),
             ],
-          )
+          ),
         ],
       ),
       backgroundColor: AppColors.darkBackground,

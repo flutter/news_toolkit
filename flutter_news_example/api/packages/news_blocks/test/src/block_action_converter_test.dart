@@ -10,7 +10,7 @@ void main() {
 
       const actions = <BlockAction>[
         NavigateToArticleAction(articleId: 'articleId'),
-        NavigateToFeedCategoryAction(category: Category.top)
+        NavigateToFeedCategoryAction(category: Category.top),
       ];
 
       for (final action in actions) {

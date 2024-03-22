@@ -31,7 +31,7 @@ class _AppBackButtonPageState extends State<AppBackButtonPage> {
               value: _isLight,
               onChanged: (_) => setState(() => _isLight = !_isLight),
             ),
-            const Text('Default/light')
+            const Text('Default/light'),
           ],
         ),
       ),

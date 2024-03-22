@@ -134,7 +134,7 @@ extension AppTester on WidgetTester {
                     ),
             ),
             navigatorObservers: [
-              if (navigatorObserver != null) navigatorObserver
+              if (navigatorObserver != null) navigatorObserver,
             ],
           ),
         ),

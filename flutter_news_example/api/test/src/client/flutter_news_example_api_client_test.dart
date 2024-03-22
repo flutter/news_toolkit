@@ -801,7 +801,7 @@ void main() {
               name: SubscriptionPlan.premium,
               cost: SubscriptionCost(annual: 4200, monthly: 42),
               benefits: ['benefit'],
-            )
+            ),
           ],
         );
         when(() => httpClient.get(any())).thenAnswer(

@@ -131,7 +131,7 @@ class SubscriptionCard extends StatelessWidget {
                     if (isLoggedIn)
                       Text(l10n.subscriptionPurchaseButton)
                     else
-                      Text(l10n.subscriptionUnauthenticatedPurchaseButton)
+                      Text(l10n.subscriptionUnauthenticatedPurchaseButton),
                   ],
                 ),
               ),

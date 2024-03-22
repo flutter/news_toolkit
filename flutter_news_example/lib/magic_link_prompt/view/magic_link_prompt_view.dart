@@ -30,7 +30,7 @@ class MagicLinkPromptView extends StatelessWidget {
                 const SizedBox(height: AppSpacing.xxxlg),
                 MagicLinkPromptSubtitle(email: email),
                 const Spacer(),
-                MagicLinkPromptOpenEmailButton()
+                MagicLinkPromptOpenEmailButton(),
               ],
             ),
           ),

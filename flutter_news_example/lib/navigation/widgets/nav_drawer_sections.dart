@@ -33,7 +33,7 @@ class NavDrawerSections extends StatelessWidget {
                     .read<CategoriesBloc>()
                     .add(CategorySelected(category: category));
               },
-            )
+            ),
         ],
       ],
     );
