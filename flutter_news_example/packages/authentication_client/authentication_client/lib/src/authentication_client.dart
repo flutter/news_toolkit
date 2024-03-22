@@ -21,7 +21,7 @@ class SendLoginEmailLinkFailure extends AuthenticationException {
   const SendLoginEmailLinkFailure(super.error);
 }
 
-/// {@template is is_log_in_email_link_failure}
+/// {@template is_log_in_email_link_failure}
 /// Thrown during the validation of the email link process if a failure occurs.
 /// {@endtemplate}
 class IsLogInWithEmailLinkFailure extends AuthenticationException {

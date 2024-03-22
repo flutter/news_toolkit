@@ -87,6 +87,7 @@ class InAppPurchaseBuyNonConsumableFailure extends InAppPurchaseFailure {
 ///     flag set to true, which means that we need to deliver the content of the
 ///     product to the user and mark the purchase as completed using [completePurchase](https://pub.dev/documentation/in_app_purchase_platform_interface/latest/in_app_purchase_platform_interface/InAppPurchasePlatform/completePurchase.html)
 ///     method.
+/// {@endtemplate}
 class InAppPurchaseRepository {
   /// {@macro in_app_purchase_repository}
   InAppPurchaseRepository({

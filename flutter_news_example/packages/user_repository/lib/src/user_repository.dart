@@ -43,6 +43,7 @@ class IncrementAppOpenedCountFailure extends UserFailure {
 
 /// {@template fetch_current_subscription_failure}
 /// An exception thrown when fetching current subscription fails.
+/// {@endtemplate}
 class FetchCurrentSubscriptionFailure extends UserFailure {
   /// {@macro fetch_current_subscription_failure}
   const FetchCurrentSubscriptionFailure(super.error);

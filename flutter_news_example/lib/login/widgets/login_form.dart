@@ -69,7 +69,7 @@ class _LoginContent extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               _TwitterLoginButton(),
               const SizedBox(height: AppSpacing.lg),
-              _ContinueWithEmailLoginButton()
+              _ContinueWithEmailLoginButton(),
             ],
           ),
         );

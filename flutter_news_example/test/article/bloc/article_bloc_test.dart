@@ -145,7 +145,7 @@ void main() {
             contentTotalCount: articleResponse.totalCount,
             relatedArticles: relatedArticlesResponse.relatedArticles,
             hasMoreContent: false,
-          )
+          ),
         ],
       );
 

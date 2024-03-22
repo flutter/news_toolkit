@@ -132,7 +132,7 @@ void main() {
             loginBloc,
             Stream.fromIterable(const <LoginState>[
               LoginState(status: FormzSubmissionStatus.inProgress),
-              LoginState(status: FormzSubmissionStatus.failure)
+              LoginState(status: FormzSubmissionStatus.failure),
             ]),
           );
           await tester.pumpApp(
@@ -226,7 +226,7 @@ void main() {
           Stream.fromIterable(
             <LoginState>[
               const LoginState(status: FormzSubmissionStatus.inProgress),
-              const LoginState(status: FormzSubmissionStatus.success)
+              const LoginState(status: FormzSubmissionStatus.success),
             ],
           ),
           initialState: const LoginState(),
