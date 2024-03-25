@@ -319,7 +319,7 @@ packages:
   deep_link_client:
     dependency: "direct main"
     description:
-      path: "packages/deep_link_client"
+      path: "packages/deep_link_client/deep_link_client"
       relative: true
     source: path
     version: "0.0.0"
@@ -473,6 +473,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.16"
+  firebase_deep_link_service:
+    dependency: "direct main"
+    description:
+      path: "packages/deep_link_client/firebase_deep_link_service"
+      relative: true
+    source: path
+    version: "0.0.0"
   firebase_dynamic_links:
     dependency: "direct main"
     description:

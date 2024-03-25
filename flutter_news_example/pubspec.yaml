@@ -21,7 +21,7 @@ dependencies:
   clock: ^1.1.0
   collection: ^1.16.0
   deep_link_client:
-    path: packages/deep_link_client
+    path: packages/deep_link_client/deep_link_client
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
@@ -31,6 +31,8 @@ dependencies:
     path: packages/authentication_client/firebase_authentication_client
   firebase_core: ^2.24.2
   firebase_crashlytics: ^3.0.3
+  firebase_deep_link_service:
+    path: packages/deep_link_client/firebase_deep_link_service
   firebase_dynamic_links: ^5.0.3
   firebase_messaging: ^14.0.3
   firebase_notifications_client:

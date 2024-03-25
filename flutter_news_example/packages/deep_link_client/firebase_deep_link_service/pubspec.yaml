@@ -1,4 +1,4 @@
-name: deep_link_client
+name: firebase_deep_link_service
 description: A Dart package which provides a deep link stream
 publish_to: none
 
@@ -6,6 +6,8 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  deep_link_client:
+    path: ../deep_link_client
   equatable: ^2.0.3
   firebase_core: ^2.24.2
   firebase_dynamic_links: ^5.0.3
