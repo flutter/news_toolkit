@@ -4,7 +4,7 @@ import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 /// {@template firebase_deep_link_client}
-/// A client that exposes a stream of deep link URIs redirected to the app.
+/// A FirebaseDynamicLinks implementation of [DeepLinkService].
 /// {@endtemplate}
 class FirebaseDeepLinkService extends DeepLinkService {
   /// {@macro firebase_deep_link_client}
