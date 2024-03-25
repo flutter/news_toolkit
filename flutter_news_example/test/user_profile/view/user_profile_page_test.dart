@@ -537,6 +537,36 @@ void main() {
           expect(find.byType(NotificationPreferencesPage), findsOneWidget);
         });
       });
+
+      group('shows', () {
+        testWidgets(
+            'UserProfileDeleteAccountDialog '
+            'when tapped on Delete account', (tester) async {
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+          );
+
+          final deleteAccountButton = find.byKey(
+            Key('userProfilePage_deleteAccountButton'),
+          );
+          await tester.dragUntilVisible(
+            deleteAccountButton,
+            find.byType(UserProfileView),
+            Offset(0, -100),
+            duration: Duration.zero,
+          );
+          await tester.pumpAndSettle();
+
+          await tester.ensureVisible(deleteAccountButton);
+          await tester.tap(deleteAccountButton);
+          await tester.pumpAndSettle();
+
+          expect(find.byType(UserProfileDeleteAccountDialog), findsOneWidget);
+        });
+      });
     });
   });
 }

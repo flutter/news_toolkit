@@ -271,6 +271,23 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
     }
   }
 
+  /// Deletes and signs out the user.
+  @override
+  Future<void> deleteAccount() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) {
+        throw DeleteAccountFailure(
+          Exception('User is not authenticated'),
+        );
+      }
+
+      await user.delete();
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(DeleteAccountFailure(error), stackTrace);
+    }
+  }
+
   /// Updates the user token in [TokenStorage] if the user is authenticated.
   Future<void> _onUserChanged(AuthenticationUser user) async {
     if (!user.isAnonymous) {

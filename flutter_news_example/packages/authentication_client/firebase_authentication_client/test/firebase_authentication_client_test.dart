@@ -596,6 +596,38 @@ void main() {
       });
     });
 
+    group('deleteAccount', () {
+      test('calls deleteAccount', () async {
+        final firebaseUser = MockFirebaseUser();
+        when(firebaseUser.delete).thenAnswer((_) async {});
+        when(() => firebaseAuth.currentUser).thenReturn(firebaseUser);
+
+        await firebaseAuthenticationClient.deleteAccount();
+        verify(() => firebaseAuth.currentUser).called(1);
+        verify(firebaseUser.delete).called(1);
+      });
+
+      test('throws DeleteAccountFailure if current user is null', () async {
+        when(() => firebaseAuth.currentUser).thenReturn(null);
+
+        expect(
+          firebaseAuthenticationClient.deleteAccount(),
+          throwsA(isA<DeleteAccountFailure>()),
+        );
+      });
+
+      test('throws DeleteAccountFailure when deleteAccount throws', () async {
+        final firebaseUser = MockFirebaseUser();
+        when(firebaseUser.delete).thenThrow(Exception());
+        when(() => firebaseAuth.currentUser).thenReturn(firebaseUser);
+
+        expect(
+          firebaseAuthenticationClient.deleteAccount(),
+          throwsA(isA<DeleteAccountFailure>()),
+        );
+      });
+    });
+
     group('user', () {
       const userId = 'mock-uid';
       const email = 'mock-email';

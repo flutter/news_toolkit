@@ -241,6 +241,64 @@ void main() {
       );
     });
 
+    group('AppDeleteAccountRequested', () {
+      setUp(() {
+        when(
+          () => notificationsRepository.toggleNotifications(
+            enable: any(named: 'enable'),
+          ),
+        ).thenAnswer((_) async {});
+
+        when(() => userRepository.deleteAccount()).thenAnswer((_) async {});
+        when(() => userRepository.logOut()).thenAnswer((_) async {});
+      });
+
+      blocTest<AppBloc, AppState>(
+        'calls toggleNotifications off on NotificationsRepository',
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppDeleteAccountRequested()),
+        verify: (_) {
+          verify(
+            () => notificationsRepository.toggleNotifications(enable: false),
+          ).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls deleteAccount on UserRepository',
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppDeleteAccountRequested()),
+        verify: (_) {
+          verify(() => userRepository.deleteAccount()).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'calls logOut when deleteAccount on UserRepository fails',
+        setUp: () {
+          when(() => userRepository.deleteAccount()).thenThrow(Exception());
+        },
+        build: () => AppBloc(
+          userRepository: userRepository,
+          notificationsRepository: notificationsRepository,
+          user: user,
+        ),
+        act: (bloc) => bloc.add(AppDeleteAccountRequested()),
+        verify: (_) {
+          verify(() => userRepository.deleteAccount()).called(1);
+          verify(() => userRepository.logOut()).called(1);
+        },
+      );
+    });
+
     group('close', () {
       late StreamController<User> userController;
 

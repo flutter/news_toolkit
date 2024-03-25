@@ -178,6 +178,22 @@ class _UserProfileViewState extends State<UserProfileView>
                       leading: Assets.icons.aboutIcon.svg(),
                       title: l10n.userProfileLegalAboutTitle,
                     ),
+                    Align(
+                      child: AppButton.smallTransparent(
+                        key: const Key('userProfilePage_deleteAccountButton'),
+                        onPressed: () {
+                          showDialog<void>(
+                            context: context,
+                            builder: (_) =>
+                                const UserProfileDeleteAccountDialog(),
+                          );
+                        },
+                        child: Text(
+                          l10n.userProfileDeleteAccountButton,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
                   ],
                 ),
               ),
