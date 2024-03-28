@@ -15,13 +15,13 @@ class MockFirebaseCore extends Mock
     implements FirebasePlatform {}
 
 void main() {
-  late MockAppLinks appLinksMock;
+  late MockAppLinks appLinks;
   late StreamController<PendingDynamicLinkData> onLinkStreamController;
 
   setUp(() {
-    appLinksMock = MockAppLinks();
+    appLinks = MockAppLinks();
     onLinkStreamController = StreamController<PendingDynamicLinkData>();
-    when(() => appLinksMock.onLink)
+    when(() => appLinks.onLink)
         .thenAnswer((_) => onLinkStreamController.stream);
   });
 
@@ -33,12 +33,11 @@ void main() {
     group('getInitialLink', () {
       test('retrieves the latest link if present', () async {
         final expectedUri = Uri.https('ham.app.test', '/test/path');
-        when(appLinksMock.getInitialLink).thenAnswer(
+        when(appLinks.getInitialLink).thenAnswer(
           (_) => Future.value(PendingDynamicLinkData(link: expectedUri)),
         );
 
-        final service =
-            FirebaseDeepLinkService(firebaseDynamicLinks: appLinksMock);
+        final service = FirebaseDeepLinkService(firebaseDynamicLinks: appLinks);
         final link = await service.getInitialLink();
         expect(link, expectedUri);
       });
@@ -49,8 +48,7 @@ void main() {
         final expectedUri1 = Uri.https('ham.app.test', '/test/1');
         final expectedUri2 = Uri.https('ham.app.test', '/test/2');
 
-        final service =
-            FirebaseDeepLinkService(firebaseDynamicLinks: appLinksMock);
+        final service = FirebaseDeepLinkService(firebaseDynamicLinks: appLinks);
 
         expect(
           service.deepLinkStream,
