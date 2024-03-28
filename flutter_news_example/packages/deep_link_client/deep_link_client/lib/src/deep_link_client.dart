@@ -19,10 +19,10 @@ class DeepLinkClientFailure with EquatableMixin implements Exception {
 }
 
 /// {@template deep_link_client}
-/// A generic deep link client interface.
+/// A DeepLinkClient that provides access to deep links intercepted by the app.
 /// {@endtemplate}
 class DeepLinkClient {
-  /// {@macro firebase_deep_link_client}
+  /// {@macro deep_link_client}
   DeepLinkClient({
     required DeepLinkService deepLinkService,
   })  : _deepLinkService = deepLinkService,
