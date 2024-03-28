@@ -9,13 +9,13 @@ typedef OnAppLinkFunction = void Function(Uri uri, String stringUri);
 class MockDeepLinkService extends Mock implements DeepLinkService {}
 
 void main() {
-  late DeepLinkService deepLinkServiceMock;
+  late DeepLinkService deepLinkService;
   late StreamController<Uri> onDeepLinkStreamController;
 
   setUp(() {
-    deepLinkServiceMock = MockDeepLinkService();
+    deepLinkService = MockDeepLinkService();
     onDeepLinkStreamController = StreamController<Uri>();
-    when(() => deepLinkServiceMock.deepLinkStream)
+    when(() => deepLinkService.deepLinkStream)
         .thenAnswer((_) => onDeepLinkStreamController.stream);
   });
 
@@ -26,11 +26,11 @@ void main() {
   group('DeepLinkClient', () {
     test('retrieves and publishes latest link if present', () {
       final expectedUri = Uri.https('ham.app.test', '/test/path');
-      when(deepLinkServiceMock.getInitialLink).thenAnswer(
+      when(deepLinkService.getInitialLink).thenAnswer(
         (_) => Future.value(expectedUri),
       );
 
-      final client = DeepLinkClient(deepLinkService: deepLinkServiceMock);
+      final client = DeepLinkClient(deepLinkService: deepLinkService);
       expect(client.deepLinkStream, emits(expectedUri));
 
       // Testing also the replay of the latest value.
@@ -41,11 +41,11 @@ void main() {
       final expectedError = Error();
       final expectedStackTrace = StackTrace.current;
 
-      when(deepLinkServiceMock.getInitialLink).thenAnswer((_) {
+      when(deepLinkService.getInitialLink).thenAnswer((_) {
         return Future.error(expectedError, expectedStackTrace);
       });
 
-      final client = DeepLinkClient(deepLinkService: deepLinkServiceMock);
+      final client = DeepLinkClient(deepLinkService: deepLinkService);
       expect(
         client.deepLinkStream,
         emitsError(
@@ -59,9 +59,9 @@ void main() {
       final expectedUri1 = Uri.https('ham.app.test', '/test/1');
       final expectedUri2 = Uri.https('ham.app.test', '/test/2');
 
-      when(deepLinkServiceMock.getInitialLink).thenAnswer((_) async => null);
+      when(deepLinkService.getInitialLink).thenAnswer((_) async => null);
 
-      final client = DeepLinkClient(deepLinkService: deepLinkServiceMock);
+      final client = DeepLinkClient(deepLinkService: deepLinkService);
 
       expect(
         client.deepLinkStream,
