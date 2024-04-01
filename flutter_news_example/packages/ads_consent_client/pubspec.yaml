@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_mobile_ads: ^4.0.0
+  google_mobile_ads: ^5.0.0
 
 dev_dependencies:
   flutter_test:
