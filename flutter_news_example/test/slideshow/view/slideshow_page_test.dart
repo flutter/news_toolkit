@@ -52,7 +52,7 @@ void main() {
     group('navigates', () {
       testWidgets('back when leading button is pressed.', (tester) async {
         final navigator = MockNavigator();
-
+        when(navigator.canPop).thenAnswer((_) => true);
         when(() => navigator.popUntil(any())).thenAnswer((_) async {});
         await mockNetworkImages(
           () => tester.pumpApp(

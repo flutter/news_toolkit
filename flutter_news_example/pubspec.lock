@@ -989,10 +989,10 @@ packages:
     dependency: "direct main"
     description:
       name: mockingjay
-      sha256: "9ef2c471ab3db0f19a8e9600e255297ac13d1130a9b8f1926294ee6d0cb7d68f"
+      sha256: "04beab95a415cda5bd4efa2681ee76eb92bb9377acaf1a0c08cd58efbae70d83"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.5.0"
   mocktail:
     dependency: "direct dev"
     description:
@@ -1882,5 +1882,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0-0 <4.0.0"
-  flutter: ">=3.10.0"
+  dart: ">=3.3.3 <4.0.0"
+  flutter: ">=3.19.5"

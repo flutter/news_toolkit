@@ -30,6 +30,7 @@ void main() {
         'navigates back '
         'when subscriptions ListTile tapped', (tester) async {
       final navigator = MockNavigator();
+      when(navigator.canPop).thenAnswer((_) => true);
       when(navigator.maybePop).thenAnswer((_) async => true);
 
       await tester.pumpApp(
