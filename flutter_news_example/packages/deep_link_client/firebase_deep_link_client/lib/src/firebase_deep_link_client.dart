@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
-/// {@template firebase_deep_link_service}
+/// {@template firebase_deep_link_client}
 /// A FirebaseDynamicLinks implementation of [DeepLinkService].
 /// {@endtemplate}
-class FirebaseDeepLinkService implements DeepLinkService {
-  /// {@macro firebase_deep_link_service}
-  FirebaseDeepLinkService({FirebaseDynamicLinks? firebaseDynamicLinks})
+class FirebaseDeepLinkClient implements DeepLinkClient {
+  /// {@macro firebase_deep_link_client}
+  FirebaseDeepLinkClient({FirebaseDynamicLinks? firebaseDynamicLinks})
       : _firebaseDynamicLinks =
             firebaseDynamicLinks ?? FirebaseDynamicLinks.instance;
 

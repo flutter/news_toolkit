@@ -1,4 +1,4 @@
-name: firebase_deep_link_service
+name: firebase_deep_link_client
 description: A Dart package which provides a deep link stream
 publish_to: none
 

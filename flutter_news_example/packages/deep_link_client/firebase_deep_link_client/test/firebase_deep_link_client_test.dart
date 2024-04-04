@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-import 'package:firebase_deep_link_service/firebase_deep_link_service.dart';
+import 'package:firebase_deep_link_client/firebase_deep_link_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -29,7 +28,7 @@ void main() {
     onLinkStreamController.close();
   });
 
-  group('FirebaseDeepLinkService', () {
+  group('FirebaseDeepLinkClient', () {
     group('getInitialLink', () {
       test('retrieves the latest link if present', () async {
         final expectedUri = Uri.https('ham.app.test', '/test/path');
@@ -37,8 +36,8 @@ void main() {
           (_) => Future.value(PendingDynamicLinkData(link: expectedUri)),
         );
 
-        final service = FirebaseDeepLinkService(firebaseDynamicLinks: appLinks);
-        final link = await service.getInitialLink();
+        final client = FirebaseDeepLinkClient(firebaseDynamicLinks: appLinks);
+        final link = await client.getInitialLink();
         expect(link, expectedUri);
       });
     });
@@ -48,10 +47,10 @@ void main() {
         final expectedUri1 = Uri.https('ham.app.test', '/test/1');
         final expectedUri2 = Uri.https('ham.app.test', '/test/2');
 
-        final service = FirebaseDeepLinkService(firebaseDynamicLinks: appLinks);
+        final client = FirebaseDeepLinkClient(firebaseDynamicLinks: appLinks);
 
         expect(
-          service.deepLinkStream,
+          client.deepLinkStream,
           emitsInOrder(
             <Uri>[expectedUri1, expectedUri1, expectedUri2, expectedUri1],
           ),
@@ -98,7 +97,7 @@ void main() {
 
       test('can be instantiated', () async {
         await Firebase.initializeApp();
-        expect(FirebaseDeepLinkService.new, returnsNormally);
+        expect(FirebaseDeepLinkClient.new, returnsNormally);
       });
     });
   });

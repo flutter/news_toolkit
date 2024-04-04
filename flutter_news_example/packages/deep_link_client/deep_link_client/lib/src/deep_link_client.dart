@@ -18,20 +18,20 @@ class DeepLinkClientFailure with EquatableMixin implements Exception {
   List<Object> get props => [error];
 }
 
-/// {@template deep_link_client}
-/// A DeepLinkClient that provides access to deep links intercepted by the app.
+/// {@template deep_link_service}
+/// A DeepLinkService that provides access to deep links intercepted by the app.
 /// {@endtemplate}
-class DeepLinkClient {
-  /// {@macro deep_link_client}
-  DeepLinkClient({
-    required DeepLinkService deepLinkService,
-  })  : _deepLinkService = deepLinkService,
+class DeepLinkService {
+  /// {@macro deep_link_service}
+  DeepLinkService({
+    required DeepLinkClient deepLinkClient,
+  })  : _deepLinkClient = deepLinkClient,
         _deepLinkSubject = BehaviorSubject<Uri>() {
     unawaited(_getInitialLink());
-    _deepLinkService.deepLinkStream.listen(_onAppLink).onError(_handleError);
+    _deepLinkClient.deepLinkStream.listen(_onAppLink).onError(_handleError);
   }
 
-  final DeepLinkService _deepLinkService;
+  final DeepLinkClient _deepLinkClient;
   final BehaviorSubject<Uri> _deepLinkSubject;
 
   /// Provides a stream of URIs intercepted by the app. Will emit the latest
@@ -40,7 +40,7 @@ class DeepLinkClient {
 
   Future<void> _getInitialLink() async {
     try {
-      final deepLink = await _deepLinkService.getInitialLink();
+      final deepLink = await _deepLinkClient.getInitialLink();
       if (deepLink != null) {
         _onAppLink(deepLink);
       }

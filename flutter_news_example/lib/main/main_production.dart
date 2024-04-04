@@ -2,7 +2,7 @@ import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:article_repository/article_repository.dart';
 import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_authentication_client/firebase_authentication_client.dart';
-import 'package:firebase_deep_link_service/firebase_deep_link_service.dart';
+import 'package:firebase_deep_link_client/firebase_deep_link_client.dart';
 import 'package:firebase_notifications_client/firebase_notifications_client.dart';
 import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/main/bootstrap/bootstrap.dart';
@@ -44,8 +44,8 @@ void main() {
         packageVersion: packageVersion,
       );
 
-      final deepLinkClient = DeepLinkClient(
-        deepLinkService: FirebaseDeepLinkService(
+      final deepLinkService = DeepLinkService(
+        deepLinkClient: FirebaseDeepLinkClient(
           firebaseDynamicLinks: firebaseDynamicLinks,
         ),
       );
@@ -64,7 +64,7 @@ void main() {
         apiClient: apiClient,
         authenticationClient: authenticationClient,
         packageInfoClient: packageInfoClient,
-        deepLinkClient: deepLinkClient,
+        deepLinkService: deepLinkService,
         storage: userStorage,
       );
 

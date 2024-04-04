@@ -6,16 +6,16 @@ import 'package:test/test.dart';
 
 typedef OnAppLinkFunction = void Function(Uri uri, String stringUri);
 
-class MockDeepLinkService extends Mock implements DeepLinkService {}
+class MockDeepLinkClient extends Mock implements DeepLinkClient {}
 
 void main() {
-  late DeepLinkService deepLinkService;
+  late DeepLinkClient deepLinkClient;
   late StreamController<Uri> onDeepLinkStreamController;
 
   setUp(() {
-    deepLinkService = MockDeepLinkService();
+    deepLinkClient = MockDeepLinkClient();
     onDeepLinkStreamController = StreamController<Uri>();
-    when(() => deepLinkService.deepLinkStream)
+    when(() => deepLinkClient.deepLinkStream)
         .thenAnswer((_) => onDeepLinkStreamController.stream);
   });
 
@@ -23,31 +23,31 @@ void main() {
     onDeepLinkStreamController.close();
   });
 
-  group('DeepLinkClient', () {
+  group('DeepLinkService', () {
     test('retrieves and publishes latest link if present', () {
       final expectedUri = Uri.https('ham.app.test', '/test/path');
-      when(deepLinkService.getInitialLink).thenAnswer(
+      when(deepLinkClient.getInitialLink).thenAnswer(
         (_) => Future.value(expectedUri),
       );
 
-      final client = DeepLinkClient(deepLinkService: deepLinkService);
-      expect(client.deepLinkStream, emits(expectedUri));
+      final service = DeepLinkService(deepLinkClient: deepLinkClient);
+      expect(service.deepLinkStream, emits(expectedUri));
 
       // Testing also the replay of the latest value.
-      expect(client.deepLinkStream, emits(expectedUri));
+      expect(service.deepLinkStream, emits(expectedUri));
     });
 
     test('publishes DeepLinkClientFailure to stream if upstream throws', () {
       final expectedError = Error();
       final expectedStackTrace = StackTrace.current;
 
-      when(deepLinkService.getInitialLink).thenAnswer((_) {
+      when(deepLinkClient.getInitialLink).thenAnswer((_) {
         return Future.error(expectedError, expectedStackTrace);
       });
 
-      final client = DeepLinkClient(deepLinkService: deepLinkService);
+      final deepLinkService = DeepLinkService(deepLinkClient: deepLinkClient);
       expect(
-        client.deepLinkStream,
+        deepLinkService.deepLinkStream,
         emitsError(
           isA<DeepLinkClientFailure>()
               .having((failure) => failure.error, 'error', expectedError),
@@ -59,12 +59,12 @@ void main() {
       final expectedUri1 = Uri.https('ham.app.test', '/test/1');
       final expectedUri2 = Uri.https('ham.app.test', '/test/2');
 
-      when(deepLinkService.getInitialLink).thenAnswer((_) async => null);
+      when(deepLinkClient.getInitialLink).thenAnswer((_) async => null);
 
-      final client = DeepLinkClient(deepLinkService: deepLinkService);
+      final deepLinkService = DeepLinkService(deepLinkClient: deepLinkClient);
 
       expect(
-        client.deepLinkStream,
+        deepLinkService.deepLinkStream,
         emitsInOrder(
           <Uri>[expectedUri1, expectedUri1, expectedUri2, expectedUri1],
         ),
