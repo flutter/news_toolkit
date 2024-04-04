@@ -4,7 +4,7 @@ import 'package:deep_link_client/deep_link_client.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 /// {@template firebase_deep_link_client}
-/// A FirebaseDynamicLinks implementation of [DeepLinkService].
+/// A FirebaseDynamicLinks implementation of [DeepLinkClient].
 /// {@endtemplate}
 class FirebaseDeepLinkClient implements DeepLinkClient {
   /// {@macro firebase_deep_link_client}
