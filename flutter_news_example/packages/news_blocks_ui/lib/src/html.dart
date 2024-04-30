@@ -21,7 +21,7 @@ class Html extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
       child: flutter_html.Html(
-        onLinkTap: (url, attributes, element) {
+        onLinkTap: (url, _, __) {
           if (url == null) return;
           final uri = Uri.tryParse(url);
           if (uri == null) return;

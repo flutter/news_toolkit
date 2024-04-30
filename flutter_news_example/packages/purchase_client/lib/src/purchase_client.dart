@@ -118,4 +118,12 @@ class PurchaseClient implements InAppPurchase {
     // in this stubbed implementation of InAppPurchase.
     return Future.value();
   }
+
+  @override
+
+  /// This method is not implemented as the scope of this template
+  /// is limited.
+  Future<String> countryCode() {
+    throw UnimplementedError();
+  }
 }

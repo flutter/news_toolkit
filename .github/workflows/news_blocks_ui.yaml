@@ -19,3 +19,4 @@ jobs:
       flutter_version: 3.19.6
       working_directory: flutter_news_example/packages/news_blocks_ui
       coverage_excludes: "lib/src/generated/*.dart"
+      test_optimization: false

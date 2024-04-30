@@ -4,8 +4,10 @@ import 'dart:async';
 
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart' hide ProgressIndicator;
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/src/ad_instance_manager.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/src/widgets/widgets.dart';
@@ -30,6 +32,19 @@ void main() {
     late BannerAdBuilder adBuilder;
 
     setUp(() {
+      instanceManager =
+          AdInstanceManager('plugins.flutter.io/google_mobile_ads');
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(instanceManager.channel,
+              (MethodCall methodCall) async {
+        switch (methodCall.method) {
+          case 'loadBannerAd':
+            return Future<void>.value();
+          default:
+            return;
+        }
+      });
+
       platform = MockPlatform();
       when(() => platform.isAndroid).thenReturn(true);
       when(() => platform.isIOS).thenReturn(false);
