@@ -42,7 +42,6 @@ jobs:
       - name: Install Dependencies
         run: |
           flutter pub global activate very_good_cli
-          very_good --analytics false
           very_good packages get --recursive
 
       - name: Format
