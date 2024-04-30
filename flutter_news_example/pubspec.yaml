@@ -3,8 +3,8 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=3.3.3 <4.0.0"
-  flutter: ">=3.19.5"
+  sdk: ">=3.3.4 <4.0.0"
+  flutter: ">=3.19.6"
 
 dependencies:
   ads_consent_client:
