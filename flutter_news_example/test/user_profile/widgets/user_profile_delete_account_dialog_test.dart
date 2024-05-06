@@ -34,6 +34,7 @@ void main() {
 
     testWidgets('closes dialog when cancel button is pressed', (tester) async {
       final navigator = MockNavigator();
+      when(navigator.canPop).thenAnswer((_) => true);
       when(navigator.pop).thenAnswer((_) async {});
 
       await tester.pumpApp(
@@ -53,6 +54,7 @@ void main() {
         'adds AppDeleteAccountRequested to AppBloc and closes dialog '
         'when delete account button is pressed', (tester) async {
       final navigator = MockNavigator();
+      when(navigator.canPop).thenAnswer((_) => true);
       when(navigator.pop).thenAnswer((_) async {});
 
       await tester.pumpApp(

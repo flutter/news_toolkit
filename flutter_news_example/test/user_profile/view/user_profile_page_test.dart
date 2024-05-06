@@ -361,25 +361,6 @@ void main() {
         verify(() => userProfileBloc.add(ToggleNotifications())).called(1);
       });
 
-      testWidgets(
-          'does nothing '
-          'when notification preferences item trailing is tapped',
-          (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
-        );
-        final preferencesItem = find.byKey(
-          Key('userProfilePage_notificationPreferencesItem_trailing'),
-        );
-
-        await tester.ensureVisible(preferencesItem);
-        await tester.tap(preferencesItem);
-        await tester.pumpAndSettle();
-      });
-
       group('UserProfileItem', () {
         testWidgets('renders ListTile', (tester) async {
           await tester.pumpApp(
