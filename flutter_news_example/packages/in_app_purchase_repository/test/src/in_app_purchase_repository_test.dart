@@ -471,7 +471,7 @@ void main() {
             emitsInOrder(
               <Matcher>[
                 isA<PurchasePurchased>(),
-                emitsError(isA<PurchaseFailed>())
+                emitsError(isA<PurchaseFailed>()),
               ],
             ),
           );
@@ -550,7 +550,7 @@ void main() {
                 purchaseDetails.copyWith(
                   status: PurchaseStatus.pending,
                   pendingCompletePurchase: true,
-                )
+                ),
               ],
             ]),
           );
@@ -613,7 +613,7 @@ void main() {
                 purchaseDetails.copyWith(
                   status: PurchaseStatus.pending,
                   pendingCompletePurchase: true,
-                )
+                ),
               ],
             ]),
           );

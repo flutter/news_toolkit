@@ -110,7 +110,7 @@ class _SubscribeModalState extends State<SubscribeModal> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
-              ]
+              ],
             ],
           ),
         ),

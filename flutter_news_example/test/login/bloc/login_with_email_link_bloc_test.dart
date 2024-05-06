@@ -79,7 +79,7 @@ void main() {
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginWithEmailLinkState>[
           LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.loading),
-          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure)
+          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure),
         ],
       );
 
@@ -95,7 +95,7 @@ void main() {
             incomingEmailLinksController.add(emailLinkWithoutContinueUrl),
         expect: () => const <LoginWithEmailLinkState>[
           LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.loading),
-          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure)
+          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure),
         ],
       );
 
@@ -111,7 +111,7 @@ void main() {
             incomingEmailLinksController.add(emailLinkWithInvalidContinueUrl),
         expect: () => const <LoginWithEmailLinkState>[
           LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.loading),
-          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure)
+          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure),
         ],
       );
 
@@ -133,7 +133,7 @@ void main() {
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginWithEmailLinkState>[
           LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.loading),
-          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure)
+          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.failure),
         ],
       );
 
@@ -149,7 +149,7 @@ void main() {
         act: (bloc) => incomingEmailLinksController.add(validEmailLink),
         expect: () => const <LoginWithEmailLinkState>[
           LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.loading),
-          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.success)
+          LoginWithEmailLinkState(status: LoginWithEmailLinkStatus.success),
         ],
       );
 

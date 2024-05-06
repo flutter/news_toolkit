@@ -26,7 +26,7 @@ void main() {
     Category.top: [
       DividerHorizontalBlock(),
       SpacerBlock(spacing: Spacing.medium),
-    ]
+    ],
   };
 
   setUp(() {
@@ -299,7 +299,7 @@ void main() {
                 status: FeedStatus.populated,
                 feed: feed,
                 hasMoreNews: hasMoreNews,
-              )
+              ),
             ]),
           );
 
@@ -328,7 +328,7 @@ void main() {
               hasMoreNews: {
                 category: false,
               },
-            )
+            ),
           ]),
         );
 
@@ -351,7 +351,7 @@ void main() {
               status: FeedStatus.populated,
               feed: feed,
               hasMoreNews: hasMoreNews,
-            )
+            ),
           ]),
         );
 
