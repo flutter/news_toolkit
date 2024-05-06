@@ -13,6 +13,7 @@ void main() {
     final theme = AppTheme().themeData;
     final buttonTextTheme = theme.textTheme.labelLarge!.copyWith(
       inherit: false,
+      leadingDistribution: TextLeadingDistribution.even,
     );
 
     testWidgets('renders button', (tester) async {
