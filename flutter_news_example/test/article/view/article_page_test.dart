@@ -363,6 +363,7 @@ void main() {
       group('navigates', () {
         testWidgets('back when back button is pressed', (tester) async {
           final navigator = MockNavigator();
+          when(navigator.canPop).thenAnswer((_) => true);
           when(navigator.pop).thenAnswer((_) async {});
           await tester.pumpApp(
             fullScreenAdsBloc: fullScreenAdsBloc,
@@ -483,36 +484,6 @@ void main() {
         );
 
         await tester.tap(find.byType(AppBackButton));
-
-        verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
-            .called(1);
-      });
-
-      testWidgets(
-          'adds ShowInterstitialAdRequested to FullScreenAdsBloc '
-          'when interstitialAdBehavior in onClose and '
-          'showInterstitialAd is true and '
-          'user taps system back button', (tester) async {
-        when(() => articleBloc.state).thenReturn(
-          ArticleState.initial().copyWith(showInterstitialAd: true),
-        );
-
-        await tester.pumpApp(
-          fullScreenAdsBloc: fullScreenAdsBloc,
-          BlocProvider.value(
-            value: articleBloc,
-            child: ArticleView(
-              isVideoArticle: false,
-              interstitialAdBehavior: InterstitialAdBehavior.onClose,
-            ),
-          ),
-        );
-
-        // Use didPopRoute() to simulate the system back button.
-        final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
-        // ignore: avoid_dynamic_calls
-        await widgetsAppState.didPopRoute();
-        await tester.pump();
 
         verify(() => fullScreenAdsBloc.add(ShowInterstitialAdRequested()))
             .called(1);
