@@ -3,7 +3,7 @@ description: A Key/Value Secure Storage Client
 publish_to: none
 
 environment:
-  sdk: ">=3.3.4 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
