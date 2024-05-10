@@ -3,6 +3,8 @@ analyzer:
   exclude:
     - build/**
     - lib/**/*.g.dart
+    - packages/**/*.gen.dart
+    
 linter:
   rules:
     file_names: false

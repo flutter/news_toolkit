@@ -19,8 +19,10 @@ SlideshowIntroductionBlock _$SlideshowIntroductionBlockFromJson(
           coverImageUrl: $checkedConvert('cover_image_url', (v) => v as String),
           type: $checkedConvert('type',
               (v) => v as String? ?? SlideshowIntroductionBlock.identifier),
-          action: $checkedConvert('action',
-              (v) => const BlockActionConverter().fromJson(v as Map?)),
+          action: $checkedConvert(
+              'action',
+              (v) => const BlockActionConverter()
+                  .fromJson(v as Map<String, dynamic>?)),
         );
         return val;
       },
