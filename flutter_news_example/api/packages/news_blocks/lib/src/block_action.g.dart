@@ -73,7 +73,7 @@ NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
 Map<String, dynamic> _$NavigateToFeedCategoryActionToJson(
         NavigateToFeedCategoryAction instance) =>
     <String, dynamic>{
-      'category': _$CategoryEnumMap[instance.category],
+      'category': _$CategoryEnumMap[instance.category]!,
       'type': instance.type,
     };
 

@@ -23,8 +23,10 @@ PostGridTileBlock _$PostGridTileBlockFromJson(Map<String, dynamic> json) =>
           imageUrl: $checkedConvert('image_url', (v) => v as String),
           title: $checkedConvert('title', (v) => v as String),
           description: $checkedConvert('description', (v) => v as String?),
-          action: $checkedConvert('action',
-              (v) => const BlockActionConverter().fromJson(v as Map?)),
+          action: $checkedConvert(
+              'action',
+              (v) => const BlockActionConverter()
+                  .fromJson(v as Map<String, dynamic>?)),
           type: $checkedConvert(
               'type', (v) => v as String? ?? PostGridTileBlock.identifier),
           isPremium: $checkedConvert('is_premium', (v) => v as bool? ?? false),
@@ -41,7 +43,7 @@ PostGridTileBlock _$PostGridTileBlockFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$PostGridTileBlockToJson(PostGridTileBlock instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'category': _$PostCategoryEnumMap[instance.category],
+    'category': _$PostCategoryEnumMap[instance.category]!,
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
   };

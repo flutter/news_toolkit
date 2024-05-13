@@ -11,7 +11,7 @@ RelatedArticlesResponse _$RelatedArticlesResponseFromJson(
     RelatedArticlesResponse(
       relatedArticles:
           const NewsBlocksConverter().fromJson(json['relatedArticles'] as List),
-      totalCount: json['totalCount'] as int,
+      totalCount: (json['totalCount'] as num).toInt(),
     );
 
 Map<String, dynamic> _$RelatedArticlesResponseToJson(

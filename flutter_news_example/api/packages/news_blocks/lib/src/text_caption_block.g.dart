@@ -26,7 +26,7 @@ TextCaptionBlock _$TextCaptionBlockFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TextCaptionBlockToJson(TextCaptionBlock instance) =>
     <String, dynamic>{
-      'color': _$TextCaptionColorEnumMap[instance.color],
+      'color': _$TextCaptionColorEnumMap[instance.color]!,
       'text': instance.text,
       'type': instance.type,
     };
