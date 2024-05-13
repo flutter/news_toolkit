@@ -31,7 +31,7 @@ class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 @immutable
 class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {
   @override
-  bool operator ==(dynamic other) => identical(this, other);
+  bool operator ==(Object other) => identical(this, other);
 
   @override
   int get hashCode => 0;
