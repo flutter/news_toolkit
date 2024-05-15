@@ -44,6 +44,7 @@ void main() {
     group('navigates', () {
       testWidgets('back when press the icon button', (tester) async {
         final navigator = MockNavigator();
+        when(navigator.canPop).thenAnswer((_) => true);
         when(navigator.pop).thenAnswer((_) async {});
         await tester.pumpApp(
           const AppBackButton(),

@@ -31,7 +31,7 @@ PostGridGroupBlock _$PostGridGroupBlockFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PostGridGroupBlockToJson(PostGridGroupBlock instance) =>
     <String, dynamic>{
-      'category': _$PostCategoryEnumMap[instance.category],
+      'category': _$PostCategoryEnumMap[instance.category]!,
       'tiles': instance.tiles.map((e) => e.toJson()).toList(),
       'type': instance.type,
     };

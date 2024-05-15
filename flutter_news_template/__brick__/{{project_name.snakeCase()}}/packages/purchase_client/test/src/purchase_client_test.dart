@@ -215,5 +215,12 @@ void main() {
         throwsA(isA<UnimplementedError>()),
       );
     });
+
+    test('countryCode throws an UnimplementedError', () async {
+      expect(
+        () => purchaseClient.countryCode(),
+        throwsA(isA<UnimplementedError>()),
+      );
+    });
   });
 }

@@ -25,7 +25,7 @@ BannerAdBlock _$BannerAdBlockFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BannerAdBlockToJson(BannerAdBlock instance) =>
     <String, dynamic>{
-      'size': _$BannerAdSizeEnumMap[instance.size],
+      'size': _$BannerAdSizeEnumMap[instance.size]!,
       'type': instance.type,
     };
 

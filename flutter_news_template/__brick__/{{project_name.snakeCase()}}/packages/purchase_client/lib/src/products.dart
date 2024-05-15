@@ -9,5 +9,5 @@ final Map<String, ProductDetails> availableProducts = {
     price: r'$14.99',
     rawPrice: 14.99,
     currencyCode: 'USD',
-  )
+  ),
 };

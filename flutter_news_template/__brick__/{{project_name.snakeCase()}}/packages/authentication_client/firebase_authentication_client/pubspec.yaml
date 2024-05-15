@@ -18,7 +18,7 @@ dependencies:
   flutter_facebook_auth: ^6.0.0
   google_sign_in: ^6.0.2
   plugin_platform_interface: ^2.1.3
-  sign_in_with_apple: ^5.0.0
+  sign_in_with_apple: ^6.1.0
   token_storage:
     path: ../token_storage
   twitter_login: ^4.2.2

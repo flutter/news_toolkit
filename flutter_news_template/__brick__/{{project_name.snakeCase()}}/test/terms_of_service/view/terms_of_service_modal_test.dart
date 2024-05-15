@@ -33,6 +33,7 @@ void main() {
     group('closes terms of service modal', () {
       testWidgets('when the close icon button is pressed', (tester) async {
         final navigator = MockNavigator();
+        when(navigator.canPop).thenAnswer((_) => true);
         when(navigator.pop).thenAnswer((_) async {});
         await tester.pumpApp(
           TermsOfServiceModal(),

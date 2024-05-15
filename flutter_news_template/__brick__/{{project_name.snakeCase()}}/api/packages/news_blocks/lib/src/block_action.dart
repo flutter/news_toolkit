@@ -13,7 +13,7 @@ enum BlockActionType {
   unknown
 }
 
-/// {@macro block_action}
+/// {@template block_action}
 /// A class which represents an action that can occur
 /// when interacting with a block.
 /// {@endtemplate}

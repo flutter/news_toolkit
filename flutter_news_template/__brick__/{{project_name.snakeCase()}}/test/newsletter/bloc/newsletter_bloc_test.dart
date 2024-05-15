@@ -89,7 +89,7 @@ void main() {
         build: () => NewsletterBloc(newsRepository: newsRepository),
         act: (bloc) => bloc.add(EmailChanged(email: newEmail)),
         expect: () => <NewsletterState>[
-          initialState.copyWith(email: Email.dirty(newEmail), isValid: true)
+          initialState.copyWith(email: Email.dirty(newEmail), isValid: true),
         ],
       );
     });

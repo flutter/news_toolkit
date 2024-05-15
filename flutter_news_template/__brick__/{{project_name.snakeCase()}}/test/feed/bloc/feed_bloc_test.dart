@@ -118,7 +118,7 @@ void main() {
               ..addAll({
                 Category.entertainment: false,
               }),
-          )
+          ),
         ],
       );
 

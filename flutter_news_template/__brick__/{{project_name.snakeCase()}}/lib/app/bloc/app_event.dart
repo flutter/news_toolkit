@@ -11,6 +11,10 @@ class AppLogoutRequested extends AppEvent {
   const AppLogoutRequested();
 }
 
+class AppDeleteAccountRequested extends AppEvent {
+  const AppDeleteAccountRequested();
+}
+
 class AppUserChanged extends AppEvent {
   const AppUserChanged(this.user);
 

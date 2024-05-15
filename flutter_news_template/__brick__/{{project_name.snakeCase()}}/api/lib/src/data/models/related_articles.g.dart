@@ -9,7 +9,7 @@ part of 'related_articles.dart';
 RelatedArticles _$RelatedArticlesFromJson(Map<String, dynamic> json) =>
     RelatedArticles(
       blocks: const NewsBlocksConverter().fromJson(json['blocks'] as List),
-      totalBlocks: json['totalBlocks'] as int,
+      totalBlocks: (json['totalBlocks'] as num).toInt(),
     );
 
 Map<String, dynamic> _$RelatedArticlesToJson(RelatedArticles instance) =>

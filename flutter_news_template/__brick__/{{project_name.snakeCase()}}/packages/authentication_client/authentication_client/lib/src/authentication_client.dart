@@ -21,7 +21,7 @@ class SendLoginEmailLinkFailure extends AuthenticationException {
   const SendLoginEmailLinkFailure(super.error);
 }
 
-/// {@template is is_log_in_email_link_failure}
+/// {@template is_log_in_email_link_failure}
 /// Thrown during the validation of the email link process if a failure occurs.
 /// {@endtemplate}
 class IsLogInWithEmailLinkFailure extends AuthenticationException {
@@ -101,6 +101,14 @@ class LogOutFailure extends AuthenticationException {
   const LogOutFailure(super.error);
 }
 
+/// {@template delete_account_failure}
+/// Thrown during the delete account process if a failure occurs.
+/// {@endtemplate}
+class DeleteAccountFailure extends AuthenticationException {
+  /// {@macro delete_account_failure}
+  const DeleteAccountFailure(super.error);
+}
+
 /// A generic Authentication Client Interface.
 abstract class AuthenticationClient {
   /// Stream of [AuthenticationUser] which will emit the current user when
@@ -160,4 +168,9 @@ abstract class AuthenticationClient {
   ///
   /// Throws a [LogOutFailure] if an exception occurs.
   Future<void> logOut();
+
+  /// Deletes the current user account.
+  ///
+  /// Throws a [DeleteAccountFailure] if an exception occurs.
+  Future<void> deleteAccount();
 }
