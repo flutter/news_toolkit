@@ -24,7 +24,7 @@ SpacerBlock _$SpacerBlockFromJson(Map<String, dynamic> json) => $checkedCreate(
 
 Map<String, dynamic> _$SpacerBlockToJson(SpacerBlock instance) =>
     <String, dynamic>{
-      'spacing': _$SpacingEnumMap[instance.spacing],
+      'spacing': _$SpacingEnumMap[instance.spacing]!,
       'type': instance.type,
     };
 

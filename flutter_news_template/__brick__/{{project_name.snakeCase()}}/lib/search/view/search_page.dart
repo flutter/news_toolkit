@@ -105,7 +105,7 @@ class _SearchViewState extends State<SearchView> {
             ),
             ...state.articles.map<Widget>(
               (newsBlock) => CategoryFeedItem(block: newsBlock),
-            )
+            ),
           ],
         );
       },

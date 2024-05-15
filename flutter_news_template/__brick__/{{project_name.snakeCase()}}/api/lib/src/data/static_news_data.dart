@@ -85,7 +85,7 @@ final popularArticles = <NewsItem>[
     url: Uri.parse(
       'https://nbc-2.com/news/2022/05/19/boeing-makes-third-attempt-to-launch-its-starliner-capsule-to-the-iss',
     ),
-  )
+  ),
 ];
 
 /// List of relevant search articles.
@@ -116,7 +116,7 @@ final relevantArticles = <NewsItem>[
     url: Uri.parse(
       'https://www.cnn.com/2022/05/24/health/what-is-monkeypox-virus-explainer-update-wellness',
     ),
-  )
+  ),
 ];
 
 /// Technology news items.
@@ -1232,7 +1232,7 @@ final scienceVideoItems = <NewsItem>[
     url: Uri.parse(
       'https://www.cbsnews.com/news/black-hole-audio-perseus-galaxy-cluster',
     ),
-  )
+  ),
 ];
 
 /// Top news feed blocks.

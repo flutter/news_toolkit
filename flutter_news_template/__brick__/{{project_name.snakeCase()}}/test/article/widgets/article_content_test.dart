@@ -436,7 +436,7 @@ void main() {
                 status: ArticleStatus.populated,
                 content: content,
                 hasMoreContent: true,
-              )
+              ),
             ]),
           );
 
@@ -466,7 +466,7 @@ void main() {
               status: ArticleStatus.populated,
               content: content,
               hasMoreContent: false,
-            )
+            ),
           ]),
         );
 
@@ -490,7 +490,7 @@ void main() {
               status: ArticleStatus.populated,
               content: content,
               hasMoreContent: true,
-            )
+            ),
           ]),
           initialState: ArticleState.initial(),
         );
@@ -516,7 +516,7 @@ void main() {
               status: ArticleStatus.loading,
               content: content,
               hasMoreContent: true,
-            )
+            ),
           ]),
           initialState: ArticleState.initial(),
         );

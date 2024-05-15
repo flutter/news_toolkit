@@ -52,7 +52,7 @@ class _SlideshowState extends State<Slideshow> {
             controller: _controller,
             navigationLabel: widget.navigationLabel,
           ),
-          const SizedBox(height: AppSpacing.lg)
+          const SizedBox(height: AppSpacing.lg),
         ],
       ),
     );
@@ -197,7 +197,7 @@ class SlideshowItem extends StatelessWidget {
               color: AppColors.mediumEmphasisPrimary,
             ),
           ),
-        )
+        ),
       ],
     );
   }

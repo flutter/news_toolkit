@@ -13,8 +13,8 @@ ArticleState _$ArticleStateFromJson(Map<String, dynamic> json) => ArticleState(
               ?.map((e) => NewsBlock.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      contentTotalCount: json['contentTotalCount'] as int?,
-      contentSeenCount: json['contentSeenCount'] as int? ?? 0,
+      contentTotalCount: (json['contentTotalCount'] as num?)?.toInt(),
+      contentSeenCount: (json['contentSeenCount'] as num?)?.toInt() ?? 0,
       relatedArticles: (json['relatedArticles'] as List<dynamic>?)
               ?.map((e) => NewsBlock.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -25,6 +25,7 @@ ArticleState _$ArticleStateFromJson(Map<String, dynamic> json) => ArticleState(
           json['hasReachedArticleViewsLimit'] as bool? ?? false,
       isPreview: json['isPreview'] as bool? ?? false,
       isPremium: json['isPremium'] as bool? ?? false,
+      showInterstitialAd: json['showInterstitialAd'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ArticleStateToJson(ArticleState instance) =>
@@ -41,6 +42,7 @@ Map<String, dynamic> _$ArticleStateToJson(ArticleState instance) =>
       'hasReachedArticleViewsLimit': instance.hasReachedArticleViewsLimit,
       'isPreview': instance.isPreview,
       'isPremium': instance.isPremium,
+      'showInterstitialAd': instance.showInterstitialAd,
     };
 
 const _$ArticleStatusEnumMap = {

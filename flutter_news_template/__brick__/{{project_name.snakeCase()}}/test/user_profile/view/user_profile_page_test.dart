@@ -361,25 +361,6 @@ void main() {
         verify(() => userProfileBloc.add(ToggleNotifications())).called(1);
       });
 
-      testWidgets(
-          'does nothing '
-          'when notification preferences item trailing is tapped',
-          (tester) async {
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: userProfileBloc,
-            child: UserProfileView(),
-          ),
-        );
-        final preferencesItem = find.byKey(
-          Key('userProfilePage_notificationPreferencesItem_trailing'),
-        );
-
-        await tester.ensureVisible(preferencesItem);
-        await tester.tap(preferencesItem);
-        await tester.pumpAndSettle();
-      });
-
       group('UserProfileItem', () {
         testWidgets('renders ListTile', (tester) async {
           await tester.pumpApp(
@@ -535,6 +516,36 @@ void main() {
           await tester.pumpAndSettle();
 
           expect(find.byType(NotificationPreferencesPage), findsOneWidget);
+        });
+      });
+
+      group('shows', () {
+        testWidgets(
+            'UserProfileDeleteAccountDialog '
+            'when tapped on Delete account', (tester) async {
+          await tester.pumpApp(
+            BlocProvider.value(
+              value: userProfileBloc,
+              child: UserProfileView(),
+            ),
+          );
+
+          final deleteAccountButton = find.byKey(
+            Key('userProfilePage_deleteAccountButton'),
+          );
+          await tester.dragUntilVisible(
+            deleteAccountButton,
+            find.byType(UserProfileView),
+            Offset(0, -100),
+            duration: Duration.zero,
+          );
+          await tester.pumpAndSettle();
+
+          await tester.ensureVisible(deleteAccountButton);
+          await tester.tap(deleteAccountButton);
+          await tester.pumpAndSettle();
+
+          expect(find.byType(UserProfileDeleteAccountDialog), findsOneWidget);
         });
       });
     });

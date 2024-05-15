@@ -88,10 +88,9 @@ class ArticleView extends StatelessWidget {
     final isSubscriber =
         context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) async {
         _onPop(context);
-        return true;
       },
       child: HasToShowInterstitialAdListener(
         interstitialAdBehavior: interstitialAdBehavior,
@@ -108,10 +107,10 @@ class ArticleView extends StatelessWidget {
                 ),
                 leading: isVideoArticle
                     ? AppBackButton.light(
-                        onPressed: () => _onBackButtonPressed(context),
+                        onPressed: Navigator.of(context).pop,
                       )
                     : AppBackButton(
-                        onPressed: () => _onBackButtonPressed(context),
+                        onPressed: Navigator.of(context).pop,
                       ),
                 actions: [
                   if (uri != null && uri.toString().isNotEmpty)
@@ -126,7 +125,7 @@ class ArticleView extends StatelessWidget {
                             .add(ShareRequested(uri: uri)),
                       ),
                     ),
-                  if (!isSubscriber) const ArticleSubscribeButton()
+                  if (!isSubscriber) const ArticleSubscribeButton(),
                 ],
               ),
               body: ArticleThemeOverride(
@@ -138,11 +137,6 @@ class ArticleView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _onBackButtonPressed(BuildContext context) {
-    _onPop(context);
-    Navigator.of(context).pop();
   }
 
   void _onPop(BuildContext context) {

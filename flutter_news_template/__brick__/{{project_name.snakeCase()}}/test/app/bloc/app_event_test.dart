@@ -37,6 +37,15 @@ void main() {
       });
     });
 
+    group('AppDeleteAccountRequested', () {
+      test('supports value comparisons', () {
+        expect(
+          AppDeleteAccountRequested(),
+          AppDeleteAccountRequested(),
+        );
+      });
+    });
+
     group('AppOpened', () {
       test('supports value comparisons', () {
         expect(

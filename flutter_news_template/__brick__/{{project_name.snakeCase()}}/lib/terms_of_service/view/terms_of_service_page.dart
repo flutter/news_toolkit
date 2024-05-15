@@ -26,7 +26,7 @@ class TermsOfServicePage extends StatelessWidget {
               vertical: AppSpacing.xs,
             ),
           ),
-          SizedBox(height: AppSpacing.lg)
+          SizedBox(height: AppSpacing.lg),
         ],
       ),
     );
