@@ -14,7 +14,7 @@ void main() {
             (p) => p.child,
             'child',
             isA<OnboardingPage>(),
-          )
+          ),
         ],
       );
     });
@@ -27,7 +27,7 @@ void main() {
             (p) => p.child,
             'child',
             isA<HomePage>(),
-          )
+          ),
         ],
       );
     });
@@ -40,7 +40,7 @@ void main() {
             (p) => p.child,
             'child',
             isA<HomePage>(),
-          )
+          ),
         ],
       );
     });

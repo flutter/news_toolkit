@@ -24,7 +24,7 @@ class LoginWithEmailPage extends StatelessWidget {
               key: const Key('loginWithEmailPage_closeIcon'),
               icon: const Icon(Icons.close),
               onPressed: () => Navigator.pop(context),
-            )
+            ),
           ],
         ),
         body: const LoginWithEmailForm(),

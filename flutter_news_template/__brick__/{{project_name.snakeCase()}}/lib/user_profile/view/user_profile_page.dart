@@ -151,12 +151,7 @@ class _UserProfileViewState extends State<UserProfileView>
                         'userProfilePage_notificationPreferencesItem',
                       ),
                       title: l10n.notificationPreferencesTitle,
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        key: Key(
-                          '''userProfilePage_notificationPreferencesItem_trailing''',
-                        ),
-                      ),
+                      trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.of(context).push(
                         NotificationPreferencesPage.route(),
                       ),
@@ -178,6 +173,22 @@ class _UserProfileViewState extends State<UserProfileView>
                       leading: Assets.icons.aboutIcon.svg(),
                       title: l10n.userProfileLegalAboutTitle,
                     ),
+                    Align(
+                      child: AppButton.smallTransparent(
+                        key: const Key('userProfilePage_deleteAccountButton'),
+                        onPressed: () {
+                          showDialog<void>(
+                            context: context,
+                            builder: (_) =>
+                                const UserProfileDeleteAccountDialog(),
+                          );
+                        },
+                        child: Text(
+                          l10n.userProfileDeleteAccountButton,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
                   ],
                 ),
               ),

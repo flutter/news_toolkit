@@ -30,7 +30,7 @@ VideoIntroductionBlock _$VideoIntroductionBlockFromJson(
 Map<String, dynamic> _$VideoIntroductionBlockToJson(
         VideoIntroductionBlock instance) =>
     <String, dynamic>{
-      'category': _$PostCategoryEnumMap[instance.category],
+      'category': _$PostCategoryEnumMap[instance.category]!,
       'title': instance.title,
       'video_url': instance.videoUrl,
       'type': instance.type,

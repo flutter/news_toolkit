@@ -28,7 +28,7 @@ class LockIcon extends StatelessWidget {
               color: Colors.black.withOpacity(0.15),
               offset: const Offset(0, 1),
               blurRadius: 3,
-            )
+            ),
           ],
         ),
       ),

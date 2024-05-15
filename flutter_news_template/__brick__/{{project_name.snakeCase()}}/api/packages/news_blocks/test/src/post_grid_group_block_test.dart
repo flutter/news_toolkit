@@ -14,7 +14,7 @@ void main() {
             publishedAt: DateTime(2022, 3, 12),
             imageUrl: 'imageUrl',
             title: 'title',
-          )
+          ),
         ],
       );
 

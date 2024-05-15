@@ -22,6 +22,7 @@ void main() {
     group('navigates', () {
       testWidgets('back when left cross icon is pressed', (tester) async {
         final navigator = MockNavigator();
+        when(navigator.canPop).thenAnswer((_) => true);
         when(navigator.pop).thenAnswer((_) async {});
         await tester.pumpApp(
           const LoginWithEmailPage(),
@@ -34,6 +35,7 @@ void main() {
 
       testWidgets('back when leading button is pressed', (tester) async {
         final navigator = MockNavigator();
+        when(navigator.canPop).thenAnswer((_) => true);
         when(navigator.pop).thenAnswer((_) async {});
         await tester.pumpApp(
           const LoginWithEmailPage(),

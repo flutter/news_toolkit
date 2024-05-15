@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
             newsRepository: context.read<NewsRepository>(),
           ),
         ),
-        BlocProvider(create: (_) => HomeCubit())
+        BlocProvider(create: (_) => HomeCubit()),
       ],
       child: const HomeView(),
     );

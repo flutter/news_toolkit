@@ -23,10 +23,11 @@ void main() {
       );
 
       expect(
-        Theme.of(capturedContext).textTheme.displayLarge,
+        Theme.of(capturedContext).textTheme.labelLarge,
         equals(
-          AppTheme.uiTextTheme.displayLarge!.copyWith(
+          theme.textTheme.labelLarge!.copyWith(
             inherit: false,
+            leadingDistribution: TextLeadingDistribution.even,
           ),
         ),
       );
@@ -42,10 +43,11 @@ void main() {
       );
 
       expect(
-        Theme.of(capturedContext).textTheme.displayLarge,
+        Theme.of(capturedContext).textTheme.labelLarge,
         equals(
-          AppTheme.contentTextTheme.displayLarge!.copyWith(
+          AppTheme.contentTextTheme.labelLarge!.copyWith(
             inherit: false,
+            leadingDistribution: TextLeadingDistribution.even,
           ),
         ),
       );

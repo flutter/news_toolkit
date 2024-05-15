@@ -10,7 +10,7 @@ ArticleResponse _$ArticleResponseFromJson(Map<String, dynamic> json) =>
     ArticleResponse(
       title: json['title'] as String,
       content: const NewsBlocksConverter().fromJson(json['content'] as List),
-      totalCount: json['totalCount'] as int,
+      totalCount: (json['totalCount'] as num).toInt(),
       url: Uri.parse(json['url'] as String),
       isPremium: json['isPremium'] as bool,
       isPreview: json['isPreview'] as bool,

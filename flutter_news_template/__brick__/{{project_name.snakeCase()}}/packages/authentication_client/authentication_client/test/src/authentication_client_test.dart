@@ -91,4 +91,11 @@ void main() {
       returnsNormally,
     );
   });
+
+  test('exports DeleteAccountFailure', () {
+    expect(
+      () => DeleteAccountFailure('oops'),
+      returnsNormally,
+    );
+  });
 }

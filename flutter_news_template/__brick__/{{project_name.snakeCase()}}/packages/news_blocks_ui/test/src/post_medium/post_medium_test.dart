@@ -5,11 +5,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
   setUpAll(() {
+    // Initialize FFI
+    sqfliteFfiInit();
+    // Change the default factory
+    databaseFactory = databaseFactoryFfi;
+
     setUpTolerantComparator();
     setUpMockPathProvider();
   });
