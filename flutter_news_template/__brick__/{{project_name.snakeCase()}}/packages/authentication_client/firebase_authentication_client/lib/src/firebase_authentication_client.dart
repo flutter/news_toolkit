@@ -128,7 +128,7 @@ class FirebaseAuthenticationClient implements AuthenticationClient {
         );
       }
 
-      final accessToken = loginResult.accessToken?.token;
+      final accessToken = loginResult.accessToken?.tokenString;
       if (accessToken == null) {
         throw LogInWithFacebookFailure(
           Exception(
