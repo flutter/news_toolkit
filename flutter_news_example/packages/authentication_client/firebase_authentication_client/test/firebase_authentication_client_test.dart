@@ -266,7 +266,7 @@ void main() {
         loginResult = MockFacebookLoginResult();
         accessTokenResult = MockFacebookAccessToken();
 
-        when(() => accessTokenResult.token).thenReturn(accessToken);
+        when(() => accessTokenResult.tokenString).thenReturn(accessToken);
         when(() => loginResult.accessToken).thenReturn(accessTokenResult);
         when(() => loginResult.status)
             .thenReturn(facebook_auth.LoginStatus.success);
