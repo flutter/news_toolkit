@@ -31,7 +31,7 @@ class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 @immutable
 class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {
   @override
-  bool operator ==(dynamic other) => identical(this, other);
+  bool operator ==(Object other) => identical(this, other);
 
   @override
   int get hashCode => 0;
@@ -266,7 +266,7 @@ void main() {
         loginResult = MockFacebookLoginResult();
         accessTokenResult = MockFacebookAccessToken();
 
-        when(() => accessTokenResult.token).thenReturn(accessToken);
+        when(() => accessTokenResult.tokenString).thenReturn(accessToken);
         when(() => loginResult.accessToken).thenReturn(accessTokenResult);
         when(() => loginResult.status)
             .thenReturn(facebook_auth.LoginStatus.success);

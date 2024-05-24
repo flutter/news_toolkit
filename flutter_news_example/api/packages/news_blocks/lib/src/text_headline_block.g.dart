@@ -14,9 +14,9 @@ TextHeadlineBlock _$TextHeadlineBlockFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = TextHeadlineBlock(
+          text: $checkedConvert('text', (v) => v as String),
           type: $checkedConvert(
               'type', (v) => v as String? ?? TextHeadlineBlock.identifier),
-          text: $checkedConvert('text', (v) => v as String),
         );
         return val;
       },

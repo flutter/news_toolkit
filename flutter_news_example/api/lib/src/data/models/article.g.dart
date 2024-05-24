@@ -9,7 +9,7 @@ part of 'article.dart';
 Article _$ArticleFromJson(Map<String, dynamic> json) => Article(
       title: json['title'] as String,
       blocks: const NewsBlocksConverter().fromJson(json['blocks'] as List),
-      totalBlocks: json['totalBlocks'] as int,
+      totalBlocks: (json['totalBlocks'] as num).toInt(),
       url: Uri.parse(json['url'] as String),
     );
 

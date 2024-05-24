@@ -38,7 +38,7 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
 Map<String, dynamic> _$ArticleIntroductionBlockToJson(
     ArticleIntroductionBlock instance) {
   final val = <String, dynamic>{
-    'category': _$PostCategoryEnumMap[instance.category],
+    'category': _$PostCategoryEnumMap[instance.category]!,
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
   };

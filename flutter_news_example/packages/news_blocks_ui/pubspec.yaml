@@ -9,11 +9,11 @@ environment:
 dependencies:
   app_ui:
     path: ../app_ui
-  cached_network_image: ^3.2.1
+  cached_network_image: ^3.3.1
   flutter:
     sdk: flutter
   flutter_html: 3.0.0-beta.2
-  google_mobile_ads: ^4.0.0
+  google_mobile_ads: ^5.0.0
   news_blocks:
     path: ../../api/packages/news_blocks
   path_provider_platform_interface: ^2.0.5
@@ -30,8 +30,10 @@ dev_dependencies:
   flutter_gen_runner: ^5.2.0
   flutter_test:
     sdk: flutter
+  html: ^0.15.4
   mocktail: ^1.0.2
   mocktail_image_network: ^1.0.0
+  sqflite_common_ffi: ^2.3.3
   very_good_analysis: ^5.1.0
 
 flutter:
