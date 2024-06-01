@@ -184,8 +184,8 @@ You've generated and run your custom news app! Head over to [project configurati
 
 ## Contributions
 
-We invite contributions from the Flutter community. Please review the [Contributing to Flutter](https://github.com/flutter/flutter/blob/master/CONTRIBUTING.md) documentation and [Contributor access](https://github.com/flutter/flutter/wiki/Contributor-access) page on our wiki to get started.
+We invite contributions from the Flutter community. Please review the [Contributing to Flutter](https://github.com/flutter/flutter/blob/master/CONTRIBUTING.md) documentation and [Contributor access](https://github.com/flutter/flutter/blob/master/docs/contributing/Contributor-access.md) page on our wiki to get started.
 
 ## Opening issues
 
-Please open an issue in the main [flutter/flutter](https://github.com/flutter/flutter/issues) issue tracker if you encounter any bugs or have enhancement suggestions for this toolkit. Issues should follow the [Issue hygiene](https://github.com/flutter/flutter/wiki/Issue-hygiene) guidelines and will be [triaged](https://github.com/flutter/flutter/wiki/Triage) by the Flutter team with the appropriate labels and priority.
+Please open an issue in the main [flutter/flutter](https://github.com/flutter/flutter/issues) issue tracker if you encounter any bugs or have enhancement suggestions for this toolkit. Issues should follow the [Issue hygiene](https://github.com/flutter/flutter/blob/master/docs/contributing/issue_hygiene/README.md) guidelines and will be [triaged](https://github.com/flutter/flutter/blob/master/docs/triage/README.md) by the Flutter team with the appropriate labels and priority.
