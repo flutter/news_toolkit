@@ -32,7 +32,7 @@ Depending on the number of flavors you plan to create for your project, the setu
 In order to generate a project using the news template, you must have the [Dart SDK][dart_installation_link] installed on your machine.
 
 :::info
-Dart `">=3.0.0 <4.0.0"` is required.
+Dart `">=3.3.0 <4.0.0"` is required.
 :::
 
 **Mason**
@@ -58,7 +58,7 @@ dart pub global activate dart_frog_cli
 ```
 
 :::info
-[Dart Frog][dart_frog_link] is a fast, minimalistic backend framework for Dart. It is stable as of [v0.1.0](https://github.com/VeryGoodOpenSource/dart_frog/releases/tag/dart_frog-v0.1.0).
+[Dart Frog][dart_frog_link] is a fast, minimalistic backend framework for Dart. It is stable as of [v1.1.0](https://github.com/VeryGoodOpenSource/dart_frog/releases/tag/dart_frog-v1.1.0).
 
 You'll use Dart Frog as a [backend for frontends (BFF)](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends), which allows you to connect your existing backend to the Flutter News Template frontend. Dart Frog reduces the barrier for entry for all publishers, despite any existing backend, and brings your app to market faster without required client modifications.
 
