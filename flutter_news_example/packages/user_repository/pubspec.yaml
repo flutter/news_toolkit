@@ -9,7 +9,7 @@ dependencies:
   authentication_client:
     path: ../authentication_client/authentication_client
   deep_link_client:
-    path: ../deep_link_client
+    path: ../deep_link_client/deep_link_client
   equatable: ^2.0.3
   flutter_news_example_api:
     path: ../../api
