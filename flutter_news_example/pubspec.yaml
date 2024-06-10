@@ -26,14 +26,14 @@ dependencies:
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
-  firebase_analytics: ^10.0.3
+  firebase_analytics: ^11.0.0
   firebase_auth_platform_interface: ^7.0.9
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
-  firebase_core: ^2.24.2
-  firebase_crashlytics: ^3.0.3
-  firebase_dynamic_links: ^5.0.3
-  firebase_messaging: ^14.0.3
+  firebase_core: ^3.0.0
+  firebase_crashlytics: ^4.0.0
+  firebase_dynamic_links: ^6.0.0
+  firebase_messaging: ^15.0.0
   firebase_notifications_client:
     path: packages/notifications_client/firebase_notifications_client
   flow_builder: ^0.0.7
