@@ -49,7 +49,7 @@ jobs:
         run: git stash pop
 
       - name: Create Pull Request With Required Changes
-        uses: peter-evans/create-pull-request@v6.0.5
+        uses: peter-evans/create-pull-request@v6.1.0
         with:
           branch: chore/generate-flutter-news-template
           commit-message: "chore: generate flutter_news_template"
