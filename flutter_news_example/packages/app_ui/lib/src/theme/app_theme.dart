@@ -39,7 +39,7 @@ class AppTheme {
   ColorScheme get _colorScheme {
     return ColorScheme.light(
       secondary: AppColors.secondary,
-      background: _backgroundColor,
+      surface: _backgroundColor,
     );
   }
 
@@ -210,19 +210,24 @@ class AppTheme {
 
   SwitchThemeData get _switchTheme {
     return SwitchThemeData(
-      thumbColor:
-          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+      thumbColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return AppColors.darkAqua;
         }
         return AppColors.eerieBlack;
       }),
-      trackColor:
-          MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+      trackColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return AppColors.primaryContainer;
         }
-        return AppColors.paleSky;
+        return AppColors.grey;
+      }),
+      trackOutlineColor:
+          WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.primaryContainer;
+        }
+        return AppColors.grey;
       }),
     );
   }
@@ -288,7 +293,7 @@ class AppDarkTheme extends AppTheme {
     return const ColorScheme.dark().copyWith(
       primary: AppColors.white,
       secondary: AppColors.secondary,
-      background: AppColors.grey.shade900,
+      surface: AppColors.grey.shade900,
     );
   }
 
