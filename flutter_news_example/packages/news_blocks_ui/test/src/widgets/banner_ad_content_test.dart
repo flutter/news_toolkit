@@ -224,6 +224,7 @@ void main() {
         findsOneWidget,
       );
     });
+
     testWidgets('uses AdSize(300, 600) for BannerAdSize.extraLarge',
         (tester) async {
       const expectedSize = AdSize(width: 300, height: 600);

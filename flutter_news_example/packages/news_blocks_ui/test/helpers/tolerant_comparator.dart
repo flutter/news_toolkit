@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,7 +8,8 @@ class _TolerantGoldenFileComparator extends LocalFileComparator {
 
   /// How much the golden image can differ from the test image.
   ///
-  /// It is expected to be between 0 and 1. Where 0 is no difference (the same image)
+  /// It is expected to be between 0 and 1.
+  /// Where 0 is no difference (same image)
   /// and 1 is the maximum difference (completely different images).
   static const double _precisionTolerance = .06;
 
