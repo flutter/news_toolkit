@@ -9,7 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('TextLeadParagraph', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/text_lead_paragraph_test.dart'),
+    );
 
     testWidgets('renders correctly', (tester) async {
       final widget = Center(

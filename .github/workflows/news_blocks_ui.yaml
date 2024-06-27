@@ -19,6 +19,3 @@ jobs:
       flutter_version: 3.19.6
       working_directory: flutter_news_example/packages/news_blocks_ui
       coverage_excludes: "lib/src/generated/*.dart"
-      # Due to incompability with custom goldenFileComparator,
-      # reference: flutter_news_example/packages/news_blocks_ui/test/helpers/tolerant_comparator.dart
-      test_optimization: false

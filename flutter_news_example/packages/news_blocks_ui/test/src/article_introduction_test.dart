@@ -20,7 +20,9 @@ void main() {
   const premiumText = 'Subscriber Exclusive';
 
   group('ArticleIntroduction', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/article_introduction_test.dart'),
+    );
 
     final technologyArticleIntroduction = ArticleIntroductionBlock(
       category: category,
