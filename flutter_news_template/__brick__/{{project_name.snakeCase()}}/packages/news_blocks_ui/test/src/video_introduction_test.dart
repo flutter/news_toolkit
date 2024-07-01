@@ -24,7 +24,9 @@ void main() {
       () {
         final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
         VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
-        setUpTolerantComparator();
+        setUpTolerantComparator(
+          'test/src/video_introduction_test.dart',
+        );
       },
     );
 

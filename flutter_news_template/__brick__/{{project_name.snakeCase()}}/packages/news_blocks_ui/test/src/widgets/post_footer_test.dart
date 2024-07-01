@@ -8,7 +8,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('PostFooter', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/widgets/post_footer_test.dart'),
+    );
 
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(

@@ -16,7 +16,7 @@ void main() {
       // Change the default factory
       databaseFactory = databaseFactoryFfi;
 
-      setUpTolerantComparator();
+      setUpTolerantComparator('test/src/trending_story_test.dart');
       setUpMockPathProvider();
     });
 

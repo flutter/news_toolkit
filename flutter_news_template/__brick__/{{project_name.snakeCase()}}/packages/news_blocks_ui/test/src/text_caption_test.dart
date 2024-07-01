@@ -9,7 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('TextCaption', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/text_caption_test.dart'),
+    );
 
     testWidgets(
         'renders correctly '
