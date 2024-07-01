@@ -13,7 +13,7 @@ class AnalyticsEvent extends Equatable {
   final String name;
 
   /// Optional map of event properties.
-  final Map<String, dynamic>? properties;
+  final Map<String, Object>? properties;
 
   @override
   List<Object?> get props => [name, properties];

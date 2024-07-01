@@ -22,7 +22,9 @@ void main() {
       'and prices are finally falling';
 
   group('PostLarge', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/post_large/post_large_test.dart'),
+    );
 
     group('renders correctly overlaid ', () {
       testWidgets(

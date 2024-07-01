@@ -196,7 +196,7 @@ void main() {
         final currentPage = tester
             .widget<PageView>(find.byKey(slideshowPageViewKey))
             .controller
-            .page;
+            ?.page;
 
         // Check current page
         expect(currentPage, 2);
@@ -237,7 +237,7 @@ void main() {
         final currentPage = tester
             .widget<PageView>(find.byKey(slideshowPageViewKey))
             .controller
-            .page;
+            ?.page;
 
         // Check current page
         expect(currentPage, 1);

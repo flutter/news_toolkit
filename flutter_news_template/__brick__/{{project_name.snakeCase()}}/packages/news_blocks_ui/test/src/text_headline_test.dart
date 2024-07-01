@@ -9,7 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('TextHeadline', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/text_headline_test.dart'),
+    );
 
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
