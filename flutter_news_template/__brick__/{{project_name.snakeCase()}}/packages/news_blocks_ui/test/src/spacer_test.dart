@@ -9,7 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('Spacer', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/spacer_test.dart'),
+    );
 
     testWidgets('renders correctly for extraSmall spacing', (tester) async {
       final widget = ColoredBox(

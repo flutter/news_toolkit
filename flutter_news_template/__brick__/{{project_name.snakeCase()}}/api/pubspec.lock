@@ -325,10 +325,10 @@ packages:
     dependency: "direct dev"
     description:
       name: mocktail
-      sha256: f603ebd85a576e5914870b02e5839fc5d0243b867bf710651cf239a28ebb365e
+      sha256: "890df3f9688106f25755f26b1c60589a92b3ab91a22b8b224947ad041bf172d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4"
   news_blocks:
     dependency: "direct main"
     description:
@@ -508,26 +508,26 @@ packages:
     dependency: "direct dev"
     description:
       name: test
-      sha256: d11b55850c68c1f6c0cf00eabded4e66c4043feaf6c0d7ce4a36785137df6331
+      sha256: "713a8789d62f3233c46b4a90b174737b2c04cb6ae4500f2aa8b1be8f03f5e67f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.25.5"
+    version: "1.25.8"
   test_api:
     dependency: transitive
     description:
       name: test_api
-      sha256: "2419f20b0c8677b2d67c8ac4d1ac7372d862dc6c460cdbb052b40155408cd794"
+      sha256: "664d3a9a64782fcdeb83ce9c6b39e78fd2971d4e37827b9b06c3aa1edc5e760c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.7.3"
   test_core:
     dependency: transitive
     description:
       name: test_core
-      sha256: "4d070a6bc36c1c4e89f20d353bfd71dc30cdf2bd0e14349090af360a029ab292"
+      sha256: "12391302411737c176b0b5d6491f466b0dd56d4763e347b6714efbaa74d7953d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.2"
+    version: "0.6.5"
   timing:
     dependency: transitive
     description:
@@ -548,10 +548,10 @@ packages:
     dependency: "direct dev"
     description:
       name: very_good_analysis
-      sha256: "9ae7f3a3bd5764fb021b335ca28a34f040cd0ab6eec00a1b213b445dae58a4b8"
+      sha256: "1fb637c0022034b1f19ea2acb42a3603cbd8314a470646a59a2fb01f5f3a8629"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.0"
+    version: "6.0.0"
   vm_service:
     dependency: transitive
     description:
@@ -593,4 +593,4 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0 <4.0.0"
+  dart: ">=3.4.0 <4.0.0"

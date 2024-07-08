@@ -9,7 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('DividerHorizontal', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/divider_horizontal_test.dart'),
+    );
 
     testWidgets('renders correctly', (tester) async {
       final widget = Center(

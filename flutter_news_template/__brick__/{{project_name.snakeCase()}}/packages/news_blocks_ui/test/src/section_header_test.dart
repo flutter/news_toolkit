@@ -7,7 +7,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('SectionHeader', () {
-    setUpAll(setUpTolerantComparator);
+    setUpAll(
+      () => setUpTolerantComparator('test/src/section_header_test.dart'),
+    );
 
     testWidgets('renders correctly without action', (tester) async {
       const widget = Center(

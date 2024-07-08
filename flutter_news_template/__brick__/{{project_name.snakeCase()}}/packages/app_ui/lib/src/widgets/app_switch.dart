@@ -44,9 +44,7 @@ class AppSwitch extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: AppSpacing.xxs,
-          ),
+          padding: const EdgeInsets.only(left: AppSpacing.xs),
           child: Switch(
             value: value,
             onChanged: onChanged,
