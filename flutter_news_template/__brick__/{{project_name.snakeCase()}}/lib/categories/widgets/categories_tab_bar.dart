@@ -13,6 +13,7 @@ class CategoriesTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+      tabAlignment: TabAlignment.start,
       controller: controller,
       isScrollable: true,
       tabs: tabs,

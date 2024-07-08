@@ -74,7 +74,7 @@ void main() {
 
         const analyticEvent1 = AnalyticsEvent(
           'event1',
-          properties: <String, dynamic>{
+          properties: <String, Object>{
             'property1': 'value1',
             'property2': 'value2',
           },
