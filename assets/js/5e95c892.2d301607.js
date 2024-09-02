@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkflutter_news_toolkit_docs=self.webpackChunkflutter_news_toolkit_docs||[]).push([[647],{7121:(e,s,t)=>{t.r(s),t.d(s,{default:()=>a});t(6540);var r=t(4164),u=t(1003),c=t(7559),l=t(2831),o=t(781),n=t(4848);function a(e){return(0,n.jsx)(u.e3,{className:(0,r.A)(c.G.wrapper.docsPages),children:(0,n.jsx)(o.A,{children:(0,l.v)(e.route.routes)})})}}}]);
