@@ -7,7 +7,7 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
-  rxdart: ^0.27.3
+  rxdart: ^0.27.5
 
 dev_dependencies:
   mocktail: ^1.0.3
