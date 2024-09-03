@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
@@ -7,20 +9,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockAppLinks extends Mock implements FirebaseDynamicLinks {}
+class MockFirebaseDynamicLinks extends Mock implements FirebaseDynamicLinks {}
 
 class MockFirebaseCore extends Mock
     with MockPlatformInterfaceMixin
     implements FirebasePlatform {}
 
 void main() {
-  late MockAppLinks appLinks;
+  late MockFirebaseDynamicLinks dynamicLinks;
   late StreamController<PendingDynamicLinkData> onLinkStreamController;
 
   setUp(() {
-    appLinks = MockAppLinks();
+    dynamicLinks = MockFirebaseDynamicLinks();
     onLinkStreamController = StreamController<PendingDynamicLinkData>();
-    when(() => appLinks.onLink)
+    when(() => dynamicLinks.onLink)
         .thenAnswer((_) => onLinkStreamController.stream);
   });
 
@@ -32,11 +34,12 @@ void main() {
     group('getInitialLink', () {
       test('retrieves the latest link if present', () async {
         final expectedUri = Uri.https('ham.app.test', '/test/path');
-        when(appLinks.getInitialLink).thenAnswer(
+        when(dynamicLinks.getInitialLink).thenAnswer(
           (_) => Future.value(PendingDynamicLinkData(link: expectedUri)),
         );
 
-        final client = FirebaseDeepLinkClient(firebaseDynamicLinks: appLinks);
+        final client =
+            FirebaseDeepLinkClient(firebaseDynamicLinks: dynamicLinks);
         final link = await client.getInitialLink();
         expect(link, expectedUri);
       });
@@ -44,10 +47,11 @@ void main() {
 
     group('deepLinkStream', () {
       test('publishes values received through onLink stream', () {
-        final expectedUri1 = Uri.https('ham.app.test', '/test/1');
-        final expectedUri2 = Uri.https('ham.app.test', '/test/2');
+        final expectedUri1 = Uri.https('news.app.test', '/test/1');
+        final expectedUri2 = Uri.https('news.app.test', '/test/2');
 
-        final client = FirebaseDeepLinkClient(firebaseDynamicLinks: appLinks);
+        final client =
+            FirebaseDeepLinkClient(firebaseDynamicLinks: dynamicLinks);
 
         expect(
           client.deepLinkStream,
