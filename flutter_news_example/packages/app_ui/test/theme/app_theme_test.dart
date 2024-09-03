@@ -49,7 +49,7 @@ void main() {
                   .themeData
                   .switchTheme
                   .thumbColor
-                  ?.resolve({MaterialState.selected}),
+                  ?.resolve({WidgetState.selected}),
               equals(AppColors.darkAqua),
             );
           });
@@ -69,15 +69,39 @@ void main() {
                   .themeData
                   .switchTheme
                   .trackColor
-                  ?.resolve({MaterialState.selected}),
+                  ?.resolve({WidgetState.selected}),
               equals(AppColors.primaryContainer),
             );
           });
 
-          test('returns paleSky when not selected', () {
+          test('returns grey when not selected', () {
             expect(
               const AppTheme().themeData.switchTheme.trackColor?.resolve({}),
-              equals(AppColors.paleSky),
+              equals(AppColors.grey),
+            );
+          });
+        });
+
+        group('trackOutlineColor', () {
+          test('returns primaryContainer when selected', () {
+            expect(
+              const AppTheme()
+                  .themeData
+                  .switchTheme
+                  .trackOutlineColor
+                  ?.resolve({WidgetState.selected}),
+              equals(AppColors.primaryContainer),
+            );
+          });
+
+          test('returns grey when not selected', () {
+            expect(
+              const AppTheme()
+                  .themeData
+                  .switchTheme
+                  .trackOutlineColor
+                  ?.resolve({}),
+              equals(AppColors.grey),
             );
           });
         });
@@ -123,7 +147,7 @@ void main() {
 
         test('background is grey.shade900', () {
           expect(
-            const AppDarkTheme().themeData.colorScheme.background,
+            const AppDarkTheme().themeData.colorScheme.surface,
             AppColors.grey.shade900,
           );
         });

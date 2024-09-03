@@ -9,8 +9,9 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('TextParagraph', () {
-    setUpAll(setUpTolerantComparator);
-
+    setUpAll(
+      () => setUpTolerantComparator('test/src/text_paragraph_test.dart'),
+    );
     testWidgets('renders correctly', (tester) async {
       final widget = Center(
         child: TextParagraph(

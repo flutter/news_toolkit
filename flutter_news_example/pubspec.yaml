@@ -3,8 +3,8 @@ version: 0.0.1+1
 publish_to: none
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   ads_consent_client:
@@ -26,16 +26,16 @@ dependencies:
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
-  firebase_analytics: ^10.0.3
+  firebase_analytics: ^11.0.0
   firebase_auth_platform_interface: ^7.0.9
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
-  firebase_core: ^2.24.2
-  firebase_crashlytics: ^3.0.3
+  firebase_core: ^3.0.0
+  firebase_crashlytics: ^4.0.0
+  firebase_dynamic_links: ^6.0.0
   firebase_deep_link_client:
     path: packages/deep_link_client/firebase_deep_link_client
-  firebase_dynamic_links: ^5.0.3
-  firebase_messaging: ^14.0.3
+  firebase_messaging: ^15.0.0
   firebase_notifications_client:
     path: packages/notifications_client/firebase_notifications_client
   flow_builder: ^0.0.7
@@ -86,7 +86,7 @@ dependencies:
   url_launcher: ^6.0.9
   user_repository:
     path: packages/user_repository
-  very_good_analysis: ^5.1.0
+  very_good_analysis: ^6.0.0
   video_player_platform_interface: ^6.0.1
   visibility_detector: ^0.4.0+2
 
