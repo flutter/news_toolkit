@@ -27,7 +27,7 @@ dependencies:
     path: packages/email_launcher
   equatable: ^2.0.3
   firebase_analytics: ^11.3.1
-  firebase_auth_platform_interface: ^7.0.9
+  firebase_auth_platform_interface: ^7.4.5
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
   firebase_core: ^3.4.1
