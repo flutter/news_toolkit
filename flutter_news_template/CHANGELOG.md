@@ -1,3 +1,8 @@
+# 1.0.13
+
+- chore: upgrade template to Flutter 3.24.2
+- chore: upgrade dependencies
+
 # 1.0.12
 
 - chore: add missing changes to upgrade the template to Flutter 3.22.2
