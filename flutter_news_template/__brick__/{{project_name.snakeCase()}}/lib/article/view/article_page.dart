@@ -89,9 +89,7 @@ class ArticleView extends StatelessWidget {
         context.select<AppBloc, bool>((bloc) => bloc.state.isUserSubscribed);
 
     return PopScope(
-      onPopInvoked: (_) async {
-        _onPop(context);
-      },
+      onPopInvokedWithResult: (_, __) => _onPop(context),
       child: HasToShowInterstitialAdListener(
         interstitialAdBehavior: interstitialAdBehavior,
         child: HasReachedArticleLimitListener(
