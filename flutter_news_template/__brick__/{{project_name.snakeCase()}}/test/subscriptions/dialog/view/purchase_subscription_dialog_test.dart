@@ -172,8 +172,9 @@ void main() {
         userRepository: userRepository,
       );
 
-      await tester.pump();
       expect(find.byType(PurchaseCompletedDialog), findsOneWidget);
+
+      await tester.pump(const Duration(seconds: 3));
 
       verify(
         () => analyticsBloc.add(

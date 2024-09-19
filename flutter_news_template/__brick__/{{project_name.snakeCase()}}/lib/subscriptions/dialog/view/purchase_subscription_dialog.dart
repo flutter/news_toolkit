@@ -94,7 +94,13 @@ class PurchaseSubscriptionDialogView extends StatelessWidget {
                               context: context,
                               builder: (context) =>
                                   const PurchaseCompletedDialog(),
-                            ).then((_) => Navigator.maybePop(context));
+                            ).then(
+                              (_) {
+                                if (context.mounted) {
+                                  Navigator.maybePop<void>(context);
+                                }
+                              },
+                            );
                           }
                         },
                         builder: (context, state) {
