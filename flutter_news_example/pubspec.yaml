@@ -54,7 +54,7 @@ dependencies:
     path: packages/in_app_purchase_repository
   intl: ^0.19.0
   json_annotation: ^4.9.0
-  mockingjay: ^0.5.0
+  mockingjay: ^0.6.0
   news_blocks:
     path: api/packages/news_blocks
   news_blocks_ui:
