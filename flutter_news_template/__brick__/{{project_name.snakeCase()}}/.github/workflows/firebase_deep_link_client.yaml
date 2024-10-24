@@ -1,0 +1,20 @@
+name: firebase_deep_link_client
+
+concurrency:
+  group: ${{#mustacheCase}}github.workflow{{/mustacheCase}}-${{#mustacheCase}}github.ref{{/mustacheCase}}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    paths:
+      - "packages/deep_link_client/firebase_deep_link_client/**"
+      - ".github/workflows/firebase_deep_link_client.yaml"
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_version: {{flutter_version}}
+      working_directory: packages/deep_link_client/firebase_deep_link_client
