@@ -7,7 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  collection: ^1.16.0
+  collection: ^1.19.1
   dart_frog: ^1.1.0
   equatable: ^2.0.5
   http: ^1.2.2
