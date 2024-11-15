@@ -9,22 +9,11 @@ part of 'categories_response.dart';
 CategoriesResponse _$CategoriesResponseFromJson(Map<String, dynamic> json) =>
     CategoriesResponse(
       categories: (json['categories'] as List<dynamic>)
-          .map((e) => $enumDecode(_$CategoryEnumMap, e))
+          .map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$CategoriesResponseToJson(CategoriesResponse instance) =>
     <String, dynamic>{
-      'categories':
-          instance.categories.map((e) => _$CategoryEnumMap[e]!).toList(),
+      'categories': instance.categories.map((e) => e.toJson()).toList(),
     };
-
-const _$CategoryEnumMap = {
-  Category.business: 'business',
-  Category.entertainment: 'entertainment',
-  Category.top: 'top',
-  Category.health: 'health',
-  Category.science: 'science',
-  Category.sports: 'sports',
-  Category.technology: 'technology',
-};

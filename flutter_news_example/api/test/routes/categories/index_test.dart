@@ -20,7 +20,10 @@ void main() {
     });
 
     test('responds with a 200 and categories.', () async {
-      const categories = [Category.sports, Category.entertainment];
+      const sportsCategory = Category(id: 'sports', name: 'Sports');
+      const sportsEntertainment = Category(id: 'sports', name: 'Sports');
+
+      const categories = [sportsCategory, sportsEntertainment];
       when(
         () => newsDataSource.getCategories(),
       ).thenAnswer((_) async => categories);

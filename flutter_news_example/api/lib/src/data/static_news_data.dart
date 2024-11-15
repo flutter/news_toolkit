@@ -1245,7 +1245,10 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Technology',
     action: NavigateToFeedCategoryAction(
-      category: Category.technology,
+      category: Category(
+        id: 'technology',
+        name: 'technology',
+      ),
     ),
   ),
   technologyLargeItems.last.post,
@@ -1254,7 +1257,10 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Science Videos',
     action: NavigateToFeedCategoryAction(
-      category: Category.science,
+      category: Category(
+        id: 'science',
+        name: 'science',
+      ),
     ),
   ),
   PostGridGroupBlock(
@@ -1266,7 +1272,10 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Sports',
     action: NavigateToFeedCategoryAction(
-      category: Category.sports,
+      category: Category(
+        id: 'sports',
+        name: 'sports',
+      ),
     ),
   ),
   sportsMediumItems.first.post,
@@ -1276,7 +1285,10 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Health',
     action: NavigateToFeedCategoryAction(
-      category: Category.health,
+      category: Category(
+        id: 'health',
+        name: 'health',
+      ),
     ),
   ),
   healthSmallItems.first.post,
@@ -1383,13 +1395,21 @@ List<NewsItem> get _newsItems {
   ];
 }
 
-final _newsFeedData = <Category, Feed>{
-  Category.top: topNewsFeedBlocks.toFeed(),
-  Category.technology: technologyFeedBlocks.toFeed(),
-  Category.sports: sportsFeedBlocks.toFeed(),
-  Category.health: healthFeedBlocks.toFeed(),
-  Category.science: scienceFeedBlocks.toFeed(),
+final _newsFeedData = <String, Feed>{
+  'top': topNewsFeedBlocks.toFeed(),
+  'technology': technologyFeedBlocks.toFeed(),
+  'sports': sportsFeedBlocks.toFeed(),
+  'health': healthFeedBlocks.toFeed(),
+  'science': scienceFeedBlocks.toFeed(),
 };
+
+const _categories = [
+  Category(id: 'top', name: 'Top'),
+  Category(id: 'technology', name: 'Technology'),
+  Category(id: 'sports', name: 'Sports'),
+  Category(id: 'health', name: 'Health'),
+  Category(id: 'science', name: 'Science'),
+];
 
 extension on List<NewsBlock> {
   Feed toFeed() => Feed(blocks: this, totalBlocks: length);
