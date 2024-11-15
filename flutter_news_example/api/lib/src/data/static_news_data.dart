@@ -1391,11 +1391,11 @@ final _newsFeedData = <Category, Feed>{
   _scienceCategory: scienceFeedBlocks.toFeed(),
 };
 
-const _topCategory = Category.top;
-const _sportsCategory = Category.sports;
-const _technologyCategory = Category.technology;
-const _healthCategory = Category.health;
-const _scienceCategory = Category.science;
+const _topCategory = Category(id: 'top', name: 'Top');
+const _sportsCategory = Category(id: 'sports', name: 'Sports');
+const _technologyCategory = Category(id: 'technology', name: 'Technology');
+const _healthCategory = Category(id: 'health', name: 'Health');
+const _scienceCategory = Category(id: 'science', name: 'Science');
 
 const _categories = [
   _topCategory,

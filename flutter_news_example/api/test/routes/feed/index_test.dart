@@ -18,10 +18,6 @@ void main() {
   group('GET /api/v1/feed', () {
     late NewsDataSource newsDataSource;
 
-    setUpAll(() {
-      registerFallbackValue(Category.top);
-    });
-
     setUp(() {
       newsDataSource = _MockNewsDataSource();
     });
@@ -33,7 +29,7 @@ void main() {
       when(() => feed.totalBlocks).thenReturn(blocks.length);
       when(
         () => newsDataSource.getFeed(
-          category: any(named: 'category'),
+          categoryId: any(named: 'categoryId'),
           limit: any(named: 'limit'),
           offset: any(named: 'offset'),
         ),
@@ -50,7 +46,8 @@ void main() {
     });
 
     test('parses category, limit, and offset correctly.', () async {
-      const category = Category.entertainment;
+      const category = Category(id: 'sports', name: 'Sports');
+
       const limit = 42;
       const offset = 7;
       final blocks = <NewsBlock>[];
@@ -59,7 +56,7 @@ void main() {
       when(() => feed.totalBlocks).thenReturn(blocks.length);
       when(
         () => newsDataSource.getFeed(
-          category: any(named: 'category'),
+          categoryId: category.id,
           limit: any(named: 'limit'),
           offset: any(named: 'offset'),
         ),
@@ -70,7 +67,7 @@ void main() {
         'GET',
         Uri.parse('http://127.0.0.1/').replace(
           queryParameters: <String, String>{
-            'category': category.name,
+            'category': category.id,
             'limit': '$limit',
             'offset': '$offset',
           },
@@ -84,7 +81,7 @@ void main() {
       expect(await response.json(), equals(expected.toJson()));
       verify(
         () => newsDataSource.getFeed(
-          category: category,
+          categoryId: category.id,
           limit: limit,
           offset: offset,
         ),
