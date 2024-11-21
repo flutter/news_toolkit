@@ -178,10 +178,10 @@ packages:
     dependency: "direct main"
     description:
       name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      sha256: b35578f687b79243d39008c44d638474d93e9091e578c970efef41ce0c3fa000
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.6"
   file:
     dependency: transitive
     description:
