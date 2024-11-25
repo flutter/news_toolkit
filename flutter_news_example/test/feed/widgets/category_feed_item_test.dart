@@ -561,7 +561,7 @@ void main() {
         'on NavigateToFeedCategoryAction', (tester) async {
       final categoriesBloc = MockCategoriesBloc();
 
-      const category = Category.top;
+      const category = Category(id: 'top', name: 'Top');
       const block = SectionHeaderBlock(
         title: 'title',
         action: NavigateToFeedCategoryAction(category: category),

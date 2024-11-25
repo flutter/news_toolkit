@@ -57,7 +57,6 @@ class NotificationsStorage {
 
     return List<dynamic>.from(json.decode(categories) as List<dynamic>)
         .map((value) {
-      print(value);
       return Category.fromJson(value as Map<String, dynamic>);
     }).toSet();
   }

@@ -61,7 +61,7 @@ class NewsRepository {
   /// Requests news feed metadata.
   ///
   /// Supported parameters:
-  /// * [category] - the desired news [Category].
+  /// * [categoryId] - the desired news category.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.

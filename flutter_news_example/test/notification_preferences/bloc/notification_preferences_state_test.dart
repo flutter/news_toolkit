@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 void main() {
+  final healthCategory = Category(id: 'health', name: 'Health');
+
   group('NotificationPreferencesState', () {
     test('initial has correct status', () {
       final initialState = NotificationPreferencesState.initial();
@@ -46,11 +48,11 @@ void main() {
           'when categories changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(
-            categories: {Category.business},
+            categories: {healthCategory},
           ),
           equals(
             NotificationPreferencesState(
-              categories: {Category.business},
+              categories: {healthCategory},
               selectedCategories: {},
               status: NotificationPreferencesStatus.initial,
             ),
@@ -79,13 +81,13 @@ void main() {
           'when selectedCategories changed', () {
         expect(
           NotificationPreferencesState.initial().copyWith(
-            selectedCategories: {Category.business},
+            selectedCategories: {healthCategory},
           ),
           equals(
             NotificationPreferencesState(
               categories: {},
               status: NotificationPreferencesStatus.initial,
-              selectedCategories: {Category.business},
+              selectedCategories: {healthCategory},
             ),
           ),
         );
