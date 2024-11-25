@@ -6,7 +6,7 @@ void main() {
     test('can be (de)serialized', () {
       const category = Category(id: 'sports', name: 'Sports');
       expect(
-        Category.fromJson(const {'id': 'sports', 'name': 'sports'}),
+        Category.fromJson(const {'id': 'sports', 'name': 'Sports'}),
         equals(category),
       );
     });
@@ -15,7 +15,7 @@ void main() {
       const category = Category(id: 'sports', name: 'Sports');
       expect(
         category.toJson(),
-        equals(const {'id': 'sports', 'name': 'sports'}),
+        equals(const {'id': 'sports', 'name': 'Sports'}),
       );
     });
   });
