@@ -10,18 +10,18 @@ CategoriesState _$CategoriesStateFromJson(Map<String, dynamic> json) =>
     CategoriesState(
       status: $enumDecode(_$CategoriesStatusEnumMap, json['status']),
       categories: (json['categories'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$CategoryEnumMap, e))
+          ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
-      selectedCategory:
-          $enumDecodeNullable(_$CategoryEnumMap, json['selectedCategory']),
+      selectedCategory: json['selectedCategory'] == null
+          ? null
+          : Category.fromJson(json['selectedCategory'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CategoriesStateToJson(CategoriesState instance) =>
     <String, dynamic>{
       'status': _$CategoriesStatusEnumMap[instance.status]!,
-      'categories':
-          instance.categories?.map((e) => _$CategoryEnumMap[e]!).toList(),
-      'selectedCategory': _$CategoryEnumMap[instance.selectedCategory],
+      'categories': instance.categories?.map((e) => e.toJson()).toList(),
+      'selectedCategory': instance.selectedCategory?.toJson(),
     };
 
 const _$CategoriesStatusEnumMap = {
@@ -29,14 +29,4 @@ const _$CategoriesStatusEnumMap = {
   CategoriesStatus.loading: 'loading',
   CategoriesStatus.populated: 'populated',
   CategoriesStatus.failure: 'failure',
-};
-
-const _$CategoryEnumMap = {
-  Category.business: 'business',
-  Category.entertainment: 'entertainment',
-  Category.top: 'top',
-  Category.health: 'health',
-  Category.science: 'science',
-  Category.sports: 'sports',
-  Category.technology: 'technology',
 };

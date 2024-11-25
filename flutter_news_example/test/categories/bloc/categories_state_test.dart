@@ -48,7 +48,10 @@ void main() {
       test(
           'returns object with updated categories '
           'when categories is passed', () {
-        final categories = [Category.top, Category.health];
+        final sportsCategory = Category(id: 'sports', name: 'Sports');
+        final healthCategory = Category(id: 'health', name: 'Health');
+
+        final categories = [sportsCategory, healthCategory];
 
         expect(
           CategoriesState(status: CategoriesStatus.populated)
@@ -65,7 +68,7 @@ void main() {
       test(
           'returns object with updated selectedCategory '
           'when selectedCategory is passed', () {
-        const selectedCategory = Category.top;
+        final selectedCategory = Category(id: 'sports', name: 'Sports');
 
         expect(
           CategoriesState(status: CategoriesStatus.populated)

@@ -6,10 +6,16 @@ import 'package:news_repository/news_repository.dart';
 
 void main() {
   group('FeedEvent', () {
+    final entertainmentCategory = Category(
+      id: 'entertainment',
+      name: 'Entertainment',
+    );
+    final healthCategory = Category(id: 'health', name: 'Health');
+
     group('FeedRequested', () {
       test('supports value comparisons', () {
-        final event1 = FeedRequested(category: Category.health);
-        final event2 = FeedRequested(category: Category.health);
+        final event1 = FeedRequested(category: healthCategory);
+        final event2 = FeedRequested(category: healthCategory);
 
         expect(event1, equals(event2));
       });
@@ -17,8 +23,8 @@ void main() {
 
     group('FeedRefreshRequested', () {
       test('supports value comparisons', () {
-        final event1 = FeedRefreshRequested(category: Category.science);
-        final event2 = FeedRefreshRequested(category: Category.science);
+        final event1 = FeedRefreshRequested(category: entertainmentCategory);
+        final event2 = FeedRefreshRequested(category: entertainmentCategory);
 
         expect(event1, equals(event2));
       });

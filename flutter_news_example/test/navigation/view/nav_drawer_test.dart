@@ -66,7 +66,13 @@ void main() {
     late HomeCubit homeCubit;
     late User user;
 
-    const categories = [Category.top, Category.health];
+    final entertainmentCategory = Category(
+      id: 'entertainment',
+      name: 'Entertainment',
+    );
+    final healthCategory = Category(id: 'health', name: 'Health');
+
+    final categories = [entertainmentCategory, healthCategory];
 
     setUp(() {
       categoriesBloc = MockCategoriesBloc();

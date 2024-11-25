@@ -259,7 +259,10 @@ void main() {
 
         expect(
           newsDataSource.getFeed(
-              categoryId: topCategory.id, offset: 1, limit: 100),
+            categoryId: topCategory.id,
+            offset: 1,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(1),
@@ -270,7 +273,10 @@ void main() {
 
         expect(
           newsDataSource.getFeed(
-              categoryId: topCategory.id, offset: 2, limit: 100),
+            categoryId: topCategory.id,
+            offset: 2,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(2),
@@ -281,7 +287,10 @@ void main() {
 
         expect(
           newsDataSource.getFeed(
-              categoryId: topCategory.id, offset: 100, limit: 100),
+            categoryId: topCategory.id,
+            offset: 100,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: [],

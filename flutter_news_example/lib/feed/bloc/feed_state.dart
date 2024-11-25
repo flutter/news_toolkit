@@ -24,8 +24,8 @@ class FeedState extends Equatable {
       _$FeedStateFromJson(json);
 
   final FeedStatus status;
-  final Map<Category, List<NewsBlock>> feed;
-  final Map<Category, bool> hasMoreNews;
+  final Map<String, List<NewsBlock>> feed;
+  final Map<String, bool> hasMoreNews;
 
   @override
   List<Object> get props => [
@@ -36,8 +36,8 @@ class FeedState extends Equatable {
 
   FeedState copyWith({
     FeedStatus? status,
-    Map<Category, List<NewsBlock>>? feed,
-    Map<Category, bool>? hasMoreNews,
+    Map<String, List<NewsBlock>>? feed,
+    Map<String, bool>? hasMoreNews,
   }) {
     return FeedState(
       status: status ?? this.status,
