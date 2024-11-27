@@ -1245,10 +1245,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Technology',
     action: NavigateToFeedCategoryAction(
-      category: Category(
-        id: 'technology',
-        name: 'technology',
-      ),
+      category: _technologyCategory,
     ),
   ),
   technologyLargeItems.last.post,
@@ -1257,10 +1254,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Science Videos',
     action: NavigateToFeedCategoryAction(
-      category: Category(
-        id: 'science',
-        name: 'science',
-      ),
+      category: _scienceCategory,
     ),
   ),
   PostGridGroupBlock(
@@ -1272,10 +1266,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Sports',
     action: NavigateToFeedCategoryAction(
-      category: Category(
-        id: 'sports',
-        name: 'sports',
-      ),
+      category: _sportsCategory,
     ),
   ),
   sportsMediumItems.first.post,
@@ -1285,10 +1276,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Health',
     action: NavigateToFeedCategoryAction(
-      category: Category(
-        id: 'health',
-        name: 'health',
-      ),
+      category: _healthCategory,
     ),
   ),
   healthSmallItems.first.post,
@@ -1396,19 +1384,25 @@ List<NewsItem> get _newsItems {
 }
 
 final _newsFeedData = <String, Feed>{
-  'top': topNewsFeedBlocks.toFeed(),
-  'technology': technologyFeedBlocks.toFeed(),
-  'sports': sportsFeedBlocks.toFeed(),
-  'health': healthFeedBlocks.toFeed(),
-  'science': scienceFeedBlocks.toFeed(),
+  _topCategory.id: topNewsFeedBlocks.toFeed(),
+  _technologyCategory.id: technologyFeedBlocks.toFeed(),
+  _sportsCategory.id: sportsFeedBlocks.toFeed(),
+  _healthCategory.id: healthFeedBlocks.toFeed(),
+  _scienceCategory.id: scienceFeedBlocks.toFeed(),
 };
 
+const _topCategory = Category(id: 'top', name: 'Top');
+const _sportsCategory = Category(id: 'sports', name: 'Sports');
+const _technologyCategory = Category(id: 'technology', name: 'Technology');
+const _healthCategory = Category(id: 'health', name: 'Health');
+const _scienceCategory = Category(id: 'science', name: 'Science');
+
 const _categories = [
-  Category(id: 'top', name: 'Top'),
-  Category(id: 'technology', name: 'Technology'),
-  Category(id: 'sports', name: 'Sports'),
-  Category(id: 'health', name: 'Health'),
-  Category(id: 'science', name: 'Science'),
+  _topCategory,
+  _sportsCategory,
+  _technologyCategory,
+  _healthCategory,
+  _scienceCategory,
 ];
 
 extension on List<NewsBlock> {
