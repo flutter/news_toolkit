@@ -307,8 +307,8 @@ void main() {
           newsDataSource.getCategories(),
           completion([
             Category(id: 'top', name: 'Top'),
-            Category(id: 'technology', name: 'Technology'),
             Category(id: 'sports', name: 'Sports'),
+            Category(id: 'technology', name: 'Technology'),
             Category(id: 'health', name: 'Health'),
             Category(id: 'science', name: 'Science'),
           ]),
