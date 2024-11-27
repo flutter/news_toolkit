@@ -1383,12 +1383,12 @@ List<NewsItem> get _newsItems {
   ];
 }
 
-final _newsFeedData = <Category, Feed>{
-  _topCategory: topNewsFeedBlocks.toFeed(),
-  _technologyCategory: technologyFeedBlocks.toFeed(),
-  _sportsCategory: sportsFeedBlocks.toFeed(),
-  _healthCategory: healthFeedBlocks.toFeed(),
-  _scienceCategory: scienceFeedBlocks.toFeed(),
+final _newsFeedData = <String, Feed>{
+  _topCategory.id: topNewsFeedBlocks.toFeed(),
+  _technologyCategory.id: technologyFeedBlocks.toFeed(),
+  _sportsCategory.id: sportsFeedBlocks.toFeed(),
+  _healthCategory.id: healthFeedBlocks.toFeed(),
+  _scienceCategory.id: scienceFeedBlocks.toFeed(),
 };
 
 const _topCategory = Category(id: 'top', name: 'Top');
