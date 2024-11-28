@@ -10,7 +10,7 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('PostGrid', () {
-    const category = Category.science;
+    const category = Category(id: 'science', name: 'Science');
     final postGridTileBlock = PostGridTileBlock(
       id: '842e3193-86d2-4069-a7e6-f769faa6f970',
       categoryId: category.id,

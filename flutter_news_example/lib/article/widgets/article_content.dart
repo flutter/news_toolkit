@@ -23,8 +23,8 @@ class ArticleContent extends StatelessWidget {
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
 
-    /// Show loader while categories are loading as article blocks may need
-    /// to consume them.
+    /// Show loader while categories are loading as articles may need to consume
+    /// them
     if (status == ArticleStatus.initial ||
         categoriesStatus == CategoriesStatus.initial) {
       return const ArticleContentLoaderItem(

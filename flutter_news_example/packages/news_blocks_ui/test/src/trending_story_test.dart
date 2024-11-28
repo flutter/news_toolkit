@@ -21,7 +21,7 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         final widget = TrendingStory(
           title: 'TRENDING',

@@ -46,12 +46,12 @@ class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
   CategoriesState get state => const CategoriesState(
         status: CategoriesStatus.populated,
         categories: [
-          Category.sports,
-          Category.health,
-          Category.technology,
-          Category.science,
+          Category(id: 'sports', name: 'Sports'),
+          Category(id: 'health', name: 'Health'),
+          Category(id: 'technology', name: 'Technology'),
+          Category(id: 'science', name: 'Science'),
         ],
-        selectedCategory: Category.sports,
+        selectedCategory: Category(id: 'sports', name: 'Sports'),
       );
 }
 
