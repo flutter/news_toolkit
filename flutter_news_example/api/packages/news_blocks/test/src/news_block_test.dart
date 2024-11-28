@@ -77,8 +77,9 @@ void main() {
       });
 
       test('returns VideoIntroductionBlock', () {
+        const category = Category(id: 'technology', name: 'Technology');
         final block = VideoIntroductionBlock(
-          category: PostCategory.technology,
+          categoryId: category.id,
           title: 'title',
           videoUrl: 'videoUrl',
         );
@@ -86,8 +87,9 @@ void main() {
       });
 
       test('returns ArticleIntroductionBlock', () {
+        const category = Category(id: 'technology', name: 'Technology');
         final block = ArticleIntroductionBlock(
-          category: PostCategory.technology,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
           imageUrl: 'imageUrl',
@@ -97,9 +99,10 @@ void main() {
       });
 
       test('returns PostLargeBlock', () {
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: 'id',
-          category: PostCategory.technology,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 9),
           imageUrl: 'imageUrl',
@@ -110,9 +113,10 @@ void main() {
       });
 
       test('returns PostMediumBlock', () {
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
-          category: PostCategory.sports,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 10),
           imageUrl: 'imageUrl',
@@ -123,9 +127,10 @@ void main() {
       });
 
       test('returns PostSmallBlock', () {
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
-          category: PostCategory.health,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 11),
           imageUrl: 'imageUrl',
@@ -136,12 +141,13 @@ void main() {
       });
 
       test('returns PostGridGroupBlock', () {
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
-          category: PostCategory.science,
+          categoryId: category.id,
           tiles: [
             PostGridTileBlock(
               id: 'id',
-              category: PostCategory.science,
+              categoryId: category.id,
               author: 'author',
               publishedAt: DateTime(2022, 3, 12),
               imageUrl: 'imageUrl',
@@ -154,9 +160,10 @@ void main() {
       });
 
       test('returns PostGridTileBlock', () {
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridTileBlock(
           id: 'id',
-          category: PostCategory.science,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 12),
           imageUrl: 'imageUrl',
@@ -214,9 +221,10 @@ void main() {
       });
 
       test('returns TrendingStoryBlock', () {
+        const category = Category(id: 'health', name: 'Health');
         final content = PostSmallBlock(
           id: 'id',
-          category: PostCategory.health,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 11),
           imageUrl: 'imageUrl',

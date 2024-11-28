@@ -9,7 +9,6 @@ export 'package:news_blocks/news_blocks.dart'
         ImageBlock,
         NewsBlock,
         NewsBlocksConverter,
-        PostCategory,
         PostGridGroupBlock,
         PostGridTileBlock,
         PostLargeBlock,

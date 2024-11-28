@@ -4,8 +4,9 @@ import 'package:test/test.dart';
 void main() {
   group('ArticleIntroductionBlock', () {
     test('can be (de)serialized', () {
+      const category = Category(id: 'technology', name: 'Technology');
       final block = ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),
         imageUrl: 'imageUrl',
