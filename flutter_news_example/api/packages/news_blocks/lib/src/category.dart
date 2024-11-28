@@ -21,6 +21,9 @@ enum Category {
   /// News relating to technology.
   technology;
 
+  /// The id of the category.
+  String get id => name;
+
   /// Returns a [Category] for the [categoryName].
   static Category fromString(String categoryName) =>
       Category.values.firstWhere((category) => category.name == categoryName);

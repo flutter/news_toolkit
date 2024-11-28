@@ -12,7 +12,7 @@ part 'article_introduction_block.g.dart';
 class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro article_introduction_block}
   const ArticleIntroductionBlock({
-    required this.category,
+    required this.categoryId,
     required this.author,
     required this.publishedAt,
     required this.title,
@@ -29,8 +29,8 @@ class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
   /// The article introduction block type identifier.
   static const identifier = '__article_introduction__';
 
-  /// The category of the associated article.
-  final PostCategory category;
+  /// The category id of the associated article.
+  final String categoryId;
 
   /// The author of the associated article.
   final String author;
@@ -58,7 +58,7 @@ class ArticleIntroductionBlock with EquatableMixin implements NewsBlock {
   @override
   List<Object?> get props => [
         type,
-        category,
+        categoryId,
         author,
         publishedAt,
         imageUrl,
