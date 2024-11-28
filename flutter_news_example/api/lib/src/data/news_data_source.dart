@@ -59,8 +59,7 @@ abstract class NewsDataSource {
     int offset = 0,
   });
 
-  /// Returns a news [Feed] for the provided [category].
-  /// By default [Category.top] is used.
+  /// Returns a news [Feed] for the provided [categoryId].
   ///
   /// In addition, the feed can be paginated by supplying
   /// [limit] and [offset].
@@ -69,7 +68,7 @@ abstract class NewsDataSource {
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
   Future<Feed> getFeed({
-    Category category = Category.top,
+    required String categoryId,
     int limit = 20,
     int offset = 0,
   });

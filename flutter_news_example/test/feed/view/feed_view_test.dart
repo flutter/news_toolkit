@@ -25,10 +25,16 @@ void main() {
     late CategoriesBloc categoriesBloc;
     late FeedBloc feedBloc;
 
-    const categories = [Category.top, Category.technology];
+    final topCategory = Category(
+      id: 'top',
+      name: 'Top',
+    );
+    final technologyCategory = Category(id: 'technology', name: 'Technology');
 
-    final feed = <Category, List<NewsBlock>>{
-      Category.top: [
+    final categories = [topCategory, technologyCategory];
+
+    final feed = <String, List<NewsBlock>>{
+      topCategory.id: [
         SectionHeaderBlock(title: 'Top'),
         SpacerBlock(spacing: Spacing.medium),
         SpacerBlock(spacing: Spacing.extraLarge),
@@ -44,7 +50,7 @@ void main() {
         SpacerBlock(spacing: Spacing.extraLarge),
         DividerHorizontalBlock(),
       ],
-      Category.technology: [
+      technologyCategory.id: [
         SectionHeaderBlock(title: 'Technology'),
         DividerHorizontalBlock(),
         SpacerBlock(spacing: Spacing.medium),

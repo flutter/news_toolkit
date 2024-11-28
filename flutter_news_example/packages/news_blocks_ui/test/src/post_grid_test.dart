@@ -10,9 +10,10 @@ import '../helpers/helpers.dart';
 
 void main() {
   group('PostGrid', () {
+    const category = Category(id: 'science', name: 'Science');
     final postGridTileBlock = PostGridTileBlock(
       id: '842e3193-86d2-4069-a7e6-f769faa6f970',
-      category: PostCategory.science,
+      categoryId: category.id,
       author: 'SciTechDaily',
       publishedAt: DateTime(2022, 5, 5),
       imageUrl:
@@ -26,7 +27,7 @@ void main() {
 
     testWidgets('renders correctly 5 PostGridTiles', (tester) async {
       final gridGroupBlock = PostGridGroupBlock(
-        category: PostCategory.science,
+        categoryId: category.id,
         tiles: List.generate(5, (index) => postGridTileBlock),
       );
 
@@ -36,6 +37,7 @@ void main() {
             slivers: [
               PostGrid(
                 gridGroupBlock: gridGroupBlock,
+                categoryName: category.name,
                 premiumText: 'Premium',
               ),
             ],
@@ -53,7 +55,7 @@ void main() {
 
     testWidgets('renders correctly 1 PostGridTile', (tester) async {
       final gridGroupBlock = PostGridGroupBlock(
-        category: PostCategory.science,
+        categoryId: category.id,
         tiles: [postGridTileBlock],
       );
 
@@ -61,7 +63,11 @@ void main() {
         () async => tester.pumpContentThemedApp(
           CustomScrollView(
             slivers: [
-              PostGrid(gridGroupBlock: gridGroupBlock, premiumText: 'Premium'),
+              PostGrid(
+                gridGroupBlock: gridGroupBlock,
+                categoryName: category.name,
+                premiumText: 'Premium',
+              ),
             ],
           ),
         ),
@@ -74,7 +80,7 @@ void main() {
 
     testWidgets('handles empty tiles list', (tester) async {
       final gridGroupBlock = PostGridGroupBlock(
-        category: PostCategory.science,
+        categoryId: category.id,
         tiles: [],
       );
 
@@ -82,7 +88,11 @@ void main() {
         () async => tester.pumpContentThemedApp(
           CustomScrollView(
             slivers: [
-              PostGrid(gridGroupBlock: gridGroupBlock, premiumText: 'Premium'),
+              PostGrid(
+                gridGroupBlock: gridGroupBlock,
+                categoryName: category.name,
+                premiumText: 'Premium',
+              ),
             ],
           ),
         ),

@@ -20,14 +20,17 @@ void main() {
     });
 
     testWidgets('renders TabBar with tabs', (tester) async {
+      final sportsCategory = Category(id: 'sports', name: 'Sports');
+      final healthCategory = Category(id: 'health', name: 'Health');
+
       final tabs = [
         CategoryTab(
-          key: ValueKey(Category.top),
-          categoryName: Category.top.name,
+          key: ValueKey(sportsCategory),
+          categoryName: sportsCategory.name,
         ),
         CategoryTab(
-          key: ValueKey(Category.technology),
-          categoryName: Category.technology.name,
+          key: ValueKey(healthCategory),
+          categoryName: healthCategory.name,
         ),
       ];
 
@@ -58,13 +61,15 @@ void main() {
 
   group('CategoryTab', () {
     testWidgets('renders category name uppercased', (tester) async {
+      final sportsCategory = Category(id: 'sports', name: 'Sports');
+
       await tester.pumpApp(
         CategoryTab(
-          categoryName: Category.top.name,
+          categoryName: sportsCategory.name,
         ),
       );
 
-      expect(find.text(Category.top.name.toUpperCase()), findsOneWidget);
+      expect(find.text(sportsCategory.name.toUpperCase()), findsOneWidget);
     });
   });
 }

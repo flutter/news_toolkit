@@ -53,7 +53,7 @@ void main() {
       when(storage.fetchNotificationsEnabled).thenAnswer((_) async => false);
 
       when(storage.fetchCategoriesPreferences)
-          .thenAnswer((_) async => {Category.top});
+          .thenAnswer((_) async => {Category(id: 'top', name: 'Top')});
 
       when(() => notificationsClient.subscribeToCategory(any()))
           .thenAnswer((_) async {});
@@ -72,7 +72,10 @@ void main() {
         when(storage.fetchCategoriesPreferences).thenAnswer((_) async => null);
 
         final completer = Completer<void>();
-        const categories = [Category.top, Category.technology];
+        const categories = [
+          Category(id: 'top', name: 'Top'),
+          Category(id: 'technology', name: 'Technology'),
+        ];
 
         when(apiClient.getCategories).thenAnswer(
           (_) async => CategoriesResponse(categories: categories),
@@ -184,9 +187,9 @@ void main() {
         });
 
         test('subscribes to categories preferences', () async {
-          const categoriesPreferences = {
-            Category.top,
-            Category.technology,
+          final categoriesPreferences = {
+            Category(id: 'top', name: 'Top'),
+            Category(id: 'technology', name: 'Technology'),
           };
 
           when(storage.fetchCategoriesPreferences)
@@ -229,9 +232,9 @@ void main() {
 
       group('when enabled is false', () {
         test('unsubscribes from categories preferences', () async {
-          const categoriesPreferences = {
-            Category.top,
-            Category.technology,
+          final categoriesPreferences = {
+            Category(id: 'top', name: 'Top'),
+            Category(id: 'technology', name: 'Technology'),
           };
 
           when(storage.fetchCategoriesPreferences)
@@ -379,9 +382,9 @@ void main() {
     });
 
     group('setCategoriesPreferences', () {
-      const categoriesPreferences = {
-        Category.top,
-        Category.technology,
+      final categoriesPreferences = {
+        Category(id: 'top', name: 'Top'),
+        Category(id: 'technology', name: 'Technology'),
       };
 
       test('calls setCategoriesPreferences on NotificationsStorage', () async {
@@ -409,9 +412,9 @@ void main() {
       });
 
       test('unsubscribes from previous categories preferences', () async {
-        const previousCategoriesPreferences = {
-          Category.health,
-          Category.entertainment,
+        final previousCategoriesPreferences = {
+          Category(id: 'top', name: 'Top'),
+          Category(id: 'technology', name: 'Technology'),
         };
 
         when(storage.fetchCategoriesPreferences)
@@ -477,9 +480,9 @@ void main() {
     });
 
     group('fetchCategoriesPreferences', () {
-      const categoriesPreferences = {
-        Category.top,
-        Category.technology,
+      final categoriesPreferences = {
+        Category(id: 'top', name: 'Top'),
+        Category(id: 'technology', name: 'Technology'),
       };
 
       test('returns categories preferences from NotificationsStorage',
