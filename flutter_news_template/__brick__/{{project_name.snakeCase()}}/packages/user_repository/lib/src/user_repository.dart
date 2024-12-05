@@ -58,18 +58,18 @@ class UserRepository {
     required {{project_name.pascalCase()}}ApiClient apiClient,
     required AuthenticationClient authenticationClient,
     required PackageInfoClient packageInfoClient,
-    required DeepLinkClient deepLinkClient,
+    required DeepLinkService deepLinkService,
     required UserStorage storage,
   })  : _apiClient = apiClient,
         _authenticationClient = authenticationClient,
         _packageInfoClient = packageInfoClient,
-        _deepLinkClient = deepLinkClient,
+        _deepLinkService = deepLinkService,
         _storage = storage;
 
   final {{project_name.pascalCase()}}ApiClient _apiClient;
   final AuthenticationClient _authenticationClient;
   final PackageInfoClient _packageInfoClient;
-  final DeepLinkClient _deepLinkClient;
+  final DeepLinkService _deepLinkService;
   final UserStorage _storage;
 
   /// Stream of [User] which will emit the current user when
@@ -94,7 +94,7 @@ class UserRepository {
   ///
   /// Emits when a new email link is emitted on [DeepLinkClient.deepLinkStream],
   /// which is validated using [AuthenticationClient.isLogInWithEmailLink].
-  Stream<Uri> get incomingEmailLinks => _deepLinkClient.deepLinkStream.where(
+  Stream<Uri> get incomingEmailLinks => _deepLinkService.deepLinkStream.where(
         (deepLink) => _authenticationClient.isLogInWithEmailLink(
           emailLink: deepLink.toString(),
         ),

@@ -319,7 +319,7 @@ packages:
   deep_link_client:
     dependency: "direct main"
     description:
-      path: "packages/deep_link_client"
+      path: "packages/deep_link_client/deep_link_client"
       relative: true
     source: path
     version: "0.0.0"
@@ -473,6 +473,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.42"
+  firebase_deep_link_client:
+    dependency: "direct main"
+    description:
+      path: "packages/deep_link_client/firebase_deep_link_client"
+      relative: true
+    source: path
+    version: "0.0.0"
   firebase_dynamic_links:
     dependency: "direct main"
     description:
@@ -989,18 +996,18 @@ packages:
     dependency: "direct main"
     description:
       name: mockingjay
-      sha256: "04beab95a415cda5bd4efa2681ee76eb92bb9377acaf1a0c08cd58efbae70d83"
+      sha256: cea2f3d38d1343beb6908f0ade5724c12304ee74014fbd274b4065a4b7db6536
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.6.0"
   mocktail:
     dependency: "direct dev"
     description:
       name: mocktail
-      sha256: f603ebd85a576e5914870b02e5839fc5d0243b867bf710651cf239a28ebb365e
+      sha256: "890df3f9688106f25755f26b1c60589a92b3ab91a22b8b224947ad041bf172d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4"
   mocktail_image_network:
     dependency: "direct dev"
     description:
@@ -1781,10 +1788,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   watcher:
     dependency: transitive
     description:
