@@ -1,0 +1,8 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "pub"
+    directory: "/flutter_news_template/hooks"
+    schedule:
+      interval: "daily"
+  
