@@ -7,14 +7,14 @@ concurrency:
 on:
   pull_request:
     paths:
-      - "packages/deep_link_client/**"
+      - "packages/deep_link_client/deep_link_client/**"
       - ".github/workflows/deep_link_client.yaml"
     branches:
       - main
 
 jobs:
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
     with:
-      flutter_version: {{flutter_version}}
-      working_directory: packages/deep_link_client
+      dart_sdk: 3.4.3
+      working_directory: packages/deep_link_client/deep_link_client

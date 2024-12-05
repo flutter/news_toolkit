@@ -22,7 +22,7 @@ dependencies:
   clock: ^1.1.0
   collection: ^1.16.0
   deep_link_client:
-    path: packages/deep_link_client
+    path: packages/deep_link_client/deep_link_client
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
@@ -32,6 +32,8 @@ dependencies:
     path: packages/authentication_client/firebase_authentication_client
   firebase_core: ^3.4.1
   firebase_crashlytics: ^4.1.1
+  firebase_deep_link_client:
+    path: packages/deep_link_client/firebase_deep_link_client
   firebase_dynamic_links: ^6.0.6
   firebase_messaging: ^15.1.1
   firebase_notifications_client:
@@ -54,7 +56,7 @@ dependencies:
     path: packages/in_app_purchase_repository
   intl: ^0.19.0
   json_annotation: ^4.9.0
-  mockingjay: ^0.5.0
+  mockingjay: ^0.6.0
   news_blocks:
     path: api/packages/news_blocks
   news_blocks_ui:
