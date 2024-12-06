@@ -113,3 +113,8 @@ updates:
     directory: "/flutter_news_example/packages/news_blocks_ui"
     schedule:
       interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/flutter_news_template/hooks"
+    schedule:
+      interval: "daily"
+    target-branch: "templates"
