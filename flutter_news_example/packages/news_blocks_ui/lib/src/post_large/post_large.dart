@@ -11,6 +11,7 @@ class PostLarge extends StatelessWidget {
   /// {@macro post_large}
   const PostLarge({
     required this.block,
+    required this.categoryName,
     required this.premiumText,
     required this.isLocked,
     this.onPressed,
@@ -19,6 +20,9 @@ class PostLarge extends StatelessWidget {
 
   /// The associated [PostLargeBlock] instance.
   final PostLargeBlock block;
+
+  /// The name of the category of the associated article.
+  final String? categoryName;
 
   /// Text displayed when post is premium content.
   final String premiumText;
@@ -45,7 +49,7 @@ class PostLarge extends StatelessWidget {
           ),
           PostContent(
             author: block.author,
-            categoryName: block.category.name,
+            categoryName: categoryName,
             publishedAt: block.publishedAt,
             title: block.title,
             isPremium: block.isPremium,

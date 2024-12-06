@@ -11,6 +11,7 @@ class PostGrid extends StatelessWidget {
   /// {@macro post_grid}
   const PostGrid({
     required this.gridGroupBlock,
+    required this.categoryName,
     required this.premiumText,
     this.isLocked = false,
     this.onPressed,
@@ -19,6 +20,9 @@ class PostGrid extends StatelessWidget {
 
   /// The associated [PostGridGroupBlock] instance.
   final PostGridGroupBlock gridGroupBlock;
+
+  /// The name of the category of the associated article.
+  final String? categoryName;
 
   /// Text displayed when post is premium content.
   final String premiumText;
@@ -53,6 +57,7 @@ class PostGrid extends StatelessWidget {
             if (index == 0) {
               return PostLarge(
                 block: block.toPostLargeBlock(),
+                categoryName: categoryName,
                 premiumText: premiumText,
                 isLocked: isLocked,
                 onPressed: onPressed,
