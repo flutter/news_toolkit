@@ -42,15 +42,21 @@ void main() {
   late FeedBloc feedBloc;
   late AppBloc appBloc;
 
-  const categories = [Category.top, Category.technology];
+  final entertainmentCategory = Category(
+    id: 'entertainment',
+    name: 'Entertainment',
+  );
+  final healthCategory = Category(id: 'health', name: 'Health');
 
-  final feed = <Category, List<NewsBlock>>{
-    Category.top: [
+  final categories = [entertainmentCategory, healthCategory];
+
+  final feed = <String, List<NewsBlock>>{
+    entertainmentCategory.id: [
       SectionHeaderBlock(title: 'Top'),
       DividerHorizontalBlock(),
       SpacerBlock(spacing: Spacing.medium),
     ],
-    Category.technology: [
+    healthCategory.id: [
       SectionHeaderBlock(title: 'Technology'),
       DividerHorizontalBlock(),
       SpacerBlock(spacing: Spacing.medium),
@@ -87,7 +93,7 @@ void main() {
 
     when(newsRepository.getCategories).thenAnswer(
       (_) async => CategoriesResponse(
-        categories: [Category.top],
+        categories: [healthCategory],
       ),
     );
 

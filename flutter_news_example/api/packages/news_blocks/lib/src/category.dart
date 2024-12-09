@@ -1,27 +1,33 @@
-/// The supported news category types.
-enum Category {
-  /// News relating to business.
-  business,
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-  /// News relating to entertainment.
-  entertainment,
+part 'category.g.dart';
 
-  /// Breaking news.
-  top,
+/// {@template category}
+/// Represents a news category.
+/// {@endtemplate}
+@JsonSerializable()
+class Category extends Equatable {
+  /// {@macro category}
+  const Category({
+    required this.id,
+    required this.name,
+  });
 
-  /// News relating to health.
-  health,
+  /// Converts a `Map<String, dynamic>` into
+  /// a [Category] instance.
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
-  /// News relating to science.
-  science,
+  /// Category id.
+  final String id;
 
-  /// News relating to sports.
-  sports,
+  /// Category name.
+  final String name;
 
-  /// News relating to technology.
-  technology;
+  /// Converts the current instance to a `Map<String, dynamic>`.
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
-  /// Returns a [Category] for the [categoryName].
-  static Category fromString(String categoryName) =>
-      Category.values.firstWhere((category) => category.name == categoryName);
+  @override
+  List<Object?> get props => [id, name];
 }

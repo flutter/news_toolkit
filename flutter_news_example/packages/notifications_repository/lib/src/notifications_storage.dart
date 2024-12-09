@@ -38,7 +38,7 @@ class NotificationsStorage {
     required Set<Category> categories,
   }) async {
     final categoriesEncoded = json.encode(
-      categories.map((category) => category.name).toList(),
+      categories.map((category) => category.toJson()).toList(),
     );
     await _storage.write(
       key: NotificationsStorageKeys.categoriesPreferences,
@@ -54,9 +54,11 @@ class NotificationsStorage {
     if (categories == null) {
       return null;
     }
-    return List<String>.from(json.decode(categories) as List)
-        .map(Category.fromString)
-        .toSet();
+
+    return List<dynamic>.from(json.decode(categories) as List<dynamic>)
+        .map((value) {
+      return Category.fromJson(value as Map<String, dynamic>);
+    }).toSet();
   }
 }
 

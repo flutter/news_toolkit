@@ -7,10 +7,11 @@ void main() {
   group('BlockActionConverter', () {
     test('can (de)serialize BlockAction', () {
       final converter = BlockActionConverter();
+      const category = Category(id: 'sports', name: 'Sports');
 
       const actions = <BlockAction>[
         NavigateToArticleAction(articleId: 'articleId'),
-        NavigateToFeedCategoryAction(category: Category.top),
+        NavigateToFeedCategoryAction(category: category),
       ];
 
       for (final action in actions) {

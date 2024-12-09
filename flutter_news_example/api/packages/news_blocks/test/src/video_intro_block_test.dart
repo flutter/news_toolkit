@@ -6,8 +6,9 @@ import 'package:test/test.dart';
 void main() {
   group('VideoIntroductionBlock', () {
     test('can be (de)serialized', () {
+      const category = Category(id: 'technology', name: 'Technology');
       final block = VideoIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         title: 'title',
         videoUrl: 'videoUrl',
       );

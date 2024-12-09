@@ -440,11 +440,11 @@ void main() {
       });
 
       test('makes correct http request (with query params).', () async {
-        const category = Category.science;
+        const category = Category(id: 'sports', name: 'Sports');
         const limit = 42;
         const offset = 7;
         const path = '/api/v1/feed';
-        final query = 'category=${category.name}&limit=$limit&offset=$offset';
+        final query = 'category=${category.id}&limit=$limit&offset=$offset';
 
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(
@@ -452,7 +452,7 @@ void main() {
         );
 
         await apiClient.getFeed(
-          category: category,
+          categoryId: category.id,
           limit: limit,
           offset: offset,
         );
@@ -620,8 +620,11 @@ void main() {
       });
 
       test('returns a CategoriesResponse on a 200 response.', () {
+        const sportsCategory = Category(id: 'sports', name: 'Sports');
+        const topCategory = Category(id: 'top', name: 'Top');
+
         const expectedResponse = CategoriesResponse(
-          categories: [Category.business, Category.top],
+          categories: [sportsCategory, topCategory],
         );
         when(() => httpClient.get(any(), headers: any(named: 'headers')))
             .thenAnswer(

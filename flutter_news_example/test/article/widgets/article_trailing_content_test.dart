@@ -28,10 +28,11 @@ void main() {
   group('ArticleTrailingContent', () {
     late ArticleBloc articleBloc;
     late AppBloc appBloc;
+    const category = Category(id: 'technology', name: 'Technology');
 
     final postSmallBlock = PostSmallBlock(
       id: '36f4a017-d099-4fce-8727-1d9ca6a0398c',
-      category: PostCategory.technology,
+      categoryId: category.id,
       author: 'Tom Phillips',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:

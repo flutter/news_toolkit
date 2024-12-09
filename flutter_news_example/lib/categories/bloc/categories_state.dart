@@ -7,7 +7,6 @@ enum CategoriesStatus {
   failure,
 }
 
-@JsonSerializable()
 class CategoriesState extends Equatable {
   const CategoriesState({
     required this.status,
@@ -20,12 +19,19 @@ class CategoriesState extends Equatable {
           status: CategoriesStatus.initial,
         );
 
-  factory CategoriesState.fromJson(Map<String, dynamic> json) =>
-      _$CategoriesStateFromJson(json);
-
   final CategoriesStatus status;
   final List<Category>? categories;
   final Category? selectedCategory;
+
+  String? getCategoryName(String categoryId) {
+    try {
+      return categories
+          ?.firstWhere((category) => category.id == categoryId)
+          .name;
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   List<Object?> get props => [
@@ -45,6 +51,4 @@ class CategoriesState extends Equatable {
       selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
-
-  Map<String, dynamic> toJson() => _$CategoriesStateToJson(this);
 }
