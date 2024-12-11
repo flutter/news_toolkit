@@ -1,3 +1,8 @@
+# 1.0.15
+
+- chore: upgrade Mason to 0.1.0
+- chore: upgrade dependencies
+
 # 1.0.14
 
 - chore: upgrade brick to Flutter 3.24.2
