@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 void main() {
   group('PostSmallBlock', () {
     test('can be (de)serialized', () {
-      const category = Category.health;
+      const category = Category(id: 'health', name: 'Health');
       final block = PostSmallBlock(
         id: 'id',
         categoryId: category.id,

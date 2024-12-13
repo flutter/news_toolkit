@@ -62,7 +62,7 @@ NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
       ($checkedConvert) {
         final val = NavigateToFeedCategoryAction(
           category: $checkedConvert(
-              'category', (v) => $enumDecode(_$CategoryEnumMap, v)),
+              'category', (v) => Category.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert('type',
               (v) => v as String? ?? NavigateToFeedCategoryAction.identifier),
         );
@@ -73,19 +73,9 @@ NavigateToFeedCategoryAction _$NavigateToFeedCategoryActionFromJson(
 Map<String, dynamic> _$NavigateToFeedCategoryActionToJson(
         NavigateToFeedCategoryAction instance) =>
     <String, dynamic>{
-      'category': _$CategoryEnumMap[instance.category]!,
+      'category': instance.category.toJson(),
       'type': instance.type,
     };
-
-const _$CategoryEnumMap = {
-  Category.business: 'business',
-  Category.entertainment: 'entertainment',
-  Category.top: 'top',
-  Category.health: 'health',
-  Category.science: 'science',
-  Category.sports: 'sports',
-  Category.technology: 'technology',
-};
 
 NavigateToSlideshowAction _$NavigateToSlideshowActionFromJson(
         Map<String, dynamic> json) =>

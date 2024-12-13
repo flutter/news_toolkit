@@ -115,7 +115,7 @@ void main() {
     testWidgets(
         'renders PostLarge '
         'for PostLargeBlock', (tester) async {
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       final block = PostLargeBlock(
         id: 'id',
         categoryId: category.id,
@@ -142,7 +142,7 @@ void main() {
     testWidgets(
         'renders PostMedium '
         'for PostMediumBlock', (tester) async {
-      const category = Category.sports;
+      const category = Category(id: 'sports', name: 'Sports');
       final block = PostMediumBlock(
         id: 'id',
         categoryId: category.id,
@@ -167,7 +167,7 @@ void main() {
     testWidgets(
         'renders PostSmall '
         'for PostSmallBlock', (tester) async {
-      const category = Category.health;
+      const category = Category(id: 'health', name: 'Health');
       final block = PostSmallBlock(
         id: 'id',
         categoryId: category.id,
@@ -192,7 +192,7 @@ void main() {
     testWidgets(
         'renders PostGrid '
         'for PostGridGroupBlock', (tester) async {
-      const category = Category.science;
+      const category = Category(id: 'science', name: 'Science');
       final block = PostGridGroupBlock(
         categoryId: category.id,
         tiles: [
@@ -259,7 +259,7 @@ void main() {
       const articleId = 'articleId';
 
       testWidgets('from PostLarge', (tester) async {
-        const category = Category.technology;
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: articleId,
           categoryId: category.id,
@@ -291,7 +291,7 @@ void main() {
       });
 
       testWidgets('from PostMedium', (tester) async {
-        const category = Category.sports;
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
           categoryId: category.id,
@@ -325,7 +325,7 @@ void main() {
       });
 
       testWidgets('from PostSmall', (tester) async {
-        const category = Category.health;
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
           categoryId: category.id,
@@ -357,7 +357,7 @@ void main() {
       });
 
       testWidgets('from PostGrid', (tester) async {
-        const category = Category.science;
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
           categoryId: category.id,
           tiles: [
@@ -403,7 +403,7 @@ void main() {
       const articleId = 'articleId';
 
       testWidgets('from PostLarge', (tester) async {
-        const category = Category.technology;
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: articleId,
           categoryId: category.id,
@@ -440,7 +440,7 @@ void main() {
       });
 
       testWidgets('from PostMedium', (tester) async {
-        const category = Category.sports;
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
           categoryId: category.id,
@@ -477,7 +477,7 @@ void main() {
       });
 
       testWidgets('from PostSmall', (tester) async {
-        const category = Category.health;
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
           categoryId: category.id,
@@ -513,7 +513,7 @@ void main() {
       });
 
       testWidgets('from PostGrid', (tester) async {
-        const category = Category.science;
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
           categoryId: category.id,
           tiles: [
@@ -561,7 +561,7 @@ void main() {
         'on NavigateToFeedCategoryAction', (tester) async {
       final categoriesBloc = MockCategoriesBloc();
 
-      const category = Category.top;
+      const category = Category(id: 'top', name: 'Top');
       const block = SectionHeaderBlock(
         title: 'title',
         action: NavigateToFeedCategoryAction(category: category),

@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('TrendingStoryBlock', () {
     test('can be (de)serialized', () {
-      const category = Category.health;
+      const category = Category(id: 'health', name: 'Health');
       final content = PostSmallBlock(
         id: 'id',
         categoryId: category.id,

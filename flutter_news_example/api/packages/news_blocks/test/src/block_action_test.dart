@@ -46,7 +46,9 @@ void main() {
       });
 
       test('returns NavigateToFeedCategoryAction', () {
-        final action = NavigateToFeedCategoryAction(category: Category.top);
+        const category = Category(id: 'sports', name: 'Sports');
+
+        final action = NavigateToFeedCategoryAction(category: category);
         expect(BlockAction.fromJson(action.toJson()), equals(action));
       });
 
@@ -91,7 +93,9 @@ void main() {
 
     group('NavigateToFeedCategoryAction', () {
       test('can be (de)serialized', () {
-        final action = NavigateToFeedCategoryAction(category: Category.top);
+        const category = Category(id: 'sports', name: 'Sports');
+
+        final action = NavigateToFeedCategoryAction(category: category);
         expect(
           NavigateToFeedCategoryAction.fromJson(action.toJson()),
           equals(action),

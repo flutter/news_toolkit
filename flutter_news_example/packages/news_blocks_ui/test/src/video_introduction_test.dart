@@ -11,7 +11,7 @@ import 'package:video_player_platform_interface/video_player_platform_interface.
 import '../helpers/helpers.dart';
 
 void main() {
-  const category = Category.technology;
+  const category = Category(id: 'technology', name: 'Technology');
   const videoUrl =
       'https://cdn.vox-cdn.com/thumbor/OTpmptgr7XcTVAJ27UBvIxl0vrg='
       '/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset'

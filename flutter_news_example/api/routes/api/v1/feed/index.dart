@@ -10,15 +10,14 @@ Future<Response> onRequest(RequestContext context) async {
 
   final queryParams = context.request.url.queryParameters;
   final categoryQueryParam = queryParams['category'];
-  final category = Category.values.firstWhere(
-    (category) => category.name == categoryQueryParam,
-    orElse: () => Category.top,
-  );
+
   final limit = int.tryParse(queryParams['limit'] ?? '') ?? 20;
   final offset = int.tryParse(queryParams['offset'] ?? '') ?? 0;
-  final feed = await context
-      .read<NewsDataSource>()
-      .getFeed(category: category, limit: limit, offset: offset);
+  final feed = await context.read<NewsDataSource>().getFeed(
+        categoryId: categoryQueryParam ?? '',
+        limit: limit,
+        offset: offset,
+      );
   final response = FeedResponse(
     feed: feed.blocks,
     totalCount: feed.totalBlocks,

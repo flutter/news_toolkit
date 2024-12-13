@@ -27,7 +27,7 @@ void main() {
     });
 
     testWidgets('renders correctly with action', (tester) async {
-      const category = Category.sports;
+      const category = Category(id: 'sports', name: 'Sports');
       const widget = Center(
         child: SectionHeader(
           block: SectionHeaderBlock(
@@ -46,7 +46,7 @@ void main() {
     });
 
     testWidgets('onPressed is called with action on tap', (tester) async {
-      const category = Category.sports;
+      const category = Category(id: 'sports', name: 'Sports');
       final actions = <BlockAction>[];
       const action = NavigateToFeedCategoryAction(category: category);
 

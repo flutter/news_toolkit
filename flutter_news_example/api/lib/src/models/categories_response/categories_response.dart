@@ -7,7 +7,7 @@ part 'categories_response.g.dart';
 /// {@template categories_response}
 /// A news categories response object which contains available news categories.
 /// {@endtemplate}
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CategoriesResponse extends Equatable {
   /// {@macro categories_response}
   const CategoriesResponse({required this.categories});

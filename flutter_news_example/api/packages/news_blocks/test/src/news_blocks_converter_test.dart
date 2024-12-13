@@ -7,7 +7,7 @@ void main() {
   group('NewsBlocksConverter', () {
     test('can (de)serialize List<NewsBlock>', () {
       final converter = NewsBlocksConverter();
-      const category = Category.health;
+      const category = Category(id: 'health', name: 'Health');
       final newsBlocks = <NewsBlock>[
         SectionHeaderBlock(title: 'title'),
         DividerHorizontalBlock(),

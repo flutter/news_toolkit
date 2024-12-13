@@ -7,7 +7,7 @@ import 'package:news_blocks_ui/news_blocks_ui.dart';
 import '../helpers/helpers.dart';
 
 void main() {
-  const category = Category.technology;
+  const category = Category(id: 'technology', name: 'Technology');
   const author = 'Sean Hollister';
   final publishedAt = DateTime(2022, 3, 9);
   const imageUrl =

@@ -7,6 +7,13 @@ enum FeedStatus {
   failure,
 }
 
+/// A map of category id to news blocks.
+typedef Feed = Map<String, List<NewsBlock>>;
+
+/// A map of category id to a boolean indicating if there are more news items
+/// to fetch for that category.
+typedef HasMoreNews = Map<String, bool>;
+
 @JsonSerializable()
 class FeedState extends Equatable {
   const FeedState({
@@ -24,8 +31,8 @@ class FeedState extends Equatable {
       _$FeedStateFromJson(json);
 
   final FeedStatus status;
-  final Map<Category, List<NewsBlock>> feed;
-  final Map<Category, bool> hasMoreNews;
+  final Feed feed;
+  final HasMoreNews hasMoreNews;
 
   @override
   List<Object> get props => [
@@ -36,8 +43,8 @@ class FeedState extends Equatable {
 
   FeedState copyWith({
     FeedStatus? status,
-    Map<Category, List<NewsBlock>>? feed,
-    Map<Category, bool>? hasMoreNews,
+    Map<String, List<NewsBlock>>? feed,
+    Map<String, bool>? hasMoreNews,
   }) {
     return FeedState(
       status: status ?? this.status,

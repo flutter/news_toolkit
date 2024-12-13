@@ -22,7 +22,7 @@ void main() {
     });
 
     testWidgets('renders correctly without image', (tester) async {
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         await tester.pumpApp(
           Column(
@@ -49,7 +49,7 @@ void main() {
     });
 
     testWidgets('renders correctly with image', (tester) async {
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         await tester.pumpApp(
           Column(
@@ -80,7 +80,7 @@ void main() {
     testWidgets('onPressed is called with action when tapped', (tester) async {
       final action = NavigateToArticleAction(articleId: 'id');
       final actions = <BlockAction>[];
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
 
       await mockNetworkImages(() async {
         await tester.pumpApp(

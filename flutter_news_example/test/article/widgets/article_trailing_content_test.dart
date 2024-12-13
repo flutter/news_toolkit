@@ -28,7 +28,7 @@ void main() {
   group('ArticleTrailingContent', () {
     late ArticleBloc articleBloc;
     late AppBloc appBloc;
-    const category = Category.technology;
+    const category = Category(id: 'technology', name: 'Technology');
 
     final postSmallBlock = PostSmallBlock(
       id: '36f4a017-d099-4fce-8727-1d9ca6a0398c',

@@ -79,9 +79,9 @@ void main() {
 
     group('setCategoriesPreferences', () {
       test('saves the value in Storage', () async {
-        const preferences = {
-          Category.top,
-          Category.health,
+        final preferences = {
+          const Category(id: 'top', name: 'Top'),
+          const Category(id: 'technology', name: 'Technology'),
         };
 
         await NotificationsStorage(storage: storage).setCategoriesPreferences(
@@ -92,7 +92,7 @@ void main() {
           () => storage.write(
             key: NotificationsStorageKeys.categoriesPreferences,
             value: json.encode(
-              preferences.map((category) => category.name).toList(),
+              preferences.map((category) => category.toJson()).toList(),
             ),
           ),
         ).called(1);
@@ -101,9 +101,9 @@ void main() {
 
     group('fetchCategoriesPreferences', () {
       test('returns the value from Storage', () async {
-        const preferences = {
-          Category.health,
-          Category.entertainment,
+        final preferences = {
+          const Category(id: 'top', name: 'Top'),
+          const Category(id: 'technology', name: 'Technology'),
         };
 
         when(
@@ -111,7 +111,7 @@ void main() {
               storage.read(key: NotificationsStorageKeys.categoriesPreferences),
         ).thenAnswer(
           (_) async => json.encode(
-            preferences.map((preference) => preference.name).toList(),
+            preferences.map((preference) => preference.toJson()).toList(),
           ),
         );
 

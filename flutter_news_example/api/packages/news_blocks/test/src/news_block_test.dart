@@ -77,7 +77,7 @@ void main() {
       });
 
       test('returns VideoIntroductionBlock', () {
-        const category = Category.technology;
+        const category = Category(id: 'technology', name: 'Technology');
         final block = VideoIntroductionBlock(
           categoryId: category.id,
           title: 'title',
@@ -87,7 +87,7 @@ void main() {
       });
 
       test('returns ArticleIntroductionBlock', () {
-        const category = Category.technology;
+        const category = Category(id: 'technology', name: 'Technology');
         final block = ArticleIntroductionBlock(
           categoryId: category.id,
           author: 'author',
@@ -99,7 +99,7 @@ void main() {
       });
 
       test('returns PostLargeBlock', () {
-        const category = Category.technology;
+        const category = Category(id: 'technology', name: 'Technology');
         final block = PostLargeBlock(
           id: 'id',
           categoryId: category.id,
@@ -113,7 +113,7 @@ void main() {
       });
 
       test('returns PostMediumBlock', () {
-        const category = Category.sports;
+        const category = Category(id: 'sports', name: 'Sports');
         final block = PostMediumBlock(
           id: 'id',
           categoryId: category.id,
@@ -127,7 +127,7 @@ void main() {
       });
 
       test('returns PostSmallBlock', () {
-        const category = Category.health;
+        const category = Category(id: 'health', name: 'Health');
         final block = PostSmallBlock(
           id: 'id',
           categoryId: category.id,
@@ -141,7 +141,7 @@ void main() {
       });
 
       test('returns PostGridGroupBlock', () {
-        const category = Category.science;
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridGroupBlock(
           categoryId: category.id,
           tiles: [
@@ -160,7 +160,7 @@ void main() {
       });
 
       test('returns PostGridTileBlock', () {
-        const category = Category.science;
+        const category = Category(id: 'science', name: 'Science');
         final block = PostGridTileBlock(
           id: 'id',
           categoryId: category.id,
@@ -221,7 +221,7 @@ void main() {
       });
 
       test('returns TrendingStoryBlock', () {
-        const category = Category.health;
+        const category = Category(id: 'health', name: 'Health');
         final content = PostSmallBlock(
           id: 'id',
           categoryId: category.id,

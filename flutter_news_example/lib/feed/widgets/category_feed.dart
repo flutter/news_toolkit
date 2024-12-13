@@ -19,11 +19,11 @@ class CategoryFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryFeed =
-        context.select((FeedBloc bloc) => bloc.state.feed[category]) ?? [];
+        context.select((FeedBloc bloc) => bloc.state.feed[category.id]) ?? [];
 
-    final hasMoreNews =
-        context.select((FeedBloc bloc) => bloc.state.hasMoreNews[category]) ??
-            true;
+    final hasMoreNews = context
+            .select((FeedBloc bloc) => bloc.state.hasMoreNews[category.id]) ??
+        true;
 
     final isFailure = context
         .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
