@@ -26,16 +26,16 @@ dependencies:
   email_launcher:
     path: packages/email_launcher
   equatable: ^2.0.3
-  firebase_analytics: ^11.3.1
-  firebase_auth_platform_interface: ^7.4.5
+  firebase_analytics: ^11.3.6
+  firebase_auth_platform_interface: ^7.4.10
   firebase_authentication_client:
     path: packages/authentication_client/firebase_authentication_client
-  firebase_core: ^3.4.1
-  firebase_crashlytics: ^4.1.1
+  firebase_core: ^3.8.1
+  firebase_crashlytics: ^4.2.0
   firebase_deep_link_client:
     path: packages/deep_link_client/firebase_deep_link_client
-  firebase_dynamic_links: ^6.0.6
-  firebase_messaging: ^15.1.1
+  firebase_dynamic_links: ^6.0.10
+  firebase_messaging: ^15.1.6
   firebase_notifications_client:
     path: packages/notifications_client/firebase_notifications_client
   flow_builder: ^0.0.7
@@ -50,7 +50,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   form_inputs:
     path: packages/form_inputs
-  google_mobile_ads: ^5.0.0
+  google_mobile_ads: ^5.2.0
   hydrated_bloc: ^9.0.0
   in_app_purchase_repository:
     path: packages/in_app_purchase_repository
