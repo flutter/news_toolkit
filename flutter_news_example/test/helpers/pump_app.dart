@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/theme_selector/theme_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,6 +38,21 @@ class MockFullScreenAdsBloc
     implements FullScreenAdsBloc {
   @override
   FullScreenAdsState get state => const FullScreenAdsState.initial();
+}
+
+class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
+    implements CategoriesBloc {
+  @override
+  CategoriesState get state => const CategoriesState(
+        status: CategoriesStatus.populated,
+        categories: [
+          Category.sports,
+          Category.health,
+          Category.technology,
+          Category.science,
+        ],
+        selectedCategory: Category.sports,
+      );
 }
 
 class MockUserRepository extends Mock implements UserRepository {
@@ -74,6 +90,7 @@ extension AppTester on WidgetTester {
     AppBloc? appBloc,
     AnalyticsBloc? analyticsBloc,
     FullScreenAdsBloc? fullScreenAdsBloc,
+    CategoriesBloc? categoriesBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
@@ -115,6 +132,7 @@ extension AppTester on WidgetTester {
             BlocProvider.value(
               value: fullScreenAdsBloc ?? MockFullScreenAdsBloc(),
             ),
+            BlocProvider.value(value: categoriesBloc ?? MockCategoriesBloc()),
           ],
           child: MaterialApp(
             title: 'Flutter News Example',

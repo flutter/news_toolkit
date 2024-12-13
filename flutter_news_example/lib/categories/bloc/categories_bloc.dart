@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 
 part 'categories_event.dart';
 part 'categories_state.dart';
-part 'categories_bloc.g.dart';
 
-class CategoriesBloc extends HydratedBloc<CategoriesEvent, CategoriesState> {
+class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc({
     required NewsRepository newsRepository,
   })  : _newsRepository = newsRepository,
@@ -47,11 +45,4 @@ class CategoriesBloc extends HydratedBloc<CategoriesEvent, CategoriesState> {
     Emitter<CategoriesState> emit,
   ) =>
       emit(state.copyWith(selectedCategory: event.category));
-
-  @override
-  CategoriesState? fromJson(Map<String, dynamic> json) =>
-      CategoriesState.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(CategoriesState state) => state.toJson();
 }
