@@ -18,7 +18,6 @@ export 'src/news_block.dart' show NewsBlock;
 export 'src/news_blocks_converter.dart' show NewsBlocksConverter;
 export 'src/newsletter_block.dart' show NewsletterBlock;
 export 'src/post_block.dart' show PostBlock, PostBlockActions;
-export 'src/post_category.dart' show PostCategory;
 export 'src/post_grid_group_block.dart' show PostGridGroupBlock;
 export 'src/post_grid_tile_block.dart'
     show PostGridTileBlock, PostGridTileBlockExt;

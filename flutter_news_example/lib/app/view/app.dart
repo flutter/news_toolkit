@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/app/app.dart';
+import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart' hide LoginEvent;
 import 'package:flutter_news_example/theme_selector/theme_selector.dart';
@@ -93,6 +94,11 @@ class App extends StatelessWidget {
               ..add(const LoadInterstitialAdRequested())
               ..add(const LoadRewardedAdRequested()),
             lazy: false,
+          ),
+          BlocProvider(
+            create: (context) => CategoriesBloc(
+              newsRepository: context.read<NewsRepository>(),
+            )..add(const CategoriesRequested()),
           ),
         ],
         child: const AppView(),
