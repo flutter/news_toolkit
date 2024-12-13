@@ -12,7 +12,7 @@ class PostSmallBlock extends PostBlock {
   /// {@macro post_small_block}
   const PostSmallBlock({
     required super.id,
-    required super.category,
+    required super.categoryId,
     required super.author,
     required super.publishedAt,
     required super.title,

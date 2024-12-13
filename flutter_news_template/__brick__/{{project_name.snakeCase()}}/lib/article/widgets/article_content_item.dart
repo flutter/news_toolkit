@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart' hide Image, Spacer;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:{{project_name.snakeCase()}}/article/article.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/newsletter/newsletter.dart';
 import 'package:{{project_name.snakeCase()}}/slideshow/slideshow.dart';
@@ -48,12 +50,24 @@ class ArticleContentItem extends StatelessWidget {
     } else if (newsBlock is TextParagraphBlock) {
       return TextParagraph(block: newsBlock);
     } else if (newsBlock is ArticleIntroductionBlock) {
+      final categoryName = context
+          .read<CategoriesBloc>()
+          .state
+          .getCategoryName(newsBlock.categoryId);
       return ArticleIntroduction(
         block: newsBlock,
+        categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
       );
     } else if (newsBlock is VideoIntroductionBlock) {
-      return VideoIntroduction(block: newsBlock);
+      final categoryName = context
+          .read<CategoriesBloc>()
+          .state
+          .getCategoryName(newsBlock.categoryId);
+      return VideoIntroduction(
+        block: newsBlock,
+        categoryName: categoryName,
+      );
     } else if (newsBlock is BannerAdBlock) {
       return BannerAd(
         block: newsBlock,

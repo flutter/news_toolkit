@@ -6,6 +6,7 @@ import 'package:article_repository/article_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart' as analytics;
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/home/home.dart';
 import 'package:{{project_name.snakeCase()}}/onboarding/onboarding.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,6 +38,9 @@ class MockAnalyticsRepository extends Mock implements AnalyticsRepository {}
 class MockAdsConsentClient extends Mock implements AdsConsentClient {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
+    implements CategoriesBloc {}
 
 class MockAnalyticsBloc
     extends MockBloc<analytics.AnalyticsEvent, analytics.AnalyticsState>
@@ -117,11 +121,15 @@ void main() {
     });
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {
+      final categoriesBloc = MockCategoriesBloc();
       when(() => appBloc.state).thenReturn(AppState.unauthenticated());
+      when(() => categoriesBloc.state)
+          .thenReturn(const CategoriesState(status: CategoriesStatus.initial));
       await tester.pumpApp(
         const AppView(),
         appBloc: appBloc,
         userRepository: userRepository,
+        categoriesBloc: categoriesBloc,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
@@ -129,12 +137,16 @@ void main() {
 
     testWidgets('navigates to HomePage when authenticated', (tester) async {
       final user = MockUser();
+      final categoriesBloc = MockCategoriesBloc();
       when(() => user.isAnonymous).thenReturn(false);
       when(() => appBloc.state).thenReturn(AppState.authenticated(user));
+      when(() => categoriesBloc.state)
+          .thenReturn(const CategoriesState(status: CategoriesStatus.initial));
       await tester.pumpApp(
         const AppView(),
         appBloc: appBloc,
         userRepository: userRepository,
+        categoriesBloc: categoriesBloc,
       );
       await tester.pumpAndSettle();
       expect(find.byType(HomePage), findsOneWidget);
