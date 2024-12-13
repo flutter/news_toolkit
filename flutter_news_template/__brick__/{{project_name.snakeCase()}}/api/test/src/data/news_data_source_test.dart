@@ -299,8 +299,8 @@ void main() {
           newsDataSource.getCategories(),
           completion([
             Category.top,
-            Category.technology,
             Category.sports,
+            Category.technology,
             Category.health,
             Category.science,
           ]),

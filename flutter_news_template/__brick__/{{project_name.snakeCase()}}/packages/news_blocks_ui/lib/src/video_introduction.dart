@@ -8,10 +8,17 @@ import 'package:news_blocks_ui/src/widgets/widgets.dart';
 /// {@endtemplate}
 class VideoIntroduction extends StatelessWidget {
   /// {@macro video_introduction}
-  const VideoIntroduction({required this.block, super.key});
+  const VideoIntroduction({
+    required this.block,
+    required this.categoryName,
+    super.key,
+  });
 
   /// The associated [VideoIntroductionBlock] instance.
   final VideoIntroductionBlock block;
+
+  /// The name of the category of the associated article.
+  final String? categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class VideoIntroduction extends StatelessWidget {
             AppSpacing.lg,
           ),
           child: PostContent(
-            categoryName: block.category.name,
+            categoryName: categoryName,
             title: block.title,
             isVideoContent: true,
           ),
