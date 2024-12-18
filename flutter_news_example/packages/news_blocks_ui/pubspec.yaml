@@ -34,7 +34,7 @@ dev_dependencies:
   mocktail: ^1.0.2
   mocktail_image_network: ^1.0.0
   sqflite_common_ffi: ^2.3.3
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
 flutter:
   uses-material-design: true
