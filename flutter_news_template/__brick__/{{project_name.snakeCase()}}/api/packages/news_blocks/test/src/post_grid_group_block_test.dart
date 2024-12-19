@@ -4,12 +4,13 @@ import 'package:test/test.dart';
 void main() {
   group('PostGridGroupBlock', () {
     test('can be (de)serialized', () {
+      const category = Category(id: 'science', name: 'Science');
       final block = PostGridGroupBlock(
-        category: PostCategory.science,
+        categoryId: category.id,
         tiles: [
           PostGridTileBlock(
             id: 'id',
-            category: PostCategory.science,
+            categoryId: category.id,
             author: 'author',
             publishedAt: DateTime(2022, 3, 12),
             imageUrl: 'imageUrl',

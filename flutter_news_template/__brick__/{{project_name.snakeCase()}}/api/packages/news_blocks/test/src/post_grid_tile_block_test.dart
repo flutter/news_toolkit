@@ -4,9 +4,10 @@ import 'package:test/test.dart';
 void main() {
   group('PostGridTileBlock', () {
     test('can be (de)serialized', () {
+      const category = Category(id: 'science', name: 'Science');
       final block = PostGridTileBlock(
         id: 'id',
-        category: PostCategory.science,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 12),
         imageUrl: 'imageUrl',
@@ -18,7 +19,7 @@ void main() {
 
     group('PostGridTitleBlockExt', () {
       const id = 'id';
-      const category = PostCategory.science;
+      const category = Category(id: 'science', name: 'Science');
       const author = 'author';
       final publishedAt = DateTime(2022, 3, 12);
       const imageUrl = 'imageUrl';
@@ -28,7 +29,7 @@ void main() {
 
       final gridTile = PostGridTileBlock(
         id: id,
-        category: category,
+        categoryId: category.id,
         author: author,
         publishedAt: publishedAt,
         imageUrl: imageUrl,
@@ -40,7 +41,7 @@ void main() {
       test('toPostLargeBlock creates PostLargeBlock instance', () {
         final largeBlock = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -56,7 +57,7 @@ void main() {
       test('toPostMediumBlock creates PostMediumBlock instance', () {
         final mediumBlock = PostMediumBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,

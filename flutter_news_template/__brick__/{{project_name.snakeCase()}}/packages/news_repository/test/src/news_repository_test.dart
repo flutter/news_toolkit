@@ -21,6 +21,7 @@ void main() {
       test(
           'returns FeedResponse '
           'from ApiClient.getFeed', () {
+        const category = Category(id: 'sports', name: 'Sports');
         final feed = <NewsBlock>[
           SpacerBlock(spacing: Spacing.extraLarge),
           DividerHorizontalBlock(),
@@ -33,7 +34,7 @@ void main() {
 
         when(
           () => apiClient.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
@@ -41,7 +42,7 @@ void main() {
 
         expect(
           newsRepository.getFeed(
-            category: Category.entertainment,
+            categoryId: category.id,
             offset: 10,
             limit: 20,
           ),
@@ -50,7 +51,7 @@ void main() {
 
         verify(
           () => apiClient.getFeed(
-            category: Category.entertainment,
+            categoryId: category.id,
             offset: 10,
             limit: 20,
           ),
@@ -62,7 +63,7 @@ void main() {
           'if ApiClient.getFeed fails', () async {
         when(
           () => apiClient.getFeed(
-            category: any(named: 'category'),
+            categoryId: any(named: 'categoryId'),
             offset: any(named: 'offset'),
             limit: any(named: 'limit'),
           ),
@@ -79,10 +80,13 @@ void main() {
       test(
           'returns CategoriesResponse '
           'from ApiClient.getCategories', () {
+        const sportsCategory = Category(id: 'sports', name: 'Sports');
+        const topCategory = Category(id: 'top', name: 'Top');
+
         const categoriesResponse = CategoriesResponse(
           categories: [
-            Category.top,
-            Category.health,
+            topCategory,
+            sportsCategory,
           ],
         );
 

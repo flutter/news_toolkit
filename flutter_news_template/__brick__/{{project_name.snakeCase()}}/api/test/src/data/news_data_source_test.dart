@@ -31,7 +31,7 @@ class MyNewsDataSource extends NewsDataSource {
 
   @override
   Future<Feed> getFeed({
-    Category category = Category.top,
+    required String categoryId,
     int limit = 20,
     int offset = 0,
   }) {
@@ -197,50 +197,44 @@ void main() {
     });
 
     group('getFeed', () {
-      test('returns stubbed feed (default category)', () {
-        expect(
-          newsDataSource.getFeed(limit: 100),
-          completion(feedHaving(blocks: topNewsFeedBlocks)),
-        );
-      });
-
       test('returns stubbed feed (Category.technology)', () {
+        final technologyCategory =
+            Category(id: 'technology', name: 'Technology');
+
         expect(
-          newsDataSource.getFeed(category: Category.technology),
+          newsDataSource.getFeed(categoryId: technologyCategory.id),
           completion(feedHaving(blocks: technologyFeedBlocks)),
         );
       });
 
       test('returns stubbed feed (Category.sports)', () {
+        final sportsCategory = Category(id: 'sports', name: 'Sports');
+
         expect(
-          newsDataSource.getFeed(category: Category.sports),
+          newsDataSource.getFeed(categoryId: sportsCategory.id),
           completion(feedHaving(blocks: sportsFeedBlocks)),
         );
       });
 
-      test('returns empty feed for remaining categories', () async {
-        final emptyCategories = [
-          Category.business,
-          Category.entertainment,
-        ];
-        for (final category in emptyCategories) {
-          await expectLater(
-            newsDataSource.getFeed(category: category),
-            completion(isAnEmptyFeed()),
-          );
-        }
+      test('returns empty feed for unknown category', () async {
+        expect(
+          newsDataSource.getFeed(categoryId: 'categoryUnknown'),
+          completion(isAnEmptyFeed()),
+        );
       });
 
       test('returns correct feed when limit is specified', () {
+        final topCategory = Category(id: 'top', name: 'Top');
+
         expect(
-          newsDataSource.getFeed(limit: 0),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 0),
           completion(
             feedHaving(blocks: [], totalBlocks: topNewsFeedBlocks.length),
           ),
         );
 
         expect(
-          newsDataSource.getFeed(limit: 1),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 1),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.take(1).toList(),
@@ -250,7 +244,7 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(limit: 100),
+          newsDataSource.getFeed(categoryId: topCategory.id, limit: 100),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks,
@@ -261,8 +255,14 @@ void main() {
       });
 
       test('returns correct feed when offset is specified', () {
+        final topCategory = Category(id: 'top', name: 'Top');
+
         expect(
-          newsDataSource.getFeed(offset: 1, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 1,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(1),
@@ -272,7 +272,11 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 2, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 2,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: topNewsFeedBlocks.sublist(2),
@@ -282,7 +286,11 @@ void main() {
         );
 
         expect(
-          newsDataSource.getFeed(offset: 100, limit: 100),
+          newsDataSource.getFeed(
+            categoryId: topCategory.id,
+            offset: 100,
+            limit: 100,
+          ),
           completion(
             feedHaving(
               blocks: [],
@@ -298,11 +306,11 @@ void main() {
         expect(
           newsDataSource.getCategories(),
           completion([
-            Category.top,
-            Category.technology,
-            Category.sports,
-            Category.health,
-            Category.science,
+            Category(id: 'top', name: 'Top'),
+            Category(id: 'sports', name: 'Sports'),
+            Category(id: 'technology', name: 'Technology'),
+            Category(id: 'health', name: 'Health'),
+            Category(id: 'science', name: 'Science'),
           ]),
         );
       });

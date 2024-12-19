@@ -6,6 +6,8 @@ import 'package:news_blocks/news_blocks.dart';
 
 void main() {
   group('FeedState', () {
+    final healthCategory = Category(id: 'health', name: 'Health');
+
     test('initial has correct status', () {
       expect(
         FeedState.initial().status,
@@ -49,7 +51,7 @@ void main() {
           'returns object with updated feed '
           'when feed is passed', () {
         final feed = {
-          Category.health: [SectionHeaderBlock(title: 'Health')],
+          healthCategory.id: [SectionHeaderBlock(title: 'Health')],
         };
 
         expect(
@@ -67,7 +69,7 @@ void main() {
           'returns object with updated hasMoreNews '
           'when hasMoreNews is passed', () {
         final hasMoreNews = {
-          Category.health: false,
+          healthCategory.id: false,
         };
 
         expect(

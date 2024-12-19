@@ -7,13 +7,14 @@ void main() {
   group('NewsBlocksConverter', () {
     test('can (de)serialize List<NewsBlock>', () {
       final converter = NewsBlocksConverter();
+      const category = Category(id: 'health', name: 'Health');
       final newsBlocks = <NewsBlock>[
         SectionHeaderBlock(title: 'title'),
         DividerHorizontalBlock(),
         SpacerBlock(spacing: Spacing.medium),
         PostSmallBlock(
           id: 'id',
-          category: PostCategory.health,
+          categoryId: category.id,
           author: 'author',
           publishedAt: DateTime(2022, 3, 11),
           imageUrl: 'imageUrl',

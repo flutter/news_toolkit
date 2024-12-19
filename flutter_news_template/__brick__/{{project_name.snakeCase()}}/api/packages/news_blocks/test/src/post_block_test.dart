@@ -7,7 +7,7 @@ class CustomPostBlock extends PostBlock {
   CustomPostBlock({super.action})
       : super(
           id: 'id',
-          category: PostCategory.technology,
+          categoryId: Category(id: 'health', name: 'Health').id,
           author: 'author',
           publishedAt: DateTime(2022, 03, 09),
           title: 'title',
