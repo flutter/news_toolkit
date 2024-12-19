@@ -12,7 +12,7 @@ part 'post_grid_group_block.g.dart';
 class PostGridGroupBlock with EquatableMixin implements NewsBlock {
   /// {@macro post_grid_group_block}
   const PostGridGroupBlock({
-    required this.category,
+    required this.categoryId,
     required this.tiles,
     this.type = PostGridGroupBlock.identifier,
   });
@@ -24,8 +24,8 @@ class PostGridGroupBlock with EquatableMixin implements NewsBlock {
   /// The post grid block type identifier.
   static const identifier = '__post_grid_group__';
 
-  /// The category of this post grid group.
-  final PostCategory category;
+  /// The category id of this post grid group.
+  final String categoryId;
 
   /// The associated list of [PostGridTileBlock] tiles.
   @NewsBlocksConverter()
@@ -38,5 +38,5 @@ class PostGridGroupBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$PostGridGroupBlockToJson(this);
 
   @override
-  List<Object?> get props => [category, tiles, type];
+  List<Object?> get props => [categoryId, tiles, type];
 }

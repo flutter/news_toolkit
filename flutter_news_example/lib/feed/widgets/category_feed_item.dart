@@ -33,8 +33,13 @@ class CategoryFeedItem extends StatelessWidget {
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostLargeBlock) {
+      final categoryName = context
+          .read<CategoriesBloc>()
+          .state
+          .getCategoryName(newsBlock.categoryId);
       widget = PostLarge(
         block: newsBlock,
+        categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
         isLocked: newsBlock.isPremium && !isUserSubscribed,
         onPressed: (action) => _onFeedItemAction(context, action),
@@ -50,8 +55,13 @@ class CategoryFeedItem extends StatelessWidget {
         onPressed: (action) => _onFeedItemAction(context, action),
       );
     } else if (newsBlock is PostGridGroupBlock) {
+      final categoryName = context
+          .read<CategoriesBloc>()
+          .state
+          .getCategoryName(newsBlock.categoryId);
       widget = PostGrid(
         gridGroupBlock: newsBlock,
+        categoryName: categoryName,
         premiumText: context.l10n.newsBlockPremiumText,
         onPressed: (action) => _onFeedItemAction(context, action),
       );

@@ -12,7 +12,7 @@ class PostLargeBlock extends PostBlock {
   /// {@macro post_large_block}
   const PostLargeBlock({
     required super.id,
-    required super.category,
+    required super.categoryId,
     required super.author,
     required super.publishedAt,
     required String super.imageUrl,

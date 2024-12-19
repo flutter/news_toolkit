@@ -15,8 +15,7 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
       json,
       ($checkedConvert) {
         final val = ArticleIntroductionBlock(
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
+          categoryId: $checkedConvert('category_id', (v) => v as String),
           author: $checkedConvert('author', (v) => v as String),
           publishedAt: $checkedConvert(
               'published_at', (v) => DateTime.parse(v as String)),
@@ -29,6 +28,7 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
         return val;
       },
       fieldKeyMap: const {
+        'categoryId': 'category_id',
         'publishedAt': 'published_at',
         'imageUrl': 'image_url',
         'isPremium': 'is_premium'
@@ -38,7 +38,7 @@ ArticleIntroductionBlock _$ArticleIntroductionBlockFromJson(
 Map<String, dynamic> _$ArticleIntroductionBlockToJson(
     ArticleIntroductionBlock instance) {
   final val = <String, dynamic>{
-    'category': _$PostCategoryEnumMap[instance.category]!,
+    'category_id': instance.categoryId,
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
   };
@@ -55,12 +55,3 @@ Map<String, dynamic> _$ArticleIntroductionBlockToJson(
   val['type'] = instance.type;
   return val;
 }
-
-const _$PostCategoryEnumMap = {
-  PostCategory.business: 'business',
-  PostCategory.entertainment: 'entertainment',
-  PostCategory.health: 'health',
-  PostCategory.science: 'science',
-  PostCategory.sports: 'sports',
-  PostCategory.technology: 'technology',
-};

@@ -19,10 +19,11 @@ void main() {
 
   setUp(() {
     newsRepository = MockNewsRepository();
+    final healthCategory = Category(id: 'health', name: 'Health');
 
     when(newsRepository.getCategories).thenAnswer(
       (_) async => CategoriesResponse(
-        categories: [Category.top],
+        categories: [healthCategory],
       ),
     );
   });

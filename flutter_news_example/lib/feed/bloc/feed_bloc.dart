@@ -31,7 +31,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
     Emitter<FeedState> emit,
   ) async {
     emit(state.copyWith(status: FeedStatus.loading));
-    return _updateFeed(category: event.category, emit: emit);
+    return _updateFeed(categoryId: event.category.id, emit: emit);
   }
 
   FutureOr<void> _onFeedResumed(
@@ -40,19 +40,19 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
   ) async {
     await Future.wait(
       state.feed.keys.map(
-        (category) => _updateFeed(category: category, emit: emit),
+        (category) => _updateFeed(categoryId: category, emit: emit),
       ),
     );
   }
 
   Future<void> _updateFeed({
-    required Category category,
+    required String categoryId,
     required Emitter<FeedState> emit,
   }) async {
     try {
-      final categoryFeed = state.feed[category] ?? [];
+      final categoryFeed = state.feed[categoryId] ?? [];
       final response = await _newsRepository.getFeed(
-        category: category,
+        categoryId: categoryId,
         offset: categoryFeed.length,
       );
 
@@ -65,10 +65,10 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       emit(
         state.copyWith(
           status: FeedStatus.populated,
-          feed: Map<Category, List<NewsBlock>>.from(state.feed)
-            ..addAll({category: updatedCategoryFeed}),
-          hasMoreNews: Map<Category, bool>.from(state.hasMoreNews)
-            ..addAll({category: hasMoreNewsForCategory}),
+          feed: Map<String, List<NewsBlock>>.from(state.feed)
+            ..addAll({categoryId: updatedCategoryFeed}),
+          hasMoreNews: Map<String, bool>.from(state.hasMoreNews)
+            ..addAll({categoryId: hasMoreNewsForCategory}),
         ),
       );
     } catch (error, stackTrace) {
@@ -93,7 +93,7 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       final category = event.category;
 
       final response = await _newsRepository.getFeed(
-        category: category,
+        categoryId: category.id,
         offset: 0,
       );
 
@@ -104,10 +104,10 @@ class FeedBloc extends HydratedBloc<FeedEvent, FeedState> {
       emit(
         state.copyWith(
           status: FeedStatus.populated,
-          feed: Map<Category, List<NewsBlock>>.of(state.feed)
-            ..addAll({category: refreshedCategoryFeed}),
-          hasMoreNews: Map<Category, bool>.of(state.hasMoreNews)
-            ..addAll({category: hasMoreNewsForCategory}),
+          feed: Map<String, List<NewsBlock>>.of(state.feed)
+            ..addAll({category.id: refreshedCategoryFeed}),
+          hasMoreNews: Map<String, bool>.of(state.hasMoreNews)
+            ..addAll({category.id: hasMoreNewsForCategory}),
         ),
       );
     } catch (error, stackTrace) {
