@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:{{project_name.snakeCase()}}/ads/ads.dart';
 import 'package:{{project_name.snakeCase()}}/analytics/analytics.dart';
 import 'package:{{project_name.snakeCase()}}/app/app.dart';
+import 'package:{{project_name.snakeCase()}}/categories/categories.dart';
 import 'package:{{project_name.snakeCase()}}/l10n/l10n.dart';
 import 'package:{{project_name.snakeCase()}}/theme_selector/theme_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,6 +38,21 @@ class MockFullScreenAdsBloc
     implements FullScreenAdsBloc {
   @override
   FullScreenAdsState get state => const FullScreenAdsState.initial();
+}
+
+class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
+    implements CategoriesBloc {
+  @override
+  CategoriesState get state => const CategoriesState(
+        status: CategoriesStatus.populated,
+        categories: [
+          Category(id: 'sports', name: 'Sports'),
+          Category(id: 'health', name: 'Health'),
+          Category(id: 'technology', name: 'Technology'),
+          Category(id: 'science', name: 'Science'),
+        ],
+        selectedCategory: Category(id: 'sports', name: 'Sports'),
+      );
 }
 
 class MockUserRepository extends Mock implements UserRepository {
@@ -74,6 +90,7 @@ extension AppTester on WidgetTester {
     AppBloc? appBloc,
     AnalyticsBloc? analyticsBloc,
     FullScreenAdsBloc? fullScreenAdsBloc,
+    CategoriesBloc? categoriesBloc,
     UserRepository? userRepository,
     NewsRepository? newsRepository,
     NotificationsRepository? notificationRepository,
@@ -115,6 +132,7 @@ extension AppTester on WidgetTester {
             BlocProvider.value(
               value: fullScreenAdsBloc ?? MockFullScreenAdsBloc(),
             ),
+            BlocProvider.value(value: categoriesBloc ?? MockCategoriesBloc()),
           ],
           child: MaterialApp(
             title: '{{app_name}}',

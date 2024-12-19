@@ -15,8 +15,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = PostMediumBlock(
           id: $checkedConvert('id', (v) => v as String),
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
+          categoryId: $checkedConvert('category_id', (v) => v as String),
           author: $checkedConvert('author', (v) => v as String),
           publishedAt: $checkedConvert(
               'published_at', (v) => DateTime.parse(v as String)),
@@ -36,6 +35,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
         return val;
       },
       fieldKeyMap: const {
+        'categoryId': 'category_id',
         'publishedAt': 'published_at',
         'imageUrl': 'image_url',
         'isPremium': 'is_premium',
@@ -46,7 +46,7 @@ PostMediumBlock _$PostMediumBlockFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$PostMediumBlockToJson(PostMediumBlock instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'category': _$PostCategoryEnumMap[instance.category]!,
+    'category_id': instance.categoryId,
     'author': instance.author,
     'published_at': instance.publishedAt.toIso8601String(),
   };
@@ -66,12 +66,3 @@ Map<String, dynamic> _$PostMediumBlockToJson(PostMediumBlock instance) {
   val['type'] = instance.type;
   return val;
 }
-
-const _$PostCategoryEnumMap = {
-  PostCategory.business: 'business',
-  PostCategory.entertainment: 'entertainment',
-  PostCategory.health: 'health',
-  PostCategory.science: 'science',
-  PostCategory.sports: 'sports',
-  PostCategory.technology: 'technology',
-};
