@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('PostMediumBlock', () {
     test('can be (de)serialized', () {
-      const category = Category.sports;
+      const category = Category(id: 'sports', name: 'Sports');
       final block = PostMediumBlock(
         id: 'id',
         categoryId: category.id,

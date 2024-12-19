@@ -5,11 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_blocks/news_blocks.dart';
 
 void main() {
+  final healthCategory = Category(id: 'health', name: 'Health');
+
   group('NotificationPreferencesEvent', () {
     group('CategoriesPreferenceToggled', () {
       test('supports value comparisons', () {
-        final event1 = CategoriesPreferenceToggled(category: Category.business);
-        final event2 = CategoriesPreferenceToggled(category: Category.business);
+        final event1 = CategoriesPreferenceToggled(category: healthCategory);
+        final event2 = CategoriesPreferenceToggled(category: healthCategory);
 
         expect(event1, equals(event2));
       });

@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('PostGridTileBlock', () {
     test('can be (de)serialized', () {
-      const category = Category.science;
+      const category = Category(id: 'science', name: 'Science');
       final block = PostGridTileBlock(
         id: 'id',
         categoryId: category.id,
@@ -19,7 +19,7 @@ void main() {
 
     group('PostGridTitleBlockExt', () {
       const id = 'id';
-      const category = Category.science;
+      const category = Category(id: 'science', name: 'Science');
       const author = 'author';
       final publishedAt = DateTime(2022, 3, 12);
       const imageUrl = 'imageUrl';

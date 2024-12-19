@@ -61,18 +61,18 @@ class NewsRepository {
   /// Requests news feed metadata.
   ///
   /// Supported parameters:
-  /// * [category] - the desired news [Category].
+  /// * [categoryId] - the desired news category.
   /// * [limit] - The number of results to return.
   /// * [offset] - The (zero-based) offset of the first item
   /// in the collection to return.
   Future<FeedResponse> getFeed({
-    Category? category,
+    String? categoryId,
     int? limit,
     int? offset,
   }) async {
     try {
       return await _apiClient.getFeed(
-        category: category,
+        categoryId: categoryId,
         limit: limit,
         offset: offset,
       );

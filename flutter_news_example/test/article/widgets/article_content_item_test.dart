@@ -152,7 +152,7 @@ void main() {
     testWidgets(
         'renders ArticleIntroduction '
         'for ArticleIntroductionBlock', (tester) async {
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       final block = ArticleIntroductionBlock(
         categoryId: category.id,
         author: 'author',
@@ -179,7 +179,7 @@ void main() {
         'renders VideoIntroduction '
         'for VideoIntroductionBlock', (tester) async {
       setUpVideoPlayerPlatform();
-      const category = Category.technology;
+      const category = Category(id: 'technology', name: 'Technology');
       final block = VideoIntroductionBlock(
         categoryId: category.id,
         title: 'title',
@@ -268,7 +268,7 @@ void main() {
   testWidgets(
       'renders TrendingStory '
       'for TrendingStoryBlock', (tester) async {
-    const category = Category.health;
+    const category = Category(id: 'health', name: 'Health');
     final content = PostSmallBlock(
       id: 'id',
       categoryId: category.id,

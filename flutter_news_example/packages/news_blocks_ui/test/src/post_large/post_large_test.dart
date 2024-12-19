@@ -11,7 +11,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   const id = '499305f6-5096-4051-afda-824dcfc7df23';
-  const category = Category.technology;
+  const category = Category(id: 'technology', name: 'Technology');
   const author = 'Sean Hollister';
   final publishedAt = DateTime(2022, 3, 9);
   const imageUrl =
