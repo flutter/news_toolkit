@@ -3,6 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 
 /// {@template network_error}
+/// A network error alert page.
+/// {@endtemplate}
+class NetworkErrorPage extends StatelessWidget {
+  /// {@macro network_error}
+  const NetworkErrorPage({super.key, this.onRetry});
+
+  /// An optional callback which is invoked when the retry button is pressed.
+  final VoidCallback? onRetry;
+
+  static const routePath = 'network-error';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(leading: const AppBackButton()),
+      body: Center(
+        child: NetworkError(onRetry: onRetry),
+      ),
+    );
+  }
+}
+
+/// {@template network_error}
 /// A network error alert.
 /// {@endtemplate}
 class NetworkError extends StatelessWidget {
@@ -11,21 +35,6 @@ class NetworkError extends StatelessWidget {
 
   /// An optional callback which is invoked when the retry button is pressed.
   final VoidCallback? onRetry;
-
-  /// Route constructor to display the widget inside a [Scaffold].
-  static Route<void> route({VoidCallback? onRetry}) {
-    return PageRouteBuilder<void>(
-      pageBuilder: (_, __, ___) => Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          leading: const AppBackButton(),
-        ),
-        body: Center(
-          child: NetworkError(onRetry: onRetry),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

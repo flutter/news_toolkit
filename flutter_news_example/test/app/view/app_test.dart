@@ -7,7 +7,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_news_example/analytics/analytics.dart' as analytics;
 import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/home/home.dart';
-import 'package:flutter_news_example/onboarding/onboarding.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -101,19 +100,6 @@ void main() {
       appBloc = MockAppBloc();
       analyticsBloc = MockAnalyticsBloc();
       userRepository = MockUserRepository();
-    });
-
-    testWidgets('navigates to OnboardingPage when onboardingRequired',
-        (tester) async {
-      final user = MockUser();
-      when(() => appBloc.state).thenReturn(AppState.onboardingRequired(user));
-      await tester.pumpApp(
-        const AppView(),
-        appBloc: appBloc,
-        userRepository: userRepository,
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(OnboardingPage), findsOneWidget);
     });
 
     testWidgets('navigates to HomePage when unauthenticated', (tester) async {

@@ -6,13 +6,9 @@ import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 class MagicLinkPromptPage extends StatelessWidget {
   const MagicLinkPromptPage({required this.email, super.key});
 
-  final String email;
+  static const routePath = 'magic-link-prompt';
 
-  static Route<void> route({required String email}) {
-    return MaterialPageRoute<void>(
-      builder: (_) => MagicLinkPromptPage(email: email),
-    );
-  }
+  final String email;
 
   @override
   Widget build(BuildContext context) {

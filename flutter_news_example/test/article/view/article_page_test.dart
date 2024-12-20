@@ -10,6 +10,7 @@ import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as ads;
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
@@ -29,14 +30,18 @@ class MockFullScreenAdsBloc
 
 class MockRewardItem extends Mock implements ads.RewardItem {}
 
+class MockGoRouter extends Mock implements GoRouter {}
+
 void main() {
   initMockHydratedStorage();
 
   group('ArticlePage', () {
+    late GoRouter goRouter;
     late FullScreenAdsBloc fullScreenAdsBloc;
     late AppBloc appBloc;
 
     setUp(() {
+      goRouter = MockGoRouter();
       fullScreenAdsBloc = MockFullScreenAdsBloc();
       appBloc = MockAppBloc();
       whenListen(
@@ -46,17 +51,16 @@ void main() {
       );
     });
 
-    test('has a route', () {
-      expect(ArticlePage.route(id: 'id'), isA<MaterialPageRoute<void>>());
-    });
-
     testWidgets('renders ArticleView', (tester) async {
       await tester.pumpApp(
         fullScreenAdsBloc: fullScreenAdsBloc,
-        ArticlePage(
-          id: 'id',
-          isVideoArticle: false,
-          interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+        InheritedGoRouter(
+          goRouter: goRouter,
+          child: ArticlePage(
+            id: 'id',
+            isVideoArticle: false,
+            interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+          ),
         ),
       );
       expect(find.byType(ArticleView), findsOneWidget);
@@ -65,10 +69,13 @@ void main() {
     testWidgets('provides ArticleBloc', (tester) async {
       await tester.pumpApp(
         fullScreenAdsBloc: fullScreenAdsBloc,
-        ArticlePage(
-          id: 'id',
-          isVideoArticle: false,
-          interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+        InheritedGoRouter(
+          goRouter: goRouter,
+          child: ArticlePage(
+            id: 'id',
+            isVideoArticle: false,
+            interstitialAdBehavior: InterstitialAdBehavior.onOpen,
+          ),
         ),
       );
       final BuildContext viewContext = tester.element(find.byType(ArticleView));

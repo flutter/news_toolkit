@@ -9,11 +9,14 @@ import 'package:flutter_news_example/notification_preferences/notification_prefe
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({super.key});
+
+  static const routePath = 'profile';
 
   static MaterialPageRoute<void> route() {
     return MaterialPageRoute(builder: (_) => const UserProfilePage());
@@ -120,8 +123,8 @@ class _UserProfileViewState extends State<UserProfileView>
                         key: const Key('userProfilePage_subscriptionItem'),
                         title: l10n.manageSubscriptionTile,
                         trailing: const Icon(Icons.chevron_right),
-                        onTap: () => Navigator.of(context).push(
-                          ManageSubscriptionPage.route(),
+                        onTap: () => context.goNamed(
+                          ManageSubscriptionPage.routePath,
                         ),
                       )
                     else
@@ -152,8 +155,8 @@ class _UserProfileViewState extends State<UserProfileView>
                       ),
                       title: l10n.notificationPreferencesTitle,
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () => Navigator.of(context).push(
-                        NotificationPreferencesPage.route(),
+                      onTap: () => context.goNamed(
+                        NotificationPreferencesPage.routePath,
                       ),
                     ),
                     const _UserProfileDivider(),

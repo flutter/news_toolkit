@@ -12,40 +12,11 @@ void main() {
   const magicLinkPromptCloseIconKey = Key('magicLinkPrompt_closeIcon');
 
   group('MagicLinkPromptPage', () {
-    test('has a route', () {
-      expect(
-        MagicLinkPromptPage.route(email: testEmail),
-        isA<MaterialPageRoute<void>>(),
-      );
-    });
-
     testWidgets('renders a MagicLinkPromptView', (tester) async {
       await tester.pumpApp(
         const MagicLinkPromptPage(email: testEmail),
       );
       expect(find.byType(MagicLinkPromptView), findsOneWidget);
-    });
-
-    testWidgets('router returns a valid navigation route', (tester) async {
-      await tester.pumpApp(
-        Scaffold(
-          body: Builder(
-            builder: (context) {
-              return ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push<void>(MagicLinkPromptPage.route(email: testEmail));
-                },
-                child: const Text('Tap me'),
-              );
-            },
-          ),
-        ),
-      );
-      await tester.tap(find.text('Tap me'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(MagicLinkPromptPage), findsOneWidget);
     });
 
     group('navigates', () {

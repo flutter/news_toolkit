@@ -5,6 +5,8 @@ import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart';
 import 'package:flutter_news_example/slideshow/slideshow.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
@@ -13,13 +15,20 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../helpers/helpers.dart';
 import '../helpers/helpers.dart';
 
+class MockGoRouter extends Mock implements GoRouter {}
+
 void main() {
+  late GoRouter goRouter;
   initMockHydratedStorage();
 
   void setUpVideoPlayerPlatform() {
     final fakeVideoPlayerPlatform = FakeVideoPlayerPlatform();
     VideoPlayerPlatform.instance = fakeVideoPlayerPlatform;
   }
+
+  setUp(() {
+    goRouter = MockGoRouter();
+  });
 
   group('ArticleContentItem', () {
     testWidgets(
@@ -225,34 +234,52 @@ void main() {
     });
 
     testWidgets(
-        'renders SlideshowIntroduction '
+        'calls goRouter.goNamed to SlideshowPage '
         'for SlideshowIntroductionBlock', (tester) async {
+      const articleId = 'articleId';
+      final slideshow = SlideshowBlock(
+        slides: [],
+        title: 'title',
+      );
+
       final block = SlideshowIntroductionBlock(
         title: 'title',
         coverImageUrl: 'coverImageUrl',
         action: NavigateToSlideshowAction(
-          slideshow: SlideshowBlock(
-            slides: [],
-            title: 'title',
-          ),
-          articleId: 'articleId',
+          slideshow: slideshow,
+          articleId: articleId,
         ),
       );
+
+      when(
+        () => goRouter.goNamed(
+          SlideshowPage.routePath,
+          pathParameters: {'id': articleId},
+          extra: slideshow,
+        ),
+      ).thenAnswer((_) {});
+
       await tester.pumpApp(
         ListView(
           children: [
-            ArticleContentItem(block: block),
+            InheritedGoRouter(
+              goRouter: goRouter,
+              child: ArticleContentItem(block: block),
+            ),
           ],
         ),
       );
 
       await tester.ensureVisible(find.byType(SlideshowIntroduction));
       await tester.tap(find.byType(SlideshowIntroduction));
-      await tester.pumpAndSettle();
-      expect(
-        find.byType(SlideshowPage),
-        findsOneWidget,
-      );
+
+      verify(
+        () => goRouter.goNamed(
+          SlideshowPage.routePath,
+          pathParameters: {'id': articleId},
+          extra: slideshow,
+        ),
+      ).called(1);
     });
   });
 

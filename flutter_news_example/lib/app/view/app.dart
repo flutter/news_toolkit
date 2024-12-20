@@ -2,7 +2,6 @@ import 'package:ads_consent_client/ads_consent_client.dart';
 import 'package:analytics_repository/analytics_repository.dart';
 import 'package:app_ui/app_ui.dart';
 import 'package:article_repository/article_repository.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/ads/ads.dart';
@@ -106,18 +105,18 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       themeMode: ThemeMode.light,
       theme: const AppTheme().themeData,
       darkTheme: const AppDarkTheme().themeData,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: AuthenticatedUserListener(
-        child: FlowBuilder<AppStatus>(
-          state: context.select((AppBloc bloc) => bloc.state.status),
-          onGeneratePages: onGenerateAppViewPages,
-        ),
-      ),
+      builder: (context, router) {
+        return AuthenticatedUserListener(
+          child: router ?? const SizedBox(),
+        );
+      },
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:flutter_news_example_api/client.dart' hide User;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -20,13 +21,17 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class MockRoute extends Mock implements Route<dynamic> {}
 
+class MockGoRouter extends Mock implements GoRouter {}
+
 void main() {
   group('UserProfileButton', () {
     late AppBloc appBloc;
     late User user;
+    late GoRouter goRouter;
 
     setUp(() {
       appBloc = MockAppBloc();
+      goRouter = MockGoRouter();
       user = User(id: 'id', subscriptionPlan: SubscriptionPlan.none);
     });
 
@@ -80,14 +85,17 @@ void main() {
       );
 
       await tester.pumpApp(
-        UserProfileButton(),
+        InheritedGoRouter(
+          goRouter: goRouter,
+          child: UserProfileButton(),
+        ),
         appBloc: appBloc,
       );
 
       await tester.tap(find.byType(OpenProfileButton));
       await tester.pumpAndSettle();
 
-      expect(find.byType(UserProfilePage), findsOneWidget);
+      verify(() => goRouter.goNamed(UserProfilePage.routePath)).called(1);
     });
 
     testWidgets(

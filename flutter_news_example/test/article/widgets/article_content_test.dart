@@ -10,6 +10,7 @@ import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -22,6 +23,8 @@ class MockArticleBloc extends MockBloc<ArticleEvent, ArticleState>
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 const networkErrorButtonText = 'Try Again';
+
+class MockGoRouter extends Mock implements GoRouter {}
 
 void main() {
   late ArticleBloc articleBloc;
@@ -134,11 +137,17 @@ void main() {
     });
 
     group('when ArticleStatus is failure and content is absent', () {
-      setUpAll(() {
-        registerFallbackValue(NetworkError.route());
-      });
+      late GoRouter goRouter;
 
       setUp(() {
+        goRouter = MockGoRouter();
+        when(
+          () => goRouter.goNamed(
+            NetworkErrorPage.routePath,
+            extra: any(named: 'extra'),
+          ),
+        ).thenAnswer((_) {});
+
         whenListen(
           articleBloc,
           Stream.fromIterable([
@@ -148,56 +157,24 @@ void main() {
         );
       });
 
+      Future<void> pumpWidget(WidgetTester tester, Widget child) async {
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: articleBloc,
+            child: InheritedGoRouter(goRouter: goRouter, child: child),
+          ),
+        );
+      }
+
       testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
-        final navigatorObserver = MockNavigatorObserver();
+        await pumpWidget(tester, ArticleContent());
 
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: ArticleContent(),
+        verify(
+          () => goRouter.goNamed(
+            NetworkErrorPage.routePath,
+            extra: any(named: 'extra'),
           ),
-          navigatorObserver: navigatorObserver,
-        );
-
-        verify(() => navigatorObserver.didPush(any(), any()));
-
-        expect(
-          find.ancestor(
-            of: find.byType(NetworkError),
-            matching: find.byType(Scaffold),
-          ),
-          findsOneWidget,
-        );
-      });
-
-      testWidgets('NetworkErrorAlert requests article on press',
-          (tester) async {
-        final navigatorObserver = MockNavigatorObserver();
-
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: articleBloc,
-            child: ArticleContent(),
-          ),
-          navigatorObserver: navigatorObserver,
-        );
-
-        verify(() => navigatorObserver.didPush(any(), any()));
-
-        expect(
-          find.text(networkErrorButtonText),
-          findsOneWidget,
-        );
-
-        await tester.ensureVisible(find.textContaining(networkErrorButtonText));
-        verify(() => articleBloc.add(ArticleRequested())).called(1);
-
-        await tester.pump();
-        await tester.tap(find.textContaining(networkErrorButtonText).last);
-        await tester.pump();
-
-        verify(() => articleBloc.add(ArticleRequested())).called(1);
-        verify(() => navigatorObserver.didPop(any(), any()));
+        ).called(1);
       });
     });
 

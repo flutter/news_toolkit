@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 
@@ -12,13 +13,17 @@ import '../../helpers/helpers.dart';
 
 class MockNewsRepository extends Mock implements NewsRepository {}
 
+class MockGoRouter extends Mock implements GoRouter {}
+
 void main() {
   initMockHydratedStorage();
 
   late NewsRepository newsRepository;
+  late GoRouter router;
 
   setUp(() {
     newsRepository = MockNewsRepository();
+    router = MockGoRouter();
 
     when(newsRepository.getCategories).thenAnswer(
       (_) async => CategoriesResponse(
@@ -39,7 +44,7 @@ void main() {
 
   testWidgets('renders FeedView', (tester) async {
     await tester.pumpApp(
-      const HomePage(),
+      InheritedGoRouter(goRouter: router, child: const HomePage()),
       newsRepository: newsRepository,
     );
 

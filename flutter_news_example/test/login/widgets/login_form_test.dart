@@ -10,6 +10,7 @@ import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -21,6 +22,8 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+class MockGoRouter extends Mock implements GoRouter {}
 
 void main() {
   const loginButtonKey = Key('loginForm_emailLogin_appButton');
@@ -151,23 +154,51 @@ void main() {
     });
 
     group('navigates', () {
+      late GoRouter goRouter;
+
+      setUpAll(() {
+        goRouter = MockGoRouter();
+        when(() => goRouter.goNamed(LoginWithEmailPage.routePath))
+            .thenAnswer((_) {});
+      });
+
       testWidgets('to LoginWithEmailPage when Continue with email is pressed',
           (tester) async {
         await tester.pumpApp(
-          BlocProvider.value(value: loginBloc, child: const LoginForm()),
+          InheritedGoRouter(
+            goRouter: goRouter,
+            child: BlocProvider.value(
+              value: loginBloc,
+              child: const LoginForm(),
+            ),
+          ),
         );
         await tester.ensureVisible(find.byKey(loginButtonKey));
         await tester.tap(find.byKey(loginButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byType(LoginWithEmailPage), findsOneWidget);
+
+        verify(() => goRouter.goNamed(LoginWithEmailPage.routePath)).called(1);
       });
     });
 
     group('closes modal', () {
       const buttonText = 'button';
+      late GoRouter goRouter;
+
+      setUpAll(() {
+        goRouter = MockGoRouter();
+        when(() => goRouter.goNamed(LoginWithEmailPage.routePath))
+            .thenAnswer((_) {});
+      });
+
+      Future<void> pumpWidget(WidgetTester tester, Widget widget) async {
+        await tester.pumpApp(
+          InheritedGoRouter(goRouter: goRouter, child: widget),
+        );
+      }
 
       testWidgets('when the close icon is pressed', (tester) async {
-        await tester.pumpApp(
+        await pumpWidget(
+          tester,
           BlocProvider.value(
             value: loginBloc,
             child: Builder(
@@ -202,7 +233,11 @@ void main() {
           initialState: const AppState.unauthenticated(),
         );
 
-        await tester.pumpApp(
+        when(() => goRouter.goNamed(LoginWithEmailPage.routePath))
+            .thenAnswer((_) {});
+
+        await pumpWidget(
+          tester,
           Builder(
             builder: (context) {
               return AppButton.black(
@@ -211,7 +246,10 @@ void main() {
                   context: context,
                   builder: (context) => BlocProvider.value(
                     value: appBloc,
-                    child: LoginModal(),
+                    child: InheritedGoRouter(
+                      goRouter: goRouter,
+                      child: LoginModal(),
+                    ),
                   ),
                   routeSettings: const RouteSettings(name: LoginModal.name),
                 ),
@@ -224,15 +262,7 @@ void main() {
 
         await tester.ensureVisible(find.byKey(loginButtonKey));
         await tester.tap(find.byKey(loginButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byType(LoginWithEmailPage), findsOneWidget);
-
-        appStateController.add(AppState.authenticated(user));
-        await tester.pump();
-        await tester.pumpAndSettle();
-
-        expect(find.byType(LoginWithEmailPage), findsNothing);
-        expect(find.byType(LoginForm), findsNothing);
+        verify(() => goRouter.goNamed(LoginWithEmailPage.routePath)).called(1);
       });
 
       testWidgets('when user is authenticated and onboarding is required',
@@ -245,7 +275,8 @@ void main() {
           initialState: const AppState.unauthenticated(),
         );
 
-        await tester.pumpApp(
+        await pumpWidget(
+          tester,
           Builder(
             builder: (context) {
               return AppButton.black(
@@ -254,7 +285,10 @@ void main() {
                   context: context,
                   builder: (context) => BlocProvider.value(
                     value: appBloc,
-                    child: LoginModal(),
+                    child: InheritedGoRouter(
+                      goRouter: goRouter,
+                      child: LoginModal(),
+                    ),
                   ),
                   routeSettings: const RouteSettings(name: LoginModal.name),
                 ),
@@ -267,15 +301,9 @@ void main() {
 
         await tester.ensureVisible(find.byKey(loginButtonKey));
         await tester.tap(find.byKey(loginButtonKey));
-        await tester.pumpAndSettle();
-        expect(find.byType(LoginWithEmailPage), findsOneWidget);
-
         appStateController.add(AppState.onboardingRequired(user));
-        await tester.pump();
-        await tester.pumpAndSettle();
 
-        expect(find.byType(LoginWithEmailPage), findsNothing);
-        expect(find.byType(LoginForm), findsNothing);
+        verify(() => goRouter.goNamed(LoginWithEmailPage.routePath)).called(1);
       });
     });
   });

@@ -28,6 +28,9 @@ class ArticlePage extends StatelessWidget {
     super.key,
   });
 
+  static const routeName = 'article';
+  static const routePath = 'article/:id';
+
   /// The id of the requested article.
   final String id;
 
@@ -37,20 +40,6 @@ class ArticlePage extends StatelessWidget {
   /// Indicates when the interstitial ad will be displayed.
   /// Default to [InterstitialAdBehavior.onOpen]
   final InterstitialAdBehavior interstitialAdBehavior;
-
-  static Route<void> route({
-    required String id,
-    bool isVideoArticle = false,
-    InterstitialAdBehavior interstitialAdBehavior =
-        InterstitialAdBehavior.onOpen,
-  }) =>
-      MaterialPageRoute<void>(
-        builder: (_) => ArticlePage(
-          id: id,
-          isVideoArticle: isVideoArticle,
-          interstitialAdBehavior: interstitialAdBehavior,
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {

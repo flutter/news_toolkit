@@ -13,6 +13,8 @@ class SlideshowPage extends StatelessWidget {
     super.key,
   });
 
+  static const String routePath = 'slideshow';
+
   static Route<void> route({
     required SlideshowBlock slideshow,
     required String articleId,

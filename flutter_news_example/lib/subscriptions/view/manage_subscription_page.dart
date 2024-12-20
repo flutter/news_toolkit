@@ -5,6 +5,8 @@ import 'package:flutter_news_example/l10n/l10n.dart';
 class ManageSubscriptionPage extends StatelessWidget {
   const ManageSubscriptionPage({super.key});
 
+  static const routePath = 'manage-subscription';
+
   static MaterialPageRoute<void> route() {
     return MaterialPageRoute(
       builder: (_) => const ManageSubscriptionPage(),

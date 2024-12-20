@@ -6,8 +6,10 @@ import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/navigation/navigation.dart';
+import 'package:flutter_news_example/onboarding/view/onboarding_page.dart';
 import 'package:flutter_news_example/search/search.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -28,6 +30,17 @@ class HomeView extends StatelessWidget {
                 builder: (context) => const LoginModal(),
                 routeSettings: const RouteSettings(name: LoginModal.name),
               );
+            }
+          },
+        ),
+        BlocListener<AppBloc, AppState>(
+          listener: (context, state) {
+            switch (state.status) {
+              case AppStatus.onboardingRequired:
+                context.goNamed(OnboardingPage.routePath);
+              case AppStatus.unauthenticated:
+              case AppStatus.authenticated:
+                return;
             }
           },
         ),

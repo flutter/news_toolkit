@@ -5,6 +5,7 @@ import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -77,13 +78,20 @@ class CategoryFeedItem extends StatelessWidget {
     BuildContext context,
     BlockAction action,
   ) async {
+    final router = GoRouter.of(context);
     if (action is NavigateToArticleAction) {
-      await Navigator.of(context).push<void>(
-        ArticlePage.route(id: action.articleId),
+      context.goNamed(
+        ArticlePage.routeName,
+        pathParameters: {'id': action.articleId},
       );
     } else if (action is NavigateToVideoArticleAction) {
-      await Navigator.of(context).push<void>(
-        ArticlePage.route(id: action.articleId, isVideoArticle: true),
+      context.goNamed(
+        ArticlePage.routeName,
+        pathParameters: {'id': action.articleId},
+        queryParameters: {
+          'articleId': action.articleId,
+          'isVideoArticle': true,
+        },
       );
     } else if (action is NavigateToFeedCategoryAction) {
       context

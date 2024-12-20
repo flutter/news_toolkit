@@ -8,6 +8,8 @@ import 'package:news_repository/news_repository.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static const routePath = '/';
+
   static Page<void> page() => const MaterialPage<void>(child: HomePage());
 
   @override

@@ -7,6 +7,8 @@ import 'package:user_repository/user_repository.dart';
 class LoginWithEmailPage extends StatelessWidget {
   const LoginWithEmailPage({super.key});
 
+  static const routePath = 'login-with-email';
+
   static Route<void> route() =>
       MaterialPageRoute<void>(builder: (_) => const LoginWithEmailPage());
 

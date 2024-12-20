@@ -9,6 +9,7 @@ import 'package:notifications_repository/notifications_repository.dart';
 class NotificationPreferencesPage extends StatelessWidget {
   const NotificationPreferencesPage({super.key});
 
+  static const routePath = 'notification-preferences';
   static MaterialPageRoute<void> route() {
     return MaterialPageRoute(
       builder: (_) => const NotificationPreferencesPage(),

@@ -7,6 +7,7 @@ import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginWithEmailForm extends StatelessWidget {
   const LoginWithEmailForm({super.key});
@@ -17,8 +18,9 @@ class LoginWithEmailForm extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          Navigator.of(context).push<void>(
-            MagicLinkPromptPage.route(email: email),
+          context.goNamed(
+            MagicLinkPromptPage.routePath,
+            queryParameters: {'email': email},
           );
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context)

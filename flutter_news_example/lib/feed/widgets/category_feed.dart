@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_news_example_api/client.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryFeed extends StatelessWidget {
   const CategoryFeed({
@@ -31,15 +32,12 @@ class CategoryFeed extends StatelessWidget {
     return BlocListener<FeedBloc, FeedState>(
       listener: (context, state) {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
-          Navigator.of(context).push<void>(
-            NetworkError.route(
-              onRetry: () {
-                context
-                    .read<FeedBloc>()
-                    .add(FeedRefreshRequested(category: category));
-                Navigator.of(context).pop();
-              },
-            ),
+          context.goNamed(
+            NetworkErrorPage.routePath,
+            extra: () {
+              context.read<FeedBloc>().add(FeedRequested(category: category));
+              Navigator.of(context).pop();
+            },
           );
         }
       },
