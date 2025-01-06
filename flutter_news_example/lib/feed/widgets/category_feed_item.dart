@@ -88,7 +88,6 @@ class CategoryFeedItem extends StatelessWidget {
     BuildContext context,
     BlockAction action,
   ) async {
-    final router = GoRouter.of(context);
     if (action is NavigateToArticleAction) {
       context.goNamed(
         ArticlePage.routeName,

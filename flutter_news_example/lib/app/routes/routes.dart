@@ -62,6 +62,7 @@ final GoRouter router = GoRouter(
                         (e) =>
                             e.toString() ==
                             'InterstitialAdBehavior.'
+                                // ignore: lines_longer_than_80_chars
                                 '${state.uri.queryParameters['interstitialAdBehavior']}',
                       )
                     : null;
