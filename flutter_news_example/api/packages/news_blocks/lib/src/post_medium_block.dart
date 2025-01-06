@@ -12,7 +12,7 @@ class PostMediumBlock extends PostBlock {
   /// {@macro post_medium_block}
   const PostMediumBlock({
     required super.id,
-    required super.category,
+    required super.categoryId,
     required super.author,
     required super.publishedAt,
     required String super.imageUrl,

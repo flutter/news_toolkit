@@ -14,8 +14,7 @@ PostGridGroupBlock _$PostGridGroupBlockFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PostGridGroupBlock(
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
+          categoryId: $checkedConvert('category_id', (v) => v as String),
           tiles: $checkedConvert(
               'tiles',
               (v) => (v as List<dynamic>)
@@ -27,20 +26,12 @@ PostGridGroupBlock _$PostGridGroupBlockFromJson(Map<String, dynamic> json) =>
         );
         return val;
       },
+      fieldKeyMap: const {'categoryId': 'category_id'},
     );
 
 Map<String, dynamic> _$PostGridGroupBlockToJson(PostGridGroupBlock instance) =>
     <String, dynamic>{
-      'category': _$PostCategoryEnumMap[instance.category]!,
+      'category_id': instance.categoryId,
       'tiles': instance.tiles.map((e) => e.toJson()).toList(),
       'type': instance.type,
     };
-
-const _$PostCategoryEnumMap = {
-  PostCategory.business: 'business',
-  PostCategory.entertainment: 'entertainment',
-  PostCategory.health: 'health',
-  PostCategory.science: 'science',
-  PostCategory.sports: 'sports',
-  PostCategory.technology: 'technology',
-};

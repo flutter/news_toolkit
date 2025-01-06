@@ -17,8 +17,10 @@ void main() {
 
     group('CategorySelected', () {
       test('supports value comparisons', () {
-        final event1 = CategorySelected(category: Category.top);
-        final event2 = CategorySelected(category: Category.top);
+        final sportsCategory = Category(id: 'sports', name: 'Sports');
+
+        final event1 = CategorySelected(category: sportsCategory);
+        final event2 = CategorySelected(category: sportsCategory);
 
         expect(event1, equals(event2));
       });

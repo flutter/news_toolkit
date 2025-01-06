@@ -21,13 +21,14 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       await mockNetworkImages(() async {
         final widget = TrendingStory(
           title: 'TRENDING',
           block: TrendingStoryBlock(
             content: PostSmallBlock(
               id: 'id',
-              category: PostCategory.technology,
+              categoryId: category.id,
               author: 'author',
               publishedAt: DateTime(2022, 3, 11),
               imageUrl: 'imageUrl',

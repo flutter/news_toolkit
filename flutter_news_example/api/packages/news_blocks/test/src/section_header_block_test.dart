@@ -6,7 +6,9 @@ import 'package:test/test.dart';
 void main() {
   group('SectionHeaderBlock', () {
     test('can be (de)serialized', () {
-      final action = NavigateToFeedCategoryAction(category: Category.top);
+      const category = Category(id: 'sports', name: 'Sports');
+
+      final action = NavigateToFeedCategoryAction(category: category);
       final block = SectionHeaderBlock(title: 'example_title', action: action);
       expect(SectionHeaderBlock.fromJson(block.toJson()), equals(block));
     });

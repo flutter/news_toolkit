@@ -24,9 +24,9 @@ const networkErrorButtonText = 'Try Again';
 void main() {
   late FeedBloc feedBloc;
 
-  const category = Category.top;
-  final feed = <Category, List<NewsBlock>>{
-    Category.top: [
+  const category = Category(id: 'top', name: 'Top');
+  final feed = <String, List<NewsBlock>>{
+    category.id: [
       DividerHorizontalBlock(),
       SpacerBlock(spacing: Spacing.medium),
     ],
@@ -37,13 +37,13 @@ void main() {
     when(() => feedBloc.state).thenReturn(
       FeedState(feed: feed, status: FeedStatus.populated),
     );
-    registerFallbackValue(FeedRefreshRequested(category: Category.business));
+    registerFallbackValue(FeedRefreshRequested(category: category));
   });
 
   group('CategoryFeed', () {
     group('when FeedStatus is failure and feed is populated', () {
       setUpAll(() {
-        registerFallbackValue(Category.top);
+        registerFallbackValue(category);
       });
 
       setUp(() {
@@ -99,7 +99,7 @@ void main() {
       });
 
       testWidgets('shows CategoryFeedItem for each feed block', (tester) async {
-        final categoryFeed = feed[category]!;
+        final categoryFeed = feed[category.id]!;
 
         await tester.pumpApp(
           BlocProvider.value(
@@ -128,7 +128,7 @@ void main() {
       late GoRouter goRouter;
       setUpAll(() {
         goRouter = MockGoRouter();
-        registerFallbackValue(Category.top);
+        registerFallbackValue(category);
       });
 
       setUp(() {
@@ -184,7 +184,7 @@ void main() {
       });
 
       testWidgets('shows CategoryFeedItem for each feed block', (tester) async {
-        final categoryFeed = feed[category]!;
+        final categoryFeed = feed[category.id]!;
 
         await tester.pumpApp(
           BlocProvider.value(
@@ -235,8 +235,8 @@ void main() {
     });
 
     group('CategoryFeedLoaderItem', () {
-      final hasMoreNews = <Category, bool>{
-        Category.top: true,
+      final hasMoreNews = <String, bool>{
+        category.id: true,
       };
 
       group('is shown', () {
@@ -314,7 +314,7 @@ void main() {
               status: FeedStatus.populated,
               feed: feed,
               hasMoreNews: {
-                category: false,
+                category.id: false,
               },
             ),
           ]),

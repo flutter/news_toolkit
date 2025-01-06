@@ -15,8 +15,7 @@ VideoIntroductionBlock _$VideoIntroductionBlockFromJson(
       json,
       ($checkedConvert) {
         final val = VideoIntroductionBlock(
-          category: $checkedConvert(
-              'category', (v) => $enumDecode(_$PostCategoryEnumMap, v)),
+          categoryId: $checkedConvert('category_id', (v) => v as String),
           title: $checkedConvert('title', (v) => v as String),
           videoUrl: $checkedConvert('video_url', (v) => v as String),
           type: $checkedConvert(
@@ -24,23 +23,14 @@ VideoIntroductionBlock _$VideoIntroductionBlockFromJson(
         );
         return val;
       },
-      fieldKeyMap: const {'videoUrl': 'video_url'},
+      fieldKeyMap: const {'categoryId': 'category_id', 'videoUrl': 'video_url'},
     );
 
 Map<String, dynamic> _$VideoIntroductionBlockToJson(
         VideoIntroductionBlock instance) =>
     <String, dynamic>{
-      'category': _$PostCategoryEnumMap[instance.category]!,
+      'category_id': instance.categoryId,
       'title': instance.title,
       'video_url': instance.videoUrl,
       'type': instance.type,
     };
-
-const _$PostCategoryEnumMap = {
-  PostCategory.business: 'business',
-  PostCategory.entertainment: 'entertainment',
-  PostCategory.health: 'health',
-  PostCategory.science: 'science',
-  PostCategory.sports: 'sports',
-  PostCategory.technology: 'technology',
-};

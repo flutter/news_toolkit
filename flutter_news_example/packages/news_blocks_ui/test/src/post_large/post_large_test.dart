@@ -11,7 +11,7 @@ import '../../helpers/helpers.dart';
 
 void main() {
   const id = '499305f6-5096-4051-afda-824dcfc7df23';
-  const category = PostCategory.technology;
+  const category = Category(id: 'technology', name: 'Technology');
   const author = 'Sean Hollister';
   final publishedAt = DateTime(2022, 3, 9);
   const imageUrl =
@@ -32,7 +32,7 @@ void main() {
           'when isLocked is true', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -46,6 +46,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -64,7 +65,7 @@ void main() {
           'when isLocked is false', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -78,6 +79,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -98,7 +100,7 @@ void main() {
           'when isLocked is true', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -112,6 +114,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: true,
                   ),
@@ -130,7 +133,7 @@ void main() {
           'when isLocked is false', (tester) async {
         final technologyPostLarge = PostLargeBlock(
           id: id,
-          category: category,
+          categoryId: category.id,
           author: author,
           publishedAt: publishedAt,
           imageUrl: imageUrl,
@@ -144,6 +147,7 @@ void main() {
                 children: [
                   PostLarge(
                     block: technologyPostLarge,
+                    categoryName: category.name,
                     premiumText: 'Premium',
                     isLocked: false,
                   ),
@@ -165,7 +169,7 @@ void main() {
 
     final technologyPostLarge = PostLargeBlock(
       id: id,
-      category: category,
+      categoryId: category.id,
       author: author,
       publishedAt: publishedAt,
       imageUrl: imageUrl,
@@ -180,6 +184,7 @@ void main() {
           children: [
             PostLarge(
               block: technologyPostLarge,
+              categoryName: category.name,
               premiumText: 'Premium',
               onPressed: actions.add,
               isLocked: false,

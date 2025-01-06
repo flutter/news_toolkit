@@ -57,7 +57,7 @@ final popularArticles = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '5c47495a-608b-4e8b-a7f0-642a02594888',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'CNN',
       publishedAt: DateTime(2022, 3, 17),
       imageUrl:
@@ -72,7 +72,7 @@ final popularArticles = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Sean Hollister',
         publishedAt: DateTime(2022, 3, 17),
         title: 'Boeing makes third attempt to launch its '
@@ -93,7 +93,7 @@ final relevantArticles = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '781b6a65-0357-45c7-8789-3ee890e43e0e',
-      category: PostCategory.health,
+      categoryId: _healthCategory.id,
       author: 'CNN',
       publishedAt: DateTime(2022, 5, 20),
       imageUrl:
@@ -104,7 +104,7 @@ final relevantArticles = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Sandee LaMotte',
         publishedAt: DateTime(2022, 5, 20),
         title: 'What is monkeypox and its signs and symptoms?',
@@ -131,7 +131,7 @@ final technologyLargeItems = <NewsItem>[
   NewsItem(
     post: PostLargeBlock(
       id: '499305f6-5096-4051-afda-824dcfc7df23',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'Sean Hollister',
       publishedAt: DateTime(2022, 4, 19),
       imageUrl:
@@ -144,7 +144,7 @@ final technologyLargeItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Sean Hollister',
         publishedAt: DateTime(2022, 4, 19),
         title: 'Nvidia and AMD GPUs are returning to shelves '
@@ -260,7 +260,7 @@ final technologyLargeItems = <NewsItem>[
       TrendingStoryBlock(
         content: PostSmallBlock(
           id: '5c47497a-608b-4e9b-a7f0-642a02594900',
-          category: PostCategory.technology,
+          categoryId: _technologyCategory.id,
           author: 'Fall Guys',
           publishedAt: DateTime(2022, 3, 9),
           imageUrl:
@@ -278,7 +278,7 @@ final technologyLargeItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Sean Hollister',
         publishedAt: DateTime(2022, 4, 19),
         title: 'Nvidia and AMD GPUs are returning to shelves '
@@ -299,7 +299,7 @@ final technologyLargeItems = <NewsItem>[
     relatedArticles: [
       PostSmallBlock(
         id: '2224b86e-60d6-461a-a5d8-e8e71589669f',
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'The Drive',
         publishedAt: DateTime(2022, 3, 17),
         imageUrl:
@@ -319,7 +319,7 @@ final technologyLargeItems = <NewsItem>[
   NewsItem(
     post: PostLargeBlock(
       id: '7dd29642-2bbd-40ea-80af-99e4381bbabb',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'Jasmine Hicks',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -332,7 +332,7 @@ final technologyLargeItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Jasmine Hicks',
         publishedAt: DateTime(2022, 6, 2),
         title:
@@ -344,7 +344,7 @@ final technologyLargeItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Jasmine Hicks',
         publishedAt: DateTime(2022, 6, 2),
         title:
@@ -364,7 +364,7 @@ final technologyMediumItems = <NewsItem>[
   NewsItem(
     post: PostMediumBlock(
       id: 'd62a154f-b69a-4e8c-87ee-a1bdfcec3cfa',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'Victoria Song',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -380,7 +380,7 @@ final technologyMediumItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Victoria Song',
         publishedAt: DateTime(2022, 6, 2),
         title:
@@ -391,7 +391,7 @@ final technologyMediumItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Victoria Song',
         publishedAt: DateTime(2022, 6, 2),
         title:
@@ -411,7 +411,7 @@ final technologySmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '36f4a017-d099-4fce-8727-1d9ca6a0398c',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'Tom Phillips',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -426,7 +426,7 @@ final technologySmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Tom Phillips',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -437,7 +437,7 @@ final technologySmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Tom Phillips',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -453,7 +453,7 @@ final technologySmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: 'f903c34b-e4a7-4db1-8945-94f9fb7c7284',
-      category: PostCategory.technology,
+      categoryId: _technologyCategory.id,
       author: 'Mike Andronico',
       publishedAt: DateTime(2022, 6, 2),
       title: 'Walmart has a big PS5 restock today — '
@@ -468,7 +468,7 @@ final technologySmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Victoria Song',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Walmart has a big PS5 restock today — '
@@ -478,7 +478,7 @@ final technologySmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: _technologyCategory.id,
         author: 'Victoria Song',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Walmart has a big PS5 restock today — '
@@ -503,7 +503,7 @@ final sportsLargeItems = <NewsItem>[
   NewsItem(
     post: PostLargeBlock(
       id: 'e24e8c44-fcba-4312-92bc-4da4c83e1f4b',
-      category: PostCategory.sports,
+      categoryId: _sportsCategory.id,
       author: 'Peter Brody',
       publishedAt: DateTime(2022, 6, 3),
       imageUrl:
@@ -519,7 +519,7 @@ final sportsLargeItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Peter Brody',
         publishedAt: DateTime(2022, 6, 3),
         imageUrl:
@@ -530,7 +530,7 @@ final sportsLargeItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Peter Brody',
         publishedAt: DateTime(2022, 6, 3),
         imageUrl:
@@ -550,7 +550,7 @@ final sportsMediumItems = <NewsItem>[
   NewsItem(
     post: PostMediumBlock(
       id: '82c49bf1-946d-4920-a801-302291f367b5',
-      category: PostCategory.sports,
+      categoryId: _sportsCategory.id,
       author: 'Tom Dierberger',
       publishedAt: DateTime(2022, 5, 5),
       imageUrl:
@@ -568,7 +568,7 @@ final sportsMediumItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Tom Dierberger',
         publishedAt: DateTime(2022, 5, 22),
         imageUrl:
@@ -579,7 +579,7 @@ final sportsMediumItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Tom Dierberger',
         publishedAt: DateTime(2022, 5, 22),
         imageUrl:
@@ -591,7 +591,7 @@ final sportsMediumItems = <NewsItem>[
     relatedArticles: [
       PostSmallBlock(
         id: 'b77f8854-7483-4353-ac91-5a8a10e576b0',
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Bleacher Report',
         publishedAt: DateTime(2022, 3, 17),
         imageUrl:
@@ -616,7 +616,7 @@ final sportsSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: 'b1e70b22-b7a3-4b07-808d-3735fe7131af',
-      category: PostCategory.sports,
+      categoryId: _sportsCategory.id,
       author: 'Jasmyn Wimbish',
       publishedAt: DateTime(2022, 6, 3),
       imageUrl:
@@ -631,7 +631,7 @@ final sportsSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Jasmyn Wimbish',
         publishedAt: DateTime(2022, 6, 3),
         imageUrl:
@@ -642,7 +642,7 @@ final sportsSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Jasmyn Wimbish',
         publishedAt: DateTime(2022, 6, 3),
         imageUrl:
@@ -658,7 +658,7 @@ final sportsSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '7f03f6bf-011f-49cf-88b8-08c79a21745c',
-      category: PostCategory.sports,
+      categoryId: _sportsCategory.id,
       author: 'Adam Rowe',
       publishedAt: DateTime(2022, 6, 3),
       title: 'Five-Star International Recruit Tyrese Proctor will reclassify '
@@ -671,7 +671,7 @@ final sportsSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Adam Rowe',
         publishedAt: DateTime(2022, 6, 3),
         title: 'Five-Star International Recruit Tyrese Proctor will reclassify '
@@ -680,7 +680,7 @@ final sportsSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.sports,
+        categoryId: _sportsCategory.id,
         author: 'Adam Rowe',
         publishedAt: DateTime(2022, 6, 3),
         title: 'Five-Star International Recruit Tyrese Proctor will reclassify '
@@ -705,7 +705,7 @@ final healthLargeItems = <NewsItem>[
   NewsItem(
     post: PostLargeBlock(
       id: 'f237463b-f4d8-4b23-a468-d448a446b03b',
-      category: PostCategory.health,
+      categoryId: _healthCategory.id,
       author: 'Neuroscience News',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -720,7 +720,7 @@ final healthLargeItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Neuroscience News',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -731,7 +731,7 @@ final healthLargeItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Neuroscience News',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -751,7 +751,7 @@ final healthMediumItems = <NewsItem>[
   NewsItem(
     post: PostMediumBlock(
       id: '057d4de4-a7c5-4dc3-b231-33052bcea53d',
-      category: PostCategory.health,
+      categoryId: _healthCategory.id,
       author: 'Neuroscience News',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -768,7 +768,7 @@ final healthMediumItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Neuroscience News',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -779,7 +779,7 @@ final healthMediumItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Neuroscience News',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -799,7 +799,7 @@ final healthSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: 'b1fc2ffc-eb02-42ce-af65-79702172a987',
-      category: PostCategory.health,
+      categoryId: _healthCategory.id,
       author: 'Northwestern University',
       publishedAt: DateTime(2022, 5, 4),
       imageUrl: 'https://scitechdaily.com/images/Ear-Hearing-Concept.jpg',
@@ -815,7 +815,7 @@ final healthSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Northwestern University',
         publishedAt: DateTime(2022, 5, 4),
         imageUrl: 'https://scitechdaily.com/images/Ear-Hearing-Concept.jpg',
@@ -825,7 +825,7 @@ final healthSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Northwestern University',
         publishedAt: DateTime(2022, 5, 4),
         imageUrl: 'https://scitechdaily.com/images/Ear-Hearing-Concept.jpg',
@@ -836,7 +836,7 @@ final healthSmallItems = <NewsItem>[
     relatedArticles: [
       PostSmallBlock(
         id: '7a5661d7-32a3-4b05-9fe2-7bc5ff8ea904',
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'New York Times',
         publishedAt: DateTime(2022, 3, 17),
         imageUrl:
@@ -856,7 +856,7 @@ final healthSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '67c36008-42f3-4ed3-9bcc-2c96acaa27d3',
-      category: PostCategory.health,
+      categoryId: _healthCategory.id,
       author: 'Gabby Landsverk',
       publishedAt: DateTime(2022, 6, 2),
       title: 'Keto and Mediterranean diets both help manage blood sugar, '
@@ -871,7 +871,7 @@ final healthSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Gabby Landsverk',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Keto and Mediterranean diets both help manage blood sugar, '
@@ -880,7 +880,7 @@ final healthSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.health,
+        categoryId: _healthCategory.id,
         author: 'Gabby Landsverk',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Keto and Mediterranean diets both help manage blood sugar, '
@@ -906,7 +906,7 @@ final scienceLargeItems = <NewsItem>[
   NewsItem(
     post: PostLargeBlock(
       id: 'f6e66eb4-add9-4181-bf1e-ce09c629287d',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Megan Marples and Ashley Strickland',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -921,7 +921,7 @@ final scienceLargeItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Megan Marples and Ashley Strickland',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -931,7 +931,7 @@ final scienceLargeItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Megan Marples and Ashley Strickland',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -950,7 +950,7 @@ final scienceMediumItems = <NewsItem>[
   NewsItem(
     post: PostMediumBlock(
       id: '506271f9-394e-48e4-a6d8-9d438f561532',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Jeff Foust',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -965,7 +965,7 @@ final scienceMediumItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Jeff Foust',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -975,7 +975,7 @@ final scienceMediumItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Jeff Foust',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -994,7 +994,7 @@ final scienceSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '1273746e-900d-45d9-a4f3-acbb462de797',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Tomasz Nowakowski',
       publishedAt: DateTime(2022, 6, 2),
       imageUrl:
@@ -1009,7 +1009,7 @@ final scienceSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Tomasz Nowakowski',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -1019,7 +1019,7 @@ final scienceSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Tomasz Nowakowski',
         publishedAt: DateTime(2022, 6, 2),
         imageUrl:
@@ -1034,7 +1034,7 @@ final scienceSmallItems = <NewsItem>[
   NewsItem(
     post: PostSmallBlock(
       id: '52c74e71-36b3-45aa-bc06-f50b1d2631fa',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Phil Plait',
       publishedAt: DateTime(2022, 6, 2),
       title: 'Are supermassive black holes killing their host galaxies?',
@@ -1046,7 +1046,7 @@ final scienceSmallItems = <NewsItem>[
     ),
     content: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Phil Plait',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Are supermassive black holes killing their host galaxies?',
@@ -1054,7 +1054,7 @@ final scienceSmallItems = <NewsItem>[
     ],
     contentPreview: [
       ArticleIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'Phil Plait',
         publishedAt: DateTime(2022, 6, 2),
         title: 'Are supermassive black holes killing their host galaxies?',
@@ -1071,7 +1071,7 @@ final scienceVideoItems = <NewsItem>[
   NewsItem(
     post: PostGridTileBlock(
       id: '384a15ff-a50e-46d5-96a7-8864facdcc48',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Loren Grush',
       publishedAt: DateTime(2022, 5, 6),
       imageUrl:
@@ -1083,18 +1083,18 @@ final scienceVideoItems = <NewsItem>[
         articleId: '384a15ff-a50e-46d5-96a7-8864facdcc48',
       ),
     ),
-    content: const [
+    content: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'SpaceX successfully returns four astronauts from the '
             'International Space Station',
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
-    contentPreview: const [
+    contentPreview: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'SpaceX successfully returns four astronauts from the '
             'International Space Station',
         videoUrl:
@@ -1104,7 +1104,7 @@ final scienceVideoItems = <NewsItem>[
     relatedArticles: [
       PostSmallBlock(
         id: 'bfd5aa62-4c50-40c6-9aef-5511535c7b68',
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         author: 'SciTechDaily',
         publishedAt: DateTime(2022, 3, 17),
         imageUrl:
@@ -1126,7 +1126,7 @@ final scienceVideoItems = <NewsItem>[
   NewsItem(
     post: PostGridTileBlock(
       id: '13e448bb-cd26-4ae0-b138-4a67067f7a93',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'Daniel Strain',
       publishedAt: DateTime(2022, 5, 6),
       imageUrl:
@@ -1138,18 +1138,18 @@ final scienceVideoItems = <NewsItem>[
         articleId: '13e448bb-cd26-4ae0-b138-4a67067f7a93',
       ),
     ),
-    content: const [
+    content: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'A surging glow in a distant galaxy could change '
             'the way we look at black holes',
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
-    contentPreview: const [
+    contentPreview: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'A surging glow in a distant galaxy could change '
             'the way we look at black holes',
         videoUrl:
@@ -1163,7 +1163,7 @@ final scienceVideoItems = <NewsItem>[
   NewsItem(
     post: PostGridTileBlock(
       id: '842e3193-86d2-4069-a7e6-f769faa6f970',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'SciTechDaily',
       publishedAt: DateTime(2022, 5, 5),
       imageUrl:
@@ -1174,9 +1174,9 @@ final scienceVideoItems = <NewsItem>[
         articleId: '842e3193-86d2-4069-a7e6-f769faa6f970',
       ),
     ),
-    content: const [
+    content: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title:
             'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
             'Revolutionize Quantum Computing',
@@ -1184,9 +1184,9 @@ final scienceVideoItems = <NewsItem>[
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
-    contentPreview: const [
+    contentPreview: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title:
             'The Quest for an Ideal Quantum Bit: New Qubit Breakthrough Could '
             'Revolutionize Quantum Computing',
@@ -1201,7 +1201,7 @@ final scienceVideoItems = <NewsItem>[
   NewsItem(
     post: PostGridTileBlock(
       id: '1f79da6f-64cb-430a-b7b2-2318d23b719f',
-      category: PostCategory.science,
+      categoryId: _scienceCategory.id,
       author: 'SciTechDaily',
       publishedAt: DateTime(2022, 5, 4),
       imageUrl: 'https://scitechdaily.com/images/Black-Hole-Sonification.gif',
@@ -1211,18 +1211,18 @@ final scienceVideoItems = <NewsItem>[
         articleId: '1f79da6f-64cb-430a-b7b2-2318d23b719f',
       ),
     ),
-    content: const [
+    content: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '
             'Sonifications With a Remix',
         videoUrl:
             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
       ),
     ],
-    contentPreview: const [
+    contentPreview: [
       VideoIntroductionBlock(
-        category: PostCategory.science,
+        categoryId: _scienceCategory.id,
         title: 'Hear What a Black Hole Sounds Like – New NASA Black Hole '
             'Sonifications With a Remix',
         videoUrl:
@@ -1245,7 +1245,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Technology',
     action: NavigateToFeedCategoryAction(
-      category: Category.technology,
+      category: _technologyCategory,
     ),
   ),
   technologyLargeItems.last.post,
@@ -1254,11 +1254,11 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Science Videos',
     action: NavigateToFeedCategoryAction(
-      category: Category.science,
+      category: _scienceCategory,
     ),
   ),
   PostGridGroupBlock(
-    category: PostCategory.science,
+    categoryId: _scienceCategory.id,
     tiles: [...scienceVideoItems.map((e) => e.post).cast<PostGridTileBlock>()],
   ),
   const SpacerBlock(spacing: Spacing.large),
@@ -1266,7 +1266,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Sports',
     action: NavigateToFeedCategoryAction(
-      category: Category.sports,
+      category: _sportsCategory,
     ),
   ),
   sportsMediumItems.first.post,
@@ -1276,7 +1276,7 @@ final topNewsFeedBlocks = <NewsBlock>[
   const SectionHeaderBlock(
     title: 'Health',
     action: NavigateToFeedCategoryAction(
-      category: Category.health,
+      category: _healthCategory,
     ),
   ),
   healthSmallItems.first.post,
@@ -1368,7 +1368,7 @@ final scienceFeedBlocks = <NewsBlock>[
   const SpacerBlock(spacing: Spacing.small),
   const SectionHeaderBlock(title: 'Science Videos'),
   PostGridGroupBlock(
-    category: PostCategory.science,
+    categoryId: _scienceCategory.id,
     tiles: [...scienceVideoItems.map((e) => e.post).cast<PostGridTileBlock>()],
   ),
   const SpacerBlock(spacing: Spacing.medium),
@@ -1383,13 +1383,27 @@ List<NewsItem> get _newsItems {
   ];
 }
 
-final _newsFeedData = <Category, Feed>{
-  Category.top: topNewsFeedBlocks.toFeed(),
-  Category.technology: technologyFeedBlocks.toFeed(),
-  Category.sports: sportsFeedBlocks.toFeed(),
-  Category.health: healthFeedBlocks.toFeed(),
-  Category.science: scienceFeedBlocks.toFeed(),
+final _newsFeedData = <String, Feed>{
+  _topCategory.id: topNewsFeedBlocks.toFeed(),
+  _technologyCategory.id: technologyFeedBlocks.toFeed(),
+  _sportsCategory.id: sportsFeedBlocks.toFeed(),
+  _healthCategory.id: healthFeedBlocks.toFeed(),
+  _scienceCategory.id: scienceFeedBlocks.toFeed(),
 };
+
+const _topCategory = Category(id: 'top', name: 'Top');
+const _sportsCategory = Category(id: 'sports', name: 'Sports');
+const _technologyCategory = Category(id: 'technology', name: 'Technology');
+const _healthCategory = Category(id: 'health', name: 'Health');
+const _scienceCategory = Category(id: 'science', name: 'Science');
+
+const _categories = [
+  _topCategory,
+  _sportsCategory,
+  _technologyCategory,
+  _healthCategory,
+  _scienceCategory,
+];
 
 extension on List<NewsBlock> {
   Feed toFeed() => Feed(blocks: this, totalBlocks: length);

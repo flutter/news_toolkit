@@ -10,12 +10,16 @@ class ArticleIntroduction extends StatelessWidget {
   /// {@macro article_introduction}
   const ArticleIntroduction({
     required this.block,
+    required this.categoryName,
     required this.premiumText,
     super.key,
   });
 
   /// The associated [ArticleIntroductionBlock] instance.
   final ArticleIntroductionBlock block;
+
+  /// The name of the category of the associated article.
+  final String? categoryName;
 
   /// Text displayed when article is premium content.
   final String premiumText;
@@ -28,7 +32,7 @@ class ArticleIntroduction extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: PostContent(
-            categoryName: block.category.name,
+            categoryName: categoryName,
             title: block.title,
             author: block.author,
             publishedAt: block.publishedAt,

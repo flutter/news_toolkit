@@ -12,7 +12,7 @@ part 'video_introduction_block.g.dart';
 class VideoIntroductionBlock with EquatableMixin implements NewsBlock {
   /// {@macro video_introduction_block}
   const VideoIntroductionBlock({
-    required this.category,
+    required this.categoryId,
     required this.title,
     required this.videoUrl,
     this.type = VideoIntroductionBlock.identifier,
@@ -26,8 +26,8 @@ class VideoIntroductionBlock with EquatableMixin implements NewsBlock {
   /// The video introduction block type identifier.
   static const identifier = '__video_introduction__';
 
-  /// The category of the associated article.
-  final PostCategory category;
+  /// The category id of the associated article.
+  final String categoryId;
 
   /// The title of the associated article.
   final String title;
@@ -42,5 +42,5 @@ class VideoIntroductionBlock with EquatableMixin implements NewsBlock {
   Map<String, dynamic> toJson() => _$VideoIntroductionBlockToJson(this);
 
   @override
-  List<Object> get props => [category, title, videoUrl, type];
+  List<Object> get props => [categoryId, title, videoUrl, type];
 }

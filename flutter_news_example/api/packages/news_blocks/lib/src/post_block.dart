@@ -8,7 +8,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   /// {@macro post_block}
   const PostBlock({
     required this.id,
-    required this.category,
+    required this.categoryId,
     required this.author,
     required this.publishedAt,
     required this.title,
@@ -26,8 +26,8 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   /// The identifier of this post.
   final String id;
 
-  /// The category of this post.
-  final PostCategory category;
+  /// The category id of this post.
+  final String categoryId;
 
   /// The author of this post.
   final String author;
@@ -64,7 +64,7 @@ abstract class PostBlock with EquatableMixin implements NewsBlock {
   @override
   List<Object?> get props => [
         id,
-        category,
+        categoryId,
         author,
         publishedAt,
         imageUrl,

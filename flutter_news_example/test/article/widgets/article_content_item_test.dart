@@ -161,8 +161,9 @@ void main() {
     testWidgets(
         'renders ArticleIntroduction '
         'for ArticleIntroductionBlock', (tester) async {
+      const category = Category(id: 'technology', name: 'Technology');
       final block = ArticleIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         author: 'author',
         publishedAt: DateTime(2022, 3, 9),
         imageUrl: 'imageUrl',
@@ -187,9 +188,9 @@ void main() {
         'renders VideoIntroduction '
         'for VideoIntroductionBlock', (tester) async {
       setUpVideoPlayerPlatform();
-
+      const category = Category(id: 'technology', name: 'Technology');
       final block = VideoIntroductionBlock(
-        category: PostCategory.technology,
+        categoryId: category.id,
         title: 'title',
         videoUrl: 'videoUrl',
       );
@@ -294,9 +295,10 @@ void main() {
   testWidgets(
       'renders TrendingStory '
       'for TrendingStoryBlock', (tester) async {
+    const category = Category(id: 'health', name: 'Health');
     final content = PostSmallBlock(
       id: 'id',
-      category: PostCategory.health,
+      categoryId: category.id,
       author: 'author',
       publishedAt: DateTime(2022, 3, 11),
       imageUrl: 'imageUrl',

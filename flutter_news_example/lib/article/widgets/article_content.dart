@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/ads/ads.dart';
 import 'package:flutter_news_example/analytics/analytics.dart';
 import 'package:flutter_news_example/article/article.dart';
+import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_news_example_api/client.dart';
@@ -16,11 +17,17 @@ class ArticleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final status = context.select((ArticleBloc bloc) => bloc.state.status);
+    final categoriesStatus = context.select(
+      (CategoriesBloc bloc) => bloc.state.status,
+    );
 
     final hasMoreContent =
         context.select((ArticleBloc bloc) => bloc.state.hasMoreContent);
 
-    if (status == ArticleStatus.initial) {
+    /// Show loader while categories are loading as articles may need to consume
+    /// them
+    if (status == ArticleStatus.initial ||
+        categoriesStatus == CategoriesStatus.initial) {
       return const ArticleContentLoaderItem(
         key: Key('articleContent_empty_loaderItem'),
       );
