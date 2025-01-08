@@ -8,6 +8,7 @@ import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 import 'package:share_launcher/share_launcher.dart';
 
@@ -30,6 +31,39 @@ class ArticlePage extends StatelessWidget {
 
   static const routeName = 'article';
   static const routePath = 'article/:id';
+
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) {
+    final id = state.pathParameters['id'];
+
+    final isVideoArticle = bool.tryParse(
+          state.uri.queryParameters['isVideoArticle'] ?? 'false',
+        ) ??
+        false;
+    final interstitialAdBehavior =
+        state.uri.queryParameters['interstitialAdBehavior'] != null
+            ? InterstitialAdBehavior.values.firstWhere(
+                (e) =>
+                    e.toString() ==
+                    'InterstitialAdBehavior.'
+                        // ignore: lines_longer_than_80_chars
+                        '${state.uri.queryParameters['interstitialAdBehavior']}',
+              )
+            : null;
+
+    if (id == null) {
+      throw Exception('Missing required "id" parameter');
+    }
+
+    return ArticlePage(
+      id: id,
+      isVideoArticle: isVideoArticle,
+      interstitialAdBehavior:
+          interstitialAdBehavior ?? InterstitialAdBehavior.onOpen,
+    );
+  }
 
   /// The id of the requested article.
   final String id;

@@ -13,9 +13,11 @@ import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_news_example/navigation/navigation.dart';
+import 'package:flutter_news_example/onboarding/onboarding.dart';
 import 'package:flutter_news_example/search/search.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_repository/news_repository.dart';
@@ -33,6 +35,8 @@ class MockNewsRepository extends Mock implements NewsRepository {}
 
 class MockAppBloc extends Mock implements AppBloc {}
 
+class MockGoRouter extends Mock implements GoRouter {}
+
 void main() {
   initMockHydratedStorage();
 
@@ -41,6 +45,7 @@ void main() {
   late CategoriesBloc categoriesBloc;
   late FeedBloc feedBloc;
   late AppBloc appBloc;
+  late GoRouter goRouter;
 
   final entertainmentCategory = Category(
     id: 'entertainment',
@@ -69,6 +74,7 @@ void main() {
     feedBloc = MockFeedBloc();
     cubit = MockHomeCubit();
     appBloc = MockAppBloc();
+    goRouter = MockGoRouter();
 
     when(() => appBloc.state).thenReturn(
       AppState(
@@ -186,6 +192,32 @@ void main() {
 
       expect(find.byType(LoginModal), findsOneWidget);
     });
+
+    testWidgets('navigates to Onboarding page if onboarding is required',
+        (tester) async {
+      whenListen(
+        appBloc,
+        Stream.fromIterable([
+          AppState(
+            showLoginOverlay: false,
+            status: AppStatus.onboardingRequired,
+          ),
+        ]),
+      );
+      when(() => goRouter.goNamed(OnboardingPage.routePath)).thenAnswer((_) {});
+
+      await pumpHomeView(
+        tester: tester,
+        cubit: cubit,
+        categoriesBloc: categoriesBloc,
+        feedBloc: feedBloc,
+        newsRepository: newsRepository,
+        appBloc: appBloc,
+        goRouter: goRouter,
+      );
+
+      verify(() => goRouter.goNamed(OnboardingPage.routePath)).called(1);
+    });
   });
 
   group('BottomNavigationBar', () {
@@ -285,6 +317,7 @@ Future<void> pumpHomeView({
   required FeedBloc feedBloc,
   required NewsRepository newsRepository,
   AppBloc? appBloc,
+  GoRouter? goRouter,
 }) async {
   await tester.pumpApp(
     MultiBlocProvider(
@@ -299,7 +332,9 @@ Future<void> pumpHomeView({
           value: cubit,
         ),
       ],
-      child: HomeView(),
+      child: goRouter != null
+          ? InheritedGoRouter(goRouter: goRouter, child: HomeView())
+          : HomeView(),
     ),
     newsRepository: newsRepository,
     appBloc: appBloc,

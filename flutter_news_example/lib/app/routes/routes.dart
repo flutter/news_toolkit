@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_news_example/article/article.dart';
 import 'package:flutter_news_example/home/home.dart';
 import 'package:flutter_news_example/login/login.dart';
@@ -10,107 +9,56 @@ import 'package:flutter_news_example/slideshow/slideshow.dart';
 import 'package:flutter_news_example/subscriptions/view/manage_subscription_page.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:go_router/go_router.dart';
-import 'package:news_blocks/news_blocks.dart';
 
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: HomePage.routePath,
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomePage();
-      },
+      builder: HomePage.routeBuilder,
       routes: <RouteBase>[
         GoRoute(
           name: NetworkErrorPage.routePath,
           path: NetworkErrorPage.routePath,
-          builder: (BuildContext context, GoRouterState state) {
-            final onRetry = state.extra as VoidCallback?;
-            return NetworkError(onRetry: onRetry);
-          },
+          builder: NetworkErrorPage.routeBuilder,
         ),
         GoRoute(
           name: LoginWithEmailPage.routePath,
           path: LoginWithEmailPage.routePath,
-          builder: (BuildContext context, GoRouterState state) {
-            return const LoginWithEmailPage();
-          },
+          builder: LoginWithEmailPage.routeBuilder,
           routes: <RouteBase>[
             GoRoute(
               name: MagicLinkPromptPage.routePath,
               path: MagicLinkPromptPage.routePath,
-              builder: (BuildContext context, GoRouterState state) {
-                return MagicLinkPromptPage(
-                  email: state.uri.queryParameters['email']!,
-                );
-              },
+              builder: MagicLinkPromptPage.routeBuilder,
             ),
           ],
         ),
         GoRoute(
           name: ArticlePage.routeName,
           path: ArticlePage.routePath,
-          builder: (BuildContext context, GoRouterState state) {
-            final id = state.pathParameters['id'];
-
-            final isVideoArticle = bool.tryParse(
-                  state.uri.queryParameters['isVideoArticle'] ?? 'false',
-                ) ??
-                false;
-            final interstitialAdBehavior =
-                state.uri.queryParameters['interstitialAdBehavior'] != null
-                    ? InterstitialAdBehavior.values.firstWhere(
-                        (e) =>
-                            e.toString() ==
-                            'InterstitialAdBehavior.'
-                                // ignore: lines_longer_than_80_chars
-                                '${state.uri.queryParameters['interstitialAdBehavior']}',
-                      )
-                    : null;
-
-            if (id == null) {
-              throw Exception('Missing required "id" parameter');
-            }
-
-            return ArticlePage(
-              id: id,
-              isVideoArticle: isVideoArticle,
-              interstitialAdBehavior:
-                  interstitialAdBehavior ?? InterstitialAdBehavior.onOpen,
-            );
-          },
+          builder: ArticlePage.routeBuilder,
           routes: <RouteBase>[
             GoRoute(
               name: SlideshowPage.routePath,
               path: SlideshowPage.routePath,
-              builder: (BuildContext context, GoRouterState state) {
-                return SlideshowPage(
-                  slideshow: state.extra! as SlideshowBlock,
-                  articleId: state.pathParameters['id']!,
-                );
-              },
+              builder: SlideshowPage.routeBuilder,
             ),
           ],
         ),
         GoRoute(
           name: UserProfilePage.routePath,
           path: UserProfilePage.routePath,
-          builder: (BuildContext context, GoRouterState state) {
-            return const UserProfilePage();
-          },
+          builder: UserProfilePage.routeBuilder,
           routes: <RouteBase>[
             GoRoute(
               name: ManageSubscriptionPage.routePath,
               path: ManageSubscriptionPage.routePath,
-              builder: (BuildContext context, GoRouterState state) {
-                return const ManageSubscriptionPage();
-              },
+              builder: ManageSubscriptionPage.routeBuilder,
             ),
             GoRoute(
               name: NotificationPreferencesPage.routePath,
               path: NotificationPreferencesPage.routePath,
-              builder: (BuildContext context, GoRouterState state) {
-                return const NotificationPreferencesPage();
-              },
+              builder: NotificationPreferencesPage.routeBuilder,
             ),
           ],
         ),
@@ -119,9 +67,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       name: OnboardingPage.routePath,
       path: OnboardingPage.routePath,
-      builder: (BuildContext context, GoRouterState state) {
-        return const OnboardingPage();
-      },
+      builder: OnboardingPage.routeBuilder,
     ),
   ],
 );

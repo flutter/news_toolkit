@@ -2,11 +2,12 @@
 
 import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/notification_preferences/notification_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
@@ -21,11 +22,17 @@ class MockNotificationPreferencesRepository extends Mock
 
 class MockCategoriesBloc extends Mock implements CategoriesBloc {}
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   final NotificationPreferencesBloc bloc = MockNotificationPreferencesBloc();
   final NotificationsRepository repository =
       MockNotificationPreferencesRepository();
   final CategoriesBloc categoryBloc = MockCategoriesBloc();
+  late GoRouterState goRouterState;
+  late BuildContext context;
 
   final entertainmentCategory = Category(
     id: 'entertainment',
@@ -33,17 +40,23 @@ void main() {
   );
   final healthCategory = Category(id: 'health', name: 'Health');
 
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
+
   group('NotificationPreferencesPage', () {
     final populatedState = CategoriesState(
       status: CategoriesStatus.populated,
       categories: [entertainmentCategory, healthCategory],
     );
 
-    test('has a route', () {
-      expect(
-        NotificationPreferencesPage.route(),
-        isA<MaterialPageRoute<void>>(),
-      );
+    testWidgets('routeBuilder builds a NotificationPreferencesPage',
+        (tester) async {
+      final page =
+          NotificationPreferencesPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<NotificationPreferencesPage>());
     });
 
     testWidgets('renders NotificationPreferencesView', (tester) async {

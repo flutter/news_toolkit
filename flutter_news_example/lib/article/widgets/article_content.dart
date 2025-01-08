@@ -35,15 +35,14 @@ class ArticleContent extends StatelessWidget {
 
     return ArticleContentSeenListener(
       child: BlocListener<ArticleBloc, ArticleState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
-            context.goNamed(
+            await context.pushNamed(
               NetworkErrorPage.routePath,
-              extra: () {
-                context.read<ArticleBloc>().add(const ArticleRequested());
-                Navigator.of(context).pop();
-              },
             );
+            if (context.mounted) {
+              context.read<ArticleBloc>().add(const ArticleRequested());
+            }
           } else if (state.status == ArticleStatus.shareFailure) {
             _handleShareFailure(context);
           }

@@ -3,15 +3,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const testEmail = 'testEmail@gmail.com';
   const magicLinkPromptCloseIconKey = Key('magicLinkPrompt_closeIcon');
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
 
   group('MagicLinkPromptPage', () {
+    testWidgets('routeBuilder builds a MagicLinkPromptPage', (tester) async {
+      when(() => goRouterState.uri)
+          .thenReturn(Uri(queryParameters: {'email': 'email'}));
+
+      final page = MagicLinkPromptPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<MagicLinkPromptPage>());
+    });
+
     testWidgets('renders a MagicLinkPromptView', (tester) async {
       await tester.pumpApp(
         const MagicLinkPromptPage(email: testEmail),

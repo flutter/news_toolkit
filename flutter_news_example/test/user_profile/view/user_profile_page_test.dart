@@ -28,13 +28,26 @@ class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
 class MockGoRouter extends Mock implements GoRouter {}
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const termsOfServiceItemKey = Key('userProfilePage_termsOfServiceItem');
   late GoRouter goRouter;
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
 
   group('UserProfilePage', () {
-    test('has a route', () {
-      expect(UserProfilePage.route(), isA<MaterialPageRoute<void>>());
+    testWidgets('routeBuilder builds a UserProfilePage', (tester) async {
+      final page = UserProfilePage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<UserProfilePage>());
     });
 
     testWidgets('renders UserProfileView', (tester) async {

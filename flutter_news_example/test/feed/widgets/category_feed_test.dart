@@ -141,11 +141,12 @@ void main() {
         );
 
         when(
-          () => goRouter.goNamed(
+          () => goRouter.pushNamed(
             NetworkErrorPage.routePath,
-            extra: any(named: 'extra'),
           ),
-        ).thenAnswer((_) async {});
+        ).thenAnswer((_) async {
+          return null;
+        });
       });
 
       Future<void> pumpWidget(WidgetTester tester, Widget child) async {
@@ -154,21 +155,25 @@ void main() {
             value: feedBloc,
             child: InheritedGoRouter(
               goRouter: goRouter,
-              child: CategoryFeed(category: category),
+              child: child,
             ),
           ),
         );
       }
 
-      testWidgets('calls goNamed to Network Error page', (tester) async {
+      testWidgets('navigates to Network Error page and requests feed again',
+          (tester) async {
         await pumpWidget(tester, CategoryFeed(category: category));
 
         verify(
-          () => goRouter.goNamed(
+          () => goRouter.pushNamed(
             NetworkErrorPage.routePath,
-            extra: any(named: 'extra'),
           ),
         ).called(1);
+
+        verify(
+          () => feedBloc.add(FeedRequested(category: category)),
+        ).called(2);
       });
     });
 

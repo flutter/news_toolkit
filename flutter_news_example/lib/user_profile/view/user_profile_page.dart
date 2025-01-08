@@ -18,9 +18,11 @@ class UserProfilePage extends StatelessWidget {
 
   static const routePath = 'profile';
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute(builder: (_) => const UserProfilePage());
-  }
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const UserProfilePage();
 
   @override
   Widget build(BuildContext context) {

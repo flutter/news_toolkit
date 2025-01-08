@@ -10,16 +10,30 @@ import '../helpers/helpers.dart';
 
 class MockGoRouter extends Mock implements GoRouter {}
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const tapMeText = 'Tap Me';
   late GoRouter goRouter;
+  late GoRouterState goRouterState;
+  late BuildContext context;
 
   setUpAll(() {
     goRouter = MockGoRouter();
     when(() => goRouter.goNamed(NetworkErrorPage.routePath)).thenAnswer((_) {});
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
   });
 
   group('NetworkError', () {
+    testWidgets('builds a NetworkErrorPage', (tester) async {
+      final page = NetworkErrorPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<NetworkErrorPage>());
+    });
+
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(NetworkError());
 

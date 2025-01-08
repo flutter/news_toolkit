@@ -30,15 +30,15 @@ class CategoryFeed extends StatelessWidget {
         .select((FeedBloc bloc) => bloc.state.status == FeedStatus.failure);
 
     return BlocListener<FeedBloc, FeedState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == FeedStatus.failure && state.feed.isEmpty) {
-          context.goNamed(
+          await context.pushNamed(
             NetworkErrorPage.routePath,
-            extra: () {
-              context.read<FeedBloc>().add(FeedRequested(category: category));
-              Navigator.of(context).pop();
-            },
           );
+          // TODO: check if this implementation works (tests)
+          if (context.mounted) {
+            context.read<FeedBloc>().add(FeedRequested(category: category));
+          }
         }
       },
       child: RefreshIndicator(

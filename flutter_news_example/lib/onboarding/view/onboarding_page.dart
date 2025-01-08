@@ -3,6 +3,7 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/onboarding/onboarding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -10,7 +11,11 @@ class OnboardingPage extends StatelessWidget {
 
   static const routePath = '/onboarding';
 
-  static Page<void> page() => const MaterialPage<void>(child: OnboardingPage());
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const OnboardingPage();
 
   @override
   Widget build(BuildContext context) {

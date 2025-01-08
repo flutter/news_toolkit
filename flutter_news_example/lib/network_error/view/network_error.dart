@@ -1,26 +1,32 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template network_error}
 /// A network error alert page.
 /// {@endtemplate}
 class NetworkErrorPage extends StatelessWidget {
   /// {@macro network_error}
-  const NetworkErrorPage({super.key, this.onRetry});
-
-  /// An optional callback which is invoked when the retry button is pressed.
-  final VoidCallback? onRetry;
+  const NetworkErrorPage({
+    super.key,
+  });
 
   static const routePath = 'network-error';
+
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const NetworkErrorPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(leading: const AppBackButton()),
-      body: Center(
-        child: NetworkError(onRetry: onRetry),
+      body: const Center(
+        child: NetworkError(),
       ),
     );
   }
@@ -59,7 +65,7 @@ class NetworkError extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxlg),
           child: AppButton.darkAqua(
-            onPressed: onRetry,
+            onPressed: onRetry ?? context.pop,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

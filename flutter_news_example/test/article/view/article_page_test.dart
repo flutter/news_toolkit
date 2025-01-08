@@ -32,8 +32,14 @@ class MockRewardItem extends Mock implements ads.RewardItem {}
 
 class MockGoRouter extends Mock implements GoRouter {}
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   initMockHydratedStorage();
+  late GoRouterState goRouterState;
+  late BuildContext context;
 
   group('ArticlePage', () {
     late GoRouter goRouter;
@@ -49,6 +55,18 @@ void main() {
         Stream.value(FullScreenAdsState.initial()),
         initialState: FullScreenAdsState.initial(),
       );
+      goRouterState = _MockGoRouterState();
+      context = _MockBuildContext();
+    });
+
+    testWidgets('routeBuilder builds a ArticlePage', (tester) async {
+      when(() => goRouterState.pathParameters).thenReturn({'id': 'id'});
+      when(() => goRouterState.uri)
+          .thenReturn(Uri(queryParameters: {'isVideoArticle': 'true'}));
+
+      final page = ArticlePage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<ArticlePage>());
     });
 
     testWidgets('renders ArticleView', (tester) async {
