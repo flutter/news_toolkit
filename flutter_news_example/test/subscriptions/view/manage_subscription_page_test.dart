@@ -5,16 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
   group('ManageSubscriptionPage', () {
-    test('has a route', () {
-      expect(ManageSubscriptionPage.route(), isA<MaterialPageRoute<void>>());
+    testWidgets('routeBuilder builds a ManageSubscriptionPage', (tester) async {
+      final page = ManageSubscriptionPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<ManageSubscriptionPage>());
     });
 
     testWidgets('renders ManageSubscriptionView', (tester) async {

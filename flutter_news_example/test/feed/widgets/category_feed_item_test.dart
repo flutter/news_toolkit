@@ -10,6 +10,7 @@ import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:news_blocks/news_blocks.dart';
@@ -22,6 +23,8 @@ class MockArticleRepository extends Mock implements ArticleRepository {}
 
 class MockCategoriesBloc extends MockBloc<CategoriesEvent, CategoriesState>
     implements CategoriesBloc {}
+
+class MockGoRouter extends Mock implements GoRouter {}
 
 void main() {
   initMockHydratedStorage();
@@ -254,9 +257,30 @@ void main() {
     });
 
     group(
-        'navigates to ArticlePage '
+        'calls GoRouter.goNamed to navigate to ArticlePage '
         'on NavigateToArticleAction', () {
       const articleId = 'articleId';
+      late GoRouter goRouter;
+
+      setUpAll(() {
+        goRouter = MockGoRouter();
+        when(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+          ),
+        ).thenAnswer((_) {});
+      });
+
+      Future<void> pumpWidget(WidgetTester tester, Widget widget) {
+        return tester.pumpApp(
+          InheritedGoRouter(
+            goRouter: goRouter,
+            child: widget,
+          ),
+          articleRepository: articleRepository,
+        );
+      }
 
       testWidgets('from PostLarge', (tester) async {
         const category = Category(id: 'technology', name: 'Technology');
@@ -271,23 +295,20 @@ void main() {
           action: NavigateToArticleAction(articleId: articleId),
         );
 
-        await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
-          articleRepository: articleRepository,
+        await pumpWidget(
+          tester,
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
         );
 
         await tester.ensureVisible(find.byType(PostLarge));
         await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostMedium', (tester) async {
@@ -304,24 +325,21 @@ void main() {
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
         await tester.ensureVisible(find.byType(PostMedium));
         await tester.tap(find.byType(PostMedium));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostSmall', (tester) async {
@@ -336,24 +354,21 @@ void main() {
           action: NavigateToArticleAction(articleId: articleId),
         );
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
         await tester.ensureVisible(find.byType(PostSmallContent));
         await tester.tap(find.byType(PostSmallContent));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostGrid', (tester) async {
@@ -374,11 +389,9 @@ void main() {
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
@@ -386,14 +399,13 @@ void main() {
         // is displayed as a large post.
         await tester.ensureVisible(find.byType(PostLarge));
         await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) => widget is ArticlePage && widget.id == articleId,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
     });
 
@@ -401,6 +413,27 @@ void main() {
         'navigates to video ArticlePage '
         'on NavigateToVideoArticleAction', () {
       const articleId = 'articleId';
+      late GoRouter goRouter;
+
+      setUpAll(() {
+        goRouter = MockGoRouter();
+        when(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+          ),
+        ).thenAnswer((_) {});
+      });
+
+      Future<void> pumpWidget(WidgetTester tester, Widget widget) {
+        return tester.pumpApp(
+          InheritedGoRouter(
+            goRouter: goRouter,
+            child: widget,
+          ),
+          articleRepository: articleRepository,
+        );
+      }
 
       testWidgets('from PostLarge', (tester) async {
         const category = Category(id: 'technology', name: 'Technology');
@@ -416,27 +449,25 @@ void main() {
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
         await tester.ensureVisible(find.byType(PostLarge));
         await tester.tap(find.byType(PostLarge));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+            queryParameters: {
+              'articleId': articleId,
+              'isVideoArticle': true,
+            },
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostMedium', (tester) async {
@@ -453,27 +484,25 @@ void main() {
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
         await tester.ensureVisible(find.byType(PostMedium));
         await tester.tap(find.byType(PostMedium));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+            queryParameters: {
+              'articleId': articleId,
+              'isVideoArticle': true,
+            },
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostSmall', (tester) async {
@@ -489,27 +518,25 @@ void main() {
         );
 
         await mockNetworkImages(() async {
-          await tester.pumpApp(
-            CustomScrollView(
-              slivers: [CategoryFeedItem(block: block)],
-            ),
-            articleRepository: articleRepository,
+          await pumpWidget(
+            tester,
+            CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
           );
         });
 
         await tester.ensureVisible(find.byType(PostSmallContent));
         await tester.tap(find.byType(PostSmallContent));
-        await tester.pumpAndSettle();
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+            queryParameters: {
+              'articleId': articleId,
+              'isVideoArticle': true,
+            },
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
 
       testWidgets('from PostGrid', (tester) async {
@@ -529,10 +556,9 @@ void main() {
           ],
         );
 
-        await tester.pumpApp(
-          CustomScrollView(
-            slivers: [CategoryFeedItem(block: block)],
-          ),
+        await pumpWidget(
+          tester,
+          CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
         );
 
         // We're tapping on a PostLarge as the first post of the PostGrid
@@ -544,21 +570,24 @@ void main() {
         await tester.pump();
         await tester.pump(kThemeAnimationDuration);
 
-        expect(
-          find.byWidgetPredicate(
-            (widget) =>
-                widget is ArticlePage &&
-                widget.id == articleId &&
-                widget.isVideoArticle == true,
+        verify(
+          () => goRouter.goNamed(
+            ArticlePage.routeName,
+            pathParameters: {'id': articleId},
+            queryParameters: {
+              'articleId': articleId,
+              'isVideoArticle': true,
+            },
           ),
-          findsOneWidget,
-        );
+        ).called(1);
       });
     });
 
     testWidgets(
         'adds CategorySelected to CategoriesBloc '
         'on NavigateToFeedCategoryAction', (tester) async {
+      final goRouter = MockGoRouter();
+
       final categoriesBloc = MockCategoriesBloc();
 
       const category = Category(id: 'top', name: 'Top');
@@ -570,13 +599,15 @@ void main() {
       await tester.pumpApp(
         BlocProvider<CategoriesBloc>.value(
           value: categoriesBloc,
-          child: CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
+          child: InheritedGoRouter(
+            goRouter: goRouter,
+            child: CustomScrollView(slivers: [CategoryFeedItem(block: block)]),
+          ),
         ),
       );
 
       await tester.ensureVisible(find.byType(IconButton));
       await tester.tap(find.byType(IconButton));
-      await tester.pumpAndSettle();
 
       verify(() => categoriesBloc.add(CategorySelected(category: category)))
           .called(1);

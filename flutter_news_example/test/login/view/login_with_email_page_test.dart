@@ -2,16 +2,30 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const closeIcon = Key('loginWithEmailPage_closeIcon');
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
 
   group('LoginWithEmailPage', () {
-    test('has a route', () {
-      expect(LoginWithEmailPage.route(), isA<MaterialPageRoute<void>>());
+    testWidgets('routeBuilder builds a LoginWithEmailPage', (tester) async {
+      final page = LoginWithEmailPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<LoginWithEmailPage>());
     });
 
     testWidgets('renders LoginWithEmailForm', (tester) async {

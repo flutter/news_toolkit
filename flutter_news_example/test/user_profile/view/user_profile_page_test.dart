@@ -11,6 +11,7 @@ import 'package:flutter_news_example/subscriptions/subscriptions.dart';
 import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:flutter_news_example/user_profile/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase_repository/in_app_purchase_repository.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
@@ -25,12 +26,28 @@ class MockAnalyticsBloc extends MockBloc<AnalyticsEvent, AnalyticsState>
 
 class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
 
+class MockGoRouter extends Mock implements GoRouter {}
+
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const termsOfServiceItemKey = Key('userProfilePage_termsOfServiceItem');
+  late GoRouter goRouter;
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
 
   group('UserProfilePage', () {
-    test('has a route', () {
-      expect(UserProfilePage.route(), isA<MaterialPageRoute<void>>());
+    testWidgets('routeBuilder builds a UserProfilePage', (tester) async {
+      final page = UserProfilePage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<UserProfilePage>());
     });
 
     testWidgets('renders UserProfileView', (tester) async {
@@ -434,6 +451,9 @@ void main() {
       });
 
       group('navigates', () {
+        setUp(() {
+          goRouter = MockGoRouter();
+        });
         testWidgets('when tapped on Terms of User & Privacy Policy',
             (tester) async {
           await tester.pumpApp(
@@ -463,6 +483,9 @@ void main() {
             'to ManageSubscriptionPage '
             'when isUserSubscribed is true and '
             'tapped on Manage Subscription', (tester) async {
+          when(() => goRouter.goNamed(ManageSubscriptionPage.routePath))
+              .thenAnswer((_) {});
+
           final subscribedUser = User(
             id: '1',
             email: 'email',
@@ -475,9 +498,12 @@ void main() {
 
           await tester.pumpApp(
             appBloc: appBloc,
-            BlocProvider.value(
-              value: userProfileBloc,
-              child: UserProfileView(),
+            InheritedGoRouter(
+              goRouter: goRouter,
+              child: BlocProvider.value(
+                value: userProfileBloc,
+                child: UserProfileView(),
+              ),
             ),
           );
 
@@ -485,18 +511,23 @@ void main() {
               find.byKey(Key('userProfilePage_subscriptionItem'));
           await tester.ensureVisible(subscriptionItem);
           await tester.tap(subscriptionItem);
-          await tester.pumpAndSettle();
 
-          expect(find.byType(ManageSubscriptionPage), findsOneWidget);
+          verify(() => goRouter.goNamed(ManageSubscriptionPage.routePath))
+              .called(1);
         });
 
         testWidgets(
             'to NotificationPreferencesPage '
             'when tapped on NotificationPreferences', (tester) async {
+          when(() => goRouter.goNamed(NotificationPreferencesPage.routePath))
+              .thenAnswer((_) {});
           await tester.pumpApp(
-            BlocProvider.value(
-              value: userProfileBloc,
-              child: UserProfileView(),
+            InheritedGoRouter(
+              goRouter: goRouter,
+              child: BlocProvider.value(
+                value: userProfileBloc,
+                child: UserProfileView(),
+              ),
             ),
           );
 
@@ -513,9 +544,9 @@ void main() {
 
           await tester.ensureVisible(subscriptionItem);
           await tester.tap(subscriptionItem);
-          await tester.pumpAndSettle();
 
-          expect(find.byType(NotificationPreferencesPage), findsOneWidget);
+          verify(() => goRouter.goNamed(NotificationPreferencesPage.routePath))
+              .called(1);
         });
       });
 

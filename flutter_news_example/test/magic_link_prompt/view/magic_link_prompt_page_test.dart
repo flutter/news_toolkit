@@ -3,20 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockingjay/mockingjay.dart';
 
 import '../../helpers/helpers.dart';
 
+class _MockGoRouterState extends Mock implements GoRouterState {}
+
+class _MockBuildContext extends Mock implements BuildContext {}
+
 void main() {
   const testEmail = 'testEmail@gmail.com';
   const magicLinkPromptCloseIconKey = Key('magicLinkPrompt_closeIcon');
+  late GoRouterState goRouterState;
+  late BuildContext context;
+
+  setUp(() {
+    goRouterState = _MockGoRouterState();
+    context = _MockBuildContext();
+  });
 
   group('MagicLinkPromptPage', () {
-    test('has a route', () {
-      expect(
-        MagicLinkPromptPage.route(email: testEmail),
-        isA<MaterialPageRoute<void>>(),
-      );
+    testWidgets('routeBuilder builds a MagicLinkPromptPage', (tester) async {
+      when(() => goRouterState.uri)
+          .thenReturn(Uri(queryParameters: {'email': 'email'}));
+
+      final page = MagicLinkPromptPage.routeBuilder(context, goRouterState);
+
+      expect(page, isA<MagicLinkPromptPage>());
     });
 
     testWidgets('renders a MagicLinkPromptView', (tester) async {
@@ -24,28 +38,6 @@ void main() {
         const MagicLinkPromptPage(email: testEmail),
       );
       expect(find.byType(MagicLinkPromptView), findsOneWidget);
-    });
-
-    testWidgets('router returns a valid navigation route', (tester) async {
-      await tester.pumpApp(
-        Scaffold(
-          body: Builder(
-            builder: (context) {
-              return ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push<void>(MagicLinkPromptPage.route(email: testEmail));
-                },
-                child: const Text('Tap me'),
-              );
-            },
-          ),
-        ),
-      );
-      await tester.tap(find.text('Tap me'));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(MagicLinkPromptPage), findsOneWidget);
     });
 
     group('navigates', () {

@@ -10,6 +10,7 @@ import 'package:flutter_news_example/magic_link_prompt/magic_link_prompt.dart';
 import 'package:flutter_news_example/terms_of_service/terms_of_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -21,6 +22,8 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
 class MockEmail extends Mock implements Email {}
+
+class MockGoRouter extends Mock implements GoRouter {}
 
 void main() {
   const nextButtonKey = Key('loginWithEmailForm_nextButton');
@@ -36,10 +39,12 @@ void main() {
   const invalidTestEmail = 'test@g';
 
   late LoginBloc loginBloc;
+  late GoRouter goRouter;
 
   group('LoginWithEmailForm', () {
     setUp(() {
       loginBloc = MockLoginBloc();
+      goRouter = MockGoRouter();
       when(() => loginBloc.state).thenReturn(const LoginState());
     });
 
@@ -232,14 +237,28 @@ void main() {
           initialState: const LoginState(),
         );
 
+        when(
+          () => goRouter.goNamed(
+            MagicLinkPromptPage.routePath,
+            queryParameters: {'email': ''},
+          ),
+        ).thenAnswer((_) {});
+
         await tester.pumpApp(
           BlocProvider.value(
             value: loginBloc,
-            child: const LoginWithEmailForm(),
+            child: InheritedGoRouter(
+              goRouter: goRouter,
+              child: const LoginWithEmailForm(),
+            ),
           ),
         );
-        await tester.pump();
-        expect(find.byType(MagicLinkPromptPage), findsOneWidget);
+        verify(
+          () => goRouter.goNamed(
+            MagicLinkPromptPage.routePath,
+            queryParameters: {'email': ''},
+          ),
+        ).called(1);
       });
     });
 

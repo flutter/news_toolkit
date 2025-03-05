@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/notification_preferences/notification_preferences.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 
 class NotificationPreferencesPage extends StatelessWidget {
   const NotificationPreferencesPage({super.key});
 
-  static MaterialPageRoute<void> route() {
-    return MaterialPageRoute(
-      builder: (_) => const NotificationPreferencesPage(),
-    );
-  }
+  static const routePath = 'notification-preferences';
+
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const NotificationPreferencesPage();
 
   @override
   Widget build(BuildContext context) {

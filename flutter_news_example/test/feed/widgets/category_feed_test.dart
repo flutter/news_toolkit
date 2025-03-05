@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_example/feed/feed.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:news_blocks/news_blocks.dart';
 
@@ -15,6 +16,8 @@ import '../../helpers/helpers.dart';
 class MockFeedBloc extends MockBloc<FeedEvent, FeedState> implements FeedBloc {}
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+class MockGoRouter extends Mock implements GoRouter {}
 
 const networkErrorButtonText = 'Try Again';
 
@@ -122,9 +125,10 @@ void main() {
     });
 
     group('when FeedStatus is failure and feed is unpopulated', () {
+      late GoRouter goRouter;
       setUpAll(() {
+        goRouter = MockGoRouter();
         registerFallbackValue(category);
-        registerFallbackValue(NetworkError.route());
       });
 
       setUp(() {
@@ -135,52 +139,41 @@ void main() {
             FeedState(feed: {}, status: FeedStatus.failure),
           ]),
         );
+
+        when(
+          () => goRouter.pushNamed(
+            NetworkErrorPage.routePath,
+          ),
+        ).thenAnswer((_) async {
+          return null;
+        });
       });
 
-      testWidgets('pushes NetworkErrorAlert on Scaffold', (tester) async {
-        final navigatorObserver = MockNavigatorObserver();
-
+      Future<void> pumpWidget(WidgetTester tester, Widget child) async {
         await tester.pumpApp(
           BlocProvider.value(
             value: feedBloc,
-            child: CategoryFeed(category: category),
+            child: InheritedGoRouter(
+              goRouter: goRouter,
+              child: child,
+            ),
           ),
-          navigatorObserver: navigatorObserver,
         );
+      }
 
-        verify(() => navigatorObserver.didPush(any(), any()));
-
-        expect(
-          find.ancestor(
-            of: find.byType(NetworkError),
-            matching: find.byType(Scaffold),
-          ),
-          findsOneWidget,
-        );
-      });
-
-      testWidgets('requests feed refresh on NetworkErrorAlert press',
+      testWidgets('navigates to Network Error page and requests feed again',
           (tester) async {
-        final navigatorObserver = MockNavigatorObserver();
+        await pumpWidget(tester, CategoryFeed(category: category));
 
-        await tester.pumpApp(
-          BlocProvider.value(
-            value: feedBloc,
-            child: CategoryFeed(category: category),
+        verify(
+          () => goRouter.pushNamed(
+            NetworkErrorPage.routePath,
           ),
-          navigatorObserver: navigatorObserver,
-        );
+        ).called(1);
 
-        verify(() => navigatorObserver.didPush(any(), any()));
-
-        await tester.ensureVisible(find.text(networkErrorButtonText));
-
-        await tester.pump(Duration(seconds: 1));
-        await tester.tap(find.textContaining(networkErrorButtonText));
-
-        verify(() => feedBloc.add(any(that: isA<FeedRefreshRequested>())))
-            .called(1);
-        verify(() => navigatorObserver.didPop(any(), any()));
+        verify(
+          () => feedBloc.add(FeedRequested(category: category)),
+        ).called(2);
       });
     });
 

@@ -8,6 +8,7 @@ import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/network_error/network_error.dart';
 import 'package:flutter_news_example_api/client.dart';
+import 'package:go_router/go_router.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class ArticleContent extends StatelessWidget {
@@ -34,16 +35,14 @@ class ArticleContent extends StatelessWidget {
 
     return ArticleContentSeenListener(
       child: BlocListener<ArticleBloc, ArticleState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.status == ArticleStatus.failure && state.content.isEmpty) {
-            Navigator.of(context).push<void>(
-              NetworkError.route(
-                onRetry: () {
-                  context.read<ArticleBloc>().add(const ArticleRequested());
-                  Navigator.of(context).pop();
-                },
-              ),
+            await context.pushNamed(
+              NetworkErrorPage.routePath,
             );
+            if (context.mounted) {
+              context.read<ArticleBloc>().add(const ArticleRequested());
+            }
           } else if (state.status == ArticleStatus.shareFailure) {
             _handleShareFailure(context);
           }

@@ -5,6 +5,7 @@ import 'package:flutter_news_example/categories/categories.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/newsletter/newsletter.dart';
 import 'package:flutter_news_example/slideshow/slideshow.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news_blocks/news_blocks.dart';
 import 'package:news_blocks_ui/news_blocks_ui.dart';
 
@@ -100,11 +101,10 @@ class ArticleContentItem extends StatelessWidget {
     BlockAction action,
   ) async {
     if (action is NavigateToSlideshowAction) {
-      await Navigator.of(context).push<void>(
-        SlideshowPage.route(
-          slideshow: action.slideshow,
-          articleId: action.articleId,
-        ),
+      context.goNamed(
+        SlideshowPage.routePath,
+        pathParameters: {'id': action.articleId},
+        extra: action.slideshow,
       );
     }
   }

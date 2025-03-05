@@ -1,6 +1,36 @@
 import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
+
+/// {@template network_error}
+/// A network error alert page.
+/// {@endtemplate}
+class NetworkErrorPage extends StatelessWidget {
+  /// {@macro network_error}
+  const NetworkErrorPage({
+    super.key,
+  });
+
+  static const routePath = 'network-error';
+
+  static Widget routeBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const NetworkErrorPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(leading: const AppBackButton()),
+      body: const Center(
+        child: NetworkError(),
+      ),
+    );
+  }
+}
 
 /// {@template network_error}
 /// A network error alert.
@@ -11,21 +41,6 @@ class NetworkError extends StatelessWidget {
 
   /// An optional callback which is invoked when the retry button is pressed.
   final VoidCallback? onRetry;
-
-  /// Route constructor to display the widget inside a [Scaffold].
-  static Route<void> route({VoidCallback? onRetry}) {
-    return PageRouteBuilder<void>(
-      pageBuilder: (_, __, ___) => Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          leading: const AppBackButton(),
-        ),
-        body: Center(
-          child: NetworkError(onRetry: onRetry),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +65,7 @@ class NetworkError extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxxlg),
           child: AppButton.darkAqua(
-            onPressed: onRetry,
+            onPressed: onRetry ?? context.pop,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

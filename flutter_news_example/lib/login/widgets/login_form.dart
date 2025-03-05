@@ -5,6 +5,7 @@ import 'package:flutter_news_example/app/app.dart';
 import 'package:flutter_news_example/l10n/l10n.dart';
 import 'package:flutter_news_example/login/login.dart';
 import 'package:form_inputs/form_inputs.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -201,9 +202,7 @@ class _ContinueWithEmailLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.outlinedTransparentDarkAqua(
       key: const Key('loginForm_emailLogin_appButton'),
-      onPressed: () => Navigator.of(context).push<void>(
-        LoginWithEmailPage.route(),
-      ),
+      onPressed: () => context.goNamed(LoginWithEmailPage.routePath),
       textStyle: Theme.of(context).textTheme.titleMedium,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
